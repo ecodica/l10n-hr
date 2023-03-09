@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_l10n_hr_account_company_form" model="ir.ui.view">
+        <field name="name">view.l10n_hr.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="l10n_hr_base.view_l10n_hr_base_company_data" />
+        <field name="arch" type="xml">
+            <group name="l10n_hr_legal" position="after">
+                <group string="Fiscal data" name="l10n_hr_fiskal">
+                    <field name="l10n_hr_tax_model" />
+                    <field name="l10n_hr_fiskal_separator" />
+                </group>
+            </group>
+            <group name="l10n_hr_main" position="after">
+                <notebook name="croatia_notebook">
+                    <page string="Business premisses">
+                        <field
+                            name="l10n_hr_fiskal_prostor_ids"
+                            colspan="4"
+                            nolabel="1"
+                        />
+                    </page>
+                    <page string="Fiscal invoice sequences">
+                        <field
+                            name="l10n_hr_fiskal_invoice_sequences"
+                            colspan="4"
+                            nolabel="1"
+                        >
+                            <tree decoration-muted="(not active)">
+                                <field name="code" optional="hide" />
+                                <field name="name" />
+                                <field name="prefix" optional="hide" />
+                                <field name="suffix" optuonal="show" />
+                                <field name="padding" optional="hide" />
+                                <field
+                                    name="company_id"
+                                    groups="base.group_multi_company"
+                                />
+                                <field name="number_next_actual" string="Next Number" />
+                                <field name="number_increment" optional="hide" />
+                                <field name="implementation" />
+                                <field name="use_date_range" optional="hide" />
+                                <field name="date_range_ids" widget="many2many_tags" />
+                                <field
+                                    name="active"
+                                    optional="hide"
+                                    widget="boolean_toggle"
+                                />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                </group>
+        </field>
+    </record>
+</odoo>

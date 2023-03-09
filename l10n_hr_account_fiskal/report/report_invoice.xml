@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="l10n_hr_fiskal_report_invoice_document"
+        inherit_id="l10n_hr_account_base.l10n_hr_report_invoice_document"
+    >
+        <!-- add croatia fiskal required data after total line -->
+        <xpath expr="//div[@id='l10n_hr_info']/.." position="after">
+            <div
+                t-if="o.country_code == 'HR'"
+                id="l10n_hr_fiskal_info"
+                class="row mt-4 mb-4"
+            >
+                <div class="col-auto col-8 mw-100 mb-2">
+                    <div t-if="o.l10n_hr_zki" name="zki">
+                        <strong>ZKI:</strong>
+                        <span class="m-0" t-field="o.l10n_hr_zki" />
+                    </div>
+                    <div t-if="o.l10n_hr_jir" name="jir">
+                        <strong>JIR:</strong>
+                        <span class="m-0" t-field="o.l10n_hr_jir" />
+                    </div>
+                    <div t-if="o.l10n_hr_fiskal_qr">
+                        <strong>Scan me to validate -&gt;</strong>
+                    </div>
+                </div>
+                <div
+                    id="l10n_fiskal_qr"
+                    class="col-auto col-4 mw-100 mb-2"
+                    t-if="o.l10n_hr_fiskal_qr"
+                >
+                    <img
+                        class="border border-dark rounded"
+                        style="max-width: 120px; max-height: 120px;"
+                        t-att-src="'data:image/png;base64,%s' % o.l10n_hr_fiskal_qr.decode('ascii')"
+                    />
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <!-- TODO: CONFIG THIS -> style="max-width: 80px; max-height: 80px;" -->
+</odoo>

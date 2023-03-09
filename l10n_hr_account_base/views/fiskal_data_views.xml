@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="menu_finance_config_croatia"
+        name="Croatia settings"
+        sequence="2"
+        parent="account.menu_finance_configuration"
+    />
+    <!-- Fiskal Prostor -->
+    <record id="view_fiskal_prostor_tree" model="ir.ui.view">
+        <field name="name">view_fiskal_prostor_tree</field>
+        <field name="model">l10n.hr.fiskal.prostor</field>
+        <field name="arch" type="xml">
+            <tree
+                string="Business premises"
+                decoration-success="state == 'active'"
+                decoration-warning="state == 'close'"
+                decoration-info="state == 'pause'"
+            >
+                <field name="company_id" invisible="1" />
+                <field name="name" />
+                <field name="oznaka_prostor" />
+                <field name="sljed_racuna" />
+                <field name="lock" optional="hide" />
+                <field name="state" widget="badge" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_fiskal_prostor_form" model="ir.ui.view">
+        <field name="name">view_fiskal_prostor_form</field>
+        <field name="model">l10n.hr.fiskal.prostor</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="button_activate_premisse"
+                        string="Activate premisse"
+                        type="object"
+                        attrs="{'invisible':[('state','in',['active', 'close'])]}"
+                        groups="account.group_account_manager"
+                    />
+                    <button
+                        name="button_pause_premisse"
+                        string="Pause premisse"
+                        type="object"
+                        attrs="{'invisible':[('state','!=','active')]}"
+                        help="Use for temporary closing of premisse, all related items will be modified according"
+                        groups="account.group_account_manager"
+                    />
+                    <button
+                        name="button_close_premisse"
+                        string="Close premisse"
+                        type="object"
+                        attrs="{'invisible':[('state','!=','active')]}"
+                        help="Use only is business premisse is permanently closed,
+                                  - All related PoS devices will be closed
+                                  - All related PoS journals will be removed from dashboard, adn all related sequences will be archived
+                                  - Once closed no more ivoices should created for this premisse"
+                        groups="account.group_account_manager"
+                    />
+
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name='name' attrs="{'readonly':[('lock','=',True)]}" />
+                        <field
+                            name='oznaka_prostor'
+                            attrs="{'readonly':[('lock','=',True)]}"
+                        />
+                        <field
+                            name="sljed_racuna"
+                            attrs="{'readonly':[('lock','=',True)]}"
+                        />
+                        <field
+                            name="mjesto_izdavanja"
+                            attrs="{'readonly':[('lock','=',True)]}"
+                        />
+                        <field
+                            name="sequence_id"
+                            domain="[('code','=','l10n.hr.fiscal')]"
+                            attrs="{'invisible':['|',('sljed_racuna','=','N'),('oznaka_prostor','=','')]}"
+                        />
+                        <field name='company_id' invisible="1" />
+                        <field name="lock" invisible="1" />
+                    </group>
+                    <notebook name="hr_accounting" colspan="4">
+                        <page string="Payment devices in this premisse">
+                            <field name="uredjaj_ids" nolabel="1" colspan="4">
+                                <tree string="PoS devices" editable="bottom">
+                                    <field name="name" />
+                                    <field name="prostor_id" invisible="1" />
+                                    <field name="oznaka_uredjaj" />
+                                    <field name="lock" optional="hide" />
+                                    <field name="mjesto_izdavanja" optional="hide" />
+                                    <field
+                                        name="journal_ids"
+                                        widget="many2many_tags"
+                                        domain="['&amp;',('type','=','sale'),'|',('l10n_hr_prostor_id','=',False),('l10n_hr_prostor_id','=', prostor_id)]"
+                                    />
+                                    <field
+                                        name="sequence_id"
+                                        optional="hide"
+                                        attrs="{'invisible':[('sljed_racuna','=','P')]}"
+                                    />
+                                    <field name="sljed_racuna" invisible="1" />
+                                    <field name="state" widget="badge" />
+                                    <button
+                                        type="object"
+                                        name="button_activate_device"
+                                        class="btn-success"
+                                        icon="fa-play"
+                                        string="Activate"
+                                        attrs="{'invisible': [('state', 'not in', ('draft', 'pause'))]}"
+                                    />
+                                    <button
+                                        type="object"
+                                        string="Pause"
+                                        name="button_pause_device"
+                                        class="btn-danger"
+                                        icon="fa-pause"
+                                        attrs="{'invisible': [('state', '!=', 'active')]}"
+                                    />
+                                    <button
+                                        type="object"
+                                        string="Close"
+                                        name="button_close_device"
+                                        class="btn-danger"
+                                        icon="fa-stop"
+                                        attrs="{'invisible': [('state', 'not in', ('active','pause'))]}"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                        <page
+                            string="Journals for this premise"
+                            attrs="{'invisible': [('journal_ids','=',[])]}"
+                        >
+                            <field
+                                name="journal_ids"
+                                nolabel="1"
+                                colspan="4"
+                                options="{'no_create':True}"
+                            >
+                                <tree editable="bottom">
+
+                                    <field name="sequence" widget="handle" />
+                                    <field name="name" />
+                                    <field
+                                        name="journal_group_ids"
+                                        widget="many2many_tags"
+                                        readonly="1"
+                                        optional="show"
+                                    />
+                                    <field
+                                        name="currency_id"
+                                        groups="base.group_multi_currency"
+                                        optional="hide"
+                                    />
+                                    <field name="code" optional="show" />
+<!--                                        <field name="default_account_id" optional="show"/>-->
+                                    <field name="active" optional="hide" />
+                                    <field name="show_on_dashboard" optional="hide" />
+                                    <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                        optional="hide"
+                                    />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+<!--                        <field name="message_follower_ids"/>-->
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_fiskal_prostor" model="ir.actions.act_window">
+        <field name="name">Business premisses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.fiskal.prostor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_action_fiskal_prostor"
+        action="action_fiskal_prostor"
+        parent="menu_finance_config_croatia"
+        sequence="1"
+    />
+
+    <!--Fiskal Uredjaj-->
+    <record id="view_fiskal_uredjaj_tree" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_tree</field>
+        <field name="model">l10n.hr.fiskal.uredjaj</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="prostor_id" />
+                <field name="oznaka_uredjaj" />
+                <field name="lock" />
+                <field name="state" widget="badge" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_fiskal_uredjaj_form" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_form</field>
+        <field name="model">l10n.hr.fiskal.uredjaj</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        type="object"
+                        name="button_activate_device"
+                        class="btn-success"
+                        icon="fa-play"
+                        string="Activate device"
+                        attrs="{'invisible': [('state', 'not in', ('draft', 'pause'))]}"
+                    />
+                    <button
+                        type="object"
+                        name="button_pause_device"
+                        class="btn-danger"
+                        icon="fa-pause"
+                        string="Pause device"
+                        attrs="{'invisible': [('state', '!=', 'active')]}"
+                    />
+                    <button
+                        type="object"
+                        name="button_close_device"
+                        class="btn-danger"
+                        icon="fa-stop"
+                        string="Close device"
+                        attrs="{'invisible': [('state', 'not in', ('active','pause'))]}"
+                    />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                <group>
+                    <field name="prostor_id" attrs="{'readonly':[('lock','=',True)]}" />
+                    <field name="name" attrs="{'readonly':[('lock','=',True)]}" />
+                    <field name="mjesto_izdavanja" optional="hide" />
+                    <field name="lock" readonly="1" invisible="1" />
+                    <field name="sljed_racuna" readonly="1" invisible="1" />
+                    <field
+                            name="oznaka_uredjaj"
+                            attrs="{'readonly':[('lock','=',True)]}"
+                        />
+                    <field
+                            name="sequence_id"
+                            attrs="{'readonly':[('lock','=',True)], 'invisible':[('sljed_racuna','=','P')]}"
+                        />
+                    <field
+                            name="journal_ids"
+                            widget="many2many_tags"
+                            attrs="{'readonly':[('lock','=',True)]}"
+                        />
+                </group>
+                </sheet>
+                <div class="oe_chatter">
+<!--                        <field name="message_follower_ids"/>-->
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_fiskal_uredjaj" model="ir.actions.act_window">
+        <field name="name">Payment registers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.fiskal.uredjaj</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_action_fiskal_uredjaj"
+        action="action_fiskal_uredjaj"
+        parent="menu_finance_config_croatia"
+        groups="base.group_no_one"
+        sequence="2"
+    />
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record forcecreate="True" id="default_P1_property" model="ir.property">
+        <field name="name">P1 pnbr property</field>
+        <field
+            name="fields_id"
+            search="[('model','=','account.journal'),('name','=','property_l10n_hr_P1_pnbr')]"
+        />
+        <field name="value">move_id</field>
+        <field name="type">selection</field>
+    </record>
+    <record forcecreate="True" id="default_P2_property" model="ir.property">
+        <field name="name">P2 pnbr property</field>
+        <field
+            name="fields_id"
+            search="[('model','=','account.journal'),('name','=','property_l10n_hr_P2_pnbr')]"
+        />
+        <field name="value">invoice_ym</field>
+        <field name="type">selection</field>
+    </record>
+    <record forcecreate="True" id="default_P3_property" model="ir.property">
+        <field name="name">P3 pnbr property</field>
+        <field
+            name="fields_id"
+            search="[('model','=','account.journal'),('name','=','property_l10n_hr_P3_pnbr')]"
+        />
+        <field name="value">invoice_no</field>
+        <field name="type">selection</field>
+    </record>
+    <record forcecreate="True" id="default_P4_property" model="ir.property">
+        <field name="name">P4 pnbr property</field>
+        <field
+            name="fields_id"
+            search="[('model','=','account.journal'),('name','=','property_l10n_hr_P4_pnbr')]"
+        />
+        <field name="value">null</field>
+        <field name="type">selection</field>
+    </record>
+
+</odoo>

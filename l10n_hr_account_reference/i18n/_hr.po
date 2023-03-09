@@ -1,0 +1,216 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_reference
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-09 07:25+0000\n"
+"PO-Revision-Date: 2017-01-09 08:45+0100\n"
+"Last-Translator: Davor Bojkić <davor.bojkic@storm.hr>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "00 - Bez kontrole"
+msgstr "00 - Bez kontrole"
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "01 - P1-P2-P3  [k(P1,P2,P3)]"
+msgstr "01 - P1-P2-P3  [k(P1,P2,P3)]"
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "02 - P1-P2-P3  [k(P2), k(P3)]"
+msgstr "02 - P1-P2-P3  [k(P2), k(P3)]"
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "03 - P1-P2-P3  [k(P1), k(P2), k(P3)]"
+msgstr "03 - P1-P2-P3  [k(P1), k(P2), k(P3)]"
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "06 - P1-P2-P3  [k(P2,P3)]"
+msgstr "06 - P1-P2-P3  [k(P2,P3)]"
+
+#. module: account_reference
+#: model:ir.model.fields,help:account_reference.field_account_journal_P1_pnbr
+msgid "1. polje poziva na broj."
+msgstr "1. polje poziva na broj."
+
+#. module: account_reference
+#: model:ir.model.fields,help:account_reference.field_account_journal_P2_pnbr
+msgid "2. polje poziva na broj."
+msgstr "2. polje poziva na broj."
+
+#. module: account_reference
+#: model:ir.model.fields,help:account_reference.field_account_journal_P3_pnbr
+msgid "3. polje poziva na broj."
+msgstr "3. polje poziva na broj."
+
+#. module: account_reference
+#: model:ir.model.fields,help:account_reference.field_account_journal_P4_pnbr
+msgid "4. polje poziva na broj."
+msgstr "4. polje poziva na broj."
+
+#. module: account_reference
+#: selection:account.journal,model_pnbr:0
+msgid "99 - Bez kontrole"
+msgstr "99 - Bez kontrole"
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Delivery year and month"
+msgstr "Mjesec i godina isporuke"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.view_account_journal_reference_form
+msgid "Elements"
+msgstr "Elementi"
+
+#. module: account_reference
+#: model:ir.model,name:account_reference.model_account_invoice
+msgid "Invoice"
+msgstr "Račun"
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Invoice Number"
+msgstr "Broj računa"
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Invoice year and month"
+msgstr "Mjesec i godina računa"
+
+#. module: account_reference
+#: model:ir.model,name:account_reference.model_account_journal
+msgid "Journal"
+msgstr "Dnevnik"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_model_pnbr
+msgid "Model"
+msgstr "Model"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.view_account_journal_reference_form
+msgid ""
+"NOTE: Payment reference can only contain numerical "
+"characters,                                        if partner code is not "
+"numerical, use partner id, otherwise                                        "
+"all non numerical characters will be removed from reference"
+msgstr ""
+"NAPOMENA: poziv na broj može sadržavati samo numeričke znakove,ukoliko šifra "
+"partnera nije numerička, koristite partner_id, inače ćesva slova biti "
+"uklonjena iz poziva na broj, te može doći do greške."
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Nothing"
+msgstr "Ništa"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_P1_pnbr
+msgid "P1"
+msgstr "P1"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_P2_pnbr
+msgid "P2"
+msgstr "P2"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_P3_pnbr
+msgid "P3"
+msgstr "P3"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_P4_pnbr
+msgid "P4"
+msgstr "P4"
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Partner ID"
+msgstr "Partner ID"
+
+#. module: account_reference
+#: selection:account.journal,P1_pnbr:0 selection:account.journal,P2_pnbr:0
+#: selection:account.journal,P3_pnbr:0 selection:account.journal,P4_pnbr:0
+msgid "Partner code"
+msgstr "Šifra partnera"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.account_invoice_reference_form
+msgid "Poziv na broj"
+msgstr "Poziv na broj"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.view_account_journal_reference_form
+msgid "Reference"
+msgstr "Poziv na broj"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.view_account_journal_reference_form
+msgid "Reference model"
+msgstr "Model poziva na broj"
+
+#. module: account_reference
+#: model:ir.model.fields,help:account_reference.field_account_journal_model_pnbr
+msgid "Reference type model"
+msgstr "Model tipa poziva na broj"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.view_account_journal_reference_form
+msgid ""
+"Select elements for reference costruct : P1-P2-P3-P4 - according to selected "
+"model"
+msgstr ""
+"Odabreite elemente za sastavljanje poziva na broj : P1-P2-P3-P4 - u skladu "
+"sa odabranim modelom"
+
+#31.1.2018
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.payment_info
+msgid "<br/>\n"
+"                <span>Bank : </span>"
+msgstr "<br/>\n"
+"                <span>Banka : </span>"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.payment_info
+msgid "<span>)</span>\n"
+"                    <br/>\n"
+"                <span>Reference : </span>"
+msgstr "<span>)</span>\n"
+"                    <br/>\n"
+"                <span>Poziv na broj: </span>"
+
+#. module: account_reference
+#: model:ir.ui.view,arch_db:account_reference.payment_info
+msgid "<span>Invoice payment info</span>\n"
+"                    <br/>\n"
+"                <span>Account number : </span>"
+msgstr "<span>Informacije za uplatu</span>\n"
+"                    <br/>\n"
+"                <span>Račun : </span>"
+
+#. module: account_reference
+#: model:ir.model.fields,field_description:account_reference.field_account_journal_country_prefix
+msgid "Add country code as prefix"
+msgstr "Dodaj kod države kao prefix"
+

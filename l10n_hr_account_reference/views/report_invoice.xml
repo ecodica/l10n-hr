@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- dodaje poziv na broj -->
+    <template
+        id="report_invoice_payment_reference_layout"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//p[@name='payment_communication']/b" position="replace">
+            <br />
+            <span>Bank : </span>
+            <b><span t-field="o.partner_bank_id.bank_id.bic" /></b>-
+            <span t-field="o.partner_bank_id.bank_id.name" />
+            <br />
+            <span>Account number : </span>
+            <b><span t-field="o.partner_bank_id.acc_number" /></b>
+            <br />
+            <span>Payment reference : </span>
+            <b><span t-field="o.payment_reference" /></b>
+
+        </xpath>
+    </template>
+</odoo>

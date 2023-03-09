@@ -1,0 +1,151 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_account_reference
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-13 19:50+0000\n"
+"PO-Revision-Date: 2023-01-13 19:50+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P1_pnbr
+msgid "1. ref number field."
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P2_pnbr
+msgid "2. ref number field."
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P3_pnbr
+msgid "3. ref number field."
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P4_pnbr
+msgid "4. ref number field."
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
+msgid ""
+"<br/>\n"
+"            <span>Account number : </span>"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
+msgid ""
+"<br/>\n"
+"            <span>Bank : </span>"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
+msgid ""
+"<br/>\n"
+"            <span>Payment reference : </span>"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#. odoo-python
+#: code:addons/l10n_hr_account_reference/models/account_journal.py:0
+#, python-format
+msgid ""
+"Both Communication standard and Communication type, should be Croatia or not"
+" Croatia, mix is not possible!"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__invoice_reference_model
+msgid "Communication Standard"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__invoice_reference_type
+msgid "Communication Type"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_type__hr
+msgid "HR model types"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__00
+msgid "HR00 - P1-P2-P3  No controll"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__01
+msgid "HR01 - P1-P2-P3  [k(P1,P2,P3)]"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__02
+msgid "HR02 - P1-P2-P3  [k(P2), k(P3)]"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__03
+msgid "HR03 - P1-P2-P3  [k(P1), k(P2), k(P3)]"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__06
+msgid "HR06 - P1-P2-P3  [k(P2,P3)]"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model,name:l10n_hr_account_reference.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model,name:l10n_hr_account_reference.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P1_pnbr
+msgid "P1"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P2_pnbr
+msgid "P2"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P3_pnbr
+msgid "P3"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P4_pnbr
+msgid "P4"
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__invoice_reference_model
+msgid ""
+"You can choose different models for each type of reference. The default one "
+"is the Odoo reference."
+msgstr ""
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__invoice_reference_type
+msgid ""
+"You can set here the default communication that will appear on customer "
+"invoices, once validated, to help the customer to refer to that particular "
+"invoice when making the payment."
+msgstr ""

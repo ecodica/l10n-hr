@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_account_journal_l10n_hr_form" model="ir.ui.view">
+        <field name="name">view_account_journal_l10n_hr_form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page
+                    string="Croatia specific"
+                    name="croatia_page"
+                    attrs="{'invisible':[('type', '!=', 'sale')]}"
+                ><!-- attrs="{'invisible':[('company_id.country_id.code','!=', 'HR')]}" -->
+                    <group>
+
+                        <field
+                            name="l10n_hr_default_nacin_placanja"
+                            attrs="{'invisible':[('type', '!=', 'sale')]}"
+                        />
+                        <field
+                            name="l10n_hr_prostor_id"
+                            attrs="{'invisible':[('type', '!=', 'sale')]}"
+                        />
+                        <field
+                            name="l10n_hr_fiskal_uredjaj_ids"
+                            domain="[('prostor_id','=', l10n_hr_prostor_id)]"
+                            groups="account.group_account_manager"
+                            attrs="{'invisible':[('l10n_hr_prostor_id','=',False)]}"
+                            widget="many2many_tags"
+                        />
+
+                    </group>
+                </page>
+
+            </notebook>
+
+        </field>
+    </record>
+
+</odoo>

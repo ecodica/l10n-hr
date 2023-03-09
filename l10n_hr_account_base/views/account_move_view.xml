@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_l10n_hr_move_form" model="ir.ui.view">
+        <field name="name">view_l10n_hr_move_form</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+
+            <widget name="web_ribbon" position="before">
+                <!-- friendly warning to visaulise if journal is not ready -->
+                <widget
+                    name="web_ribbon"
+                    title="PoS not ready!"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': ['|', '|', ('country_code','!=', 'HR'),
+                                ('move_type', 'not in', ('out_invoice', 'out_refund')),
+                                ('l10n_hr_allowed_fiskal_uredjaj_ids', '!=', [])]}"
+                    tooltip="In order to validate invoice, you need activated pos device, Check business premises and registers settings"
+                />
+            </widget>
+            <field name="name" position="after">
+                <span class="oe_inline">
+                    <label
+                        string="HR - Fiskal number"
+                        for="l10n_hr_fiskalni_broj"
+                        attrs="{'invisible': [('l10n_hr_fiskalni_broj', '=', False)]}"
+                    />
+                    <field
+                        name="l10n_hr_fiskalni_broj"
+                        readonly="1"
+                        nolabel="1"
+                        attrs="{'invisible': [('l10n_hr_fiskalni_broj', '=', False)]}"
+                    />
+                </span>
+            </field>
+            <field name="payment_reference" position="after">
+                <field name="l10n_hr_date_delivery" />
+            </field>
+            <notebook position="inside">
+                <page
+                    string="Croatia Fiskal data"
+                    name="croatia"
+                    attrs="{'invisible':['|', ('country_code','!=', 'HR'),
+                              ('move_type','not in',['out_invoice','out_refund'])]}"
+                >
+                    <!-- invisible fields -->
+
+                    <group>
+                        <group name="l10n_hr_base_fiskal">
+                            <field name="l10n_hr_date_document" />
+                            <field name="l10n_hr_vrijeme_izdavanja" readonly="1" />
+                            <field
+                                name="l10n_hr_allowed_fiskal_uredjaj_ids"
+                                invisible="1"
+                            />
+                            <field
+                                name="l10n_hr_fiskal_uredjaj_visible"
+                                invisible="1"
+                            />
+                            <field
+                                name="l10n_hr_fiskal_uredjaj_id"
+                                widget="selection"
+                                attrs="{'invisible': [('l10n_hr_fiskal_uredjaj_visible','=',False)]}"
+                                domain="[('id', 'in', l10n_hr_allowed_fiskal_uredjaj_ids)]"
+                            />
+                            <!-- until fiscalisation module for cash payments has only one selectable ooption -->
+                            <field
+                                name="l10n_hr_nacin_placanja"
+                                attrs="{'invisible':[('move_type','not in',['out_invoice','out_refund'])]}"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_l10n_hr_out_invoice_tree" model="ir.ui.view">
+        <field name="name">view.l10n_hr.out.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="country_code" invisible="1" />
+                <field
+                    name="l10n_hr_fiskalni_broj"
+                    attrs="{'invisible':[('country_code','!=', 'HR')]}"
+                />
+                <field
+                    name="l10n_hr_fiskal_uredjaj_id"
+                    optional="hide"
+                    attrs="{'invisible':[('country_code','!=', 'HR')]}"
+                />
+            </field>
+        </field>
+    </record>
+
+    <!-- onboarding -->
+    <template id="onboarding_business_premisse_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Business premisse</t>
+            <t t-set="description">
+                Setup your business premisses and PoS devices
+            </t>
+            <t t-set="btn_text">Add Business premisse</t>
+            <t t-set="done_text">Premisse added!</t>
+            <t t-set="method" t-value="'setting_init_bank_account_action'" />
+            <t t-set="model" t-value="'l10n.hr.fiskal.prostor'" />
+            <t t-set="state" t-value="state.get('account_setup_premisse_state')" />
+        </t>
+    </template>
+    <!-- TODO: add onboarding step! -->
+
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_fiskal_prostor_form" model="ir.ui.view">
+        <field name="name">view_fiskal_prostor_form</field>
+        <field name="model">l10n.hr.fiskal.prostor</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <button
+                    string="TEST ECHO"
+                    type="object"
+                    name="button_l10n_hr_fiskal_echo"
+                />
+            </field>
+            <button name="button_close_device" position="after">
+                <button
+                    string="TEST ECHO"
+                    type="object"
+                    icon="fa-smile"
+                    class="btn-success"
+                    attrs="{'invisible': [('fiskalisation_active', '=', False)]}"
+                    name="button_l10n_hr_fiskal_echo"
+                />
+            </button>
+            <notebook position="inside">
+                <page string="Fiskalizacija - Komunikacija">
+                    <field name="fiskal_log_ids" nolabel="1" colspan="4" />
+                </page>
+            </notebook>
+            <xpath expr="//tree/field[@name='state']" position="before">
+                <field name="fiskalisation_active" widget="boolean_toggle" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_fiskal_uredjaj_tree" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_tree</field>
+        <field name="model">l10n.hr.fiskal.uredjaj</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_tree" />
+        <field name="arch" type="xml">
+            <field name="lock" position="before">
+                <field name="fiskalisation_active" widget="boolean_toggle" />
+                <button
+                    string="TEST ECHO"
+                    type="object"
+                    name="button_l10n_hr_fiskal_echo"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

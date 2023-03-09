@@ -1,0 +1,8 @@
+﻿Datum verzije: 01.12.2021.
+verzija: 1.6
+
+Promjene:
+	- u WSDL-u dodana nova metoda 'promijeniNacPlac'
+	- u schemi dodani elementi 'PromijeniNacPlacZahtjev', 'PromijeniNacPlacOdgovor' i ostalo vezano za nove elemente.
+
+----------------------------------------------------------------------------------------------------

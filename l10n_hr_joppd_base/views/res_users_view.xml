@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_users_view_form_profile_add_joppd_fields" model="ir.ui.view">
+            <field name="name">res_users_view_form_profile_add_joppd_fields</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="hr.res_users_view_form_profile"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='personal_information']/group/group[last()]" position="after">
+                    <group name="l10n_hr_joppd_data" string="JOPPD Data">
+                        <field name="city_municipality_id"/>
+                        <field name="city_municipality_work_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

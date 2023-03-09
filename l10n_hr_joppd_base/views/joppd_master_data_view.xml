@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--City/Municipality-->
+        <record id="l10n_hr_joppd_code_register_city_municipality_form_view" model="ir.ui.view">
+            <field name="name">l10n_hr_joppd_code_register_city_municipality_form_view</field>
+            <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+            <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view"/>
+            <field name="mode">primary</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="type" position="after">
+                        <field name="local_tax_pct"/>
+                        <field name="iban"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="l10n_hr_joppd_code_register_city_municipality_search_view" model="ir.ui.view">
+            <field name="name">l10n_hr_joppd_code_register_city_municipality_search_view</field>
+            <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+            <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view"/>
+            <field name="mode">primary</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <data/>
+            </field>
+        </record>
+
+        <record id="l10n_hr_joppd_code_register_city_municipality_tree_view" model="ir.ui.view">
+            <field name="name">l10n_hr_joppd_code_register_city_municipality_tree_view</field>
+            <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+            <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view"/>
+            <field name="mode">primary</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <data/>
+            </field>
+        </record>
+
+        <record id="l10n_hr_joppd_code_register_city_municipality_action" model="ir.actions.act_window">
+            <field name="name">Cities/Municipalities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">l10n.hr.joppd.code.register.city.municipality</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="l10n_hr_joppd_code_register_city_municipality_tree_view"/>
+        </record>
+
+    </data>
+</odoo>

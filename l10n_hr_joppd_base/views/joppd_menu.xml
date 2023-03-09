@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <!-- i can move main menuitem anywhere from GUI -->
+        <menuitem name='JOPPD' id='menu_joppd' sequence='70'
+                  web_icon="l10n_hr_joppd_base,static/description/joppd.png"
+                  groups="l10n_hr_joppd_base.group_joppd_manager"/>
+
+    </data>
+
+    <data noupdate="0">
+
+        <menuitem name="JOPPD" id="submenu_joppd" parent="menu_joppd"/>
+
+        <menuitem name="Master Data" id="submenu_joppd_master_data" parent="l10n_hr_joppd_base.menu_joppd" sequence="20"/>
+
+        <menuitem action="l10n_hr_joppd_code_register_city_municipality_action"
+                  id="menu_joppd_code_register_city_municipality_config"
+                  parent="submenu_joppd_master_data"
+                  sequence="60"/>
+
+    </data>
+</odoo>

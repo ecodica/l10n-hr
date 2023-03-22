@@ -14,7 +14,12 @@
     "data": [
         "security/groups.xml",
         "security/ir.model.access.csv",
-        "data/l10n.hr.joppd.code.register.city.municipality.csv",
+        'data/l10n.hr.joppd.code.register.acquirer.csv',
+        'data/l10n.hr.joppd.code.register.applicant.csv',
+        'data/l10n.hr.joppd.code.register.city.municipality.csv',
+        'data/l10n.hr.joppd.code.register.nontaxable.receipt.csv',
+        'data/l10n.hr.joppd.code.register.receipt.csv',
+        'data/l10n.hr.joppd.code.register.payment.method.csv',
         "views/joppd_abstract_view.xml",
         "views/joppd_master_data_view.xml",
         "views/hr_employee_view.xml",

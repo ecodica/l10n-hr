@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Transaction Data" id="l10n_hr_joppd_transaction_data"
+                  parent="l10n_hr_joppd_base.menu_l10n_hr_joppd" sequence="30"/>
+
+        <menuitem
+                id="menu_l10n_hr_joppd_account_move_entry"
+                action="l10n_hr_joppd_account_move_entry_action"
+                parent="l10n_hr_joppd_transaction_data"
+                sequence="10"
+        />
+
+    </data>
+</odoo>

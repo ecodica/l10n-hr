@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="account_move_post_joppd_form_view" model="ir.ui.view">
+            <field name="name">account_move_post_joppd_form_view</field>
+            <field name="model">account.move.post.joppd</field>
+            <field name="arch" type="xml">
+                <form string="Confirm JOPPD Posting">
+                    <sheet>
+                        <group>
+                            <group colspan="2">
+                                <field name="joppd_post_date" colspan="2"/>
+                            </group>
+                            <group/>
+                        </group>
+                        <p class="oe_grey">
+                            Are you sure you want to post selected account moves to JOPPD?
+                        </p>
+                    </sheet>
+                    <footer>
+                        <button string="Confirm" name="post_joppd" type="object" default_focus="1"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_move_post_joppd" model="ir.actions.act_window">
+            <field name="name">Post JOPPD Move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move.post.joppd</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_move_post_joppd_form_view"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+            <field name="help">This wizard will post all JOPPD valid moves</field>
+            <field name="groups_id" eval="[(4, ref('l10n_hr_joppd_base.group_joppd_manager'))]"/>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_view_types">list</field>
+        </record>
+
+    </data>
+</odoo>

@@ -13,6 +13,7 @@ class AccountMove(models.Model):
     @api.depends('line_ids')
     def _is_for_joppd(self):
         for move in self:
+            move.is_for_joppd = False
             for line in move.line_ids:
                 if line.is_for_joppd:
                     move.is_for_joppd = True

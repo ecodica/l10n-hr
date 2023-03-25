@@ -7,6 +7,7 @@ class AccountMoveLine(models.Model):
     @api.depends('account_id', 'employee_id')
     def _is_for_joppd(self):
         for line in self:
+            line.is_for_joppd = False
             if line.employee_id and line.joppd_payment_method_id and line.joppd_nontaxable_receipt_id:
                 line.is_for_joppd = True
 

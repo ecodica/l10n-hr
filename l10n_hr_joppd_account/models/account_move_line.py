@@ -34,10 +34,11 @@ class AccountMoveLine(models.Model):
         if self.account_id.joppd_nontaxable_receipt_id:
             self.joppd_nontaxable_receipt_id = self.account_id.joppd_nontaxable_receipt_id.id
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines = super().create(vals_list)
-        for line in lines:
-            line._onchange_joppd_account_id()
-        return lines
+    # this may be obsolete
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     lines = super().create(vals_list)
+    #     for line in lines:
+    #         line._onchange_joppd_account_id()
+    #     return lines
 

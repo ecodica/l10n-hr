@@ -13,7 +13,7 @@ STATE_SELECTION = [
 READONLY_STATES = {'done': [('readonly', True)], 'cancel': [('readonly', True)]}
 
 
-class JOPPDAccountMoveEntry(models.Model):
+class L10nHrJOPPDAccountMoveEntry(models.Model):
     _name = 'l10n.hr.joppd.account.move.entry'
     _description = "JOPPD General Ledger Entry"
 

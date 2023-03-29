@@ -23,6 +23,17 @@ class Company(models.Model):
     )
     l10n_hr_maticni_broj = fields.Char(string="Registration number")
 
+    l10n_hr_responsible_fname = fields.Char(
+        string='Ime', size=64, help='Ime odgovorne osobe')
+    l10n_hr_responsible_lname = fields.Char(
+        string='Prezime', size=64, help='Prezime odgovorne osobe')
+    l10n_hr_responsible_tel = fields.Char(
+        string='Telefon', size=64, help='Tel odgovorne osobe')
+    l10n_hr_responsible_email = fields.Char(
+        string='E-mail', size=64, help='E-mail odgovorne osobe')
+    l10n_hr_responsible_vat = fields.Char(
+        string='OIB', size=32, help='OIB odgovorne osobe')
+
     def get_l10n_hr_time_formatted(self):
         # odoo16 - date/time) fields are WITH TZ info! diff from previous versions!
         user_tz = self.env.user.tz or self.env.context.get("tz")

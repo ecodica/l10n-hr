@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_joppd_form_add_calculate_sideB_button" model="ir.ui.view">
+            <field name="name">view_joppd_form_add_calculate_sideB_button</field>
+            <field name="model">l10n.hr.joppd</field>
+            <field name="inherit_id" ref="l10n_hr_joppd.view_joppd_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_delete_sideB_rows']" position="before">
+                    <button name="calculate_sideB_rows_from_entries" type="object" string="Calculate Lines"
+                            class="oe_highlight" icon="fa-gears" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

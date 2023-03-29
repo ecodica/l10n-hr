@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.1" id="TemeljniTipovi-v2-1" xml:lang="hr-HR">
+	<xsd:annotation>
+		<xsd:documentation>Shema sadrži temeljne jednostavne tipove koji se koriste u ostalim shemama</xsd:documentation>
+	</xsd:annotation>
+	<xsd:simpleType name="tDecimal14-2">
+		<xsd:annotation>
+			<xsd:documentation>Decimalni broj u formatu 14.2 (14 znamenki ukupno uključivši do dva decimalna mjesta)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="14"/>
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tDecimal15-2">
+		<xsd:annotation>
+			<xsd:documentation>Decimalni broj u formatu 15.2 (15 znamenki ukupno uključivši do dva decimalna mjesta)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="15"/>
+			<xsd:fractionDigits value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tNonNegativeDecimal15-2">
+		<xsd:annotation>
+			<xsd:documentation>Nenegativni decimalni broj u formatu 15.2 (15 znamenki ukupno uključivši do dva decimalna mjesta)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="15"/>
+			<xsd:fractionDigits value="2"/>
+			<xsd:minInclusive value="0"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tDecimal14-3">
+		<xsd:annotation>
+			<xsd:documentation>Decimalni broj u formatu 14.3 (14 znamenki ukupno uključivši do tri decimalna mjesta)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="14"/>
+			<xsd:fractionDigits value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tDecimal14-4">
+		<xsd:annotation>
+			<xsd:documentation>Decimalni broj u formatu 14.4 (14 znamenki ukupno uključivši do četiri decimalna mjesta)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal">
+			<xsd:totalDigits value="15"/>
+			<xsd:fractionDigits value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tAdresaBroj">
+		<xsd:annotation>
+			<xsd:documentation>Kućni broj za adresu, string ograničen na maksimalno 10 znakova</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tIspostava">
+		<xsd:annotation>
+			<xsd:documentation>Ispostava (šifra ispostave), četveroznamenkasti broj</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="\d{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tSifraOpcine">
+		<xsd:annotation>
+			<xsd:documentation>Šifra općine, troznamenkasti broj</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:length value="3"/>
+			<xsd:pattern value="\d{3}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tSifraDjelatnosti">
+		<xsd:annotation>
+			<xsd:documentation>Šifra djelatnosti neke tvrtke, četveroznamenkasti cijeli broj</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOgraniceniZnakovniNizMin2Max128">
+		<xsd:annotation>
+			<xsd:documentation>Znakovni niz sa minimum 2 i maksimum 128 znakova</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="2"/>
+			<xsd:maxLength value="128"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOIB">
+		<xsd:annotation>
+			<xsd:documentation>Osobni identifikacijski broj (11 brojeva)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\d{11}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tDatum">
+		<xsd:annotation>
+			<xsd:documentation>Datum</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="tFormat">
+		<xsd:annotation>
+			<xsd:documentation>Format zapisa, mora biti "text/xml"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="text/xml"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tJezik">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka jezika, mora biti "hr-HR"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="hr-HR"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tIdentifikator">
+		<xsd:annotation>
+			<xsd:documentation>Jedinstvena oznaka - GUID (engl. Globally unique identifier)</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tTip">
+		<xsd:annotation>
+			<xsd:documentation>Tip dokumenta, mora biti "Elektronički obrazac"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Elektronički obrazac"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tBrojTelefona">
+		<xsd:annotation>
+			<xsd:documentation>Broj telefona, počinje sa znakom + nakon kojeg slijedi 8-13 brojeva, npr +38514445555</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\+\d{8,13}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tEmail">
+		<xsd:annotation>
+			<xsd:documentation>Email adresa</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="\w+([-+.'_]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- JOPPD OBRAZAC-->
+    <record id="view_joppd_tree" model="ir.ui.view">
+        <field name="name">view_l10n_hr_joppd_tree</field>
+        <field name="model">l10n.hr.joppd</field>
+        <field name="arch" type="xml">
+            <tree string="JOPPD">
+                <field name="name"/>
+                <field name="oznaka"/>
+                <field name="vrsta"/>
+                <field name="date_joppd"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_joppd_form" model="ir.ui.view">
+        <field name="name">view_joppd_form</field>
+        <field name="model">l10n.hr.joppd</field>
+        <field name="arch" type="xml">
+            <form string="JOPPD">
+                <header>
+                    <button string="Završi uređivanje" type="object" name="button_done_editing"
+                            attrs="{'invisible':[('state','!=','draft')]}" icon="fa-check-square-o"/>
+                    <button string="Generiraj XML datoteku" type="object" name="button_generate_xml"
+                            attrs="{'invisible':[('state','!=','finished')]}" icon="fa-paperclip"/>
+                    <button string="Postavi u nacrt" type="object" name="button_set_draft"
+                            attrs="{'invisible':[('state','in',('draft','accepted'))]}" icon="fa-unlock"/>
+                    <button string="Uspješno predan" type="object" name="button_accepted_xml"
+                            attrs="{'invisible':[('state','!=','sent')]}" icon="fa-gavel"/>
+                    <button string="Ispravak" type="object" name="button_correction"
+                            attrs="{'invisible':[('state','!=','accepted')]}" icon="fa-pencil"/>
+                    <button string="Dopuna" type="object" name="button_addition"
+                            attrs="{'invisible':[('state','!=','accepted')]}" icon="fa-plus"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_read_only oe_right oe_button_box" name="buttons">
+                        <button
+                                type="object"
+                                name="export_xls"
+                                string="Export"
+                                icon="fa-download"
+                        />
+                    </div>
+                    <field name="company_id" invisible="1"/>
+                    <field name="name" readonly="True"/>
+                    <notebook colspan="4">
+                        <page string="XML" attrs="{'invisible':[('identifier','=',False)]}">
+                            <field name="xml_file_name" invisible="True"/>
+                            <group>
+                                <field name="identifier" readonly="1"/>
+                                <field name="xml_file" filename="xml_file_name"/>
+                                <field name="note"/>
+                            </group>
+                        </page>
+                        <page string="Osnovni podaci strane A">
+                            <group>
+                                <group colspan="4" col="4">
+                                    <field name="date_joppd"/>
+                                    <field name="period_joppd" options="{'no_create': True, 'no_open':True}"/>
+                                    <field name="period_date_from_joppd"/>
+                                    <field name="period_date_to_joppd"/>
+                                    <field name="xml_schema"/>
+                                    <field name="oznaka"/>
+                                    <field name="vrsta"/>
+                                    <field name="podnositelj_oznaka"/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="podnositelj_naziv" colspan="3"/>
+                                </group>
+                                <group name="adresa" colspan="4" col="8">
+                                    <label string="III.2 Adresa (mjesto,ulica,kbr)" for="podnositelj_mjesto"/>
+                                    <field name="podnositelj_mjesto" nolabel="1" class="oe_inline"
+                                           placeholder="Mjesto..."/>
+                                    <field name="podnositelj_ulica" nolabel="1" class="oe_inline"
+                                           placeholder="Ulica..."/>
+                                    <field name="podnositelj_kbr" nolabel="1" class="oe_inline" placeholder="kbr..."/>
+                                </group>
+                                <group colspan="4" col="4">
+                                    <field name="podnositelj_email"/>
+                                    <field name="podnositelj_oib"/>
+                                    <field name="broj_osoba"/>
+                                    <field name="broj_redaka"/>
+
+                                    <!--                                    <label string="Izvještaj sastavio:" for="sast_ime"/>-->
+                                    <!--                                    <newline/>-->
+                                    <separator string="Izvještaj sastavio:" colspan="4"/>
+                                    <field name="sastavio_id"/>
+                                    <separator colspan="4"/>
+                                    <field name="sast_ime"/>
+                                    <field name="sast_prez"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Stavke Strana A">
+                            <button string="Zbroji podatke sa strane B" type="object" name="button_summarize_sideA"
+                                    attrs="{'invisible':[('state','!=','draft')]}" icon="fa-stack-overflow"/>
+
+                            <field name="sideA_ids" nolabel="1" colspan="4">
+                                <tree string="A" editable="bottom">
+                                    <field name="joppd_id" invisible="1"/>
+                                    <field name="code"/>
+                                    <field name="position"/>
+                                    <field name="value"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Strana B">
+                            <button string="Briši sve retke" type="object"
+                                    name="button_delete_sideB_rows"
+                                    attrs="{'invisible':['|','|',('state','!=','draft'),
+                                                         ('sideB_ids','=',False),
+                                                         ('vrsta','not in',['1','5','8'])]}"
+                                    confirm="Ova radnja će obrisati sve retke na strani B!"
+                                    icon="fa-exclamation"/>
+
+                            <!--
+                            <group colspan="4" col="4">
+                                <button string="Enumerate rows" type="object" name="action_enumerate_rows"
+                                        attrs="{'invisible':['|','|',('state','!=','draft'),
+                                                             ('vrsta','in',['2','4','6','9']),
+                                                             ('sideB_ids','=',False)]}"/>
+                                <button string="Validate data" type="object" name="action_validate"
+                                        attrs="{'invisible':['|',('state','!=','draft'),('sideB_ids','=',False)]}"/>
+
+                            </group>
+                            -->
+                            <field name="sideB_ids" nolabel="1" colspan="4"/>
+                        </page>
+                        <page string="Related reports"
+                              attrs="{'invisible':['|',('parent_id','=',False), ('child_ids','=', False)]}">
+                            <group colspan="2" col="2">
+                                <field name="parent_id"/>
+                                <field name="child_ids" nolabel="1"/>
+                            </group>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_joppd" model="ir.actions.act_window">
+        <field name="name">JOPPD</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- JOPPD strana B -->
+    <record id="view_joppd_b_tree" model="ir.ui.view">
+        <field name="name">view_l10n_hr_joppd_b_tree</field>
+        <field name="model">l10n.hr.joppd.b</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="JOPPD StranaB">
+                <field name="b1" readonly="1"/>
+                <field name="b5"/>
+                <field name="b61"/>
+                <field name="b62"/>
+                <field name="b11"/>
+                <field name="b121"/>
+                <field name="b122"/>
+                <field name="b123"/>
+                <field name="b124"/>
+                <field name="b125"/>
+                <field name="b132"/>
+                <field name="b133"/>
+                <field name="b151"/>
+                <field name="b152"/>
+                <field name="b161"/>
+                <field name="b162"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_joppd_b_form" model="ir.ui.view">
+        <field name="name">view_l10n_hr_joppd_b_form</field>
+        <field name="model">l10n.hr.joppd.b</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="JOPPD strana B">
+                <label for="b1"/>
+                <field name="b1" class="oe_inline"/>
+                <label for="original_line_id" attrs="{'invisible':[('original_line_id','=',False)]}"/>
+                <field name="original_line_id" attrs="{'invisible':[('original_line_id','=',False)]}"/>
+                <group name="djelatnik" string="Djelatnik" colspan="4" col="4">
+                    <field name="b4"/>
+                    <field name="b5"/>
+                </group>
+                <group name="sifre" string="Šifre i oznake" colspan="4" col="4">
+                    <field name="b2" placeholder="Šifrarnik gradova, npr: Zagreb: 01333"/>
+                    <field name="b3" placeholder="Šifrarnik gradova, npr: Zagreb: 01333"/>
+                    <field name="b61" placeholder="šifre: Prilog 2, npr: 0001"/>
+                    <field name="b62" placeholder="šifre: Prilog 3, npr: 0001"/>
+                </group>
+                <group string="Doprinosi" colspan="4" col="4">
+                    <field name="b71"/>
+                    <field name="b72"/>
+                </group>
+                <group string="Podaci o radu" colspan="4" col="4">
+                    <field name="b8"/>
+                    <field name="b9"/>
+                    <field name="b10"/>
+                    <field name="b100"/>
+                    <field name="b101"/>
+                    <field name="b102"/>
+                    <field name="b11"/>
+                    <field name="b17"/>
+                </group>
+                <group colspan="4" col="4">
+                    <group string="12 - doprinosi" colspan="2" col="2">
+                        <field name="b12"/>
+                        <field name="b121"/>
+                        <field name="b122"/>
+                        <field name="b123"/>
+                        <field name="b124"/>
+                        <field name="b125"/>
+                        <field name="b126"/>
+                        <field name="b127"/>
+                        <field name="b128"/>
+                        <field name="b129"/>
+                    </group>
+                    <group colspan="2" col="2">
+                        <group string="13 - izdaci/dohodak" colspan="2" col="2">
+                            <field name="b131"/>
+                            <field name="b132"/>
+                            <field name="b133"/>
+                            <field name="b134"/>
+                            <field name="b135"/>
+                        </group>
+                        <group string="14-16 - porez/prirez" colspan="2" col="2">
+                            <field name="b141"/>
+                            <field name="b142"/>
+                            <field name="b152"/>
+                            <field name="b162"/>
+                            <field name="b151" placeholder="šifre: Prilog 4, npr: 0"/>
+                            <field name="b161" placeholder="šifre: Prilog 5, npr: 0"/>
+                        </group>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_joppd_B" model="ir.actions.act_window">
+        <field name="name">Obrazac JOPPD strana B</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.b</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

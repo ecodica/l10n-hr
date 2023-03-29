@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data ><!--noupdate="1"-->
+        <record id="partner_fiskal_tag_joppd" model="res.partner.fiskal.tag">
+            <field name="name">JOPPD</field>
+            <field name="required_field_ids"
+                   eval="[(4, ref('partner_firstname.field_res_partner__firstname')),
+                          (4, ref('partner_firstname.field_res_partner__lastname'))]"/>
+        </record>
+    </data>
+</odoo>

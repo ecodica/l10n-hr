@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacJOPPD/v1-1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacJOPPD/v1-1" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="1.1" id="ObrazacJOPPD-v1-1" xml:lang="hr-HR">
+	<xsd:annotation>
+		<xsd:documentation>XML shema ID obrasca.</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="ObrazacJOPPDtipovi-v1-1.xsd"/>
+	<xsd:element name="ObrazacJOPPD" type="sObrazacJOPPD">
+		<xsd:annotation>
+			<xsd:documentation>Osnovni (root) element JOPPD obrasca</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+</xsd:schema>

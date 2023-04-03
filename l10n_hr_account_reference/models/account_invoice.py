@@ -39,7 +39,6 @@ class AccountInvoice(models.Model):
             model = cc + model
         return ' '.join((model, res))
 
-    @api.multi
     def _get_computed_reference(self):
         self.ensure_one()
         res = ''

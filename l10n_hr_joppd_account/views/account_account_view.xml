@@ -9,8 +9,8 @@
             <field name="inherit_id" ref="account.view_account_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[last()]/field[last()]" position="after">
-                    <field name="joppd_nontaxable_receipt_id"/>
-                    <field name="joppd_payment_method_id"/>
+                    <field name="l10n_hr_joppd_nontaxable_receipt_id"/>
+                    <field name="l10n_hr_joppd_payment_method_id"/>
                 </xpath>
             </field>
         </record>

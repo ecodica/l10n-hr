@@ -4,24 +4,25 @@ from odoo import fields, models, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    @api.depends('account_id', 'employee_id')
+    @api.depends('account_id', 'l10n_hr_employee_id')
     def _is_for_joppd(self):
         for line in self:
-            line.is_for_joppd = False
-            if line.employee_id and line.joppd_payment_method_id and line.joppd_nontaxable_receipt_id:
-                line.is_for_joppd = True
+            line.l10n_hr_is_for_joppd = False
+            if line.l10n_hr_employee_id and \
+                    line.l10n_hr_joppd_payment_method_id and line.l10n_hr_joppd_nontaxable_receipt_id:
+                line.l10n_hr_is_for_joppd = True
 
-    is_for_joppd = fields.Boolean(string='Is for JOPPD?', compute='_is_for_joppd')
-    employee_id = fields.Many2one(
+    l10n_hr_is_for_joppd = fields.Boolean(string='Is for JOPPD?', compute='_is_for_joppd')
+    l10n_hr_employee_id = fields.Many2one(
         comodel_name='hr.employee',
         string='Employee',
         ondelete='restrict')
-    joppd_payment_method_id = fields.Many2one(
+    l10n_hr_joppd_payment_method_id = fields.Many2one(
         comodel_name='l10n.hr.joppd.code.register.payment.method',
         string='JOPPD Payment Method',
         ondelete='restrict',
         domain=[('type', '=', 'normal')])
-    joppd_nontaxable_receipt_id = fields.Many2one(
+    l10n_hr_joppd_nontaxable_receipt_id = fields.Many2one(
         comodel_name='l10n.hr.joppd.code.register.nontaxable.receipt',
         string='JOPPD Non-Taxable Receipt',
         ondelete='restrict',
@@ -29,10 +30,10 @@ class AccountMoveLine(models.Model):
 
     @api.onchange('account_id')
     def _onchange_joppd_account_id(self):
-        if self.account_id.joppd_payment_method_id:
-            self.joppd_payment_method_id = self.account_id.joppd_payment_method_id.id
-        if self.account_id.joppd_nontaxable_receipt_id:
-            self.joppd_nontaxable_receipt_id = self.account_id.joppd_nontaxable_receipt_id.id
+        if self.account_id.l10n_hr_joppd_payment_method_id:
+            self.l10n_hr_joppd_payment_method_id = self.account_id.l10n_hr_joppd_payment_method_id.id
+        if self.account_id.l10n_hr_joppd_nontaxable_receipt_id:
+            self.l10n_hr_joppd_nontaxable_receipt_id = self.account_id.l10n_hr_joppd_nontaxable_receipt_id.id
 
     # this may be obsolete
     # @api.model_create_multi

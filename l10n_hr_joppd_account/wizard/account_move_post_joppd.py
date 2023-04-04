@@ -13,9 +13,9 @@ class AccountMovePostJOPPD(models.TransientModel):
         for move in moves:
             if move.state != 'posted':
                 raise UserError(_('Moves must be posted before processing!'))
-            if move.joppd_posted:
+            if move.l10n_hr_joppd_posted:
                 raise UserError(_('Move %s already posted in JOPPD!') % (move.name,))
-        if not any(moves.filtered('is_for_joppd')):
+        if not any(moves.filtered('l10n_hr_is_for_joppd')):
             raise UserError(_('No moves for posting in JOPPD!'))
 
     def post_joppd(self):

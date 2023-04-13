@@ -7,8 +7,8 @@
     "images": [],
     "version": "16.0.1.0.1",
     "application": False,
-
     'author': "Ecodica",
+    "license": 'LGPL-3',
     'website': "https://www.ecodica.eu",
     "support": "support@ecodica.eu",
     "licence": "AGPL-3",

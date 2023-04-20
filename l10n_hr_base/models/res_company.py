@@ -10,7 +10,7 @@ class Company(models.Model):
     _inherit = "res.company"
 
     l10n_hr_nkd = fields.Char(
-        string="NKD",
+        string="NKD Code",
         help="Main company activity classified by NKD-2007",
     )
     l10n_hr_mirovinsko = fields.Char(

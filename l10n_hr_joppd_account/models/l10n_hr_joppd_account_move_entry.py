@@ -1,5 +1,4 @@
 from odoo import fields, models, api, _
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 from odoo.tools import format_date
 
@@ -18,7 +17,7 @@ class L10nHrJOPPDAccountMoveEntry(models.Model):
     _description = "JOPPD General Ledger Entry"
 
     name = fields.Char('Name', size=64, required=1)
-    amount = fields.Float('Amount', digits=dp.get_precision('Account'))
+    amount = fields.Float('Amount', digits="Account")
     company_id = fields.Many2one(
         comodel_name='res.company',
         string='Company',

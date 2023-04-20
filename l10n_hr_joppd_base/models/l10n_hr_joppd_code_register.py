@@ -12,7 +12,7 @@ class L10nHrJOPPDCodeRegister(models.AbstractModel):
     _parent_order = "code"
     _parent_path_store = False
 
-    parent_path = fields.Char(string='Parent Path', index=True)
+    parent_path = fields.Char(index=True, unaccent=False)
     # TODO: review necessity
     # company_id = fields.Many2one('res.company', 'Company', required=1, index=1,
     #                              default=lambda self: self.env['res.company']._company_default_get(self._name))

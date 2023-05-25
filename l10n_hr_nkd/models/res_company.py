@@ -4,12 +4,9 @@ from odoo import api, fields, models
 class Company(models.Model):
     _inherit = "res.company"
 
-    l10n_hr_nkd_id = fields.Many2one(
-        comodel_name="l10n.hr.nkd",
-        string="NKD",
-        help="Main occupation classified according to NKD-2007",
-    )
+    nace_id = fields.Many2one(related='partner_id.nace_id', store=True, readonly=False,
+         help="Main occupation classified according to NKD/ EU NACE 2.0",)
 
-    @api.onchange("l10n_hr_nkd_id")
+    @api.onchange("nace_id")
     def _onchange_nkd_id(self):
-        self.l10n_hr_nkd = self.l10n_hr_nkd_id.code
+        self.l10n_hr_nkd = self.nace_id.code

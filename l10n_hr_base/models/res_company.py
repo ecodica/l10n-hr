@@ -33,6 +33,31 @@ class Company(models.Model):
         string='E-mail', size=64, help='E-mail odgovorne osobe')
     l10n_hr_responsible_vat = fields.Char(
         string='OIB', size=32, help='OIB odgovorne osobe')
+    l10n_hr_podrucje_djelatnosti = fields.Selection(
+        selection=[
+            ('A', 'A-POLJOPRIVREDA, ŠUMARSTVO I RIBARSTVO'),
+            ('B', 'B-RUDARSTVO I VAĐENJE'),
+            ('C', 'C-PRERAĐIVAČKA INDUSTRIJA'),
+            ('D', 'D-OPSKRBA ELEKTRIČNOM ENERGIJOM, PLINOM, PAROM I KLIMATIZACIJA'),
+            ('E', 'E-OPSKRBA VODOM, UKLANJANJE OTPADNIH VODA, GOSPODARENJE OTPADOM TE DJELATNOSTI SANACIJE OKOLIŠA'),
+            ('F', 'F-GRAĐEVINARSTVO'),
+            ('G', 'G-TRGOVINA NA VELIKO I NA MALO; POPRAVAK MOTORNIH VOZILA I MOTOCIKALA'),
+            ('H', 'H-PRIJEVOZ I SKLADIŠTENJE'),
+            ('I', 'I-DJELATNOSTI PRUŽANJA SMJEŠTAJA TE PRIPREME I USLUŽIVANJA HRANE'),
+            ('J', 'J-INFORMACIJE I KOMUNIKACIJE'),
+            ('K', 'K-FINANCIJSKE DJELATNOSTI I DJELATNOSTI OSIGURANJA'),
+            ('L', 'L-POSLOVANJE NEKRETNINAMA'),
+            ('M', 'M-STRUČNE, ZNANSTVENE I TEHNIČKE DJELATNOSTI'),
+            ('N', 'N-ADMINISTRATIVNE I POMOĆNE USLUŽNE DJELATNOSTI'),
+            ('O', 'O-JAVNA UPRAVA I OBRANA; OBVEZNO SOCIJALNO OSIGURANJE'),
+            ('P', 'P-OBRAZOVANJE'),
+            ('Q', 'Q-DJELATNOSTI ZDRAVSTVENE ZAŠTITE I SOCIJALNE SKRBI'),
+            ('R', 'R-UMJETNOST, ZABAVA I REKREACIJA'),
+            ('S', 'S-OSTALE USLUŽNE DJELATNOSTI'),
+            ('T', 'T-DJELATNOSTI KUĆANSTAVA KAO POSLODAVACA'),
+            ('U', 'U-DJELATNOSTI IZVANTERITORIJALNIH ORGANIZACIJA I TIJELA'),
+        ], string='Područje djelatnosti',
+    )
 
     def get_l10n_hr_time_formatted(self):
         # odoo16 - date/time) fields are WITH TZ info! diff from previous versions!

@@ -14,6 +14,7 @@
                             <field name="l10n_hr_zdravstveno"/>
                             <field name="l10n_hr_maticni_broj"/>
                             <field name="l10n_hr_nkd"/>
+                            <field name="l10n_hr_podrucje_djelatnosti"/>
                             <separator name="l10n_hr_responsible_data" string="Responsible Data"/>
                             <field name="l10n_hr_responsible_fname"/>
                             <field name="l10n_hr_responsible_lname"/>

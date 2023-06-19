@@ -9,6 +9,10 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 class Company(models.Model):
     _inherit = "res.company"
 
+    # Technical field to hide country specific fields in company form view
+    # from account module
+    country_code = fields.Char(related='country_id.code', depends=['country_id'])
+
     l10n_hr_nkd = fields.Char(
         string="NKD Code",
         help="Main company activity classified by NKD-2007",

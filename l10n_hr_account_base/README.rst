@@ -18,7 +18,9 @@ All out invoices in Croatia has strictly defined out invoice fiscal number struc
 All croatia legaly required fields are added to standard printout for report invoice.
 
 Important rules:
-- invoice number consists of 3 parts:
+
+- Invoice number consists of 3 parts:
+
   - AA - invoice number - strictly NO preceeding zeroes
   - BB - Business premisse code - alphanumerical chars
   - CC - PoS device code - strictly integer
@@ -26,47 +28,46 @@ Important rules:
 Configuration
 =============
 
-1. Company settings (menuitem: Settings -> Users and Companies -> Companies )
+Company settings (menuitem: Settings -> Users and Companies -> Companies ):
 
-On company data, Croatia settings
+  * Select taxation model
 
-- select taxation model -
+   - R1 - taxation based on invoice (default)
+   - R2 - taxation based on payment
+   - R0 - not subject to taxation
 
-  - R1 - taxation based on invoice (default)
-  - R2 - taxation based on payment
-  - R0 - not subject to taxation
+  * Choose fiskal invoice separator
 
-  - setup fiskal invoice separator - only "/" or "-" allowed chars, "/" is default
-
-2. Accounting settings (menuitem : Invoicing >> Configuration >> Croatia specific settings >> Business premises)
-
-2.1. - Create business premisse
-
-The code of premisse should be the middle part of your invoices,
-and should match your internal document defining it.
-Field 'Mjesto izdavanja' can be poputlated on PoS device level, or on the Business premisse level.
-It is legaly required info, and will be printed as such on invoices, respecting the order Pos-Premisse.
-Should contain something.
+   - only "/" and "-" are allowed, "/" is default
 
 
-2.2. - Define invoice sequencing for premisse
+Accounting settings (menuitem : Invoicing >> Configuration >> Croatia specific settings >> Business premises):
 
-Based on premisse or based on PoS device level. Each premisse may have different settings
+  * Create business premisse
+    The code of premise should be the middle part of your invoices,
+    and should match your internal document defining it.
+    Field 'Mjesto izdavanja' can be populated on PoS device level, or on the Business premisse level.
+    It is legally required info, and will be printed as such on invoices, respecting the order Pos-Premise.
+    Should contain something.
 
-2.3 - Add Pos Device
+  * Define invoice sequencing for premise
 
-Name of device if informational, and may be set free, but code should be strictly numeric.
+    Based on premise or based on PoS device level. Each premise may have different settings.
 
-3. Activate PoS device and Business premisse
+  * Add Pos Device
 
-Activating and deactivating Business premise and/or PoS device is automated with
-related journals and sequences create/modify. It is not required to select any values in
-journal or sequence fields before activating object, as they will be automaticly populated.
-Also, if you know what you are doing it is possible to connect multiple journals to
-one pos device (different journals for cash, card or transfer acc, using one pos device ž
-and related invoice sequence)
+    Name of device if informational, and may be set free, but code should be strictly numeric.
 
-If no journal is assigned for PoS device, one will be created on activating.
 
-In order to confirm invoice, PoS device and Business premisse must be present,
-setup and activated.
+Activate PoS device and Business premise:
+
+    Activating and deactivating Business premise and/or PoS device is automated with
+    related journals and sequences create/modify. It is not required to select any values in
+    journal or sequence fields before activating object, as they will be automaticly populated.
+    Also, if you know what you are doing it is possible to connect multiple journals to
+    one pos device (different journals for cash, card or transfer acc, using one pos device ž
+    and related invoice sequence)
+    If no journal is assigned for PoS device, one will be created on activating.
+
+    In order to confirm invoice, PoS device and Business premise must be present,
+    setup and activated.

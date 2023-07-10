@@ -453,7 +453,7 @@ class L10nHrJOPPD_B(models.Model):
         string='Izvorni redak')
     currency_id = fields.Many2one(
         comodel_name='res.currency',
-        relate='joppd_id.company_id.currency_id',
+        related='joppd_id.company_id.currency_id',
         string="Valuta poduzeća")
     b1 = fields.Integer(
         string='1. Redni broj', readonly=True)

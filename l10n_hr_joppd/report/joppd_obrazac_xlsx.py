@@ -11,6 +11,7 @@ _logger = logging.getLogger(__name__)
 class JOPPDObrazacXlsx(models.AbstractModel):
     _name = 'report.l10n_hr_joppd.joppd_obrazac_xlsx'
     _inherit = 'report.report_xlsx.abstract'
+    _description = 'JOPPD Obrazac XLSX report'
 
     def print_osnovni_podaci(self, workbook, joppd):
         sheet = workbook.add_worksheet(_('Osnovni podaci strane A'))

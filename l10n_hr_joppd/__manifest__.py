@@ -11,7 +11,7 @@
     "license": 'LGPL-3',
     'website': "https://www.ecodica.eu",
     "support": "support@ecodica.eu",
-    "licence": "AGPL-3",
+    "license": "AGPL-3",
 
     "depends": [
         "l10n_hr_base",

@@ -79,6 +79,7 @@ class AccountPaymentOrder(models.Model):
         return True
 
     def generate_remittance_info_block(self, parent_node, line, gen_args):
-        if line.communication_type == "HR ref":
+        communication_type = line.payment_line_ids[:1].communication_type
+        if communication_type == "HR ref":
             gen_args['structured_remittance_issuer'] = True
         super().generate_remittance_info_block(parent_node, line, gen_args)

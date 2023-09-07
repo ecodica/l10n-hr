@@ -204,3 +204,10 @@ class AccountMove(models.Model):
             if move.move_type in ("out_invoice", "out_refund"):
                 move._l10n_hr_post_out_invoice()
         return posted
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        res = super(AccountMove, self)._onchange_partner_id()
+        if self.partner_id:
+            self.journal_id = self.partner_id.purchase_journal_id
+        return res

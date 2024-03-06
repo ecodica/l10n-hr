@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, api, _
 
 
 class L10nHrJOPPD(models.Model):
@@ -16,7 +16,24 @@ class L10nHrJOPPD(models.Model):
                               ('state', 'not in', ['done', 'cancel']),
                               # ('company_id', '=', self.company_id.id),
                               ]
-            for entry in joppd_entry_obj.sudo().search(entries_domain):
+            entries = joppd_entry_obj.sudo().search(entries_domain)
+            employees_missing_data = entries.employee_id.filtered(
+                lambda l: not l.l10n_hr_city_municipality_id or not l.l10n_hr_city_municipality_work_id)
+            if employees_missing_data:
+                warnings = ("Employees %s don't have City/Municipality data, please correct it before proceeding!"
+                            % ', '.join(employees_missing_data.mapped('name')))
+                notification = {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _('Warning'),
+                        'type': 'warning',
+                        'message': warnings,
+                        'sticky': True,
+                    }
+                }
+                return notification
+            for entry in entries:
                 index += 1
                 vals = dict(
                     joppd_id=joppd_report.id,
@@ -24,7 +41,7 @@ class L10nHrJOPPD(models.Model):
                     b1=index,
                     b2=entry.employee_id.l10n_hr_city_municipality_id.code,
                     b3=entry.employee_id.l10n_hr_city_municipality_work_id.code,
-                    b4=entry.employee_id.oib,
+                    b4=entry.employee_id.ssnid,
                     b5=entry.employee_id.name,
                     b151=entry.nontaxable_receipt_id.code,
                     b161=entry.payment_method_id.code,

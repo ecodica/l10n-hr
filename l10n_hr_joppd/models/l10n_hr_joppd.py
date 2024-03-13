@@ -313,7 +313,7 @@ class L10nHrJOPPD(models.Model):
         if self.date_joppd != fields.Date.today():
             # DB : nisam bas 100% siguran da ce ovjek ovkao... ali zassada nek bude
             self.date_joppd = fields.Date.today()
-            self.code = self._get_joppd_oznaka()
+            self.oznaka = self._get_joppd_oznaka()
         self.name = '_'.join(('JOPPD',
                               self.podnositelj_oznaka,
                               self.podnositelj_oib,
@@ -397,7 +397,7 @@ class L10nHrJOPPD(models.Model):
 
         self.identifier = identifier
         self.xml_file_name = self.name + '.xml'
-        self.xml_file = base64.encodestring(xml_string.encode('utf-8'))
+        self.xml_file = base64.b64encode(xml_string.encode('utf-8'))
         self.state = 'sent' # označi za slanje!
 
     def button_delete_sideB_rows(self):

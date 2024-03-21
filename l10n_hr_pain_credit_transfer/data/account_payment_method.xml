@@ -9,4 +9,12 @@
         <field name="pain_version">scthr:pain.001.001.03</field>
     </record>
 
+    <record id="sepa_credit_transfer_scthr_001_001_09" model="account.payment.method">
+        <field name="name">SEPA Credit Transfer to suppliers v09HR (used in Croatia)</field>
+        <field name="code">sepa_credit_transfer_hr09</field>
+        <field name="payment_type">outbound</field>
+        <field name="bank_account_required" eval="True"/>
+        <field name="pain_version">scthr:pain.001.001.09</field>
+    </record>
+
 </odoo>

@@ -8,6 +8,6 @@ class AccountMoveLine(models.Model):
 
     def _prepare_payment_line_vals(self, payment_order):
         vals = super()._prepare_payment_line_vals(payment_order)
-        if payment_order.payment_method_id.code == 'sepa_credit_transfer_hr':
+        if payment_order.payment_method_id.code.startswith('sepa_credit_transfer_hr'):
             vals.update(communication_type='HR ref')
         return vals

@@ -31,7 +31,7 @@ class AccountPaymentOrder(models.Model):
     def generate_payment_file(self):  # noqa: C901
         """Creates the SEPA Credit Transfer file. That's the important code!"""
         self.ensure_one()
-        if self.payment_method_id.code != "sepa_credit_transfer_hr":
+        if self.payment_method_id.code.startswith('sepa_credit_transfer_hr'):
             return super().generate_payment_file()
         pain_flavor = self.payment_method_id.pain_version
         # We use pain_flavor.startswith('pain.001.001.xx')
@@ -51,6 +51,18 @@ class AccountPaymentOrder(models.Model):
             # and we put 70 and not 140
             name_maxsize = 70
             root_xml_tag = "CstmrCdtTrfInitn"
+        elif pain_flavor == 'scthr:pain.001.001.09':
+            bic_xml_tag = 'BICFI'
+            # size 70 -> 140 for <Nm> with pain.001.001.03
+            # BUT the European Payment Council, in the document
+            # "SEPA Credit Transfer Scheme Customer-to-bank
+            # Implementation guidelines" v6.0 available on
+            # http://www.europeanpaymentscouncil.eu/knowledge_bank.cfm
+            # says that 'Nm' should be limited to 70
+            # so we follow the "European Payment Council"
+            # and we put 70 and not 140
+            name_maxsize = 70
+            root_xml_tag = 'CstmrCdtTrfInitn'
         else:
             raise UserError(_("PAIN version '%s' is not supported.") % pain_flavor)
         xsd_file = self.payment_method_id.get_xsd_file_path()

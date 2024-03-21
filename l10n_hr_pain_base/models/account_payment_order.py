@@ -28,21 +28,21 @@ class AccountPaymentOrder(models.Model):
         pain_flavor = self.payment_mode_id.payment_method_id.pain_version
         # In Croatia it is scthr:pain.001.001.03
         # <Document xmlns="="urn:iso:std:iso:20022:tech:xsd:scthr:pain.001.001.03">
-        if pain_flavor == 'scthr:pain.001.001.03':
+        if pain_flavor in ['scthr:pain.001.001.03', 'scthr:pain.001.001.09']:
             nsmap[None] = 'urn:iso:std:iso:20022:tech:xsd:%s' % pain_flavor
         return nsmap
 
     def generate_pain_attrib(self):
         self.ensure_one()
         pain_flavor = self.payment_mode_id.payment_method_id.pain_version
-        if pain_flavor == 'scthr:pain.001.001.03':
+        if pain_flavor in ['scthr:pain.001.001.03', 'scthr:pain.001.001.09']:
             pass
         else:
             return super().generate_pain_attrib()
 
     def generate_group_header_block(self, parent_node, gen_args):
         group_header, nb_of_transactions, control_sum = super().generate_group_header_block(parent_node, gen_args)
-        if gen_args.get('pain_flavor') == 'scthr:pain.001.001.03':
+        if gen_args.get('pain_flavor') in ['scthr:pain.001.001.03', 'scthr:pain.001.001.09']:
             msg_id = group_header.find('.//MsgId')
             if msg_id is not None:
                 prefix = gen_args['file_prefix'].replace('.', '')
@@ -51,14 +51,23 @@ class AccountPaymentOrder(models.Model):
 
     def generate_start_payment_info_block(self, parent_node, payment_info_ident, priority, local_instrument,
                                           category_purpose, sequence_type, requested_date, eval_ctx, gen_args):
-        if gen_args.get('pain_flavor') == 'scthr:pain.001.001.03':
+        if gen_args.get('pain_flavor') in ['scthr:pain.001.001.03', 'scthr:pain.001.001.09']:
             gen_args['local_instrument_type'] = 'proprietary'
             gen_args['structured_remittance_issuer'] = True
-        return super().generate_start_payment_info_block(
+        res = super().generate_start_payment_info_block(
             parent_node, payment_info_ident, priority, local_instrument,
             category_purpose, sequence_type, requested_date, eval_ctx,
             gen_args,
         )
+        if gen_args.get('pain_flavor') == 'scthr:pain.001.001.09':
+            payment_info = res[0]
+            requested_date_node = payment_info.find('./ReqdExctnDt')
+            # Remove requested date from node, before appending <Dt> tag
+            requested_date_node.text = ''
+            requested_date_node_date_sub = etree.SubElement(requested_date_node, 'Dt')
+            requested_date_node_date_sub.text = requested_date
+        return res
+
 
     def generate_address_block(self, parent_node, partner, gen_args):
         """Generate the piece of the XML corresponding to PstlAdr"""

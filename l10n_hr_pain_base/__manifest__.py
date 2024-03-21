@@ -3,7 +3,7 @@
 {
     "name": "Croatia - SEPA PAIN base",
     "summary": "Base module for PAIN file generation - Croatia",
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "category": "Accounting/Localizations/SEPA",
     "author": "Ecodica",
     "website": "https://www.ecodica.eu",

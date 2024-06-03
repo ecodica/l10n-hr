@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="l10n_hr_report_invoice_document"
+        inherit_id="account.report_invoice_document"
+    >
+        <!-- modifiy name to fiskal number for croatia-->
+        <xpath expr="//h2/span[last()]" position="replace">
+            <t t-if="o.country_code == 'HR'">
+                <span t-if="o.name != '/'" t-field="o.l10n_hr_fiskalni_broj" />
+            </t>
+            <t t-else="">
+                <span t-if="o.name != '/'" t-field="o.name" />
+            </t>
+        </xpath>
+        <!-- add dates in regular informations block -->
+        <xpath expr="//div[@name='reference']" position="after">
+            <div
+                class="col-auto col-3 mw-100 mb-2"
+                t-if="o.l10n_hr_date_delivery"
+                name="date_delivery"
+            >
+                <strong>Date delivery:</strong>
+                <p class="m-0" t-field="o.l10n_hr_date_delivery" />
+            </div>
+        </xpath>
+        <!-- add croatia fiskal required data after total line -->
+        <xpath expr="//div[@id='total']/.." position="after">
+            <t t-if="o.country_code == 'HR'">
+                <div id="l10n_hr_info" class="row mt-4 mb-4">
+                    <div
+                        class="col-auto col-3 mw-100 mb-2"
+                        t-if="o.l10n_hr_nacin_placanja"
+                        name="nacin_placanja"
+                    >
+                        <strong>Payment means:</strong>
+                        <p class="m-0" t-field="o.l10n_hr_nacin_placanja" />
+                    </div>
+                    <div
+                        class="col-auto col-3 mw-100 mb-2"
+                        t-if="o.l10n_hr_fiskal_uredjaj_id.mjesto_izdavanja != '' or o.l10n_hr_fiskal_uredjaj_id.prostor_id.mjesto_izdavanja!= ''"
+                        name="nacin_placanja"
+                    >
+                        <strong>Place of issue:</strong>
+                        <p
+                            class="m-0"
+                            t-esc="o.l10n_hr_fiskal_uredjaj_id.mjesto_izdavanja or o.l10n_hr_fiskal_uredjaj_id.prostor_id.mjesto_izdavanja"
+                        />
+                    </div>
+                    <div
+                        class="col-auto col-3 mw-100 mb-2"
+                        t-if="o.l10n_hr_vrijeme_izdavanja"
+                    >
+                        <strong>Confirm date and time:</strong>
+                        <p class="m-0" t-field="o.l10n_hr_vrijeme_izdavanja" />
+                    </div>
+                    <div
+                        class="col-auto col-3 mw-100 mb-2"
+                        t-if="o.name"
+                        name="interni_broj"
+                    >
+                        <strong>Internal number:</strong>
+                        <p class="m-0" t-field="o.name" />
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+    <template
+        id="l10n_hr_report_storno_invoice_document"
+        inherit_id="account.report_invoice_document"
+    >
+        <!-- storno hack
+        adding minus to printed report
+        intentionaly in separate view form other fields,
+        so you can customize company report by deactivating view with main fileds.
+        -->
+
+        <xpath expr="//span[@t-field='line.quantity']" position="before">
+            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+        </xpath>
+        <xpath expr="//span[@t-field='line.price_subtotal']" position="before">
+            <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
+        </xpath>
+
+    </template>
+</odoo>

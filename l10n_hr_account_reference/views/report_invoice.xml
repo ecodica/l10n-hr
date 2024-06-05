@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Adds bank, acc number and payment reference fields to invoice report -->
+    <template
+        id="report_invoice_payment_reference_layout"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//p[@name='payment_communication']" position="replace">
+            <br />
+            <span>Bank : </span>
+            <b><span t-field="o.partner_bank_id.bank_id.bic" /></b>-
+            <span t-field="o.partner_bank_id.bank_id.name" />
+            <br />
+            <span>Account Number : </span>
+            <b><span t-field="o.partner_bank_id.acc_number" /></b>
+            <br />
+            <span>Payment Reference : </span>
+            <b><span t-field="o.payment_reference" /></b>
+        </xpath>
+    </template>
+</odoo>

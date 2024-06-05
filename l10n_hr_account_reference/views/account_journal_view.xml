@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_journal_reference_form" model="ir.ui.view">
+        <field name="name">view_account_journal_reference_form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
+        <field name="arch" type="xml">
+            <field name="invoice_reference_type" position="after">
+                <field
+                    name="property_l10n_hr_P1_pnbr"
+                    invisible="invoice_reference_model not in ['00', '01', '99']"
+                />
+                <field
+                    name="property_l10n_hr_P2_pnbr"
+                    invisible="invoice_reference_model not in ['00', '01', '99']"
+                />
+                <field
+                    name="property_l10n_hr_P3_pnbr"
+                    invisible="invoice_reference_model not in ['00', '01', '99']"
+                />
+                <field
+                    name="property_l10n_hr_P4_pnbr"
+                    invisible="invoice_reference_model not in ['00', '01', '99']"
+                />
+            </field>
+        </field>
+    </record>
+    <record id="view_fiskal_prostor_form" model="ir.ui.view">
+        <field name="name">view_fiskal_prostor_form_journal_ref</field>
+        <field name="model">l10n.hr.fiskal.prostor</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form" />
+        <field name="arch" type="xml">
+            <field name="show_on_dashboard" position="before">
+                <field name="invoice_reference_model" optional="show" />
+                <field name="invoice_reference_type" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>

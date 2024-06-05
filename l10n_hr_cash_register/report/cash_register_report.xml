@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_cash_register">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div style="width: 45%;">
+                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
+                        </div>
+                        <div class="row mt32 mb32">
+                            <span t-field="o.company_id.name"/>
+                            <br/>
+                            <span t-field="o.company_id.partner_id.street"/>
+                            <br/>
+                            <span t-field="o.company_id.partner_id.zip"/>
+                            <span t-field="o.company_id.partner_id.city"/>
+                            <br/>
+                            <span t-field="o.company_id.partner_id.country_id.name"/>
+                        </div>
+                        <br/><br/>
+
+                        <t t-if="o.amount &lt; 0">
+                        <h2 class="mt32 mb32"><span>ISPLATNICA:</span> <span t-field="o.name"/></h2>
+                        </t>
+                        <t t-if="o.amount &gt; 0">
+                        <h2 class="mt32 mb32"><span>UPLATNICA:</span> <span t-field="o.name"/></h2>
+                        </t>
+                        <br/><br/>
+
+                        <div class="row mt32 mb32">
+                            <div class="col-4">
+                                <span>PRIMATELJ: <strong t-field="o.partner_id.name"/></span>
+                            </div>
+                            <br/>
+                            <div class="col-4">
+                                <span>OPIS: <strong t-field="o.payment_ref"/></span>
+                            </div>
+                            <br/>
+                            <div class="col-4">
+                                <span>NA IZNOS:</span> <strong><span t-esc="abs(o.amount)" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong>
+                            </div>
+                        </div>
+                        <br/><br/><br/><br/>
+
+                        <div>
+                            <span t-field="o.company_id.city"/><span>, dana </span><span t-field="o.date"/>
+                        </div>
+                        <br/><br/><br/><br/>
+
+                        <div>
+                            <table class="table table-bordered" style="text-align:center; height:100px; width:100%">
+                                <tr>
+                                    <td style="text-align:center">Blagajnik</td>
+                                    <td style="text-align:center">Primatelj</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center">__________________</td>
+                                    <td style="text-align:center">__________________</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center"><span t-field="o.create_uid.name"/></td>
+                                    <td style="text-align:center"><span t-field="o.partner_id.name"/></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_cash_register" model="ir.actions.report">
+        <field name="name">Cash Register Report</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_cash_register.report_cash_register</field>
+        <field name="report_file">l10n_hr_cash_register.report_cash_register</field>
+        <field name="print_report_name">(object.amount > 0 and 'Uplatnica - %s' %(object.payment_ref)) or 'Isplatnica - %s' % (object.payment_ref)</field>
+        <field name="binding_model_id" ref="account.model_account_bank_statement_line"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

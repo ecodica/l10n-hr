@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bank_statement_line_tree_inherit" model="ir.ui.view">
+        <field name="name">bank.statement.line.tree.inherit</field>
+        <field name="model">account.bank.statement.line</field>
+        <field name="inherit_id" ref="account_accountant.view_bank_statement_line_tree_bank_rec_widget"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='id']" position="after">
+                <button name="%(action_report_cash_register)d" type="action" string="Report" class="oe_stat_button" icon="fa-exchange"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

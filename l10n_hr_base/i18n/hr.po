@@ -24,6 +24,11 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Croatia Settings"
+msgstr "Postavke za Hrvatsku"
+
+#. module: l10n_hr_base
 #: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_zdravstveno
 msgid "Health Insurance"
 msgstr "Zdravstveno"

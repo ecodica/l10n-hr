@@ -10,7 +10,7 @@
                 <field name="country_code" invisible="1"/>
             </field>
             <notebook position="inside">
-                <page name="Croatia Settings"  invisible="country_code != 'HR'">
+                <page name="croatia_settings" string="Croatia Settings"  invisible="country_code != 'HR'">
                     <group name="l10n_hr_main">
                         <group string="Legal Data" name="l10n_hr_legal">
                             <field name="l10n_hr_mirovinsko"/>

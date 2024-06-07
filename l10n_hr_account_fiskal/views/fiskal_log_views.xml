@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fiskal_log_tree_view" model="ir.ui.view">
+        <field name="name">fiskal_log_tree_view</field>
+        <field name="model">l10n.hr.fiskal.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" select="1" />
+                <field name="type" />
+                <field name="greska" />
+                <field name="time_stamp" />
+                <field name="time_obr" />
+                <field name="invoice_id" />
+                <field name="fiskal_prostor_id" />
+                <field name="fiskal_uredjaj_id" />
+            </tree>
+        </field>
+    </record>
+    <record id="view_fiskal_log_form" model="ir.ui.view">
+        <field name="name">view_fiskal_log_form</field>
+        <field name="model">l10n.hr.fiskal.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name" string="UUID poruke" readonly="1" />
+                    <field name="type" readonly="1" />
+                    <field name="fiskal_prostor_id" readonly="1" />
+                    <field name="fiskal_uredjaj_id" readonly="1" />
+                    <field name="time_stamp" readonly="1" />
+                    <field name="time_obr" readonly="1" />
+                    <field name="user_id" readonly="1" />
+                    <field name="company_id" readonly="1" />
+                </group>
+                <newline />
+                <notebook colspan="4">
+                    <page string="Poruka">
+                        <group>
+                            <field name="invoice_id" readonly="1" />
+                            <field name="fiskal_prostor_id" readonly="1" />
+                            <newline />
+                            <field name="greska" colspan="4" />
+                        </group>
+                    </page>
+                    <page string="Poslana poruka">
+                        <field name="sadrzaj" nolabel="1" />
+                    </page>
+                    <page string="Odgovor na poruku">
+                        <field name="odgovor" nolabel="1" />
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+    <record id="action_fiskal_log" model="ir.actions.act_window">
+        <field name="name">Fiskal message logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.fiskal.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="menu_action_check_fiskal_log"
+        action="action_fiskal_log"
+        parent="l10n_hr_account_base.menu_finance_config_croatia"
+        sequence="99"
+    />
+</odoo>

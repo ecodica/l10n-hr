@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <menuitem id="menu_joppd_report"
+            name="Obrazac"
+            action="action_joppd"
+            parent="l10n_hr_joppd_base.menu_l10n_hr_joppd"
+            sequence="67"/>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.1" id="ObrazacJOPPDmetapodaci-v1-1" xml:lang="hr-HR">
+	<xsd:annotation>
+		<xsd:documentation xml:lang="hr-HR">Definira metapodatke JOPPD obrasca. Bazni tipovi nalaze se u MetapodaciTipovi-v2-0.xsd te se po potrebi dograđuju.</xsd:documentation>
+	</xsd:annotation>
+	<xsd:include schemaLocation="MetapodaciTipovi-v2-0.xsd"/>
+	<xsd:complexType name="sJOPPDmetapodaci">
+		<xsd:sequence>
+			<xsd:element name="Naslov" type="sNaslovTemeljni"/>
+			<xsd:element name="Autor" type="sAutorTemeljni"/>
+			<xsd:element name="Datum" type="sDatumTemeljni"/>
+			<xsd:element name="Format" type="sFormatTemeljni"/>
+			<xsd:element name="Jezik" type="sJezikTemeljni"/>
+			<xsd:element name="Identifikator" type="sIdentifikatorTemeljni"/>
+			<xsd:element name="Uskladjenost" type="sUskladjenost"/>
+			<xsd:element name="Tip" type="sTipTemeljni"/>
+			<xsd:element name="Adresant" type="sAdresantTemeljni"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sUskladjenost">
+		<xsd:simpleContent>
+			<xsd:restriction base="sUskladjenostTemeljni">
+				<xsd:enumeration value="ObrazacJOPPD-v1-1"/>
+			</xsd:restriction>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:element name="Metapodaci" type="sJOPPDmetapodaci"/>
+</xsd:schema>

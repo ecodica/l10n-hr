@@ -1,0 +1,1030 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacJOPPD/v1-0" 
+			xmlns:unique="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacJOPPD/v1-0" 
+		 	xmlns:meta="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" 
+		 	xmlns:ispostave="http://e-porezna.porezna-uprava.hr/sheme/temeljno/SifrarnikIspostave/v2-0" 
+		 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+		 	xmlns:temeljni="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" 
+		 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 	targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacJOPPD/v1-0" 
+		 	elementFormDefault="qualified" version="1.0" id="ObrazacJOPPDtipovi-v1-0" xml:lang="hr-HR">
+	<xsd:annotation>
+		<xsd:documentation>XML shema sadrži tipove koji definiraju sadržaj JOPPD obrasca</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" schemaLocation="TemeljniTipovi-v2-1.xsd"/>
+	<xsd:import namespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" schemaLocation="ObrazacJOPPDmetapodaci-v1-0.xsd"/>
+	<xsd:complexType name="sObrazacJOPPD">
+		<xsd:annotation>
+			<xsd:documentation>Struktura JOPPD obrasca</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="meta:Metapodaci"/>
+			<xsd:element name="StranaA" type="sStranaA"/>
+			<xsd:element name="StranaB" type="sStranaB"/>
+		</xsd:sequence>
+		<xsd:attribute name="verzijaSheme" use="required" fixed="1.0"/>
+	</xsd:complexType>
+	<xsd:complexType name="sStranaA">
+		<xsd:annotation>
+			<xsd:documentation>Strana A</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="DatumIzvjesca" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>Datum za koji se podnosi izvješće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OznakaIzvjesca" type="tOznakaIzvjesca">
+				<xsd:annotation>
+					<xsd:documentation>I. OZNAKA IZVJEŠĆA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="VrstaIzvjesca" type="tVrstaIzvjesca">
+				<xsd:annotation>
+					<xsd:documentation>II. VRSTA IZVJEŠĆA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PodnositeljIzvjesca" type="sPodnositeljIzvjesca">
+				<xsd:annotation>
+					<xsd:documentation>III.1. PODACI O PODNOSITELJU IZVJEŠĆA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ObveznikPlacanja" type="sObveznikPlacanja" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>III.2. PODACI O OBVEZNIKU PLAĆANJA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BrojOsoba" type="tBrojOsoba">
+				<xsd:annotation>
+					<xsd:documentation>IV.1. BROJ OSOBA ZA KOJE SE PODNOSI IZVJEŠĆE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BrojRedaka" type="tBrojRedaka">
+				<xsd:annotation>
+					<xsd:documentation>IV.2. BROJ REDAKA NA POPISU POJEDINAČNIH OBRAČUNA SA STRANICE B</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PredujamPoreza" type="sPredujamPoreza">
+				<xsd:annotation>
+					<xsd:documentation>V. PODACI O UKUPNOM IZNOSU OBRAČUNANOG PREDUJMA POREZA NA DOHODAK I PRIREZA POREZU NA DOHODAK</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Doprinosi" type="sDoprinosi">
+				<xsd:annotation>
+					<xsd:documentation>VI. PODACI O UKUPNOM IZNOSU OBRAČUNANOG DOPRINOSA</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsplaceniNeoporeziviPrimici" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>VII. ISPLAĆENI NEOPOREZIVI PRIMICI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KamataMO2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>VIII. NAPLAĆENA KAMATA ZA DOPRINOSE ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IzvjesceSastavio" type="sIzvjesceSastavio"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="tOznakaIzvjesca">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka izvješća</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{5}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tVrstaIzvjesca">
+		<xsd:annotation>
+			<xsd:documentation>Vrsta izvješća: 1 - izvorno, 2 - korektivno, 3 - nadopuna izvornog</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="sPodnositeljIzvjesca">
+		<xsd:annotation>
+			<xsd:documentation>Podnositelj izvješća</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+						<xsd:annotation>
+							<xsd:documentation>Ime podnositelja izvješća</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+						<xsd:annotation>
+							<xsd:documentation>Prezime podnositelja izvješća</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:element name="Naziv" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+					<xsd:annotation>
+						<xsd:documentation>Naziv podnositelja izvješća</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="Adresa" type="sAdresa"/>
+			<xsd:element name="Email" type="temeljni:tEmail"/>
+			<xsd:element name="OIB" type="temeljni:tOIB"/>
+			<xsd:element name="Oznaka" type="tOznakaPodnositelja"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sObveznikPlacanja">
+		<xsd:annotation>
+			<xsd:documentation>Obveznik plaćanja</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:sequence>
+					<xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+						<xsd:annotation>
+							<xsd:documentation>Ime obveznika plaćanja</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+						<xsd:annotation>
+							<xsd:documentation>Prezime obveznika plaćanja</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:element name="Naziv" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+					<xsd:annotation>
+						<xsd:documentation>Naziv obveznika plaćanja</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:choice>
+			<xsd:element name="Adresa" type="sAdresa"/>
+			<xsd:element name="Email" type="temeljni:tEmail"/>
+			<xsd:element name="OIB" type="temeljni:tOIB"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sIzvjesceSastavio">
+		<xsd:annotation>
+			<xsd:documentation>Sastavljač izvješća</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:annotation>
+					<xsd:documentation>Ime osobe koja je sastavila izvješće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:annotation>
+					<xsd:documentation>Prezime osobe koja je sastavila izvješće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="tBrojOsoba">
+		<xsd:annotation>
+			<xsd:documentation>Broj osoba</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:positiveInteger">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="9999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tBrojRedaka">
+		<xsd:annotation>
+			<xsd:documentation>Broj redaka</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:positiveInteger">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="9999999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="sPredujamPoreza">
+		<xsd:annotation>
+			<xsd:documentation>PODACI O UKUPNOM IZNOSU OBRAČUNANOG PREDUJMA POREZA NA DOHODAK I PRIREZA POREZU NA DOHODAK</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P1" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi nesamostalnog rada (1.1.+1.2.)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P11" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (plaća)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P12" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (mirovina)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od kapitala</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P3" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od imovinskih prava</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P4" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od osiguranja</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P5" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi primitka od kojeg se utvrđuje drugi dohodak</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sDoprinosi">
+		<xsd:annotation>
+			<xsd:documentation>Doprinosi</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="GeneracijskaSolidarnost" type="sGeneracijskaSolidarnost">
+				<xsd:annotation>
+					<xsd:documentation>VI.1. DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU GENERACIJSKE SOLIDARNOSTI</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="KapitaliziranaStednja" type="sKapitaliziranaStednja">
+				<xsd:annotation>
+					<xsd:documentation>VI.2. DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ZdravstvenoOsiguranje" type="sZdravstvenoOsiguranje">
+				<xsd:annotation>
+					<xsd:documentation>VI.3. DOPRINOS ZA ZDRAVSTVENO OSIGURANJE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Zaposljavanje" type="sZaposljavanje">
+				<xsd:annotation>
+					<xsd:documentation>VI.4. DOPRINOS ZA ZAPOŠLJAVANJE</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sGeneracijskaSolidarnost">
+		<xsd:annotation>
+			<xsd:documentation>Generacijska solidarnost</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P1" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi radnog odnosa</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi drugog dohotka</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P3" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi poduzetničke plaće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P4" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P5" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos posebnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osobe osigurane u određenim okolnostima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P6" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za staž osiguranja koji se računa s povećanim trajanjem</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sKapitaliziranaStednja">
+		<xsd:annotation>
+			<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi radnog odnosa</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P1" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi drugog dohotka</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi poduzetničke plaće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P3" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi poduzetničke plaće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P4" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P5" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za staž osiguranja koji se računa s povećanim trajanjem</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sZdravstvenoOsiguranje">
+		<xsd:annotation>
+			<xsd:documentation>Zdravstveno osiguranje</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P1" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi radnog odnosa</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi radnog odnosa</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P3" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi poduzetničke plaće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P4" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi poduzetničke plaće</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P5" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi drugog dohotka</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P6" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos posebnog doprinosa za korištenje zdravstvene zaštite u inozemstvu</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P7" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos dodatnog doprinosa za zdravstveno osiguranje – za obveznike po osnovi korisnika mirovina</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P8" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zdravstveno osiguranje - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P9" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zaštitu zdravlja na radu - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P10" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos posebnog doprinosa za zaštitu zdravlja na radu - za osobe osigurane u određenim okolnostima</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sZaposljavanje">
+		<xsd:annotation>
+			<xsd:documentation>Zapošljavanje</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P1" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos doprinosa za zapošljavanje</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="P2" type="temeljni:tDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>Ukupan iznos posebnog doprinosa za zapošljavanje osoba s invaliditetom</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sStranaB">
+		<xsd:annotation>
+			<xsd:documentation>Strana B</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Primatelji" type="sPrimatelji" maxOccurs="unbounded">
+				<xsd:unique name="JedinstvenostRednogBroja">
+					<xsd:annotation>
+						<xsd:documentation>Redni broj retka na strani B mora biti jedinstven.</xsd:documentation>
+					</xsd:annotation>
+					<xsd:selector xpath="unique:P"/>
+					<xsd:field xpath="unique:P1"/>
+				</xsd:unique>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sPrimatelji">
+		<xsd:annotation>
+			<xsd:documentation>Podaci o primateljima</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="P" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Podaci o jednom primatelju</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="P1" type="tRedniBroj">
+							<xsd:annotation>
+								<xsd:documentation>Redni broj</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P2" type="tSifraOpcineGrada">
+							<xsd:annotation>
+								<xsd:documentation>Šifra općine/grada prebivališta/boravišta</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P3" type="tSifraOpcineGrada">
+							<xsd:annotation>
+								<xsd:documentation>Šifra općine/grada rada</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P4" type="temeljni:tOIB">
+							<xsd:annotation>
+								<xsd:documentation>OIB stjecatelja/osiguranika</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P5" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+							<xsd:annotation>
+								<xsd:documentation>Ime i prezime stjecatelja/osiguranika</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P61" type="tOznakaStjecatelja">
+							<xsd:annotation>
+								<xsd:documentation>Oznaka stjecatelja/osiguranika</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P62" type="tOznakaPrimici">
+							<xsd:annotation>
+								<xsd:documentation>Oznaka primitka/obveze doprinosa</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P71" type="tOznakaMO">
+							<xsd:annotation>
+								<xsd:documentation>Obveza dodatnog doprinosa za MO za staž s povećanim trajanjem</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P72" type="tOznakaInvaliditet">
+							<xsd:annotation>
+								<xsd:documentation>Obveza posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P8" type="tOznakaMjesec">
+							<xsd:annotation>
+								<xsd:documentation>Oznaka prvog/zadnjeg mjeseca u osiguranju po istoj osnovi</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P9" type="tOznakaRadnoVrijeme">
+							<xsd:annotation>
+								<xsd:documentation>Oznaka punog/nepunog radnog vremena ili rada s polovicom radnog vremena</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P10" type="tRadniSati">
+							<xsd:annotation>
+								<xsd:documentation>Sati rada</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P101" type="xsd:date">
+							<xsd:annotation>
+								<xsd:documentation>Početak razdoblja za koje se obveza doprinosa obračunava/primitak isplaćuje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P102" type="xsd:date">
+							<xsd:annotation>
+								<xsd:documentation>Kraj razdoblja za koje se obveza doprinosa obračunava/primitak isplaćuje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P11" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>Iznos primitka (oporezivi)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P12" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>Osnovica za obračun doprinosa</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P121" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.1. Doprinos za mirovinsko osiguranje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P122" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.2. Doprinos za mirovinsko osiguranje - II STUP</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P123" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.3. Doprinos za zdravstveno osiguranje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P124" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.4. Doprinos za zaštitu zdravlja na radu</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P125" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.5. Doprinos za zapošljavanje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P126" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.6. Dodatni doprinos za mirovinsko osig. za staž osiguranja koji se računa s povećanim trajanjem</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P127" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.7. Dodatni doprinos za mirovinsko osiguranje za staž osiguranja koji se računa s povećanim trajanjem - II STUP</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P128" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.8. Poseban doprinos za korištenje zdravstvene zaštite u inozemstvu</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P129" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>12.9. Poseban doprinos za zapošljavanje osoba s invaliditetom</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P131" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>13.1. Izdatak</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P132" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>13.2. Izdatak - uplaćeni doprinos za mirovinsko osiguranje</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P133" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>13.3. Dohodak</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P134" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>13.4. Osobni odbitak</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P135" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>13.5. Porezna osnovica</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P141" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>14.1. Iznos obračunanog poreza na dohodak</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P142" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>14.2. Iznos obračunanog prireza porezu na dohodak</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P151" type="tOznakaNeoporezivogPrimitka">
+							<xsd:annotation>
+								<xsd:documentation>15.1. Oznaka neoporezivog primitka</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P152" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>15.2. Iznos neoporezivog primitka</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P161" type="tOznakaNacinaIsplate">
+							<xsd:annotation>
+								<xsd:documentation>16.1. Oznaka načina isplate</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P162" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>16.2. Iznos za isplatu</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="P17" type="temeljni:tDecimal15-2">
+							<xsd:annotation>
+								<xsd:documentation>17. Obračunani primitak od nesam. rada (plaća)</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="sAdresa">
+		<xsd:annotation>
+			<xsd:documentation>Adresa</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="Mjesto" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:annotation>
+					<xsd:documentation>Naziv mjesta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Ulica" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:annotation>
+					<xsd:documentation>Naziv ulice</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Broj" type="temeljni:tAdresaBroj">
+				<xsd:annotation>
+					<xsd:documentation>Kućni broj</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:simpleType name="tRedniBroj">
+		<xsd:annotation>
+			<xsd:documentation>Redni broj</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:long">
+			<xsd:minInclusive value="1"/>
+			<xsd:maxInclusive value="9999999999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tSifraOpcineGrada">
+		<xsd:annotation>
+			<xsd:documentation>Šifra općine/grada</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{5}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaPodnositelja">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka podnositelja izvješća</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+			<xsd:enumeration value="5"/>
+			<xsd:enumeration value="6"/>
+			<xsd:enumeration value="7"/>
+			<xsd:enumeration value="8"/>
+			<xsd:enumeration value="9"/>
+			<xsd:enumeration value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaNeoporezivogPrimitka">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka neoporezivog primitka</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="01"/>
+			<xsd:enumeration value="02"/>
+			<xsd:enumeration value="03"/>
+			<xsd:enumeration value="04"/>
+			<xsd:enumeration value="05"/>
+			<xsd:enumeration value="06"/>
+			<xsd:enumeration value="07"/>
+			<xsd:enumeration value="08"/>
+			<xsd:enumeration value="09"/>
+			<xsd:enumeration value="10"/>
+			<xsd:enumeration value="11"/>
+			<xsd:enumeration value="12"/>
+			<xsd:enumeration value="13"/>
+			<xsd:enumeration value="14"/>
+			<xsd:enumeration value="15"/>
+			<xsd:enumeration value="16"/>
+			<xsd:enumeration value="17"/>
+			<xsd:enumeration value="18"/>
+			<xsd:enumeration value="19"/>
+			<xsd:enumeration value="20"/>
+			<xsd:enumeration value="21"/>
+			<xsd:enumeration value="22"/>
+			<xsd:enumeration value="23"/>
+			<xsd:enumeration value="24"/>
+			<xsd:enumeration value="25"/>
+			<xsd:enumeration value="26"/>
+			<xsd:enumeration value="27"/>
+			<xsd:enumeration value="28"/>
+			<xsd:enumeration value="29"/>
+			<xsd:enumeration value="30"/>
+			<xsd:enumeration value="31"/>
+			<xsd:enumeration value="32"/>
+			<xsd:enumeration value="33"/>
+			<xsd:enumeration value="34"/>
+			<xsd:enumeration value="35"/>
+			<xsd:enumeration value="36"/>
+			<xsd:enumeration value="37"/>
+			<xsd:enumeration value="38"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaNacinaIsplate">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka načina isplate</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+			<xsd:enumeration value="5"/>
+			<xsd:enumeration value="6"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaStjecatelja">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka stjecatelja/osiguranika</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0000"/>
+			<xsd:enumeration value="0001"/>
+			<xsd:enumeration value="0002"/>
+			<xsd:enumeration value="0003"/>
+			<xsd:enumeration value="0004"/>
+			<xsd:enumeration value="0005"/>
+			<xsd:enumeration value="0006"/>
+			<xsd:enumeration value="0007"/>
+			<xsd:enumeration value="0008"/>
+			<xsd:enumeration value="0009"/>
+	
+			<xsd:enumeration value="0010"/>
+			<xsd:enumeration value="0011"/> 
+			       		
+			<xsd:enumeration value="0021"/>
+			<xsd:enumeration value="0022"/>
+			<xsd:enumeration value="0023"/>
+			<xsd:enumeration value="0024"/>
+			<xsd:enumeration value="0031"/>
+			<xsd:enumeration value="0032"/>
+			<xsd:enumeration value="0033"/>			
+			<xsd:enumeration value="0101"/>
+			<xsd:enumeration value="0102"/>
+			<xsd:enumeration value="0103"/>
+			<xsd:enumeration value="0104"/>
+			<xsd:enumeration value="0105"/>
+			<xsd:enumeration value="0106"/>
+			<xsd:enumeration value="0107"/>
+			<xsd:enumeration value="0108"/>
+			<xsd:enumeration value="0121"/>
+			<xsd:enumeration value="0201"/>
+			<xsd:enumeration value="1001"/>
+			<xsd:enumeration value="2001"/>
+			<xsd:enumeration value="3001"/>
+			<xsd:enumeration value="4001"/>
+			<xsd:enumeration value="4002"/>
+			<xsd:enumeration value="5001"/>
+			<xsd:enumeration value="5002"/>
+			<xsd:enumeration value="5101"/>
+			<xsd:enumeration value="5102"/>
+			<xsd:enumeration value="5103"/>
+			<xsd:enumeration value="5104"/>
+			<xsd:enumeration value="5201"/>
+			<xsd:enumeration value="5202"/>
+			<xsd:enumeration value="5203"/>
+			<xsd:enumeration value="5204"/>
+			<xsd:enumeration value="5205"/>
+			<xsd:enumeration value="5206"/>
+			<xsd:enumeration value="5207"/>
+			<xsd:enumeration value="5208"/>
+			<xsd:enumeration value="5209"/>
+			<xsd:enumeration value="5210"/>
+			<xsd:enumeration value="5211"/>
+			<xsd:enumeration value="5212"/>
+			<xsd:enumeration value="5213"/>
+			<xsd:enumeration value="5301"/>
+			<xsd:enumeration value="5302"/>
+			<xsd:enumeration value="5401"/>
+			<xsd:enumeration value="5402"/>
+			<xsd:enumeration value="5403"/>
+			<xsd:enumeration value="5501"/>
+			<xsd:enumeration value="5601"/>
+			<xsd:enumeration value="5602"/>
+			<xsd:enumeration value="5603"/>
+			<xsd:enumeration value="5604"/>
+			<xsd:enumeration value="5605"/>
+			<xsd:enumeration value="5606"/>
+			<xsd:enumeration value="5607"/>
+			<xsd:enumeration value="5608"/>
+			<xsd:enumeration value="5701"/>
+			<xsd:enumeration value="5702"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaPrimici">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka primitka/obveze doprinosa</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0000"/>
+			<xsd:enumeration value="0001"/>
+			<xsd:enumeration value="0002"/>
+			<xsd:enumeration value="0003"/>
+			<xsd:enumeration value="0004"/>
+			<xsd:enumeration value="0021"/>
+			<xsd:enumeration value="0022"/>
+			<xsd:enumeration value="0023"/>
+			<xsd:enumeration value="0024"/>
+			<xsd:enumeration value="0041"/>
+			<xsd:enumeration value="0042"/>
+			<xsd:enumeration value="0043"/>
+			<xsd:enumeration value="0044"/>
+			<xsd:enumeration value="0051"/>
+			<xsd:enumeration value="0052"/>
+			<xsd:enumeration value="0061"/>
+			<xsd:enumeration value="0062"/>
+			<xsd:enumeration value="0063"/>
+			<xsd:enumeration value="0064"/>
+			<xsd:enumeration value="0071"/>
+			<xsd:enumeration value="0081"/>
+			<xsd:enumeration value="0082"/>
+			<xsd:enumeration value="0083"/>
+			<xsd:enumeration value="0091"/>
+			<xsd:enumeration value="0101"/>
+			<xsd:enumeration value="0102"/>
+			<xsd:enumeration value="0103"/>
+			<xsd:enumeration value="0201"/>
+			<xsd:enumeration value="0202"/>
+			<xsd:enumeration value="0203"/>
+			<xsd:enumeration value="0204"/>
+			<xsd:enumeration value="0205"/>
+			<xsd:enumeration value="0206"/>
+			<xsd:enumeration value="0207"/>
+			<xsd:enumeration value="0208"/>
+			<xsd:enumeration value="0209"/>
+			<xsd:enumeration value="0210"/>
+			<xsd:enumeration value="0211"/>
+			<xsd:enumeration value="0212"/>
+			<xsd:enumeration value="0213"/>
+			<xsd:enumeration value="0214"/>
+			<xsd:enumeration value="0301"/>
+			<xsd:enumeration value="0302"/>
+			<xsd:enumeration value="0303"/>
+			<xsd:enumeration value="0321"/>
+			<xsd:enumeration value="0322"/>
+			<xsd:enumeration value="0323"/>
+			<xsd:enumeration value="0331"/>
+			<xsd:enumeration value="0332"/>
+			<xsd:enumeration value="0333"/>
+			<xsd:enumeration value="0334"/>
+			<xsd:enumeration value="0401"/>
+			<xsd:enumeration value="0402"/>
+			<xsd:enumeration value="0403"/>
+			<xsd:enumeration value="0404"/>
+			<xsd:enumeration value="0405"/>
+			<xsd:enumeration value="0406"/>
+			<xsd:enumeration value="1001"/>
+			<xsd:enumeration value="1002"/>
+			<xsd:enumeration value="1003"/>
+			<xsd:enumeration value="1004"/>
+			<xsd:enumeration value="1005"/>
+			<xsd:enumeration value="2001"/>
+			<xsd:enumeration value="3001"/>
+			<xsd:enumeration value="3002"/>
+			<xsd:enumeration value="4001"/>
+			<xsd:enumeration value="4002"/>
+			<xsd:enumeration value="4003"/>
+			<xsd:enumeration value="4004"/>
+			<xsd:enumeration value="4005"/>
+			<xsd:enumeration value="4006"/>
+			<xsd:enumeration value="4007"/>
+			<xsd:enumeration value="4008"/>
+			<xsd:enumeration value="4009"/>
+			<xsd:enumeration value="4010"/>
+			<xsd:enumeration value="4011"/>
+			<xsd:enumeration value="4012"/>
+			<xsd:enumeration value="4013"/>
+			<xsd:enumeration value="4014"/>
+			<xsd:enumeration value="4015"/>
+			<xsd:enumeration value="4016"/>
+			<xsd:enumeration value="4017"/>
+			<xsd:enumeration value="4018"/>
+			<xsd:enumeration value="4019"/>
+			<xsd:enumeration value="4020"/>
+			<xsd:enumeration value="4021"/>
+			<xsd:enumeration value="4022"/>
+			<xsd:enumeration value="4023"/>
+			<xsd:enumeration value="4024"/>
+			<xsd:enumeration value="4025"/>
+			<xsd:enumeration value="4026"/>
+			<xsd:enumeration value="4027"/>
+			<xsd:enumeration value="4028"/>
+			<xsd:enumeration value="4029"/>
+			<xsd:enumeration value="4030"/>
+			<xsd:enumeration value="4031"/>
+			<xsd:enumeration value="4032"/>
+			<xsd:enumeration value="4033"/>
+			<xsd:enumeration value="5001"/>
+			<xsd:enumeration value="5002"/>
+			<xsd:enumeration value="5003"/>
+			<xsd:enumeration value="5004"/>
+			<xsd:enumeration value="5005"/>
+			<xsd:enumeration value="5101"/>
+			<xsd:enumeration value="5102"/>
+			<xsd:enumeration value="5103"/>
+			<xsd:enumeration value="5104"/>
+			<xsd:enumeration value="5105"/>
+			<xsd:enumeration value="5106"/>
+			<xsd:enumeration value="5107"/>
+			<xsd:enumeration value="5108"/>
+			<xsd:enumeration value="5109"/>
+			<xsd:enumeration value="5110"/>
+			<xsd:enumeration value="5111"/>
+			<xsd:enumeration value="5112"/>
+			<xsd:enumeration value="5701"/>
+			<xsd:enumeration value="5702"/>
+			<xsd:enumeration value="5703"/>
+			<xsd:enumeration value="5721"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaMO">
+		<xsd:annotation>
+			<xsd:documentation>Obveza dodatnog doprinosa za MO za staž s povećanim trajanjem</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaInvaliditet">
+		<xsd:annotation>
+			<xsd:documentation>Obveza posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaMjesec">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka prvog/zadnjeg mjeseca u osiguranju po istoj osnovi</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+			<xsd:enumeration value="4"/>
+			<xsd:enumeration value="5"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznakaRadnoVrijeme">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka punog/nepunog radnog vremena ili rada s polovicom radnog vremena</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="0"/>
+			<xsd:enumeration value="1"/>
+			<xsd:enumeration value="2"/>
+			<xsd:enumeration value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznaka1">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka 1</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{1}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznaka2">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka 2</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{2}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tOznaka4">
+		<xsd:annotation>
+			<xsd:documentation>Oznaka 4</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:pattern value="[0-9]{4}"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="tRadniSati">
+		<xsd:annotation>
+			<xsd:documentation>Radni sati</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:int">
+			<xsd:minInclusive value="0"/>
+			<xsd:maxInclusive value="9999"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

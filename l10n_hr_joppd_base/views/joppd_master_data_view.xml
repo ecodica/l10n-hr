@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Applicant-->
+    <record id="l10n_hr_joppd_code_register_applicant_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_applicant_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.applicant</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view"/>
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_applicant_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_applicant_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.applicant</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view"/>
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_applicant_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_applicant_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.applicant</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view" />
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_applicant_action" model="ir.actions.act_window">
+        <field name="name">Applicants</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.applicant</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_applicant_tree_view"/>
+    </record>
+
+        <!--Acquirer-->
+    <record id="l10n_hr_joppd_code_register_acquirer_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_acquirer_form_view</field>
+        <field name="model">l10n.hr.joppd.code.register.acquirer</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view" />
+        <field name="mode">primary</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_acquirer_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_acquirer_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.acquirer</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view" />
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_acquirer_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_acquirer_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.acquirer</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view" />
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_acquirer_action" model="ir.actions.act_window">
+        <field name="name">Acquirers Of Receipt/Insured Persons</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.acquirer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_acquirer_tree_view"/>
+    </record>
+
+    <!--Receipt-->
+    <record id="l10n_hr_joppd_code_register_receipt_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_receipt_form_view</field>
+        <field name="model">l10n.hr.joppd.code.register.receipt</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view" />
+        <field name="mode">primary</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_receipt_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_receipt_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.receipt</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view" />
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_receipt_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_receipt_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.acquirer</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view" />
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_receipt_action" model="ir.actions.act_window">
+        <field name="name">Receipts/Obligations For Contributions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.receipt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_receipt_tree_view"/>
+    </record>
+
+    <!--NonTaxable Receipt-->
+    <record id="l10n_hr_joppd_code_register_nontaxable_receipt_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_nontaxable_receipt_form_view</field>
+        <field name="model">l10n.hr.joppd.code.register.nontaxable.receipt</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view" />
+        <field name="mode">primary</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_nontaxable_receipt_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_nontaxable_receipt_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.nontaxable.receipt</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view" />
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_nontaxable_receipt_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_nontaxable_receipt_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.nontaxable.receipt</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view" />
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_nontaxable_receipt_action" model="ir.actions.act_window">
+        <field name="name">Non-taxable Receipts/Receipts That Are Not Considered As Income</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.nontaxable.receipt</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_nontaxable_receipt_tree_view"/>
+    </record>
+
+    <!--Payment Method-->
+    <record id="l10n_hr_joppd_code_register_payment_method_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_payment_method_form_view</field>
+        <field name="model">l10n.hr.joppd.code.register.payment.method</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view" />
+        <field name="mode">primary</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_payment_method_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_payment_method_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.payment.method</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view" />
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_payment_method_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_payment_method_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.payment.method</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view" />
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_payment_method_action" model="ir.actions.act_window">
+        <field name="name">Payment Methods</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.payment.method</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_payment_method_tree_view"/>
+    </record>
+
+    <!--City/Municipality-->
+    <record id="l10n_hr_joppd_code_register_city_municipality_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_city_municipality_form_view</field>
+        <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_form_view"/>
+        <field name="mode">primary</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <data>
+                <field name="type" position="after">
+                    <field name="local_tax_pct"/>
+                    <field name="iban"/>
+                </field>
+            </data>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_city_municipality_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_city_municipality_search_view</field>
+        <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_search_view"/>
+        <field name="mode">primary</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_city_municipality_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_code_register_city_municipality_tree_view</field>
+        <field name="model">l10n.hr.joppd.code.register.city.municipality</field>
+        <field name="inherit_id" ref="l10n_hr_joppd_code_register_abstract_tree_view"/>
+        <field name="mode">primary</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <data/>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_code_register_city_municipality_action" model="ir.actions.act_window">
+        <field name="name">Cities/Municipalities</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.code.register.city.municipality</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_code_register_city_municipality_tree_view"/>
+    </record>
+</odoo>

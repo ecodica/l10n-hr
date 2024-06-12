@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_form_add_joppd_references" model="ir.ui.view">
+        <field name="name">view_account_form_add_joppd_references</field>
+        <field name="model">account.account</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[last()]/field[last()]" position="after">
+                <field name="l10n_hr_joppd_nontaxable_receipt_id"/>
+                <field name="l10n_hr_joppd_payment_method_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

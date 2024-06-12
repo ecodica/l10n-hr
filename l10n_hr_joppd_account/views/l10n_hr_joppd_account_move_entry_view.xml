@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_hr_joppd_account_move_entry_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_account_move_entry_form_view</field>
+        <field name="model">l10n.hr.joppd.account.move.entry</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,ready,done" statusbar_colors='{"wait":"blue", "cancel":"red"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" colspan="4" readonly="True"/>
+                            <field name="employee_id" colspan="4" readonly="state == 'done' or state == 'cancel'"/>
+                            <field name="nontaxable_receipt_id" colspan="4" readonly="state == 'done' or state == 'cancel'"/>
+                            <field name="payment_method_id" colspan="4" readonly="state == 'done' or state == 'cancel'"/>
+                            <field name="amount" readonly="True"/>
+                            <field name="company_id" widget="selection" groups="base.group_multi_company" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="move_id" readonly="True"/>
+                            <field name="move_line_id" readonly="True"/>
+                            <field name="date" readonly="True"/>
+                            <field name="date_payment" readonly="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_account_move_entry_tree_view" model="ir.ui.view">
+        <field name="name">l10n_hr_joppd_account_move_entry_tree_view</field>
+        <field name="model">l10n.hr.joppd.account.move.entry</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='wait'" decoration-danger="state=='cancel'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="date_payment"/>
+                <field name="employee_id"/>
+                <field name="amount"/>
+                <field name="state"/>
+                <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="l10n_hr_joppd_account_move_entry_action" model="ir.actions.act_window">
+        <field name="name">JOPPD General Ledger Entries</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.joppd.account.move.entry</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="l10n_hr_joppd_account_move_entry_tree_view"/>
+    </record>
+</odoo>

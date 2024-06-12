@@ -67,7 +67,7 @@ class FiskalCertificate(models.Model):
     fiskal_schema = fields.Selection(
         selection=[
             ("EDUC_v1.6", "DEMO schema v1.6"),
-            ("PROD_V1.6", "PROD Schema v1.6"),
+            ("PROD_v1.6", "PROD Schema v1.6"),
         ],
         string="Fiskalizaction schema",
         help=SCHEMA_HELP,

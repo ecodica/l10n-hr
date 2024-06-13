@@ -44,55 +44,57 @@
                                 icon="fa-download"/>
                     </div>
                     <field name="company_id" invisible="1"/>
-                    <field name="name" readonly="True"/>
+                    <field name="name" readonly="state != 'draft'"/>
                     <notebook colspan="4">
                         <page string="XML" invisible="identifier == False">
                             <field name="xml_file_name" invisible="True"/>
                             <group>
                                 <field name="identifier" readonly="1"/>
-                                <field name="xml_file" filename="xml_file_name"/>
-                                <field name="note"/>
+                                <field name="xml_file" filename="xml_file_name" readonly="state != 'draft'"/>
+                                <field name="note" readonly="state != 'draft'"/>
                             </group>
                         </page>
                         <page string="Osnovni podaci strane A">
                             <group>
                                 <group colspan="4" col="4">
-                                    <field name="date_joppd"/>
-                                    <field name="period_joppd" options="{'no_create': True, 'no_open':True}"/>
-                                    <field name="period_date_from_joppd"/>
-                                    <field name="period_date_to_joppd"/>
-                                    <field name="xml_schema"/>
-                                    <field name="oznaka"/>
-                                    <field name="vrsta"/>
-                                    <field name="podnositelj_oznaka"/>
+                                    <field name="date_joppd" readonly="state != 'draft'"/>
+                                    <field name="period_joppd" options="{'no_create': True, 'no_open':True}" readonly="state != 'draft'"/>
+                                    <field name="period_date_from_joppd" readonly="state != 'draft'"/>
+                                    <field name="period_date_to_joppd" readonly="state != 'draft'"/>
+                                    <field name="xml_schema" readonly="state != 'draft'"/>
+                                    <field name="oznaka" readonly="state != 'draft'"/>
+                                    <field name="vrsta" readonly="state != 'draft'"/>
+                                    <field name="podnositelj_oznaka" readonly="state != 'draft'"/>
                                 </group>
                                 <group colspan="4" col="4">
-                                    <field name="podnositelj_naziv" colspan="3"/>
+                                    <field name="podnositelj_naziv" colspan="3" readonly="state != 'draft'"/>
                                 </group>
                                 <group name="adresa" colspan="4" col="8">
                                     <label string="III.2 Adresa (mjesto,ulica,kbr)" for="podnositelj_mjesto"/>
                                     <field name="podnositelj_mjesto" nolabel="1" class="oe_inline"
-                                           placeholder="Mjesto..."/>
+                                           placeholder="Mjesto..." readonly="state != 'draft'"/>
                                     <field name="podnositelj_ulica" nolabel="1" class="oe_inline"
-                                           placeholder="Ulica..."/>
-                                    <field name="podnositelj_kbr" nolabel="1" class="oe_inline" placeholder="kbr..."/>
+                                           placeholder="Ulica..." readonly="state != 'draft'"/>
+                                    <field name="podnositelj_kbr" nolabel="1" class="oe_inline" placeholder="kbr..." readonly="state != 'draft'"/>
                                 </group>
                                 <group>
-                                    <field name="podnositelj_email"/>
-                                    <field name="broj_osoba"/>
+                                    <field name="podnositelj_email" readonly="state != 'draft'"/>
+                                    <field name="broj_osoba" readonly="state != 'draft'"/>
                                 </group>
                                 <group>
-                                    <field name="podnositelj_oib"/>
-                                    <field name="broj_redaka"/>
+                                    <field name="podnositelj_oib" readonly="state != 'draft'"/>
+                                    <field name="broj_redaka" readonly="state != 'draft'"/>
                                 </group>
                                 <separator string="Izvještaj sastavio:" />
-                                <field name="sastavio_id" style="width: 50%"/>
+                                <group>
+                                    <field name="sastavio_id" style="width: 50%" readonly="state != 'draft'"/>
+                                </group>
                                 <separator/>
                                 <group>
-                                    <field name="sast_ime"/>
+                                    <field name="sast_ime" readonly="state != 'draft'"/>
                                 </group>
                                 <group>
-                                    <field name="sast_prez"/>
+                                    <field name="sast_prez" readonly="state != 'draft'"/>
                                 </group>
                             </group>
                         </page>
@@ -100,7 +102,7 @@
                             <button string="Zbroji podatke sa strane B" type="object" name="button_summarize_sideA"
                                     invisible="state !='draft'" icon="fa-stack-overflow"/>
 
-                            <field name="sideA_ids" nolabel="1" colspan="4">
+                            <field name="sideA_ids" nolabel="1" colspan="4" readonly="state != 'draft'">
                                 <tree string="A" editable="bottom">
                                     <field name="joppd_id" invisible="1"/>
                                     <field name="code"/>
@@ -115,13 +117,14 @@
                                     invisible="(state != 'draft' or sideB_ids == False) or (vrsta not in ['1','5','8'])"
                                     confirm="Ova radnja će obrisati sve retke na strani B!"
                                     icon="fa-exclamation"/>
-                            <field name="sideB_ids" nolabel="1" colspan="4"/>
+                            <field name="sideB_ids" readonly="state != 'draft'" nolabel="1" colspan="4"/>
                         </page>
                         <page string="Related reports" invisible="parent_id == False or child_ids == False">
                             <group colspan="2" col="2">
                                 <field name="parent_id"/>
-                                <field name="child_ids" nolabel="1"/>
                             </group>
+                            <label for="child_ids"/>
+                            <field name="child_ids" nolabel="1"/>
                         </page>
 
                     </notebook>

@@ -229,19 +229,6 @@ class L10nHrJOPPD(models.Model):
             self.period_date_from_joppd = False
             self.period_date_to_joppd = False
 
-    @api.model
-    def get_view(self, view_id=None, view_type="form", **options):
-        """Extend to set readonly on all fields if state is not draft."""
-        result = super().get_view(view_id=view_id, view_type=view_type, **options)
-        if view_type == 'form':
-            doc = etree.XML(result['arch'])
-
-            for node in doc.xpath("//field[not(parent::tree)]"): 
-                node.set('readonly', "state != 'draft'")
-
-            result['arch'] = etree.tostring(doc)
-        return result
-
     def _numeriraj_sql(self):
         sql = {
             'select': [

@@ -1,24 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+<!--    Remove header and footer and empty space i.e. part containing address_layout variable -->
+    <template id="external_layout_standard_inherited" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
+        </xpath>
+        <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="replace">
+        </xpath>
+        <xpath expr="//div[hasclass('pt-5')]" position="replace">
+        </xpath>
+    </template>
+
+    <template id="info_partner">
+        <div class="col-8" style="background-color: #e9ecef;">
+            <div style="font-weight:bolder">
+                <strong><span t-field="o.company_id.name"/></strong>
+            </div>
+            <div>
+                <div t-field="o.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+            </div>
+            <div>
+                <span>OIB:</span>
+                <t t-if="o.company_id.partner_id.country_code=='HR'"><span t-out="o.company_id.partner_id.vat and o.partner_id.vat[2:]" style="font-weight: 200;"/></t>
+                <t t-if="o.company_id.partner_id.country_code!='HR'"><span t-field="o.company_id.partner_id.vat" style="font-weight: 200;"/></t>
+            </div>
+        </div>
+    </template>
+
+    <template id="payment_info_heading">
+        <div>
+            <table class="table table-sm table-borderless" style="vertical-align:middle;page-break-inside:avoid;">
+                <thead id="cash_reg_table1_thead">
+                    <tr style="vertical-align:middle;border-bottom: 1px solid black">
+                        <th id="th_date" class="text-start">
+                            <span>Datum:</span>
+                        </th>
+                        <th id="th_currency" class="text-end">
+                            <span>Valuta:</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="vertical-align:middle">
+                        <td id="td_date" class="text-start">
+                            <span t-out="o.date and o.date.strftime('%d.%m.%Y.')"/>
+                        </td>
+                        <td id="td_currency" class="text-end">
+                            <span t-field="o.currency_id"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <table class="table table-sm table-borderless" style="text-align:left;vertical-align:middle;page-break-inside:avoid;">
+                <thead id="cash_reg_table2_thead">
+                    <tr style="text-align:left;vertical-align:middle;border-bottom: 1px solid black">
+                        <th id="th_cash">
+                            <span>Blagajna:</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="text-align:left;vertical-align:middle">
+                        <td id="td_cash">
+                            <span t-field="o.journal_id.name"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <template id="partner_info_table">
+        <table class="table table-sm table-borderless" style="vertical-align:middle;page-break-inside:avoid;">
+            <thead id="cash_reg_table3_thead">
+                <tr style="vertical-align:middle;border-bottom: 1px solid black;background-color: #e9ecef;">
+                    <th id="th_partner" class="text-start">
+                        <span>PRIMATELJ:</span>
+                    </th>
+                    <th id="th_amount" class="text-end">
+                        <span>IZNOS:</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="vertical-align:middle">
+                    <td id="td_partner" class="text-start">
+                        <span t-field="o.partner_id.name"/>
+                    </td>
+                    <td id="td_amount" class="text-end">
+                        <span t-esc="abs(o.amount)" t-options="{'widget': 'float', 'precision': 2}"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="payment_info_table">
+        <table class="table table-sm table-borderless" style="vertical-align:middle;page-break-inside:avoid;">
+            <thead id="cash_reg_table4_thead">
+                <tr style="vertical-align:middle;border-bottom: 1px solid black;background-color: #e9ecef;">
+                    <th id="th_opis" class="text-start">
+                        <span>Svrha isplate:</span>
+                    </th>
+                    <th id="th_mjesto" class="text-end">
+                        <span>Mjesto troška:</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="vertical-align:middle">
+                    <td id="td_opis" class="text-start">
+                        <span t-field="o.payment_ref"/>
+                    </td>
+                    <td id="td_mjesto" class="text-end">
+                        <t t-set="analytic_dists" t-value="o.move_id.line_ids.mapped('analytic_distribution')"/>
+                        <t t-if="analytic_dists">
+                            <t t-set="ad" t-value="analytic_dists[0]"/>
+                            <t t-set="acc_count" t-value="1"/>
+                            <t t-foreach="ad.items()" t-as="item">
+                                <t t-set="anal_acc" t-value="env['account.analytic.account'].browse(int(item[0]))"/>
+                                <span t-field="anal_acc.name"/>
+                                <t t-if="acc_count &lt; len(ad.items())">
+                                    <span>,</span>
+                                </t>
+                                <t t-set="acc_count" t-value="acc_count+1"/>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <span></span>
+                        </t>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="footer_table">
+        <table class="table table-borderless" style="height:100px; width:100%">
+            <tr>
+                <td style="text-align:left;background-color: #e9ecef;">Blagajnik:</td>
+                <td width="30%"/>
+                <td style="text-align:left;background-color: #e9ecef;">Primio:</td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
+                <td rowspan="2" width="30%"/>
+                <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
+            </tr>
+        </table>
+    </template>
+
     <template id="report_cash_register">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.external_layout">
                     <div class="page">
-                        <div style="width: 45%;">
-                            <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo"/>
+                        <div class="row mt8 mb32">
+                            <t t-call="l10n_hr_cash_register.info_partner"/>
+                            <div class="col-4">
+                                <t t-call="l10n_hr_cash_register.payment_info_heading"/>
+                            </div>
                         </div>
-                        <div class="row mt32 mb32">
-                            <span t-field="o.company_id.name"/>
-                            <br/>
-                            <span t-field="o.company_id.partner_id.street"/>
-                            <br/>
-                            <span t-field="o.company_id.partner_id.zip"/>
-                            <span t-field="o.company_id.partner_id.city"/>
-                            <br/>
-                            <span t-field="o.company_id.partner_id.country_id.name"/>
-                        </div>
-                        <br/><br/>
 
                         <t t-if="o.amount &lt; 0">
                         <h2 class="mt32 mb32"><span>ISPLATNICA:</span> <span t-field="o.name"/></h2>
@@ -26,44 +169,16 @@
                         <t t-if="o.amount &gt; 0">
                         <h2 class="mt32 mb32"><span>UPLATNICA:</span> <span t-field="o.name"/></h2>
                         </t>
-                        <br/><br/>
 
                         <div class="row mt32 mb32">
-                            <div class="col-4">
-                                <span>PRIMATELJ: <strong t-field="o.partner_id.name"/></span>
-                            </div>
-                            <br/>
-                            <div class="col-4">
-                                <span>OPIS: <strong t-field="o.payment_ref"/></span>
-                            </div>
-                            <br/>
-                            <div class="col-4">
-                                <span>NA IZNOS:</span> <strong><span t-esc="abs(o.amount)" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/></strong>
-                            </div>
+                            <t t-call="l10n_hr_cash_register.partner_info_table"/>
                         </div>
-                        <br/><br/><br/><br/>
 
-                        <div>
-                            <span t-field="o.company_id.city"/><span>, dana </span><span t-field="o.date"/>
+                        <div class="row mt32 mb32">
+                            <t t-call="l10n_hr_cash_register.payment_info_table"/>
                         </div>
-                        <br/><br/><br/><br/>
 
-                        <div>
-                            <table class="table table-bordered" style="text-align:center; height:100px; width:100%">
-                                <tr>
-                                    <td style="text-align:center">Blagajnik</td>
-                                    <td style="text-align:center">Primatelj</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:center">__________________</td>
-                                    <td style="text-align:center">__________________</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:center"><span t-field="o.create_uid.name"/></td>
-                                    <td style="text-align:center"><span t-field="o.partner_id.name"/></td>
-                                </tr>
-                            </table>
-                        </div>
+                        <t t-call="l10n_hr_cash_register.footer_table"/>
                     </div>
                 </t>
             </t>
@@ -79,6 +194,7 @@
         <field name="print_report_name">(object.amount > 0 and 'Uplatnica - %s' %(object.payment_ref)) or 'Isplatnica - %s' % (object.payment_ref)</field>
         <field name="binding_model_id" ref="account.model_account_bank_statement_line"/>
         <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="l10n_hr_cash_register.paperformat_euro_condensed"/>
     </record>
 
 </odoo>

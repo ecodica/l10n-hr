@@ -20,6 +20,7 @@
         "bin": []
     },
     "data": [
+        "data/report_paperformat_data.xml",
         "report/cash_register_report.xml",
         "views/account_bank_statement_line_views.xml",
     ],

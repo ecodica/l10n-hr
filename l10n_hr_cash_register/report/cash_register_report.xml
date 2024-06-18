@@ -120,21 +120,20 @@
                         <span t-field="o.payment_ref"/>
                     </td>
                     <td id="td_mjesto" class="text-end">
-                        <t t-set="analytic_dists" t-value="o.move_id.line_ids.mapped('analytic_distribution')"/>
-                        <t t-if="analytic_dists">
-                            <t t-set="ad" t-value="analytic_dists[0]"/>
-                            <t t-set="acc_count" t-value="1"/>
-                            <t t-foreach="ad.items()" t-as="item">
-                                <t t-set="anal_acc" t-value="env['account.analytic.account'].browse(int(item[0]))"/>
-                                <span t-field="anal_acc.name"/>
-                                <t t-if="acc_count &lt; len(ad.items())">
-                                    <span>,</span>
+                        <t t-set="ad_tags_found" t-value="False"/>
+                        <t t-foreach="o.move_id.line_ids.mapped('analytic_distribution')" t-as="ad">
+                            <t t-if="ad and not ad_tags_found">
+                                <t t-set="acc_count" t-value="1"/>
+                                <t t-foreach="ad.items()" t-as="item">
+                                    <t t-set="anal_acc" t-value="env['account.analytic.account'].browse(int(item[0]))"/>
+                                    <span t-field="anal_acc.name"/>
+                                    <t t-if="acc_count &lt; len(ad.items())">
+                                        <span>,</span>
+                                    </t>
+                                    <t t-set="acc_count" t-value="acc_count+1"/>
                                 </t>
-                                <t t-set="acc_count" t-value="acc_count+1"/>
+                                <t t-set="ad_tags_found" t-value="True"/>
                             </t>
-                        </t>
-                        <t t-else="">
-                            <span></span>
                         </t>
                     </td>
                 </tr>

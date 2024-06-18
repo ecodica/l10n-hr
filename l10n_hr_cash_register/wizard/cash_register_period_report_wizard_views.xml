@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cash_register_period_report_wizard" model="ir.ui.view">
+            <field name="name">cash.register.period.report_wizard.view</field>
+            <field name="model">cash.register.period.report</field>
+            <field name="arch" type="xml">
+                <form string="Cash Register Period Report">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="journal_id"/>
+                            </group>
+                            <group>
+                                <field name="date_from" widget="daterange" options="{'related_end_date': 'date_to'}"/>
+                                <field name="date_to" widget="daterange" options="{'related_end_date': 'date_from'}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button name="print_period_report" type="object" string="Print" class="btn-primary" data-hotkey="q"/>
+                        <button name="cancel" special="cancel" data-hotkey="z" type="object" string="Cancel" class="btn-secondary"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="cash_register_period_report_wizard_act_window" model="ir.actions.act_window">
+            <field name="name">Cash Register Period Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cash.register.period.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cash_register_period_report_wizard" />
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_action_account_report_cash_period" name="Cash Register Period Report"
+                  action="cash_register_period_report_wizard_act_window"
+                  parent="account.account_reports_legal_statements_menu" sequence="60"/>
+    </data>
+</odoo>

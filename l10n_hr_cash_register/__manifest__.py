@@ -20,8 +20,11 @@
         "bin": []
     },
     "data": [
+        'security/ir.model.access.csv',
         "data/report_paperformat_data.xml",
         "report/cash_register_report.xml",
+        "report/cash_register_period_report.xml",
+        "wizard/cash_register_period_report_wizard_views.xml",
         "views/account_bank_statement_line_views.xml",
     ],
     "qweb": [],

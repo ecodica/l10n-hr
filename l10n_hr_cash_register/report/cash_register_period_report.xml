@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="period_info_partner">
+            <t t-set="partner_id" t-value="journal_id.company_id.partner_id"/>
+            <div class="col-8" style="background-color: #e9ecef;">
+                <div style="font-weight:bolder">
+                    <strong><span t-field="journal_id.company_id.name"/></strong>
+                </div>
+                <div>
+                    <div t-out="partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                </div>
+                <div>
+                    <span>OIB:</span>
+                    <t t-if="partner_id.country_code=='HR'"><span t-out="partner_id.vat and o.partner_id.vat[2:]" style="font-weight: 200;"/></t>
+                    <t t-if="partner_id.country_code!='HR'"><span t-field="partner_id.vat" style="font-weight: 200;"/></t>
+                </div>
+            </div>
+        </template>
+
+        <template id="period_payment_info_heading">
+            <div>
+                <table class="table table-sm table-borderless" style="vertical-align:middle;page-break-inside:avoid;">
+                    <thead id="cash_reg_table1_thead">
+                        <tr style="vertical-align:middle;border-bottom: 1px solid black">
+                            <th id="th_period" class="text-start">
+                                <span>Period:</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="vertical-align:middle">
+                            <td id="td_date" class="text-start">
+                                <span t-out="date_from"/> - <span t-out="date_to"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <table class="table table-sm table-borderless" style="text-align:left;vertical-align:middle;page-break-inside:avoid;">
+                    <thead id="cash_reg_table2_thead">
+                        <tr style="text-align:left;vertical-align:middle;border-bottom: 1px solid black">
+                            <th id="th_cash">
+                                <span>Blagajna:</span>
+                            </th>
+                             <th id="th_currency" class="text-end">
+                                <span>Valuta:</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="vertical-align:middle">
+                            <td id="td_cash" class="text-start">
+                                <span t-field="journal_id.name"/>
+                            </td>
+                            <td id="td_currency" class="text-end">
+                                <span t-field="currency_id.name"/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+
+        <template id="statement_lines_table">
+            <table class="table table-sm table-borderless" style="vertical-align:middle;page-break-inside:avoid;">
+                <thead id="statement_lines_table_thead">
+                    <tr style="vertical-align:middle;border-bottom: 1px solid black;background-color: #e9ecef;">
+                        <th id="th_datum" class="text-start">
+                            <span>Datum</span>
+                        </th>
+                        <th id="th_mjesto" class="text-center">
+                            <span>Dokument</span>
+                        </th>
+                        <th id="th_opis" class="text-start">
+                            <span>Opis</span>
+                        </th>
+                        <th/>
+                        <th id="th_uplata" class="text-center">
+                            <span>Uplata</span>
+                        </th>
+                        <th id="th_isplata" class="text-end">
+                            <span>Isplata</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="sum_uplate" t-value="0"/>
+                    <t t-set="sum_isplate" t-value="0"/>
+                    <t t-foreach="docs" t-as="line">
+                        <tr style="vertical-align:middle">
+                            <td id="td_datum" class="text-start">
+                                <span t-field="line.date"/>
+                            </td>
+                            <td id="td_dokument" class="text-center">
+                                <span t-field="line.move_id.name"/>
+                            </td>
+                            <td id="td_opis" class="text-start">
+                                <span t-field="line.payment_ref"/>
+                            </td>
+                            <td/>
+                            <td id="td_uplata" class="text-center">
+                                <span t-out="line.amount if line.amount &gt;= 0 else 0"  t-options="{'widget': 'float', 'precision': 2}"/>
+                            </td>
+                            <td id="td_isplata" class="text-center">
+                                <span t-out="abs(line.amount) if line.amount &lt;= 0 else 0"  t-options="{'widget': 'float', 'precision': 2}"/>
+                            </td>
+                        </tr>
+                        <t t-if="line.amount &gt; 0">
+                            <t t-set="sum_uplate" t-value="sum_uplate+line.amount"/>
+                        </t>
+                        <t t-elif="line.amount &lt; 0">
+                            <t t-set="sum_isplate" t-value="sum_isplate+abs(line.amount)"/>
+                        </t>
+                        <t t-else=""></t>
+                    </t>
+                </tbody>
+                <tfoot style="border-top: 1px solid black;background-color: #e9ecef;">
+                    <tr>
+                        <th colspan="3"></th>
+                        <th class="text-start">
+                            <span>Promet blagajne</span>
+                        </th>
+                        <th class="text-center">
+                            <span t-out="sum_uplate" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                        <th class="text-center">
+                            <span t-out="sum_isplate" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th class="text-start">
+                            Saldo do <span t-out="balance_before_date"/>
+                        </th>
+                        <th class="text-center">
+                            <span t-out="balance_before" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                        <th/>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th class="text-start">
+                            <span>Ukupni primitak</span>
+                        </th>
+                        <th class="text-center">
+                            <t t-set="total_debit" t-value="sum_debit_before + sum_uplate"/>
+                            <span t-out="total_debit" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                        <th/>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th class="text-start">
+                            <span>Izdatak</span>
+                        </th>
+                        <th class="text-center">
+                            <t t-set="total_credit" t-value="sum_credit_before + sum_isplate"/>
+                            <span t-out="total_credit" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                        <th/>
+                    </tr>
+                    <tr>
+                        <th colspan="3"></th>
+                        <th class="text-start">
+                            Saldo na <span t-out="date_to"/>
+                        </th>
+                        <th class="text-center">
+                            <span t-out="total_debit - total_credit" t-options="{'widget': 'float', 'precision': 2}"/>
+                        </th>
+                        <th/>
+                    </tr>
+                </tfoot>
+            </table>
+        </template>
+
+        <template id="end_signature">
+           <table class="table table-borderless" style="height:100px; width:40%;page-break-inside:avoid;">
+                <tr>
+                    <td style="text-align:left;background-color: #e9ecef;">Blagajnik:</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
+                </tr>
+            </table>
+        </template>
+
+        <template id="cash_register_period_report">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mt8 mb32">
+                            <t t-call="l10n_hr_cash_register.period_info_partner"/>
+                            <div class="col-4">
+                                <t t-call="l10n_hr_cash_register.period_payment_info_heading"/>
+                            </div>
+                        </div>
+
+                        <h2 class="mt32 mb32"><span>Blagajnički izvještaj</span></h2>
+
+                        <div class="row mt32 mb32">
+                            <t t-call="l10n_hr_cash_register.statement_lines_table"/>
+                        </div>
+
+                        <t t-call="l10n_hr_cash_register.end_signature"/>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <record id="action_period_cash_register_report" model="ir.actions.report">
+            <field name="name">Blagajnicki izvjestaj</field>
+            <field name="model">account.bank.statement.line</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">l10n_hr_cash_register.cash_register_period_report</field>
+            <field name="report_file">l10n_hr_cash_register.cash_register_period_report</field>
+            <field name="print_report_name">'Blagajnicki_izvjestaj'</field>
+            <field name="paperformat_id" ref="l10n_hr_cash_register.paperformat_euro_condensed"/>
+        </record>
+    </data>
+</odoo>

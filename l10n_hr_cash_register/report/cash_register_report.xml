@@ -5,6 +5,12 @@
         <xpath expr="//div[contains(@t-attf-class, 'header')]" position="replace">
         </xpath>
         <xpath expr="//div[contains(@t-attf-class, 'footer')]" position="replace">
+            <div t-attf-class="footer o_standard_footer">
+                <div t-if="report_type == 'pdf'" class="text-center text-muted"
+                     style="border-top: 1px solid black;">
+                    <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
         </xpath>
         <xpath expr="//div[hasclass('pt-5')]" position="replace">
         </xpath>
@@ -45,7 +51,7 @@
                             <span t-out="o.date and o.date.strftime('%d.%m.%Y.')"/>
                         </td>
                         <td id="td_currency" class="text-end">
-                            <span t-field="o.currency_id"/>
+                            <span t-field="o.currency_id.name"/>
                         </td>
                     </tr>
                 </tbody>
@@ -137,24 +143,28 @@
     </template>
 
     <template id="footer_table">
-        <table class="table table-borderless" style="height:100px; width:100%">
-            <tr>
-                <td style="text-align:left;background-color: #e9ecef;">Blagajnik:</td>
-                <td width="30%"/>
-                <td style="text-align:left;background-color: #e9ecef;">Primio:</td>
-            </tr>
-            <tr>
-                <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
-                <td rowspan="2" width="30%"/>
-                <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
-            </tr>
+        <table class="table table-borderless" style="height:100px; width:100%;page-break-inside:avoid;">
+            <tbody>
+                <tr>
+                    <td style="text-align:left;background-color: #e9ecef;">Blagajnik:</td>
+                    <td width="30%"/>
+                    <td style="text-align:left;background-color: #e9ecef;">Primio:</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
+                    <td rowspan="2" width="30%"/>
+                    <td rowspan="2" style="text-align:center;background-color: #e9ecef;"/>
+                </tr>
+            </tbody>
         </table>
     </template>
 
     <template id="report_cash_register">
         <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="web.external_layout">
+            <t t-call="web.external_layout">
+                <t t-set="doc_count" t-value="0"/>
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="doc_count" t-value="doc_count+1"/>
                     <div class="page">
                         <div class="row mt8 mb32">
                             <t t-call="l10n_hr_cash_register.info_partner"/>
@@ -179,6 +189,11 @@
                         </div>
 
                         <t t-call="l10n_hr_cash_register.footer_table"/>
+
+                        <!-- Add Separator line if not last doc-->
+                        <t t-if="doc_count &lt; len(docs)">
+                            <hr style="border: 1px solid black; margin: 20px 0;"/>
+                        </t>
                     </div>
                 </t>
             </t>

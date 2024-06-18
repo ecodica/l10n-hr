@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     <span>OIB:</span>
-                    <t t-if="partner_id.country_code=='HR'"><span t-out="partner_id.vat and o.partner_id.vat[2:]" style="font-weight: 200;"/></t>
+                    <t t-if="partner_id.country_code=='HR'"><span t-out="partner_id.vat and partner_id.vat[2:]" style="font-weight: 200;"/></t>
                     <t t-if="partner_id.country_code!='HR'"><span t-field="partner_id.vat" style="font-weight: 200;"/></t>
                 </div>
             </div>

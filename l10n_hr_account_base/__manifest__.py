@@ -3,7 +3,7 @@
     "summary": "Croatia accounting localisation",
     "category": "Accounting/Localizations/Croatia",
     "images": [],
-    "version": "16.0.0.0.1",
+    "version": "16.0.1.0.1",
     "application": False,
     "author": "Daj Mi 5, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -12,6 +12,7 @@
     "depends": [
         "account",
         "base_vat",
+        "base_base",
         "base_iban",
         "l10n_hr_base",
     ],

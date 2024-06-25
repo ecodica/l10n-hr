@@ -31,7 +31,7 @@ class AccountPaymentOrder(models.Model):
     def generate_payment_file(self):  # noqa: C901
         """Creates the SEPA Credit Transfer file. That's the important code!"""
         self.ensure_one()
-        if self.payment_method_id.code.startswith('sepa_credit_transfer_hr'):
+        if not self.payment_method_id.code.startswith('sepa_credit_transfer_hr'):
             return super().generate_payment_file()
         pain_flavor = self.payment_method_id.pain_version
         # We use pain_flavor.startswith('pain.001.001.xx')

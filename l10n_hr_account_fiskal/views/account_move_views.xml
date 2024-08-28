@@ -13,7 +13,7 @@
                     string="Fiskaliziraj"
                     type="object"
                     name="button_fiskaliziraj"
-                    attrs="{'invisible':[('l10n_hr_fiskalni_broj', '=', False)]}"
+                    attrs="{'invisible':['|', ('l10n_hr_fiskalni_broj', '=', False), ('l10n_hr_nacin_placanja', '=', 'T')]}"
                 />
             </field>
             <group name="l10n_hr_base_fiskal" position="after">

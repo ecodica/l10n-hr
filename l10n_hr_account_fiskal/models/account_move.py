@@ -50,6 +50,6 @@ class AccountMove(models.Model):
                 )
                 % self.journal_id.display_name
             )
-        if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
+        if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and self.l10n_hr_nacin_placanja != 'T':
             self.fiskaliziraj()
         return res

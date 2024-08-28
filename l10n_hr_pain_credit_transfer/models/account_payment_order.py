@@ -155,7 +155,7 @@ class AccountPaymentOrder(models.Model):
                 )
                 instruction_identification.text = self._prepare_field(
                     "Instruction Identification",
-                    "line.name",
+                    "'/'.join(line.payment_line_ids.mapped('name'))",
                     {"line": line},
                     35,
                     gen_args=gen_args,

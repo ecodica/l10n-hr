@@ -11,7 +11,7 @@ class AccountMove(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Date when the document was actually created. "
-        "Leave blank for current date",
+             "Leave blank for current date",
     )
     l10n_hr_date_delivery = (
         fields.Date(  # to avoid possible name conflict in delivery module!
@@ -20,7 +20,7 @@ class AccountMove(models.Model):
             readonly=True,
             states={"draft": [("readonly", False)]},
             help="Date of delivery of goods or service. "
-            "Leave blank for current date",
+                 "Leave blank for current date",
         )
     )
     l10n_hr_vrijeme_izdavanja = fields.Char(
@@ -37,7 +37,7 @@ class AccountMove(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="Required fiscal number, generated according to "
-        "regulations regardless of journal number",
+             "regulations regardless of journal number",
     )
     # i za ulazne račune se ovdje moze upisati
     l10n_hr_nacin_placanja = fields.Selection(
@@ -47,9 +47,9 @@ class AccountMove(models.Model):
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="According to Fiscalization Law and regulative "
-        "there is 5 possible options: T, G, K, C, O\n"
-        "T - Transaction bank account, is applicable without fiskalisation\n"
-        " and for other options needed please install fiscalisation extension module",
+             "there is 5 possible options: T, G, K, C, O\n"
+             "T - Transaction bank account, is applicable without fiskalisation\n"
+             " and for other options needed please install fiscalisation extension module",
     )
 
     l10n_hr_fiskal_uredjaj_id = fields.Many2one(
@@ -66,8 +66,8 @@ class AccountMove(models.Model):
     )
     l10n_hr_fiskal_uredjaj_visible = fields.Boolean(
         help="Technical field to show device selection"
-        " only if there is something to select"
-        " like 2 or more devices for this journal",
+             " only if there is something to select"
+             " like 2 or more devices for this journal",
     )
 
     @api.depends(
@@ -91,10 +91,11 @@ class AccountMove(models.Model):
 
         def add_minus(s):
             return "- " + s
+
         for move in self:
             if (
-                move.move_type == "out_refund"
-                and self.company_id.account_fiscal_country_id.code == "HR"
+                    move.move_type == "out_refund"
+                    and self.company_id.account_fiscal_country_id.code == "HR"
             ):
                 totals = move.tax_totals
                 totals["formatted_amount_total"] = add_minus(
@@ -143,7 +144,7 @@ class AccountMove(models.Model):
         prostor = self.l10n_hr_fiskal_uredjaj_id.prostor_id
         uredjaj = self.l10n_hr_fiskal_uredjaj_id
         sequence = (
-            prostor.sljed_racuna == "P" and prostor.sequence_id or uredjaj.sequence_id
+                prostor.sljed_racuna == "P" and prostor.sequence_id or uredjaj.sequence_id
         )
         broj = sequence._next(sequence_date=self.date)
         if broj.endswith("__"):
@@ -212,4 +213,11 @@ class AccountMove(models.Model):
             self.journal_id = self.partner_id.purchase_journal_id
         elif self.partner_id and self.is_inbound(include_receipts=True):
             self.journal_id = self.partner_id.sale_journal_id
+        return res
+
+    @api.onchange('journal_id')
+    def _onchange_journal_id(self):
+        res = super()._onchange_journal_id()
+        if self.journal_id.l10n_hr_default_nacin_placanja:
+            self.l10n_hr_nacin_placanja = self.journal_id.l10n_hr_default_nacin_placanja
         return res

@@ -22,28 +22,34 @@ class FiscalFiscalMixin(models.AbstractModel):
     _name = "l10n.hr.fiskal.mixin"
     _description = "Croatia Fiscalisation base mixin"
 
-    def _generate_fiskal_qr_code(self):
+    def generate_fiskal_url(self):
+        """ Generate URL for fiscalisation """
         self.ensure_one()
-        data = "https://porezna.gov.hr/rn?"
+        url = "https://porezna.gov.hr/rn?"
         if self.l10n_hr_jir:
-            data += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
+            url += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
         else:
             # ispis prije poslane fiskalne poruke ili je poslana poruka
             # imala neku gresku pa JIR nije dodjeljen
-            data += "zki=" + self.l10n_hr_zki
+            url += "zki=" + self.l10n_hr_zki
         datum = datetime.strptime(
             self.l10n_hr_vrijeme_izdavanja, "%d.%m.%Y %H:%M"
         ).strftime("%Y%m%d_%H%M")
-        data += "&datv=" + datum
+        url += "&datv=" + datum
         iznos = "&izn=%.2f" % self.amount_total
-        data += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        url += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        return url
+
+    def _generate_fiskal_qr_code(self):
+        self.ensure_one()
+        url = self.generate_fiskal_url()
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
             border=1,
         )
-        qr.add_data(data)
+        qr.add_data(url)
         qr.make(fit=True)
         try:
             img = qr.make_image(fill_color="black", back_color="white")

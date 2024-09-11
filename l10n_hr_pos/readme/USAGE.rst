@@ -1,1 +1,0 @@
-When an Invoice is created from PoS, then fiskal device will be automatically added.

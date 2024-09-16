@@ -6,3 +6,5 @@ from . import res_company
 from . import fiskal_mixin
 from . import account_move
 from . import fiskal_data
+from . import pnp_category
+from . import product

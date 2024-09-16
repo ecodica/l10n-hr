@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="pnp_category_tree_view" model="ir.ui.view">
+        <field name="name">pnp_category_tree_view</field>
+        <field name="model">l10n.hr.pnp.category</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="pnp_category_form_view" model="ir.ui.view">
+        <field name="name">pnp_category_form_view</field>
+        <field name="model">l10n.hr.pnp.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pnp_category" model="ir.actions.act_window">
+        <field name="name">PNP Categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n.hr.pnp.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="action_pnp_category_menu"
+        action="action_pnp_category"
+        parent="stock.menu_product_in_config_stock"
+        sequence="99"
+    />
+</odoo>

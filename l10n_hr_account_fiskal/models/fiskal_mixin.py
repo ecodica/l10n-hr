@@ -73,8 +73,9 @@ class FiscalFiscalMixin(models.AbstractModel):
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
     l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
     l10n_hr_fiskal_user_id = fields.Many2one(
-        comodel_name="res.users",
+        comodel_name="res.partner",
         string="Fiscal user",
+        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
         help="User who sent the fiscalisation message to FINA."
         " Can be different from responsible person on invoice.",
     )
@@ -106,6 +107,12 @@ class FiscalFiscalMixin(models.AbstractModel):
         help="Binary field visible in the interface",
     )
 
+    def _get_l10n_hr_fiskal_user_id_domain(self):
+        """"Build domain to filter only internal partners."""
+        internal_users = self.env.ref('base.group_user')
+        domain = [('user_ids', 'in', internal_users.users.ids)]
+        return domain
+
     def _l10n_hr_post_fiskal_check(self):
         res = []
 
@@ -118,7 +125,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.l10n_hr_fiskal_user_id.partner_id.vat
+            and not self.l10n_hr_fiskal_user_id.vat
         ):
             res.append(
                 _("User OIB is not not entered! It is required for fiscalisation")
@@ -284,7 +291,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # Naknade=ws_naknade,
             IznosUkupno=fiskal.format_decimal(self.amount_total),
             NacinPlac=self.l10n_hr_nacin_placanja,
-            OibOper=self.l10n_hr_fiskal_user_id.partner_id.vat[2:],
+            OibOper=self.l10n_hr_fiskal_user_id.vat[2:],
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,
             ParagonBrRac=self.l10n_hr_paragon_br or None,
@@ -319,7 +326,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # MUST USE CURRENT user for fiscalization!
             # Except in case of paragon račun? or naknadna dostava?
             # but then it should be manualy entered already!
-            self.l10n_hr_fiskal_user_id = self._uid
+            self.l10n_hr_fiskal_user_id = self.invoice_user_id.partner_id.id
 
         errors = self._l10n_hr_post_fiskal_check()
         if errors:

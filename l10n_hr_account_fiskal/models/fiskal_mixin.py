@@ -22,28 +22,34 @@ class FiscalFiscalMixin(models.AbstractModel):
     _name = "l10n.hr.fiskal.mixin"
     _description = "Croatia Fiscalisation base mixin"
 
-    def _generate_fiskal_qr_code(self):
+    def generate_fiskal_url(self):
+        """ Generate URL for fiscalisation """
         self.ensure_one()
-        data = "https://porezna.gov.hr/rn?"
+        url = "https://porezna.gov.hr/rn?"
         if self.l10n_hr_jir:
-            data += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
+            url += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
         else:
             # ispis prije poslane fiskalne poruke ili je poslana poruka
             # imala neku gresku pa JIR nije dodjeljen
-            data += "zki=" + self.l10n_hr_zki
+            url += "zki=" + self.l10n_hr_zki
         datum = datetime.strptime(
             self.l10n_hr_vrijeme_izdavanja, "%d.%m.%Y %H:%M"
         ).strftime("%Y%m%d_%H%M")
-        data += "&datv=" + datum
+        url += "&datv=" + datum
         iznos = "&izn=%.2f" % self.amount_total
-        data += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        url += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        return url
+
+    def _generate_fiskal_qr_code(self):
+        self.ensure_one()
+        url = self.generate_fiskal_url()
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
             box_size=10,
             border=1,
         )
-        qr.add_data(data)
+        qr.add_data(url)
         qr.make(fit=True)
         try:
             img = qr.make_image(fill_color="black", back_color="white")
@@ -108,7 +114,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             and not self.company_id.partner_id.vat
         ):
             res.append(
-                _("Comapny OIB is not not entered! It is required for fiscalisation")
+                _("Company OIB is not not entered! It is required for fiscalisation")
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
@@ -117,10 +123,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             res.append(
                 _("User OIB is not not entered! It is required for fiscalisation")
             )
-        if (
-            self.l10n_hr_nacin_placanja != "T"
-            and not self.company_id.l10n_hr_fiskal_cert_id
-        ):
+        if (not self.company_id.l10n_hr_fiskal_cert_id):
             res.append(
                 _(
                     "No fiscal certificate found, please install one "
@@ -128,6 +131,15 @@ class FiscalFiscalMixin(models.AbstractModel):
                 )
             )
         return res
+
+    def _l10n_hr_fiscalization_needed(self):
+        """"Check if invoice should be fiscalized"""
+        if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and (
+            not self.company_id.l10n_hr_fiskal_transaction_type_skip or
+            self.l10n_hr_nacin_placanja != "T"
+        ):
+            return True
+        return False
 
     def _get_fisk_tax_values(self):
         tax_data = {
@@ -284,11 +296,17 @@ class FiscalFiscalMixin(models.AbstractModel):
         )
         return racun
 
-    def fiskaliziraj(self, msg_type="racuni"):
+    def fiskaliziraj(self, msg_type="racuni", delay_fiscalization=False):
         """
         Fiskalizira jedan izlazni racun ili point of sale račun
         msg_type : Racun,
+        delay_fiscalization : odgodi poziv servisa za fiskalizaciju (generira se samo ZKI broj),
         """
+
+        # exit if fiscalization is not needed for invoice
+        if not self._l10n_hr_fiscalization_needed():
+            return
+
         if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30:
             # existing in shema 1.4 not in 1.5!
             if msg_type != "provjera":
@@ -341,8 +359,23 @@ class FiscalFiscalMixin(models.AbstractModel):
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             service_proxy = fisk.client.service.racuni
-            response = fisk._call_service(service_proxy, req_kw)
-        self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
-        if hasattr(response, "Jir"):
-            if not self.l10n_hr_jir:
-                self.l10n_hr_jir = response.Jir
+            response = None
+            # NOTE: skip calling FINA fisc service
+            if delay_fiscalization:
+                self.company_id.create_fiskal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
+                return
+            # NOTE: call FINA fisc service
+            try:
+                response = fisk._call_service(service_proxy, req_kw)
+                self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
+                if hasattr(response, "Jir"):
+                    if not self.l10n_hr_jir:
+                        self.l10n_hr_jir = response.Jir
+            except Exception as e:
+                # NOTE: handle cases when response is not received from FINA
+                if not response:
+                    response = {'error_message': e.args [0]}
+                # log error
+                self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
+                if not self.company_id.l10n_hr_fiskal_silent_error_logging:
+                    raise ValidationError(_("Fiscalization Error:\n %s") % e)

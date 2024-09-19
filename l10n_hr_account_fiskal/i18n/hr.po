@@ -76,6 +76,11 @@ msgid "Active"
 msgstr "Aktivan"
 
 #. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_cancel_confirmed_invoice
+msgid "Allow users to cancel fiscalized invoiced"
+msgstr "Omogući korisnicima otkazivanje i vraćanje u nacrt već fiskaliziranih računa"
+
+#. module: l10n_hr_account_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.view_l10n_hr_fiskal_certificate_form
 msgid "Approve"
 msgstr "Odobri"
@@ -98,6 +103,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.view_l10n_hr_fiskal_certificate_form
 msgid "Cancel"
 msgstr "Otkaži"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_cancel_confirmed_invoice
+msgid "Cancel Fiscalized Invoices"
+msgstr "Otkaži fiskaliziran račun"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/account_move.py:0
+#, python-format
+msgid ""
+"Canceling or returning fiscalized invoiced in draft is disabled.\n"
+"                    If necessary, enable this feature on company."
+msgstr "Otkazivanje i vraćanje fiskaliziran računa je onemogućeno.\n"
+"                    Ako je potrebno, može se omogućiti na postavkama tvrtke."
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_certificate__state__cancel
@@ -303,6 +323,42 @@ msgstr "Fiskalizacija računa za prateći dokument"
 
 #. module: l10n_hr_account_fiskal
 #. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/res_company.py:0
+#: code:addons/l10n_hr_account_fiskal/models/res_company.py:0
+#, python-format
+msgid "Fiscalization Delayed"
+msgstr "Odgoda fiskalizacije"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"Fiscalization Error:\n"
+" %s"
+msgstr ""
+"Greška fiskalizacije:\n"
+" %s"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/res_company.py:0
+#, python-format
+msgid "Fiscalization Failed"
+msgstr "Neuspješna fiskalizacija"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_on_confirm
+msgid "Fiscalize Invoice On Confirmation"
+msgstr "Fiskaliziraj račun kod potvrđianja"
+
+#. module: l10n_hr_account_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
+msgid "Fiscalized"
+msgstr "Fiskaliziran"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
 #: code:addons/l10n_hr_account_fiskal/models/account_move.py:0
 #, python-format
 msgid ""
@@ -403,6 +459,17 @@ msgstr ""
 " biti unešeno PRIJE potvrđivanja računa."
 
 #. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_silent_error_logging
+msgid ""
+"If true and if the fiscalization process has failed, then users won't get a "
+"warning about it,            but the issue will be logged in fiscalitation "
+"logs."
+msgstr ""
+"Ako je označeno, tada u slučaju neuspješne fiskalizacije korisniku neće biti javljena greška "
+"o greški fiskalizacije već će greška biti zapisana u logu "
+"fiskalizacije."
+
+#. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_taxative
 msgid "In taxation system"
 msgstr "U sustavu PDVa"
@@ -415,7 +482,11 @@ msgstr "Račun"
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_log__type__racuni
 msgid "Invoice fiscalisation"
-msgstr "Fiskalizacija računa"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_on_confirm
+msgid "Invoices will be fiscalized on confirmation"
+msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_account_bank_statement_line__l10n_hr_jir
@@ -531,7 +602,11 @@ msgstr "Ne nakon"
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__not_before
 msgid "Not Before"
-msgstr "Ne prije"
+
+#. module: l10n_hr_account_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
+msgid "Not Fiscalized"
+msgstr "Nije fiskaliziran"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,help:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_spec
@@ -680,6 +755,16 @@ msgid "Sent message"
 msgstr "Poslana poruka"
 
 #. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_silent_error_logging
+msgid "Silent Error Logging"
+msgstr "Tiho logiranje greški"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_transaction_type_skip
+msgid "Skip Bank Transfer Fiscalization"
+msgstr "Ne fiskaliziraj transakcijske račune"
+
+#. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_spec
 msgid "Special"
 msgstr "Specijalno"
@@ -747,3 +832,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_zki
 msgid "ZKI"
 msgstr ""
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/account_move.py:0
+#, python-format
+msgid ""
+"ZKI number is not set on invoice that should be fiscalized.\n"
+"                    Check if fiscalization is properly configured."
+msgstr "ZKI broj nije postavljen na računu koji se fiskalizira.\n"
+"                    Provjerite da li je fiskalizacija ispravno postavljena."

@@ -40,6 +40,29 @@ Configuration
     Users confirming the invoices, must have OIB entered (enter VAT with HR prefix!)
     It is legaly required part of fiskal message and needs to be entered.
 
+6. Fiscalize Invoice On Confirmation
+
+    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Fiscalize Invoice On Confirmation
+    If checked, then the fiscalization service is called upon invoice confirmation. Uncheck if fiscalization should
+    be called manually or with some other function/process (with CRON jobs, for example).
+
+7. Cancel Fiscalized Invoices
+
+    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Cancel Fiscalized Invoices
+    If unchecked, then users cannot cancel posted invoices or return them to draft.
+
+8. Skip Bank Transfer Fiscalization
+
+    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Skip Bank Transfer Fiscalization
+    If checked, then invoices with Bank Transfer type are not fiscalized (they won't get ZKI and JIR numbers).
+
+9. Fiscalizaion Error Logging
+
+    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Silent Error Logging
+    If checked, then Fiscalization errors are not raised, but they are written in the fiscalization log on the invoice.
+    The purpose of this feature is to enable Users to create Invoices even if fiscalization doesn't work for some reason
+    (for example, if users have Internet connection issues).
+
 
 Usage
 =====

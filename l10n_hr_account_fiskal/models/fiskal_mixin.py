@@ -7,6 +7,7 @@ import qrcode
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
 
 from ..fiskal import fiskal
 
@@ -157,56 +158,48 @@ class FiscalFiscalMixin(models.AbstractModel):
         }
         iznos_oslob_pdv, iznos_ne_podl_opor, iznos_marza = 0.00, 0.00, 0.00
 
-        base_lines = self.invoice_line_ids.filtered(
-            lambda line: line.display_type == "product"
-        )
-        base_line_values_list = [
-            line._convert_to_tax_base_line_dict() for line in base_lines
-        ]
+        for tax_line in self.line_ids.filtered(lambda l: l.display_type == 'tax'):
+            if not tax_line.tax_line_id.l10n_hr_fiskal_type:
+                raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
+            fiskal_type = tax_line.tax_line_id.l10n_hr_fiskal_type
+            stopa = tax_line.tax_line_id.amount
+            osnovica = tax_line.tax_base_amount
+            iznos = tax_line.balance * (-1) # NOTE: tax amounts should be on credit side so balance will be negative
+            if fiskal_type in ['Pdv', 'Pnp']:
+                if not tax_data[fiskal_type].get(stopa):
+                    tax_data[fiskal_type][stopa] = {'Osnovica': osnovica, 'Iznos': 0.0}
+                tax_data[fiskal_type][stopa]['Iznos'] += iznos
+            elif fiskal_type == "OstaliPor":
+                tax_data["OstaliPor"].append({
+                    "Naziv": tax_line.tax_line_id.name,
+                    "Stopa": stopa,
+                    "Osnovica": osnovica,
+                    "Iznos": iznos,
+                })
 
-        for line in base_line_values_list:
-            for tax in line["taxes"]:
-                # TODO: taxex with 0 percent have no tax line !!!
-                # for now, let's assume we have tax lines with amount zero!
+            elif fiskal_type == "Naknade":
+                tax_data["Naknade"].append({"NazivN": tax_line.tax_line_id.name, "IznosN": iznos})
+
+        # NOTE: Stavke oslobodjene od poreza, Odoo ne kreira stavke temeljnice ako je stop 0.0
+        # TODO: provjeriti kako slati stavke sa stopom 0 i da li ima takvih slucajeva u praksi
+        for line in self.line_ids.filtered(
+            lambda line: line.display_type == "product"
+        ):
+            for tax in line.tax_ids:
                 if not tax.l10n_hr_fiskal_type:
                     raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
                 fiskal_type = tax.l10n_hr_fiskal_type
-                naziv = tax.name
-                stopa = tax.amount  # if amount type == percent??
-                osnovica = line["price_subtotal"]
-                if stopa != 0.0:
-                    iznos = osnovica * 100 / stopa
-
-                if fiskal_type == "Pdv":
-                    if tax_data["Pdv"].get(stopa):
-                        tax_data["Pdv"][stopa]["Osnovica"] += osnovica
-                        tax_data["Pdv"][stopa]["Iznos"] += iznos
-                    else:
-                        tax_data["Pdv"][stopa] = {"Osnovica": osnovica, "Iznos": iznos}
-                elif fiskal_type == "Pnp":
-                    if tax_data["Pnp"].get(stopa):
-                        tax_data["Pnp"][stopa]["Osnovica"] += osnovica
-                        tax_data["Pnp"][stopa]["Iznos"] += iznos
-                    else:
-                        tax_data["Pnp"][stopa] = {"Osnovica": osnovica, "Iznos": iznos}
-                elif fiskal_type == "OstaliPor":
-                    tax_data["OstaliPor"].append(
-                        {
-                            "Naziv": naziv,
-                            "Stopa": stopa,
-                            "Osnovica": osnovica,
-                            "Iznos": iznos,
-                        }
-                    )
-                elif fiskal_type == "Naknade":
-                    tax_data["Naknade"].append({"NazivN": naziv, "IznosN": iznos})
-                elif fiskal_type == "oslobodenje":
+                osnovica = line.balance * (-1) # TODO verify if this logic is valid to get invoice and refund amounts
+                if fiskal_type not in ['oslobodenje', 'ne_podlijeze', 'marza']:
+                    continue
+                if fiskal_type == "oslobodenje":
                     iznos_oslob_pdv += osnovica
                 elif fiskal_type == "ne_podlijeze":
                     iznos_ne_podl_opor += osnovica
                 elif fiskal_type == "marza":
                     iznos_marza += osnovica
 
+        # TODO: ovi porezi se ne salju, potrebno ih je ukljuciti ako ih ima
         if iznos_oslob_pdv:
             tax_data["IznosOslobPdv"] = fiskal.format_decimal(iznos_oslob_pdv)
         if iznos_ne_podl_opor:
@@ -236,7 +229,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             _pnp = tax_data["Pnp"][pnp]
             porez = factory.type_factory.PorezType(
                 Stopa=fiskal.format_decimal(pnp),
-                Osnovice=fiskal.format_decimal(_pnp["Osnovica"]),
+                Osnovica=fiskal.format_decimal(_pnp["Osnovica"]),
                 Iznos=fiskal.format_decimal(_pnp["Iznos"]),
             )
             res["Pnp"].append(porez)
@@ -261,6 +254,12 @@ class FiscalFiscalMixin(models.AbstractModel):
             res["Naknade"].append(naknada)
         return res
 
+    def _prepare_fisk_racun_invoice_total(self):
+        """"Get total invoice amount"""
+        inv_payment_term_lines = self.line_ids.filtered(lambda l: l.display_type == "payment_term")
+        amount_total = inv_payment_term_lines and sum(il.balance for il in inv_payment_term_lines) or 0.0
+        return fiskal.format_decimal(amount_total)
+
     def _prepare_fisk_racun(self, factory, fiskal_data):
         porezi = self._prepare_fisk_racun_taxes(factory)
         BrRac = factory.type_factory.BrojRacunaType(
@@ -272,7 +271,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         if porezi.get("Pdv", None):
             pdv = factory.type_factory.PdvType(Porez=porezi["Pdv"])
         if porezi.get("Pnp", None):
-            pnp = factory.type_factory.PnpType(Porez=porezi["Pnp"])
+            pnp = factory.type_factory.PorezNaPotrosnjuType(Porez=porezi["Pnp"])
         oib_company = self.company_id.partner_id.vat[2:]
         if self.company_id.l10n_hr_fiskal_cert_id.cert_type == "demo":
             # demo cert na tudjoj bazi... onda ide oib iz certa
@@ -285,11 +284,11 @@ class FiscalFiscalMixin(models.AbstractModel):
             BrRac=BrRac,
             Pdv=pdv,
             Pnp=pnp,
-            IznosOslobPdv=porezi.get("PdvIznosOslobPdv", None),
+            IznosOslobPdv=porezi.get("IznosOslobPdv", None),
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
             # Naknade=ws_naknade,
-            IznosUkupno=fiskal.format_decimal(self.amount_total),
+            IznosUkupno=self._prepare_fisk_racun_invoice_total(),
             NacinPlac=self.l10n_hr_nacin_placanja,
             OibOper=self.l10n_hr_fiskal_user_id.vat[2:],
             ZastKod=self.l10n_hr_zki,
@@ -302,6 +301,23 @@ class FiscalFiscalMixin(models.AbstractModel):
             SpecNamj=None,
         )
         return racun
+
+    def _validate_fisk_racun(self, racun):
+        """Provjeri ispravnost generiranog fisk racuna prije slanja"""
+        # NOTE: jednostavna provjera da li su iznosi poreza na fisk računu + osnovica odoo računa
+        # jednaki ukupnom iznosu na fisk računu
+        pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
+        pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
+        # NOTE: ako je ukupni iznos računa negativan tada je negativna i osnovica računa
+        amount_untaxed = (
+            round(float(racun.IznosUkupno),self.currency_id.decimal_places) < 0 and
+            self.amount_untaxed * (-1) or
+            self.amount_untaxed)
+        if float_compare(
+            (amount_untaxed + pdv_iznos + pnp_iznos),
+            float(racun.IznosUkupno),
+            precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Ukupni iznos računa ne odgovara sumi osnovice računa i iznosima poreza'))
 
     def fiskaliziraj(self, msg_type="racuni", delay_fiscalization=False):
         """
@@ -363,6 +379,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
         if msg_type in ["racuni", "provjera"]:
             racun = self._prepare_fisk_racun(factory=fisk, fiskal_data=fiskal_data)
+            self._validate_fisk_racun(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             service_proxy = fisk.client.service.racuni

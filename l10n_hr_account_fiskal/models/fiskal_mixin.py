@@ -163,8 +163,13 @@ class FiscalFiscalMixin(models.AbstractModel):
                 raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
             fiskal_type = tax_line.tax_line_id.l10n_hr_fiskal_type
             stopa = tax_line.tax_line_id.amount
+            # NOTE: osnovica and iznos should be on credit side so balance will be negative
             osnovica = tax_line.tax_base_amount
-            iznos = tax_line.balance * (-1) # NOTE: tax amounts should be on credit side so balance will be negative
+            iznos = tax_line.balance * (-1)
+            # if amount is negative then base amount is also negative
+            if round(iznos, self.currency_id.decimal_places) < 0:
+                osnovica = osnovica * (-1)
+
             if fiskal_type in ['Pdv', 'Pnp']:
                 if not tax_data[fiskal_type].get(stopa):
                     tax_data[fiskal_type][stopa] = {'Osnovica': osnovica, 'Iznos': 0.0}
@@ -304,8 +309,7 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _validate_fisk_racun(self, racun):
         """Provjeri ispravnost generiranog fisk racuna prije slanja"""
-        # NOTE: jednostavna provjera da li su iznosi poreza na fisk računu + osnovica odoo računa
-        # jednaki ukupnom iznosu na fisk računu
+        racun_osnovica = racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0
         pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
         pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
         # NOTE: ako je ukupni iznos računa negativan tada je negativna i osnovica računa
@@ -313,11 +317,17 @@ class FiscalFiscalMixin(models.AbstractModel):
             round(float(racun.IznosUkupno),self.currency_id.decimal_places) < 0 and
             self.amount_untaxed * (-1) or
             self.amount_untaxed)
+        # NOTE: provjera da li je osnovica na Odoo računu isto osnovici koju fiskaliziramo
+        # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
+        # TODO: za sada nisu podržani dodani porezi, naknade, ...
+        if float_compare(racun_osnovica, amount_untaxed, precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Osnovica na fisk računu se razlikuje od osnovice na Odoo računu'))
+        # NOTE: provjera da li suma osnovice i poreza sa fisk računa odgovara ukupno iznosu odoo računa
         if float_compare(
-            (amount_untaxed + pdv_iznos + pnp_iznos),
+            (racun_osnovica + pdv_iznos + pnp_iznos),
             float(racun.IznosUkupno),
             precision_digits=self.currency_id.decimal_places):
-            raise ValidationError(_('Ukupni iznos računa ne odgovara sumi osnovice računa i iznosima poreza'))
+            raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
     def fiskaliziraj(self, msg_type="racuni", delay_fiscalization=False):
         """

@@ -21,4 +21,18 @@
             </group>
         </field>
     </record>
+
+    <record id="l10n_hr_account_fiskal_view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">l10n.hr.account.fiskal.account.invoice.select</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="to_check" position="before">
+                <filter name="fiscalized" string="Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '!=', False)]"/>
+                <filter name="not_fiscalized" string="Not Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '=', False)]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+
 </odoo>

@@ -12,6 +12,10 @@
                 <field name="l10n_hr_fiskal_cert_id" />
                 <field name="l10n_hr_fiskal_spec" />
                 <field name="l10n_hr_fiskal_taxative" />
+                <field name="l10n_hr_fiskal_on_confirm" />
+                <field name="l10n_hr_fiskal_transaction_type_skip" />
+                <field name="l10n_hr_fiskal_cancel_confirmed_invoice" />
+                <field name="l10n_hr_fiskal_silent_error_logging" />
 <!--                    <button-->
 <!--                        string="Test Fiscalisation connection"-->
 <!--                        type="object"-->

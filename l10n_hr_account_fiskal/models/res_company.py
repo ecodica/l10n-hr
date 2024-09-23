@@ -54,6 +54,23 @@ class Company(models.Model):
     l10n_hr_fiskal_taxative = fields.Boolean(
         string="In taxation system", default=True, tracking=1
     )
+    l10n_hr_fiskal_transaction_type_skip = fields.Boolean(
+        string="Skip Bank Transfer Fiscalization", default=True, tracking=1,
+        help="""Transakcijski računi se ne fiskaliziraju"""
+    )
+    l10n_hr_fiskal_on_confirm = fields.Boolean(
+        string="Fiscalize Invoice On Confirmation", default=True, tracking=1,
+        help="""Invoices will be fiscalized on confirmation"""
+    )
+    l10n_hr_fiskal_cancel_confirmed_invoice = fields.Boolean(
+        string="Cancel Fiscalized Invoices", tracking=1,
+        help="""Allow users to cancel fiscalized invoiced"""
+    )
+    l10n_hr_fiskal_silent_error_logging = fields.Boolean(
+        string="Silent Error Logging", default=True, tracking=1,
+        help="""If true and if the fiscalization process has failed, then users won't get a warning about it,\
+            but the issue will be logged in fiscalitation logs."""
+    )
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
@@ -80,21 +97,33 @@ class Company(models.Model):
 
         values = {
             "user_id": self.env.user.id,
-            "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
             "type": msg_type,
-            "time_stamp": msg_type != "echo"
-            and response.Zaglavlje.DatumVrijeme
-            or time_stop["datum_vrijeme"],
+            "time_stamp": time_stop["datum_vrijeme"],
             "time_obr": time_obr,
-            "sadrzaj": etree.tostring(msg_obj.history.last_sent["envelope"]).decode(
-                "utf-8"
-            ),
-            "odgovor": etree.tostring(msg_obj.history.last_sent["envelope"]).decode(
-                "utf-8"
-            ),
+            "sadrzaj": False,
+            "odgovor": False,
             "greska": error_log != "" and error_log or "OK",
             "company_id": self.id,
         }
+
+        if isinstance(response, dict) and response.get('error_message'): # NOTE: case when response in to received
+            values.update({
+                "name": _("Fiscalization Failed"),
+                "greska": response.get('error_message', False)
+            })
+        elif isinstance(response, dict) and response.get('delay_message'): # NOTE: case when response in to received
+            values.update({
+                "name": _("Fiscalization Delayed"),
+                "greska": _("Fiscalization Delayed"),
+            })
+        else:
+            values.update({
+                "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
+                "time_stamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
+                "sadrzaj": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
+                "odgovor": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
+            })
+
         if origin._name == "account.move":
             values.update(
                 {

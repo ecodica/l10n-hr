@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from lxml import etree
 from requests import Session
-from requests.exceptions import SSLError
+from requests.exceptions import SSLError, ConnectionError
 from zeep import Client
 from zeep.plugins import HistoryPlugin
 from zeep.transports import Transport
@@ -113,6 +113,8 @@ class Fiskalizacija:
     def _call_service(self, service_proxy, req_kw):
         try:
             res = service_proxy(**req_kw)
+        except ConnectionError as E:
+            raise E
         except Exception as E:
             if isinstance(E, SSLError):
                 raise E

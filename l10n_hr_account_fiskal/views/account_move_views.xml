@@ -9,7 +9,8 @@
                 <field name="l10n_hr_paragon_br" readonly ="state != 'draft'" />
                 <field name="l10n_hr_fiskal_user_id" />
                 <field name="l10n_hr_late_delivery" readonly ="state != 'draft'" />
-                <button string="Fiskaliziraj" type="object" name="button_fiskaliziraj" invisible = "l10n_hr_fiskalni_broj == False" />
+                <button string="Fiskaliziraj" type="object" name="button_fiskaliziraj" invisible = "l10n_hr_fiskalni_broj == False or l10n_hr_jir" />
+                <button string="Provjera fiskalizacije" type="object" name="button_provjera_fiskalizacije" invisible = "not l10n_hr_jir" />
             </field>
             <group name="l10n_hr_base_fiskal" position="after">
                 <group name="l10n_hr_fiskal_full" invisible ="l10n_hr_zki == False">

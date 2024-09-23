@@ -1,5 +1,6 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from datetime import datetime
+from pytz import timezone as tz
 from uuid import uuid4
 
 from lxml import etree
@@ -89,12 +90,12 @@ class Fiskalizacija:
         self.type_factory = self.client.type_factory(tns)
         self.all_types = self._find_all_types()
 
-    def create_request_header(self):
+    def create_request_header(self, timezone='Europe/Zagreb'):
         """
         Create header (tns:Zaglavlje) to attach to the request
         """
         message_id = uuid4()
-        dt = datetime.now()
+        dt = datetime.now(tz=tz(timezone))
         return self.type_factory.ZaglavljeType(
             IdPoruke=message_id, DatumVrijeme=dt.strftime("%d.%m.%YT%H:%M:%S")
         )

@@ -67,9 +67,9 @@ Configuration
 Usage
 =====
 
-Regular invoices will be fiskalized in the posting process automaticly.
+Regular invoices will be fiskalized in the posting process automaticly (this is option on company settings, True by default).
 However, if for any reason, the fiscalistion mesage is not sent , or is sent and received and error,
-Late fiskalisation is possible from Croatia specific page on ivoice form
+Late fiskalisation is possible from Croatia specific page on ivvoice form
 Using the buttin FISKALIZE.
 
 If you created an ivoice on Paragon blok. You may enter all invoice data,
@@ -77,7 +77,7 @@ including the paragon blok number, and set correct dates, then confirm the invoi
 The check box Late delivery should be marked!
 
 If you want to check the fiskalisation data on already fiskalized invoice, (containing JIR and ZKI data)
-you can press FISKALIZE button and send a check-invoice type message (visible in message logs)
+you can press Verify fiskalization button and send a check-invoice type message (visible in message logs)
 
 
 Obtain client certificates from FINA

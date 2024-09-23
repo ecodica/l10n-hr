@@ -387,12 +387,19 @@ class FiscalFiscalMixin(models.AbstractModel):
                 zki_datalist=zki_datalist, signer=fisk.signer
             )
         fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
+
+        # NOTE: call right service proxy
+        # list of available services is in FiskalizacijaService.wsdl
+        try:
+            service_proxy = fisk.client.service[msg_type]
+        except:
+            raise ValidationError(_("Service proxy %s not found", msg_type))
+
         if msg_type in ["racuni", "provjera"]:
             racun = self._prepare_fisk_racun(factory=fisk, fiskal_data=fiskal_data)
             self._validate_fisk_racun(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
-            service_proxy = fisk.client.service.racuni
             response = None
             # NOTE: skip calling FINA fisc service
             if delay_fiscalization:

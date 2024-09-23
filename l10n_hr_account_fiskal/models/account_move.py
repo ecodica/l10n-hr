@@ -55,6 +55,9 @@ class AccountMove(models.Model):
         # ako imam JIR pokreće provjeru ili ako nema fiskalizaciju.
         self.fiskaliziraj()  # from 10n.hr.fixcal.mixin
 
+    def button_provjera_fiskalizacije(self):
+        self.fiskaliziraj(msg_type='provjera')
+
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()

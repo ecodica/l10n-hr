@@ -575,6 +575,7 @@ msgstr ""
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__name
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_log__name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_pnp_category__name
 msgid "Name"
 msgstr "Naziv"
 
@@ -832,6 +833,42 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_zki
 msgid "ZKI"
 msgstr ""
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiskal.action_pnp_category
+#: model:ir.ui.menu,name:l10n_hr_account_fiskal.action_pnp_category_menu
+msgid "PNP Categories"
+msgstr "PNP Kategorije"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model,name:l10n_hr_account_fiskal.model_l10n_hr_pnp_category
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_product__pnp_categ_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_template__pnp_categ_id
+msgid "PNP Category"
+msgstr "PNP Kategorija"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.constraint,message:l10n_hr_account_fiskal.constraint_l10n_hr_pnp_category_unique_name
+msgid "The name must be unique!"
+msgstr "Naziv kategorije mora biti jedinstven!"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiskal.action_pnp_category
+#: model:ir.ui.menu,name:l10n_hr_account_fiskal.action_pnp_category_menu
+msgid "PNP Categories"
+msgstr "PNP Kategorije"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model,name:l10n_hr_account_fiskal.model_l10n_hr_pnp_category
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_product__pnp_categ_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_template__pnp_categ_id
+msgid "PNP Category"
+msgstr "PNP Kategorija"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.constraint,message:l10n_hr_account_fiskal.constraint_l10n_hr_pnp_category_unique_name
+msgid "The name must be unique!"
+msgstr "Naziv kategorije mora biti jedinstven!"
 
 #. module: l10n_hr_account_fiskal
 #. odoo-python

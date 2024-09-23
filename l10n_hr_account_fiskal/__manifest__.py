@@ -20,6 +20,8 @@
         "views/fiskal_log_views.xml",
         "views/res_company.xml",
         "views/account_move_views.xml",
+        "views/pnp_category_views.xml",
+        "views/product_views.xml",
         "report/report_invoice.xml",
         "security/ir.model.access.csv",
     ],

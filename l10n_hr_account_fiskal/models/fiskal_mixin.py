@@ -160,7 +160,7 @@ class FiscalFiscalMixin(models.AbstractModel):
 
         for tax_line in self.line_ids.filtered(lambda l: l.display_type == 'tax'):
             if not tax_line.tax_line_id.l10n_hr_fiskal_type:
-                raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
+                raise ValidationError(_("Tax '%s' missing fiskal type!") % tax_line.tax_line_id.name)
             fiskal_type = tax_line.tax_line_id.l10n_hr_fiskal_type
             stopa = tax_line.tax_line_id.amount
             # NOTE: osnovica and iznos should be on credit side so balance will be negative

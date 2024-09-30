@@ -5,6 +5,9 @@ import pytz
 from odoo import fields, models
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
+FISKAL_DATETIME_FORMAT = '%d.%m.%YT%H:%M:%S'
+RACUN_DATETIME_FORMAT = '%d.%m.%Y %H:%M'
+
 
 class Company(models.Model):
     _inherit = "res.company"
@@ -72,13 +75,13 @@ class Company(models.Model):
         return {
             "datum": tstamp.strftime("%d.%m.%Y"),  # datum_regular SAD
             "datum_vrijeme": tstamp.strftime(
-                "%d.%m.%YT%H:%M:%S"
+                FISKAL_DATETIME_FORMAT
             ),  # format za zaglavlje FISKAL XML poruke
             "datum_meta": tstamp.strftime(
                 "%Y-%m-%dT%H:%M:%S"
             ),  # format za metapodatke xml-a ( JOPPD...)
             "datum_racun": tstamp.strftime(
-                "%d.%m.%Y %H:%M"
+                RACUN_DATETIME_FORMAT
             ),  # format za ispis na računu
             "time_stamp": tstamp,  # timestamp, za zapis i izračun vremena obrade
             "odoo_datetime": time_now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),

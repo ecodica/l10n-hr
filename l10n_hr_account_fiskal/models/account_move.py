@@ -40,7 +40,7 @@ class AccountMove(models.Model):
     def _check_zki_on_confirm(self):
         """Check if on confirmed invoice ZKI is set for invoiced that should be fiscalized"""
         for invoice in self.filtered(lambda i: i.state == 'posted'):
-            if invoice._l10n_hr_fiscalization_needed() and not invoice.l10n_hr_zki:
+            if invoice._l10n_hr_fiscalization_needed('racuni') and not invoice.l10n_hr_zki:
                 raise ValidationError(_("""ZKI number is not set on invoice that should be fiscalized.
                     Check if fiscalization is properly configured."""))
 

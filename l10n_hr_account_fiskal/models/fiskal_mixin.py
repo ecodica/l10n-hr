@@ -8,6 +8,8 @@ import qrcode
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
+from odoo.addons.l10n_hr_base.models.res_company import FISKAL_DATETIME_FORMAT, RACUN_DATETIME_FORMAT
+
 
 from ..fiskal import fiskal
 
@@ -140,7 +142,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             )
         return res
 
-    def _l10n_hr_fiscalization_needed(self):
+    def _l10n_hr_fiscalization_needed(self, message_type):
         """"Check if invoice should be fiscalized"""
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and (
             not self.company_id.l10n_hr_fiskal_transaction_type_skip or
@@ -265,7 +267,16 @@ class FiscalFiscalMixin(models.AbstractModel):
         amount_total = inv_payment_term_lines and sum(il.balance for il in inv_payment_term_lines) or 0.0
         return fiskal.format_decimal(amount_total)
 
-    def _prepare_fisk_racun(self, factory, fiskal_data):
+    def _prepare_fisk_racun_dat_vrijeme(self):
+        """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
+        return datetime.strptime(
+            self.l10n_hr_vrijeme_izdavanja, RACUN_DATETIME_FORMAT
+        ).strftime(FISKAL_DATETIME_FORMAT)
+
+    def _get_fisk_racun_type(self, factory, msg_type):
+        return factory.type_factory.RacunType
+
+    def _prepare_fisk_racun(self, factory, fiskal_data, msg_type):
         porezi = self._prepare_fisk_racun_taxes(factory)
         BrRac = factory.type_factory.BrojRacunaType(
             BrOznRac=fiskal_data["racun"][0],
@@ -281,10 +292,12 @@ class FiscalFiscalMixin(models.AbstractModel):
         if self.company_id.l10n_hr_fiskal_cert_id.cert_type == "demo":
             # demo cert na tudjoj bazi... onda ide oib iz certa
             oib_company = self.company_id.l10n_hr_fiskal_cert_id.cert_oib[2:]
-        racun = factory.type_factory.RacunType(
+
+        RacunType = self._get_fisk_racun_type(factory, msg_type)
+        racun = RacunType(
             Oib=oib_company,
             USustPdv=self.company_id.l10n_hr_fiskal_taxative,
-            DatVrijeme=fiskal_data["time"]["datum_vrijeme"],
+            DatVrijeme=self._prepare_fisk_racun_dat_vrijeme(),
             OznSlijed=self.l10n_hr_fiskal_uredjaj_id.prostor_id.sljed_racuna,
             BrRac=BrRac,
             Pdv=pdv,
@@ -329,6 +342,16 @@ class FiscalFiscalMixin(models.AbstractModel):
             precision_digits=self.currency_id.decimal_places):
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
+    def _fisk_msg_type(self):
+        """Return list of fis messge types that should be fiscalized."""
+        return ["racuni", "provjera"]
+
+    def _handle_fisk_response(self, response, msg_type):
+        """Update invoice with received data"""
+        # NOTE: write JIR number if it is received in resonse
+        if hasattr(response, "Jir") and not self.l10n_hr_jir:
+            self.l10n_hr_jir = response.Jir
+
     def fiskaliziraj(self, msg_type="racuni", delay_fiscalization=False):
         """
         Fiskalizira jedan izlazni racun ili point of sale račun
@@ -337,13 +360,13 @@ class FiscalFiscalMixin(models.AbstractModel):
         """
 
         # exit if fiscalization is not needed for invoice
-        if not self._l10n_hr_fiscalization_needed():
+        if not self._l10n_hr_fiscalization_needed(msg_type):
             return
 
-        if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30:
+        # don't fiscalize invoice if invoie alreday has jir
+        if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racun':
             # existing in shema 1.4 not in 1.5!
-            if msg_type != "provjera":
-                msg_type = "provjera"
+            msg_type = 'provjera'
         if self.l10n_hr_zki and not self.l10n_hr_jir and not self.l10n_hr_late_delivery:
             # imam ZKI, nemam jir = naknadna dostava
             self.l10n_hr_late_delivery = True
@@ -395,12 +418,13 @@ class FiscalFiscalMixin(models.AbstractModel):
         except:
             raise ValidationError(_("Service proxy %s not found", msg_type))
 
-        if msg_type in ["racuni", "provjera"]:
-            racun = self._prepare_fisk_racun(factory=fisk, fiskal_data=fiskal_data)
+        if msg_type in self._fisk_msg_type():
+            racun = self._prepare_fisk_racun(fisk, fiskal_data, msg_type)
             self._validate_fisk_racun(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             response = None
+            odoo_error = {}
             # NOTE: skip calling FINA fisc service
             if delay_fiscalization:
                 self.company_id.create_fiskal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
@@ -409,14 +433,16 @@ class FiscalFiscalMixin(models.AbstractModel):
             try:
                 response = fisk._call_service(service_proxy, req_kw)
                 self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
-                if hasattr(response, "Jir"):
-                    if not self.l10n_hr_jir:
-                        self.l10n_hr_jir = response.Jir
+                self._handle_fisk_response(response, msg_type)
+            except AttributeError as e:
+                odoo_error = {'error_message': str(e) + '\n' + str(e.obj)}
             except Exception as e:
                 # NOTE: handle cases when response is not received from FINA
-                if not response:
-                    response = {'error_message': e.args [0]}
-                # log error
-                self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
-                if not self.company_id.l10n_hr_fiskal_silent_error_logging:
-                    raise ValidationError(_("Fiscalization Error:\n %s") % e)
+                odoo_error = {'error_message': e.args [0]}
+            # log odoo error
+            if odoo_error.get('error_message'):
+                self.company_id.create_fiskal_log(msg_type, fisk, odoo_error, time_start, self)
+            # raise error
+            error_message = response and hasattr(response, 'error_message') and response['error_message']  or odoo_error.get('error_message')
+            if error_message and not self.company_id.l10n_hr_fiskal_silent_error_logging:
+                raise ValidationError(_("Fiscalization Error:\n %s") % error_message)

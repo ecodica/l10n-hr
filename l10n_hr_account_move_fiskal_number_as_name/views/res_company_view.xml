@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_hr_account_company_form" model="ir.ui.view">
+        <field name="name">view.l10n_hr.company.form.fiskal.number.as.name</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_account_company_form" />
+        <field name="arch" type="xml">
+            <field name="l10n_hr_fiskal_separator" position="after">
+                <field name="l10n_hr_fiskalni_broj_as_move_name"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

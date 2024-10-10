@@ -135,6 +135,8 @@ class AccountMove(models.Model):
         self.ensure_one()  # one at a time only!
         prostor = self.l10n_hr_fiskal_uredjaj_id.prostor_id
         uredjaj = self.l10n_hr_fiskal_uredjaj_id
+        if not prostor or not uredjaj:
+            return False
         sequence = (
             prostor.sljed_racuna == "P" and prostor.sequence_id or uredjaj.sequence_id
         )

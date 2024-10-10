@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_account_move_fiskal_number_as_name
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-10 11:09+0000\n"
+"PO-Revision-Date: 2024-10-10 11:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_account_move_fiskal_number_as_name
+#: model:ir.model.fields,help:l10n_hr_account_move_fiskal_number_as_name.field_res_company__l10n_hr_fiskalni_broj_as_move_name
+msgid ""
+"Documents that have a Fiskal Number set will use it as name on account move."
+msgstr ""
+"Dokumenti koji koriste fiskalni broj će taj broj koristiti kao naziv dokumenta."
+
+#. module: l10n_hr_account_move_fiskal_number_as_name
+#. odoo-pythons
+#: code:addons/l10n_hr_account_move_fiskal_number_as_name/models/account_move.py:0
+#, python-format
+msgid "Move name (%s) is different from the Fiskal Number (%s)"
+msgstr "Naziv dokumenta (%s) je različit od fiskalnog broja (%s). Postavite oba broja na isti."
+
+#. module: l10n_hr_account_move_fiskal_number_as_name
+#: model:ir.model.fields,field_description:l10n_hr_account_move_fiskal_number_as_name.field_res_company__l10n_hr_fiskalni_broj_as_move_name
+msgid "Use Fiskal Number As Move Name"
+msgstr "Koristi fiskalni broj kao naziv dokumenta"

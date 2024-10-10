@@ -1,0 +1,1 @@
+ - Module only replaces name with l10n_hr_fiskalni_broj field, all Odoo's checks (for example, number gap checks) are not covered.

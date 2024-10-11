@@ -2,7 +2,7 @@
     "name": "Croatia - Accounting Move Fiskal Number As Name",
     "summary": "Set Fiskal Number as account move name ",
     "category": "Accounting/Localizations/Croatia",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "author": "info3",
     "website": "https://info3.hr/hr/",
     "license": "OPL-1",

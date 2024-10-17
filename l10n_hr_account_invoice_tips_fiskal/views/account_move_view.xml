@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_hr_tips_move_form_fiskal" model="ir.ui.view">
+        <field name="name">account.move.form.tips.fiskal</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="l10n_hr_account_invoice_tips.view_l10n_hr_tips_move_form" />
+        <field name="arch" type="xml">
+
+            <group name="tips_main" position="before">
+                <button string="Fiskalize" type="object" name="button_fiskalize_tips" invisible="not l10n_hr_zki or l10n_hr_napojnica_is_fiscalized"/>
+                <button string="Fiskalize Refund" type="object" name="button_fiskalize_tip_refund" invisible="l10n_hr_napojnica_refund_fiscalized or not l10n_hr_napojnica_is_fiscalized"/>
+            </group>
+            <field name="l10n_hr_napojnica_nacin_placanja" position="after">
+                <field name="l10n_hr_napojnica_is_fiscalized" readonly="1"/>
+                <field name="l10n_hr_napojnica_refund_fiscalized" readonly="1" invisible="not l10n_hr_napojnica_refund_fiscalized"/>
+            </field>
+            <field name="l10n_hr_napojnica_iznos" position="attributes">
+                <attribute name="readonly">l10n_hr_napojnica_is_fiscalized</attribute>
+            </field>
+            <field name="l10n_hr_napojnica_nacin_placanja" position="attributes">
+                <attribute name="readonly">l10n_hr_napojnica_is_fiscalized</attribute>
+            </field>
+            <group name="tips_main" position="after">
+                <field name="l10n_hr_fiskal_tips_log_ids" />
+            </group>
+
+        </field>
+    </record>
+
+    <record id="l10n_hr_account_fiskal_view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">l10n.hr.account.fiskal.account.invoice.select.tip.fiskalized</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_hr_account_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="not_fiscalized" position="after">
+                <separator/>
+                <filter name="tip_fiscalized" string="Tip Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_napojnica_iznos', '>', 0), ('l10n_hr_napojnica_is_fiscalized', '=', True)]"/>
+                <filter name="tip_not_fiscalized" string="Tip Not Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_napojnica_iznos', '>', 0), ('l10n_hr_napojnica_is_fiscalized', '=', False)]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_l10n_hr_invoice_tips_report_wizard_form_inherit" model="ir.ui.view">
+        <field name="name">l10n.hr.invoice.tips.report.wizard.form.inherit</field>
+        <field name="model">l10n.hr.invoice.tips.report.wizard</field>
+        <field name="inherit_id" ref="l10n_hr_account_invoice_tips.view_l10n_hr_invoice_tips_report_wizard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_to']" position="after">
+                <field name="only_fiscalized_tips"/>
+                <field name="only_fiscalized_invoices"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="employee_fiscal_id" options="{'no_create': True, 'no_open': True}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+    <template id="report_l10n_hr_invoice_tips_inherit" inherit_id="l10n_hr_account_invoice_tips.report_l10n_hr_invoice_tips">
+        <xpath expr="//table[2]/thead/tr" position="inside">
+            <th>ZKI</th>
+        </xpath>
+        <xpath expr="//table[2]/tbody/tr" position="inside">
+            <td t-esc="invoice.l10n_hr_zki" />
+        </xpath>
+    </template>
+</odoo>

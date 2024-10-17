@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_l10n_hr_tips_move_form" model="ir.ui.view">
+        <field name="name">account.move.form.tips</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Tips" name="tips" invisible="(move_type and move_type not in ['out_invoice', 'out_refund']) or not l10n_hr_enable_tips_on_invoice">
+                    <group name="tips_main">
+                        <group name="tips_left">
+                             <field name="l10n_hr_napojnica_iznos"/>
+                            <field name="l10n_hr_napojnica_nacin_placanja"/>
+                            <field name="l10n_hr_enable_tips_on_invoice" invisible="1"/>
+                        </group>
+                        <group name="tips_right">
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

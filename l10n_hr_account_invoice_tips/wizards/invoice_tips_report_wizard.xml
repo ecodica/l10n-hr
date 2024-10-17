@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_l10n_hr_invoice_tips_report_wizard_form" model="ir.ui.view">
+        <field name="name">l10n.hr.invoice.tips.report.wizard.form</field>
+        <field name="model">l10n.hr.invoice.tips.report.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="date_from" string="Date From"/>
+                        <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                    </group>
+                    <group>
+                        <field name="date_to" string="Date To"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Print" type="object" name="print_report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hr_invoice_tips_report_wizard" model="ir.actions.act_window">
+        <field name="name">Tips Report Wizard</field>
+        <field name="res_model">l10n.hr.invoice.tips.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_l10n_hr_invoice_tips_report_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_tips_report_wizard"
+        name="Invoice Tips"
+        parent="account.account_reports_management_menu"
+        action="action_l10n_hr_invoice_tips_report_wizard"
+    />
+</odoo>

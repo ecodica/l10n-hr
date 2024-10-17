@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_tips" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="invoicing_settings" position="inside">
+                <setting id="enable_tips_on_invoice" help="If enabled, a field for manual tip entry is visible on the outgoing invoices form">
+                    <field name="l10n_hr_enable_tips_on_invoice"/>
+                </setting>
+            </block>
+        </field>
+    </record>
+</odoo>

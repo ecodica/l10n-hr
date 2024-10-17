@@ -1,0 +1,136 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_account_invoice_tips_fiskal
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-17 08:20+0000\n"
+"PO-Revision-Date: 2024-10-17 08:20+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_invoice_tips_report_wizard__employee_fiscal_id
+msgid "Employee"
+msgstr "Zaposlenik"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_res_company__l10n_hr_fiskal_tip_on_confirm
+msgid "Fiscalize Invoice Tip On Confirmation"
+msgstr "Fiskaliziraj napojnice kod potvrđivanja"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Fiskalize"
+msgstr "Fiskaliziraj"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Fiskalize Refund"
+msgstr "Storno fiskalizacije"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_res_company__l10n_hr_fiskal_tip_on_confirm
+msgid "Invoice tip will be fiskalized on confirmation"
+msgstr "Napojnice će biti fisklizirane nakon potvrđivanja računa"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_log_ids
+msgid "Log of all messages sent and received for FINA"
+msgstr "Zapisi svih poruka poslanih i primljenih za Fiskalizaciju"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tips_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tips_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tips_log_ids
+msgid "Log of all messages sent and received for FINA tips fiskalization"
+msgstr "Zapisi svih poruka poslanih i primljenih za Fiskalizaciju napojnica"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_invoice_tips_report_wizard__only_fiscalized_invoices
+msgid "Only Fiscalized Invoices"
+msgstr "Samo fiskalizirani računi"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_invoice_tips_report_wizard__only_fiscalized_tips
+msgid "Only Fiscalized Tips"
+msgstr "Samo fiskalizirane napojnice"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
+msgid "Tip Fiscalized"
+msgstr "Napojnica fiskalizirana"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tips_log_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tips_log_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tips_log_ids
+msgid "Tip Fiskal Message Logs"
+msgstr "Logovi fiskalizacije napojnica"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_napojnica_is_fiscalized
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_napojnica_is_fiscalized
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_napojnica_is_fiscalized
+msgid "Tip Is Fiskalized"
+msgstr "Napojnica je fiskalizirana"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
+msgid "Tip Not Fiscalized"
+msgstr "Napojnica nije fiskalizirana"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_napojnica_refund_fiscalized
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_napojnica_refund_fiscalized
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_napojnica_refund_fiscalized
+msgid "Tip Refund Is Fiskalized"
+msgstr "Storno napojnice je fiskaliziran"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "Tip amount must be set to fiskalize tips."
+msgstr "Iznos napojnice mora biti postavljen kako bi se iznos fiskalizirao"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields.selection,name:l10n_hr_account_invoice_tips_fiskal.selection__l10n_hr_fiskal_log__type__napojnica
+msgid "Tip fiscalisation"
+msgstr "Fiskalizacija napojnice"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "Tip is already fiskalized."
+msgstr "Napojnica je već fiskalizirana."
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "Tip refund is already fiskalized."
+msgstr "Storno napojnice je već fiskaliziran"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "To fiskalize invoice tip, ZKI must be set."
+msgstr "Račun mora imati ZKI broj kako bi se na njega fiskalizirala napojnica"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "To fiskalize invoice tip, payment type must be set."
+msgstr ""

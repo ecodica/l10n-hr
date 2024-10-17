@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_company_form_l10n_hr_account_fiskal_tips" model="ir.ui.view">
+        <field name="name">view_company_form_l10n_hr_account_fiskal_tips</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="l10n_hr_account_fiskal.view_company_form_l10n_hr_account_fiskal"/>
+        <field name="arch" type="xml">
+            <field name="l10n_hr_fiskal_on_confirm" position="after">
+                <field name="l10n_hr_fiskal_tip_on_confirm"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

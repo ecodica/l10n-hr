@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_l10n_hr_invoice_tips">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <div class="header" style="text-align: center; padding: 20px; border-bottom: 1px solid #000;">
+                        <h2>Tips - <span t-esc="company.name"/></h2>
+                        <p>Generated on <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y. %H:%M')"/></p>
+                    </div>
+                    <div style="padding-top: 120px;">
+                        <span>Date from: <t t-esc="date_from" t-options="{'widget': 'date'}"/></span>
+                    </div>
+                    <div>
+                        <span>Date to: <t t-esc="date_to" t-options="{'widget': 'date'}"/></span>
+                    </div>
+                    <br/>
+                    <span class="fw-bolder">Recapitulation by Employee</span>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Employee</th>
+                                <th>Invoice Amount</th>
+                                <th>Tip</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="sum_by_employee" t-as="employee_sum">
+                                <td t-esc="employee_sum['name']"/>
+                                <td t-esc="employee_sum['total_amount']" t-options='{"widget": "monetary", "display_currency": company.currency_id}' style="text-align: right"/>
+                                <td t-esc="employee_sum['total_tip_amount']" t-options='{"widget": "monetary", "display_currency": company.currency_id}' style="text-align: right"/>
+                            </tr>
+                            <tr class="fw-bolder">
+                                <td>TOTAL:</td>
+                                <td t-esc="totals['total_invoice']" t-options='{"widget": "monetary", "display_currency": company.currency_id}' style="text-align: right"/>
+                                <td t-esc="totals['total_tips']" t-options='{"widget": "monetary", "display_currency": company.currency_id}' style="text-align: right"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span class="fw-bolder">Tip records</span>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date and time</th>
+                                <th>Invoice Number</th>
+                                <th>Employee</th>
+                                <th>Total Amount</th>
+                                <th>Tip Amount</th>
+                                <th>Invoice Fiskalization</th>
+                                <th>Tip Fiskalization</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="invoices_with_tips" t-as="invoice">
+                                <td t-esc="invoice.date" t-options="{'widget': 'date'}"/>
+                                <td t-esc="invoice.name"/>
+                                <td t-esc="invoice.invoice_user_id.name"/>
+                                <td t-esc="invoice.amount_total" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
+                                <td t-esc="invoice.l10n_hr_napojnica_iznos" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
+                                <td t-esc="dict(invoice._fields['l10n_hr_nacin_placanja']._description_selection(invoice.env)).get(invoice.l10n_hr_nacin_placanja, '')"/>
+                                <td t-esc="dict(invoice._fields['l10n_hr_napojnica_nacin_placanja']._description_selection(invoice.env)).get(invoice.l10n_hr_napojnica_nacin_placanja, '')"/>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="l10n_hr_account_tips_portrait_format" model="report.paperformat">
+        <field name="name">Tips Report Portrait Paperformat</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">3</field>
+        <field name="margin_right">3</field>
+        <field name="header_line" eval="True"/>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_l10n_hr_invoice_tips" model="ir.actions.report">
+        <field name="name">Invoice Tips</field>
+        <field name="model">account.move</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_account_invoice_tips.report_l10n_hr_invoice_tips</field>
+        <field name="report_file">l10n_hr_account_invoice_tips.report_l10n_hr_invoice_tips</field>
+        <field name="paperformat_id" ref="l10n_hr_account_tips_portrait_format"/>
+    </record>
+
+</odoo>

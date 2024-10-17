@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-17 08:20+0000\n"
-"PO-Revision-Date: 2024-10-17 08:20+0000\n"
+"POT-Creation-Date: 2024-10-17 12:16+0000\n"
+"PO-Revision-Date: 2024-10-17 12:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,11 @@ msgstr "Fiskaliziraj napojnice kod potvrđivanja"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Fiskalization Date"
+msgstr "Datum fiskalizacije"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
 msgid "Fiskalize"
 msgstr "Fiskaliziraj"
 
@@ -36,9 +41,25 @@ msgid "Fiskalize Refund"
 msgstr "Storno fiskalizacije"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Fiskalized By"
+msgstr "Fiskalizirao"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
 #: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_res_company__l10n_hr_fiskal_tip_on_confirm
 msgid "Invoice tip will be fiskalized on confirmation"
 msgstr "Napojnice će biti fisklizirane nakon potvrđivanja računa"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"It is not possible to fiskalize the tip because more than 2 days have passed"
+" since the invoice was issued."
+msgstr ""
+"Nije moguće fiskalizirati napojnicu jer je prošlo više od 2 dana od izdavanja računa."
+
 
 #. module: l10n_hr_account_invoice_tips_fiskal
 #: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_log_ids
@@ -65,6 +86,16 @@ msgid "Only Fiscalized Tips"
 msgstr "Samo fiskalizirane napojnice"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Refund Fiskalization Date"
+msgstr "Datum storna fiskalizacije"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_tips_move_form_fiskal
+msgid "Refund Fiskalized By"
+msgstr "Storno fiskalizirao"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
 msgid "Tip Fiscalized"
 msgstr "Napojnica fiskalizirana"
@@ -77,6 +108,22 @@ msgid "Tip Fiskal Message Logs"
 msgstr "Logovi fiskalizacije napojnica"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_user_id
+msgid "Tip Fiskal User"
+msgstr "Fiskalizirao napojnicu"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_date
+msgid "Tip Fiskalization Date"
+msgstr "Datum fiskalizacije napojnice"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_napojnica_is_fiscalized
 #: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_napojnica_is_fiscalized
 #: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_napojnica_is_fiscalized
@@ -87,6 +134,22 @@ msgstr "Napojnica je fiskalizirana"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
 msgid "Tip Not Fiscalized"
 msgstr "Napojnica nije fiskalizirana"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_refund_user_id
+msgid "Tip Refund Fiskal User"
+msgstr "Storno napojnice fiskalizirao"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_refund_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_refund_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_refund_date
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_refund_date
+msgid "Tip Refund Fiskalization Date"
+msgstr "Datum storna napojnice"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_napojnica_refund_fiscalized
@@ -134,3 +197,19 @@ msgstr "Račun mora imati ZKI broj kako bi se na njega fiskalizirala napojnica"
 #, python-format
 msgid "To fiskalize invoice tip, payment type must be set."
 msgstr ""
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_user_id
+msgid "User who fiskalized invoice tips (for internal use)"
+msgstr "Korisnik koji je fiskalizirao napojnicu (za interne potrebe)"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_bank_statement_line__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_move__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_account_payment__l10n_hr_fiskal_tip_refund_user_id
+#: model:ir.model.fields,help:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_tip_refund_user_id
+msgid "User who refunded fiskalized invoice tips (for internal use)"
+msgstr "Korisnik koji je fiskalizirao storne napojnice (za interne potrebe)"

@@ -2,7 +2,7 @@
     'name': 'Croatia - Invoice Tips Fiskal',
     'summary': 'Croatia Invoice Tips Fiskalization',
     'category': 'Accounting/Localizations/Croatia',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.1.0',
     'application': False,
     'author': 'info3',
     'license' : 'OPL-1',

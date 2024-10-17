@@ -11,7 +11,7 @@ Croatia - Invoice Tips Fiskal
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
 .. |badge2| image:: https://img.shields.io/badge/github-info3%2Fi3_odoo_modules-lightgray.png?logo=github
-    :target: https://github.com/info3/i3_odoo_modules/tree/17.0/l10n_hr_account_invoice_tips_fiskal
+    :target: https://github.com/info3/i3_odoo_modules/tree/17.0/
     :alt: info3/i3_odoo_modules
 
 |badge1| |badge2| 
@@ -77,6 +77,13 @@ It also adds a new column to the report: ZKI.
 
 Changelog
 =========
+
+17.0.1.1.0 (2024-09-30)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Added info field in Tips tab who and when fiskalized tip or tip refund
+* Added check to raise error if user tries to fiskalize tip 2 days after invoice was issued
+
 
 17.0.1.0.0 (2024-09-30)
 ~~~~~~~~~~~~~~~~~~~~~~~

@@ -79,6 +79,8 @@ class FiscalFiscalMixin(models.AbstractModel):
         comodel_name="res.partner",
         string="Fiscal user",
         domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
+        ondelete='restrict',
+        copy=False,
         help="User who sent the fiscalisation message to FINA."
         " Can be different from responsible person on invoice.",
     )

@@ -23,6 +23,7 @@
         "views/account_journal_view.xml",
         "views/res_partner_views.xml",
         "views/menuitems.xml",
+        "views/account_tax_view.xml",
         "report/report_invoice.xml",
     ],
     "auto_install": False,

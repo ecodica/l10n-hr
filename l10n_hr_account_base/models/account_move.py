@@ -63,6 +63,18 @@ class AccountMove(models.Model):
         " like 2 or more devices for this journal",
     )
 
+    l10n_hr_tax_note = fields.Char(string='tax field')
+    
+    def action_post(self):
+        res = super().action_post()
+        tax_notes = ''
+        for line in self.invoice_line_ids:
+            for tax_id in line.tax_ids:
+                if tax_id.tax_notes:
+                      tax_notes += tax_id.tax_notes + "\n"
+        self.l10n_hr_tax_note = tax_notes
+        return res
+
     @api.depends(
         'invoice_line_ids.currency_rate',
         'invoice_line_ids.tax_base_amount',

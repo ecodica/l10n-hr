@@ -6,16 +6,18 @@
         inherit_id="account.report_invoice_document"
     >
         <xpath expr="//p[@name='payment_communication']" position="replace">
-            <br />
-            <span>Bank : </span>
-            <b><span t-field="o.partner_bank_id.bank_id.bic" /></b>-
-            <span t-field="o.partner_bank_id.bank_id.name" />
-            <br />
-            <span>Account Number : </span>
-            <b><span t-field="o.partner_bank_id.acc_number" /></b>
-            <br />
-            <span>Payment Reference : </span>
-            <b><span t-field="o.payment_reference" /></b>
+            <div id="l10n_hr_account_reference_payment_communication">
+                <br />
+                <span>Bank : </span>
+                <b><span t-field="o.partner_bank_id.bank_id.bic" /></b>-
+                <span t-field="o.partner_bank_id.bank_id.name" />
+                <br />
+                <span>Account Number : </span>
+                <b><span t-field="o.partner_bank_id.acc_number" /></b>
+                <br />
+                <span>Payment Reference : </span>
+                <b><span t-field="o.payment_reference" /></b>
+            </div>
         </xpath>
     </template>
 </odoo>

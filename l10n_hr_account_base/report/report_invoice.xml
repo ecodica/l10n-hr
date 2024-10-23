@@ -83,5 +83,10 @@
             <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
         </xpath>
 
+        <xpath expr="//div[@name='comment']" position="before">
+            <div style="margin-top: 25px;">
+                <span t-field="o.l10n_hr_tax_note" />
+            </div>            
+        </xpath>
     </template>
 </odoo>

@@ -6,7 +6,7 @@ class TipsReportWizard(models.TransientModel):
     _inherit = 'l10n.hr.invoice.tips.report.wizard'
 
     employee_fiscal_id = fields.Many2one(
-        comodel_name='res.partner', string="Employee", domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain())
+        comodel_name='res.partner', domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain())
     only_fiscalized_tips = fields.Boolean()
     only_fiscalized_invoices = fields.Boolean(default=True)
 

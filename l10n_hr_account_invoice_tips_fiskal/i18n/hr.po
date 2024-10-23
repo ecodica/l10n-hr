@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
-#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_invoice_tips_report_wizard__employee_fiscal_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_invoice_tips_fiskal.view_l10n_hr_invoice_tips_report_wizard_form_inherit
 msgid "Employee"
 msgstr "Zaposlenik"
 

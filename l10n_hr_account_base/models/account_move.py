@@ -54,6 +54,7 @@ class AccountMove(models.Model):
 
     l10n_hr_fiskal_uredjaj_id = fields.Many2one(
         comodel_name="l10n.hr.fiskal.uredjaj",
+        compute="_compute_allowed_fiskal_device",
         string="Fiskal device",
         readonly=True,
         states={"draft": [("readonly", False)]},
@@ -65,6 +66,7 @@ class AccountMove(models.Model):
         string="Alowed Fiskal device",
     )
     l10n_hr_fiskal_uredjaj_visible = fields.Boolean(
+        compute="_compute_allowed_fiskal_device",
         help="Technical field to show device selection"
              " only if there is something to select"
              " like 2 or more devices for this journal",

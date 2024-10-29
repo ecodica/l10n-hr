@@ -176,9 +176,9 @@ class AccountMove(models.Model):
             raise ValidationError(msg)
         # set date fields
         if not self.l10n_hr_date_document:
-            self.l10n_hr_date_document = fields.Date.today()
+            self.l10n_hr_date_document = self.invoice_date or fields.Date.today()
         if not self.l10n_hr_date_delivery:
-            self.l10n_hr_date_delivery = fields.Date.today()
+            self.l10n_hr_date_delivery = self.invoice_date or fields.Date.today()
         if not self.date:
             self.date = fields.Date.today()
         if not self.l10n_hr_vrijeme_izdavanja:  # depend na l10n_hr_base?

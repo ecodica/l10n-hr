@@ -21,6 +21,7 @@
         "views/fiskal_data_views.xml",
         "views/account_move_view.xml",
         "views/account_journal_view.xml",
+        "views/account_tax_views.xml",
         "views/res_partner_views.xml",
         "views/menuitems.xml",
         "report/report_invoice.xml",

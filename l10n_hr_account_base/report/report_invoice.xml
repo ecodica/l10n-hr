@@ -82,6 +82,13 @@
         <xpath expr="//span[@t-field='line.price_subtotal']" position="before">
             <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
         </xpath>
-
+        <xpath expr="//div[@name='comment']" position="after">
+            <t t-if="o.l10n_hr_tax_note">
+                <div style="margin-top: 25px;">
+                    <div>Napomena:</div>
+                    <span t-field="o.l10n_hr_tax_note" />
+                </div>
+            </t>
+        </xpath>
     </template>
 </odoo>

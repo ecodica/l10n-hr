@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from markupsafe import Markup
 
 
 class AccountMove(models.Model):
@@ -64,17 +65,18 @@ class AccountMove(models.Model):
     )
     l10n_hr_tax_note = fields.Html(string='tax field')
 
+    def _set_l10n_hr_tax_note(self,move):
+        formatted_texts = {}
+        for line in move.line_ids:
+            for tax in line.tax_ids:
+                if tax.id not in formatted_texts:
+                    formatted_texts[tax.id] = tax.tax_notes
+        return Markup('<br/>').join(formatted_texts.values()) if formatted_texts else False
+
     def action_post(self):
         res = super().action_post()
         for move in self:
-            tax_notes = {
-                tax.tax_notes.strip()
-                for line in move.invoice_line_ids
-                for tax in line.tax_ids
-                if tax.tax_notes
-            }
-            formatted_text = "<br/>".join(tax_notes)
-            move.l10n_hr_tax_note = formatted_text
+            move.l10n_hr_tax_note = move._set_l10n_hr_tax_note(move)
         return res
 
     @api.depends(

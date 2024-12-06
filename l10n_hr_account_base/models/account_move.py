@@ -63,21 +63,11 @@ class AccountMove(models.Model):
         " only if there is something to select"
         " like 2 or more devices for this journal",
     )
-    l10n_hr_tax_note = fields.Html(string='tax field')
 
-    def _set_l10n_hr_tax_note(self,move):
-        formatted_texts = {}
-        for line in move.line_ids:
-            for tax in line.tax_ids:
-                if tax.id not in formatted_texts:
-                    formatted_texts[tax.id] = tax.tax_notes
+    def _get_tax_notes(self):
+        formatted_texts = {tax.id: tax.tax_notes for move in self for line in move.line_ids for tax in line.tax_ids if tax.tax_notes}
         return Markup('<br/>').join(formatted_texts.values()) if formatted_texts else False
 
-    def action_post(self):
-        res = super().action_post()
-        for move in self:
-            move.l10n_hr_tax_note = move._set_l10n_hr_tax_note(move)
-        return res
 
     @api.depends(
         'invoice_line_ids.currency_rate',

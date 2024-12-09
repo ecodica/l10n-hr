@@ -65,7 +65,7 @@ class AccountMove(models.Model):
     )
 
     def _get_tax_notes(self):
-        formatted_texts = {tax.id: tax.tax_notes for move in self for line in move.line_ids for tax in line.tax_ids if tax.tax_notes}
+        formatted_texts = {tax.id: tax.l10n_hr_tax_notes for move in self for line in move.line_ids for tax in line.tax_ids if tax.l10n_hr_tax_notes}
         return Markup('<br/>').join(formatted_texts.values()) if formatted_texts else False
 
 

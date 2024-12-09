@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="account.view_tax_form" />
         <field name="arch" type="xml">
             <field name="tax_scope" position="after">
-                <field name="tax_notes"/>
+                <field name="l10n_hr_tax_notes"/>
             </field>
         </field>
     </record>

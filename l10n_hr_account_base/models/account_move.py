@@ -1,6 +1,5 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from markupsafe import Markup
 
 
 class AccountMove(models.Model):
@@ -63,11 +62,6 @@ class AccountMove(models.Model):
         " only if there is something to select"
         " like 2 or more devices for this journal",
     )
-
-    def _get_tax_notes(self):
-        formatted_texts = {tax.id: tax.l10n_hr_tax_notes for move in self for line in move.line_ids for tax in line.tax_ids if tax.l10n_hr_tax_notes}
-        return Markup('<br/>').join(formatted_texts.values()) if formatted_texts else False
-
 
     @api.depends(
         'invoice_line_ids.currency_rate',

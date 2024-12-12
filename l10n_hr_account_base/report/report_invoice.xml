@@ -65,6 +65,27 @@
                 </div>
             </t>
         </xpath>
+
+        <!-- NOTE: show vat number without 'HR' prefix if partner country is Croatia -->
+        <xpath expr="//div[@name='address_not_same_as_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
+            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
+                <span t-esc="o.partner_id.vat[2:]"/>
+            </t>
+            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+        </xpath>
+        <xpath expr="//div[@name='address_same_as_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
+            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
+                <span t-esc="o.partner_id.vat[2:]"/>
+            </t>
+            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+        </xpath>
+        <xpath expr="//div[@name='no_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
+            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
+                <span t-esc="o.partner_id.vat[2:]"/>
+            </t>
+            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+        </xpath>
+
     </template>
     <template
         id="l10n_hr_report_storno_invoice_document"
@@ -81,10 +102,6 @@
         </xpath>
         <xpath expr="//span[@t-field='line.price_subtotal']" position="before">
             <span t-if="o.move_type == 'out_refund' and o.company_id.account_fiscal_country_id.code == 'HR'">- </span>
-        </xpath>
-        <xpath expr="//div[@name='comment']" position="after">
-            <t t-set="l10n_hr_tax_notes" t-value="o._get_tax_notes()"/>
-            <t t-esc="l10n_hr_tax_notes" t-if="l10n_hr_tax_notes"/>
         </xpath>
     </template>
 </odoo>

@@ -44,6 +44,13 @@ class AccountMove(models.Model):
                 raise ValidationError(_("""ZKI number is not set on invoice that should be fiscalized.
                     Check if fiscalization is properly configured."""))
 
+    def _must_check_constrains_date_sequence(self):
+        """Extend to skip check if l10n_hr_fiskal_uredjaj_id is set."""
+        # NOTE: fiskal number are specific and they don't have date reference in them so we can skip that check
+        if self.l10n_hr_fiskal_uredjaj_id:
+            return False
+        return super()._must_check_constrains_date_sequence()
+
     def _post(self, soft=True):
         """Extend to verify if required fiscalization data is set on posted invoices"""
         invoices = super()._post()

@@ -328,10 +328,18 @@ class FiscalFiscalMixin(models.AbstractModel):
         pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
         pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
         # NOTE: ako je ukupni iznos računa negativan tada je negativna i osnovica računa
+        # NOTE: ako tvrtka nije u sustava PDV_a, tada j iznos racuna jednak ukupnom iznosu racuna
+        if not racun.USustPdv:
+            racun_osnovica = float(racun.IznosUkupno)
         amount_untaxed = (
             round(float(racun.IznosUkupno),self.currency_id.decimal_places) < 0 and
             self.amount_untaxed * (-1) or
             self.amount_untaxed)
+        # NOTE: provjera da li iznos poreza na fisk racunu odgovora iznosu odoo poreza
+        tax_amount = sum(self.line_ids.filtered(
+            lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiskal_type == 'Pdv').mapped('balance')) * (-1)
+        if float_compare(pdv_iznos, tax_amount, precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu'))
         # NOTE: provjera da li je osnovica na Odoo računu isto osnovici koju fiskaliziramo
         # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
         # TODO: za sada nisu podržani dodani porezi, naknade, ...

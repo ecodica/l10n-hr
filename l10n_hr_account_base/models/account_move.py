@@ -62,6 +62,7 @@ class AccountMove(models.Model):
         " only if there is something to select"
         " like 2 or more devices for this journal",
     )
+    l10n_hr_nacin_placanja_show_on_header = fields.Boolean(related='company_id.l10n_hr_nacin_placanja_show_on_header')
 
     @api.depends(
         'invoice_line_ids.currency_rate',
@@ -208,4 +209,11 @@ class AccountMove(models.Model):
             self.journal_id = self.partner_id.sale_journal_id
         elif self.partner_id.purchase_journal_id and self.is_purchase_document(include_receipts=True):
             self.journal_id = self.partner_id.purchase_journal_id
+        return res
+
+    @api.onchange('journal_id')
+    def _onchange_journal_id(self):
+        res = super()._onchange_journal_id()
+        if self.journal_id.l10n_hr_default_nacin_placanja:
+            self.l10n_hr_nacin_placanja = self.journal_id.l10n_hr_default_nacin_placanja
         return res

@@ -36,7 +36,8 @@ class Company(models.Model):
         tracking=True,
         default="r1",  # TODO: multicompany improove!
     )
-    l10n_hr_nacin_placanja_show_on_header = fields.Boolean(string="Show Croatia Payment Means On Header", default=True)
+    l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
+        string="Show Base Fiskalization Fields On Invoice", default=True)
 
     def _compute_l10n_hr_sequences(self):
         for company in self:

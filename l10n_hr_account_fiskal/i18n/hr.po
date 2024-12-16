@@ -38,6 +38,11 @@ msgstr ""
 
 #. module: l10n_hr_account_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.l10n_hr_fiskal_report_invoice_document
+msgid "<strong>Fiscal User:</strong>"
+msgstr "<strong>Djelatnik:</strong>"
+
+#. module: l10n_hr_account_fiskal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.l10n_hr_fiskal_report_invoice_document
 msgid "<strong>JIR:</strong>"
 msgstr ""
 
@@ -127,8 +132,8 @@ msgstr "Otkazan"
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__account_journal__l10n_hr_default_nacin_placanja__g
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__account_move__l10n_hr_nacin_placanja__g
-msgid "Cash (bills and coins)"
-msgstr "Gotovina (novčanice i kovanice)"
+msgid "Cash"
+msgstr "Gotovina"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__cert_file_name
@@ -301,7 +306,7 @@ msgstr "Certifikat za fiskalizaciju"
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_account_move__l10n_hr_fiskal_user_id
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_account_payment__l10n_hr_fiskal_user_id
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_user_id
-msgid "Fiscal user"
+msgid "Fiscal User"
 msgstr "Potvrdio račun"
 
 #. module: l10n_hr_account_fiskal

@@ -8,7 +8,7 @@ class AccountMove(models.Model):
 
     l10n_hr_nacin_placanja = fields.Selection(
         selection_add=[
-            ("G", "Cash (bills and coins)"),
+            ("G", "Cash"),
             ("K", "Credit or debit cards"),
             ("C", "Bank Cheque"),
             ("O", "Other payment means"),
@@ -72,3 +72,10 @@ class AccountMove(models.Model):
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
             self.fiskaliziraj(delay_fiscalization=delay_fiscalization)
         return res
+
+    def _l10n_hr_show_taxes(self):
+        """"Return False if taxes should not be printed on invoice."""
+        self.ensure_one()
+        if self.move_type in ["out_invoice", "out_refund"] and not self.company_id.l10n_hr_fiskal_taxative:
+            return False
+        return True

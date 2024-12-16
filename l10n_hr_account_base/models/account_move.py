@@ -62,7 +62,8 @@ class AccountMove(models.Model):
         " only if there is something to select"
         " like 2 or more devices for this journal",
     )
-    l10n_hr_nacin_placanja_show_on_header = fields.Boolean(related='company_id.l10n_hr_nacin_placanja_show_on_header')
+    l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
+        related='company_id.l10n_hr_show_required_fisk_fields_on_header')
 
     @api.depends(
         'invoice_line_ids.currency_rate',
@@ -128,9 +129,11 @@ class AccountMove(models.Model):
                     if fd.state == "active"
                 ]
 
-            move.l10n_hr_fiskal_uredjaj_id = vals and vals[0][1]
             move.l10n_hr_allowed_fiskal_uredjaj_ids = vals
             move.l10n_hr_fiskal_uredjaj_visible = len(vals) > 1
+            # NOTE: automatically set l10n_hr_fiskal_uredjaj_id if only one active records exists
+            if len(vals) == 1:
+                move.l10n_hr_fiskal_uredjaj_id = vals and vals[0][1]
 
     def _gen_fiskal_number(self):
         self.ensure_one()  # one at a time only!

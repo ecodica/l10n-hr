@@ -77,7 +77,7 @@ class FiscalFiscalMixin(models.AbstractModel):
     l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
     l10n_hr_fiskal_user_id = fields.Many2one(
         comodel_name="res.partner",
-        string="Fiscal user",
+        string="Fiscal User",
         domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
         ondelete='restrict',
         copy=False,

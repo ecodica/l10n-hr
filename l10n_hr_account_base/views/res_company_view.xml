@@ -9,7 +9,7 @@
                 <group string="Fiscal Data" name="l10n_hr_fiskal">
                     <field name="l10n_hr_tax_model" />
                     <field name="l10n_hr_fiskal_separator" />
-                    <field name="l10n_hr_nacin_placanja_show_on_header" />
+                    <field name="l10n_hr_show_required_fisk_fields_on_header" />
                 </group>
             </group>
             <group name="l10n_hr_main" position="after">

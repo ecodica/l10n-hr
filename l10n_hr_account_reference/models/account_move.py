@@ -52,7 +52,7 @@ class AccountMove(models.Model):
             elif what == "invoice_ym":
                 res = dt.strftime(self.invoice_date, "%Y%m")
             elif what == "delivery_ym":
-                res = dt.strftime(self.date_delivery, "%Y%m")
+                res = dt.strftime(self.delivery_date, "%Y%m")
             return pnbr.get_only_numeric_chars(res)
 
         model = self.journal_id.invoice_reference_model

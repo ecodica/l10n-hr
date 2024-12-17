@@ -189,9 +189,10 @@ class AccountMove(models.Model):
         # now and set lock on journals,
         # after first posting journal is locked for changes
         if not self.l10n_hr_fiskal_uredjaj_id.lock:
-            self.l10n_hr_fiskal_uredjaj_id.lock = True
+            self.l10n_hr_fiskal_uredjaj_id.sudo().write({'lock': True})
+            #self.l10n_hr_fiskal_uredjaj_id.lock = True
             if not self.l10n_hr_fiskal_uredjaj_id.prostor_id.lock:
-                self.l10n_hr_fiskal_uredjaj_id.prostor_id.lock = True
+                self.l10n_hr_fiskal_uredjaj_id.prostor_id.sudo().write({'lock': True})
 
     def _post(self, soft=True):
         posted = super()._post(soft=soft)

@@ -590,6 +590,13 @@ msgid "Ne podlijeze oporezivanju"
 msgstr ""
 
 #. module: l10n_hr_account_fiskal
+#. odoo-javascript
+#: code:addons/l10n_hr_account_fiskal/static/src/xml/not_fiscalized_invoices_systray.xml:0
+#, python-format
+msgid "No Unfiscalized Invoices..."
+msgstr "Nema nefiskaliziranih računa"
+
+#. module: l10n_hr_account_fiskal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
 #, python-format
@@ -598,7 +605,6 @@ msgid ""
 "company setup!"
 msgstr ""
 "Certifikat za fiskalizaciju nije pronađen, Molimo da ga instalirate i aktivirate u postakama!"
-
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__not_after

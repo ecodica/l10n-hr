@@ -1,3 +1,9 @@
+17.0.1.2.0 (2024-12-18)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Extended 'Not Fiscalized Invoices' in Navbar with 'Not Fiscalized Tips'
+
+
 17.0.1.1.0 (2024-09-30)
 ~~~~~~~~~~~~~~~~~~~~~~~
 

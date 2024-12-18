@@ -79,3 +79,17 @@ class AccountMove(models.Model):
         if self.move_type in ["out_invoice", "out_refund"] and not self.company_id.l10n_hr_fiskal_taxative:
             return False
         return True
+
+    @api.model
+    def search_not_fiscalized_invoice_count(self, company_id):
+        """Search for count of Account Moves that are not fiscalized"""
+        domain = [
+            ('l10n_hr_zki', '!=', False),
+            ('l10n_hr_jir', '=', False),
+            ('state', '=', 'posted'),
+            ('company_id', '=', company_id)
+        ]
+        count = self.env['account.move'].sudo().search_count(domain)
+        return {
+            'count': count
+        }

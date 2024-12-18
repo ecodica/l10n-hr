@@ -94,6 +94,11 @@
             <t t-else=""><span t-field="line.product_uom_id" groups="uom.group_uom">units</span></t>
         </xpath>
 
+        <!-- show due date always -->
+        <xpath expr="//div[@name='due_date']" position="attributes">
+            <attribute name="t-if" add=" or (o.invoice_date_due and o.move_type == 'out_refund' and o.state == 'posted')" separator=" "/>
+        </xpath>
+
     </template>
     <template
         id="l10n_hr_report_storno_invoice_document"

@@ -24,3 +24,6 @@ It also adds a new column to the report: ZKI.
 .. image:: ./l10n_hr_account_invoice_tips_fiskal/static/description/4.png
    :width: 1000px
    :align: center
+
+The module extends the 'Not Fiscalized Invoices' button in the Navbar and adds a 'Not Fiscalized Tips' button with a counter of non-fiscalized tips. 
+The total sum of both the Invoices and Tips is shown on the main buttons count.

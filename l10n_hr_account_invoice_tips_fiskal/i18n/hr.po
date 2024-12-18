@@ -76,6 +76,14 @@ msgid "Log of all messages sent and received for FINA tips fiskalization"
 msgstr "Zapisi svih poruka poslanih i primljenih za Fiskalizaciju napojnica"
 
 #. module: l10n_hr_account_invoice_tips_fiskal
+#. odoo-javascript
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/static/src/js/not_fiscalized_invoices_systray.js:0
+#: code:addons/l10n_hr_account_invoice_tips_fiskal/static/src/xml/not_fiscalized_invoices_systray.xml:0
+#, python-format
+msgid "Not Fiscalized Tips"
+msgstr "Nefiskalizirane napojnice"
+
+#. module: l10n_hr_account_invoice_tips_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips_fiskal.field_l10n_hr_invoice_tips_report_wizard__only_fiscalized_invoices
 msgid "Only Fiscalized Invoices"
 msgstr "Samo fiskalizirani računi"

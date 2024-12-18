@@ -2,7 +2,7 @@
     'name': 'Croatia - Invoice Tips Fiskal',
     'summary': 'Croatia Invoice Tips Fiskalization',
     'category': 'Accounting/Localizations/Croatia',
-    'version': '17.0.1.1.0',
+    'version': '17.0.1.2.0',
     'application': False,
     'author': 'info3',
     'license' : 'OPL-1',
@@ -17,7 +17,12 @@
         'wizards/invoice_tips_report_wizard.xml',
         'report/invoice_report_tips.xml',
     ],
-
+    'assets': {
+        'web.assets_backend': [
+            'l10n_hr_account_invoice_tips_fiskal/static/src/js/not_fiscalized_invoices_systray.js',
+            'l10n_hr_account_invoice_tips_fiskal/static/src/xml/not_fiscalized_invoices_systray.xml',
+        ]
+    },
     'auto_install': True,
     'installable': True,
 }

@@ -41,3 +41,18 @@ class AccountMove(models.Model):
         if self.l10n_hr_napojnica_refund_fiscalized and 'l10n_hr_napojnica_iznos' not in default:
             default['l10n_hr_napojnica_iznos'] = 0.0
         return super().copy(default=default)
+
+    @api.model
+    def search_not_fiscalized_tips_count(self, company_id):
+        """Search for count of Account Move Tips that are not fiscalized"""
+        domain = [
+            ('company_id', '=', company_id),
+            ('l10n_hr_zki', '!=', False),
+            ('l10n_hr_jir', '!=', False),
+            ('l10n_hr_napojnica_iznos', '>', 0),
+            ('l10n_hr_napojnica_is_fiscalized', '!=', True),
+        ]
+        count = self.env['account.move'].sudo().search_count(domain)
+        return {
+            'count': count
+        }

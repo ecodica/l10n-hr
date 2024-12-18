@@ -75,8 +75,17 @@ It also adds a new column to the report: ZKI.
    :width: 1000px
    :align: center
 
+The module extends the 'Not Fiscalized Invoices' button in the Navbar and adds a 'Not Fiscalized Tips' button with a counter of non-fiscalized tips. 
+The total sum of both the Invoices and Tips is shown on the main buttons count.
+
 Changelog
 =========
+
+17.0.1.2.0 (2024-12-18)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* Extended 'Not Fiscalized Invoices' in Navbar with 'Not Fiscalized Tips'
+
 
 17.0.1.1.0 (2024-09-30)
 ~~~~~~~~~~~~~~~~~~~~~~~

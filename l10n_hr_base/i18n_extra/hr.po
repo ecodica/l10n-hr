@@ -29,3 +29,11 @@ msgstr "Kreiraj \"%s\""
 #, python-format
 msgid "Create and edit..."
 msgstr "Kreiraj i uredi..."
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/views/form/form_status_indicator/form_status_indicator.xml:0
+#: code:addons/web/static/src/views/form/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "Save manually"
+msgstr "Spremi"

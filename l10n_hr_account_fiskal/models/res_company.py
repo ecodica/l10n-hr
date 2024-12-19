@@ -179,9 +179,10 @@ class Company(models.Model):
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiskal_path + "fina_cert/" + self.l10n_hr_fiskal_cert_id.cert_type
+        cer_oib = self.l10n_hr_fiskal_cert_id.cert_oib and self.l10n_hr_fiskal_cert_id.cert_oib[2:]
         res = {
             "company_oib": self.company_registry,
-            "cert_oib": self.l10n_hr_fiskal_cert_id.cert_oib,
+            "cert_oib": cer_oib,
             "wsdl": wsdl_file,
             "key": key_file,
             "cert": cert_file,

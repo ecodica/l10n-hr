@@ -123,14 +123,14 @@ class FiscalFiscalMixin(models.AbstractModel):
 
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.company_id.partner_id.vat
+            and not self.company_id.partner_id.company_registry
         ):
             res.append(
                 _("Company OIB is not not entered! It is required for fiscalisation")
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.l10n_hr_fiskal_user_id.vat
+            and not self.l10n_hr_fiskal_user_id.company_registry
         ):
             res.append(
                 _("User OIB is not not entered! It is required for fiscalisation")
@@ -290,10 +290,11 @@ class FiscalFiscalMixin(models.AbstractModel):
             pdv = factory.type_factory.PdvType(Porez=porezi["Pdv"])
         if porezi.get("Pnp", None):
             pnp = factory.type_factory.PorezNaPotrosnjuType(Porez=porezi["Pnp"])
-        oib_company = self.company_id.partner_id.vat[2:]
+        oib_company = self.company_id.partner_id.company_registry
         if self.company_id.l10n_hr_fiskal_cert_id.cert_type == "demo":
             # demo cert na tudjoj bazi... onda ide oib iz certa
-            oib_company = self.company_id.l10n_hr_fiskal_cert_id.cert_oib[2:]
+            cert_oib = self.company_id.l10n_hr_fiskal_cert_id.cert_oib
+            oib_company = cert_oib and cert_oib[2:] or False
 
         RacunType = self._get_fisk_racun_type(factory, msg_type)
         racun = RacunType(
@@ -310,7 +311,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # Naknade=ws_naknade,
             IznosUkupno=self._prepare_fisk_racun_invoice_total(),
             NacinPlac=self.l10n_hr_nacin_placanja,
-            OibOper=self.l10n_hr_fiskal_user_id.vat[2:],
+            OibOper=self.l10n_hr_fiskal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,
             ParagonBrRac=self.l10n_hr_paragon_br or None,
@@ -408,7 +409,7 @@ class FiscalFiscalMixin(models.AbstractModel):
                 oib = fiskal_data["company_oib"]
 
             zki_datalist = [
-                oib[2:],
+                oib,
                 self.l10n_hr_vrijeme_izdavanja or time_start["datum_racun"],
                 fis_racun[0],
                 fis_racun[1],

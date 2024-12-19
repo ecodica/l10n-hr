@@ -37,7 +37,7 @@ Configuration
 
 5. Users setup
 
-    Users confirming the invoices, must have OIB entered (enter VAT with HR prefix!)
+    Users confirming the invoices, must have OIB entered
     It is legaly required part of fiskal message and needs to be entered.
 
 6. Fiscalize Invoice On Confirmation

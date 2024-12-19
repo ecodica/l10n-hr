@@ -49,6 +49,13 @@ msgid "NKD Code"
 msgstr "NKD"
 
 #. module: l10n_hr_base
+#. odoo-python
+#: code:addons/l10n_hr_base/models/res_partner.py:0
+#, python-format
+msgid "OIB %s is not valid!"
+msgstr "OIB %s nije ispravan!"
+
+#. module: l10n_hr_base
 #: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_mirovinsko
 msgid "Pension Fund"
 msgstr "Mirovinsko"

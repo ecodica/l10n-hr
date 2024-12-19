@@ -74,8 +74,8 @@ class FiskalCertificate(models.Model):
         selection=[
             ("EDUC_v1.6", "DEMO schema v1.6"),
             ("EDUC_v1.7", "DEMO schema v1.7"),
-            ("PROD_V1.6", "PROD Schema v1.6"),
-            ("PROD_V1.7", "PROD Schema v1.7"),
+            ("PROD_v1.6", "PROD Schema v1.6"),
+            ("PROD_v1.7", "PROD Schema v1.7"),
         ],
         string="Fiskalizaction schema",
         help=SCHEMA_HELP,

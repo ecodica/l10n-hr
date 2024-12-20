@@ -1,7 +1,7 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { Component, useState} from "@odoo/owl";
+import { Component, useState, onWillUnmount} from "@odoo/owl";
 import { Dropdown } from '@web/core/dropdown/dropdown';
 import { DropdownItem } from '@web/core/dropdown/dropdown_item';
 import { _t } from "@web/core/l10n/translation";
@@ -15,10 +15,12 @@ export class NotFiscalizedInvoicesSystray extends Component {
             counterTotal: 0
         });
         this.orm = useService("orm");
-        this.fetchCounter();
         this.intervalInvoice = setInterval(() => {
             this.fetchCounter();
         }, 5000);
+        onWillUnmount(() => {
+            clearInterval(this.intervalInvoice);
+        });
    }
 
    _openNotFiscalizedInvoices() {

@@ -2,13 +2,16 @@
 import { NotFiscalizedInvoicesSystray } from "@l10n_hr_account_fiskal/js/not_fiscalized_invoices_systray";
 import { patch } from "@web/core/utils/patch";
 import { _t } from "@web/core/l10n/translation";
+import { onWillUnmount } from "@odoo/owl";
 
 patch(NotFiscalizedInvoicesSystray.prototype, {
     async setup() {
+        onWillUnmount(() => {
+            clearInterval(this.intervalTips);
+        });
         await super.setup(...arguments);
         this.state.counterTips = 0;
-        this.fetchTipsCounter();
-        this.interval = setInterval(() => {
+        this.intervalTips = setInterval(() => {
             this.fetchTipsCounter();
         }, 5000);
     },

@@ -73,13 +73,6 @@ class AccountMove(models.Model):
             self.fiskaliziraj(delay_fiscalization=delay_fiscalization)
         return res
 
-    def _l10n_hr_show_taxes(self):
-        """"Return False if taxes should not be printed on invoice."""
-        self.ensure_one()
-        if self.move_type in ["out_invoice", "out_refund"] and not self.company_id.l10n_hr_fiskal_taxative:
-            return False
-        return True
-
     @api.model
     def search_not_fiscalized_invoice_count(self, company_id):
         """Search for count of Account Moves that are not fiscalized"""

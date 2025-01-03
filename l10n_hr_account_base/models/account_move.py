@@ -197,11 +197,11 @@ class AccountMove(models.Model):
             raise ValidationError(msg)
         # set date fields
         if not self.l10n_hr_date_document:
-            self.l10n_hr_date_document = fields.Date.today()
+            self.l10n_hr_date_document = fields.Date.context_today(self)
         if not self.l10n_hr_date_delivery:
-            self.l10n_hr_date_delivery = fields.Date.today()
+            self.l10n_hr_date_delivery = fields.Date.context_today(self)
         if not self.date:
-            self.date = fields.Date.today()
+            self.date = fields.Date.context_today(self)
         if not self.l10n_hr_vrijeme_izdavanja:  # depend na l10n_hr_base?
             # DEV NOTE: mozda i ostaviti datetime field? za sad.. char
             datum = self.company_id.get_l10n_hr_time_formatted()

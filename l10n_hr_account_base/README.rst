@@ -25,6 +25,9 @@ Important rules:
   - BB - Business premisse code - alphanumerical chars
   - CC - PoS device code - strictly integer
 
+This module removes Invoice (account.move) unique name constraint for outgoing invoices and their refunds and adds
+custom constraint that invoice number must be unique inside same fiscal year.
+
 Configuration
 =============
 

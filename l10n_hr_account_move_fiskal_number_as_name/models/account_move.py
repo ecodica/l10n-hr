@@ -48,3 +48,15 @@ class AccountMove(models.Model):
         """Extend to force fiskal number as account move name"""
         self._set_fiskalni_broj_as_name()
         return super()._compute_name()
+
+    def _compute_made_sequence_hole(self):
+        """Extend to skip checking gap for invoices that are using fiskalni broj as invoice name"""
+        # NOTE: existing checks are not good enough to verify if there are any number gaps because
+        # fiskal number is generated from custom sequence number
+        # TODO: implement checks that will take custom sequences by fiskal device and
+        # fiskal place in consideration
+        fiskal_moves = self.filtered(
+            lambda m: m.company_id.l10n_hr_fiskalni_broj_as_move_name and m.move_type in self.get_sale_types())
+        fiskal_moves.made_sequence_hole = False
+        if moves := self - fiskal_moves:
+            super(AccountMove, moves)._compute_made_sequence_hole()

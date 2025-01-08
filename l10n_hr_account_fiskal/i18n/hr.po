@@ -249,6 +249,17 @@ msgid "Croatia payment means"
 msgstr "Način plaćanja"
 
 #. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"Croatia Payment Means on origin invoice %s is different from the Croatia "
+"Payment Means on this invoice. Please change Croatia Payment Means to the %s"
+msgstr ""
+"Način plaćanja na izvornom dokumentu %s je različit od načina plaćanja "
+"koji je odabran na ovom računu. Promijenite način plaćanja na %s kako bi fiskalizirali račun."
+
+#. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_certificate__fiskal_schema__educ_v1_6
 msgid "DEMO schema v1.6"
 msgstr ""
@@ -390,6 +401,16 @@ msgstr "Certifikati za fiskalizaciju"
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_certificate__cert_type__demo
 msgid "Fiskal Demo"
 msgstr ""
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"Fiskal Device on origin invoice %s is different from the Fiskal Device on "
+"this invoice. Please change Fiskal Device to the %s"
+msgstr "Naplatni uređaj na izvornom računu %s je različit od naplatnog uređaja "
+"koji je odabran na ovom računu. Promijenite naplatni uređaj na %s kako bi fiskalizirali račun."
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_certificate__cert_type__prod

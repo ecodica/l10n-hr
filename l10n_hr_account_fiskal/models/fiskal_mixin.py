@@ -142,6 +142,33 @@ class FiscalFiscalMixin(models.AbstractModel):
                     "activate and select it on company setup!"
                 )
             )
+
+        # NOTE: if invoice is refunded, then force sam payment type on created credit note
+        if (
+            self.move_type == 'out_refund' and
+            self.reversed_entry_id and
+            self.l10n_hr_nacin_placanja != self.reversed_entry_id.l10n_hr_nacin_placanja
+        ):
+            l10n_hr_nacin_placanja = dict(
+                self._fields['l10n_hr_nacin_placanja']._description_selection(self.env)).get(
+                    self.reversed_entry_id.l10n_hr_nacin_placanja, '')
+            res.append(
+                _("Croatia Payment Means on origin invoice %s is different from the Croatia Payment Means on this "
+                  "invoice. Please change Croatia Payment Means to the %s"
+                ) % (self.reversed_entry_id.name, l10n_hr_nacin_placanja)
+            )
+        # NOTE: if invoice is refunded, then force same l10n_hr_fiskal_uredjaj_id on the created credit note
+        if (
+            self.move_type == 'out_refund' and
+            self.reversed_entry_id and
+            self.l10n_hr_fiskal_uredjaj_id != self.reversed_entry_id.l10n_hr_fiskal_uredjaj_id
+        ):
+            res.append(
+                _("Fiskal Device on origin invoice %s is different from the Fiskal Device on this "
+                  "invoice. Please change Fiskal Device to the %s"
+                ) % (self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiskal_uredjaj_id.name)
+            )
+
         return res
 
     def _l10n_hr_fiscalization_needed(self, message_type):

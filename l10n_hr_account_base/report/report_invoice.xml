@@ -66,24 +66,22 @@
             </t>
         </xpath>
 
-        <!-- NOTE: show vat number without 'HR' prefix if partner country is Croatia -->
-        <xpath expr="//div[@name='address_not_same_as_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
-            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
-                <span t-esc="o.partner_id.vat[2:]"/>
-            </t>
-            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+        <xpath expr="//div[@id='partner_vat_address_not_same_as_shipping']" position="before">
+            <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
+                Company ID: <span t-field="o.partner_id.company_registry"/>
+            </div>
         </xpath>
-        <xpath expr="//div[@name='address_same_as_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
-            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
-                <span t-esc="o.partner_id.vat[2:]"/>
-            </t>
-            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+
+        <xpath expr="//div[@id='partner_vat_address_same_as_shipping']" position="before">
+            <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
+                Company ID: <span t-field="o.partner_id.company_registry"/>
+            </div>
         </xpath>
-        <xpath expr="//div[@name='no_shipping']//span[@t-field='o.partner_id.vat']" position="replace">
-            <t t-if="o.partner_id.country_id.code == 'HR' and len(o.partner_id.vat) >= 2 and o.partner_id.vat[:2] == 'HR'">
-                <span t-esc="o.partner_id.vat[2:]"/>
-            </t>
-            <t t-else=""><span t-field="o.partner_id.vat"/></t>
+
+        <xpath expr="//div[@id='partner_vat_no_shipping']" position="before">
+            <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
+                Company ID: <span t-field="o.partner_id.company_registry"/>
+            </div>
         </xpath>
 
         <!-- on croatian invoices, unit of meassue must be always visible -->

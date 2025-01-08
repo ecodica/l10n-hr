@@ -62,6 +62,13 @@ msgid "Credit Note Created"
 msgstr "Knjižno odobrenje je kreirano"
 
 #. module: account
+#. odoo-python
+#: code:addons/account/wizard/account_move_send.py:0
+#, python-format
+msgid "Partner(s) should have an email address."
+msgstr "Partneri bi trebali imati upisanu E-poštu"
+
+#. module: account
 #: model_terms:ir.ui.view,arch_db:account.view_account_move_reversal
 msgid "Reverse and Create Invoice"
 msgstr "Napravi odobrenje i kreiraj račun"
@@ -80,6 +87,13 @@ msgstr "Iznos bez poreza"
 #: model_terms:ir.ui.view,arch_db:account.view_move_form
 msgid "Tax incl."
 msgstr "Iznos s porezom"
+
+#. module: account
+#. odoo-python
+#: code:addons/account/wizard/account_move_send.py:0
+#, python-format
+msgid "View Partner(s)"
+msgstr "Otvori partnere"
 
 #. module: account
 #. odoo-python

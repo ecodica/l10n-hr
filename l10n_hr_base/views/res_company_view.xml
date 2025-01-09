@@ -19,11 +19,11 @@
                             <field name="l10n_hr_nkd"/>
                             <field name="l10n_hr_podrucje_djelatnosti"/>
                             <separator name="l10n_hr_responsible_data" string="Responsible Data"/>
-                            <field name="l10n_hr_responsible_fname"/>
-                            <field name="l10n_hr_responsible_lname"/>
-                            <field name="l10n_hr_responsible_tel"/>
-                            <field name="l10n_hr_responsible_email"/>
-                            <field name="l10n_hr_responsible_vat"/>
+                            <field name="l10n_hr_responsible_fname" string="Ime"/>
+                            <field name="l10n_hr_responsible_lname" string="Prezime"/>
+                            <field name="l10n_hr_responsible_tel" string="Telefon"/>
+                            <field name="l10n_hr_responsible_email" string="E-mail"/>
+                            <field name="l10n_hr_responsible_vat" string="OIB"/>
                         </group>
                     </group>
                 </page>

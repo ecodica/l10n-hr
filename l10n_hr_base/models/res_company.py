@@ -31,15 +31,15 @@ class Company(models.Model):
     l10n_hr_maticni_broj = fields.Char(string="Registration Number")
 
     l10n_hr_responsible_fname = fields.Char(
-        string='Ime', size=64, help='Ime odgovorne osobe')
+        string='Ime odgovorne osobe', size=64, help='Ime odgovorne osobe')
     l10n_hr_responsible_lname = fields.Char(
-        string='Prezime', size=64, help='Prezime odgovorne osobe')
+        string='Prezime odgovorne osobe', size=64, help='Prezime odgovorne osobe')
     l10n_hr_responsible_tel = fields.Char(
-        string='Telefon', size=64, help='Tel odgovorne osobe')
+        string='Telefon odgovorne osobe', size=64, help='Tel odgovorne osobe')
     l10n_hr_responsible_email = fields.Char(
-        string='E-mail', size=64, help='E-mail odgovorne osobe')
+        string='E-mail odgovorne osobe', size=64, help='E-mail odgovorne osobe')
     l10n_hr_responsible_vat = fields.Char(
-        string='OIB', size=32, help='OIB odgovorne osobe')
+        string='OIB odgovorne osobe', size=32, help='OIB odgovorne osobe')
     l10n_hr_podrucje_djelatnosti = fields.Selection(
         selection=[
             ('A', 'A-POLJOPRIVREDA, ŠUMARSTVO I RIBARSTVO'),

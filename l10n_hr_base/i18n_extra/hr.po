@@ -15,6 +15,29 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_partner_form
+msgid ""
+"A partner with the same <span><span class=\"o_vat_label\">Company "
+"Registry</span></span> already exists ("
+msgstr ""
+"Kontakt s istim <span><span class=\"o_vat_label\">OIB-om "
+"</span></span> već postoji ("
+
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_partner_form
+msgid ""
+"A partner with the same <span><span class=\"o_vat_label\">Tax "
+"ID</span></span> already exists ("
+msgstr ""
+"Kontakt s istim <span><span class=\"o_vat_label\">PDV ID "
+"brojem</span></span> već postoji ("
+
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_partner_form
+msgid "), are you sure to create a new one?"
+msgstr "), jeste li sigurni da želite izraditi novog?"
+
 #. module: web
 #. odoo-javascript
 #: code:addons/web/static/src/views/fields/properties/property_tags.js:0

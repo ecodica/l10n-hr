@@ -24,6 +24,17 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_partner__l10_hr_company_registry_is_not_set
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_users__l10_hr_company_registry_is_not_set
+msgid "Company Registry Is Not Set"
+msgstr "OIB nije upisan"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_partner_form_inherit
+msgid "Company Registry field should be set on the Croatian companies."
+msgstr "Na hrvatskim tvrkama potrebno je upisati OIB"
+
+#. module: l10n_hr_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
 msgid "Croatia Settings"
 msgstr "Postavke za Hrvatsku"

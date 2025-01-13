@@ -8,12 +8,25 @@
             <field name="inherit_id" ref="base_vat.view_partner_base_vat_form" />
             <field name="arch" type="xml">
 
-                <!-- move OIB field above VAT field-->
+
+                 <xpath expr="//field[@name='company_registry']" position="attributes">
+                    <attribute name="invisible" add="or country_code == 'HR'" separator=" "/>
+                </xpath>
+
+                <!-- show warning if OIB was not set for Croatina company -->
+                <div name="warning_company" position="after">
+                    <field name="l10_hr_company_registry_is_not_set" invisible="1"/>
+                    <div class="alert alert-warning oe_edit_only" role="alert" name="warning_company_registry" invisible="not l10_hr_company_registry_is_not_set">
+                        Company Registry field should be set on the Croatian companies.
+                    </div>
+                </div>
+
+                <!-- show OIB field above VAT field-->
                 <div name="vat_vies_container" position="after">
-                    <label for="company_registry"/>
-                    <div name="company_registry_container">
+                    <label for="company_registry" invisible="not country_code == 'HR'"/>
+                    <div name="company_registry_container" invisible="not country_code == 'HR'">
                         <span class="text-nowrap ps-2">
-                            <field name="company_registry" position="move"/>
+                            <field name="company_registry"/>
                         </span>
                     </div>
                 </div>

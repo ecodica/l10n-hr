@@ -1,9 +1,23 @@
-from odoo import api, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+    l10_hr_company_registry_is_not_set = fields.Boolean(
+        string='Company Registry Is Not Set', compute='_compute_l10_hr_company_registry_is_not_set', store=False)
+
+    @api.depends('company_registry', 'country_id', 'company_type')
+    def _compute_l10_hr_company_registry_is_not_set(self):
+        """Check if Croatian company has company registry (OIB) number set"""
+        for partner in self:
+           partner.l10_hr_company_registry_is_not_set = (
+               partner.company_type == 'company' and
+               partner.country_id.code == 'HR' and
+               not partner.company_registry or
+               False
+            )
 
     @api.depends("vat", "country_id")
     def _compute_company_registry(self):

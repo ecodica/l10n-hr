@@ -93,7 +93,7 @@ class AccountMove(models.Model):
     @api.depends('move_type', 'company_id')
     def _compute_l10n_hr_is_ref_required(self):
         for move in self:
-            move.l10n_hr_is_ref_required = move.move_type == 'in_invoice' and move.company_id.country_id.id == self.env.ref('base.hr').id
+            move.l10n_hr_is_ref_required = move.move_type == 'in_invoice' and move.company_id.country_id.code == 'HR'
 
     @api.depends(
         'invoice_line_ids.currency_rate',

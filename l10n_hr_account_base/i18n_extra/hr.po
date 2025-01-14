@@ -132,16 +132,3 @@ msgstr "Ovaj zapis je kopija od %s"
 #, python-format
 msgid "This entry has been reversed from %s"
 msgstr "Ovaj zapis je povrat od %s"
-
-#. module: account
-#. odoo-python
-#: code:addons/account/models/sequence_mixin.py:0
-#, python-format
-msgid ""
-"The %(date_field)s (%(date)s) doesn't match the sequence number of the related %(model)s (%(sequence)s)\n"
-"You will need to clear the %(model)s's %(sequence_field)s to proceed.\n"
-"In doing so, you might want to resequence your entries in order to maintain a continuous date-based sequence."
-msgstr ""
-"%(date_field)s (%(date)s) se ne podudara s rednim brojem povezanog s %(model)s (%(sequence)s)\n"
-"Morate obrisati vrijednost %(model)s %(sequence_field)s za nastavak.\n"
-"Također, uzmite u obzir ponovo generiranje sljednih brojeva stavaka da bi podržali kontinuirani slijed rednog broja po datumu."

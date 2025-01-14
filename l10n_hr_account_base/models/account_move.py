@@ -66,7 +66,7 @@ class AccountMove(models.Model):
     )
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         related='company_id.l10n_hr_show_required_fisk_fields_on_header')
-    l10n_hr_is_ref_required = fields.Boolean(compute="_compute_is_ref_required")
+    l10n_hr_is_ref_required = fields.Boolean(compute="_compute_l10n_hr_is_ref_required")
 
     _sql_constraints = [(
         'unique_name', "", "Another entry with the same name already exists.",
@@ -91,11 +91,9 @@ class AccountMove(models.Model):
             """)
 
     @api.depends('move_type', 'company_id')
-    def _compute_is_ref_required(self):
-        for rec in self:
-            rec.l10n_hr_is_ref_required = False
-            if rec.move_type == 'in_invoice' and rec.company_id.country_id.id == self.env.ref('base.hr').id:
-                rec.l10n_hr_is_ref_required = True
+    def _compute_l10n_hr_is_ref_required(self):
+        for move in self:
+            move.l10n_hr_is_ref_required = move.move_type == 'in_invoice' and move.company_id.country_id.id == self.env.ref('base.hr').id
 
     @api.depends(
         'invoice_line_ids.currency_rate',

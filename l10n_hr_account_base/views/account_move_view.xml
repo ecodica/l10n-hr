@@ -49,6 +49,13 @@
                 <field name="l10n_hr_nacin_placanja" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
             </field>
 
+            <field name="ref" position="before">
+                <field name="l10n_hr_is_ref_required" invisible="1"/>
+            </field>
+            <field name="ref" position="attributes">
+                <attribute name="required">l10n_hr_is_ref_required</attribute>
+            </field>
+
         </field>
     </record>
 

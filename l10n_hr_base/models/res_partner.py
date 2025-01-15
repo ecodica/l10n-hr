@@ -8,6 +8,9 @@ class ResPartner(models.Model):
     l10_hr_company_registry_is_not_set = fields.Boolean(
         string='Company Registry Is Not Set', compute='_compute_l10_hr_company_registry_is_not_set', store=False)
 
+    l10_hr_eu_country_vat_is_not_set = fields.Boolean(
+        string='Tax ID Is Not Set', compute='_compute_l10_hr_eu_country_vat_is_not_set', store=False)
+
     @api.depends('company_registry', 'country_id', 'company_type')
     def _compute_l10_hr_company_registry_is_not_set(self):
         """Check if Croatian company has company registry (OIB) number set"""
@@ -16,6 +19,19 @@ class ResPartner(models.Model):
                partner.company_type == 'company' and
                partner.country_id.code == 'HR' and
                not partner.company_registry or
+               False
+            )
+
+    @api.depends('vat', 'country_id', 'company_type')
+    def _compute_l10_hr_eu_country_vat_is_not_set(self):
+        """Check if Croatian company has company registry (OIB) number set"""
+        eu_countries =  self.env.ref('base.europe').country_ids
+        for partner in self:
+           partner.l10_hr_eu_country_vat_is_not_set = (
+               partner.company_type == 'company' and
+               partner.country_id.code != 'HR' and
+               partner.country_id in eu_countries and
+               not partner.vat or
                False
             )
 

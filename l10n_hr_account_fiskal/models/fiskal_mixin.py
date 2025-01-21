@@ -197,8 +197,8 @@ class FiscalFiscalMixin(models.AbstractModel):
             # NOTE: osnovica and iznos should be on credit side so balance will be negative
             osnovica = tax_line.tax_base_amount
             iznos = tax_line.balance * (-1)
-            # if amount is negative then base amount is also negative
-            if round(iznos, self.currency_id.decimal_places) < 0:
+            # if the move is a refund, reverse the osnovica
+            if self.move_type in ['in_refund', 'out_refund']:
                 osnovica = osnovica * (-1)
 
             if fiskal_type in ['Pdv', 'Pnp']:

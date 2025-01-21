@@ -39,7 +39,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         #   1. l10n_hr_zki must be set on invoice
         #   2. l10n_hr_napojnica_iznos must be > 0
         #   3. l10n_hr_napojnica_nacin_placanja must be != "T" or transaction fiskalization must be enabled
-        if self.l10n_hr_zki and float_compare(self.l10n_hr_napojnica_iznos, 0.0, precision_rounding=precision) > 0 and (
+        if self.l10n_hr_zki and float_compare(self.l10n_hr_napojnica_iznos, 0.0, precision_digits=precision) > 0 and (
             not self.company_id.l10n_hr_fiskal_transaction_type_skip or
             self.l10n_hr_napojnica_nacin_placanja != "T"
         ):

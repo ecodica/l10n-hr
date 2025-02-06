@@ -105,9 +105,7 @@ class FiscalFiscalMixin(models.AbstractModel):
 
         # NOTE: check if more than 2 days passed after invoice was fiskalized
         current_time = fields.Datetime.context_timestamp(self, datetime.now()).replace(tzinfo=None)
-        vrijeme_izdavanja = datetime.strptime(
-            self.l10n_hr_vrijeme_izdavanja, RACUN_DATETIME_FORMAT
-        )
+        vrijeme_izdavanja = self.l10n_hr_vrijeme_izdavanja
         if (current_time-vrijeme_izdavanja).days >= 2:
             raise ValidationError(_("It is not possible to fiskalize the tip because more than 2 days "
                 "have passed since the invoice was issued."))

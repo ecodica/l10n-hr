@@ -86,3 +86,13 @@ class Company(models.Model):
             "time_stamp": tstamp,  # timestamp, za zapis i izračun vremena obrade
             "odoo_datetime": time_now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
         }
+
+    def get_l10n_hr_datetime(self):
+        ''' Returns user timezone datetime and server datetime (UTC) '''
+        user_tz = self.env.user.tz or self.env.context.get("tz")
+        user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
+        tstamp = datetime.now().astimezone(user_pytz)
+        return {
+            "user_datetime": tstamp,
+            "server_datetime": datetime.now(),
+        }

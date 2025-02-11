@@ -233,7 +233,7 @@ msgstr "Hrvatska - Fiskalni podaci"
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_vrijeme_izdavanja
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_vrijeme_izdavanja
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_payment__l10n_hr_vrijeme_izdavanja
-msgid "Croatia Fiskal datetime value as string. shoud respect format: "
+msgid "Croatia Fiskal datetime"
 msgstr "Datum i vrijeme izdavanja"
 
 #. module: l10n_hr_account_base

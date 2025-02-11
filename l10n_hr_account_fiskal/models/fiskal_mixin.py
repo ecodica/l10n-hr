@@ -2,6 +2,7 @@ import base64
 import io
 import logging
 from datetime import datetime
+import pytz
 
 import qrcode
 
@@ -35,9 +36,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # ispis prije poslane fiskalne poruke ili je poslana poruka
             # imala neku gresku pa JIR nije dodjeljen
             url += "zki=" + self.l10n_hr_zki
-        datum = datetime.strptime(
-            self.l10n_hr_vrijeme_izdavanja, "%d.%m.%Y %H:%M"
-        ).strftime("%Y%m%d_%H%M")
+        datum = self.l10n_hr_vrijeme_izdavanja.strftime("%Y%m%d_%H%M")
         url += "&datv=" + datum
         iznos = "&izn=%.2f" % self.amount_total
         url += iznos.replace(".", "")  # bez decimalne tocke u linku!
@@ -298,9 +297,9 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _prepare_fisk_racun_dat_vrijeme(self):
         """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
-        return datetime.strptime(
-            self.l10n_hr_vrijeme_izdavanja, RACUN_DATETIME_FORMAT
-        ).strftime(FISKAL_DATETIME_FORMAT)
+        formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
+            pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(FISKAL_DATETIME_FORMAT)
+        return formatted_date
 
     def _get_fisk_racun_type(self, factory, msg_type):
         return factory.type_factory.RacunType
@@ -435,9 +434,11 @@ class FiscalFiscalMixin(models.AbstractModel):
             else:
                 oib = fiskal_data["company_oib"]
 
+            formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
+                pytz.timezone(self.env.context.get("tz")or self.env.user.tz or "UTC")).strftime(RACUN_DATETIME_FORMAT) or time_start["datum_racun"]
             zki_datalist = [
                 oib,
-                self.l10n_hr_vrijeme_izdavanja or time_start["datum_racun"],
+                formatted_date,
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],

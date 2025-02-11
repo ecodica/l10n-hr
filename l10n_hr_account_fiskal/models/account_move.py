@@ -53,7 +53,7 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         """Extend to verify if required fiscalization data is set on posted invoices"""
-        invoices = super()._post()
+        invoices = super()._post(soft=soft)
         invoices._check_zki_on_confirm()
         return invoices
 

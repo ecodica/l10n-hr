@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.company_registry</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base_vat.view_partner_base_vat_form" />
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="//field[@name='company_registry']" position="attributes">
+                    <attribute name="invisible" add="country_code == 'HR'" separator="or"/>
+                </xpath>
+
+                <!-- show warning if OIB was not set for Croatina company -->
+                <div name="warning_company" position="after">
+                    <field name="l10_hr_eu_country_vat_is_not_set" invisible="1"/>
+                    <div class="alert alert-warning oe_edit_only" role="alert" name="warning_company_registry" invisible="not l10_hr_company_registry_is_not_set">
+                        Company Registry field should be set on the Croatian companies.
+                    </div>
+                    <field name="l10_hr_company_registry_is_not_set" invisible="1"/>
+                    <div class="alert alert-warning oe_edit_only" role="alert" name="warning_eu_vat" invisible="not l10_hr_eu_country_vat_is_not_set">
+                        Tax ID field should be set on the European companies.
+                    </div>
+                </div>
+
+                <!-- show OIB field above VAT field-->
+                <div name="vat_vies_container" position="after">
+                    <label for="company_registry" invisible="not country_code == 'HR'"/>
+                    <div name="company_registry_container" invisible="not country_code == 'HR'">
+                        <span class="text-nowrap ps-2">
+                            <field name="company_registry"/>
+                        </span>
+                    </div>
+                </div>
+                <xpath expr="//field[@name='company_registry']" position="attributes">
+                    <attribute name="class" add="oe_inline" separator=" "/>
+                </xpath>
+
+                <!-- hide VAT number for contacts -->
+                <xpath expr="//label[@for='vat']" position="attributes">
+                    <attribute name="invisible">not is_company</attribute>
+                </xpath>
+                <xpath expr="//div[@name='vat_vies_container']" position="attributes">
+                    <attribute name="invisible">not is_company</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

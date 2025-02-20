@@ -1,0 +1,318 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-20 13:26+0000\n"
+"PO-Revision-Date: 2025-02-20 13:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__a
+msgid "A-POLJOPRIVREDA, ŠUMARSTVO I RIBARSTVO"
+msgstr "A-POLJOPRIVREDA, ŠUMARSTVO I RIBARSTVO"
+
+#. module: l10n_hr_base
+#: model:ir.model,name:l10n_hr_base.model_l10n_hr_xml_mixin
+msgid "Abstract class for handling XML in Croatia"
+msgstr "Apstraktna klasa za rukovanje XML datotekama"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_activity_classification
+msgid "Activity classification"
+msgstr "Podjela djelatnosti"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__b
+msgid "B-RUDARSTVO I VAĐENJE"
+msgstr "B-RUDARSTVO I VAĐENJE"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__c
+msgid "C-PRERAĐIVAČKA INDUSTRIJA"
+msgstr "C-PRERAĐIVAČKA INDUSTRIJA"
+
+#. module: l10n_hr_base
+#: model:ir.model,name:l10n_hr_base.model_res_company
+msgid "Companies"
+msgstr "Tvrtke"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_partner__l10_hr_company_registry_is_not_set
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_users__l10_hr_company_registry_is_not_set
+msgid "Company Registry Is Not Set"
+msgstr "OIB nije upisan"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_partner_form_inherit
+msgid "Company Registry field should be set on the Croatian companies."
+msgstr "Na hrvatskim tvrkama potrebno je upisati OIB."
+
+#. module: l10n_hr_base
+#: model:ir.model,name:l10n_hr_base.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__country_code
+msgid "Country Code"
+msgstr "Šifra države"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Croatia Settings"
+msgstr "Postavke za Hrvatsku"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__d
+msgid "D-OPSKRBA ELEKTRIČNOM ENERGIJOM, PLINOM, PAROM I KLIMATIZACIJA"
+msgstr "D-OPSKRBA ELEKTRIČNOM ENERGIJOM, PLINOM, PAROM I KLIMATIZACIJA"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__e
+msgid ""
+"E-OPSKRBA VODOM, UKLANJANJE OTPADNIH VODA, GOSPODARENJE OTPADOM TE "
+"DJELATNOSTI SANACIJE OKOLIŠA"
+msgstr ""
+"E-OPSKRBA VODOM, UKLANJANJE OTPADNIH VODA, GOSPODARENJE OTPADOM TE "
+"DJELATNOSTI SANACIJE OKOLIŠA"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "E-mail"
+msgstr "Elektronička pošta (e-mail)"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__f
+msgid "F-GRAĐEVINARSTVO"
+msgstr "F-GRAĐEVINARSTVO"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__g
+msgid "G-TRGOVINA NA VELIKO I NA MALO; POPRAVAK MOTORNIH VOZILA I MOTOCIKALA"
+msgstr "G-TRGOVINA NA VELIKO I NA MALO; POPRAVAK MOTORNIH VOZILA I MOTOCIKALA"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__h
+msgid "H-PRIJEVOZ I SKLADIŠTENJE"
+msgstr "H-PRIJEVOZ I SKLADIŠTENJE"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_health_insurance
+msgid "Health Insurance"
+msgstr "Zdravstveno osiguranje"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__i
+msgid "I-DJELATNOSTI PRUŽANJA SMJEŠTAJA TE PRIPREME I USLUŽIVANJA HRANE"
+msgstr "I-DJELATNOSTI PRUŽANJA SMJEŠTAJA TE PRIPREME I USLUŽIVANJA HRANE"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Name"
+msgstr "Ime"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__j
+msgid "J-INFORMACIJE I KOMUNIKACIJE"
+msgstr "J-INFORMACIJE I KOMUNIKACIJE"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__k
+msgid "K-FINANCIJSKE DJELATNOSTI I DJELATNOSTI OSIGURANJA"
+msgstr "K-FINANCIJSKE DJELATNOSTI I DJELATNOSTI OSIGURANJA"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__l
+msgid "L-POSLOVANJE NEKRETNINAMA"
+msgstr "L-POSLOVANJE NEKRETNINAMA"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Legal Data"
+msgstr "Opći podaci"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__m
+msgid "M-STRUČNE, ZNANSTVENE I TEHNIČKE DJELATNOSTI"
+msgstr "M-STRUČNE, ZNANSTVENE I TEHNIČKE DJELATNOSTI"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_nkd_code
+msgid "Main company activity classified by NKD-2007."
+msgstr "Šifra glavne djelatnosti prema NKD-2007."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__n
+msgid "N-ADMINISTRATIVNE I POMOĆNE USLUŽNE DJELATNOSTI"
+msgstr "N-ADMINISTRATIVNE I POMOĆNE USLUŽNE DJELATNOSTI"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_nkd_code
+msgid "NKD Code"
+msgstr "NKD"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__o
+msgid "O-JAVNA UPRAVA I OBRANA; OBVEZNO SOCIJALNO OSIGURANJE"
+msgstr "O-JAVNA UPRAVA I OBRANA; OBVEZNO SOCIJALNO OSIGURANJE"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "OIB"
+msgstr "OIB"
+
+#. module: l10n_hr_base
+#. odoo-python
+#: code:addons/l10n_hr_base/models/res_partner.py:0
+msgid "OIB %s is not valid!"
+msgstr "OIB %s nije ispravan!"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__p
+msgid "P-OBRAZOVANJE"
+msgstr "P-OBRAZOVANJE"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_pension_fund
+msgid "Pension Fund"
+msgstr "Mirovinski fond"
+
+#. module: l10n_hr_base
+#. odoo-python
+#: code:addons/l10n_hr_base/models/l10n_hr_xml_common.py:0
+msgid "Phone %s not valid!"
+msgstr "Broj telefona %s nije ispravan!"
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Surname"
+msgstr "Prezime"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__q
+msgid "Q-DJELATNOSTI ZDRAVSTVENE ZAŠTITE I SOCIJALNE SKRBI"
+msgstr "Q-DJELATNOSTI ZDRAVSTVENE ZAŠTITE I SOCIJALNE SKRBI"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__r
+msgid "R-UMJETNOST, ZABAVA I REKREACIJA"
+msgstr "R-UMJETNOST, ZABAVA I REKREACIJA"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_registration_number
+msgid "Registration Number"
+msgstr "Matični broj"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_pension_fund
+msgid "Registration number for payments in pension fund."
+msgstr "Broj obveznika uplaćivanja mirovinskog osiguranja."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_health_insurance
+msgid "Registration number for payments to health insurance."
+msgstr "Broj obveze uplaćivanja zdravstvenog osiguranja."
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Responsible Data"
+msgstr "Odgovorna osoba"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_responsible_email
+msgid "Responsible Person E-mail"
+msgstr "Elektronička pošta (e-mail) odgovorne osobe"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_responsible_fname
+msgid "Responsible Person First Name"
+msgstr "Ime odgovorne osobe"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_responsible_lname
+msgid "Responsible Person Last Name"
+msgstr "Prezime odgovorne osobe"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_responsible_vat
+msgid "Responsible Person OIB Number"
+msgstr "OIB odgovorne osobe"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_company__l10n_hr_responsible_tel
+msgid "Responsible Person Phone Number"
+msgstr "Broj telefona odgovorne osobe"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_responsible_vat
+msgid "Responsible person OIB number."
+msgstr "OIB odgovorne osobe."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_responsible_email
+msgid "Responsible person e-mail."
+msgstr "Elektronička pošta (e-mail) odgovorne osobe."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_responsible_fname
+msgid "Responsible person first name."
+msgstr "Ime odgovorne osobe."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_responsible_lname
+msgid "Responsible person last name."
+msgstr "Prezime odgovorne osobe."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__l10n_hr_responsible_tel
+msgid "Responsible person phone number."
+msgstr "Telefonski broj odgovorne osobe."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__s
+msgid "S-OSTALE USLUŽNE DJELATNOSTI"
+msgstr "S-OSTALE USLUŽNE DJELATNOSTI"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__t
+msgid "T-DJELATNOSTI KUĆANSTAVA KAO POSLODAVACA"
+msgstr "T-DJELATNOSTI KUĆANSTAVA KAO POSLODAVACA"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_partner__l10_hr_eu_country_vat_is_not_set
+#: model:ir.model.fields,field_description:l10n_hr_base.field_res_users__l10_hr_eu_country_vat_is_not_set
+msgid "Tax ID Is Not Set"
+msgstr "PDV ID nije upisan."
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_partner_form_inherit
+msgid "Tax ID field should be set on the European companies."
+msgstr "Na EU tvrkama potrebno je upisati PDV ID."
+
+#. module: l10n_hr_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_base.view_l10n_hr_base_company_data
+msgid "Telephone"
+msgstr "Telefon"
+
+#. module: l10n_hr_base
+#: model:ir.model.fields,help:l10n_hr_base.field_res_company__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"ISO oznaka države u dva slova.\n"
+"Možete koristiti za brzo pretraživanje."
+
+#. module: l10n_hr_base
+#: model:ir.model.fields.selection,name:l10n_hr_base.selection__res_company__l10n_hr_activity_classification__u
+msgid "U-DJELATNOSTI IZVANTERITORIJALNIH ORGANIZACIJA I TIJELA"
+msgstr "U-DJELATNOSTI IZVANTERITORIJALNIH ORGANIZACIJA I TIJELA"

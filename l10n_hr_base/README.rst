@@ -38,3 +38,11 @@ Contributors
 
 - Goran Kliska (goran.kliska@slobodni-programi.hr)
 - Davor Bojkić (davor.bojkic@dajmi5.hr)
+- Mihael Cindori (mihael.cindori@ecodica.eu)
+
+Migration notes
+===============
+
+* FIX: all field, class and method names are in English now with prefix "l10n_hr_" (according to Odoo's l10n coding practice)
+* FIX: new translation file generated
+* TODO: write migration scripts

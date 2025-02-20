@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <function model="ir.default" name="set" eval="('account.journal', 'property_l10n_hr_P1_ar', 'move_id')"/>
+    <function model="ir.default" name="set" eval="('account.journal', 'property_l10n_hr_P2_ar', 'invoice_ym')"/>
+    <function model="ir.default" name="set" eval="('account.journal', 'property_l10n_hr_P3_ar', 'invoice_no')"/>
+    <function model="ir.default" name="set" eval="('account.journal', 'property_l10n_hr_P4_ar', 'null')"/>
+
+</odoo>

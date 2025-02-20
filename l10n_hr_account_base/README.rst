@@ -78,7 +78,7 @@ Activate PoS device and Business premise:
 
 Migration notes:
 
-* FIX: fixed _onchange_partner_id on account.move (before purchase_journal_id was forced, now journal on partner will be used only if set, and move type will be taken into consideration)
-* TODO: remove l10n_hr_date_delivery and use delivery_date instead
-* TODO: remove hard-coded account search from _get_new_journal_vals on l10n.hr.fiscal.device model
-* TODO: migrate account onboarding steps for Business Premise
+* FIX: all field, class and method names are in English now with prefix "l10n_hr_" (according to Odoo's l10n coding practice)
+* FIX: new translation file generated
+* TODO: write migration scripts
+

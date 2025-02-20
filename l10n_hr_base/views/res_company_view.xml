@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record id="view_l10n_hr_base_company_data" model="ir.ui.view">
+        <field name="name">view.l10n.hr.base.company</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="currency_id" position="after">
+                <field name="country_code" invisible="1"/>
+            </field>
+            <notebook position="inside">
+                <page name="croatia_settings" string="Croatia Settings"  invisible="country_code != 'HR'">
+                    <group name="l10n_hr_main">
+                        <group string="Legal Data" name="l10n_hr_legal">
+                            <field name="l10n_hr_pension_fund"/>
+                            <field name="l10n_hr_health_insurance"/>
+                            <field name="l10n_hr_registration_number"/>
+                            <field name="l10n_hr_nkd_code"/>
+                            <field name="l10n_hr_activity_classification"/>
+                            <separator name="l10n_hr_responsible_data" string="Responsible Data"/>
+                            <field name="l10n_hr_responsible_fname" string="Name"/>
+                            <field name="l10n_hr_responsible_lname" string="Surname"/>
+                            <field name="l10n_hr_responsible_tel" string="Telephone"/>
+                            <field name="l10n_hr_responsible_email" string="E-mail"/>
+                            <field name="l10n_hr_responsible_vat" string="OIB"/>
+                        </group>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

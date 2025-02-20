@@ -19,6 +19,7 @@ Contributors
 ------------
 
 Davor Bojkić <bole@dajmi5.com>
+Mihael Cindori (mihael.cindori@ecodica.eu)
 
 Maintainer
 ----------

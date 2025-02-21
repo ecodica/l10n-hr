@@ -47,6 +47,6 @@ Mihael Cindori / Ecodica d.o.o.
 
 ## Migration notes
 
-* FIX: all field, class and method names are in English now with prefix "l10n_hr_" (according to Odoo's l10n coding practice)
+* FIX: all field, class and method names are in English now with localization prefix (according to Odoo's l10n coding practice)
 * FIX: new translation file generated
 * TODO: write migration scripts

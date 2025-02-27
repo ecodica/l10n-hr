@@ -70,7 +70,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             if not inv.l10n_hr_jir and not inv.l10n_hr_zki:
                 inv.l10n_hr_fiskal_qr
                 continue
-            inv.l10n_hr_fiskal_qr = self._generate_fiskal_qr_code()
+            inv.l10n_hr_fiskal_qr = inv._generate_fiskal_qr_code()
 
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
     l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)

@@ -17,7 +17,7 @@ Usage
 
 Contributors
 ------------
-
+Goran Kliska <goran@ecodica.eu>
 Davor Bojkić <bole@dajmi5.com>
 Mihael Cindori (mihael.cindori@ecodica.eu)
 
@@ -35,4 +35,3 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
 To contribute to this module, please visit https://odoo-community.org.
-

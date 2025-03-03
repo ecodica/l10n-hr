@@ -5,8 +5,9 @@
     "images": [],
     "version": "18.0.1.0.0",
     "application": False,
-    "author": "Ecodica ltd, Daj Mi 5",
-    "license": "AGPL-3",
+    "author": "Ecodica d.o.o., Standard Croatian Localization",
+    "website": "https://github.com/OCA/l10n-croatia",
+    "license": "LGPL-3",
     "depends": ["l10n_hr_account_base"],
     "data": [
         "views/account_journal_view.xml",

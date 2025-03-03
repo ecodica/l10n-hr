@@ -37,7 +37,7 @@ class AccountMove(models.Model):
         string="Croatia - Payment Method",
         default="T",
         help="According to Fiscalization Law and regulative "
-             "there is 5 possible options: T, G, K, C, O\n"
+             "there are 5 possible options: T, G, K, C, O\n"
              "T - Transaction bank account, is applicable without fiscalization\n"
              " and for other options needed please install fiscalization extension module.")
     l10n_hr_fiscal_device_id = fields.Many2one(
@@ -102,7 +102,7 @@ class AccountMove(models.Model):
         'partner_id',
         'currency_id',
     )
-    def _compute_tax_totals(self):
+    def _compute_tax_totals(self):  # TODO: KGB: do we still need this?
         res = super()._compute_tax_totals()
         """ Storno hack for Croatia,
         We print Storno invoices with negative amounts,

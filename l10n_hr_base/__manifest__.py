@@ -5,10 +5,10 @@
     "images": [],
     "version": "18.0.1.0.0",
     "application": False,
-    "author": "DAJ MI 5, Odoo Community Association (OCA)",
+    "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",
+    "license": "LGPL-3",
     "support": "",
-    "license": "AGPL-3",
     "depends": ["base_vat"],
     "data": [
         "views/res_company_view.xml",

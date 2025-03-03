@@ -8,9 +8,9 @@
     "images": [],
     "version": "18.0.1.0.0",
     "application": False,
-    "author": "Odoo Community Association (OCA), Davor Bojkić (DAJ MI 5)",
+    "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",
-    "license": "AGPL-3",
+    "license": "LGPL-3",
     "depends": ["base_bank_from_iban"],
     "data": [
         "data/res_bank_data.xml",

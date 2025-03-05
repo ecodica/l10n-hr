@@ -63,6 +63,10 @@ class AccountPaymentOrder(models.Model):
             # and we put 70 and not 140
             name_maxsize = 70
             root_xml_tag = 'CstmrCdtTrfInitn'
+        elif pain_flavor == 'pain.001.001.03': ## added to support pain_flavor pain.001.001.03
+            bic_xml_tag = 'BIC'
+            name_maxsize = 70
+            root_xml_tag = 'CstmrCdtTrfInitn'
         else:
             raise UserError(_("PAIN version '%s' is not supported.") % pain_flavor)
         xsd_file = self.payment_method_id.get_xsd_file_path()

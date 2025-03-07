@@ -686,6 +686,13 @@ msgid "Payment Devices In This Premisse"
 msgstr "Naplatni uređaji za ovaj prostor"
 
 #. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+#, python-format
+msgid "Payment method not selected"
+msgstr "Na računu nije odabran način plaćanja"
+
+#. module: l10n_hr_account_base
 #: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiskal_uredjaj
 #: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiskal_uredjaj
 msgid "Payment Registers"

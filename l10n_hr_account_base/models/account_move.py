@@ -192,6 +192,8 @@ class AccountMove(models.Model):
             res.append(_("No active PoS devices found for this journal"))
         if self.l10n_hr_fiskal_uredjaj_id.state != "active":
             res.append(_("PoS device selected is not active"))
+        if not self.l10n_hr_nacin_placanja:
+            res.append(_("Payment method not selected"))
         return res
 
     def _l10n_hr_post_out_invoice(self):

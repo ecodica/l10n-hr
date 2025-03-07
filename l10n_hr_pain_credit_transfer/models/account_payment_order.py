@@ -214,3 +214,14 @@ class AccountPaymentOrder(models.Model):
             control_sum_a.text = "%.2f" % amount_control_sum_a
         return self.finalize_sepa_file_creation(xml_root, gen_args)
 
+
+    def finalize_sepa_file_creation(self, xml_root, gen_args):
+        # override to change the filename
+        super().finalize_sepa_file_creation(xml_root, gen_args)
+        xml_string = etree.tostring(
+            xml_root, pretty_print=True, encoding="UTF-8", xml_declaration=True
+        )
+        self._validate_xml(xml_string, gen_args)
+
+        filename = "{}.xml".format(gen_args["file_prefix"])
+        return (xml_string, filename)

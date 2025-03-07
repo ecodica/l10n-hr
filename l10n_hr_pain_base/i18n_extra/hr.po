@@ -292,3 +292,37 @@ msgstr "Otkaži plaćanja"
 #: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_line_create_form
 msgid "Ostavite prazno ako želite da se koriste svi partneri...."
 msgstr ""
+
+#. module: account_payment_order
+#: model:ir.model.fields,field_description:account_payment_order.field_account_payment_line_create__move_date
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_line_create__date_type__move
+msgid "Move Date"
+msgstr "Datum dospijeća"
+
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__draft
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "Draft"
+msgstr "Nacrt"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_form
+msgid "Back to Draft"
+msgstr "Postavi na nacrt"
+
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__generated
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "File Generated"
+msgstr "Datoteka generirana"
+
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__uploaded
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "File Uploaded"
+msgstr "Datoteka prenesena"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_line_create_form
+msgid "Keep empty to use all partners"
+msgstr "Ostaviti prazno za sve partnere"

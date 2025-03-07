@@ -10,9 +10,8 @@ class AccountPaymentOrder(models.Model):
 
     def _get_file_prefix(self):
         self.ensure_one()
-        number = 1  # TODO: this is hardcoded :(
         date_today = datetime.today().strftime('%Y%m%d')
-        return 'UN.' + date_today + '.' + str(number).zfill(4) + '.'
+        return 'UN' + date_today
 
     def compute_sepa_final_hook(self, sepa):
         self.ensure_one()

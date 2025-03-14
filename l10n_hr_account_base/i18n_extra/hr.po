@@ -132,3 +132,19 @@ msgstr "Ovaj zapis je kopija od %s"
 #, python-format
 msgid "This entry has been reversed from %s"
 msgstr "Ovaj zapis je povrat od %s"
+
+#. module: account_edi_ubl_cii
+#: model_terms:ir.ui.view,arch_db:account_edi_ubl_cii.view_partner_property_form
+msgid "Electronic Invoicing"
+msgstr "Elektroničko fakturiranje"
+
+#. module: account_edi_ubl_cii
+#: model:ir.model.fields,field_description:account_edi_ubl_cii.field_res_partner__peppol_eas
+#: model:ir.model.fields,field_description:account_edi_ubl_cii.field_res_users__peppol_eas
+msgid "Peppol e-address (EAS)"
+msgstr "Peppol e-adresa (EAS)"
+
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_res_bank_form
+msgid "Bank Address"
+msgstr "Adresa banke"

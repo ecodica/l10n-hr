@@ -292,3 +292,125 @@ msgstr "Otkaži plaćanja"
 #: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_line_create_form
 msgid "Ostavite prazno ako želite da se koriste svi partneri...."
 msgstr ""
+
+#. module: account_payment_order
+#: model:ir.model.fields,field_description:account_payment_order.field_account_payment_line_create__move_date
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_line_create__date_type__move
+msgid "Move Date"
+msgstr "Datum knjiženja"
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__draft
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "Draft"
+msgstr "Nacrt"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_form
+msgid "Back to Draft"
+msgstr "Postavi na nacrt"
+
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__generated
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "File Generated"
+msgstr "Datoteka generirana"
+
+#. module: account_payment_order
+#: model:ir.model.fields.selection,name:account_payment_order.selection__account_payment_order__state__uploaded
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_search
+msgid "File Uploaded"
+msgstr "Datoteka prenesena"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_line_create_form
+msgid "Keep empty to use all partners"
+msgstr "Ostaviti prazno za sve partnere"
+
+#. module: account_payment_order
+#: model:ir.model.fields,field_description:account_payment_order.field_account_payment_line_create__partner_ids
+msgid "Partners"
+msgstr "Partneri"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__payment_method_id
+#: model_terms:ir.ui.view,arch_db:account_payment_mode.account_payment_method_form
+#: model_terms:ir.ui.view,arch_db:account_payment_mode.account_payment_mode_search
+msgid "Payment Method"
+msgstr "Metoda plaćanja"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__payment_type
+#: model_terms:ir.ui.view,arch_db:account_payment_mode.account_payment_method_search
+msgid "Payment Type"
+msgstr "Tip plaćanja"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__bank_account_link
+msgid "Link to Bank Account"
+msgstr "Veza na bankovni račun"
+
+#. module: account_payment_mode
+#: model:ir.model.fields.selection,name:account_payment_mode.selection__account_payment_mode__bank_account_link__fixed
+msgid "Fixed"
+msgstr "Fiksna"
+
+#. module: account_payment_mode
+#: model:ir.model.fields.selection,name:account_payment_mode.selection__account_payment_mode__bank_account_link__variable
+msgid "Variable"
+msgstr "Variabilna"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__fixed_journal_id
+msgid "Fixed Bank Journal"
+msgstr "Fiksni bankovni račun"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_mode_form
+msgid "Options for Payment Orders"
+msgstr "Opcije za naloge plaćanja"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_mode_form
+msgid "Select Move Lines to Pay - Default Values"
+msgstr "Zadane vrijednosti za stavke plaćanja"
+
+#. module: account_payment_partner
+#: model:ir.model.fields,field_description:account_payment_partner.field_account_payment_mode__show_bank_account
+msgid "Show Bank Account"
+msgstr "Prikaz bankovnog računa"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__note
+#: model_terms:ir.ui.view,arch_db:account_payment_mode.account_payment_mode_form
+msgid "Note"
+msgstr "Bilješka"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,help:account_payment_mode.field_account_payment_mode__bank_account_link
+msgid ""
+"For payment modes that are always attached to the same bank account of your "
+"company (such as wire transfer from customers or SEPA direct debit from "
+"suppliers), select 'Fixed'. For payment modes that are not always attached "
+"to the same bank account (such as SEPA Direct debit for customers, wire "
+"transfer to suppliers), you should select 'Variable', which means that you "
+"will select the bank account on the payment order. If your company only has "
+"one bank account, you should always select 'Fixed'."
+msgstr ""
+"Za načine plaćanja koji su uvijek povezani s bankovnim računom  "
+"vaše tvrtke (kao što je bankovni prijenos od kupaca ili "
+"SEPA izravno terećenje od dobavljača), odaberite 'Fiksno'."
+"Za načine plaćanja koji nisu uvijek povezani s istim "
+"bankovnim računom (kao što je SEPA zaduženje za klijente, bankovni prijenos dobavljačima, "
+"odaberite 'Varijabilno', što znači se bankovni "
+"račun odabire na nalogu za plaćanje. Ako vaša tvrtka "
+"ima samo jedan bankovni račun, uvijek biste trebali odabrati 'Fiksni'."
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__variable_journal_ids
+msgid "Allowed Bank Journals"
+msgstr "Dozvoljeni dnevnici"
+
+#. module: account_payment_mode
+#: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__name
+msgid "Name"
+msgstr "Naziv"

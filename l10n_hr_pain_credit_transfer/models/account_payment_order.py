@@ -31,8 +31,6 @@ class AccountPaymentOrder(models.Model):
     def generate_payment_file(self):  # noqa: C901
         """Creates the SEPA Credit Transfer file. That's the important code!"""
         self.ensure_one()
-        if self.payment_method_id.code.startswith('sepa_credit_transfer_hr'):
-            return super().generate_payment_file()
         pain_flavor = self.payment_method_id.pain_version
         # We use pain_flavor.startswith('pain.001.001.xx')
         # to support country-specific extensions such as
@@ -216,3 +214,14 @@ class AccountPaymentOrder(models.Model):
             control_sum_a.text = "%.2f" % amount_control_sum_a
         return self.finalize_sepa_file_creation(xml_root, gen_args)
 
+
+    def finalize_sepa_file_creation(self, xml_root, gen_args):
+        # override to change the filename
+        super().finalize_sepa_file_creation(xml_root, gen_args)
+        xml_string = etree.tostring(
+            xml_root, pretty_print=True, encoding="UTF-8", xml_declaration=True
+        )
+        self._validate_xml(xml_string, gen_args)
+
+        filename = "{}.xml".format(gen_args["file_prefix"])
+        return (xml_string, filename)

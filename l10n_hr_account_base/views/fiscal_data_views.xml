@@ -11,7 +11,7 @@
     <!-- Fiskal Prostor -->
     <record id="view_fiskal_prostor_list" model="ir.ui.view">
         <field name="name">view_fiskal_prostor_list</field>
-        <field name="model">l10n.hr.business.premise</field>
+        <field name="model">l10n_hr.business.premise</field>
         <field name="arch" type="xml">
             <list
                 string="Business premises"
@@ -31,7 +31,7 @@
 
     <record id="view_fiskal_prostor_form" model="ir.ui.view">
         <field name="name">view_fiskal_prostor_form</field>
-        <field name="model">l10n.hr.business.premise</field>
+        <field name="model">l10n_hr.business.premise</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -64,7 +64,7 @@
                         <field name='l10n_hr_fiscal_code' readonly="l10n_hr_lock"/>
                         <field name="l10n_hr_invoice_sequence_by" readonly="l10n_hr_lock"/>
                         <field name="l10n_hr_invoice_place" readonly="l10n_hr_lock"/>
-                        <field name="l10n_hr_sequence_id" domain="[('code','=','l10n.hr.fiscal')]">
+                        <field name="l10n_hr_sequence_id" domain="[('code','=','l10n_hr.fiscal')]">
                             <decorator name="invisible" options="{'l10n_hr_invoice_sequence_by': 'N', 'l10n_hr_fiscal_code': ''}"/>
                         </field>
                         <field name='company_id' invisible="1" />
@@ -131,7 +131,7 @@
     <record id="action_fiskal_prostor" model="ir.actions.act_window">
         <field name="name">Business Premises</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">l10n.hr.business.premise</field>
+        <field name="res_model">l10n_hr.business.premise</field>
         <field name="view_mode">list,form</field>
     </record>
 
@@ -145,7 +145,7 @@
     <!--Fiskal Uredjaj-->
     <record id="view_fiskal_uredjaj_list" model="ir.ui.view">
         <field name="name">view_fiskal_uredjaj_list</field>
-        <field name="model">l10n.hr.fiscal.device</field>
+        <field name="model">l10n_hr.fiscal.device</field>
         <field name="arch" type="xml">
             <list>
                 <field name="l10n_hr_name" />
@@ -159,7 +159,7 @@
 
     <record id="view_fiskal_uredjaj_form" model="ir.ui.view">
         <field name="name">view_fiskal_uredjaj_form</field>
-        <field name="model">l10n.hr.fiscal.device</field>
+        <field name="model">l10n_hr.fiscal.device</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -203,7 +203,7 @@
     <record id="action_fiskal_uredjaj" model="ir.actions.act_window">
         <field name="name">Payment Registers</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">l10n.hr.fiscal.device</field>
+        <field name="res_model">l10n_hr.fiscal.device</field>
         <field name="view_mode">list,form</field>
     </record>
 

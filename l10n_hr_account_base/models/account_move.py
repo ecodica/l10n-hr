@@ -88,9 +88,11 @@ class AccountMove(models.Model):
     @api.depends('move_type', 'company_id')
     def _compute_l10n_hr_is_ref_required(self):
         for move in self:
-            if move.company_id.account_fiscal_country_id.code != "HR":
-                continue
-            move.l10n_hr_is_ref_required = move.move_type == 'in_invoice' and move.company_id.country_id.code == 'HR'
+            move.l10n_hr_is_ref_required = (
+                    move.company_id.account_fiscal_country_id.code == "HR"
+                    and move.move_type == 'in_invoice'
+                    and move.company_id.country_id.code == 'HR'
+            )
 
     @api.depends(
         'invoice_line_ids.currency_rate',
@@ -107,40 +109,14 @@ class AccountMove(models.Model):
         res = super()._compute_tax_totals()
         """ Storno hack for Croatia,
         We print Storno invoices with negative amounts,
-        So this sets the minus sign in formatted text values
-        Second part of this hack is in qweb view, adding the same
-        for quantity and amount  fields.
+        So this sets the boolean which triggers for minus sign in lines footer related amounts in
+        Tax totals widget
         """
-
-        def add_minus(s):
-            return "- " + s
         for move in self:
-            if move.company_id.account_fiscal_country_id.code != "HR":
-                continue
-            if (
-                move.move_type == "out_refund"
-                and self.company_id.account_fiscal_country_id.code == "HR"
-            ):
-                totals = move.tax_totals
-                totals["formatted_amount_total"] = add_minus(
-                    totals["formatted_amount_total"]
-                )
-                totals["formatted_amount_untaxed"] = add_minus(
-                    totals["formatted_amount_untaxed"]
-                )
-                for st in totals["subtotals"]:
-                    st["formatted_amount"] = add_minus(st["formatted_amount"])
-                for sg in totals["groups_by_subtotal"].keys():
-                    cgt = totals["groups_by_subtotal"][sg]
-                    for group in cgt:
-                        group["formatted_tax_group_amount"] = add_minus(
-                            group["formatted_tax_group_amount"]
-                        )
-                        group["formatted_tax_group_base_amount"] = add_minus(
-                            group["formatted_tax_group_base_amount"]
-                        )
-                move.tax_totals = totals
-            # return res
+            move.tax_totals['l10n_hr_is_storno'] = (
+                    move.company_id.account_fiscal_country_id.code == "HR"
+                    and move.move_type == "out_refund"
+            )
 
     @api.depends(
         "journal_id",
@@ -151,6 +127,7 @@ class AccountMove(models.Model):
     )
     def _compute_l10n_hr_allowed_fiscal_device_ids(self):
         for move in self:
+            move.l10n_hr_allowed_fiscal_device_ids = False
             if move.company_id.account_fiscal_country_id.code != "HR":
                 continue
             vals = []

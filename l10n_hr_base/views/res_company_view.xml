@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="view_l10n_hr_base_company_data" model="ir.ui.view">
-        <field name="name">view.l10n.hr.base.company</field>
+        <field name="name">view.l10n_hr.base.company</field>
         <field name="model">res.company</field>
         <field name="inherit_id" ref="base.view_company_form"/>
         <field name="arch" type="xml">

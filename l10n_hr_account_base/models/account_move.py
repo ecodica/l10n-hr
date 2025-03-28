@@ -41,11 +41,11 @@ class AccountMove(models.Model):
              "T - Transaction bank account, is applicable without fiscalization\n"
              " and for other options needed please install fiscalization extension module.")
     l10n_hr_fiscal_device_id = fields.Many2one(
-        comodel_name="l10n.hr.fiscal.device",
+        comodel_name="l10n_hr.fiscal.device",
         string="Fiscal Device",
         help="Device that registers fiscal payment.")
     l10n_hr_allowed_fiscal_device_ids = fields.Many2many(
-        comodel_name="l10n.hr.fiscal.device",
+        comodel_name="l10n_hr.fiscal.device",
         compute="_compute_l10n_hr_allowed_fiscal_device_ids",
         string="Allowed Fiscal Devices")
     l10n_hr_fiscal_device_visible = fields.Boolean(
@@ -102,7 +102,8 @@ class AccountMove(models.Model):
         'partner_id',
         'currency_id',
     )
-    def _compute_tax_totals(self):  # TODO: KGB: do we still need this?
+    def _compute_tax_totals(self):
+        # Check if needed in next versions
         res = super()._compute_tax_totals()
         """ Storno hack for Croatia,
         We print Storno invoices with negative amounts,

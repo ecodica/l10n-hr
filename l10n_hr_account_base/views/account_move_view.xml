@@ -82,7 +82,7 @@
             <t t-set="btn_text">Add Business Premise</t>
             <t t-set="done_text">Premise added!</t>
             <t t-set="method" t-value="'setting_init_bank_account_action'" />
-            <t t-set="model" t-value="'l10n.hr.business.premise'" />
+            <t t-set="model" t-value="'l10n_hr.business.premise'" />
             <t t-set="state" t-value="state.get('account_setup_premise_state')" />
         </t>
     </template>

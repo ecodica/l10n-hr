@@ -2,8 +2,8 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
-class BusinessPremise(models.Model):
-    _name = "l10n.hr.business.premise"
+class L10nHrBusinessPremise(models.Model):
+    _name = "l10n_hr.business.premise"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Croatia business premises"
     _rec_name = 'l10n_hr_name'
@@ -44,7 +44,7 @@ class BusinessPremise(models.Model):
         help="It will be used as place of invoicing for this premise, "
              " as a legally required element.")
     l10n_hr_fiscal_device_ids = fields.One2many(
-        comodel_name="l10n.hr.fiscal.device",
+        comodel_name="l10n_hr.fiscal.device",
         inverse_name="l10n_hr_business_premise_id",
         string="PoS Devices")
     l10n_hr_state = fields.Selection(
@@ -174,8 +174,8 @@ class BusinessPremise(models.Model):
         return super().unlink()
 
 
-class FiscalDevice(models.Model):
-    _name = "l10n.hr.fiscal.device"
+class L10nHrFiscalDevice(models.Model):
+    _name = "l10n_hr.fiscal.device"
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "PoS device (fiscal device) details"
     _rec_name = 'l10n_hr_name'
@@ -183,11 +183,11 @@ class FiscalDevice(models.Model):
     l10n_hr_lock = fields.Boolean(
         string="Lock Device?",
         default=False,
-        tracking=1,
+        # tracking=1,
         help="After first invoice is confirmed, no more changes!")
     l10n_hr_name = fields.Char(string="PoS Name", tracking=1)
     l10n_hr_business_premise_id = fields.Many2one(
-        comodel_name="l10n.hr.business.premise",
+        comodel_name="l10n_hr.business.premise",
         string="Business Premise",
         help="Business premise where this device is operating.",
         ondelete="restrict")

@@ -6,8 +6,8 @@ from odoo import _, models
 from odoo.exceptions import ValidationError
 
 
-class CroatiaXMLMixin(models.AbstractModel):
-    _name = "l10n.hr.xml.mixin"
+class L10nHrCroatiaXMLMixin(models.AbstractModel):
+    _name = "l10n_hr.xml.mixin"
     _description = "Abstract class for handling XML in Croatia"
     """
         Abstract model containing common xml methods for all sorts of XML reports,
@@ -28,18 +28,21 @@ class CroatiaXMLMixin(models.AbstractModel):
         if not phone.startswith("+") and phone.startswith("385"):
             phone = "+" + phone
         if 14 < len(phone) < 7 or not phone.startswith("+385"):
-            raise ValidationError(_("Phone %s not valid!") % phone)
+            raise ValidationError(_('Phone %s not valid! Phone should start with "+385".') % phone)
         return phone
 
     def get_company_data(self, report_type):
         company = self.company_id
         err = ""
         if not company.partner_id.city:
-            err += "Nedostaje upisan grad\n"
+            # err += "Nedostaje upisan grad\n"
+            err += "The city is missing in the entry.\n"
         if not company.partner_id.street:
-            err += "Nedostaje adresni podatak : Ulica\n"
+            # err += "Nedostaje adresni podatak : Ulica\n"
+            err += "The street is missing in the address.\n"
         if not company.partner_id.company_registry:  # vidi u l10n_hr !
-            err += "Nedostaje porezni broj  (OIB)\n"
+            # err += "Nedostaje porezni broj  (OIB)\n"
+            err += "Missing VAT number (OIB).\n"
         if err != "":
             raise ValidationError(err)
 

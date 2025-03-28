@@ -5,7 +5,7 @@ class Company(models.Model):
     _inherit = "res.company"
 
     l10n_hr_business_premise_ids = fields.One2many(
-        comodel_name="l10n.hr.business.premise",
+        comodel_name="l10n_hr.business.premise",
         inverse_name="company_id",
         string="Business Premises")
     l10n_hr_fiscal_separator = fields.Selection(

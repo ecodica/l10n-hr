@@ -9,10 +9,10 @@ class AccountJournal(models.Model):
 
     # new fields needed for localization
     l10n_hr_business_premise_id = fields.Many2one(
-        comodel_name="l10n.hr.business.premise",
+        comodel_name="l10n_hr.business.premise",
         string="Business Premise")
     l10n_hr_fiscal_device_ids = fields.Many2many(
-        comodel_name="l10n.hr.fiscal.device",
+        comodel_name="l10n_hr.fiscal.device",
         relation="l10n_hr_fiscal_device_account_journal_rel",
         column1="l10n_hr_journal_id",
         column2="l10n_hr_fiscal_device_id",

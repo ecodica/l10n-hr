@@ -24,6 +24,11 @@
         "views/menuitems.xml",
         "report/report_invoice.xml",
     ],
+    "assets":{
+        'web.assets_backend': [
+            'l10n_hr_account_base/static/src/tax_totals/tax_totals.xml',
+        ]
+    },
     "auto_install": False,
     "installable": True,
 }

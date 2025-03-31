@@ -113,6 +113,8 @@ class AccountMove(models.Model):
         Tax totals widget
         """
         for move in self:
+            if not move.tax_totals:
+                continue
             move.tax_totals['l10n_hr_is_storno'] = (
                     move.company_id.account_fiscal_country_id.code == "HR"
                     and move.move_type == "out_refund"

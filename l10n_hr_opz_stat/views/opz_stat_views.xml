@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_opz_stat_search" model="ir.ui.view">
+        <field name="name">view.opz.stat.search</field>
+        <field name="model">opz.stat</field>
+        <field name="arch" type="xml">
+            <search string="Search OPZ STAT">
+                <field name="name" string="Name" filter_domain="['|', ('name','ilike',self)]"/>
+                <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft OPZ STAT"/>
+                <separator/>
+                <field name="date_from" string="Date From"/>
+                <field name="date_to" string="Date To"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" context="{'group_by':'state'}"
+                            name="group_by_status"/>
+                    <separator/>
+                    <filter string="Date From" context="{'group_by':'date_from'}" name="group_by_date_from"/>
+                    <filter string="Date To" context="{'group_by':'date_to'}" name="group_by_date_to"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_opz_stat_tree" model="ir.ui.view">
+        <field name="name">view.opz.stat.tree</field>
+        <field name="model">opz.stat</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'" decoration-muted="state == 'done'" string="OPZ STAT">
+                <field name="name"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="opz_stat_form_view" model="ir.ui.view">
+        <field name="name">opz.stat.form.view</field>
+        <field name="model">opz.stat</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form string="OPZ STAT report">
+                <header>
+                    <button name="compute" type="object" states="draft" string="Compute" class="oe_highlight"
+                            groups="account.group_account_manager"/>
+                    <button name="set_to_confirmed" type="object" states="draft" string="Confirm" class="btn-primary"
+                            groups="account.group_account_manager"/>
+                    <button name="set_to_draft" type="object" states="confirmed,done" string="Set to Draft"
+                            groups="account.group_account_manager"/>
+                    <button name="export_xml" type="object" states="confirmed" string="Export XML" class="btn-primary"
+                            groups="account.group_account_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"
+                           statusbar_colors='{"draft":"blue","done":"grey"}'/>
+                </header>
+                <sheet string="OPZ STAT report">
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Enter name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                    <group>
+                        <group>
+                            <label for="date_from" string="Date from"/>
+                            <div>
+                                <field name="date_from" nolabel="1" class="oe_inline"/>
+                                <span>
+                                    <strong>- to</strong>
+                                </span>
+                                <field name="date_to" nolabel="1" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="xml_file" filename="xml_filename" class="oe_inline"/>
+                            <field name="xml_filename" invisible="1" class="oe_inline"/>
+                            <field name="skip_xml_validation"/>
+                            <field name="skip_negative_amount"/>
+                            <field name="sum_others"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoices">
+                            <field name="opz_stat_line">
+                                <tree string="OPZ STAT lines" editable="bottom" limit="200">
+                                    <field name="partner_vat_type" widget="selection"/>
+                                    <field name="partner_id"/>
+                                    <!--<field name="partner_name"/>-->
+                                    <field name="partner_vat_number"/>
+                                    <field name="invoice_id"/>
+                                    <field name="invoice_number"/>
+                                    <field name="invoice_date"/>
+                                    <field name="due_date"/>
+                                    <field name="overdue_days"/>
+                                    <field name="amount"/>
+                                    <field name="amount_tax"/>
+                                    <field name="amount_total"/>
+                                    <field name="paid"/>
+                                    <field name="unpaid"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Partners">
+                            <field name="partner_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_opz_stat_report" model="ir.actions.act_window">
+        <field name="name">OPZ STAT</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">opz.stat</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_opz_stat_tree"/>
+        <field name="search_view_id" ref="view_opz_stat_search"/>
+        <field name="help">Create and print OPZ STAT statistical report for overdue payments.</field>
+    </record>
+
+    <menuitem id="menu_opz_stat_report"
+              name="OPZ STAT"
+              action="action_opz_stat_report"
+              parent="account.menu_finance_reports" sequence="900"
+              groups="account.group_account_invoice"/>
+
+</odoo>

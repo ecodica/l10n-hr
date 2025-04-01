@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacOPZ/v1-0" xmlns:meta="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" xmlns:ispostave="http://e-porezna.porezna-uprava.hr/sheme/temeljno/SifrarnikIspostave/v2-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:temeljni="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacOPZ/v1-0" elementFormDefault="qualified" version="1.0" id="ObrazacOPZtipovi-v1-0" xml:lang="hr-HR">
+  <xsd:annotation>
+    <xsd:documentation>XML shema sadrži tipove koji definiraju sadržaj OPZ obrasca</xsd:documentation>
+  </xsd:annotation>
+  <xsd:import namespace="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" schemaLocation="TemeljniTipovi-v2-1.xsd"/>
+  <xsd:import namespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" schemaLocation="ObrazacOPZmetapodaci-v1-0.xsd"/>
+  <xsd:complexType name="sObrazacOPZ">
+    <xsd:annotation>
+      <xsd:documentation>Struktura OPZ obrasca
+			Obrazac se sastoji od zaglavlja i tijela. U tijelu se primarno nalazi popis kupaca sa njihovim neplaćenim računima. 
+
+			UPOZORENJE!!!
+			Radi optimizacije veličine konačne XML datoteke obrasca nazivi elemenata su šifrirani. Uz svaki element u ovoj schemi je opisano koja informacija se očekuje u njemu
+			</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element ref="meta:Metapodaci"/>
+      <xsd:element name="Zaglavlje" type="sZaglavlje">
+        <xsd:annotation>
+          <xsd:documentation>Zaglavlje obrasca</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Tijelo" type="sTijelo">
+        <xsd:annotation>
+          <xsd:documentation>Tijelo obrasca</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="verzijaSheme" use="required" fixed="1.0"/>
+  </xsd:complexType>
+  <xsd:complexType name="sZaglavlje">
+    <xsd:annotation>
+      <xsd:documentation>Zaglavlje obrasca</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Razdoblje" type="sRazdoblje">
+        <xsd:annotation>
+          <xsd:documentation>Razdoblje za koji se podnosi obrazac</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="PorezniObveznik" type="sPorezniObveznik">
+       
+      </xsd:element>
+      <xsd:element name="IzvjesceSastavio" type="sIzvjesceSastavio">
+        <xsd:annotation>
+          <xsd:documentation>Sastavljač izvješća</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+			<xsd:element name="NaDan" type="xsd:date" />
+			<xsd:element name="NisuNaplaceniDo" type="xsd:date" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sTijelo">
+    <xsd:annotation>
+      <xsd:documentation>Tijelo obrasca</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Kupci" type="sKupci" >
+      </xsd:element>
+      <xsd:element name="UkupanIznosRacunaObrasca" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>
+					Ukupan iznos svih računa svih kupaca (suma svih R6)
+					Sumarni redak stupca 10 obrasca (za cijeli obrazac)
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UkupanIznosPdvObrasca" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>
+						Ukupan iznos pdv-a svih računa svih kupaca (suma svih R7)
+						Sumarni redak stupca 11 obrasca (za cijeli obrazac)
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UkupanIznosRacunaSPdvObrasca" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>
+						Ukupan iznos računa sa pdv-om svih računa svih kupaca (suma svih R8)
+						Sumarni redak stupca 12 obrasca (za cijeli obrazac)
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="UkupniPlaceniIznosRacunaObrasca" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>
+						Ukupni plaćeni iznos svih računa svih kupaca (suma svih R9)
+						Sumarni redak stupca 13 obrasca (za cijeli obrazac)
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="NeplaceniIznosRacunaObrasca" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>
+						Ukupni neplaćeni dio svih računa svih kupaca (suma svih R10)
+						Sumarni redak stupca 14 obrasca (za cijeli obrazac)
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+      <xsd:element name="OPZUkupanIznosRacunaSPdv" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>III.2. UKUPAN IZNOS RAČUNA SA PDV-om</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="OPZUkupanIznosPdv" type="temeljni:tNonNegativeDecimal15-2">
+        <xsd:annotation>
+          <xsd:documentation>III.3. IZNOS PDV-a</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="sPorezniObveznik">
+    <xsd:annotation>
+      <xsd:documentation>Podaci o poreznom obvezniku koji predaje obrazac</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+			<xsd:element name="OIB" type="temeljni:tOIB">
+				<xsd:annotation>
+					<xsd:documentation>OIB obveznika plaćanja</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+            <xsd:annotation>
+              <xsd:documentation>Ime ili naziv obveznika plaćanja</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+            <xsd:annotation>
+              <xsd:documentation>Prezime obveznika plaćanja</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <xsd:element name="Naziv" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+          <xsd:annotation>
+            <xsd:documentation>Naziv obveznika plaćanja</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="Adresa" type="sAdresa"/>
+      <xsd:element name="Email" type="temeljni:tEmail" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Elektronička adresa obveznika plaćanja</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sIzvjesceSastavio">
+    <xsd:annotation>
+      <xsd:documentation>Podaci o osobi koja je sastavila obrazac</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+        <xsd:annotation>
+          <xsd:documentation>Ime osobe koja je sastavila obrazac</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+        <xsd:annotation>
+          <xsd:documentation>Prezime osobe koja je sastavila obrazac</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Telefon" type="temeljni:tBrojTelefona" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Broj telefona osobe koja je sastavila obracun</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Fax" type="temeljni:tBrojTelefona" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Fax osobe koja je sastavila obracun</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Email" type="temeljni:tEmail" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Mail osobe koja je sastavila obracun</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sRazdoblje">
+    <xsd:annotation>
+      <xsd:documentation>Struktura razdoblja (vremenski period)</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="DatumOd" type="xsd:date">
+        <xsd:annotation>
+          <xsd:documentation>Početni datum</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="DatumDo" type="xsd:date">
+        <xsd:annotation>
+          <xsd:documentation>Završni datum</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sAdresa">
+    <xsd:annotation>
+      <xsd:documentation>Adresa</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Mjesto" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+        <xsd:annotation>
+          <xsd:documentation>Naziv mjesta</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Ulica" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+        <xsd:annotation>
+          <xsd:documentation>Naziv ulice</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="Broj" type="temeljni:tAdresaBroj">
+        <xsd:annotation>
+          <xsd:documentation>Kućni broj</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sKupci">
+    <xsd:annotation>
+      <xsd:documentation>Kolekcija kupaca - parent element dvorazinske kolekcije</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="Kupac" type="sKupac" minOccurs="1" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sKupac">
+    <xsd:annotation>
+      <xsd:documentation>Entitet kupca. Sadrži osonvne informacije o kupcu te kolekciju računa tog kupca</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="K1" type="xsd:nonNegativeInteger">
+        <xsd:annotation>
+          <xsd:documentation>
+						RedniBroj - Redni broj kupca
+						Stupac 1 obrasca
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="K2" type="sOznakaPorBroja">
+        <xsd:annotation>
+          <xsd:documentation>
+						OznakaPoreznogBroja - Oznaka poreznog broja
+						Stupac 2 obrasca
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="K3" type="sPorezniBroj">
+        <xsd:annotation>
+          <xsd:documentation>
+						PorezniBroj - Porezni broj
+						Stupac 3 obrasca
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="K4" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+        <xsd:annotation>
+          <xsd:documentation>
+					Naziv - Naziv/Ime i prezime kupca
+					Stupac 4 obrasca
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+			<xsd:element name="K5" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						UkupanIznosRacunaKupca - Sumarni iznos polja R6-IznosRacuna svih računa jednog kupca
+						Sumarni redak stupca 10 obrasca (za jednog kupca)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="K6" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						UkupanIznosPdvKupca - Sumarni iznos polja R7-IznosPdv svih računa jednog kupca
+						Sumarni redak stupca 11 obrasca (za jednog kupca)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="K7" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						UkupanUkupanIznosSaPDVKupca - Sumarni iznos polja R8-IznosRacunaSaPDV svih računa jednog kupca
+						Sumarni redak stupca 12 obrasca (za jednog kupca)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="K8" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						UkupanPlaceniIznosKupca - Sumarni iznos polja R9-PlaceniIznosRacuna svih računa jednog kupca
+						Sumarni redak stupca 13 obrasca (za jednog kupca)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="K9" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						UkupanNeplaceniDioKupca - Sumarni iznos polja R10-NeplaceniIznosRacuna svih računa jednog kupca
+						Sumarni redak stupca 14 obrasca (za jednog kupca)
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="Racuni" type="sRacuni">
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name ="sRacuni">
+    <xsd:annotation>
+      <xsd:documentation>Kolekcija neplaćenih računa jednog kupca</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence minOccurs="0">
+      <xsd:element name="Racun" type="sRacun" minOccurs="1"  maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name ="sRacun">
+    <xsd:annotation>
+      <xsd:documentation>Podaci o pojedinom računu kupca</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="R1" type="xsd:nonNegativeInteger">
+        <xsd:annotation>
+          <xsd:documentation>
+						Redni broj računa
+						Stupac 5 obrasca
+					</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="R2" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:annotation>
+					<xsd:documentation>
+						BrojIzdanogRacuna - Broj izdanog računa
+						Stupac 6 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R3" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+						DatumIzdanogRacuna - Datum izdavanja računa
+						Stupac 7 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R4" type="xsd:date">
+				<xsd:annotation>
+					<xsd:documentation>
+						ValutaPlacanjaRacuna - Datum valute plaćanja računa
+						Stupac 8 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R5" type="xsd:nonNegativeInteger">
+				<xsd:annotation>
+					<xsd:documentation>
+						BrojDanaKasnjenja - Broj dana kašnjenja u plaćanju
+						Stupac 9 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R6" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						IznosRacuna - Iznos računa
+						Stupac 10 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R7" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						IznosPdv - Iznos PDV-a računa
+						Stupac 11 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R8" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						IznosRacunaSaPDV - Iznos računa sa PDV
+						Stupac 12 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R9" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						PlaceniIznosRacuna - Plaćeni iznos računa
+						Stupac 13 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      <xsd:element name="R10" type="temeljni:tNonNegativeDecimal15-2">
+				<xsd:annotation>
+					<xsd:documentation>
+						NeplaceniIznosRacuna - Neplaćeni iznos računa
+						Stupac 14 obrasca
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+      
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="sPoslovniSubjekt">
+    <xsd:annotation>
+      <xsd:documentation>Podaci o poslovnom subjektu</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:choice>
+        <xsd:sequence>
+          <xsd:element name="Ime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+            <xsd:annotation>
+              <xsd:documentation>Ime ili naziv poslovnog subjekta</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Prezime" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+            <xsd:annotation>
+              <xsd:documentation>Prezime poslovnog subjekta</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+        <xsd:element name="Naziv" type="temeljni:tOgraniceniZnakovniNizMin2Max128">
+          <xsd:annotation>
+            <xsd:documentation>Naziv poslovnog subjekta</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+      <xsd:element name="OIB" type="temeljni:tOIB">
+        <xsd:annotation>
+          <xsd:documentation>OIB poslovnog subjekta</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="sOznakaPorBroja">
+    <xsd:annotation>
+      <xsd:documentation>Oznaka poreznog broja, troznamenkasti cijeli broj od 1 do 3. 1 - OIB; 2 - PDV identifikacijski broj; 3 - ostali porezni brojevi</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:integer">
+      <xsd:minInclusive value="1"/>
+      <xsd:maxInclusive value="3"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="sPorezniBroj">
+    <xsd:annotation>
+      <xsd:documentation>Porezni broj, string ograničen na maksimalno 30 znakova</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="30"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+

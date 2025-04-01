@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:temeljni="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" targetNamespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0" id="MetapodaciTipovi-v2-0" xml:lang="hr-HR">
+	<xsd:annotation>
+		<xsd:documentation>Xml shema sadrži zajedničke tipove koji se koriste u metapodatkovnom bloku elektroničkih dokumenata (obrazaca)</xsd:documentation>
+	</xsd:annotation>
+	<xsd:import namespace="http://e-porezna.porezna-uprava.hr/sheme/TemeljniTipovi/v2-1" schemaLocation="TemeljniTipovi-v2-1.xsd"/>
+	<xsd:complexType name="sNaslovTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Naslov elektroničkog dokumenta. Primjerice "Obrazac PDV"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/title"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sAutorTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Autor dokumenta (Ime i Prezime)</xsd:documentation>
+		</xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+        <xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/creator"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sDatumTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Datum izrade dokumenta</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tDatum">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/date"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sFormatTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Oblik dokumenta, vrijednost mora biti "text/xml"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tFormat">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/format"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sJezikTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Jezik dokumenta, vrijednost mora biti "hr-HR"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tJezik">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/language"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sIzvorTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Izvor dokumenta, više se ne koristi</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tOgraniceniZnakovniNizMin2Max128">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/source"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sIdentifikatorTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Jedinstvena oznaka obrasca, tip podatka je GUID</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tIdentifikator">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/identifier"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sOdnosTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Jedinstvena oznaka dokumenta na kojeg se odnosi (GUID). Primjerice odgovor sadrži identifikator zahtjeva.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tIdentifikator">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/relation"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sUskladjenostTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Identifikator xml sheme koja definira strukturu dokumenta (atribut ID xml sheme).</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/terms/conformsTo"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sTipTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Tip elektroničke poruke, vrijednost mora biti "Elektronički obrazac"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tTip">
+				<xsd:attribute name="dc" type="temeljni:tOgraniceniZnakovniNizMin2Max128" use="required" fixed="http://purl.org/dc/elements/1.1/type"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="sAdresantTemeljni">
+		<xsd:annotation>
+			<xsd:documentation>Primatelj dokumenta, npr. "Ministarstvo Financija, Porezna uprava, Zagreb"</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="temeljni:tOgraniceniZnakovniNizMin2Max128"/>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

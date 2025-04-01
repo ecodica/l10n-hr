@@ -97,10 +97,10 @@
                                     <field name="due_date"/>
                                     <field name="overdue_days"/>
                                     <field name="amount"/>
-                                    <field name="amount_tax"/>
-                                    <field name="amount_total"/>
-                                    <field name="paid"/>
-                                    <field name="unpaid"/>
+                                    <field name="amount_tax" string="Tax"/>
+                                    <field name="amount_total" string="Total"/>
+                                    <field name="paid" string="Paid"/>
+                                    <field name="unpaid" string="Unpaid"/>
                                 </tree>
                             </field>
                         </page>

@@ -60,7 +60,7 @@ class OpzStat(models.Model):
         res = super(OpzStat, self)._auto_init()
         f = get_resource_path("l10n_hr_opz_stat", "sql", "oe_opz_stat.sql")
         sql = open(f).read()
-        self._cr.execute(sql)
+        self.env.cr.execute(sql)
         return res
 
     def compute(self):
@@ -78,7 +78,7 @@ class OpzStat(models.Model):
             "opz_id": self.id,
             "company_id": self.company_id.id,
         }
-        self._cr.execute(sql)
+        self.env.cr.execute(sql)
         self.invalidate_recordset()
         if self.skip_negative_amount:
             self.opz_stat_line.filtered(lambda l: l.unpaid < 0.0).unlink()
@@ -109,28 +109,24 @@ class OpzStat(models.Model):
         NeplaceniIznosRacunaObrasca = 0.0
         OPZUkupanIznosRacunaSPdv = 0.0
         OPZUkupanIznosPdv = 0.0
+
         if self.sum_others:
             amounts = self._calc_other_partner_amounts()
             OPZUkupanIznosRacunaSPdv = amounts.get("amount_total")
             OPZUkupanIznosPdv = amounts.get("amount_tax")
+
         partners = self._get_partners()
         for partner in partners:
             kupac_line_no += 1
             lines = self._get_partner_lines(partner["partner_id"])
             Kupac = objectify.SubElement(Kupci, "Kupac")
             Kupac.K1 = kupac_line_no  # Redni broj
-            Kupac.K2 = partner[
-                "partner_vat_type"
-            ]  # Oznaka poreznog broja 1=OIB, 2=PDV ID, 3=ostali porezni brojevi
-            Kupac.K3 = partner[
-                "partner_vat_number"
-            ]  # porezni broj ovisno o vrijednosti K2
+            Kupac.K2 = partner["partner_vat_type"]  # Oznaka poreznog broja 1=OIB, 2=PDV ID, 3=ostali porezni brojevi
+            Kupac.K3 = partner["partner_vat_number"]  # porezni broj ovisno o vrijednosti K2
             Kupac.K4 = partner["partner_name"][:128]  # Naziv kupca
             Kupac.K5 = partner["partner_amount"]  # Iznos računa ukupno
             Kupac.K6 = partner["partner_amount_tax"]  # Iznos PDV ukupno
-            Kupac.K7 = partner[
-                "partner_amount_total"
-            ]  # Iznos računa s PDV ukupno
+            Kupac.K7 = partner["partner_amount_total"]  # Iznos računa s PDV ukupno
             Kupac.K8 = partner["partner_paid"]  # Plaćeni iznos ukupno
             Kupac.K9 = partner["partner_unpaid"]  # Neplaćeni iznos ukupno
 
@@ -157,23 +153,14 @@ class OpzStat(models.Model):
 
         Tijelo.UkupanIznosRacunaObrasca = round(UkupanIznosRacunaObrasca, 2)
         Tijelo.UkupanIznosPdvObrasca = round(UkupanIznosPdvObrasca, 2)
-        Tijelo.UkupanIznosRacunaSPdvObrasca = round(
-            UkupanIznosRacunaSPdvObrasca, 2
-        )
-        Tijelo.UkupniPlaceniIznosRacunaObrasca = round(
-            UkupniPlaceniIznosRacunaObrasca, 2
-        )
-        Tijelo.NeplaceniIznosRacunaObrasca = round(
-            NeplaceniIznosRacunaObrasca, 2
-        )
+        Tijelo.UkupanIznosRacunaSPdvObrasca = round(UkupanIznosRacunaSPdvObrasca, 2)
+        Tijelo.UkupniPlaceniIznosRacunaObrasca = round(UkupniPlaceniIznosRacunaObrasca, 2)
+        Tijelo.NeplaceniIznosRacunaObrasca = round(NeplaceniIznosRacunaObrasca, 2)
         Tijelo.OPZUkupanIznosRacunaSPdv = OPZUkupanIznosRacunaSPdv
         Tijelo.OPZUkupanIznosPdv = OPZUkupanIznosPdv
-
         tijelo = Tijelo
 
-        author, company, metadata = rc.get_common_data(
-            self, self._cr, self._uid, self
-        )
+        author, company, metadata = rc.get_common_data(self, self)
 
         metadata["naslov"] = u"Obrazac OPZ"
         metadata["uskladjenost"] = u"ObrazacOPZ-v1-0"
@@ -185,9 +172,7 @@ class OpzStat(models.Model):
             annotate=False,
             namespace="http://e-porezna.porezna-uprava.hr/sheme/zahtjevi/ObrazacOPZ/v1-0",
         )
-        obrazacopz_stat = OBRAZACOPZ.ObrazacOPZ(
-            xml_metadata, xml_header, tijelo, verzijaSheme="1.0"
-        )
+        obrazacopz_stat = OBRAZACOPZ.ObrazacOPZ(xml_metadata, xml_header, tijelo, verzijaSheme="1.0")
         xml = {"xml": rc.etree_tostring(self, obrazacopz_stat), "xsd_path": "schema/opz_stat_xml_v1.0",
                "xsd_name": "ObrazacOPZ-v1-0.xsd", "path": os.path.dirname(os.path.abspath(__file__))}
         if not self.skip_xml_validation:

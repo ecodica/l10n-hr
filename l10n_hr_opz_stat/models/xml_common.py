@@ -34,14 +34,12 @@ def _check_valid_phone(self, phone):
         .replace("(", "")
         .replace(")", "")
     )
-
     if phone.startswith("00"):
         phone = "+" + phone[2:]
     if not phone.startswith("+"):
         phone = "+" + phone
     if 14 < len(phone) < 7:
-        raise except_orm(
-            _("Format Error"),
+        raise UserError(
             _(
                 "Unešeni broj telefona/faxa : %s u postavkama tvrtke nije ispravan\nOčekivani format je +385xxxxxxxx , (dozvoljno je korištenje znakova za razdvajanje i grupiranje (-/) i razmaka"
                 % phone
@@ -60,18 +58,15 @@ def check_required(self, dict_object, check_list):
     return True
 
 
-def get_common_data(self, cr, uid, data, context=None):
+def get_common_data(self, data):
     company = data.company_id
     author_data = {
-        "name": " ".join(
-            (company.l10n_hr_responsible_fname, company.l10n_hr_responsible_lname)
-        ),
+        "name": "%s %s" %(company.l10n_hr_responsible_fname, company.l10n_hr_responsible_lname),
         "fname": company.l10n_hr_responsible_fname,
         "lname": company.l10n_hr_responsible_lname,
         "tel": _check_valid_phone(self, company.l10n_hr_responsible_tel),
         "email": company.l10n_hr_responsible_email,
     }
-
     part_addr = company.street.split(" ")
     num = part_addr[len(part_addr) - 1]
     addr = ""
@@ -95,9 +90,7 @@ def get_common_data(self, cr, uid, data, context=None):
         "fax": _check_valid_phone(self, company.phone),  # partner_id.fax),
     }
     metadata = {
-        "autor": " ".join(
-            (company.l10n_hr_responsible_fname, company.l10n_hr_responsible_lname)
-        ),
+        "autor": "%s %s" % (company.l10n_hr_responsible_fname, company.l10n_hr_responsible_lname),
         "format": "text/xml",
         "jezik": "hr-HR",
         "tip": u"Elektronički obrazac",
@@ -105,9 +98,7 @@ def get_common_data(self, cr, uid, data, context=None):
     }
 
     check_required(self, author_data, ["name", "fname", "lname"])
-    check_required(
-        self, company_data, ["name", "vat", "street", "zip", "city"]
-    )
+    check_required(self, company_data, ["name", "vat", "street", "zip", "city"])
     return author_data, company_data, metadata
 
 
@@ -147,6 +138,16 @@ def create_xml_metadata(self, metadata):
 
 def create_xml_header(self, period, company, author):
     EM = objectify.ElementMaker(annotate=False)
+    required_user_data = [
+        EM.Ime(author["fname"]),
+        EM.Prezime(author["lname"]),
+    ]
+    optional_user_data = [
+        company.get("tel", None) and EM.Telefon(company.get("tel", False)),
+        company.get("fax", None) and EM.Fax(company.get("fax", False)),
+        company.get("email", None) and EM.Email(company.get("email", False))
+    ]
+    user_data = required_user_data + [l for l in optional_user_data if l not in (None, False)]
     header = EM.Zaglavlje(
         EM.Razdoblje(
             EM.DatumOd(period["date_start"]), EM.DatumDo(period["date_stop"])
@@ -161,13 +162,7 @@ def create_xml_header(self, period, company, author):
             ),
             EM.Email(company.get("email", False) and company["email"] or ""),
         ),
-        EM.IzvjesceSastavio(
-            EM.Ime(author["fname"]),
-            EM.Prezime(author["lname"]),
-            EM.Telefon(company.get("tel", False) and company["tel"] or ""),
-            EM.Fax(company.get("fax", False) and company["fax"] or ""),
-            EM.Email(company.get("email", False) and company["email"] or ""),
-        ),
+        EM.IzvjesceSastavio(*tuple(user_data)),
         EM.NaDan(period["date_stop"]),
         EM.NisuNaplaceniDo(period["date_stop"]),
     )

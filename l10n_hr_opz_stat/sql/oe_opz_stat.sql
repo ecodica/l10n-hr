@@ -44,6 +44,7 @@ WITH inv_data AS (
         SELECT * FROM ml_debit_closed
     )
     ,open_move_line AS (
+        -- DOMESTIC
         SELECT aml.partner_id
             ,COALESCE(am.invoice_date, aml.date) AS date_invoice
             ,COALESCE(aml.date_maturity, am.invoice_date_due) AS date_due
@@ -73,6 +74,41 @@ WITH inv_data AS (
         AND aa.account_type in ('asset_receivable')
         AND am.state = 'posted'
         AND aml.company_id = _company_id
+        AND aml.currency_id = aml.company_currency_id
+        AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
+        AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to  --+ INTERVAL '1 month'
+        UNION
+        -- FOREIGN
+        SELECT aml.partner_id
+            ,COALESCE(am.invoice_date, aml.date) AS date_invoice
+            ,COALESCE(aml.date_maturity, am.invoice_date_due) AS date_due
+            ,am."id" AS invoice_id
+            ,COALESCE(am.l10n_hr_fiskalni_broj, aml.name, 'NO-REFERENCE') AS invoice_number
+            ,aml.currency_id
+            ,COALESCE(am.amount_untaxed, 0.0) AS invoice_amount
+            ,COALESCE(am.amount_tax, 0.0) AS invoice_amount_tax
+            ,COALESCE(am.amount_total, 0.0) AS invoice_amount_total
+            ,am.state AS move_state
+            ,COALESCE( NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit) AS amount_currency
+            ,CASE WHEN (aml.debit + aml.credit) != 0.0
+                  THEN COALESCE(ABS(NULLIF(aml.amount_currency, 0.0)), ABS(aml.debit + aml.credit)) / ABS(aml.debit + aml.credit)
+                  ELSE 1.0
+              END AS currency_rate
+            ,CASE WHEN (COALESCE(NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit)) > 0.00
+                  THEN (COALESCE(NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit)) - COALESCE(mc.closed_amount_currency, 0.0)
+                  ELSE (COALESCE(NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit)) + COALESCE(mc.closed_amount_currency, 0.0)
+              END as open_amount
+             ,(CASE WHEN COALESCE(mc.closed_amount_currency, 0.0) > 0.0 THEN mc.closed_amount_currency ELSE 0.0 END) AS closed_amount
+        FROM account_move_line aml
+        JOIN account_move am ON (aml.move_id = am.id)
+        JOIN res_company rc ON (aml.company_id = rc.id)
+        JOIN account_account aa ON (aml.account_id = aa.id)
+        LEFT JOIN ml_closed mc ON (mc.move_line_id = aml.id)
+        WHERE 1 = 1
+        AND aa.account_type in ('asset_receivable')
+        AND am.state = 'posted'
+        AND aml.company_id = _company_id
+        AND aml.currency_id != aml.company_currency_id
         AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
         AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to  --+ INTERVAL '1 month'
     )

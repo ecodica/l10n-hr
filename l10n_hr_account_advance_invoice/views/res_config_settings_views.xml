@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_storno" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.storno</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="40"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='enable_storno_accounting']" position="after">
+                <setting id="storno_advance_account_move_name_prefix_setting" string="Additional text for storno account move name" help ="Given text will be used as a name of a storno account move in format 'original invoice number + additional text'">
+                    <field name="storno_advance_account_move_name_prefix"/>
+                </setting>
+            </xpath>
+
+      </field>
+    </record>
+</odoo>

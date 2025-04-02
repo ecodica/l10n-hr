@@ -228,3 +228,12 @@ msgstr "Odabrani partner ima nezatvorene predujmove!"
 #, python-format
 msgid "Warning!"
 msgstr "Upozorenje!"
+
+#. module: l10n_hr_account_advance_invoice
+#. odoo-python
+#: code:addons/l10n_hr_account_advance_invoice/models/account_move.py:0
+#, python-format
+msgid ""
+"Advance payment amount ({0}) is higher than the invoice amount ({1}). Reduce"
+" the amount in the 'Advance' tab on the invoice."
+msgstr "Iznos predujma ({0}) je viši od iznosa računa ({1}). Iznos predujma možete promijeniti u kartici 'Predujam'."

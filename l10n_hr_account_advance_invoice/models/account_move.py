@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
@@ -47,9 +48,14 @@ class AccountMove(models.Model):
         return res
 
     def action_post(self):
+        #override post if current invoice has advance lines
         res = super().action_post()
-        if self.advance_invoice:
+        if self.advance_invoice or not self.advance_line_ids:
             return
+        #raise warning if advance amount is larger than invoice amount
+        advance_amount = sum([line.amount for line in self.advance_line_ids])
+        if advance_amount > self.amount_total:
+            raise ValidationError(_("Advance payment amount ({0}) is higher than the invoice amount ({1}). Reduce the amount in the 'Advance' tab on the invoice.").format(advance_amount, self.amount_total))
         storno_name = self.company_id.storno_advance_account_move_name_prefix
         counter = 1
         for line in self.advance_line_ids:

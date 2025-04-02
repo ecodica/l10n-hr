@@ -55,6 +55,14 @@ class OpzStat(models.Model):
                                    states={"draft": [("readonly", False)]},
                                    copy=False,
                                    )
+    journal_ids = fields.Many2many('account.journal',
+                                   'opz_stat_account_journal_rel',
+                                   'opz_stat_id', 'journal_id',
+                                   string='Journals',
+                                   readonly=True,
+                                   states={"draft": [("readonly", False)]},
+                                   copy=False,
+                                   )
 
     def _auto_init(self):
         res = super(OpzStat, self)._auto_init()

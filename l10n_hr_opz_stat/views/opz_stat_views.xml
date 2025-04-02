@@ -107,6 +107,9 @@
                         <page string="Partners">
                             <field name="partner_ids"/>
                         </page>
+                        <page string="Journals">
+                            <field name="journal_ids"/>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

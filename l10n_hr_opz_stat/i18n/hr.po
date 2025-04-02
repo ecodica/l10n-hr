@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* l10n_hr_opz_stat
+# 	* l10n_hr_opz_stat
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-29 07:23+0000\n"
-"PO-Revision-Date: 2016-08-29 07:23+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2025-04-02 15:55+0000\n"
+"PO-Revision-Date: 2025-04-02 15:55+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,194 +16,220 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
-msgid "- Date to"
-msgstr "- Datum do"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid ""
+"<span>\n"
+"                                    <strong>- to</strong>\n"
+"                                </span>"
+msgstr ""
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,amount:0
+#: model:ir.model,name:l10n_hr_opz_stat.model_account_account
+msgid "Account"
+msgstr "Konto"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__amount
 msgid "Amount"
 msgstr "Iznos"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,amount_tax:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__amount_tax
 msgid "Amount Tax"
 msgstr "Iznos PDV"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,amount_total:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__amount_total
 msgid "Amount with Tax"
 msgstr "Iznos s PDV"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,company_id:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__company_id
 msgid "Company"
-msgstr "Poduzeće"
+msgstr "Tvrtka"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Compute"
 msgstr "Izračunaj"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Confirm"
 msgstr "Potvrdi"
 
 #. module: l10n_hr_opz_stat
-#: selection:opz.stat,state:0
+#: model:ir.model.fields.selection,name:l10n_hr_opz_stat.selection__opz_stat__state__confirmed
 msgid "Confirmed"
 msgstr "Potvrđeno"
 
 #. module: l10n_hr_opz_stat
-#: model:ir.actions.act_window,help:l10n_hr_opz_stat.action_opz_stat_report
+#: model_terms:ir.actions.act_window,help:l10n_hr_opz_stat.action_opz_stat_report
 msgid "Create and print OPZ STAT statistical report for overdue payments."
 msgstr "Kreiraj i ispiši OPZ STAT statističko izvješće za dospjela potraživanja."
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,create_uid:0
-#: field:opz.stat.line,create_uid:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__create_uid
 msgid "Created by"
 msgstr "Kreirao"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,create_date:0
-#: field:opz.stat.line,create_date:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__create_date
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__create_date
 msgid "Created on"
 msgstr "Kreirano"
 
 #. module: l10n_hr_opz_stat
-#: code:addons/l10n_hr_opz_stat/models/xml_common.py:41
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__currency_id
+msgid "Currency"
+msgstr "Valuta"
+
+#. module: l10n_hr_opz_stat
+#. odoo-python
+#: code:addons/l10n_hr_opz_stat/models/xml_common.py:0
 #, python-format
 msgid "Data Error"
 msgstr "Greška u podacima"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
-#: field:opz.stat,date_from:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__date_from
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Date From"
 msgstr "Datum od"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
-#: field:opz.stat,date_to:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__date_to
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Date To"
 msgstr "Datum do"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Date from"
 msgstr "Datum od"
 
 #. module: l10n_hr_opz_stat
-#: selection:opz.stat,state:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__display_name
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields.selection,name:l10n_hr_opz_stat.selection__opz_stat__state__done
 msgid "Done"
 msgstr "Završeno"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
-#: selection:opz.stat,state:0
+#: model:ir.model.fields.selection,name:l10n_hr_opz_stat.selection__opz_stat__state__draft
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Draft"
 msgstr "Nacrt"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Draft OPZ STAT"
 msgstr "Nacrt OPZ STAT"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,due_date:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__due_date
 msgid "Due Date"
 msgstr "Datum dospijeća"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Export XML"
 msgstr "Izvezi XML"
 
 #. module: l10n_hr_opz_stat
-#: code:addons/l10n_hr_opz_stat/models/xml_common.py:34
-#, python-format
-msgid "Format Error"
-msgstr "Greška formata"
-
-#. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Group By"
 msgstr "Grupiraj po"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,id:0
-#: field:opz.stat.line,id:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__id
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__id
 msgid "ID"
 msgstr "ID"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,invoice_id:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__invoice_id
 msgid "Invoice"
 msgstr "Račun"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,invoice_date:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__invoice_date
 msgid "Invoice Date"
 msgstr "Datum računa"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,invoice_number:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__invoice_number
 msgid "Invoice Number"
-msgstr "Invoice Number"
+msgstr "Broj računa"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Invoices"
 msgstr "Računi"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,write_uid:0
-#: field:opz.stat.line,write_uid:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__journal_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Journals"
+msgstr "Dnevnici"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat____last_update
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line____last_update
+msgid "Last Modified on"
+msgstr "Zadnje ažuriranje"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__write_uid
 msgid "Last Updated by"
 msgstr "Zadnji ažurirao"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,write_date:0
-#: field:opz.stat.line,write_date:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__write_date
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__write_date
 msgid "Last Updated on"
 msgstr "Zadnje ažuriranje"
 
 #. module: l10n_hr_opz_stat
-#: code:addons/l10n_hr_opz_stat/models/xml_common.py:41
+#. odoo-python
+#: code:addons/l10n_hr_opz_stat/models/xml_common.py:0
 #, python-format
 msgid "Missing or misconfigured data : %s"
 msgstr "Nedostaju podaci ii su pogrešno konfigurirani : %s"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
-#: field:opz.stat,name:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__name
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Name"
 msgstr "Naziv"
 
 #. module: l10n_hr_opz_stat
 #: model:ir.actions.act_window,name:l10n_hr_opz_stat.action_opz_stat_report
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__opz_id
 #: model:ir.ui.menu,name:l10n_hr_opz_stat.menu_opz_stat_report
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_tree
-#: field:opz.stat.line,opz_id:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_tree
 msgid "OPZ STAT"
 msgstr "OPZ STAT"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,opz_stat_line:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__opz_stat_line
 msgid "OPZ STAT Lines"
-msgstr "OPZ STAT reci"
+msgstr "OPZ STAT Stavke"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "OPZ STAT lines"
-msgstr "OPZ STAT reci"
+msgstr "OPZ STAT Stavke"
 
 #. module: l10n_hr_opz_stat
 #: model:ir.model,name:l10n_hr_opz_stat.model_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "OPZ STAT report"
 msgstr "OPZ STAT izještaj"
 
@@ -213,86 +239,122 @@ msgid "OPZ STAT report lines"
 msgstr "OPZ STAT reci izvještaja"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,overdue_days:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_res_partner__opz_stat_vat_id
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_res_users__opz_stat_vat_id
+msgid "OPZ-STAT ID"
+msgstr "OPZ-STAT ID"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__overdue_days
 msgid "Overdue Days"
 msgstr "Dani kašnjenja"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,paid:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Paid"
+msgstr "Plaćeno"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__paid
 msgid "Paid Amount"
 msgstr "Plaćeno"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,partner_id:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__partner_id
 msgid "Partner"
 msgstr "Partner"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,partner_name:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__partner_name
 msgid "Partner Name"
-msgstr "Naziv partnera"
+msgstr "Naziv Partnera"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__partner_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Partners"
+msgstr "Partneri"
+
+#. module: l10n_hr_opz_stat
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Search OPZ STAT"
 msgstr "Pretraži OPZ STAT"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Set to Draft"
-msgstr "Postavi na Nacrt"
+msgstr "Postavi u Nacrt"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,state:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__skip_negative_amount
+msgid "Skip Negative Amount"
+msgstr "Preskoči negativne iznose"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__skip_xml_validation
+msgid "Skip XML validation"
+msgstr "Preskoči XML validaciju"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__state
 msgid "State"
 msgstr "Status"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.view_opz_stat_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.view_opz_stat_search
 msgid "Status"
 msgstr "Status"
 
 #. module: l10n_hr_opz_stat
-#: code:addons/l10n_hr_opz_stat/models/xml_common.py:34
-#, python-format
-msgid "Unešeni broj telefona/faxa : %s u postavkama tvrtke nije ispravan\n"
-"Očekivani format je +385xxxxxxxx , (dozvoljno je korištenje znakova za razdvajanje i grupiranje (-/) i razmaka"
-msgstr "Unešeni broj telefona/faxa : %s u postavkama tvrtke nije ispravan\n"
-"Očekivani format je +385xxxxxxxx , (dozvoljno je korištenje znakova za razdvajanje i grupiranje (-/) i razmaka"
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__sum_others
+msgid "Sum Others"
+msgstr "Sumiraj ostale"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,unpaid:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Tax"
+msgstr "Porez"
+
+#. module: l10n_hr_opz_stat
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Total"
+msgstr "Ukupno"
+
+#. module: l10n_hr_opz_stat
+#. odoo-python
+#: code:addons/l10n_hr_opz_stat/models/xml_common.py:0
+#, python-format
+msgid ""
+"Unešeni broj telefona/faxa : %s u postavkama tvrtke nije ispravan\n"
+"Očekivani format je +385xxxxxxxx , (dozvoljno je korištenje znakova za razdvajanje i grupiranje (-/) i razmaka"
+msgstr ""
+
+#. module: l10n_hr_opz_stat
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "Unpaid"
+msgstr "Neplaćeno"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__unpaid
 msgid "Unpaid Amount"
 msgstr "Neplaćeno"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,partner_vat_number:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__partner_vat_number
 msgid "VAT Number"
-msgstr "Porezni broj (OIB)"
+msgstr "PDV broj"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat.line,partner_vat_type:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__partner_vat_type
 msgid "VAT Type"
-msgstr "Vrsta poreznog broja"
+msgstr "PDV Vrsta"
 
 #. module: l10n_hr_opz_stat
-#: view:opz.stat:l10n_hr_opz_stat.opz_stat_form_view
-#: field:opz.stat,xml_file:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__xml_file
 msgid "XML File"
-msgstr "XML datoeka"
+msgstr "XML datoteka"
 
 #. module: l10n_hr_opz_stat
-#: field:opz.stat,xml_filename:0
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__xml_filename
 msgid "XML File Name"
-msgstr "NAziv XML datoteke"
-
-#. module: l10n_hr_opz_stat
-#: field:account.account,exclude_from_opz_stat:0
-msgid "Exclude from OPZ-STAT"
-msgstr "Isključi iz OPZ-STAT"
-
-#. module: l10n_hr_opz_stat
-#: field:opz.stat.line,invoice_number:0
-msgid "Invoice Number"
-msgstr "Broj računa"
-
+msgstr "Naziv XML datoteke"

@@ -6,6 +6,7 @@ Croatian localisation.
 OPZ-STAT Invoice report
 """,
     "version": "16.0.1.0.0",
+    "license": "LGPL-3",
     "author": "Ecodica",
     "category": "Localization",
     "website": "",

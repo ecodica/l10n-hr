@@ -78,3 +78,8 @@ class OpzStatLine(models.Model):
             self.overdue_days = overdue.days
         else:
             self.overdue_days = False
+
+    @api.onchange('amount', 'amount_tax')
+    def onchange_amount(self):
+        self.amount_total = self.amount + self.amount_tax
+        self.unpaid = self.amount_total - self.paid

@@ -1,15 +1,6 @@
--- Function: oe_rep_aged_partner_balance(date,int)
+-- Function for generating OPZ-STAT lines from Open Items
 
--- DROP FUNCTION oe_opz_stat(date, bigint);
 
-/* DEBUG
-select *
-from oe_opz_stat(
-        _date_to   := '2016-12-31'
-        ,_opz_id   := 38998192
-)
-
-*/
 CREATE OR REPLACE FUNCTION oe_opz_stat(IN _date_to date, IN _opz_id bigint, IN _company_id bigint) RETURNS varchar AS
 $BODY$
 BEGIN
@@ -46,14 +37,15 @@ WITH inv_data AS (
     ,open_move_line AS (
         -- DOMESTIC
         SELECT aml.partner_id
+            ,aj.id AS journal_id
             ,COALESCE(am.invoice_date, aml.date) AS date_invoice
             ,COALESCE(aml.date_maturity, am.invoice_date_due) AS date_due
             ,am."id" AS invoice_id
             ,COALESCE(am.l10n_hr_fiskalni_broj, aml.name, 'NO-REFERENCE') AS invoice_number
             ,aml.currency_id
-            ,COALESCE(am.amount_untaxed, 0.0) AS invoice_amount
-            ,COALESCE(am.amount_tax, 0.0) AS invoice_amount_tax
-            ,COALESCE(am.amount_total, 0.0) AS invoice_amount_total
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_untaxed ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_tax ELSE 0.0 END, 0.0) AS invoice_amount_tax
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_total ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount_total
             ,am.state AS move_state
             ,COALESCE( NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit) AS amount_currency
             ,CASE WHEN (aml.debit + aml.credit) != 0.0
@@ -69,6 +61,7 @@ WITH inv_data AS (
         JOIN account_move am ON (aml.move_id = am.id)
         JOIN res_company rc ON (aml.company_id = rc.id)
         JOIN account_account aa ON (aml.account_id = aa.id)
+        JOIN account_journal aj ON (am.journal_id = aj.id)
         LEFT JOIN ml_closed mc ON (mc.move_line_id = aml.id)
         WHERE 1 = 1
         AND aa.account_type in ('asset_receivable')
@@ -80,14 +73,15 @@ WITH inv_data AS (
         UNION
         -- FOREIGN
         SELECT aml.partner_id
+            ,aj.id AS journal_id
             ,COALESCE(am.invoice_date, aml.date) AS date_invoice
             ,COALESCE(aml.date_maturity, am.invoice_date_due) AS date_due
             ,am."id" AS invoice_id
             ,COALESCE(am.l10n_hr_fiskalni_broj, aml.name, 'NO-REFERENCE') AS invoice_number
             ,aml.currency_id
-            ,COALESCE(am.amount_untaxed, 0.0) AS invoice_amount
-            ,COALESCE(am.amount_tax, 0.0) AS invoice_amount_tax
-            ,COALESCE(am.amount_total, 0.0) AS invoice_amount_total
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_untaxed ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_tax ELSE 0.0 END, 0.0) AS invoice_amount_tax
+            ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_total ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount_total
             ,am.state AS move_state
             ,COALESCE( NULLIF(aml.amount_currency, 0.0), aml.debit - aml.credit) AS amount_currency
             ,CASE WHEN (aml.debit + aml.credit) != 0.0
@@ -103,6 +97,7 @@ WITH inv_data AS (
         JOIN account_move am ON (aml.move_id = am.id)
         JOIN res_company rc ON (aml.company_id = rc.id)
         JOIN account_account aa ON (aml.account_id = aa.id)
+        JOIN account_journal aj ON (am.journal_id = aj.id)
         LEFT JOIN ml_closed mc ON (mc.move_line_id = aml.id)
         WHERE 1 = 1
         AND aa.account_type in ('asset_receivable')
@@ -113,6 +108,7 @@ WITH inv_data AS (
         AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to  --+ INTERVAL '1 month'
     )
     SELECT oml.partner_id
+        ,oml.journal_id
         ,par.name AS partner_name
         ,COALESCE((CASE WHEN par.vat LIKE 'HR%'
                         THEN SUBSTRING(par.vat, 3)
@@ -178,6 +174,14 @@ AND CASE
         WHEN EXISTS (SELECT 1 FROM opz_stat_res_partner_rel WHERE opz_stat_id = _opz_id) THEN
         CASE
             WHEN d.partner_id IN (SELECT partner_id FROM opz_stat_res_partner_rel WHERE opz_stat_id = _opz_id) THEN 1
+            ELSE 0
+        END
+        ELSE 1
+    END = 1
+AND CASE
+        WHEN EXISTS (SELECT 1 FROM opz_stat_account_journal_rel WHERE opz_stat_id = _opz_id) THEN
+        CASE
+            WHEN d.journal_id IN (SELECT journal_id FROM opz_stat_account_journal_rel WHERE opz_stat_id = _opz_id) THEN 1
             ELSE 0
         END
         ELSE 1

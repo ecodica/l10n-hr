@@ -51,6 +51,7 @@
                             groups="account.group_account_manager"/>
                     <button name="export_xml" type="object" states="confirmed" string="Export XML" class="btn-primary"
                             groups="account.group_account_manager"/>
+                    <button name="view_lines" type="object" string="View Lines" groups="account.group_account_manager"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"
                            statusbar_colors='{"draft":"blue","done":"grey"}'/>
                 </header>

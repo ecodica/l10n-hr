@@ -103,6 +103,18 @@ class OpzStat(models.Model):
     def print_report(self):
         pass
 
+    def view_lines(self):
+        return {
+            'name': _('OPZ-STAT lines'),
+            'type': 'ir.actions.act_window',
+            'view_type': 'form',
+            'view_mode': 'tree',
+            'res_model': 'opz.stat.line',
+            'target': 'current',
+            'domain': [('opz_id', '=', self.id)],
+            'context': self.env.context,
+        }
+
     def export_xml(self):
         self.ensure_one()
         kupac_line_no = 0

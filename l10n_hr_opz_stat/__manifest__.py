@@ -18,6 +18,7 @@ OPZ-STAT Invoice report
         "views/account_account_views.xml",
         "views/res_partner_views.xml",
         "views/opz_stat_views.xml",
+        "views/opz_stat_line_views.xml",
     ],
     "demo": [],
     "test": [],

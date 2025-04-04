@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_opz_stat_line_search" model="ir.ui.view">
+        <field name="name">view.opz.stat.line.search</field>
+        <field name="model">opz.stat.line</field>
+        <field name="arch" type="xml">
+            <search string="Search OPZ-STAT Lines">
+                <field name="invoice_number" string="Invoice Number"
+                       filter_domain="[('invoice_number', 'ilike', self)]"/>
+                <separator/>
+                <field name="invoice_date" string="Invoice Date"/>
+                <field name="due_date" string="Due Date"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Partner" context="{'group_by':'partner_id'}" name="group_by_partner_id"/>
+                    <filter string="Partner VAT Type" context="{'group_by':'partner_vat_type'}" name="group_by_partner_vat_type"/>
+                    <separator/>
+                    <filter string="Invoice Date" context="{'group_by':'invoice_date'}" name="group_by_invoice_date"/>
+                    <filter string="Due Date" context="{'group_by':'due_date'}" name="group_by_due_date"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_opz_stat_line_tree" model="ir.ui.view">
+        <field name="name">view.opz.stat.line.tree</field>
+        <field name="model">opz.stat.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_vat_type" widget="selection"/>
+                <field name="partner_id"/>
+                <field name="partner_vat_number"/>
+                <field name="invoice_id"/>
+                <field name="invoice_number"/>
+                <field name="invoice_date"/>
+                <field name="due_date"/>
+                <field name="overdue_days"/>
+                <field name="amount"/>
+                <field name="amount_tax" string="Tax"/>
+                <field name="amount_total" string="Total"/>
+                <field name="paid" string="Paid"/>
+                <field name="unpaid" string="Unpaid"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

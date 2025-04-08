@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0+e\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-20 12:47+0000\n"
-"PO-Revision-Date: 2025-02-20 12:47+0000\n"
+"POT-Creation-Date: 2025-04-08 13:29+0000\n"
+"PO-Revision-Date: 2025-04-08 13:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,34 +17,34 @@ msgstr ""
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Confirm date and time:</strong>"
-msgstr "<strong>Datum i vrijeme izdavanja:</strong>"
+msgid "<strong>Delivery Date</strong>"
+msgstr "<strong>Datum isporuke</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Date delivery:</strong>"
-msgstr "<strong>Datum isporuke:</strong>"
+msgid "<strong>Internal Number</strong>"
+msgstr "<strong>Interni broj</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Internal number:</strong>"
-msgstr "<strong>Interni broj:</strong>"
+msgid "<strong>Issued By</strong>"
+msgstr "<strong>Račun izdao</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Payment means:</strong>"
-msgstr "<strong>Način plaćanja:</strong>"
+msgid "<strong>Payment Method</strong>"
+msgstr "<strong>Način plaćanja</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Place of issue:</strong>"
-msgstr "<strong>Mjesto izdavanja:</strong>"
+msgid "<strong>Place Of Issue</strong>"
+msgstr "<strong>Mjesto izdavanja</strong>"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_payment_method
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_payment_method
 msgid ""
-"According to Fiscalization Law and regulative there is 5 possible options: T, G, K, C, O\n"
+"According to Fiscalization Law and regulative there are 5 possible options: T, G, K, C, O\n"
 "T - Transaction bank account, is applicable without fiscalization\n"
 " and for other options needed please install fiscalization extension module."
 msgstr ""
@@ -276,7 +276,8 @@ msgstr "Datum isporuke"
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_delivery
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_date_delivery
 msgid "Date of delivery of goods or service. Leave blank for current date"
-msgstr "Datum isporuke dobara ili usluga (ako je prazno uzima današnji datum)."
+msgstr ""
+"Datum isporuke dobara ili usluga (ako je prazno uzima današnji datum)."
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_document
@@ -297,8 +298,8 @@ msgid ""
 "Deleting PoS device with confirmed invoices is not possible! Try "
 "deactivating instead."
 msgstr ""
-"Brisanje naplatnog uređaja na kojem su izdani računi nije "
-"moguće! Deaktivirajte ga umjesto brisanja."
+"Brisanje naplatnog uređaja na kojem su izdani računi nije moguće! "
+"Deaktivirajte ga umjesto brisanja."
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_fiscal_device_code
@@ -437,6 +438,7 @@ msgid ""
 msgstr ""
 "Ako nije unešeno uzima se sa poslovnog prostora, kao zakonski obavezan "
 "element."
+
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_fiscal_invoice_sequence_ids
 msgid "Invoice Fiscal Sequences For Company"
@@ -473,6 +475,7 @@ msgid ""
 msgstr ""
 "Bazirano na poslovnom prostoru, (P) ovaj brojevni krug se koristi kao prvi "
 "dio fiskalnog broja računa."
+
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_invoice_place
 msgid ""
@@ -575,6 +578,7 @@ msgstr "Sljedeći broj"
 #: code:addons/l10n_hr_account_base/models/account_move.py:0
 msgid "No active PoS devices found for this journal."
 msgstr "Nema aktivnih naplatnih uređaja za ovaj dnevnik."
+
 #. module: l10n_hr_account_base
 #. odoo-python
 #: code:addons/l10n_hr_account_base/models/fiscal_data.py:0
@@ -630,8 +634,8 @@ msgid ""
 "Once the first invoice is confirmed, business premise code and invoice "
 "sequence should not be changed."
 msgstr ""
-"Nakon potvrđivanja prvog računa, šifra poslovnog prostora ili naplatnog uređaja"
-"se ne smije mijenjati."
+"Nakon potvrđivanja prvog računa, šifra poslovnog prostora ili naplatnog "
+"uređaja se ne smije mijenjati."
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_res_company__l10n_hr_fiscal_separator
@@ -807,7 +811,9 @@ msgstr ""
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_sequence_id
 msgid "Should be defined with no prefix or suffix, used only for this PoS."
-msgstr "Treba biti definirana bez prefiksa ili sufiksa i korištena samo za ovaj naplatni uređaj."
+msgstr ""
+"Treba biti definirana bez prefiksa ili sufiksa i korištena samo za ovaj "
+"naplatni uređaj."
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_show_required_fisk_fields_on_header
@@ -876,7 +882,9 @@ msgstr ""
 msgid ""
 "Use for temporary closing of premise, all related items will be modified "
 "according"
-msgstr "Koristi se za privremeno zatvaranje prostora - svi povezani modeli će biti usklađeni."
+msgstr ""
+"Koristi se za privremeno zatvaranje prostora - svi povezani modeli će biti "
+"usklađeni."
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiskal_prostor_form

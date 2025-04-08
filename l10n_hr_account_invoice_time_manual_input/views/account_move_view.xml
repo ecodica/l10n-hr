@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_hr_move_form" model="ir.ui.view">
+        <field name="name">view_l10n_hr_move_form_invoice_time</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- create placeholder -->
+            <field name="invoice_date" position="after">
+                <div class="d-flex" name="invoice_date_with_time" invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')">
+                </div>
+            </field>
+
+            <div name="invoice_date_with_time" position="inside">
+                <!-- move only invoice_date related to the out_invoice -->
+                <xpath expr="//field[@name='invoice_date'][contains(@invisible, 'out_invoice')]" position="move"/>
+                <field
+                    name="l10n_hr_invoice_time_float"
+                    widget="float_time"
+                    nolabel="1"
+                    invisible="move_type not in ('out_invoice', 'out_refund', 'out_receipt')"
+                    readonly="state != 'draft'"
+                />
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

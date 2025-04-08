@@ -12,59 +12,33 @@
             </t>
         </xpath>
 
-        <!-- add dates in regular informations block -->
-        <xpath expr="//div[@name='reference']" position="after">
-            <div
-                class="col-auto col-3 mw-100 mb-2"
-                t-if="o.l10n_hr_date_delivery"
-                name="date_delivery"
-            >
-                <strong>Date delivery:</strong>
-                <p class="m-0" t-field="o.l10n_hr_date_delivery" />
-            </div>
-        </xpath>
+        <!-- NOTE: invoice_date and l10n_hr_invoice_time should be inside same day,  we don't need to show them twice -->
+        <div name="invoice_date" position="inside">
+            <div t-field="o.country_code == 'HR' and o.l10n_hr_invoice_time" t-options="{'time_only': True}"/>
+        </div>
 
-        <!-- add croatia fiskal required data after total line -->
-        <xpath expr="//div[@id='total']/.." position="after">
-            <t t-if="o.country_code == 'HR'">
-                <div id="l10n_hr_info" class="row mt-4 mb-4">
-                    <div
-                        class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.l10n_hr_payment_method"
-                        name="nacin_placanja"
-                    >
-                        <strong>Payment means:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_payment_method" />
-                    </div>
-                    <div
-                        class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''"
-                        name="nacin_placanja"
-                    >
-                        <strong>Place of issue:</strong>
-                        <p
-                            class="m-0"
-                            t-esc="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place"
-                        />
-                    </div>
-                    <div
-                        class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.l10n_hr_invoice_time"
-                    >
-                        <strong>Confirm date and time:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_invoice_time" />
-                    </div>
-                    <div
-                        class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.name and o.name != o.l10n_hr_fiscal_number"
-                        name="interni_broj"
-                    >
-                        <strong>Internal number:</strong>
-                        <p class="m-0" t-field="o.name" />
-                    </div>
-                </div>
-            </t>
-        </xpath>
+        <div name="delivery_date" position="after">
+            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_date_delivery" name="l10n_hr_date_delivery">
+                <strong>Delivery Date</strong>
+                <div t-field="o.l10n_hr_date_delivery"/>
+            </div>
+            <div class="col" t-if="o.country_code == 'HR' and o.name and o.name != o.l10n_hr_fiscal_number" name="l10n_hr_invoice_time">
+                <strong>Internal Number</strong>
+                <div t-field="o.name"/>
+            </div>
+            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_payment_method" name="l10n_hr_payment_method">
+                <strong>Payment Method</strong>
+                <div t-field="o.l10n_hr_payment_method"/>
+            </div>
+            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''" name="l10n_place_of_issue">
+                <strong>Place Of Issue</strong>
+                <div t-field="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place"/>
+            </div>
+            <div class="col" t-if="o.country_code == 'HR' and o.invoice_user_id" name="invoice_user_id">
+                <strong>Issued By</strong>
+                <div t-field="o.invoice_user_id"/>
+            </div>
+        </div>
 
         <xpath expr="//div[@id='partner_vat_address_not_same_as_shipping']" position="before">
             <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">

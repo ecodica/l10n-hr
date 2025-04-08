@@ -1,0 +1,1 @@
+The Limitation off this module is that it uses a float field to store time (widget float_time), and because of that, seconds are not supported (when time is set, seconds in `Time Of Invoicing` will be set to 0).

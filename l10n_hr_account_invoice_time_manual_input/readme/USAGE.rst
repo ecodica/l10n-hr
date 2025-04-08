@@ -1,0 +1,2 @@
+On outgoing invoices or refunds forms, a field for inputting invoice time is visible.
+By default, time is set to the current time, and when the user changes time, `Time Of Invoicing` will also be updated.

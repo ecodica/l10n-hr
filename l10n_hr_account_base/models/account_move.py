@@ -20,8 +20,8 @@ class AccountMove(models.Model):
             copy=False,
             help="Date of delivery of goods or service. "
                  "Leave blank for current date"))
-    l10n_hr_invoice_time = fields.Char(
-        # DB: namjerno kao char da izbjegnem timezone problem!
+    # NOTE: this field should be in datetime format and should have seconds
+    l10n_hr_invoice_time = fields.Datetime(
         string="Time Of Invoicing",
         copy=False,
         help="Croatia Fiscal datetime value as string, should respect format: ")
@@ -189,7 +189,6 @@ class AccountMove(models.Model):
         if not self.date:
             self.date = fields.Date.context_today(self)
         if not self.l10n_hr_invoice_time:  # depend na l10n_hr_base?
-            # DEV NOTE: mozda i ostaviti datetime field? za sad.. char
             datum = self.company_id.get_l10n_hr_time_formatted()
             self.l10n_hr_invoice_time = datum["datum_racun"]
         # set fiskal number

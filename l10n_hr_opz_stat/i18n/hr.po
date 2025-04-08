@@ -55,6 +55,11 @@ msgstr "Izračunaj"
 
 #. module: l10n_hr_opz_stat
 #: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
+msgid "View Lines"
+msgstr "Pregledaj stavke"
+
+#. module: l10n_hr_opz_stat
+#: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Confirm"
 msgstr "Potvrdi"
 
@@ -108,6 +113,11 @@ msgstr "Datum do"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_opz_stat.opz_stat_form_view
 msgid "Date from"
 msgstr "Datum od"
+
+#. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__date_open
+msgid "Date Open"
+msgstr "Otvoreno na dan"
 
 #. module: l10n_hr_opz_stat
 #: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat__display_name

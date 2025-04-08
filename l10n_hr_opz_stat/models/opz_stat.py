@@ -12,6 +12,7 @@ class OpzStat(models.Model):
 
     date_from = fields.Date("Date From", required=True)
     date_to = fields.Date("Date To", required=True)
+    date_open = fields.Date("Date Open", required=True)
     name = fields.Char("Name", required=True, default="/")
     opz_stat_line = fields.One2many(
         "opz.stat.line",
@@ -78,11 +79,13 @@ class OpzStat(models.Model):
              SELECT DISTINCT 1
              FROM oe_opz_stat(
                      _date_to      := '%(date_to)s'
+                    ,_date_open    := '%(date_open)s'
                     ,_opz_id    := %(opz_id)s
                     ,_company_id := %(company_id)s
                          )
            """ % {
             "date_to": self.date_to,
+            "date_open": self.date_open,
             "opz_id": self.id,
             "company_id": self.company_id.id,
         }
@@ -99,6 +102,11 @@ class OpzStat(models.Model):
     def set_to_draft(self):
         self.ensure_one()
         self.state = "draft"
+
+    @api.onchange('date_to')
+    def _onchange_date_to(self):
+        if self.date_to:
+            self.date_open = self.date_to
 
     def print_report(self):
         pass

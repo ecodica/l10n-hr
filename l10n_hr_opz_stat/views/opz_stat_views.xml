@@ -67,14 +67,9 @@
                     </group>
                     <group>
                         <group>
-                            <label for="date_from" string="Date from"/>
-                            <div>
-                                <field name="date_from" nolabel="1" class="oe_inline"/>
-                                <span>
-                                    <strong>- to</strong>
-                                </span>
-                                <field name="date_to" nolabel="1" class="oe_inline"/>
-                            </div>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="date_open"/>
                         </group>
                         <group>
                             <field name="xml_file" filename="xml_filename" class="oe_inline"/>

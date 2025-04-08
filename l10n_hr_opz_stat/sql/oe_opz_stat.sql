@@ -1,7 +1,7 @@
 -- Function for generating OPZ-STAT lines from Open Items
 
 
-CREATE OR REPLACE FUNCTION oe_opz_stat(IN _date_to date, IN _opz_id bigint, IN _company_id bigint) RETURNS varchar AS
+CREATE OR REPLACE FUNCTION oe_opz_stat(IN _date_to date, IN _date_open date, IN _opz_id bigint, IN _company_id bigint) RETURNS varchar AS
 $BODY$
 BEGIN
 
@@ -13,7 +13,7 @@ WITH inv_data AS (
                ,COALESCE(apr.credit_amount_currency, 0.0) AS closing_credit_amount_currency
             FROM account_partial_reconcile apr
             WHERE 1 = 1
-            AND apr.max_date <= _date_to
+            AND apr.max_date <= _date_open
     )
     ,ml_debit_closed AS (
         SELECT rl.credit_move_id AS move_line_id
@@ -69,7 +69,7 @@ WITH inv_data AS (
         AND aml.company_id = _company_id
         AND aml.currency_id = aml.company_currency_id
         AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
-        AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to  --+ INTERVAL '1 month'
+        AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to
         UNION
         -- FOREIGN
         SELECT aml.partner_id
@@ -105,7 +105,7 @@ WITH inv_data AS (
         AND aml.company_id = _company_id
         AND aml.currency_id != aml.company_currency_id
         AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
-        AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to  --+ INTERVAL '1 month'
+        AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to
     )
     SELECT oml.partner_id
         ,oml.journal_id

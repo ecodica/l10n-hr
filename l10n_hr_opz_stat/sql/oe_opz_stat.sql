@@ -1,7 +1,8 @@
 -- Function for generating OPZ-STAT lines from Open Items
 
 
-CREATE OR REPLACE FUNCTION oe_opz_stat(IN _date_to date, IN _date_open date, IN _opz_id bigint, IN _company_id bigint) RETURNS varchar AS
+CREATE OR REPLACE FUNCTION oe_opz_stat(IN _date_from date, IN _date_to date, IN _date_open date,
+                                        IN _opz_id bigint, IN _company_id bigint) RETURNS varchar AS
 $BODY$
 BEGIN
 
@@ -69,6 +70,7 @@ WITH inv_data AS (
         AND aml.company_id = _company_id
         AND aml.currency_id = aml.company_currency_id
         AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
+        AND COALESCE(aml.date_maturity, am.invoice_date_due) >= _date_from
         AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to
         UNION
         -- FOREIGN
@@ -105,6 +107,7 @@ WITH inv_data AS (
         AND aml.company_id = _company_id
         AND aml.currency_id != aml.company_currency_id
         AND COALESCE(aa.exclude_from_opz_stat, FALSE) = FALSE
+        AND COALESCE(aml.date_maturity, am.invoice_date_due) >= _date_from
         AND COALESCE(aml.date_maturity, am.invoice_date_due) <= _date_to
     )
     SELECT oml.partner_id

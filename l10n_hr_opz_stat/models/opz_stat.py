@@ -163,7 +163,7 @@ class OpzStat(models.Model):
             for line in lines:
                 Racun = objectify.SubElement(Racuni, "Racun")
                 Racun.R1 = line_no  # Redni broj
-                Racun.R2 = line["invoice_number"]  # Broj (naziv) računa
+                Racun.R2 = line["invoice_number"][:128]  # Broj (naziv) računa
                 Racun.R3 = line["invoice_date"]  # Datum računa
                 Racun.R4 = line["due_date"]  # Datum dospjeća
                 Racun.R5 = line["overdue_days"]  # broj dana kašnjenja

@@ -10,10 +10,27 @@ class OpzStat(models.Model):
     _name = "opz.stat"
     _description = "OPZ STAT report"
 
-    date_from = fields.Date("Date From", required=True)
-    date_to = fields.Date("Date To", required=True)
-    date_open = fields.Date("Date Open", required=True)
-    name = fields.Char("Name", required=True, default="/")
+    date_from = fields.Date("Date From",
+                            required=True,
+                            readonly=True,
+                            states={"draft": [("readonly", False)]}
+                            )
+    date_to = fields.Date("Date To",
+                          required=True,
+                          readonly=True,
+                          states={"draft": [("readonly", False)]},
+                          )
+    date_open = fields.Date("Date Open",
+                            required=True,
+                            readonly=True,
+                            states={"draft": [("readonly", False)]},
+                            )
+    name = fields.Char("Name",
+                       required=True,
+                       default="/",
+                       readonly=True,
+                       states={"draft": [("readonly", False)]},
+                       )
     opz_stat_line = fields.One2many(
         "opz.stat.line",
         "opz_id",
@@ -45,9 +62,21 @@ class OpzStat(models.Model):
     )
     xml_file = fields.Binary("XML File", readonly=True)
     xml_filename = fields.Char("XML File Name", readonly=True)
-    skip_xml_validation = fields.Boolean("Skip XML validation", default=False)
-    skip_negative_amount = fields.Boolean("Skip Negative Amount", default=False)
-    sum_others = fields.Boolean("Sum Others", default=False)
+    skip_xml_validation = fields.Boolean("Skip XML validation",
+                                         default=False,
+                                         readonly=True,
+                                         states={"draft": [("readonly", False)], "confirmed": [("readonly", False)]},
+                                         )
+    skip_negative_amount = fields.Boolean("Skip Negative Amount",
+                                          default=False,
+                                          readonly=True,
+                                          states={"draft": [("readonly", False)]},
+                                          )
+    sum_others = fields.Boolean("Sum Others",
+                                default=False,
+                                readonly=True,
+                                states={"draft": [("readonly", False)], "confirmed": [("readonly", False)]},
+                                )
     partner_ids = fields.Many2many('res.partner',
                                    'opz_stat_res_partner_rel',
                                    'opz_stat_id', 'partner_id',
@@ -78,12 +107,14 @@ class OpzStat(models.Model):
         sql = """
              SELECT DISTINCT 1
              FROM oe_opz_stat(
-                     _date_to      := '%(date_to)s'
+                     _date_from      := '%(date_from)s'
+                    ,_date_to      := '%(date_to)s'
                     ,_date_open    := '%(date_open)s'
                     ,_opz_id    := %(opz_id)s
                     ,_company_id := %(company_id)s
                          )
            """ % {
+            "date_from": self.date_from,
             "date_to": self.date_to,
             "date_open": self.date_open,
             "opz_id": self.id,

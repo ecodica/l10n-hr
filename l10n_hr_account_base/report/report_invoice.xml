@@ -28,7 +28,7 @@
             </div>
             <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''" name="l10n_place_of_issue">
                 <strong>Place Of Issue</strong>
-                <div t-field="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place"/>
+                <div t-esc="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place"/>
             </div>
             <div class="col" t-if="o.country_code == 'HR' and o.invoice_user_id" name="invoice_user_id">
                 <strong>Issued By</strong>

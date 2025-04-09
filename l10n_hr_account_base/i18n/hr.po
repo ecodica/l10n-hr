@@ -267,19 +267,6 @@ msgid "Croatia settings"
 msgstr "Postavke za Hrvatsku"
 
 #. module: l10n_hr_account_base
-#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_delivery
-#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_date_delivery
-msgid "Date Of Delivery"
-msgstr "Datum isporuke"
-
-#. module: l10n_hr_account_base
-#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_delivery
-#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_date_delivery
-msgid "Date of delivery of goods or service. Leave blank for current date"
-msgstr ""
-"Datum isporuke dobara ili usluga (ako je prazno uzima današnji datum)."
-
-#. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_document
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_date_document
 msgid ""

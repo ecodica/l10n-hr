@@ -23,9 +23,6 @@
                     <field name="l10n_hr_fiscal_number" readonly ="state != 'draft'" nolabel="1" invisible ="not l10n_hr_fiscal_number" />
                 </span>
             </field>
-            <field name="payment_reference" position="after">
-                <field name="l10n_hr_date_delivery" readonly="state != 'draft'"/>
-            </field>
             <notebook position="inside">
                 <page string="Croatia Fiskal Data" name="croatia" invisible="(country_code != 'HR') or (move_type and move_type not in ['out_invoice', 'out_refund'])">
                     <!-- invisible fields -->

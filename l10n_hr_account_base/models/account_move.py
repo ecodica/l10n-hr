@@ -12,14 +12,6 @@ class AccountMove(models.Model):
         copy=False,
         help="Date when the document was actually created. "
              "Leave blank for current date.")
-    l10n_hr_date_delivery = (
-        # TODO in 17.0 delivery_date already exits, check if we need custom field
-        # for now, we changed label so that we don't get warnings of duplicate fields in logs
-        fields.Date(  # to avoid possible name conflict in delivery module!
-            string="Date Of Delivery",
-            copy=False,
-            help="Date of delivery of goods or service. "
-                 "Leave blank for current date"))
     # NOTE: this field should be in datetime format and should have seconds
     l10n_hr_invoice_time = fields.Datetime(
         string="Time Of Invoicing",
@@ -146,6 +138,14 @@ class AccountMove(models.Model):
             if len(vals) == 1:
                 move.l10n_hr_fiscal_device_id = vals and vals[0][1]
 
+    @api.depends('country_code', 'move_type')
+    def _compute_show_delivery_date(self):
+        """Extend to show delivery_date on sale documents."""
+        res = super()._compute_show_delivery_date()
+        for move in self:
+            if move.country_code == 'HR':
+                move.show_delivery_date = move.is_sale_document()
+
     def _gen_fiscal_number(self):
         self.ensure_one()  # one at a time only!
         premise = self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id
@@ -184,8 +184,6 @@ class AccountMove(models.Model):
         # set date fields
         if not self.l10n_hr_date_document:
             self.l10n_hr_date_document = fields.Date.context_today(self)
-        if not self.l10n_hr_date_delivery:
-            self.l10n_hr_date_delivery = fields.Date.context_today(self)
         if not self.date:
             self.date = fields.Date.context_today(self)
         if not self.l10n_hr_invoice_time:  # depend na l10n_hr_base?
@@ -209,6 +207,11 @@ class AccountMove(models.Model):
         for move in posted:
             if move.company_id.account_fiscal_country_id.code != "HR":
                 continue  # only for croatia
+
+            # NOTE: delivery date is required on croatian invoices
+            if move.is_sale_document() and not move.delivery_date:
+                move.delivery_date = move.invoice_date or fields.Date.context_today(self)
+
             if not move.is_invoice(include_receipts=False):
                 continue  # only invoices
             if move.move_type in ("out_invoice", "out_refund"):

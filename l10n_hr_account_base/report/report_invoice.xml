@@ -18,10 +18,6 @@
         </div>
 
         <div name="delivery_date" position="after">
-            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_date_delivery" name="l10n_hr_date_delivery">
-                <strong>Delivery Date</strong>
-                <div t-field="o.l10n_hr_date_delivery"/>
-            </div>
             <div class="col" t-if="o.country_code == 'HR' and o.name and o.name != o.l10n_hr_fiscal_number" name="l10n_hr_invoice_time">
                 <strong>Internal Number</strong>
                 <div t-field="o.name"/>

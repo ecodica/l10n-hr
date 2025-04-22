@@ -1,7 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-# Models to be an option to use in Odoo. Add more here, if needed...
+# Most used Models for out invoices. Add more if needed...
 L10N_HR_MODELS = {
     'hr00': ('HR00', 'HR00 - P1-P2-P3  No Control'),
     'hr01': ('HR01', 'HR01 - P1-P2-P3  [k(P1,P2,P3)]'),

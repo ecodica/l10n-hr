@@ -54,7 +54,7 @@ class AccountMove(models.Model):
              " only if there is something to select"
              " like 2 or more devices for this journal.")
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
-        string="Show Required Fisk Fields on Header?",
+        string="Show Required Fiscal Fields on Header?",
         related='company_id.l10n_hr_show_required_fisk_fields_on_header')
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
@@ -77,9 +77,12 @@ class AccountMove(models.Model):
         # but we will keep Odoo's constraints for all other move types
         if not index_exists(self.env.cr, "account_move_unique_name_l10n_hr"):
             drop_index(self.env.cr, "account_move_unique_name", self._table)
-            self.env.cr.execute("""CREATE UNIQUE INDEX account_move_unique_name
-                ON account_move(name, journal_id)
-                WHERE (state = 'posted' AND name != '/' AND move_type NOT IN ('out_invoice', 'out_refund'));
+            self.env.cr.execute(
+                # TODO: keep original
+                """CREATE UNIQUE INDEX account_move_unique_name
+                          ON account_move(name, journal_id)
+                          WHERE (state = 'posted' AND name != '/' AND move_type NOT IN ('out_invoice', 'out_refund'));
+                # TODO: respect fiscal year
                 CREATE UNIQUE INDEX account_move_unique_name_l10n_hr
                 ON account_move(name, company_id, extract(year from date))
                 WHERE (state = 'posted' AND name != '/' AND move_type IN ('out_invoice', 'out_refund'));
@@ -146,7 +149,7 @@ class AccountMove(models.Model):
             if len(vals) == 1:
                 move.l10n_hr_fiscal_device_id = vals and vals[0][1]
 
-    def _gen_fiscal_number(self):
+    def l10n_hr_gen_fiscal_number(self):
         self.ensure_one()  # one at a time only!
         premise = self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id
         device = self.l10n_hr_fiscal_device_id
@@ -196,7 +199,7 @@ class AccountMove(models.Model):
         if not self.invoice_user_id:
             self.invoice_user_id = self.env.user
         if not self.l10n_hr_fiscal_number:
-            self.l10n_hr_fiscal_number = self._gen_fiscal_number()
+            self.l10n_hr_fiscal_number = self.l10n_hr_gen_fiscal_number()
         # now and set lock on journals,
         # after first posting journal is locked for changes
         if not self.l10n_hr_fiscal_device_id.l10n_hr_lock:

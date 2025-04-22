@@ -2,23 +2,11 @@
 #
 #    OpenERP, Open Source Management Solution
 #    Author: Goran Kliska
-#    Copyright (C) 2011- Slobodni programi d.o.o., Zagreb
-#                http://www.slobodni-programi.hr
+#    Copyright (C) 2011 Slobodni programi d.o.o., Zagreb
+#                  2025 Ecodica d.o.o., Zagreb
+#                  https://www.ecodica.eu
 #    Contributions:
-#    Documentation: http://www.fina.hr/Default.aspx?sec=1266
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    Documentation: TODO: Check http://www.fina.hr/Default.aspx?sec=1266
 #
 ##############################################################################
 
@@ -225,14 +213,8 @@ def get_only_numeric_chars(ref):
     )  # take out non numeric chars!
 
 
-# TODO
+# TODO: def strip P1_P4 using MODELS_LENGTH
 def validate_lenghts(model, value):
     # 22 znaka , uključivo max 2 crtice, + 4 znaka za HR + model
     # max 26 znakova ! regex?
-    return True
-
-
-# TODO
-def reference_number_valid(model="", P=""):
-    # possibly validate references manualy entered on vendor bills?
     return True

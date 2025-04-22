@@ -93,6 +93,14 @@ class OpzStat(models.Model):
                                    states={"draft": [("readonly", False)]},
                                    copy=False,
                                    )
+    account_ids = fields.Many2many('account.account',
+                                   'opz_stat_account_account_rel',
+                                   'opz_stat_id', 'account_id',
+                                   string='Accounts',
+                                   readonly=True,
+                                   states={"draft": [("readonly", False)]},
+                                   copy=False,
+                                   )
 
     def _auto_init(self):
         res = super(OpzStat, self)._auto_init()

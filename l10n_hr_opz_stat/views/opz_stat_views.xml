@@ -106,6 +106,10 @@
                         <page string="Journals">
                             <field name="journal_ids"/>
                         </page>
+                        <page string="Accounts">
+                            <field name="account_ids" domain="[('account_type', '=', 'asset_receivable')]"
+                                   options="{'no_edit': True, 'no_open': True}"/>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

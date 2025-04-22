@@ -44,6 +44,7 @@ WITH inv_data AS (
             ,am."id" AS invoice_id
             ,COALESCE(am.l10n_hr_fiskalni_broj, aml.name, 'NO-REFERENCE') AS invoice_number
             ,aml.currency_id
+            ,aa.id AS account_id
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_untaxed ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_tax ELSE 0.0 END, 0.0) AS invoice_amount_tax
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_total ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount_total
@@ -81,6 +82,7 @@ WITH inv_data AS (
             ,am."id" AS invoice_id
             ,COALESCE(am.l10n_hr_fiskalni_broj, aml.name, 'NO-REFERENCE') AS invoice_number
             ,aml.currency_id
+            ,aa.id AS account_id
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_untaxed ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_tax ELSE 0.0 END, 0.0) AS invoice_amount_tax
             ,COALESCE(CASE WHEN aj.type != 'general' THEN am.amount_total ELSE aml.debit - aml.credit END, 0.0) AS invoice_amount_total
@@ -123,6 +125,7 @@ WITH inv_data AS (
         ,oml.invoice_id
         ,oml.invoice_number
         ,oml.currency_id
+        ,oml.account_id
         ,ROUND((CASE WHEN oml.currency_rate != 0.0
             THEN oml.amount_currency / oml.currency_rate
             ELSE oml.amount_currency
@@ -185,6 +188,14 @@ AND CASE
         WHEN EXISTS (SELECT 1 FROM opz_stat_account_journal_rel WHERE opz_stat_id = _opz_id) THEN
         CASE
             WHEN d.journal_id IN (SELECT journal_id FROM opz_stat_account_journal_rel WHERE opz_stat_id = _opz_id) THEN 1
+            ELSE 0
+        END
+        ELSE 1
+    END = 1
+AND CASE
+        WHEN EXISTS (SELECT 1 FROM opz_stat_account_account_rel WHERE opz_stat_id = _opz_id) THEN
+        CASE
+            WHEN d.account_id IN (SELECT account_id FROM opz_stat_account_account_rel WHERE opz_stat_id = _opz_id) THEN 1
             ELSE 0
         END
         ELSE 1

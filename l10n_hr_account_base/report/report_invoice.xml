@@ -2,7 +2,7 @@
 <odoo>
 
     <template id="l10n_hr_report_invoice_document" inherit_id="account.report_invoice_document">
-        <!-- modifiy name to fiskal number for croatia-->
+        <!-- modifiy name to fiskal number for croatia. TODO: Print both-->
         <xpath expr="//t[@t-set='layout_document_title']/span[last()]" position="replace">
             <t t-if="o.country_code == 'HR'">
                 <span t-if="o.name != '/'" t-field="o.l10n_hr_fiscal_number" />
@@ -12,7 +12,7 @@
             </t>
         </xpath>
 
-        <!-- add dates in regular informations block -->
+        <!-- add dates in regular information block -->
         <xpath expr="//div[@name='reference']" position="after">
             <div
                 class="col-auto col-3 mw-100 mb-2"
@@ -31,7 +31,7 @@
                     <div
                         class="col-auto col-3 mw-100 mb-2"
                         t-if="o.l10n_hr_payment_method"
-                        name="nacin_placanja"
+                        name="l10n_hr_payment_method"
                     >
                         <strong>Payment means:</strong>
                         <p class="m-0" t-field="o.l10n_hr_payment_method" />
@@ -39,7 +39,7 @@
                     <div
                         class="col-auto col-3 mw-100 mb-2"
                         t-if="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''"
-                        name="nacin_placanja"
+                        name="l10n_hr_invoice_place"
                     >
                         <strong>Place of issue:</strong>
                         <p
@@ -51,13 +51,13 @@
                         class="col-auto col-3 mw-100 mb-2"
                         t-if="o.l10n_hr_invoice_time"
                     >
-                        <strong>Confirm date and time:</strong>
+                        <strong>Confirmation time:</strong>
                         <p class="m-0" t-field="o.l10n_hr_invoice_time" />
                     </div>
                     <div
                         class="col-auto col-3 mw-100 mb-2"
                         t-if="o.name and o.name != o.l10n_hr_fiscal_number"
-                        name="interni_broj"
+                        name="l10n_hr_internal_number"
                     >
                         <strong>Internal number:</strong>
                         <p class="m-0" t-field="o.name" />
@@ -84,7 +84,7 @@
             </div>
         </xpath>
 
-        <!-- on croatian invoices, unit of meassue must be always visible -->
+        <!-- on croatian invoices, unit of measure must be always visible -->
         <xpath expr="//span[@t-field='line.product_uom_id']" position="replace">
             <t t-if="o.company_id.account_fiscal_country_id.code == 'HR'">
                 <span t-field="line.product_uom_id">units</span>

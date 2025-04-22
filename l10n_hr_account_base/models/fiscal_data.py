@@ -183,7 +183,6 @@ class L10nHrFiscalDevice(models.Model):
     l10n_hr_lock = fields.Boolean(
         string="Lock Device?",
         default=False,
-        # tracking=1,
         help="After first invoice is confirmed, no more changes!")
     l10n_hr_name = fields.Char(string="PoS Name", tracking=1)
     l10n_hr_business_premise_id = fields.Many2one(
@@ -195,7 +194,7 @@ class L10nHrFiscalDevice(models.Model):
         string="Sequence By", 
         store=True, 
         related="l10n_hr_business_premise_id.l10n_hr_invoice_sequence_by")
-    l10n_hr_fiscal_device_code = fields.Integer(  # -> kad se šalje xml onda strict integer!
+    l10n_hr_fiscal_device_code = fields.Integer(  # -> strict integer in xml documents!
         string="Device Code",
         required=True,
         tracking=1,

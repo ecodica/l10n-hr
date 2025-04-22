@@ -30,30 +30,30 @@ class AccountMove(models.Model):
         return res
 
     def _l10n_hr_ar_get(self):
+
         def getP1_P4data(self, what, defaults):
-            res = ""
+            result = ""
             what = what or defaults.get(what._name)
             if what == "move_id":
-                res = str(self.id)
+                result = str(self.id)
             elif what == "partner_code":
-                res = self.partner_id.ref or str(self.partner_id.id)
+                result = self.partner_id.ref or str(self.partner_id.id)
             elif what == "partner_id":
-                res = str(self.partner_id.id)
+                result = str(self.partner_id.id)
             elif what == "invoice_no":
-                res = self.name
+                result = self.name
                 if self.country_code == "HR":
-                    # samo za HR fiskalni broj uz lokalizaciju
                     if not self.l10n_hr_fiscal_number:
                         # checks will be done later now just need the number
-                        self.l10n_hr_fiscal_number = self._gen_fiscal_number() or '0000'
-                    res = self.l10n_hr_fiscal_number
+                        self.l10n_hr_fiscal_number = self.l10n_hr_gen_fiscal_number() or '0000'
+                    result = self.l10n_hr_fiscal_number
                     separator = self.company_id.l10n_hr_fiscal_separator
-                    res = res.split(separator)[0]
+                    result = result.split(separator)[0]
             elif what == "invoice_ym":
-                res = dt.strftime(self.invoice_date, "%Y%m")
+                result = dt.strftime(self.invoice_date, "%Y%m")
             elif what == "delivery_ym":
-                res = dt.strftime(self.delivery_date, "%Y%m")
-            return ar.get_only_numeric_chars(res)
+                result = dt.strftime(self.delivery_date, "%Y%m")
+            return ar.get_only_numeric_chars(result)
 
         model = self.journal_id.invoice_reference_model
         default_properties = self._l10n_hr_get_default_properties()

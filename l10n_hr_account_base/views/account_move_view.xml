@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
 
             <widget name="web_ribbon" position="before">
-                <!-- friendly warning to visaulise if journal is not ready -->
+                <!-- warning if journal is not ready -->
                 <widget
                     name="web_ribbon"
                     title="PoS not ready!"
@@ -24,7 +24,8 @@
                 </span>
             </field>
             <field name="payment_reference" position="after">
-                <field name="l10n_hr_date_delivery" readonly="state != 'draft'"/>
+                <field name="l10n_hr_date_delivery" readonly="state != 'draft'"
+                       invisible="(country_code != 'HR')"/>
             </field>
             <notebook position="inside">
                 <page string="Croatia Fiskal Data" name="croatia" invisible="(country_code != 'HR') or (move_type and move_type not in ['out_invoice', 'out_refund'])">
@@ -37,7 +38,7 @@
                             <field name="l10n_hr_allowed_fiscal_device_ids" invisible="1"/>
                             <field name="l10n_hr_fiscal_device_visible" invisible="1" />
                             <field name="l10n_hr_fiscal_device_id" widget="selection" invisible ="not l10n_hr_fiscal_device_visible or l10n_hr_show_required_fisk_fields_on_header " domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
-                            <!-- until fiscalisation module for cash payments has only one selectable ooption -->
+                            <!-- without fiscalisation module for cash payments there is  only one selectable option -->
                             <field name="l10n_hr_payment_method" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
                         </group>
                     </group>
@@ -45,8 +46,12 @@
             </notebook>
 
             <field name="invoice_vendor_bill_id" position="after">
-                <field name="l10n_hr_fiscal_device_id" widget="selection" invisible="not l10n_hr_fiscal_device_visible or not l10n_hr_show_required_fisk_fields_on_header" domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
-                <field name="l10n_hr_payment_method" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
+                <field name="l10n_hr_fiscal_device_id" widget="selection"
+                       invisible="not l10n_hr_fiscal_device_visible or not l10n_hr_show_required_fisk_fields_on_header"
+                       domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
+                <field name="l10n_hr_payment_method"
+                       invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header"
+                       readonly="state != 'draft'"/>
             </field>
 
             <field name="ref" position="before">

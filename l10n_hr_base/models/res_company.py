@@ -13,7 +13,7 @@ class Company(models.Model):
 
     # Technical field to hide country specific fields in company form view
     # from account module
-    country_code = fields.Char(depends=['country_id'])
+    # same as in base country_code = fields.Char(depends=['country_id'])
     l10n_hr_nkd_code = fields.Char(
         string="NKD Code",
         help="Main company activity classified by NKD-2007.")

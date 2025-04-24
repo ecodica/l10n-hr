@@ -89,20 +89,22 @@ class AccountMove(models.Model):
                 payment_term_line = self.line_ids.filtered(lambda line: line.display_type == "payment_term")
                 lines_to_create = []
                 for adv_journal_line in advance_journal_lines:
-                    amount_percentage = line.amount / adv_journal_line.move_id.amount_total
                     amount_credit = 0
                     amount_debit = 0
                     account_id = adv_journal_line.account_id.id
-                    if adv_journal_line.display_type == "tax":
-                        amount_credit = adv_journal_line.credit * (-1) * amount_percentage
+                    if adv_journal_line.display_type == "tax" and line.advance_move_storno_line_id.tax_ids == adv_journal_line.tax_line_id:
+                        amount_credit = line.tax_amount * (-1)
                         amount_debit = 0
-                    elif adv_journal_line.display_type == "product":
-                        amount_credit = adv_journal_line.credit * (-1) * amount_percentage
+                    elif adv_journal_line.display_type == "product" and line.advance_move_storno_line_id == adv_journal_line:
+                        amount_credit = line.amount_untaxed * (-1)
                         amount_debit = 0
                     elif adv_journal_line.display_type == "payment_term":
                         amount_credit = 0
                         amount_debit = line.amount * (-1)
                         account_id = payment_term_line.account_id.id
+                    else:
+                        #continue if not the same product or tax line. seperate storno is create for those cases
+                        continue
                     lines_to_create.append({
                         'move_id': res_create_storno_move.id,
                         'account_id': account_id,
@@ -185,6 +187,33 @@ class AccountMoveAdvanceLine(models.Model):
         string='Deduction account move',
         comodel_name='account.move',
     )
+    advance_move_storno_line_id = fields.Many2one(
+        string='Line from advance invoice',
+        comodel_name='account.move.line',
+        help='Account move line which will be reconciled with this advance payment.',
+        domain="[('id', 'in', available_line_ids)]"
+    )
+    available_line_ids = fields.Many2many(
+        comodel_name='account.move.line',
+        compute='_compute_available_lines',
+        store=False
+    )
+
+
+    @api.onchange('advance_move_storno_line_id')
+    def onchange_advance_move_storno_line_id(self):
+        self.amount = 0
+        if self.advance_move_storno_line_id:
+            self.amount = self.advance_move_storno_line_id.price_total
+
+    @api.depends('advance_invoice_id')
+    def _compute_available_lines(self):
+        for line in self:
+            if line.advance_invoice_id:
+                lines = line.advance_invoice_id.line_ids.filtered(lambda line: line.display_type == "product").ids
+                line.available_line_ids = [(6, 0, lines)]
+            else:
+                line.available_line_ids = [(6, 0, [])]
 
     def get_advance_paid_amount(self, field_name, value, invoice_type, context=None):
         """
@@ -199,12 +228,13 @@ class AccountMoveAdvanceLine(models.Model):
             advance_paid['tax'] += line.tax_amount
         return advance_paid
 
-    @api.onchange('amount', 'advance_invoice_id')
+    @api.onchange('amount', 'advance_invoice_id', 'advance_move_line_id')
     def onchange_advance_amount(self):
         "Update untaxed amount in case total amount from invoice is changed. Account move line and storno invoice amounts are not updated."
         vals = {}
         if self.advance_invoice_id:
-            amount_untaxed = self.amount * self.advance_invoice_id.amount_untaxed / self.advance_invoice_id.amount_total
+            tax_perc = self.advance_move_storno_line_id.tax_ids.amount
+            amount_untaxed = self.amount / (1 + (tax_perc / 100))
             vals.update({
                 'amount_untaxed': amount_untaxed,
                 'tax_amount': self.amount - amount_untaxed,

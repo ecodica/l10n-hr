@@ -191,14 +191,14 @@ class AccountMoveAdvanceLine(models.Model):
         string='Line from advance invoice',
         comodel_name='account.move.line',
         help='Account move line which will be reconciled with this advance payment.',
-        domain="[('id', 'in', available_line_ids)]"
+        domain="[('id', 'in', available_line_ids)]",
+        required=True
     )
     available_line_ids = fields.Many2many(
         comodel_name='account.move.line',
         compute='_compute_available_lines',
         store=False
     )
-
 
     @api.onchange('advance_move_storno_line_id')
     def onchange_advance_move_storno_line_id(self):

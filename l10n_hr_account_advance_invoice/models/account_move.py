@@ -188,7 +188,7 @@ class AccountMoveAdvanceLine(models.Model):
         comodel_name='account.move',
     )
     advance_move_storno_line_id = fields.Many2one(
-        string='Line from advance invoice',
+        string='Advance invoice line',
         comodel_name='account.move.line',
         help='Account move line which will be reconciled with this advance payment.',
         domain="[('id', 'in', available_line_ids)]",

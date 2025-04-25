@@ -275,6 +275,11 @@ msgid "Partner"
 msgstr "Partner"
 
 #. module: l10n_hr_opz_stat
+#: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__account_id
+msgid "Account"
+msgstr "Konto"
+
+#. module: l10n_hr_opz_stat
 #: model:ir.model.fields,field_description:l10n_hr_opz_stat.field_opz_stat_line__partner_name
 msgid "Partner Name"
 msgstr "Naziv Partnera"

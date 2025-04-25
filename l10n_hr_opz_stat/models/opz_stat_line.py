@@ -16,6 +16,7 @@ class OpzStatLine(models.Model):
 
     opz_id = fields.Many2one("opz.stat", "OPZ STAT", required=1, ondelete="cascade")
     partner_id = fields.Many2one("res.partner", string="Partner", required=1)
+    account_id = fields.Many2one("account.account", string="Account", required=1)
     partner_name = fields.Char("Partner Name", required=1)
     partner_vat_type = fields.Selection(PARTNER_VAT_TYPES, string="VAT Type", required=True, index=True,
                                         default=PARTNER_VAT_TYPES[0][0])

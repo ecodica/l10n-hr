@@ -160,14 +160,14 @@ WITH inv_data AS (
 )
 INSERT INTO opz_stat_line(
         create_uid, create_date, write_date, write_uid, opz_id
-        ,partner_id, partner_name, partner_vat_number, partner_vat_type
+        ,partner_id, account_id, partner_name, partner_vat_number, partner_vat_type
         ,invoice_id, invoice_number, invoice_date, due_date, overdue_days
         ,amount, amount_tax, amount_total, currency_id
         ,paid, unpaid
         )
 SELECT
         1, timezone('UTC', now()), timezone('UTC', now()), 1, _opz_id
-        ,d.partner_id, d.partner_name, d.partner_vat_number, d.partner_vat_type
+        ,d.partner_id, d.account_id, d.partner_name, d.partner_vat_number, d.partner_vat_type
         ,d.invoice_id, d.invoice_number, d.date_invoice, d.date_due, d.overdue_days
         ,COALESCE(NULLIF(d.lcy_invoice_amount, 0.0), d.lcy_aml_amount, 0.0), COALESCE(d.lcy_invoice_amount_tax, 0.0)
         ,COALESCE(NULLIF(d.lcy_invoice_amount_total, 0.0), d.lcy_aml_amount, 0.0), d.currency_id

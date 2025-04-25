@@ -130,7 +130,7 @@ class AccountMove(models.Model):
                 res_reconcile = self.env['account.move.line']._reconcile_plan({reconciliation_plan})
 
                 #reconcile product line (usually account 2259)
-                advance_invoice_product_line = line.advance_invoice_id.line_ids.filtered(lambda line: line.display_type == "product")
+                advance_invoice_product_line = line.advance_move_storno_line_id
                 storno_invoice_product_line = res_create_lines.filtered(lambda line: line.account_id.code == advance_invoice_product_line.account_id.code)
                 reconciliation_plan_product = (storno_invoice_product_line + advance_invoice_product_line)
                 res_reconcile_product = self.env['account.move.line']._reconcile_plan({reconciliation_plan_product})

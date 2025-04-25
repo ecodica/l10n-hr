@@ -237,3 +237,8 @@ msgid ""
 "Advance payment amount ({0}) is higher than the invoice amount ({1}). Reduce"
 " the amount in the 'Advance' tab on the invoice."
 msgstr "Iznos predujma ({0}) je viši od iznosa računa ({1}). Iznos predujma možete promijeniti u kartici 'Predujam'."
+
+#. module: l10n_hr_account_advance_invoice
+#: model:ir.model.fields,field_description:l10n_hr_account_advance_invoice.field_account_move_advance_line__advance_move_storno_line_id
+msgid "Advance invoice line"
+msgstr "Stavka računa predujma"

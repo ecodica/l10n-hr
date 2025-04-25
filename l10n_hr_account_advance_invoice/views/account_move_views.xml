@@ -52,6 +52,8 @@
                                             ('id', '!=', parent.id), ('amount_total', '&gt;', 0), ('state', 'not in', ['draft', 'cancel']),
                                             ('is_advance_reconciled', '=', False)]"
                                 options="{'limit': 10, 'create': false, 'create_edit': false, 'm2o_dialog': false}"/>
+                            <field name="available_line_ids" column_invisible="1"/>
+                            <field name="advance_move_storno_line_id"/>
                             <field name="amount" sum="Sum"/>
                             <field name="amount_untaxed" sum="Sum"/>
                             <field name="tax_amount" sum="Sum"/>

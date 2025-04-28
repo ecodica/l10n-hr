@@ -280,11 +280,11 @@ class OpzStat(models.Model):
         allowed_vat_types = ['other']
         sql = """
                 SELECT 
-                    SUM(opzl.amount_total) AS amount_total
-                    ,SUM(opzl.amount) AS amount
-                    ,SUM(opzl.amount_tax) AS amount_tax
-                    ,SUM(opzl.paid) AS amount_paid
-                    ,SUM(opzl.unpaid) AS amount_unpaid
+                    COALESCE(SUM(opzl.amount_total), 0.0) AS amount_total
+                    ,COALESCE(SUM(opzl.amount), 0.0) AS amount
+                    ,COALESCE(SUM(opzl.amount_tax), 0.0) AS amount_tax
+                    ,COALESCE(SUM(opzl.paid), 0.0) AS amount_paid
+                    ,COALESCE(SUM(opzl.unpaid), 0.0) AS amount_unpaid
                  FROM opz_stat_line opzl
                 WHERE opzl.opz_id = %s AND opzl.partner_vat_type IN %s
               """

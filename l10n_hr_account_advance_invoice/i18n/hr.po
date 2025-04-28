@@ -194,12 +194,8 @@ msgstr "<span>Ukupno: </span>"
 
 #. module: l10n_hr_account_advance_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_advance_invoice.report_invoice_document_advance_payment
-msgid ""
-"<br/>\n"
-"                                        <span>Tax: </span>"
-msgstr ""
-"<br/>\n"
-"                                        <span>Porez: </span>"
+msgid "Tax ("
+msgstr "Porez ("
 
 #. module: l10n_hr_account_advance_invoice
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_advance_invoice.report_invoice_document_advance_payment

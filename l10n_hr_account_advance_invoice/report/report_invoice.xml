@@ -23,7 +23,7 @@
                                         <span t-out="payment_vals.amount_untaxed"
                                             t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                         <br/>
-                                        <span>Tax: </span>
+                                        <span>Tax (<t t-out="payment_vals.advance_move_storno_line_id.tax_ids.amount"></t>%): </span>
                                         <span t-out="payment_vals.tax_amount"
                                             t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                 </td>

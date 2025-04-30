@@ -1,14 +1,15 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-# Most used Models for out invoices. Add more if needed...
+# Most used payment reference models for out invoices. Add more if needed...
 L10N_HR_MODELS = {
     'hr00': ('HR00', 'HR00 - P1-P2-P3  No Control'),
     'hr01': ('HR01', 'HR01 - P1-P2-P3  [k(P1,P2,P3)]'),
     'hr02': ('HR02', 'HR02 - P1-P2-P3  [k(P2), k(P3)]'),
     'hr03': ('HR03', 'HR03 - P1-P2-P3  [k(P1), k(P2), k(P3)]'),
+    'hr04': ('HR04', 'HR04 - P1-P2-P3  [k(P1), P2, k(P3)]'),
     'hr06': ('HR06', 'HR06 - P1-P2-P3  [k(P2,P3)]'),
-    'hr99': ('HR99', 'HR99 - No control')
+    'hr99': ('HR99', 'HR99 - No Control'),
 }
 
 

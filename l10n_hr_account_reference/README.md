@@ -49,4 +49,3 @@ Mihael Cindori / Ecodica d.o.o.
 
 * FIX: all field, class and method names are in English now with localization prefix (according to Odoo's l10n coding practice)
 * FIX: new translation file generated
-* TODO: write migration scripts

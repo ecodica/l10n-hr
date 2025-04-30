@@ -68,6 +68,7 @@ class AccountMove(models.Model):
             self, self.journal_id.property_l10n_hr_P4_ar, default_properties)
 
         res = ar.reference_number_get(model, P1, P2, P3, P4)
+        
         return " ".join((model, res))
 
     def _get_invoice_computed_reference(self):
@@ -83,5 +84,5 @@ class AccountMove(models.Model):
             return self._l10n_hr_ar_get()
         ref_function = getattr(self, f'_get_invoice_reference_{self.journal_id.invoice_reference_model}_{self.journal_id.invoice_reference_type}', None)
         if ref_function is None:
-            raise UserError(_("The combination of reference model and reference type on the journal is not implemented"))
+            raise UserError(_("The combination of reference model and reference type on the journal is not yet implemented."))
         return ref_function()

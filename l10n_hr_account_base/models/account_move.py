@@ -1,6 +1,5 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.tools.sql import drop_index, index_exists
 
 
 
@@ -12,16 +11,7 @@ class AccountMove(models.Model):
         copy=False,
         help="Date when the document was actually created. "
              "Leave blank for current date.")
-    l10n_hr_date_delivery = (
-        # TODO in 17.0 delivery_date already exits, check if we need custom field
-        # for now, we changed label so that we don't get warnings of duplicate fields in logs
-        fields.Date(  # to avoid possible name conflict in delivery module!
-            string="Date Of Delivery",
-            copy=False,
-            help="Date of delivery of goods or service. "
-                 "Leave blank for current date"))
     l10n_hr_invoice_time = fields.Char(
-        # DB: namjerno kao char da izbjegnem timezone problem!
         string="Time Of Invoicing",
         copy=False,
         help="Croatia Fiscal datetime value as string, should respect format: ")
@@ -59,35 +49,32 @@ class AccountMove(models.Model):
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
-
-    _sql_constraints = [
-        (
-            'unique_name', "", "Another entry with the same name already exists.",
-        ), 
-        (
-            'unique_name_l10n_hr', "", "Another entry with the same name already exists.",
-        )
-    ]
-
-    def _auto_init(self):
-        super()._auto_init()
-        # NOTE: in Croatia, sequences for outgoing invoices are reset each year and there can be
-        # invoices with same number in database. Only constraint is that outgoing invoice must be
-        # unique inside fiscal year. This override will force custom constraint for outgoing invoices
-        # but we will keep Odoo's constraints for all other move types
-        if not index_exists(self.env.cr, "account_move_unique_name_l10n_hr"):
-            drop_index(self.env.cr, "account_move_unique_name", self._table)
-            self.env.cr.execute(
-                # TODO: keep original
-                """CREATE UNIQUE INDEX account_move_unique_name
-                          ON account_move(name, journal_id)
-                          WHERE (state = 'posted' AND name != '/' AND move_type NOT IN ('out_invoice', 'out_refund'));
-                # TODO: respect fiscal year
-                CREATE UNIQUE INDEX account_move_unique_name_l10n_hr
-                ON account_move(name, company_id, extract(year from date))
-                WHERE (state = 'posted' AND name != '/' AND move_type IN ('out_invoice', 'out_refund'));
-            """)
-
+            
+    @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')
+    def _check_l10n_hr_fiscal_number(self):
+        for move in self:
+            if move.company_id.account_fiscal_country_id.code != "HR" or \
+                move.move_type not in ('out_invoice', 'out_refund'):
+                continue
+            fiscal_year_dates = move.company_id.compute_fiscalyear_dates(move.date)
+            if not fiscal_year_dates.get('date_from') or \
+                not fiscal_year_dates.get('date_to'):
+                raise ValidationError(
+                    _("Fiscal year %s for company %s has not been properly defined.") % (move.date.year, move.company_id.name)
+                )
+            existing_move = self.env['account.move'].search([
+                ('id', '!=', move.id),
+                ('l10n_hr_fiscal_number', '=', move.l10n_hr_fiscal_number),
+                ('move_type', 'in', ('out_invoice', 'out_refund')),
+                ('company_id', '=', move.company_id.id),
+                ('date', '>=', fiscal_year_dates.get('date_from')),
+                ('date', '<=', fiscal_year_dates.get('date_to')),
+            ], limit=1)
+            if existing_move:
+                raise ValidationError(
+                    _("Invoice with fiscal number %s has already been created.") % (move.l10n_hr_fiscal_number)
+                )
+                
     @api.depends('move_type', 'company_id')
     def _compute_l10n_hr_is_ref_required(self):
         for move in self:
@@ -108,12 +95,12 @@ class AccountMove(models.Model):
         'currency_id',
     )
     def _compute_tax_totals(self):
-        # Check if needed in next versions
+        #TODO: Check if needed in next versions
         res = super()._compute_tax_totals()
         """ Storno hack for Croatia,
-        We print Storno invoices with negative amounts,
-        So this sets the boolean which triggers for minus sign in lines footer related amounts in
-        Tax totals widget
+            We print Storno invoices with negative amounts,
+            So this sets the boolean which triggers for minus sign in lines footer related amounts in
+            Tax totals widget
         """
         for move in self:
             if not move.tax_totals:
@@ -187,15 +174,14 @@ class AccountMove(models.Model):
         # set date fields
         if not self.l10n_hr_date_document:
             self.l10n_hr_date_document = fields.Date.context_today(self)
-        if not self.l10n_hr_date_delivery:
-            self.l10n_hr_date_delivery = fields.Date.context_today(self)
+        if not self.delivery_date:
+            self.delivery_date = fields.Date.context_today(self)
         if not self.date:
             self.date = fields.Date.context_today(self)
-        if not self.l10n_hr_invoice_time:  # depend na l10n_hr_base?
-            # DEV NOTE: mozda i ostaviti datetime field? za sad.. char
+        if not self.l10n_hr_invoice_time:
             datum = self.company_id.get_l10n_hr_time_formatted()
             self.l10n_hr_invoice_time = datum["datum_racun"]
-        # set fiskal number
+        # set fiscal number
         if not self.invoice_user_id:
             self.invoice_user_id = self.env.user
         if not self.l10n_hr_fiscal_number:
@@ -207,6 +193,13 @@ class AccountMove(models.Model):
             #self.l10n_hr_fiscal_device_id.lock = True
             if not self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_lock:
                 self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.sudo().write({'l10n_hr_lock': True})
+
+    @api.depends('country_code', 'move_type')
+    def _compute_show_delivery_date(self):
+        super()._compute_show_delivery_date()
+        for move in self:
+            if move.country_code == 'HR':
+                move.show_delivery_date = move.is_sale_document()
 
     def _post(self, soft=True):
         posted = super()._post(soft=soft)

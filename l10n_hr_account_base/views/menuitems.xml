@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <!-- Usualy in l10n_xx module, but we could have more than one COA-->
     <menuitem
         id="menu_l10n_hr_reports"
         name="Croatia"

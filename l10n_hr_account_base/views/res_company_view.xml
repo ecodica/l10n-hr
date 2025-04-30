@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="l10n_hr_base.view_l10n_hr_base_company_data" />
         <field name="arch" type="xml">
             <group name="l10n_hr_legal" position="after">
-                <group string="Fiscal Data" name="l10n_hr_fiskal">
+                <group string="Fiscal Data" name="l10n_hr_fiscal">
                     <field name="l10n_hr_tax_model" />
                     <field name="l10n_hr_fiscal_separator" />
                     <field name="l10n_hr_show_required_fisk_fields_on_header" />

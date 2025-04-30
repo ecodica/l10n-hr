@@ -31,7 +31,7 @@ class Company(models.Model):
         string="Tax Model",
         required=True,
         tracking=True,
-        default="r1")  # TODO: multicompany improove!
+        default="r1")  # TODO: multicompany improve!
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         string="Show Base Fiscalization Fields On Invoice", 
         default=True)

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <!-- Adds bank, acc number and payment reference fields to invoice report -->
-    <template
-        id="report_invoice_payment_reference_layout"
-        inherit_id="account.report_invoice_document"
-    >
+    <template id="report_invoice_payment_reference_layout" inherit_id="account.report_invoice_document">
         <xpath expr="//p[@name='payment_communication']" position="replace">
             <div id ="l10n_hr_account_reference_payment_communication">
                 <br />
@@ -20,4 +18,5 @@
             </div>
         </xpath>
     </template>
+    
 </odoo>

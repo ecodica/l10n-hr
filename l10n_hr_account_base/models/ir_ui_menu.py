@@ -10,7 +10,7 @@ class IrUiMenu(models.Model):
         user_croatian_companies = self.env.user.company_ids.filtered(lambda c: c.country_id == croatia_id)
         if user_croatian_companies:
             res.append(self.env.ref('l10n_hr_account_base.menu_finance_config_croatia').id)
-            res.append(self.env.ref('l10n_hr_account_base.menu_action_fiskal_premise').id)
-            res.append(self.env.ref('l10n_hr_account_base.menu_action_fiskal_device').id)
+            res.append(self.env.ref('l10n_hr_account_base.menu_action_fiscal_premise').id)
+            res.append(self.env.ref('l10n_hr_account_base.menu_action_fiscal_device').id)
             res.append(self.env.ref('l10n_hr_account_base.menu_l10n_hr_reports').id)
         return res

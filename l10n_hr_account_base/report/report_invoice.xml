@@ -2,7 +2,6 @@
 <odoo>
 
     <template id="l10n_hr_report_invoice_document" inherit_id="account.report_invoice_document">
-        <!-- modifiy name to fiskal number for croatia. TODO: Print both-->
         <xpath expr="//t[@t-set='layout_document_title']/span[last()]" position="replace">
             <t t-if="o.country_code == 'HR'">
                 <span t-if="o.name != '/'" t-field="o.l10n_hr_fiscal_number" />
@@ -16,15 +15,15 @@
         <xpath expr="//div[@name='reference']" position="after">
             <div
                 class="col-auto col-3 mw-100 mb-2"
-                t-if="o.l10n_hr_date_delivery"
+                t-if="o.delivery_date"
                 name="date_delivery"
             >
                 <strong>Date delivery:</strong>
-                <p class="m-0" t-field="o.l10n_hr_date_delivery" />
+                <p class="m-0" t-field="o.delivery_date" />
             </div>
         </xpath>
 
-        <!-- add croatia fiskal required data after total line -->
+        <!-- add croatia fiscal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
                 <div id="l10n_hr_info" class="row mt-4 mb-4">
@@ -98,28 +97,8 @@
         </xpath>
     </template>
 
-<!--    Not adding minus to quantities and subtotal prices-->
-<!--    <template id="l10n_hr_report_storno_invoice_document" inherit_id="account.report_invoice_document">-->
-<!--        &lt;!&ndash; storno hack-->
-<!--        adding minus to printed report-->
-<!--        intentionaly in separate view form other fields,-->
-<!--        so you can customize company report by deactivating view with main fileds.-->
-<!--        &ndash;&gt;-->
-
-<!--        <xpath expr="//span[@t-field='line.quantity']" position="before">-->
-<!--            <span t-if="o.tax_totals['l10n_hr_is_storno']">- </span>-->
-<!--        </xpath>-->
-
-<!--        <xpath expr="//span[@t-field='line.price_subtotal']" position="before">-->
-<!--            <span t-if="o.tax_totals['l10n_hr_is_storno']">- </span>-->
-<!--        </xpath>-->
-
-<!--    </template>-->
-
     <template id="l10n_hr_document_tax_totals" inherit_id="account.document_tax_totals">
-            <!-- storno hack
-                adding minus to tax totals on printed report
-        -->
+        <!-- storno hack adding minus to tax totals on printed report -->
         <xpath expr="//tr[hasclass('o_subtotal')]/td[hasclass('text-end')]/span[contains(@t-out, subtotal['base_amount_currency'])]" position="attributes">
             <attribute name="t-out">subtotal['base_amount_currency'] * (-1 if tax_totals['l10n_hr_is_storno'] else 1)</attribute>
         </xpath>

@@ -19,19 +19,15 @@
             </widget>
             <field name="name" position="after">
                 <span class="oe_inline">
-                    <label string="HR - Fiskal Number" for="l10n_hr_fiscal_number" invisible ="not l10n_hr_fiscal_number" />
-                    <field name="l10n_hr_fiscal_number" readonly ="state != 'draft'" nolabel="1" invisible ="not l10n_hr_fiscal_number" />
+                    <label string="HR - Fiscal Number" for="l10n_hr_fiscal_number" invisible ="not l10n_hr_fiscal_number" />
+                    <field name="l10n_hr_fiscal_number" nolabel="1" invisible ="not l10n_hr_fiscal_number" />
                 </span>
             </field>
-            <field name="payment_reference" position="after">
-                <field name="l10n_hr_date_delivery" readonly="state != 'draft'"
-                       invisible="(country_code != 'HR')"/>
-            </field>
             <notebook position="inside">
-                <page string="Croatia Fiskal Data" name="croatia" invisible="(country_code != 'HR') or (move_type and move_type not in ['out_invoice', 'out_refund'])">
+                <page string="Croatia Fiscal Data" name="croatia" invisible="(country_code != 'HR') or (move_type and move_type not in ['out_invoice', 'out_refund'])">
                     <!-- invisible fields -->
                     <group>
-                        <group name="l10n_hr_base_fiskal">
+                        <group name="l10n_hr_base_fiscal">
                             <field name="l10n_hr_show_required_fisk_fields_on_header" invisible="1"/>
                             <field name="l10n_hr_date_document" readonly ="state != 'draft'"/>
                             <field name="l10n_hr_invoice_time" readonly="1"/>
@@ -77,7 +73,6 @@
     </record>
 
     <!-- onboarding -->
-    <!-- TODO migrate into 17.0 -->
     <template id="onboarding_business_premise_step">
         <t t-call="onboarding.onboarding_step">
             <t t-set="title">Business Premise</t>
@@ -91,6 +86,5 @@
             <t t-set="state" t-value="state.get('account_setup_premise_state')" />
         </t>
     </template>
-    <!-- TODO: add onboarding step! -->
 
 </odoo>

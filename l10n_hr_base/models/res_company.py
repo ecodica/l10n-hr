@@ -72,16 +72,13 @@ class Company(models.Model):
         tstamp = datetime.now().astimezone(user_pytz)
         time_now = tstamp.replace(tzinfo=None)
         return {
-            "datum": tstamp.strftime("%d.%m.%Y"),  # datum_regular SAD
+            "datum": tstamp.strftime("%d.%m.%Y"),
             "datum_vrijeme": tstamp.strftime(
-                FISCAL_DATETIME_FORMAT
-            ),  # format za zaglavlje FISKAL XML poruke
+                FISCAL_DATETIME_FORMAT),
             "datum_meta": tstamp.strftime(
-                "%Y-%m-%dT%H:%M:%S"
-            ),  # format za metapodatke xml-a ( JOPPD...)
+                "%Y-%m-%dT%H:%M:%S"),
             "datum_racun": tstamp.strftime(
-                INVOICE_DATETIME_FORMAT
-            ),  # format za ispis na računu
-            "time_stamp": tstamp,  # timestamp, za zapis i izračun vremena obrade
+                INVOICE_DATETIME_FORMAT),
+            "time_stamp": tstamp,
             "odoo_datetime": time_now.strftime(DEFAULT_SERVER_DATETIME_FORMAT),
         }

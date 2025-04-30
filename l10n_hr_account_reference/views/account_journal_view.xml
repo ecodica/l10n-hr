@@ -8,28 +8,28 @@
             <field name="invoice_reference_type" position="after">
                 <field
                     name="property_l10n_hr_P1_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR06', 'HR99']"
+                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P2_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR06', 'HR99']"
+                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P3_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR06', 'HR99']"
+                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P4_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR06', 'HR99']"
+                    readonly="invoice_reference_model in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06']"
                 />
             </field>
         </field>
     </record>
 
-    <record id="view_fiskal_prostor_form" model="ir.ui.view">
-        <field name="name">view_fiskal_prostor_form_journal_ref</field>
+    <record id="view_fiscal_premise_form" model="ir.ui.view">
+        <field name="name">view_fiscal_premise_form_journal_ref</field>
         <field name="model">l10n_hr.business.premise</field>
-        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form" />
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiscal_premise_form" />
         <field name="arch" type="xml">
             <field name="show_on_dashboard" position="before">
                 <field name="invoice_reference_model" optional="show" />

@@ -14,10 +14,11 @@ class L10nHrCroatiaXMLMixin(models.AbstractModel):
         so no need to import etree, objectify and such modules everywhere.
     """
 
-    def check_valid_phone(self, phone):
+    def l10n_hr_check_valid_phone(self, phone):
         """
-            Za PDV obrazac:
-            Broj telefona, počinje sa znakom + nakon kojeg slijedi 8-13 brojeva, npr +38514445555
+            For the VAT form (PDV obrazac):
+            The phone number must start with a '+' sign, followed by 8 to 13 
+            digits (e.g., +38514445555).
         """
         if not phone:
             return False
@@ -31,30 +32,30 @@ class L10nHrCroatiaXMLMixin(models.AbstractModel):
             raise ValidationError(_('Phone %s not valid! Phone should start with "+385".') % phone)
         return phone
 
-    def get_company_data(self, report_type):
+    def l10n_hr_get_company_data(self):
+        if not self._fields.get("company_id"):
+            raise ValidationError(
+                _("The model does not have a company_id field.")
+            )
         company = self.company_id
         err = ""
         if not company.partner_id.city:
-            # err += "Nedostaje upisan grad\n"
             err += "The city is missing in the entry.\n"
         if not company.partner_id.street:
-            # err += "Nedostaje adresni podatak : Ulica\n"
             err += "The street is missing in the address.\n"
-        if not company.partner_id.company_registry:  # vidi u l10n_hr !
-            # err += "Nedostaje porezni broj  (OIB)\n"
+        if not company.partner_id.company_registry:  
             err += "Missing VAT number (OIB).\n"
         if err != "":
             raise ValidationError(err)
 
-    def get_xml_metadata(self, xml_naslov, xml_autor, xml_conforms):
+    def l10n_hr_get_xml_metadata(self, xml_naslov, xml_autor, xml_conforms):
         """
             Used n : JOPPD, ...
             :return: XML common metadata object for all xml-s defined by Institutions
         """
-        MD = self._get_elementmaker(
-            namespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0"
-        )
-        identifikator = uuid.uuid4()
+        MD = self._l10n_hr_get_elementmaker(
+            namespace="http://e-porezna.porezna-uprava.hr/sheme/Metapodaci/v2-0")
+        identifier = uuid.uuid4()
         date_time = self.company_id.get_l10n_hr_time_formatted()["datum_meta"]
         meta = MD.Metapodaci(
             MD.Naslov(xml_naslov, dc="http://purl.org/dc/elements/1.1/title"),
@@ -63,37 +64,31 @@ class L10nHrCroatiaXMLMixin(models.AbstractModel):
             MD.Format("text/xml", dc="http://purl.org/dc/elements/1.1/format"),
             MD.Jezik("hr-HR", dc="http://purl.org/dc/elements/1.1/language"),
             MD.Identifikator(
-                identifikator, dc="http://purl.org/dc/elements/1.1/identifier"
+                identifier, dc="http://purl.org/dc/elements/1.1/identifier"
             ),
             MD.Uskladjenost(xml_conforms, dc="http://purl.org/dc/terms/conformsTo"),
             MD.Tip("Elektronički obrazac", dc="http://purl.org/dc/elements/1.1/type"),
             MD.Adresant("Ministarstvo Financija, Porezna uprava, Zagreb"),
         )
-        return meta, identifikator
+        return meta, identifier
 
-    def _get_elementmaker(self, annotate=False, namespace=False):
+    def _l10n_hr_get_elementmaker(self, annotate=False, namespace=False):
         """
-        :param annotate:
-        :param namespace:
-        :return: simply deanotate xml object
+            :param annotate:
+            :param namespace:
+            :return: simply remove annotations from xml object
         """
         return objectify.ElementMaker(annotate=annotate, namespace=namespace)
 
-    def get_xml_string(
-        self,
-        xml_object,
-        deannotate=False,
-        pretty=False,
-        encoding="unicode",
-        replace=False,
-    ):
+    def l10n_hr_get_xml_string(self, xml_object, deannotate=False, pretty=False, 
+                       encoding="unicode", replace=False):
         """
-        :param xml_object: etree xml object
-        :param deannotate: True to remove annotations
-        :param pretty: pretty_print
-        :param encoding:
-        :param replace: list of tuples to replace in xlm string
-        :return: xml string
+            :param xml_object: etree xml object
+            :param deannotate: True to remove annotations
+            :param pretty: pretty_print
+            :param encoding:
+            :param replace: list of tuples to replace in xlm string
+            :return: xml string
         """
         if deannotate:
             objectify.deannotate(xml_object)
@@ -103,12 +98,12 @@ class L10nHrCroatiaXMLMixin(models.AbstractModel):
                 string = string.replace(r1, r2)
         return string
 
-    def validate_xml(self, xml_string, xsd_path, xsd_file):
+    def l10n_hr_validate_xml(self, xml_string, xsd_path, xsd_file):
         """
-        :param xml_string:
-        :param xsd_path: absolute path to schema folder (put schema folders in module)
-        :param xsd_file: xsd file name for vaidating
-        :return: False , or Error description if error occurs
+            :param xml_string:
+            :param xsd_path: absolute path to schema folder (put schema folders in module)
+            :param xsd_file: xsd file name for validating
+            :return: False or Error description if error occurs
         """
         os.chdir(xsd_path)
         xml_schema = etree.XMLSchema(etree.parse(os.path.join(xsd_path, xsd_file)))

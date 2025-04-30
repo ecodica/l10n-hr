@@ -5,16 +5,55 @@
 #    Copyright (C) 2011 Slobodni programi d.o.o., Zagreb
 #                  2025 Ecodica d.o.o., Zagreb
 #                  https://www.ecodica.eu
-#    Contributions:
-#    Documentation: TODO: Check http://www.fina.hr/Default.aspx?sec=1266
+#    Contributions: Mihael Cindori, Ecodica d.o.o.
+#    Documentation: https://www.fina.hr/ngsite/content/download/8558/152088/1
+#    Note: Methods for computing all Croatian payment reference models are
+#          implemented in this module. However, only a few of them are
+#          allowed to use (HR00, HR01, HR02, HR03, HR06). The rest of them
+#          may be implemented on demand if needed.
 #
 ##############################################################################
 
+import re
+
+"""
+    Validates Croatian payment reference based on model (1-3 parts).
+    - Parts: 1 to 3, separated by '-'
+    - Content: Digits only
+    - Part Length: 1-12 digits per part
+    - Total Length: Max 22 characters (including hyphens)
+"""
+REGEX_PATTERNS = {
+    "HR00": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+    "HR01": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+    "HR02": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+    "HR03": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+    "HR04": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+    "HR06": r"^(?=.{1,22}$)\d{1,12}(?:-\d{1,12}){0,3}$",
+}
+# 1.   = V-variable length, mandatory
+#      = v-variable length, optional
+#      = F-fixed length, mandatory
+#      = f-fixed length, optional
+# 2-3. = max length
+# 4.   = K - control number
+#      = k - control number if right one does not exists
+#      = n - No control number
+# e.g. v12K - optional variable with maximum 12 digits in length and control number at the end
+#      V12n - mandatory variable with maximum 12 digits in length and no control number at the end
+MODELS_LENGTH = {
+    "HR00": ("V12n", "v12n", "v12n", "n00n"),
+    "HR01": ("V12k", "v12k", "v12K", "n00n"),
+    "HR02": ("V12n", "v12K", "v12K", "n00n"),
+    "HR03": ("V12K", "v12K", "v12K", "n00n"),
+    "HR04": ("V12K", "V12n", "v12K", "n00n"),
+    "HR06": ("V12n", "V12k", "v12K", "n00n"),
+}
 
 
 def mod11ini(value):
     """
-    Compute mod11ini
+        Compute mod11ini
     """
     length = len(value)
     sum = 0
@@ -27,10 +66,9 @@ def mod11ini(value):
         res = 0
     return str(res)
 
-
 def iso7064(value):
     """
-    Compute ISO 7064, Mod 11,10
+        Compute ISO 7064, Mod 11,10
     """
     t = 10
     for i in value:
@@ -41,9 +79,6 @@ def iso7064(value):
 
 def mod11p7(value):
     length = len(value)
-    ### if 1.st digit differs from three - ERROR
-    # if not return_check_digit and int(value[0]) != 3:
-    #    return False
     sum = 0
     for i in range(0, length):
         sum += int(value[length - i - 1]) * ((i % 6) + 2)
@@ -54,7 +89,6 @@ def mod11p7(value):
         return "0"
     else:
         return str(11 - res)
-
 
 def mod10zb(value):
     l = len(value)
@@ -76,7 +110,6 @@ def mod10(value):
     else:
         return str(10 - res)
 
-
 def mod11(value):
     l = len(value)
     res = 0
@@ -88,22 +121,11 @@ def mod11(value):
     else:
         return "0"
 
-
-"""
-# Test
-mod11p7('3456789012') # res = '2'
-mod10zb('223344556') #res='8'
-mod7064('234000') #res='9'
-mod11ini('33444555666') #res=9
-mod10('54370395') #res=7
-mod11('54370395') #res=8
-"""
-
-
 def reference_number_get(model=None, p1="", p2="", p3="", p4=""):
-
     if not model:
-        model = ""  # or '99'?
+        model = ""
+    if model in MODELS_LENGTH.keys():
+        validate_p_lengths(model, p1, p2, p3, p4)
     if model == "HR01":
         res = "-".join((p1, p2, p3 + mod11ini(p1 + p2 + p3)))
     elif model == "HR02":
@@ -181,40 +203,66 @@ def reference_number_get(model=None, p1="", p2="", p3="", p4=""):
             res = "-".join((p1 + mod11ini(p1), p2, p3))
         else:
             res = "-".join((p1 + mod11ini(p1), p2))
-    else:  # model in ('','00',"99")
+    else:
         res = p1 + "-" + p2 + "-" + p3 + "-" + p4
 
     res.strip("-")
     res = res.strip("-").replace("---", "-").replace("--", "-")
+    
+    # Validating only those payment references generated for models that are 
+    # currently implemented
+    if model in REGEX_PATTERNS.keys():
+        if not is_valid(model, res):
+            return ""
 
     return res
 
-
-# 1.   = V-variable,mandatory
-#      = v-variable,optional
-#      = F-fixed lenght,mandatory
-#      = f-fixed lenght,optional
-# 2-3. =max lenght
-# 4.   = K - control num
-#      = k - control num if right one does not exists ???
-#      = n - NO control num
-
-MODELS_LENGTH = {
-    "01": ("V12k", "v12k", "v12K", "n00n"),
-    "02": ("V12n", "v12K", "v12K", "n00n"),
-    "03": ("V12K", "v12K", "v12K", "n00n"),
-    "12": ("F13K", "v12n", "v12n", "n00n"),
-}
-
-
 def get_only_numeric_chars(ref):
-    return (
-        ref and "".join([r for r in ref if r.isdigit()]) or ""
-    )  # take out non numeric chars!
+    # take out non numeric chars!
+    return (ref and "".join([r for r in ref if r.isdigit()]) or "") 
+    
+def validate_p_lengths(model, *ps):
+    """
+        Validate length of payment reference parts.
+        - model: Payment reference model
+        - ps: Parts of the payment reference
+    """
+    i = 0
+    if len(ps) > 4:
+        ps = ps[:4]
+    for p in ps:
+        model_rules = MODELS_LENGTH.get(model)
+        if not model_rules:
+            break
+        if model_rules[i][0] in ('f', 'F') and \
+            model_rules[i][-1] in ('k', 'K'):
+            if len(p) != int(model_rules[i][1:3]) - 1:
+                max_trim = int(model_rules[i][1:3]) - 1
+                p = p[:max_trim]
+        elif model_rules[i][0] in ('f', 'F') and \
+            model_rules[i][-1] not in ('k', 'K'):
+            if len(p) != int(model_rules[i][1:3]):
+                max_trim = int(model_rules[i][1:3])
+                p = p[:max_trim]
+        elif model_rules[i][0] in ('v', 'V') and \
+            model_rules[i][-1] in ('k', 'K'):
+            if len(p) > int(model_rules[i][1:3]) - 1:
+                max_trim = int(model_rules[i][1:3]) - 1
+                p = p[:max_trim]
+        elif model_rules[i][0] in ('v', 'V') and \
+            model_rules[i][-1] not in ('k', 'K'):
+            if len(p) > int(model_rules[i][1:3]):
+                p = p[:int(model_rules[i][1:3])]
+        i += 1
 
-
-# TODO: def strip P1_P4 using MODELS_LENGTH
-def validate_lenghts(model, value):
-    # 22 znaka , uključivo max 2 crtice, + 4 znaka za HR + model
-    # max 26 znakova ! regex?
-    return True
+def is_valid(model, ref_string):
+    """
+        Check if generated payment reference is valid.
+    """
+    pattern = REGEX_PATTERNS.get(model) or ""
+    match = re.match(pattern, ref_string)
+    
+    if match:
+        return True
+    
+    return False

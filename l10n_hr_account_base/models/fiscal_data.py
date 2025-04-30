@@ -85,7 +85,6 @@ class L10nHrBusinessPremise(models.Model):
         if pos is None:
             pos = "__"
         if self.l10n_hr_invoice_sequence_by == "N" and pos == "__":
-            # error? or just pass it
             pass
         code = self.company_id.l10n_hr_fiscal_separator.join(
             ("", self.l10n_hr_fiscal_code, str(pos))
@@ -131,8 +130,7 @@ class L10nHrBusinessPremise(models.Model):
             return
         if sequence.prefix or sequence.suffix:
             raise UserError(_("Fiscal sequence should not contain prefix nor suffix."))
-        # TODO:
-        # is it used in another premise?
+        # TODO: is it used in another premise?
 
     def button_activate_premise(self):
         self.ensure_one()
@@ -142,7 +140,7 @@ class L10nHrBusinessPremise(models.Model):
             )
         if self.l10n_hr_invoice_sequence_by == "P":
             self._check_sequence(self.l10n_hr_sequence_id)
-        else:  # sljed_racuna == 'N'
+        else:
             self.l10n_hr_sequence_id = False
         self.l10n_hr_state = "active"
         # finally activate PoS devices waiting for premise to become active
@@ -256,7 +254,6 @@ class L10nHrFiscalDevice(models.Model):
     def on_change_l10n_hr_business_premise_id(self):
         if self.l10n_hr_business_premise_id:
             self.l10n_hr_fiscal_device_code = len(self.l10n_hr_business_premise_id.l10n_hr_fiscal_device_ids)
-            # self.oznaka_uredjaj += self._context.get('default_prostor_id') and 0 or 1
 
     # Methods
     def name_get(self):
@@ -272,7 +269,6 @@ class L10nHrFiscalDevice(models.Model):
         return super().unlink()
 
     def _get_new_journal_vals(self):
-        # TODO: Remove hardcoded values
         account = self.env["account.account"].search(
             [("code", "like", "750000")])
         account = account and account[0]
@@ -283,14 +279,11 @@ class L10nHrFiscalDevice(models.Model):
             % (self.l10n_hr_business_premise_id.l10n_hr_name, self.l10n_hr_name or str(self.l10n_hr_fiscal_device_code)),
             "refund_sequence": False,
             "code": "INV-%s-%s" % (self.l10n_hr_business_premise_id.l10n_hr_fiscal_code, self.l10n_hr_fiscal_device_code),
-            "restrict_mode_hash_table": False,  # HEADS UP! should be true but...
+            "restrict_mode_hash_table": False,  
             "l10n_hr_business_premise_id": self.l10n_hr_business_premise_id.id,
             "l10n_hr_fiscal_device_ids": [(4, self.id)],
             "show_on_dashboard": False,
-            # TODO: correct account setup if possible!
-            #  hardcoded for now based on RRIF CoA
             "default_account_id": account and account.id,
-            # 'invoice_reference_model': 'hr', -> inheritable but not set here
         }
         return journal_vals
 

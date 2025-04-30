@@ -2,7 +2,7 @@
 <templates>
 
     <t t-name="l10n_hr_account_base.TaxGroupComponent" t-inherit-mode="extension" t-inherit="account.TaxGroupComponent">
-<!--        If storno modify amounts of tax groups-->
+        <!-- If storno modify amounts of tax groups -->
         <xpath expr="//t[@t-else='']/span[1]/t[@t-out='formatMonetary(props.taxGroup.tax_amount_currency)']" position="replace">
             <t t-if="props.totals.l10n_hr_is_storno">
                 <t t-out="formatMonetary(-1*props.taxGroup.tax_amount_currency)" style="white-space: nowrap;"/>
@@ -14,7 +14,7 @@
     </t>
 
     <t t-name="l10n_hr_account_base.TaxTotalsField" t-inherit-mode="extension" t-inherit="account.TaxTotalsField">
-<!--        If storno modify subtotals amount-->
+        <!-- If storno modify subtotals amount -->
         <xpath expr="//span[@t-att-name='subtotal.name']" position="replace">
             <t t-if="totals.l10n_hr_is_storno">
                 <span t-att-name="subtotal.name"
@@ -27,7 +27,7 @@
                                   t-out="formatMonetary(subtotal.base_amount_currency)"/>
             </t>
         </xpath>
-<!--        If storno modify total amount-->
+        <!-- If storno modify total amount -->
         <xpath expr="//span[@name='amount_total']" position="replace">
             <t t-if="totals.l10n_hr_is_storno">
                 <span

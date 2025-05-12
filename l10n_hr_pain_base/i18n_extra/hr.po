@@ -415,3 +415,13 @@ msgstr "Dozvoljeni dnevnici"
 #: model:ir.model.fields,field_description:account_payment_mode.field_account_payment_mode__name
 msgid "Name"
 msgstr "Naziv"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_form
+msgid "Generate Payment File"
+msgstr "Kreiraj datoteku"
+
+#. module: account_payment_order
+#: model_terms:ir.ui.view,arch_db:account_payment_order.account_payment_order_form
+msgid "File Successfully Uploaded"
+msgstr "Datoteka uspješno učitana"

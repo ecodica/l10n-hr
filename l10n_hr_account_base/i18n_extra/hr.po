@@ -132,3 +132,8 @@ msgstr "Ovaj zapis je kopija od %s"
 #, python-format
 msgid "This entry has been reversed from %s"
 msgstr "Ovaj zapis je povrat od %s"
+
+#. module: base
+#: model_terms:ir.ui.view,arch_db:base.view_res_bank_form
+msgid "Bank Address"
+msgstr "Adresa banke"

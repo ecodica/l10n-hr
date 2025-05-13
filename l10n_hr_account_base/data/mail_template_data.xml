@@ -15,14 +15,7 @@
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                    Dear
-                    <t t-if="object.partner_id.parent_id">
-                        <t t-out="object.partner_id.name or ''">Brandon Freeman</t>
-                        (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>),
-                    </t>
-                    <t t-else="">
-                        <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,
-                    </t>
+                    Dear,
                     <br/>
                     <br/>
                     Here is your
@@ -33,9 +26,6 @@
                     </t>
                     <t t-else="">
                         invoice
-                    </t>
-                    <t t-if="object.invoice_origin">
-                        (with reference: <t t-out="object.invoice_origin or ''">SUB003</t>)
                     </t>
                     amounting in
                     <span style="font-weight:bold;"
@@ -75,14 +65,7 @@
         <field name="body_html" type="html">
             <div style="margin: 0px; padding: 0px;">
                 <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                    Dear
-                    <t t-if="object.partner_id.parent_id">
-                        <t t-out="object.partner_id.name or ''">Brandon Freeman</t>
-                        (<t t-out="object.partner_id.parent_id.name or ''">Azure Interior</t>),
-                    </t>
-                    <t t-else="">
-                        <t t-out="object.partner_id.name or ''">Brandon Freeman</t>,
-                    </t>
+                    Dear,
                     <br/>
                     <br/>
                     Here is your
@@ -93,9 +76,6 @@
                     </t>
                     <t t-else="">
                         credit note
-                    </t>
-                    <t t-if="object.invoice_origin">
-                        (with reference: <t t-out="object.invoice_origin or ''">SUB003</t>)
                     </t>
                     amounting in
                     <span style="font-weight:bold;"

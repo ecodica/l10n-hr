@@ -133,7 +133,6 @@ msgstr "Ovaj zapis je kopija od %s"
 msgid "This entry has been reversed from %s"
 msgstr "Ovaj zapis je povrat od %s"
 
-
 #. module: account
 #: model:mail.template,body_html:account.email_template_edi_invoice
 msgid ""

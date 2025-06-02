@@ -70,10 +70,10 @@ class AccountMove(models.Model):
                 ('date', '>=', fiscal_year_dates.get('date_from')),
                 ('date', '<=', fiscal_year_dates.get('date_to')),
             ], limit=1)
-            if existing_move:
-                raise ValidationError(
-                    _("Invoice with fiscal number %s has already been created.") % (move.l10n_hr_fiscal_number)
-                )
+            # if existing_move:
+            #     raise ValidationError(
+            #         _("Invoice with fiscal number %s has already been created.") % (move.l10n_hr_fiscal_number)
+            #     )
                 
     @api.depends('move_type', 'company_id')
     def _compute_l10n_hr_is_ref_required(self):

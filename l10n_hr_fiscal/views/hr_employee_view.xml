@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_l10n_hr_fiscal" model="ir.ui.view">
+        <field name="name">view_employee_form_l10n_hr_fiscal</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="l10n_hr_employee.view_employee_form_l10n_hr_employee"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='public']//field[@name='work_location_id']" position="after">
+                <field name="fiscal_employee_name" invisible="company_country_code !='HR'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

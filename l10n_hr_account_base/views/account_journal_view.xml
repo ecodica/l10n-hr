@@ -7,8 +7,9 @@
         <field name="inherit_id" ref="account.view_account_journal_form" />
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page string="Croatia Specific" name="croatia_page"
-                      invisible ="type != 'sale' and company_id.country_id.code != 'HR'">
+                <page string="Croatia Specific" name="croatia_page">
+<!--                      invisible ="type != 'sale' and company_id.country_id.code != 'HR'">-->
+                    <!--         Invisible tag breaks front-end when manual creating journals TODO: Fix domain           -->
                     <group>
                         <field name="l10n_hr_default_fiscal_payment_method"/>
                         <field name="l10n_hr_business_premise_id"/>

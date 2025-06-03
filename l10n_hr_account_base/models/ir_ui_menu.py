@@ -8,7 +8,7 @@ class IrUiMenu(models.Model):
         res = super()._load_menus_blacklist()
         croatia_id = self.env.ref('base.hr', raise_if_not_found=False)
         user_croatian_companies = self.env.user.company_ids.filtered(lambda c: c.country_id == croatia_id)
-        if user_croatian_companies:
+        if not user_croatian_companies:
             res.append(self.env.ref('l10n_hr_account_base.menu_finance_config_croatia').id)
             res.append(self.env.ref('l10n_hr_account_base.menu_action_fiscal_premise').id)
             res.append(self.env.ref('l10n_hr_account_base.menu_action_fiscal_device').id)

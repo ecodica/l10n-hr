@@ -56,6 +56,8 @@ class AccountMove(models.Model):
             if move.company_id.account_fiscal_country_id.code != "HR" or \
                 move.move_type not in ('out_invoice', 'out_refund'):
                 continue
+            if not move.l10n_hr_fiscal_number and move.state == 'draft':
+                continue
             fiscal_year_dates = move.company_id.compute_fiscalyear_dates(move.date)
             if not fiscal_year_dates.get('date_from') or \
                 not fiscal_year_dates.get('date_to'):
@@ -65,6 +67,7 @@ class AccountMove(models.Model):
             existing_move = self.env['account.move'].search([
                 ('id', '!=', move.id),
                 ('l10n_hr_fiscal_number', '=', move.l10n_hr_fiscal_number),
+
                 ('move_type', 'in', ('out_invoice', 'out_refund')),
                 ('company_id', '=', move.company_id.id),
                 ('date', '>=', fiscal_year_dates.get('date_from')),

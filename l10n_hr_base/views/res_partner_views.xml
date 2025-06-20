@@ -29,9 +29,7 @@
                 <div name="vat_vies_container" position="after">
                     <label for="company_registry" invisible="not country_code == 'HR'"/>
                     <div name="company_registry_container" invisible="not country_code == 'HR'">
-                        <span class="text-nowrap ps-2">
-                            <field name="company_registry"/>
-                        </span>
+                        <field name="company_registry"/>
                     </div>
                 </div>
                 <xpath expr="//field[@name='company_registry']" position="attributes">

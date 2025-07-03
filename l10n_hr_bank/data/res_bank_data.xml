@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Info 12.9.2022: https://tockanai.hr/banke
+Info 3.7.2025: https://tockanai.hr/banke
 -->
 <odoo>
  <data noupdate="0">
@@ -30,7 +30,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">BANKA SPLITSKO-DALMATINSKA d.d. Split</field>
         <field name="zip">21000</field>
         <field name="city">Split</field>
-        <field name="street">114. brigade 9</field>
+        <field name="street">Mosećka 99</field>
     </record>
     <record id="res_bank_hr_2488001" model="res.bank">
         <field name="country" ref="base.hr" />
@@ -48,7 +48,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">CROATIA BANKA d.d. Zagreb</field>
         <field name="zip">10000</field>
         <field name="city">Zagreb</field>
-        <field name="street">Kvaternikov trg 9</field>
+        <field name="street">Roberta Frangeša Mihanovića 9</field>
     </record>
     <record id="res_bank_hr_2402006" model="res.bank">
         <field name="country" ref="base.hr" />
@@ -185,7 +185,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">PRIVREDNA BANKA ZAGREB d.d. Zagreb</field>
         <field name="zip">10000</field>
         <field name="city">Zagreb</field>
-        <field name="street">Račkoga 6 / p.p. 1032</field>
+        <field name="street">Radnička cesta 50</field>
     </record>
     <record id="res_bank_hr_2484008" model="res.bank">
         <field name="country" ref="base.hr" />
@@ -194,7 +194,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">RAIFFEISENBANK AUSTRIA d.d. Zagreb</field>
         <field name="zip">10000</field>
         <field name="city">Zagreb</field>
-        <field name="street">Petrinjska 59</field>
+        <field name="street">Magazinska cesta 69</field>
     </record>
     <record id="res_bank_hr_2403009" model="res.bank">
         <field name="country" ref="base.hr" />
@@ -230,7 +230,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">SPLITSKA BANKA d.d. Split (OTP Grupa)</field>
         <field name="zip">21000</field>
         <field name="city">Split</field>
-        <field name="street">Ruđera Boškovića 16</field>
+        <field name="street">Ulica Domovinskog rata 61</field>
         <!-- Splitska banka d.d. pripojena je 3. prosinca 2018. OTP banci Hrvatska d.d. -->
     </record>
     <record id="res_bank_hr_2483005" model="res.bank">
@@ -261,7 +261,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">VENETO BANKA d.d. Zagreb</field>
         <field name="zip">10000</field>
         <field name="city">Zagreb</field>
-        <field name="street">Draškovićeva 58</field>
+        <field name="street">Draškovićeva 58a</field>
         <!-- Veneto banka d.d. pripojena je 12. listopada 2018. Privrednoj banci Zagreb d.d. -->
     </record>
     <record id="res_bank_hr_2360000" model="res.bank">
@@ -271,7 +271,7 @@ Info 12.9.2022: https://tockanai.hr/banke
         <field name="name">ZAGREBAČKA BANKA d.d. Zagreb</field>
         <field name="zip">10000</field>
         <field name="city">Zagreb</field>
-        <field name="street">Paromlinska 2</field>
+        <field name="street">Trg bana Josipa Jelačića 10</field>
     </record>
 
  </data>

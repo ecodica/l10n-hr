@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Tax accounts -->
+    <record id="1_hr_140601" forcecreate="0" model="account.account">
+        <field name="code">140601</field>
+        <field name="name">Pretporez s osnova plaćanja PDV-a pri uvozu</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="account.1_hr_140500" forcecreate="0" model="account.account">
+        <field name="code">140500</field>
+        <field name="name">PDV pri uvozu dobara – 5%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_140501" forcecreate="0" model="account.account">
+        <field name="code">140501</field>
+        <field name="name">PDV pri uvozu dobara – 13%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_140502" forcecreate="0" model="account.account">
+        <field name="code">140502</field>
+        <field name="name">PDV pri uvozu dobara – 25%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="account.1_hr_140800" forcecreate="0" model="account.account">
+        <field name="code">140800</field>
+        <field name="name">Pretporez za koji nije stečen uvjet priznavanja – 5%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_140801" forcecreate="0" model="account.account">
+        <field name="code">140801</field>
+        <field name="name">Pretporez za koji nije stečen uvjet priznavanja – 13%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_140802" forcecreate="0" model="account.account">
+        <field name="code">140802</field>
+        <field name="name">Pretporez za koji nije stečen uvjet priznavanja – 25%</field>
+        <field name="account_type">asset_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_240610" forcecreate="0" model="account.account">
+        <field name="code">240610</field>
+        <field name="name">Obveze za PDV koje se ne izvještavaju u obrascu PDV-a - nerealizirani izlazni PDV</field>
+        <field name="account_type">liability_current</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+
+    <!-- Receivable and payable accounts -->
+    <record id="account.1_hr_121000" forcecreate="0" model="account.account">
+        <field name="code">121000</field>
+        <field name="name">Kupci dobara iz EU</field>
+        <field name="account_type">asset_receivable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="account.1_hr_221000" forcecreate="0" model="account.account">
+        <field name="code">221000</field>
+        <field name="name">Dobavljači dobara iz EU</field>
+        <field name="account_type">liability_payable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="1_hr_121100" forcecreate="0" model="account.account">
+        <field name="code">121100</field>
+        <field name="name">Kupci dobara iz trećih zemalja</field>
+        <field name="account_type">asset_receivable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="1_hr_221100" forcecreate="0" model="account.account">
+        <field name="code">221100</field>
+        <field name="name">Dobavljači dobara iz trećih zemalja</field>
+        <field name="account_type">liability_payable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <!-- Advance accounts -->
+    <record id="account.1_hr_125000" forcecreate="0" model="account.account">
+        <field name="code">125000</field>
+        <field name="name">Potraživanja za predujmljene usluge s PDV-om</field>
+        <field name="account_type">liability_payable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="1_hr_125011" forcecreate="0" model="account.account">
+        <field name="code">125011</field>
+        <field name="name">Dani predujam (neto)</field>
+        <field name="account_type">asset_prepayments</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_125100" forcecreate="0" model="account.account">
+        <field name="code">125100</field>
+        <field name="name">Potraživanja za predujmljene usluge bez PDV-a (npr. graditeljske)</field>
+        <field name="account_type">liability_payable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+    <record id="account.1_hr_225000" forcecreate="0" model="account.account">
+        <field name="code">225000</field>
+        <field name="name">Primljeni predujmovi za koje su izdani računi s PDV-om</field>
+        <field name="account_type">asset_receivable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="1_hr_225011" forcecreate="0" model="account.account">
+        <field name="code">225011</field>
+        <field name="name">Primljeni predujam (neto)</field>
+        <field name="account_type">asset_prepayments</field>
+        <field name="reconcile" eval="False"/>
+    </record>
+    <record id="1_hr_225100" forcecreate="0" model="account.account">
+        <field name="code">225100</field>
+        <field name="name">Primljeni predujmovi koji nisu pod PDV-om</field>
+        <field name="account_type">asset_receivable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+
+</odoo>

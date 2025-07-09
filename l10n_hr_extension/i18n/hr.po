@@ -1,0 +1,516 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-23 09:24+0000\n"
+"PO-Revision-Date: 2025-01-23 09:24+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu
+msgid "+I.3_base_supplies_of_goods_eu"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu_42_63
+msgid "+I.3_base_supplies_of_goods_eu_42_63"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu_tripartite
+msgid "+I.3_base_supplies_of_goods_eu_tripartite"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_1_base_unrecognized
+msgid "+III.1_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_1_tax_unrecognized
+msgid "+III.1_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_2_base_unrecognized
+msgid "+III.2_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_2_tax_unrecognized
+msgid "+III.2_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_3_base_unrecognized
+msgid "+III.3_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_3_tax_unrecognized
+msgid "+III.3_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu_neg
+msgid "-I.3_base_supplies_of_goods_eu"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu_42_63_neg
+msgid "-I.3_base_supplies_of_goods_eu_42_63"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_I_3_base_supplies_of_goods_eu_tripartite_neg
+msgid "-I.3_base_supplies_of_goods_eu_tripartite"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_1_base_unrecognized_neg
+msgid "-III.1_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_1_tax_unrecognized_neg
+msgid "-III.1_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_2_base_unrecognized_neg
+msgid "-III.2_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_2_tax_unrecognized_neg
+msgid "-III.2_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_3_base_unrecognized_neg
+msgid "-III.3_base_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account.tag,name:l10n_hr_extension.account_account_tag_III_3_tax_unrecognized_neg
+msgid "-III.3_tax_unrecognized"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_1
+msgid "1. For correction of input VAT – total amount (1.+2.+3.+4.+5.)"
+msgstr "1. Za ispravak pretporeza (ukupno 1.1.+1.2.+1.3.+1.4.+1.5.)"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_11
+msgid "1.1. Procurement of assets"
+msgstr "1.1. Nabava nekretnina"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_12
+msgid ""
+"1.2. Procurment of vehicles and other means of transport for personal uses"
+msgstr "1.2. Nabava osobnih automobila i drugih sredstava za osobni prijevoz"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_13
+msgid "1.3. Sale of vehicles and other means of transport for personal uses"
+msgstr "1.3. Prodaja osobnih automobila i drugih sredstava za osobni prijevoz"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_14
+msgid "1.4. Procurement of other long-term assets"
+msgstr "1.4. Nabava ostale dugotrajne imovine"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_15
+msgid "1.5. Sale of other long-term assets"
+msgstr "1.5. Prodaja ostale dugotrajne imovine"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_I_11
+msgid "11. Supplies at a rate of 0%"
+msgstr "11. Isporuke po stopi 0%"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_2
+msgid "2. Disposal / acquisition of economic unit or plant"
+msgstr "2. Otuđenje/stjecanje gospodarske cjeline ili pogona"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_3
+msgid ""
+"3. Total services received from taxable persons non established in the "
+"Republic of Croatia (EU + third countries)"
+msgstr ""
+"3. Ukupno primljene usluge od poreznih obveznika bez sjedišta u RH (EU + "
+"treće zemlje)"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_4
+msgid ""
+"4. Total services performed to taxable persons non established in the "
+"Republic of Croatia (EU + third countries)"
+msgstr ""
+"4. Ukupno obavljene usluge poreznim obveznicima bez sjedišta u RH (EU + "
+"treće zemlje)"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_5
+msgid "5. Goods received from the EU as part of the tripartite transaction"
+msgstr "5. Primljena dobra iz EU u okviru trostranog posla"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_line_VI_6
+msgid "6. Taxation procedure based on charged consideration"
+msgstr "6. Postupak oporezivanja prema naplaćenim naknadama"
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_125011
+msgid "Dani predujam (neto)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_221100
+msgid "Dobavljači dobara iz trećih zemalja"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_O
+msgid "Domestic supplies I.8."
+msgstr "Tuzemne isporuke I.8."
+
+#. module: l10n_hr_extension
+#: model:account.fiscal.position,name:l10n_hr_extension.1_fiscal_position_hr_eu_not_in_roc
+msgid "EU partner (non established in ROC)"
+msgstr "EU partner (bez sjedišta u RH)"
+
+#. module: l10n_hr_extension
+#: model:account.fiscal.position,name:l10n_hr_extension.1_fiscal_position_hr_employee
+msgid "Employees"
+msgstr "Zaposlenici"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_13_S
+msgid "Input VAT 13%"
+msgstr "Pretporez 13%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_25_S
+msgid "Input VAT 25%"
+msgstr "Pretporez 25%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_ADV_25
+msgid "Input VAT 25% (Advance given)"
+msgstr "Pretporez 25% (Dani predujam)"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_5_S
+msgid "Input VAT 5%"
+msgstr "Pretporez 5%"
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_121100
+msgid "Kupci dobara iz trećih zemalja"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_O
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_O
+#: model:account.tax.group,name:l10n_hr_extension.tax_group_non_taxable
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_O
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_O
+msgid "Non-taxable"
+msgstr "Neoporezivo"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_O
+msgid "Not subject to taxation"
+msgstr "Ne podliježe oporezivanju"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_NOT_IN_EU_IMP
+msgid ""
+"Obračunani PDV pri uvozu (II.15. 1.1.21., čl. 76. st. 8 Zakona o PDV-u, samo"
+" PDV)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_240610
+msgid ""
+"Obveze za PDV koje se ne izvještavaju u obrascu PDV-a - nerealizirani "
+"izlazni PDV"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_25_VEH
+msgid "PDV 25% (VI.1.3. Prodaja osobnih automobila)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_25_FA
+msgid "PDV 25% - (VI.1.5. Ostala dugotrajna imovina)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_140501
+msgid "PDV pri uvozu dobara – 13%"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_140502
+msgid "PDV pri uvozu dobara – 25%"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_125100
+msgid "Potraživanja za predujmljene usluge bez PDV-a (npr. graditeljske)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_PAYMENT_25
+msgid "Pretporez 25% (Po naplati)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_25_POA
+msgid "Pretporez 25% (VI.1.1. Nabava nekretnina)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_25_FA
+msgid "Pretporez 25% (VI.1.4. Ostala dugotrajna imovina)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_NOT_EU_IMP_25_S
+msgid "Pretporez pri uvozu (III.14., špediter i sl., samo PDV)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_140601
+msgid "Pretporez s osnova plaćanja PDV-a pri uvozu"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_140801
+msgid "Pretporez za koji nije stečen uvjet priznavanja – 13%"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_140802
+msgid "Pretporez za koji nije stečen uvjet priznavanja – 25%"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_225011
+msgid "Primljeni predujam (neto)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.account,name:l10n_hr_extension.1_hr_225100
+msgid "Primljeni predujmovi koji nisu pod PDV-om"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_13
+msgid "Reprezentacija 13% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_13
+msgid "Reprezentacija 13% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_25
+msgid "Reprezentacija 25% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_25
+msgid "Reprezentacija 25% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_5
+msgid "Reprezentacija 5% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_5
+msgid "Reprezentacija 5% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_solar_panel_exempt_O
+msgid "Supplies at a rate of 0% I.11."
+msgstr "Isporuke po stopi 0% I.11."
+
+#. module: l10n_hr_extension
+#: model:ir.model,name:l10n_hr_extension.model_account_tax
+msgid "Tax"
+msgstr "Porez"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_UNREC_25
+msgid "Troškovi vozila - auto gume 25% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_REC_25
+msgid "Troškovi vozila - auto gume 25% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_UNREC_25
+msgid "Troškovi vozila - gorivo 25% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_REC_25
+msgid "Troškovi vozila - gorivo 25% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_UNREC_PAYMENT_25
+msgid "Troškovi vozila - po naplati 25% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_REC_PAYMENT_25
+msgid "Troškovi vozila - po naplati 25% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_UNREC_25
+msgid "Troškovi vozila - rez. dijelovi 25% (porezno nepriznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_REC_25
+msgid "Troškovi vozila - rez. dijelovi 25% (porezno priznati trošak 50%)"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_P_NOT_EU_IMP
+msgid "Uvoz roba"
+msgstr ""
+
+#. module: l10n_hr_extension
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_NOT_EU_IMP
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_solar_panel_exempt_O
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_NOT_EU_IMP
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_solar_panel_exempt_O
+msgid "VAT 0%"
+msgstr "PDV 0%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_13_S
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_13
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_13
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_13
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_13_S
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_13
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_13
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_13
+msgid "VAT 13%"
+msgstr "PDV 13%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_13
+msgid "VAT 13% (Advance received)"
+msgstr "PDV 13% (Primljeni predujam)"
+
+#. module: l10n_hr_extension
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_25_FA
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_25_POA
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_25_S
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_ADV_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_PAYMENT_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_REC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_UNREC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_REC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_UNREC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_REC_PAYMENT_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_REC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_UNREC_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_UNREC_PAYMENT_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_NOT_EU_IMP_25_S
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_25_FA
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_25_VEH
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_25
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_NOT_IN_EU_IMP
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_25_FA
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_25_POA
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_25_S
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_ADV_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_PAYMENT_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_REC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_F_UNREC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_REC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_P_UNREC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_REC_PAYMENT_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_REC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_T_UNREC_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_VEH_UNREC_PAYMENT_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_NOT_EU_IMP_25_S
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_25_FA
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_25_VEH
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_25
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_NOT_IN_EU_IMP
+msgid "VAT 25%"
+msgstr "PDV 25%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_25
+msgid "VAT 25% (Advance received)"
+msgstr "PDV 25% (Primljeni predujam)"
+
+#. module: l10n_hr_extension
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_5_S
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_5
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_5
+#: model:account.tax,invoice_label:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_5
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_5_S
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_REC_5
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_P_IN_ROC_REP_UNREC_5
+#: model_terms:account.tax,description:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_5
+msgid "VAT 5%"
+msgstr "PDV 5%"
+
+#. module: l10n_hr_extension
+#: model:account.tax,name:l10n_hr_extension.1_VAT_S_IN_ROC_ADV_5
+msgid "VAT 5% (Advance received)"
+msgstr "PDV 5% (Primljeni predujam)"
+
+#. module: l10n_hr_extension
+#: model:account.tax,tax_clause:l10n_hr_extension.1_VAT_S_solar_panel_exempt_O
+msgid ""
+"VAT is not included pursuant to Art. 25 of the Croatian VAT Act (N.N. 79/13)"
+msgstr "PDV se ne obračunava sukladno čl. 25. Pravilnika o PDV-u (N.N. 79/13)"
+
+#. module: l10n_hr_extension
+#: model:account.tax,tax_clause:l10n_hr_extension.1_VAT_S_IN_ROC_O
+msgid ""
+"VAT is not included pursuant to Art. 40 subsection 1 of the Croatian VAT Act"
+msgstr "Oslobođeno PDV-a prema čl. 40 st. 1. Zakona o PDV-u"
+
+#. module: l10n_hr_extension
+#: model:account.report.line,name:l10n_hr_extension.tax_report_title_other_data
+msgid "VI. Other data"
+msgstr "VI. OSTALI PODACI"

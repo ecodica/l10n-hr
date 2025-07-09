@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="l10n_hr.1_fiscal_position_hr_national" forcecreate="0" model="account.fiscal.position">
+        <field name="name">Domestic</field>
+        <field name="sequence">10</field>
+        <field name="auto_apply" eval="True"/>
+        <field name="vat_required" eval="True"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+        <field name="country_group_id" eval="False"/>
+        <field name="tax_ids" eval="[(6, 0, [])]"/>
+        <field name="account_ids" eval="[(6, 0, [])]"/>
+    </record>
+
+    <record id="l10n_hr.1_fiscal_position_hr_exempt" forcecreate="0" model="account.fiscal.position">
+        <field name="name">Exempt taxpayer</field>
+        <field name="sequence">20</field>
+        <field name="auto_apply" eval="False"/>
+        <field name="vat_required" eval="True"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+        <field name="country_group_id" eval="False"/>
+        <field name="tax_ids" eval="[(5, 0, 0),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_5'), 'tax_dest_id': ref('account.1_VAT_S_other_exempt_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_13'), 'tax_dest_id': ref('account.1_VAT_S_other_exempt_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_25'), 'tax_dest_id': ref('account.1_VAT_S_other_exempt_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_5'), 'tax_dest_id': ref('account.1_VAT_P_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_13'), 'tax_dest_id': ref('account.1_VAT_P_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_25'), 'tax_dest_id': ref('account.1_VAT_P_O')}),
+        ]"/>
+        <field name="account_ids" eval="[(6, 0, [])]"/>
+    </record>
+
+    <record id="l10n_hr.1_fiscal_position_hr_person_private" forcecreate="0" model="account.fiscal.position">
+        <field name="name">Partner private</field>
+        <field name="sequence">40</field>
+        <field name="auto_apply" eval="True"/>
+        <field name="vat_required" eval="False"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" eval="False"/>
+        <field name="country_group_id" ref="base.europe"/>
+        <field name="tax_ids" eval="[(6, 0, [])]"/>
+        <field name="account_ids" eval="[(6, 0, [])]"/>
+    </record>
+
+    <record id="l10n_hr.1_fiscal_position_hr_eu" forcecreate="0" model="account.fiscal.position">
+        <field name="name">EU partner</field>
+        <field name="sequence">50</field>
+        <field name="auto_apply" eval="True"/>
+        <field name="vat_required" eval="True"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" eval="False"/>
+        <field name="country_group_id" ref="base.europe"/>
+        <field name="tax_ids" eval="[(5, 0, 0),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_5'), 'tax_dest_id': ref('account.1_VAT_S_EU_G')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_13'), 'tax_dest_id': ref('account.1_VAT_S_EU_G')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_25'), 'tax_dest_id': ref('account.1_VAT_S_EU_G')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_5'), 'tax_dest_id': ref('account.1_VAT_P_G_IN_EU_5')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_13'), 'tax_dest_id': ref('account.1_VAT_P_G_IN_EU_13')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_25'), 'tax_dest_id': ref('account.1_VAT_P_G_IN_EU_25')}),
+        ]"/>
+        <field name="account_ids" eval="[(5, 0, 0),
+            (0, 0, {'account_src_id': ref('account.1_hr_120000'), 'account_dest_id': ref('account.1_hr_121000')}),
+            (0, 0, {'account_src_id': ref('account.1_hr_220000'), 'account_dest_id': ref('account.1_hr_221000')}),
+        ]"/>
+    </record>
+
+    <record id="1_fiscal_position_hr_eu_not_in_roc" forcecreate="0" model="account.fiscal.position">
+        <field name="name">EU partner (non established in ROC)</field>
+        <field name="sequence">60</field>
+        <field name="auto_apply" eval="True"/>
+        <field name="vat_required" eval="True"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" eval="False"/>
+        <field name="country_group_id" ref="base.europe"/>
+        <field name="tax_ids" eval="[(6, 0, [])]"/>
+        <field name="account_ids" eval="[(5, 0, 0),
+            (0, 0, {'account_src_id': ref('account.1_hr_120000'), 'account_dest_id': ref('account.1_hr_121000')}),
+            (0, 0, {'account_src_id': ref('account.1_hr_220000'), 'account_dest_id': ref('account.1_hr_221000')}),
+        ]"/>
+    </record>
+
+    <record id="l10n_hr.1_fiscal_position_hr_eu_out" forcecreate="0" model="account.fiscal.position">
+        <field name="name">Partner outside the EU</field>
+        <field name="sequence">70</field>
+        <field name="auto_apply" eval="True"/>
+        <field name="vat_required" eval="False"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" eval="False"/>
+        <field name="country_group_id" eval="False"/>
+        <field name="tax_ids" eval="[(5, 0, 0),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_5'), 'tax_dest_id': ref('account.1_VAT_S_EX_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_13'), 'tax_dest_id': ref('account.1_VAT_S_EX_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_S_IN_ROC_25'), 'tax_dest_id': ref('account.1_VAT_S_EX_O')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_5'), 'tax_dest_id': ref('account_extension.1_VAT_P_NOT_EU_IMP')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_13'), 'tax_dest_id': ref('account_extension.1_VAT_P_NOT_EU_IMP')}),
+            (0, 0, {'tax_src_id': ref('account.1_VAT_P_IN_ROC_25'), 'tax_dest_id': ref('account_extension.1_VAT_P_NOT_EU_IMP')}),
+            (0, 0, {'tax_src_id': ref('account_extension.1_VAT_P_IN_ROC_5_S'), 'tax_dest_id': ref('account.1_VAT_P_NOT_IN_EU_5')}),
+            (0, 0, {'tax_src_id': ref('account_extension.1_VAT_P_IN_ROC_13_S'), 'tax_dest_id': ref('account.1_VAT_P_NOT_IN_EU_13')}),
+            (0, 0, {'tax_src_id': ref('account_extension.1_VAT_P_IN_ROC_25_S'), 'tax_dest_id': ref('account.1_VAT_P_NOT_IN_EU_25')}),
+        ]"/>
+        <field name="account_ids" eval="[(5, 0, 0),
+            (0, 0, {'account_src_id': ref('account.1_hr_120000'), 'account_dest_id': ref('account_extension.1_hr_121100')}),
+            (0, 0, {'account_src_id': ref('account.1_hr_220000'), 'account_dest_id': ref('account_extension.1_hr_221100')}),
+        ]"/>
+    </record>
+
+    <record id="1_fiscal_position_hr_employee" forcecreate="0" model="account.fiscal.position">
+        <field name="name">Employees</field>
+        <field name="sequence">80</field>
+        <field name="auto_apply" eval="False"/>
+        <field name="vat_required" eval="False"/>
+        <field name="foreign_vat" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+        <field name="country_group_id" eval="False"/>
+        <field name="tax_ids" eval="[(6, 0, [])]"/>
+        <field name="account_ids" eval="[(5, 0, 0),
+            (0, 0, {'account_src_id': ref('account.1_hr_220000'), 'account_dest_id': ref('account.1_hr_230000')}),
+        ]"/>
+    </record>
+
+</odoo>

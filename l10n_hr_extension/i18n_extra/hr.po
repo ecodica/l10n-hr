@@ -1,0 +1,643 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account,l10n_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-26 12:36+0000\n"
+"PO-Revision-Date: 2023-07-26 12:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_O
+msgid "Not subject to taxation – Procurement"
+msgstr "Ne podliježe oporezivanju - Nabava"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_EU_G
+msgid "Supplies of goods within the EU I.3."
+msgstr "Isporuke dobara unutar EU I.3."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_carried_other_state_O
+msgid "Supplies carried out in another member state I.2."
+msgstr "Isporuke dobara obavljene u drugim državama članicama I.2."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_install_assemb_goods_O
+msgid "Installed and assembled goods in another member state I.6."
+msgstr "Sastavljanje i postavljanje dobara u drugoj državi članici EU I.6."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_other_exempt_O
+msgid "Other exemptions I.10."
+msgstr "Ostala oslobođenja I.10."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_EU_S
+msgid "Supplies of services within the EU I.4."
+msgstr "Obavljene usluge unutar EU I.4."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_new_transport_other_state_O
+msgid "Supplies of new means of transport to another member state I.7."
+msgstr "Isporuke novih prijevoznih sredstava u EU I.7."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_EX_O
+msgid "Exportation I.9."
+msgstr "Izvozne isporuke I.9."
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_person_not_in_ROC_O
+msgid "Supplies to persons not established in the Republic of Croatia I.5."
+msgstr "Obavljene isporuke osobama bez sjedišta u RH I.5."
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_P_install_assemb_goods_O
+msgid "VAT is not included pursuant to Art. 13 subsection 10 of the Croatian VAT Act"
+msgstr "PDV nije obračunat sukladno čl. 13. st. 10. Zakona o PDV-u"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_reverse_O
+msgid ""
+"Supplies in the Republic of Croatia in respect of which the receiver "
+"calculates VAT (domestic reverse charge) I.1."
+msgstr ""
+"Isporuke u RH za koje PDV obračunava primatelj (Tuzemni prijenos porezne "
+"obveze) I.1."
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_1
+msgid "1. Input VAT related to supplies received in the country at a rate 5%"
+msgstr "1. Pretporez od primljenih isporuka u tuzemstvu po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_1
+msgid ""
+"1. Supplies in the Republic of Croatia in respect of which the receiver "
+"calculates VAT (domestic reverse charge)"
+msgstr ""
+"1. Isporuke u RH za koje PDV obračunava primatelj (tuzemni prijenos porezne "
+"obveze)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_1
+msgid ""
+"1. Supplies of goods and services in the Republic of Croatia at a rate 5%"
+msgstr "1. Isporuke dobara i usluga u RH po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_IV_1
+msgid "1. To pay"
+msgstr "1. Za uplatu"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_10
+msgid "10. Input VAT related to services received from EU at a rate 25%"
+msgstr "10. Pretporez od primljenih usluga iz EU po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_10
+msgid "10. Other exemptions"
+msgstr "10. Ostala oslobođenja"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_10
+msgid "10. Services received from EU at a rate 25%"
+msgstr "10. Primljene usluge iz EU po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_11
+msgid ""
+"11. Input VAT related to supplies of goods and services received from non-"
+"established taxable persons at a rate 5%"
+msgstr ""
+"11. Pretporez od primljenih isporuka dobara i usluga od poreznih obveznika "
+"bez sjedišta u RH po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_11
+msgid ""
+"11. Supplies of goods and services received from taxable persons not "
+"established in the Republic of Croatia at a rate 5%"
+msgstr ""
+"11. Primljene isporuke dobara i usluga od poreznih obveznika bez sjedišta u "
+"RH po stopi 0% i 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_12
+msgid ""
+"12. Input VAT related to supplies of goods and services received from non-"
+"established taxable persons at a rate 13%"
+msgstr ""
+"12. Pretporez od primljenih isporuka dobara i usluga od poreznih obveznika "
+"bez sjedišta u RH po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_12
+msgid ""
+"12. Supplies of goods and services received from taxable persons not "
+"established in the Republic of Croatia at a rate 13%"
+msgstr ""
+"12. Primljene isporuke dobara i usluga od poreznih obveznika bez sjedišta u "
+"RH po stopi 13%"
+
+#. module: account
+#: model:account.tax,invoice_label:account.1_VAT_P_G_IN_EU_13
+#: model:account.tax,invoice_label:account.1_VAT_P_IN_ROC_13
+#: model:account.tax,invoice_label:account.1_VAT_P_NOT_IN_EU_13
+#: model:account.tax,invoice_label:account.1_VAT_P_S_IN_EU_13
+#: model:account.tax,invoice_label:account.1_VAT_S_IN_ROC_13
+#: model:account.tax,invoice_label:account.1_VAT_S_TAX_PERSON_13%
+#: model:account.tax,name:account.1_VAT_S_IN_ROC_13
+#: model:account.tax.group,name:account.1_tax_group_pdv_13
+#: model_terms:account.tax,description:account.1_VAT_P_G_IN_EU_13
+#: model_terms:account.tax,description:account.1_VAT_P_IN_ROC_13
+#: model_terms:account.tax,description:account.1_VAT_P_NOT_IN_EU_13
+#: model_terms:account.tax,description:account.1_VAT_P_S_IN_EU_13
+#: model_terms:account.tax,description:account.1_VAT_S_IN_ROC_13
+#: model_terms:account.tax,description:account.1_VAT_S_TAX_PERSON_13%
+msgid "VAT 13%"
+msgstr "PDV 13%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_IN_ROC_13
+msgid "Input VAT 13%"
+msgstr "Pretporez 13%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_G_IN_EU_13
+msgid "Input VAT related to acquisition of goods within the EU at a rate 13%"
+msgstr "D-EU Stjecanje dobara 13%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_S_IN_EU_13
+msgid "Input VAT related to services received from EU at a rate 13%"
+msgstr "D-EU Primljene usluge 13%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_TAX_PERSON_13%
+msgid ""
+"Supplies of goods and services received from taxable persons not established"
+" in the Republic of Croatia at a rate 13%"
+msgstr "Primljene isporuke dobara i usluga od por. obveznika bez sjedišta u RH po stopi 13%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_NOT_IN_EU_13
+msgid "Purchase 13% not in EU"
+msgstr "D-INO Usluge 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_13
+msgid ""
+"13. Input VAT related to supplies of goods and services received from non-"
+"established taxable persons at a rate 25%"
+msgstr ""
+"13. Pretporez od primljenih isporuka dobara i usluga od poreznih obveznika "
+"bez sjedišta u RH po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_13
+msgid ""
+"13. Supplies of goods and services received from taxable persons not "
+"established in the Republic of Croatia at a rate 25%"
+msgstr ""
+"13. Primljene isporuke dobara i usluga od poreznih obveznika bez sjedišta u "
+"RH po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_14
+msgid "14. Input VAT related to importation"
+msgstr "14. Pretporez pri uvozu"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_14
+msgid ""
+"14. Subsequent exemption on exportation related to personal passenger "
+"transportation"
+msgstr "14. Naknadno oslobođenje izvoza u okviru osobnog putničkog prometa"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_15
+msgid "15. Adjustments of deductions"
+msgstr "15. Ispravci pretporeza"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_15
+msgid "15. VAT calculated on importation"
+msgstr "15. Obračunani PDV pri uvozu"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_2
+msgid "2. Input VAT related to supplies received in the country at a rate 13%"
+msgstr "2. Pretporez od primljenih isporuka u tuzemstvu po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_2
+msgid "2. Supplies carried out in another member state"
+msgstr "2. Isporuke dobara obavljene u drugim državama članicama"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_2
+msgid ""
+"2. Supplies of goods and services in the Republic of Croatia at a rate 13%"
+msgstr "2. Isporuke dobara i usluga u RH po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_IV_2
+msgid "2. To refund"
+msgstr "2. Za povrat"
+
+#. module: account
+#: model:account.tax,invoice_label:account.1_VAT_P_G_IN_EU_25
+#: model:account.tax,invoice_label:account.1_VAT_P_IN_ROC_25
+#: model:account.tax,invoice_label:account.1_VAT_P_NOT_IN_EU_25
+#: model:account.tax,invoice_label:account.1_VAT_P_S_IN_EU_25
+#: model:account.tax,invoice_label:account.1_VAT_P_reverse_charge
+#: model:account.tax,invoice_label:account.1_VAT_S_IN_ROC_25
+#: model:account.tax,invoice_label:account.1_VAT_S_TAX_PERSON_25%
+#: model:account.tax,name:account.1_VAT_S_IN_ROC_25
+#: model:account.tax.group,name:account.1_tax_group_pdv_25
+#: model_terms:account.tax,description:account.1_VAT_P_G_IN_EU_25
+#: model_terms:account.tax,description:account.1_VAT_P_IN_ROC_25
+#: model_terms:account.tax,description:account.1_VAT_P_NOT_IN_EU_25
+#: model_terms:account.tax,description:account.1_VAT_P_S_IN_EU_25
+#: model_terms:account.tax,description:account.1_VAT_P_reverse_charge
+#: model_terms:account.tax,description:account.1_VAT_S_IN_ROC_25
+#: model_terms:account.tax,description:account.1_VAT_S_TAX_PERSON_25%
+msgid "VAT 25%"
+msgstr "PDV 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_IN_ROC_25
+msgid "Input VAT 25%"
+msgstr "Pretporez 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_G_IN_EU_25
+msgid "Input VAT related to acquisition of goods within the EU at a rate 25%"
+msgstr "D-EU Stjecanje dobara 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_S_IN_EU_25
+msgid "Input VAT related to services received from EU at a rate 25%"
+msgstr "D-EU Primljene usluge 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_TAX_PERSON_25%
+msgid ""
+"Supplies of goods and services received from taxable persons not established"
+" in the Republic of Croatia at a rate 25%"
+msgstr "Primljene isporuke dobara i usluga od por. obveznika bez sjedišta u RH po stopi 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_NOT_IN_EU_25
+msgid "Purchase 25% not in EU"
+msgstr "D-INO Usluge 25%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_reverse_charge
+msgid ""
+"Supplies received in the Republic of Croatia in respect of which the "
+"receiver calculates VAT (domestic reverse charge)"
+msgstr "Primljene isporuke u RH za koje PDV obračunava primatelj (Tuzemni "
+"prijenos porezne obveze)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_3
+msgid "3. Input VAT related to supplies received in the country at a rate 25%"
+msgstr "3. Pretporez od primljenih isporuka u tuzemstvu po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_3
+msgid ""
+"3. Supplies of goods and services in the Republic of Croatia at a rate 25%"
+msgstr "3. Isporuke dobara i usluga u RH po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_3
+msgid "3. Supplies of goods within the EU"
+msgstr "3. Isporuke dobara unutar EU"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_4
+msgid ""
+"4. Input VAT related to supplies received in the country in respect of which"
+" the receiver calculates VAT (domestic reverse charge)"
+msgstr ""
+"4. Pretporez od primljenih isporuka u RH za koje PDV obračunava primatelj "
+"(tuzemni prijenos porezne obveze)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_4
+msgid "4. Supplies of services within the EU"
+msgstr "4. Obavljene usluge unutar EU"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_4
+msgid ""
+"4. Supplies received in the Republic of Croatia in respect of which the "
+"receiver calculates VAT (domestic reverse charge)"
+msgstr ""
+"4. Primljene isporuke u RH za koje PDV obračunava primatelj (tuzemni "
+"prijenos porezne obveze)"
+
+#. module: account
+#: model:account.tax,invoice_label:account.1_VAT_P_G_IN_EU_5
+#: model:account.tax,invoice_label:account.1_VAT_P_IN_ROC_5
+#: model:account.tax,invoice_label:account.1_VAT_P_NOT_IN_EU_5
+#: model:account.tax,invoice_label:account.1_VAT_P_S_IN_EU_5
+#: model:account.tax,invoice_label:account.1_VAT_S_IN_ROC_5
+#: model:account.tax,invoice_label:account.1_VAT_S_TAX_PERSON_5%
+#: model:account.tax,name:account.1_VAT_S_IN_ROC_5
+#: model:account.tax.group,name:account.1_tax_group_pdv_5
+#: model_terms:account.tax,description:account.1_VAT_P_G_IN_EU_5
+#: model_terms:account.tax,description:account.1_VAT_P_IN_ROC_5
+#: model_terms:account.tax,description:account.1_VAT_P_NOT_IN_EU_5
+#: model_terms:account.tax,description:account.1_VAT_P_S_IN_EU_5
+#: model_terms:account.tax,description:account.1_VAT_S_IN_ROC_5
+#: model_terms:account.tax,description:account.1_VAT_S_TAX_PERSON_5%
+msgid "VAT 5%"
+msgstr "PDV 5%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_IN_ROC_5
+msgid "Input VAT 5%"
+msgstr "Pretporez 5%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_G_IN_EU_5
+msgid "Input VAT related to acquisition of goods within the EU at a rate 5%"
+msgstr "D-EU Stjecanje dobara 5%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_S_IN_EU_5
+msgid "Input VAT related to services received from EU at a rate 5%"
+msgstr "D-EU Primljene usluge 5%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_S_TAX_PERSON_5%
+msgid ""
+"Supplies of goods and services received from taxable persons not established"
+" in the Republic of Croatia at a rate 5%"
+msgstr "Primljene isporuke dobara i usluga od por. obveznika bez sjedišta u RH po stopi 5%"
+
+#. module: account
+#: model:account.tax,name:account.1_VAT_P_NOT_IN_EU_5
+msgid "Purchase 5% not in EU"
+msgstr "D-INO Usluge 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_5
+msgid "5. Acquisition of goods within the EU at a rate 5%"
+msgstr "5. Stjecanje dobara unutar EU po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_5
+msgid ""
+"5. Input VAT related to acquisition of goods within the EU at a rate 5%"
+msgstr "5. Pretporez od stjecanja dobara unutar EU po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_5
+msgid "5. Supplies to persons not established in the Republic of Croatia"
+msgstr "5. Obavljene isporuke osobama bez sjedišta u RH"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_6
+msgid "6. Acquisition of goods within the EU at a rate 13%"
+msgstr "6. Stjecanje dobara unutar EU po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_6
+msgid ""
+"6. Input VAT related to acquisition of goods within the EU at a rate 13%"
+msgstr "6. Pretporez od stjecanja dobara unutar EU po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_6
+msgid "6. Installed and assembled goods in another member state"
+msgstr "6. Sastavljanje i postavljanje dobara u drugoj državi članici EU"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_7
+msgid "7. Acquisition of goods within the EU at a rate 25%"
+msgstr "7. Stjecanje dobara unutar EU po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_7
+msgid ""
+"7. Input VAT related to acquisition of goods within the EU at a rate 25%"
+msgstr "7. Pretporez od stjecanja dobara unutar EU po stopi 25%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_7
+msgid "7. Supplies of new means of transport to another member state"
+msgstr "7. Isporuke novih prijevoznih sredstava u EU"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_8
+msgid "8. Domestic supplies"
+msgstr "8. Tuzemne isporuke"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_8
+msgid "8. Input VAT related to services received from EU at a rate 5%"
+msgstr "8. Pretporez od primljenih usluga iz EU po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_8
+msgid "8. Services received from EU at a rate 5%"
+msgstr "8. Primljene usluge iz EU po stopi 5%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_I_9
+msgid "9. Exportation"
+msgstr "9. Izvozne isporuke"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_III_9
+msgid "9. Input VAT related to services received from EU at a rate 13%"
+msgstr "9. Pretporez od primljenih usluga iz EU po stopi 13%"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_line_II_9
+msgid "9. Services received from EU at a rate 13%"
+msgstr "9. Primljene usluge iz EU po stopi 13%"
+
+#. module: l10n_hr
+#: model:ir.ui.menu,name:l10n_hr.account_reports_hr_statements_menu
+msgid "Croatia"
+msgstr "Hrvatska"
+
+#. module: account
+#: model:account.fiscal.position,name:account.1_fiscal_position_hr_national
+msgid "Domestic"
+msgstr "Domaći partneri"
+
+#. module: account
+#: model:account.fiscal.position,name:account.1_fiscal_position_hr_eu
+msgid "EU partner"
+msgstr "EU partner"
+
+#. module: account
+#: model:account.fiscal.position,name:account.1_fiscal_position_hr_exempt
+msgid "Exempt taxpayer"
+msgstr "Domaći partneri nisu obveznici"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_transactions0
+msgid ""
+"I. Transactions not subject to VAT and exempt - total value "
+"(1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.)"
+msgstr ""
+"I. TRANSAKCIJE KOJE NE PODLIJEŽU OPOREZIVANJU, OSLOBOĐENE I OPOREZIVE PO "
+"STOPI 0% - UKUPNO (1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_transactions1
+msgid ""
+"II. Taxable transactions – total amount "
+"(1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)"
+msgstr ""
+"II. OPOREZIVE TRANSAKCIJE – UKUPNO "
+"(1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_calculed_vat
+msgid ""
+"III. Calculated input VAT – total amount "
+"(1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)"
+msgstr ""
+"III. OBRAČUNANI PRETPOREZ - UKUPNO "
+"(1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_vat_liab
+msgid ""
+"IV. VAT liability in the calculation period: to pay (II. - III.) or to "
+"refund (III. - II.)"
+msgstr ""
+"IV. OBVEZA PDV-a U OBRAČUNSKOM RAZDOBLJU: ZA UPLATU (II. - III.) ILI ZA "
+"POVRAT (III. - II.)"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_other_exempt_O
+msgid "VAT is not included pursuant to Art. 198 of the Croatian VAT Act"
+msgstr "Oslobođeno PDV-a prema čl. 198. Pravilnika o PDV-u"
+
+#. module: account
+#: model:account.tax.group,name:account.1_tax_group_pdv_0
+msgid "VAT 0%"
+msgstr "PDV 0%"
+
+#. module: account
+#: model:account.fiscal.position,name:account.1_fiscal_position_hr_eu_out
+msgid "Partner outside the EU"
+msgstr "Partneri treće zemlje"
+
+#. module: account
+#: model:account.fiscal.position,name:account.1_fiscal_position_hr_person_private
+msgid "Partner private"
+msgstr "Fizičke osobe"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_reverse_O
+msgid "VAT is not included pursuant to Art. 75 subsection 3 and Art. 79 subsection 7 of the Croatian VAT Act (domestic reverse charge)"
+msgstr "PDV nije obračunat sukladno čl. 75. st. 3. i čl. 79. st. 7. Zakona o PDV-u (tuzemni prijenos porezne obveze)"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_EX_O
+msgid ""
+"VAT is not included pursuant to Art. 45. subsection 1.1. of the Croatian VAT"
+" Act"
+msgstr "PDV nije obračunat sukladno čl. 45. st. 1.1. Zakona o PDV-u"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_EU_G
+msgid "VAT is not included pursuant to Art. 41 subsection 1 of the Croatian VAT Act"
+msgstr "PDV nije obračunat sukladno čl. 41 st. 1. Zakona o PDV-u"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_EU_S
+msgid "VAT is not included pursuant to Art. 17 subsection 1 of the Croatian VAT Act (reverse charge)"
+msgstr "PDV nije obračunat sukladno čl. 17. st. 1. Zakona o PDV-u (prijenos porezne obveze)"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_carried_other_state_O
+msgid "VAT is not included pursuant to Art. 13 subsection 3 and 4 of the Croatian VAT Act"
+msgstr "PDV nije obračunat sukladno čl. 13. st. 3. i 4. Zakona o PDV-u"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_new_transport_other_state_O
+msgid "VAT is not included pursuant to Art. 41 subsection 1B of the Croatian VAT Act"
+msgstr "PDV nije obračunat sukladno čl. 41. st. 1. točka B Zakona o PDV-u"
+
+#. module: account
+#: model:account.tax,tax_clause:account.1_VAT_S_person_not_in_ROC_O
+msgid "VAT is not included pursuant to Art. 19 till 25 of the Croatian VAT Act"
+msgstr "PDV nije obračunat sukladno čl. 19. do 25. Zakona o PDV-u"
+
+#. module: l10n_hr
+#: model:account.report.column,name:l10n_hr.tax_report_tax_amount
+msgid "Tax Amount"
+msgstr "Iznos poreza"
+
+#. module: l10n_hr
+#: model:account.report.column,name:l10n_hr.tax_report_tax_base
+msgid "Tax Base"
+msgstr "Porezna osnovica"
+
+#. module: l10n_hr
+#: model:account.report,name:l10n_hr.tax_report
+msgid "Tax Report"
+msgstr "Obrazac PDV"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_annual_deductible
+msgid "V. Annual deductible proportion (%)"
+msgstr "V. IZNOS GODIŠNJEG RAZMJERNOG ODBITKA PRETPOREZA (%)"
+
+#. module: l10n_hr
+#: model:account.report.line,name:l10n_hr.tax_report_title_vat_calculation
+msgid ""
+"VAT calculation of supplied goods and services - total value (I. + II.)"
+msgstr ""
+"OBRAČUN PDV-a U OBAVLJENIM TRANSAKCIJAMA DOBARA I USLUGA – UKUPNO (I. + II.)"
+
+#. module: account
+#: model:account.account,name:account.1_hr_140800
+msgid "Input tax not yet recognized"
+msgstr "Pretporez za koji nije stečen uvjet priznavanja – 5%"
+
+#. module: account
+#: model:account.tax,invoice_label:account.1_VAT_P_O
+#: model:account.tax,invoice_label:account.1_VAT_P_install_assemb_goods_O
+#: model:account.tax,invoice_label:account.1_VAT_S_EU_G
+#: model:account.tax,invoice_label:account.1_VAT_S_EU_S
+#: model:account.tax,invoice_label:account.1_VAT_S_EX_O
+#: model:account.tax,invoice_label:account.1_VAT_S_carried_other_state_O
+#: model:account.tax,invoice_label:account.1_VAT_S_new_transport_other_state_O
+#: model:account.tax,invoice_label:account.1_VAT_S_other_exempt_O
+#: model:account.tax,invoice_label:account.1_VAT_S_person_not_in_ROC_O
+#: model:account.tax,invoice_label:account.1_VAT_S_reverse_O
+#: model_terms:account.tax,description:account.1_VAT_P_O
+#: model_terms:account.tax,description:account.1_VAT_P_install_assemb_goods_O
+#: model_terms:account.tax,description:account.1_VAT_S_EU_G
+#: model_terms:account.tax,description:account.1_VAT_S_EU_S
+#: model_terms:account.tax,description:account.1_VAT_S_EX_O
+#: model_terms:account.tax,description:account.1_VAT_S_carried_other_state_O
+#: model_terms:account.tax,description:account.1_VAT_S_new_transport_other_state_O
+#: model_terms:account.tax,description:account.1_VAT_S_other_exempt_O
+#: model_terms:account.tax,description:account.1_VAT_S_person_not_in_ROC_O
+#: model_terms:account.tax,description:account.1_VAT_S_reverse_O
+msgid "Non-taxable"
+msgstr "Neoporezivo"

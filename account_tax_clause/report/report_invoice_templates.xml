@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@name='payment_communication']" position="before">
+            <p t-if="o.tax_clause" class="mt-1 mb-0">
+                <span t-field="o.tax_clause"/>
+            </p>
+        </xpath>
+    </template>
+
+</odoo>

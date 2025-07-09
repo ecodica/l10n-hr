@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu_neg" model="account.account.tag">
+        <field name="name">-I.3_base_supplies_of_goods_eu</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu" model="account.account.tag">
+        <field name="name">+I.3_base_supplies_of_goods_eu</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu_42_63_neg" model="account.account.tag">
+        <field name="name">-I.3_base_supplies_of_goods_eu_42_63</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu_42_63" model="account.account.tag">
+        <field name="name">+I.3_base_supplies_of_goods_eu_42_63</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu_tripartite_neg" model="account.account.tag">
+        <field name="name">-I.3_base_supplies_of_goods_eu_tripartite</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_I_3_base_supplies_of_goods_eu_tripartite" model="account.account.tag">
+        <field name="name">+I.3_base_supplies_of_goods_eu_tripartite</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_1_base_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.1_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_1_base_unrecognized" model="account.account.tag">
+        <field name="name">+III.1_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_1_tax_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.1_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_1_tax_unrecognized" model="account.account.tag">
+        <field name="name">+III.1_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_2_base_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.2_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_2_base_unrecognized" model="account.account.tag">
+        <field name="name">+III.2_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_2_tax_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.2_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_2_tax_unrecognized" model="account.account.tag">
+        <field name="name">+III.2_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_3_base_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.3_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_3_base_unrecognized" model="account.account.tag">
+        <field name="name">+III.3_base_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_3_tax_unrecognized_neg" model="account.account.tag">
+        <field name="name">-III.3_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="True"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+    <record id="account_account_tag_III_3_tax_unrecognized" model="account.account.tag">
+        <field name="name">+III.3_tax_unrecognized</field>
+        <field name="applicability">taxes</field>
+        <field name="tax_negate" eval="False"/>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+
+</odoo>

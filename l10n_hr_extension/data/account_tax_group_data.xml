@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="account.1_tax_group_pdv_0" model="account.tax.group">
+        <field name="name">VAT 0%</field>
+        <field name="sequence">10</field>
+        <field name="country_id" ref="base.hr"/>
+        <field name="tax_payable_account_id" ref="account.1_hr_140700"/>
+        <field name="tax_receivable_account_id" ref="account.1_hr_240700"/>
+    </record>
+    <record id="account.1_tax_group_pdv_5" model="account.tax.group">
+        <field name="name">VAT 5%</field>
+        <field name="sequence">10</field>
+        <field name="country_id" ref="base.hr"/>
+        <field name="tax_payable_account_id" ref="account.1_hr_140700"/>
+        <field name="tax_receivable_account_id" ref="account.1_hr_240700"/>
+    </record>
+    <record id="account.1_tax_group_pdv_13" model="account.tax.group">
+        <field name="name">VAT 13%</field>
+        <field name="sequence">10</field>
+        <field name="country_id" ref="base.hr"/>
+        <field name="tax_payable_account_id" ref="account.1_hr_140700"/>
+        <field name="tax_receivable_account_id" ref="account.1_hr_240700"/>
+    </record>
+    <record id="account.1_tax_group_pdv_25" model="account.tax.group">
+        <field name="name">VAT 25%</field>
+        <field name="sequence">10</field>
+        <field name="country_id" ref="base.hr"/>
+        <field name="tax_payable_account_id" ref="account.1_hr_140700"/>
+        <field name="tax_receivable_account_id" ref="account.1_hr_240700"/>
+    </record>
+    <record id="tax_group_non_taxable" model="account.tax.group">
+        <field name="name">Non-taxable</field>
+        <field name="sequence">10</field>
+        <field name="country_id" ref="base.hr"/>
+        <field name="tax_payable_account_id" ref="account.1_hr_140700"/>
+        <field name="tax_receivable_account_id" ref="account.1_hr_240700"/>
+    </record>
+
+</odoo>

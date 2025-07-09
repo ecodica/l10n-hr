@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Delete report line from old report version -->
+    <delete id="l10n_hr.tax_report_line_V_1" model="account.report.line"/>
+    <delete id="l10n_hr.tax_report_line_V_2" model="account.report.line"/>
+    <delete id="l10n_hr.tax_report_title_prev_calculation" model="account.report.line"/>
+    <delete id="l10n_hr.tax_report_line_VI_1" model="account.report.line"/>
+    <delete id="l10n_hr.tax_report_line_VI_2" model="account.report.line"/>
+    <delete id="l10n_hr.tax_report_title_total_dif" model="account.report.line"/>
+
+    <!-- Update the tax report from the "l10n_hr" module to version for 2023. year -->
+    <record id="l10n_hr.tax_report" model="account.report">
+        <field name="name">Tax Report</field>
+        <field name="root_report_id" ref="account.generic_tax_report"/>
+        <field name="country_id" ref="base.hr"/>
+        <field name="filter_fiscal_position" eval="True"/>
+        <field name="availability_condition">country</field>
+        <field name="column_ids">
+            <record id="l10n_hr.tax_report_tax_base" model="account.report.column">
+                <field name="name">Tax Base</field>
+                <field name="expression_label">tax_base</field>
+            </record>
+            <record id="l10n_hr.tax_report_tax_amount" model="account.report.column">
+                <field name="name">Tax Amount</field>
+                <field name="expression_label">tax_amount</field>
+            </record>
+        </field>
+        <field name="line_ids">
+            <!-- Section 0 -->
+            <record id="l10n_hr.tax_report_title_vat_calculation" model="account.report.line">
+                <field name="name">VAT calculation of supplied goods and services - total value (I. + II.)</field>
+                <field name="code">hr000</field>
+                <field name="sequence">0</field>
+                <field name="expression_ids">
+                    <record id="l10n_hr.tax_report_line_0_0_tag_column1" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr100.tax_base + hr200.tax_base</field>
+                    </record>
+                    <record id="l10n_hr.tax_report_line_0_0_tag_column2" model="account.report.expression">
+                        <field name="label">tax_amount</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr200.tax_amount</field>
+                    </record>
+                </field>
+            </record>
+            <!-- Section I -->
+            <record id="l10n_hr.tax_report_title_transactions0" model="account.report.line">
+                <field name="name">I. Transactions not subject to VAT and exempt - total value (1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.)</field>
+                <field name="code">hr100</field>
+                <field name="sequence">100</field>
+                <field name="expression_ids">
+                    <record id="l10n_hr.tax_report_line_I_0_tag_column1" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr101.tax_base + hr102.tax_base + hr103.tax_base + hr104.tax_base +
+                            hr105.tax_base + hr106.tax_base + hr107.tax_base + hr108.tax_base + hr109.tax_base +
+                            hr110.tax_base + hr111.tax_base
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 1 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_1" model="account.report.line">
+                        <field name="name">1. Supplies in the Republic of Croatia in respect of which the receiver calculates VAT (domestic reverse charge)</field>
+                        <field name="code">hr101</field>
+                        <field name="sequence">101</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_1_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.1_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 2 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_2" model="account.report.line">
+                        <field name="name">2. Supplies carried out in another member state</field>
+                        <field name="code">hr102</field>
+                        <field name="sequence">102</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_2_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.2_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 3 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_3" model="account.report.line">
+                        <field name="name">3. Supplies of goods within the EU</field>
+                        <field name="code">hr103</field>
+                        <field name="sequence">103</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_3_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.3_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 4 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_4" model="account.report.line">
+                        <field name="name">4. Supplies of services within the EU</field>
+                        <field name="code">hr104</field>
+                        <field name="sequence">104</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_4_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.4_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 5 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_5" model="account.report.line">
+                        <field name="name">5. Supplies to persons not established in the Republic of Croatia</field>
+                        <field name="code">hr105</field>
+                        <field name="sequence">105</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_5_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.5_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 6 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_6" model="account.report.line">
+                        <field name="name">6. Installed and assembled goods in another member state</field>
+                        <field name="code">hr106</field>
+                        <field name="sequence">106</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_6_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.6_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 7 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_7" model="account.report.line">
+                        <field name="name">7. Supplies of new means of transport to another member state</field>
+                        <field name="code">hr107</field>
+                        <field name="sequence">107</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_7_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.7_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 8 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_8" model="account.report.line">
+                        <field name="name">8. Domestic supplies</field>
+                        <field name="code">hr108</field>
+                        <field name="sequence">108</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_8_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.8_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 9 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_9" model="account.report.line">
+                        <field name="name">9. Exportation</field>
+                        <field name="code">hr109</field>
+                        <field name="sequence">109</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_9_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.9_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 10 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_I_10" model="account.report.line">
+                        <field name="name">10. Other exemptions</field>
+                        <field name="code">hr110</field>
+                        <field name="sequence">110</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_I_10_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.10_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 11 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_I_11" model="account.report.line">
+                        <field name="name">11. Supplies at a rate of 0%</field>
+                        <field name="code">hr111</field>
+                        <field name="sequence">111</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_I_11_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">I.11_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <!-- Section II -->
+            <record id="l10n_hr.tax_report_title_transactions1" model="account.report.line">
+                <field name="name">II. Taxable transactions – total amount (1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)</field>
+                <field name="code">hr200</field>
+                <field name="sequence">200</field>
+                <field name="expression_ids">
+                    <record id="l10n_hr.tax_report_line_II_0_tag_column1" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr201.tax_base + hr202.tax_base + hr203.tax_base + hr204.tax_base +
+                            hr205.tax_base + hr206.tax_base + hr207.tax_base + hr208.tax_base + hr209.tax_base +
+                            hr210.tax_base + hr211.tax_base + hr212.tax_base + hr213.tax_base + hr214.tax_base +
+                            hr215.tax_base
+                        </field>
+                    </record>
+                    <record id="l10n_hr.tax_report_line_II_0_tag_column2" model="account.report.expression">
+                        <field name="label">tax_amount</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr201.tax_amount + hr202.tax_amount + hr203.tax_amount + hr204.tax_amount +
+                            hr205.tax_amount + hr206.tax_amount + hr207.tax_amount + hr208.tax_amount + hr209.tax_amount +
+                            hr210.tax_amount + hr211.tax_amount + hr212.tax_amount + hr213.tax_amount + hr214.tax_amount +
+                            hr215.tax_amount
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 1 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_II_1" model="account.report.line">
+                        <field name="name">1. Supplies of goods and services in the Republic of Croatia at a rate 5%</field>
+                        <field name="code">hr201</field>
+                        <field name="sequence">201</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_1_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.1_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_1_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.1_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 2 -->
+                    <record id="l10n_hr.tax_report_line_II_2" model="account.report.line">
+                        <field name="name">2. Supplies of goods and services in the Republic of Croatia at a rate 13%</field>
+                        <field name="code">hr202</field>
+                        <field name="sequence">202</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_2_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.2_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_2_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.2_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 3 -->
+                    <record id="l10n_hr.tax_report_line_II_3" model="account.report.line">
+                        <field name="name">3. Supplies of goods and services in the Republic of Croatia at a rate 25%</field>
+                        <field name="code">hr203</field>
+                        <field name="sequence">203</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_3_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.3_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_3_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.3_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 4 -->
+                    <record id="l10n_hr.tax_report_line_II_4" model="account.report.line">
+                        <field name="name">4. Supplies received in the Republic of Croatia in respect of which the receiver calculates VAT (domestic reverse charge)</field>
+                        <field name="code">hr204</field>
+                        <field name="sequence">204</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_4_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.4_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_4_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.4_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 5 -->
+                    <record id="l10n_hr.tax_report_line_II_5" model="account.report.line">
+                        <field name="name">5. Acquisition of goods within the EU at a rate 5%</field>
+                        <field name="code">hr205</field>
+                        <field name="sequence">205</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_5_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.5_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_5_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.5_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 6 -->
+                    <record id="l10n_hr.tax_report_line_II_6" model="account.report.line">
+                        <field name="name">6. Acquisition of goods within the EU at a rate 13%</field>
+                        <field name="code">hr206</field>
+                        <field name="sequence">206</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_6_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.6_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_6_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.6_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 7 -->
+                    <record id="l10n_hr.tax_report_line_II_7" model="account.report.line">
+                        <field name="name">7. Acquisition of goods within the EU at a rate 25%</field>
+                        <field name="code">hr207</field>
+                        <field name="sequence">207</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_7_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.7_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_7_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.7_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 8 -->
+                    <record id="l10n_hr.tax_report_line_II_8" model="account.report.line">
+                        <field name="name">8. Services received from EU at a rate 5%</field>
+                        <field name="code">hr208</field>
+                        <field name="sequence">208</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_8_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.8_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_8_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.8_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 9 -->
+                    <record id="l10n_hr.tax_report_line_II_9" model="account.report.line">
+                        <field name="name">9. Services received from EU at a rate 13%</field>
+                        <field name="code">hr209</field>
+                        <field name="sequence">209</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_9_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.9_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_9_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.9_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 10 -->
+                    <record id="l10n_hr.tax_report_line_II_10" model="account.report.line">
+                        <field name="name">10. Services received from EU at a rate 25%</field>
+                        <field name="code">hr210</field>
+                        <field name="sequence">210</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_10_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.10_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_10_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.10_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 11 -->
+                    <record id="l10n_hr.tax_report_line_II_11" model="account.report.line">
+                        <field name="name">11. Supplies of goods and services received from taxable persons not established in the Republic of Croatia at a rate 5%</field>
+                        <field name="code">hr211</field>
+                        <field name="sequence">211</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_11_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.11_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_11_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.11_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 12 -->
+                    <record id="l10n_hr.tax_report_line_II_12" model="account.report.line">
+                        <field name="name">12. Supplies of goods and services received from taxable persons not established in the Republic of Croatia at a rate 13%</field>
+                        <field name="code">hr212</field>
+                        <field name="sequence">212</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_12_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.12_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_12_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.12_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 13 -->
+                    <record id="l10n_hr.tax_report_line_II_13" model="account.report.line">
+                        <field name="name">13. Supplies of goods and services received from taxable persons not established in the Republic of Croatia at a rate 25%</field>
+                        <field name="code">hr213</field>
+                        <field name="sequence">213</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_13_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.13_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_13_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.13_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 14 -->
+                    <record id="l10n_hr.tax_report_line_II_14" model="account.report.line">
+                        <field name="name">14. Subsequent exemption on exportation related to personal passenger transportation</field>
+                        <field name="code">hr214</field>
+                        <field name="sequence">214</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_14_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.14_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_14_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.14_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                    <!-- Sub Section 15 -->
+                    <record id="l10n_hr.tax_report_line_II_15" model="account.report.line">
+                        <field name="name">15. VAT calculated on importation</field>
+                        <field name="code">hr215</field>
+                        <field name="sequence">215</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_II_15_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.15_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_II_15_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">II.15_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <!-- Section III -->
+            <record id="l10n_hr.tax_report_title_calculed_vat" model="account.report.line">
+                <field name="name">III. Calculated input VAT – total amount (1.+2.+3.+4.+5.+6.+7.+8.+9.+10.+11.+12.+13.+14.+15.)</field>
+                <field name="code">hr300</field>
+                <field name="sequence">300</field>
+                <field name="expression_ids">
+                    <record id="l10n_hr.tax_report_line_III_0_tag_column1" model="account.report.expression">
+                        <field name="label">tax_base</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr301.tax_base + hr302.tax_base + hr303.tax_base + hr304.tax_base +
+                            hr305.tax_base + hr306.tax_base + hr307.tax_base + hr308.tax_base + hr309.tax_base +
+                            hr310.tax_base + hr311.tax_base + hr312.tax_base + hr313.tax_base + hr314.tax_base
+                        </field>
+                    </record>
+                    <record id="l10n_hr.tax_report_line_III_0_tag_column2" model="account.report.expression">
+                        <field name="label">tax_amount</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr301.tax_amount + hr302.tax_amount + hr303.tax_amount + hr304.tax_amount +
+                            hr305.tax_amount + hr306.tax_amount + hr307.tax_amount + hr308.tax_amount + hr309.tax_amount +
+                            hr310.tax_amount + hr311.tax_amount + hr312.tax_amount + hr313.tax_amount + hr314.tax_amount +
+                            hr315.tax_amount
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 1 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_1" model="account.report.line">
+                        <field name="name">1. Input VAT related to supplies received in the country at a rate 5%</field>
+                        <field name="code">hr301</field>
+                        <field name="sequence">301</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_1_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.1_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_1_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.1_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 2 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_2" model="account.report.line">
+                        <field name="name">2. Input VAT related to supplies received in the country at a rate 13%</field>
+                        <field name="code">hr302</field>
+                        <field name="sequence">302</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_2_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.2_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_2_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.2_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 3 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_3" model="account.report.line">
+                        <field name="name">3. Input VAT related to supplies received in the country at a rate 25%</field>
+                        <field name="code">hr303</field>
+                        <field name="sequence">303</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_3_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.3_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_3_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.3_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 4 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_4" model="account.report.line">
+                        <field name="name">4. Input VAT related to supplies received in the country in respect of which the receiver calculates VAT (domestic reverse charge)</field>
+                        <field name="code">hr304</field>
+                        <field name="sequence">304</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_4_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.4_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_4_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.4_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 5 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_5" model="account.report.line">
+                        <field name="name">5. Input VAT related to acquisition of goods within the EU at a rate 5%</field>
+                        <field name="code">hr305</field>
+                        <field name="sequence">305</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_5_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.5_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_5_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.5_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 6 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_6" model="account.report.line">
+                        <field name="name">6. Input VAT related to acquisition of goods within the EU at a rate 13%</field>
+                        <field name="code">hr306</field>
+                        <field name="sequence">306</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_6_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.6_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_6_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.6_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 7 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_7" model="account.report.line">
+                        <field name="name">7. Input VAT related to acquisition of goods within the EU at a rate 25%</field>
+                        <field name="code">hr307</field>
+                        <field name="sequence">307</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_7_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.7_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_7_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.7_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 8 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_8" model="account.report.line">
+                        <field name="name">8. Input VAT related to services received from EU at a rate 5%</field>
+                        <field name="code">hr308</field>
+                        <field name="sequence">308</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_8_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.8_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_8_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.8_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 9 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_9" model="account.report.line">
+                        <field name="name">9. Input VAT related to services received from EU at a rate 13%</field>
+                        <field name="code">hr309</field>
+                        <field name="sequence">309</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_9_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.9_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_9_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.9_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 10 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_10" model="account.report.line">
+                        <field name="name">10. Input VAT related to services received from EU at a rate 25%</field>
+                        <field name="code">hr310</field>
+                        <field name="sequence">310</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_10_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.10_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_10_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.10_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 11 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_11" model="account.report.line">
+                        <field name="name">11. Input VAT related to supplies of goods and services received from non-established taxable persons at a rate 5%</field>
+                        <field name="code">hr311</field>
+                        <field name="sequence">311</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_11_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.11_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_11_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.11_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 12 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_12" model="account.report.line">
+                        <field name="name">12. Input VAT related to supplies of goods and services received from non-established taxable persons at a rate 13%</field>
+                        <field name="code">hr312</field>
+                        <field name="sequence">312</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_12_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.12_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_12_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.12_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 13 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_13" model="account.report.line">
+                        <field name="name">13. Input VAT related to supplies of goods and services received from non-established taxable persons at a rate 25%</field>
+                        <field name="code">hr313</field>
+                        <field name="sequence">313</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_13_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.13_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_13_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.13_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 14 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_14" model="account.report.line">
+                        <field name="name">14. Input VAT related to importation</field>
+                        <field name="code">hr314</field>
+                        <field name="sequence">314</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_14_tag_column1"
+                                    model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.14_base</field>
+                            </record>
+                            <record id="l10n_hr.tax_report_line_III_14_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.14_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 15 -->
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_III_15" model="account.report.line">
+                        <field name="name">15. Adjustments of deductions</field>
+                        <field name="code">hr315</field>
+                        <field name="sequence">315</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_III_15_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">III.15_tax</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <!-- Section IV -->
+            <record id="l10n_hr.tax_report_title_vat_liab" model="account.report.line">
+                <field name="name">IV. VAT liability in the calculation period: to pay (II. - III.) or to refund (III. - II.)</field>
+                <field name="code">hr400</field>
+                <field name="sequence">400</field>
+                <field name="expression_ids">
+                    <record id="l10n_hr.tax_report_line_IV_0_tag_column2" model="account.report.expression">
+                        <field name="label">tax_amount</field>
+                        <field name="engine">aggregation</field>
+                        <field name="formula">hr41.tax_amount + hr42.tax_amount</field>
+                    </record>
+                </field>
+                <field name="children_ids">
+                    <record id="l10n_hr.tax_report_line_IV_1" model="account.report.line">
+                        <field name="name">1. To pay</field>
+                        <field name="code">hr41</field>
+                        <field name="sequence">401</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_IV_1_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">hr200.tax_amount - hr300.tax_amount</field>
+                                <field name="subformula">if_above(EUR(0))</field>
+                            </record>
+                        </field>
+                    </record>
+                    <record id="l10n_hr.tax_report_line_IV_2" model="account.report.line">
+                        <field name="name">2. To refund</field>
+                        <field name="code">hr42</field>
+                        <field name="sequence">402</field>
+                        <field name="expression_ids">
+                            <record id="l10n_hr.tax_report_line_IV_2_tag_column2"
+                                    model="account.report.expression">
+                                <field name="label">tax_amount</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">hr300.tax_amount - hr200.tax_amount</field>
+                                <field name="subformula">if_above(EUR(0))</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+            </record>
+            <!-- Section V -->
+            <record id="l10n_hr.tax_report_title_annual_deductible" model="account.report.line">
+                <field name="name">V. Annual deductible proportion (%)</field>
+                <field name="sequence">500</field>
+            </record>
+            <!-- Section VI -->
+            <record id="tax_report_title_other_data" model="account.report.line">
+                <field name="name">VI. Other data</field>
+                <field name="sequence">600</field>
+                <!-- Sub Section 1 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_1" model="account.report.line">
+                        <field name="name">1. For correction of input VAT – total amount (1.+2.+3.+4.+5.)</field>
+                        <field name="code">hr610</field>
+                        <field name="sequence">610</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_VI_1_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">aggregation</field>
+                                <field name="formula">hr611.tax_base + hr612.tax_base + hr613.tax_base +
+                                    hr614.tax_base + hr615.tax_base
+                                </field>
+                            </record>
+                        </field>
+                        <!-- Sub Section 1.1 -->
+                        <field name="children_ids">
+                            <record id="tax_report_line_VI_11" model="account.report.line">
+                                <field name="name">1.1. Procurement of assets</field>
+                                <field name="code">hr611</field>
+                                <field name="sequence">611</field>
+                                <field name="expression_ids">
+                                    <record id="tax_report_line_VI_11_tag_column1" model="account.report.expression">
+                                        <field name="label">tax_base</field>
+                                        <field name="engine">tax_tags</field>
+                                        <field name="formula">VI.1.1_base</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <!-- Sub Section 1.2 -->
+                        <field name="children_ids">
+                            <record id="tax_report_line_VI_12" model="account.report.line">
+                                <field name="name">1.2. Procurment of vehicles and other means of transport for personal uses</field>
+                                <field name="code">hr612</field>
+                                <field name="sequence">612</field>
+                                <field name="expression_ids">
+                                    <record id="tax_report_line_VI_12_tag_column1" model="account.report.expression">
+                                        <field name="label">tax_base</field>
+                                        <field name="engine">tax_tags</field>
+                                        <field name="formula">VI.1.2_base</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <!-- Sub Section 1.3 -->
+                        <field name="children_ids">
+                            <record id="tax_report_line_VI_13" model="account.report.line">
+                                <field name="name">1.3. Sale of vehicles and other means of transport for personal uses</field>
+                                <field name="code">hr613</field>
+                                <field name="sequence">613</field>
+                                <field name="expression_ids">
+                                    <record id="tax_report_line_VI_13_tag_column1" model="account.report.expression">
+                                        <field name="label">tax_base</field>
+                                        <field name="engine">tax_tags</field>
+                                        <field name="formula">VI.1.3_base</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <!-- Sub Section 1.4 -->
+                        <field name="children_ids">
+                            <record id="tax_report_line_VI_14" model="account.report.line">
+                                <field name="name">1.4. Procurement of other long-term assets</field>
+                                <field name="code">hr614</field>
+                                <field name="sequence">614</field>
+                                <field name="expression_ids">
+                                    <record id="tax_report_line_VI_14_tag_column1" model="account.report.expression">
+                                        <field name="label">tax_base</field>
+                                        <field name="engine">tax_tags</field>
+                                        <field name="formula">VI.1.4_base</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                        <!-- Sub Section 1.5 -->
+                        <field name="children_ids">
+                            <record id="tax_report_line_VI_15" model="account.report.line">
+                                <field name="name">1.5. Sale of other long-term assets</field>
+                                <field name="code">hr615</field>
+                                <field name="sequence">615</field>
+                                <field name="expression_ids">
+                                    <record id="tax_report_line_VI_15_tag_column1" model="account.report.expression">
+                                        <field name="label">tax_base</field>
+                                        <field name="engine">tax_tags</field>
+                                        <field name="formula">VI.1.5_base</field>
+                                    </record>
+                                </field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 2 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_2" model="account.report.line">
+                        <field name="name">2. Disposal / acquisition of economic unit or plant</field>
+                        <field name="code">hr620</field>
+                        <field name="sequence">620</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_VI_2_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">VI.2_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 3 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_3" model="account.report.line">
+                        <field name="name">3. Total services received from taxable persons non established in the Republic of Croatia (EU + third countries)</field>
+                        <field name="code">hr630</field>
+                        <field name="sequence">630</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_VI_3_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">VI.3_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 4 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_4" model="account.report.line">
+                        <field name="name">4. Total services performed to taxable persons non established in the Republic of Croatia (EU + third countries)</field>
+                        <field name="code">hr640</field>
+                        <field name="sequence">640</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_VI_4_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">VI.4_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 5 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_5" model="account.report.line">
+                        <field name="name">5. Goods received from the EU as part of the tripartite transaction</field>
+                        <field name="code">hr650</field>
+                        <field name="sequence">650</field>
+                        <field name="expression_ids">
+                            <record id="tax_report_line_VI_5_tag_column1" model="account.report.expression">
+                                <field name="label">tax_base</field>
+                                <field name="engine">tax_tags</field>
+                                <field name="formula">VI.5_base</field>
+                            </record>
+                        </field>
+                    </record>
+                </field>
+                <!-- Sub Section 6 -->
+                <field name="children_ids">
+                    <record id="tax_report_line_VI_6" model="account.report.line">
+                        <field name="name">6. Taxation procedure based on charged consideration</field>
+                        <field name="code">hr660</field>
+                        <field name="sequence">660</field>
+                    </record>
+                </field>
+            </record>
+        </field>
+    </record>
+
+</odoo>

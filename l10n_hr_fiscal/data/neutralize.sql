@@ -1,0 +1,1 @@
+update res_company set use_fiscalization = false;

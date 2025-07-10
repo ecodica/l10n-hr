@@ -41,7 +41,7 @@ Croatia - Invoicing
     'demo': [],
 
     'installable': True,
-    'auto_install': True,
+    'auto_install': False,
 
     'post_load': None,
     'pre_init_hook': 'pre_init_hook',

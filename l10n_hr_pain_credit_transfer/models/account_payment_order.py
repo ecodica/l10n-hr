@@ -71,7 +71,7 @@ class AccountPaymentOrder(models.Model):
             "name_maxsize": name_maxsize,
             "convert_to_ascii": self.payment_method_id.convert_to_ascii,
             "payment_method": "TRF",
-            "file_prefix": self._get_file_prefix(),
+            "file_prefix": self.l10n_hr_get_file_prefix(),
             "pain_flavor": pain_flavor,
             "pain_xsd_file": xsd_file,
         }
@@ -211,4 +211,3 @@ class AccountPaymentOrder(models.Model):
             nb_of_transactions_a.text = str(transactions_count_a)
             control_sum_a.text = "%.2f" % amount_control_sum_a
         return self.finalize_sepa_file_creation(xml_root, gen_args)
-

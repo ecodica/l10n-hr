@@ -1,4 +1,3 @@
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, api, _
 from lxml import etree
@@ -8,7 +7,7 @@ from datetime import datetime
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
 
-    def _get_file_prefix(self):
+    def l10n_hr_get_file_prefix(self):
         self.ensure_one()
         number = 1  # TODO: this is hardcoded :(
         date_today = datetime.today().strftime('%Y%m%d')

@@ -1,0 +1,23 @@
+{
+    "name": """Croatia - NKD""",
+    "summary": """Hrvatska - Nacionalna Klasifikacija Djelatnosti""",
+    "category": "Localisation / Croatia",
+    "images": [],
+    "version": "18.0.0.0.1",
+    "application": False,
+    "author": "Ecodica d.o.o., DAJ MI 5, Odoo Community Association (OCA)",
+    "support": "",
+    "website": "https://github.com/OCA/l10n-croatia",
+    "license": "AGPL-3",
+    "depends": [
+        "l10n_eu_nace", 
+        "l10n_hr_base"
+    ],
+    "data": [
+        "views/res_company_view.xml",
+    ],
+    "qweb": [],
+    "demo": [],
+    "auto_install": False,
+    "installable": True,
+}

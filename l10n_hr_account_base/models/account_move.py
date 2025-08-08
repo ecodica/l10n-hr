@@ -61,11 +61,11 @@ class AccountMove(models.Model):
         help="Device on which is fiscal payment registred",
     )
     l10n_hr_fiskal_user_id = fields.Many2one(
-        comodel_name="res.partner",
+        comodel_name="res.users",
         string="Fiscal User",
         domain=lambda self: self._get_l10n_hr_fiscal_user_id_domain(),
         ondelete='restrict',
-        default=lambda self: self.env.user.partner_id.id,
+        default=lambda self: self.env.user.id,
         copy=False,
         help="User who sent the fiscalisation message to FINA."
              " Can be different from responsible person on invoice.",

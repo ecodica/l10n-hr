@@ -3,7 +3,7 @@
     "summary": "Croatia accounting localisation",
     "category": "Accounting/Localizations/Croatia",
     "images": [],
-    "version": "17.0.1.0.1",
+    "version": "17.0.1.0.2",
     "application": False,
     "author": "Daj Mi 5, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -16,6 +16,7 @@
         "l10n_hr_base",
     ],
     "data": [
+        'data/l10n_hr.account.payment.type.csv',
         "security/ir.model.access.csv",
         "views/res_company_view.xml",
         "views/fiskal_data_views.xml",

@@ -1,3 +1,4 @@
+from . import l10n_hr_account_payment_type
 from . import res_company
 from . import account_journal
 from . import account_move

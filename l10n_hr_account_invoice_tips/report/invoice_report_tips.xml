@@ -57,7 +57,7 @@
                                 <td t-esc="invoice.invoice_user_id.name"/>
                                 <td t-esc="invoice.amount_total" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
                                 <td t-esc="invoice.l10n_hr_napojnica_iznos" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
-                                <td t-esc="dict(invoice._fields['l10n_hr_nacin_placanja']._description_selection(invoice.env)).get(invoice.l10n_hr_nacin_placanja, '')"/>
+                                <td t-esc="invoice.l10n_hr_account_payment_type_id.name"/>
                                 <td t-esc="dict(invoice._fields['l10n_hr_napojnica_nacin_placanja']._description_selection(invoice.env)).get(invoice.l10n_hr_napojnica_nacin_placanja, '')"/>
                             </tr>
                         </tbody>

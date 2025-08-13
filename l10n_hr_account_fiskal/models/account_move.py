@@ -6,6 +6,7 @@ class AccountMove(models.Model):
     _name = "account.move"
     _inherit = ["account.move", "l10n.hr.fiskal.mixin", "l10n.hr.xml.mixin"]
 
+    # deprecated
     l10n_hr_nacin_placanja = fields.Selection(
         selection_add=[
             ("G", "Cash"),

@@ -7,6 +7,11 @@ from odoo.tools.sql import drop_index, index_exists
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    @api.model
+    def get_default_l10n_hr_account_payment_type(self):
+        """ Try to return 'Bank Transfer' as default payment type """
+        return self.env.ref('l10n_hr_account_base.info3_payment_type_T', raise_if_not_found=False)
+
     l10n_hr_date_document = fields.Date(
         string="Document Date",
         copy=False,
@@ -38,17 +43,7 @@ class AccountMove(models.Model):
         help="Required fiscal number, generated according to "
         "regulations regardless of journal number",
     )
-    l10n_hr_fiskal_user_id = fields.Many2one(
-        comodel_name="res.partner",
-        string="Fiscal User",
-        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
-        default=lambda self: self.env.user.partner_id.id,
-        ondelete='restrict',
-        copy=False,
-        help="User who sent the fiscalisation message to FINA."
-        " Can be different from responsible person on invoice.",
-    )
-    # i za ulazne račune se ovdje moze upisati
+    # deprecated
     l10n_hr_nacin_placanja = fields.Selection(
         selection=[("T", "Bank transfer")],
         string="Croatia Payment Means",
@@ -58,7 +53,12 @@ class AccountMove(models.Model):
         "T - Transaction bank account, is applicable without fiskalisation\n"
         " and for other options needed please install fiscalisation extension module",
     )
-
+    l10n_hr_account_payment_type_id = fields.Many2one(
+        comodel_name='l10n_hr.account.payment.type',
+        string="Croatia Payment Means",
+        ondelete="restrict",
+        default=lambda self: self.get_default_l10n_hr_account_payment_type()
+    )
     l10n_hr_fiskal_uredjaj_id = fields.Many2one(
         comodel_name="l10n.hr.fiskal.uredjaj",
         string="Fiskal Device",
@@ -215,7 +215,7 @@ class AccountMove(models.Model):
             res.append(_("No active PoS devices found for this journal"))
         if self.l10n_hr_fiskal_uredjaj_id.state != "active":
             res.append(_("PoS device selected is not active"))
-        if not self.l10n_hr_nacin_placanja:
+        if not self.l10n_hr_account_payment_type_id:
             res.append(_("Payment method not selected"))
         return res
 
@@ -273,6 +273,6 @@ class AccountMove(models.Model):
     @api.onchange('journal_id')
     def _onchange_journal_id(self):
         res = super()._onchange_journal_id()
-        if self.journal_id.l10n_hr_default_nacin_placanja:
-            self.l10n_hr_nacin_placanja = self.journal_id.l10n_hr_default_nacin_placanja
+        if self.journal_id.l10n_hr_default_account_payment_type_id:
+            self.l10n_hr_account_payment_type_id.id = self.journal_id.l10n_hr_default_account_payment_type_id.id
         return res

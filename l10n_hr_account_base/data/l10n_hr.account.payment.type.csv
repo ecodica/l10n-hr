@@ -1,0 +1,6 @@
+id,code,name,active
+info3_payment_type_G,G,Cash,1
+info3_payment_type_K,K,Card,1
+info3_payment_type_C,C,Cheque,0
+info3_payment_type_T,T,Bank transfer,1
+info3_payment_type_O,O,Other,1

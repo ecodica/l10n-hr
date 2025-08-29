@@ -372,6 +372,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
         # TODO: za sada nisu podržani dodani porezi, naknade, ...
         if float_compare(racun_osnovica, amount_untaxed, precision_digits=self.currency_id.decimal_places):
+            _logger.error(f'Osnovica na fisk računu se razlikuje od osnovice na Odoo računu: {racun_osnovica} != {amount_untaxed}. Preciznost: {self.currency_id.decimal_places}')
             raise ValidationError(_('Osnovica na fisk računu se razlikuje od osnovice na Odoo računu'))
         # NOTE: provjera da li suma osnovice i poreza sa fisk računa odgovara ukupno iznosu odoo računa
         if float_compare(

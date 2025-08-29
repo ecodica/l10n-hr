@@ -366,6 +366,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         tax_amount = sum(self.line_ids.filtered(
             lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiskal_type == 'Pdv').mapped('balance')) * (-1)
         if float_compare(pdv_iznos, tax_amount, precision_digits=self.currency_id.decimal_places):
+            _logger.error(f'Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu: {pdv_iznos} != {tax_amount}. Preciznost: {self.currency_id.decimal_places}')
             raise ValidationError(_('Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu'))
         # NOTE: provjera da li je osnovica na Odoo računu isto osnovici koju fiskaliziramo
         # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
@@ -377,6 +378,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             (racun_osnovica + pdv_iznos + pnp_iznos),
             float(racun.IznosUkupno),
             precision_digits=self.currency_id.decimal_places):
+            _logger.error(f'Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu: {racun_osnovica + pdv_iznos + pnp_iznos} != {racun.IznosUkupno}. Preciznost: {self.currency_id.decimal_places}')
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
     def _fisk_msg_type(self):

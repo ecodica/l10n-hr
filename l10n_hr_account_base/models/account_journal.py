@@ -23,6 +23,13 @@ class AccountJournal(models.Model):
         column2="uredjaj_id",
         string="Allowed PoS Devices",
     )
+    # deprecated field -------
+    l10n_hr_default_nacin_placanja = fields.Selection(
+        selection=[("T", "Bank transfer")],
+        string="Default fiskal payment method for this journal",
+        default="T",
+    )
+    # ------------------------
     l10n_hr_default_account_payment_type_id = fields.Many2one(
         comodel_name='l10n_hr.account.payment.type',
         string="Default fiscal payment type for this journal",

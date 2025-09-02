@@ -38,10 +38,10 @@ class FiscalFiscalMixin(models.AbstractModel):
         # NOTE: Conditions to fiskalize tips are following:
         #   1. l10n_hr_zki must be set on invoice
         #   2. l10n_hr_napojnica_iznos must be > 0
-        #   3. l10n_hr_napojnica_nacin_placanja must be != "T" or transaction fiskalization must be enabled
+        #   3. l10n_hr_account_tip_payment_type_id.code must be != "T" or transaction fiskalization must be enabled
         if self.l10n_hr_zki and float_compare(self.l10n_hr_napojnica_iznos, 0.0, precision_digits=precision) > 0 and (
             not self.company_id.l10n_hr_fiskal_transaction_type_skip or
-            self.l10n_hr_napojnica_nacin_placanja != "T"
+            self.l10n_hr_account_tip_payment_type_id.code != "T"
         ):
             return True
         return False
@@ -60,7 +60,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         return factory.type_factory.NapojnicaType(
             iznosNapojnice=fiskal.format_decimal(
                 self.l10n_hr_napojnica_iznos * amount_coeff),
-            nacinPlacanjaNapojnice=self.l10n_hr_napojnica_nacin_placanja)
+            nacinPlacanjaNapojnice=self.l10n_hr_account_tip_payment_type_id.code)
 
     def _prepare_fisk_racun(self, factory, fiskal_data, msg_type):
         """Extend ta add tips to fisk invoice"""
@@ -121,7 +121,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         if not self.l10n_hr_zki:
             raise ValidationError(
                 _("To fiskalize invoice tip, ZKI must be set."))
-        if not self.l10n_hr_napojnica_nacin_placanja:
+        if not self.l10n_hr_account_tip_payment_type_id:
             raise ValidationError(
                 _("To fiskalize invoice tip, payment type must be set."))
         if round(self.l10n_hr_napojnica_iznos or 0.0, self.currency_id.decimal_places) <= 0:

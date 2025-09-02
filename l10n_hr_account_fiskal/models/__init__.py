@@ -7,3 +7,4 @@ from . import account_move
 from . import fiskal_data
 from . import pnp_category
 from . import product
+from . import account_journal

@@ -247,8 +247,11 @@ msgid "Croatia business premisses"
 msgstr "Poslovni prostori"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_account_payment_type_id
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_nacin_placanja
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_account_payment_type_id
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_nacin_placanja
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_payment__l10n_hr_account_payment_type_id
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_payment__l10n_hr_nacin_placanja
 msgid "Croatia Payment Means"
 msgstr "Način plaćanja"
@@ -959,3 +962,37 @@ msgstr "Dnevnik prodaje"
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__purchase_journal_id
 msgid "Purchase Journal"
 msgstr "Dnevnik nabave"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_K
+msgid "Card"
+msgstr "Kartica"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_G
+msgid "Cash"
+msgstr "Gotovina"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_C
+msgid "Cheque"
+msgstr "Ček"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_O
+msgid "Other"
+msgstr "Ostalo"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_nacin_placanja__t
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_T
+msgid "Bank transfer"
+msgstr "Transakcijski račun"
+
+#. module: l10n_hr_account_base
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_croatian_payment_means
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_croatian_payment_means
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_tree
+msgid "Invoice Payment Means"
+msgstr "Način plačanja računa"

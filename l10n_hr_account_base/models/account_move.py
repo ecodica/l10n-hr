@@ -17,8 +17,6 @@ class AccountMove(models.Model):
         copy=False,
         help="Date when the document was actually created. "
         "Leave blank for current date",
-
-
     )
     l10n_hr_date_delivery = (
         # TODO in 17.0 delivery_date already exits, check if we need custom field
@@ -274,5 +272,5 @@ class AccountMove(models.Model):
     def _onchange_journal_id(self):
         res = super()._onchange_journal_id()
         if self.journal_id.l10n_hr_default_account_payment_type_id:
-            self.l10n_hr_account_payment_type_id.id = self.journal_id.l10n_hr_default_account_payment_type_id.id
+            self.l10n_hr_account_payment_type_id = self.journal_id.l10n_hr_default_account_payment_type_id
         return res

@@ -24,6 +24,7 @@
         "views/account_journal_view.xml",
         "views/res_partner_views.xml",
         "views/menuitems.xml",
+        "views/hr_account_payment_type_view.xml",
         "report/report_invoice.xml",
     ],
     "auto_install": False,

@@ -17,6 +17,7 @@
     ],
     "data": [
         'data/l10n_hr.account.payment.type.csv',
+        "security/security.xml",
         "security/ir.model.access.csv",
         "views/res_company_view.xml",
         "views/fiskal_data_views.xml",

@@ -995,4 +995,9 @@ msgstr "Transakcijski račun"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_form
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_tree
 msgid "Invoice Payment Means"
-msgstr "Način plačanja računa"
+msgstr "Način plaćanja računa"
+
+#. module: l10n_hr_account_base
+#: model:res.groups,name:l10n_hr_account_base.croatia_payment_means_group
+msgid "Croatia Payment Means - Access Rights "
+msgstr "Hrvatska - Upravljanje načinima plaćanja"

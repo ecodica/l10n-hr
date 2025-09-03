@@ -14,7 +14,14 @@ class AccountMove(models.Model):
     l10n_hr_invoice_time = fields.Char(
         string="Time Of Invoicing",
         copy=False,
-        help="Croatia Fiscal datetime value as string, should respect format: ")
+        help="Croatia Fiscal datetime value as string, should respect format: hh:mm")
+    l10n_hr_invoice_time_extformat = fields.Char(
+        string="Time Of Invoicing Extended",
+        copy=False,
+        help="Croatia Fiscal datetime value as string in fiscal format i.e. extended with seconds, "
+             "should respect format: hh:mm:ss. It will serve where seconds are needed e.g."
+             "IssueTime for eRacun will be extracted from it."
+    )
     l10n_hr_fiscal_number = fields.Char(
         string="Fiscal Number",
         copy=False,
@@ -184,6 +191,7 @@ class AccountMove(models.Model):
         if not self.l10n_hr_invoice_time:
             datum = self.company_id.get_l10n_hr_time_formatted()
             self.l10n_hr_invoice_time = datum["datum_racun"]
+            self.l10n_hr_invoice_time_extformat = datum["datum_vrijeme"]
         # set fiscal number
         if not self.invoice_user_id:
             self.invoice_user_id = self.env.user

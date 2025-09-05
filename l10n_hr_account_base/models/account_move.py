@@ -10,6 +10,7 @@ class AccountMove(models.Model):
         copy=False,
         help="Date when the document was actually created. "
              "Leave blank for current date.")
+    # refactor fisk 1.0 to use field with second sa and just trim in XML
     l10n_hr_invoice_time = fields.Char(
         string="Time Of Invoicing",
         copy=False,

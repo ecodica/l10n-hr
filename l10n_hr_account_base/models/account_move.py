@@ -2,7 +2,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-
 class AccountMove(models.Model):
     _inherit = "account.move"
 
@@ -41,6 +40,16 @@ class AccountMove(models.Model):
         comodel_name="l10n_hr.fiscal.device",
         string="Fiscal Device",
         help="Device that registers fiscal payment.")
+    l10n_hr_fiscal_user_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Fiscal User",
+        domain=lambda self: self._get_l10n_hr_fiscal_user_id_domain(),
+        ondelete='restrict',
+        default=lambda self: self.env.user.partner_id.id,
+        copy=False,
+        help="User who sent the fiscalisation message to FINA."
+             " Can be different from responsible person on invoice.",
+    )
     l10n_hr_allowed_fiscal_device_ids = fields.Many2many(
         comodel_name="l10n_hr.fiscal.device",
         compute="_compute_l10n_hr_allowed_fiscal_device_ids",
@@ -56,20 +65,27 @@ class AccountMove(models.Model):
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
-            
+
+    def _get_l10n_hr_fiscal_user_id_domain(self):
+        """"Build domain to filter only internal partners."""
+        internal_users = self.env.ref('base.group_user')
+        domain = [('user_ids', 'in', internal_users.users.ids)]
+        return domain
+
     @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')
     def _check_l10n_hr_fiscal_number(self):
         for move in self:
             if move.company_id.account_fiscal_country_id.code != "HR" or \
-                move.move_type not in ('out_invoice', 'out_refund'):
+                    move.move_type not in ('out_invoice', 'out_refund'):
                 continue
             if not move.l10n_hr_fiscal_number and move.state == 'draft':
                 continue
             fiscal_year_dates = move.company_id.compute_fiscalyear_dates(move.date)
             if not fiscal_year_dates.get('date_from') or \
-                not fiscal_year_dates.get('date_to'):
+                    not fiscal_year_dates.get('date_to'):
                 raise ValidationError(
-                    _("Fiscal year %s for company %s has not been properly defined.") % (move.date.year, move.company_id.name)
+                    _("Fiscal year %s for company %s has not been properly defined.") % (
+                        move.date.year, move.company_id.name)
                 )
             existing_move = self.env['account.move'].search([
                 ('id', '!=', move.id),
@@ -84,7 +100,7 @@ class AccountMove(models.Model):
                 raise ValidationError(
                     _("Invoice with fiscal number %s has already been created.") % (move.l10n_hr_fiscal_number)
                 )
-                
+
     @api.depends('move_type', 'company_id')
     def _compute_l10n_hr_is_ref_required(self):
         for move in self:
@@ -105,7 +121,7 @@ class AccountMove(models.Model):
         'currency_id',
     )
     def _compute_tax_totals(self):
-        #TODO: Check if needed in next versions
+        # TODO: Check if needed in next versions
         res = super()._compute_tax_totals()
         """ Storno hack for Croatia,
             We print Storno invoices with negative amounts,
@@ -153,7 +169,7 @@ class AccountMove(models.Model):
         if not premise or not device:
             return False
         sequence = (
-            premise.l10n_hr_invoice_sequence_by == "P" and premise.l10n_hr_sequence_id or device.l10n_hr_sequence_id
+                premise.l10n_hr_invoice_sequence_by == "P" and premise.l10n_hr_sequence_id or device.l10n_hr_sequence_id
         )
         number = sequence._next(sequence_date=self.date)
         if number.endswith("__"):
@@ -201,7 +217,7 @@ class AccountMove(models.Model):
         # after first posting journal is locked for changes
         if not self.l10n_hr_fiscal_device_id.l10n_hr_lock:
             self.l10n_hr_fiscal_device_id.sudo().write({'l10n_hr_lock': True})
-            #self.l10n_hr_fiscal_device_id.lock = True
+            # self.l10n_hr_fiscal_device_id.lock = True
             if not self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_lock:
                 self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.sudo().write({'l10n_hr_lock': True})
 

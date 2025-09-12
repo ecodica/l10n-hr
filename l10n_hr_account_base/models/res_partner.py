@@ -12,3 +12,7 @@ class Partner(models.Model):
         comodel_name='account.journal', 
         string='Purchase Journal', 
         domain=[('type', '=', 'purchase')])
+    l10n_hr_caba = fields.Boolean(
+        string='Cash Based',
+        help='Obračun po naplaćenim naknadama'
+    )

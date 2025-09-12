@@ -47,7 +47,7 @@ class AccountMove(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user.partner_id.id,
         copy=False,
-        help="User who sent the fiscalisation message to FINA."
+        help="User who sent the fiscalisation message."
              " Can be different from responsible person on invoice.",
     )
     l10n_hr_allowed_fiscal_device_ids = fields.Many2many(
@@ -65,6 +65,9 @@ class AccountMove(models.Model):
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
+    # original field advance_invoice from l10n_hr_account_advance_invoice
+    l10n_hr_advance_invoice = fields.Boolean("Advance invoice",
+                                     help="Indicates if invoice is for advance payment.")
 
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""

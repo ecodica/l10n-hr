@@ -35,6 +35,10 @@ class Company(models.Model):
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         string="Show Base Fiscalization Fields On Invoice", 
         default=True)
+    l10n_hr_tax_representative_party_id = fields.Many2one(
+        'res.partner',
+        string='Tax Representative Party'
+    )
 
     def _compute_l10n_hr_fiscal_invoice_sequence_ids(self):
         for company in self:

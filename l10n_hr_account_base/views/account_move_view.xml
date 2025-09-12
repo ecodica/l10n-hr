@@ -59,6 +59,7 @@
                                     name="l10n_hr_allowed_fiskal_uredjaj_ids"
                                     invisible="1"
                             />
+                            <field name="l10n_hr_fiskal_user_id"/>
                             <field
                                     name="l10n_hr_fiskal_uredjaj_visible"
                                     invisible="1"

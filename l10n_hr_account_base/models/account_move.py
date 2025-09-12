@@ -60,6 +60,16 @@ class AccountMove(models.Model):
         states={"draft": [("readonly", False)]},
         help="Device on which is fiscal payment registred",
     )
+    l10n_hr_fiskal_user_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Fiscal User",
+        domain=lambda self: self._get_l10n_hr_fiscal_user_id_domain(),
+        ondelete='restrict',
+        default=lambda self: self.env.user.partner_id.id,
+        copy=False,
+        help="User who sent the fiscalisation message to FINA."
+             " Can be different from responsible person on invoice.",
+    )
     l10n_hr_allowed_fiskal_uredjaj_ids = fields.Many2many(
         comodel_name="l10n.hr.fiskal.uredjaj",
         compute="_compute_allowed_fiskal_device",
@@ -71,6 +81,12 @@ class AccountMove(models.Model):
              " only if there is something to select"
              " like 2 or more devices for this journal",
     )
+
+    def _get_l10n_hr_fiscal_user_id_domain(self):
+        """"Build domain to filter only internal partners."""
+        internal_users = self.env.ref('base.group_user')
+        domain = [('user_ids', 'in', internal_users.users.ids)]
+        return domain
 
     @api.depends(
         'invoice_line_ids.currency_rate',

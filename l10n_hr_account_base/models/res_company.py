@@ -37,7 +37,8 @@ class Company(models.Model):
         default=True)
     l10n_hr_tax_representative_party_id = fields.Many2one(
         'res.partner',
-        string='Tax Representative Party'
+        string='Tax Representative Party',
+        # prefetch=False
     )
 
     def _compute_l10n_hr_fiscal_invoice_sequence_ids(self):

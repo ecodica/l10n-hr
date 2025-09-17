@@ -14,5 +14,6 @@ class Partner(models.Model):
         domain=[('type', '=', 'purchase')])
     l10n_hr_caba = fields.Boolean(
         string='Cash Based',
-        help='Obračun po naplaćenim naknadama'
+        help='Obračun po naplaćenim naknadama',
+        # prefetch=False
     )

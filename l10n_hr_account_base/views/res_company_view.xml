@@ -6,6 +6,9 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="l10n_hr_base.view_l10n_hr_base_company_data" />
         <field name="arch" type="xml">
+            <group name="l10n_hr_legal" position="inside">
+                <field name="l10n_hr_tax_representative_party_id" invisible="country_code != 'HR'"/>
+            </group>
             <group name="l10n_hr_legal" position="after">
                 <group string="Fiscal Data" name="l10n_hr_fiscal">
                     <field name="l10n_hr_tax_model" />

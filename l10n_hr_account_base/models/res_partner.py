@@ -15,5 +15,5 @@ class Partner(models.Model):
     l10n_hr_caba = fields.Boolean(
         string='Cash Based',
         help='Obračun po naplaćenim naknadama',
-        # prefetch=False
+        prefetch=False
     )

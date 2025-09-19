@@ -112,6 +112,13 @@ class AccountMove(models.Model):
                     and move.move_type == "out_refund"
             )
 
+    def _must_check_constrains_date_sequence(self):
+        """Extend to skip check if l10n_hr_fiscal_device_id is set."""
+        # NOTE: fiscal number are specific and they don't have date reference in them so we can skip that check
+        if self.l10n_hr_fiscal_device_id:
+            return False
+        return super()._must_check_constrains_date_sequence()
+
     @api.depends(
         "journal_id",
         "journal_id.l10n_hr_business_premise_id",

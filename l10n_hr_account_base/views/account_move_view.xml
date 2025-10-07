@@ -33,6 +33,14 @@
                     />
                 </span>
             </field>
+            <xpath expr="//group[@id='header_right_group']/field[@name='date']" position="attributes">
+                <attribute name="attrs">
+                    {
+                    'invisible': [],
+                    'readonly': [('state', '!=', 'draft')],
+                    }
+                </attribute>
+            </xpath>
             <field name="payment_reference" position="after">
                 <field name="l10n_hr_date_delivery"/>
             </field>

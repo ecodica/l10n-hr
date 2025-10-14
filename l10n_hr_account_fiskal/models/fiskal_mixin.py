@@ -74,15 +74,6 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
     l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
-    l10n_hr_fiskal_user_id = fields.Many2one(
-        comodel_name="res.partner",
-        string="Fiscal User",
-        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
-        ondelete='restrict',
-        copy=False,
-        help="User who sent the fiscalisation message to FINA."
-        " Can be different from responsible person on invoice.",
-    )
     # l10n_hr_vrijeme_xml = fields.Char(  # probably not needed but heck...
     #     string="XML time",
     #     help="Value for fiscalization msg stored as string",
@@ -110,12 +101,6 @@ class FiscalFiscalMixin(models.AbstractModel):
         compute="_compute_l10n_hr_fiskal_qr",
         help="Binary field visible in the interface",
     )
-
-    def _get_l10n_hr_fiskal_user_id_domain(self):
-        """"Build domain to filter only internal partners."""
-        internal_users = self.env.ref('base.group_user')
-        domain = [('user_ids', 'in', internal_users.users.ids)]
-        return domain
 
     def _l10n_hr_post_fiskal_check(self):
         res = []

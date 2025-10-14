@@ -36,6 +36,7 @@ class Company(models.Model):
         tracking=True,
         default="r1",  # TODO: multicompany improove!
     )
+    l10n_hr_vat_on_payment_basis = fields.Boolean(string="VAT On Payment Basis")
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         string="Show Base Fiskalization Fields On Invoice", default=True)
 

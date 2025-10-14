@@ -165,6 +165,13 @@ class AccountMove(models.Model):
             if len(vals) == 1:
                 move.l10n_hr_fiskal_uredjaj_id = vals and vals[0][1]
 
+    def _must_check_constrains_date_sequence(self):
+        """Extend to skip check if l10n_hr_fiskal_uredjaj_id is set."""
+        # NOTE: fiskal number are specific and they don't have date reference in them so we can skip that check
+        if self.l10n_hr_fiskal_uredjaj_id:
+            return False
+        return super()._must_check_constrains_date_sequence()
+
     def _gen_fiskal_number(self):
         self.ensure_one()  # one at a time only!
         prostor = self.l10n_hr_fiskal_uredjaj_id.prostor_id

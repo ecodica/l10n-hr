@@ -62,6 +62,14 @@
                         <strong>Internal number:</strong>
                         <p class="m-0" t-field="o.name" />
                     </div>
+                    <div
+                        class="col-auto col-3 mw-100 mb-2"
+                        t-if="o.l10n_hr_fiskal_user_id"
+                        name="l10n_hr_fiskal_user_id"
+                    >
+                        <strong>Fiscal User:</strong>
+                        <p class="m-0" t-field="o.l10n_hr_fiskal_user_id.display_name" />
+                    </div>
                 </div>
             </t>
         </xpath>

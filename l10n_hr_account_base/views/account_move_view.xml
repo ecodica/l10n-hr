@@ -32,6 +32,7 @@
                     <group>
                         <group name="l10n_hr_base_fiskal">
                             <field name="l10n_hr_show_required_fisk_fields_on_header" invisible="1"/>
+                            <field name="l10n_hr_fiskal_user_id" readonly ="state != 'draft'"/>
                             <field name="l10n_hr_date_document" readonly ="state != 'draft'"/>
                             <field name="l10n_hr_vrijeme_izdavanja" readonly="1"/>
                             <field name="l10n_hr_allowed_fiskal_uredjaj_ids" invisible="1"/>

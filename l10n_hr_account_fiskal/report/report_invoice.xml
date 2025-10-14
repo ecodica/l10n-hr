@@ -4,18 +4,6 @@
         id="l10n_hr_fiskal_report_invoice_document"
         inherit_id="l10n_hr_account_base.l10n_hr_report_invoice_document"
     >
-
-        <!-- fiscal user must be shown on croatian invoices -->
-        <xpath expr="//div[@id='l10n_hr_info']/div[@name='interni_broj']" position="after">
-            <div
-                class="col-auto col-3 mw-100 mb-2"
-                t-if="o.l10n_hr_fiskal_user_id"
-                name="l10n_hr_fiskal_user_id"
-            >
-                <strong>Fiscal User:</strong>
-                <p class="m-0" t-field="o.l10n_hr_fiskal_user_id.display_name" />
-            </div>
-        </xpath>
         <!-- hide taxes if company is not in tax system -->
         <xpath expr="//th[@name='th_taxes']" position="attributes">
             <attribute name="t-if">o.company_id.l10n_hr_fiskal_taxative</attribute>

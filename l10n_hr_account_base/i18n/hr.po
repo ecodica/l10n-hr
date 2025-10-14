@@ -27,6 +27,11 @@ msgstr "<strong>Datum isporuke:</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "<strong>Fiscal User:</strong>"
+msgstr "<strong>Djelatnik:</strong>"
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
 msgid "<strong>Internal number:</strong>"
 msgstr "<strong>Interni broj:</strong>"
 
@@ -362,6 +367,11 @@ msgstr "Naplatni uređaj"
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_payment__l10n_hr_fiskalni_broj
 msgid "Fiskal Number"
 msgstr "Fiskalni broj"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiskal_user_id
+msgid "Fiscal User"
+msgstr "Potvrdio račun"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiskal_prostor__message_follower_ids
@@ -901,6 +911,20 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiskal_prostor__journal_ids
 msgid "Used invoicing journals in this business premisse"
 msgstr "Dnevnici izlaznih računa korišteni u ovom prostoru"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiskal_user_id
+msgid ""
+"User who sent the fiscalisation message to FINA. Can be different from "
+"responsible person on invoice."
+msgstr ""
+"Korisnik koji je poslao poruku fiskalizacije, moguće različit od odgovorne osobe"
+"na računu."
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_vat_on_payment_basis
+msgid "VAT On Payment Basis"
+msgstr "Obračun PDV-a po naplati"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiskal_uredjaj__state__wait

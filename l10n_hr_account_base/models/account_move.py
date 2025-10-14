@@ -38,6 +38,16 @@ class AccountMove(models.Model):
         help="Required fiscal number, generated according to "
         "regulations regardless of journal number",
     )
+    l10n_hr_fiskal_user_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Fiscal User",
+        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
+        default=lambda self: self.env.user.partner_id.id,
+        ondelete='restrict',
+        copy=False,
+        help="User who sent the fiscalisation message to FINA."
+        " Can be different from responsible person on invoice.",
+    )
     # i za ulazne račune se ovdje moze upisati
     l10n_hr_nacin_placanja = fields.Selection(
         selection=[("T", "Bank transfer")],
@@ -164,6 +174,12 @@ class AccountMove(models.Model):
             # NOTE: automatically set l10n_hr_fiskal_uredjaj_id if only one active records exists
             if len(vals) == 1:
                 move.l10n_hr_fiskal_uredjaj_id = vals and vals[0][1]
+
+    def _get_l10n_hr_fiskal_user_id_domain(self):
+        """"Build domain to filter only internal partners."""
+        internal_users = self.env.ref('base.group_user')
+        domain = [('user_ids', 'in', internal_users.users.ids)]
+        return domain
 
     def _must_check_constrains_date_sequence(self):
         """Extend to skip check if l10n_hr_fiskal_uredjaj_id is set."""

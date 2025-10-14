@@ -132,7 +132,7 @@ msgstr "Broj priloženih dokumenata"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_nacin_placanja__t
-#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_nacin_placanja__t
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_T
 msgid "Bank transfer"
 msgstr "Transakcijski račun"
 
@@ -168,6 +168,21 @@ msgstr "Poslovni prostor"
 #, python-format
 msgid "Business premisse cannot be activated without existing PoS devices!"
 msgstr "Poslovni prostor nije moguće aktivirati bez naplatnih uređaja!"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_K
+msgid "Card"
+msgstr "Kartica"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_G
+msgid "Cash"
+msgstr "Gotovina"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_C
+msgid "Cheque"
+msgstr "Ček"
 
 #. module: l10n_hr_account_base
 #: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiskal_prostor
@@ -673,6 +688,11 @@ msgid "Only integer number values allowed, without leading zeroes."
 msgstr "Samo cu cjelobrojne vrijednosti dozvoljene, bez nula na početku."
 
 #. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_O
+msgid "Other"
+msgstr "Ostalo"
+
+#. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiskal_prostor_form
 msgid "Pause"
 msgstr "Pauziraj"
@@ -962,32 +982,6 @@ msgstr "Dnevnik prodaje"
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__purchase_journal_id
 msgid "Purchase Journal"
 msgstr "Dnevnik nabave"
-
-#. module: l10n_hr_account_base
-#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_K
-msgid "Card"
-msgstr "Kartica"
-
-#. module: l10n_hr_account_base
-#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_G
-msgid "Cash"
-msgstr "Gotovina"
-
-#. module: l10n_hr_account_base
-#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_C
-msgid "Cheque"
-msgstr "Ček"
-
-#. module: l10n_hr_account_base
-#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_O
-msgid "Other"
-msgstr "Ostalo"
-
-#. module: l10n_hr_account_base
-#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_nacin_placanja__t
-#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.info3_payment_type_T
-msgid "Bank transfer"
-msgstr "Transakcijski račun"
 
 #. module: l10n_hr_account_base
 #: model:ir.actions.act_window,name:l10n_hr_account_base.action_croatian_payment_means

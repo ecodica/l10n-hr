@@ -10,7 +10,7 @@ class AccountMove(models.Model):
     @api.model
     def get_default_l10n_hr_account_payment_type(self):
         """ Try to return 'Bank Transfer' as default payment type """
-        return self.env.ref('l10n_hr_account_base.info3_payment_type_T', raise_if_not_found=False)
+        return self.env.ref('l10n_hr_account_base.l10n_hr_account_payment_type_T', raise_if_not_found=False)
 
     l10n_hr_date_document = fields.Date(
         string="Document Date",
@@ -41,15 +41,15 @@ class AccountMove(models.Model):
         help="Required fiscal number, generated according to "
         "regulations regardless of journal number",
     )
-    # deprecated
-    l10n_hr_nacin_placanja = fields.Selection(
-        selection=[("T", "Bank transfer")],
-        string="Croatia Payment Means",
-        default="T",
-        help="According to Fiscalization Law and regulative "
-        "there is 5 possible options: T, G, K, C, O\n"
-        "T - Transaction bank account, is applicable without fiskalisation\n"
-        " and for other options needed please install fiscalisation extension module",
+    l10n_hr_fiskal_user_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Fiscal User",
+        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
+        default=lambda self: self.env.user.partner_id.id,
+        ondelete='restrict',
+        copy=False,
+        help="User who sent the fiscalisation message to FINA."
+        " Can be different from responsible person on invoice.",
     )
     l10n_hr_account_payment_type_id = fields.Many2one(
         comodel_name='l10n_hr.account.payment.type',

@@ -154,7 +154,7 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _l10n_hr_fiscalization_needed(self, message_type):
         """"Check if invoice should be fiscalized"""
-        l10n_hr_account_payment_type_T = self.env.ref('l10n_hr_account_base.info3_payment_type_T', raise_if_not_found=True)
+        l10n_hr_account_payment_type_T = self.env.ref('l10n_hr_account_base.l10n_hr_account_payment_type_T', raise_if_not_found=True)
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and (
             not self.company_id.l10n_hr_fiskal_transaction_type_skip or
             self.l10n_hr_account_payment_type_id.code != l10n_hr_account_payment_type_T.code

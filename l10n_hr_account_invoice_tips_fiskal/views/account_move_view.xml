@@ -12,14 +12,14 @@
                 <button string="Fiskalize" type="object" name="button_fiskalize_tips" invisible="not l10n_hr_zki or l10n_hr_napojnica_is_fiscalized"/>
                 <button string="Fiskalize Refund" type="object" name="button_fiskalize_tip_refund" invisible="l10n_hr_napojnica_refund_fiscalized or not l10n_hr_napojnica_is_fiscalized"/>
             </group>
-            <field name="l10n_hr_napojnica_nacin_placanja" position="after">
+            <field name="l10n_hr_account_tip_payment_type_id" position="after">
                 <field name="l10n_hr_napojnica_is_fiscalized" readonly="1"/>
                 <field name="l10n_hr_napojnica_refund_fiscalized" readonly="1" invisible="not l10n_hr_napojnica_refund_fiscalized"/>
             </field>
             <field name="l10n_hr_napojnica_iznos" position="attributes">
                 <attribute name="readonly">l10n_hr_napojnica_is_fiscalized</attribute>
             </field>
-            <field name="l10n_hr_napojnica_nacin_placanja" position="attributes">
+            <field name="l10n_hr_account_tip_payment_type_id" position="attributes">
                 <attribute name="readonly">l10n_hr_napojnica_is_fiscalized</attribute>
             </field>
             <group name="tips_right" position="inside">

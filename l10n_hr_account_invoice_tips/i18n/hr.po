@@ -88,9 +88,9 @@ msgid "Tip Fiskalization"
 msgstr "Fiskalizacija napojnice"
 
 #. module: l10n_hr_account_invoice_tips
-#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_bank_statement_line__l10n_hr_napojnica_nacin_placanja
-#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_move__l10n_hr_napojnica_nacin_placanja
-#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_payment__l10n_hr_napojnica_nacin_placanja
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_bank_statement_line__l10n_hr_account_tip_payment_type_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_move__l10n_hr_account_tip_payment_type_id
+#: model:ir.model.fields,field_description:l10n_hr_account_invoice_tips.field_account_payment__l10n_hr_account_tip_payment_type_id
 msgid "Tip Payment Method"
 msgstr "Način plaćanja napojnice"
 

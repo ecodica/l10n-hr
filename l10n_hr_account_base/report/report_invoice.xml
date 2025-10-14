@@ -30,11 +30,11 @@
                 <div id="l10n_hr_info" class="row mt-4 mb-4">
                     <div
                         class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.l10n_hr_nacin_placanja"
+                        t-if="o.l10n_hr_account_payment_type_id"
                         name="nacin_placanja"
                     >
                         <strong>Payment means:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_nacin_placanja" />
+                        <p class="m-0" t-field="o.l10n_hr_account_payment_type_id.name" />
                     </div>
                     <div
                         class="col-auto col-3 mw-100 mb-2"

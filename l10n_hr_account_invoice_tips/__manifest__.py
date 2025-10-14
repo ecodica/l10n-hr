@@ -2,7 +2,7 @@
     'name': 'Croatia - Invoice Tips',
     'summary': 'Croatia Invoice Tips',
     'category': 'Accounting/Localizations/Croatia',
-    'version': '17.0.1.0.0',
+    'version': '17.0.1.0.1',
     'application': False,
     'author': 'info3',
     'license' : 'OPL-1',

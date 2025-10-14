@@ -4,6 +4,7 @@ from odoo import fields, models
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
+    # deprecated field -------
     l10n_hr_default_nacin_placanja = fields.Selection(
         selection_add=[
             ("G", "Cash (bills and coins)"),
@@ -12,3 +13,4 @@ class AccountJournal(models.Model):
             ("O", "Other payment means"),
         ],
     )
+    # ------------------------

@@ -12,8 +12,8 @@ class TipsReportWizard(models.TransientModel):
 
     def _get_l10n_hr_fiskal_user_id_domain(self):
         ''' Retrieve domain from mixin '''
-        fiscal_mixin = self.env['l10n.hr.fiskal.mixin']
-        return fiscal_mixin._get_l10n_hr_fiskal_user_id_domain()
+        account_move = self.env['account.move']
+        return account_move._get_l10n_hr_fiskal_user_id_domain()
 
     def _get_invoices_with_tips_domain(self):
         domain = super()._get_invoices_with_tips_domain()

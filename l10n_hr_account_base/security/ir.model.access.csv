@@ -3,3 +3,5 @@
 "access_model_fiskal_prostor_user","fiskal_prostor_user",model_l10n_hr_fiskal_prostor,"account.group_account_invoice",1,0,0,0
 "access_model_fiskal_uredjaj_manager","fiskal_uredjaj_manager",model_l10n_hr_fiskal_uredjaj,"account.group_account_manager",1,1,1,1
 "access_model_fiskal_uredjaj_user","fiskal_uredjaj_user",model_l10n_hr_fiskal_uredjaj,"account.group_account_invoice",1,0,0,0
+"access_model_l10n_hr_account_payment_type","l10n_hr_account_payment_type_user",model_l10n_hr_account_payment_type,"base.group_user",1,0,0,0
+"access_model_l10n_hr_account_payment_type_sudo","l10n_hr_account_payment_type_sudo",model_l10n_hr_account_payment_type,"l10n_hr_account_base.croatia_payment_means_group",1,1,1,1

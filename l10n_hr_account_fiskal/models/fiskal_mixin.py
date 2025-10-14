@@ -131,15 +131,12 @@ class FiscalFiscalMixin(models.AbstractModel):
         if (
             self.move_type == 'out_refund' and
             self.reversed_entry_id and
-            self.l10n_hr_nacin_placanja != self.reversed_entry_id.l10n_hr_nacin_placanja
+            self.l10n_hr_account_payment_type_id != self.reversed_entry_id.l10n_hr_account_payment_type_id
         ):
-            l10n_hr_nacin_placanja = dict(
-                self._fields['l10n_hr_nacin_placanja']._description_selection(self.env)).get(
-                    self.reversed_entry_id.l10n_hr_nacin_placanja, '')
             res.append(
                 _("Croatia Payment Means on origin invoice %s is different from the Croatia Payment Means on this "
                   "invoice. Please change Croatia Payment Means to the %s"
-                ) % (self.reversed_entry_id.name, l10n_hr_nacin_placanja)
+                ) % (self.reversed_entry_id.name, self.l10n_hr_account_payment_type_id.name)
             )
         # NOTE: if invoice is refunded, then force same l10n_hr_fiskal_uredjaj_id on the created credit note
         if (
@@ -157,9 +154,10 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _l10n_hr_fiscalization_needed(self, message_type):
         """"Check if invoice should be fiscalized"""
+        l10n_hr_account_payment_type_T = self.env.ref('l10n_hr_account_base.l10n_hr_account_payment_type_T', raise_if_not_found=True)
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and (
             not self.company_id.l10n_hr_fiskal_transaction_type_skip or
-            self.l10n_hr_nacin_placanja != "T"
+            self.l10n_hr_account_payment_type_id.code != l10n_hr_account_payment_type_T.code
         ):
             return True
         return False
@@ -321,7 +319,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
             # Naknade=ws_naknade,
             IznosUkupno=self._prepare_fisk_racun_invoice_total(),
-            NacinPlac=self.l10n_hr_nacin_placanja,
+            NacinPlac=self.l10n_hr_account_payment_type_id and self.l10n_hr_account_payment_type_id.code or 'O', # TODO: reviewers, say if OK
             OibOper=self.l10n_hr_fiskal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,

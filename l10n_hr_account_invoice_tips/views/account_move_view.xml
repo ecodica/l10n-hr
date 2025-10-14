@@ -10,8 +10,8 @@
                 <page string="Tips" name="tips" invisible="(move_type and move_type not in ['out_invoice', 'out_refund']) or not l10n_hr_enable_tips_on_invoice">
                     <group name="tips_main">
                         <group name="tips_left">
-                             <field name="l10n_hr_napojnica_iznos"/>
-                            <field name="l10n_hr_napojnica_nacin_placanja"/>
+                            <field name="l10n_hr_napojnica_iznos"/>
+                            <field name="l10n_hr_account_tip_payment_type_id" options="{'no_open': True}"/>
                             <field name="l10n_hr_enable_tips_on_invoice" invisible="1"/>
                         </group>
                         <group name="tips_right">

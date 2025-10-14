@@ -27,5 +27,3 @@ def migrate(cr, version):
 
     updated_count = cr.fetchone()[0]
     _logger.info("--- MIGRATION SCRIPT COMPLETED: %s account.move records updated for field l10n_hr_account_payment_type_id ---", updated_count)
-
-    cr.commit()

@@ -68,6 +68,7 @@ msgid "Activate Premisse"
 msgstr "Aktiviraj prostor"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__active
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiskal_prostor__state__active
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiskal_uredjaj__state__active
 msgid "Active"
@@ -123,6 +124,11 @@ msgstr "Dozvoljeni dnevnici"
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_payment__l10n_hr_allowed_fiskal_uredjaj_ids
 msgid "Alowed Fiskal Device"
 msgstr "Dozvoljeni naplatni urešaj"
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_form
+msgid "Archived"
+msgstr "Arhivirano"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiskal_prostor__message_attachment_count
@@ -211,6 +217,11 @@ msgstr "Zatvori prostor"
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiskal_uredjaj__state__close
 msgid "Closed"
 msgstr "Zatvoren"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__code
+msgid "Code"
+msgstr "Šifra"
 
 #. module: l10n_hr_account_base
 #: model:ir.model,name:l10n_hr_account_base.model_res_company
@@ -990,8 +1001,3 @@ msgstr "Dnevnik nabave"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_tree
 msgid "Invoice Payment Means"
 msgstr "Način plaćanja računa"
-
-#. module: l10n_hr_account_base
-#: model:res.groups,name:l10n_hr_account_base.croatia_payment_means_group
-msgid "Croatia Payment Means - Access Rights "
-msgstr "Hrvatska - Upravljanje načinima plaćanja"

@@ -17,7 +17,6 @@
     ],
     "data": [
         'data/l10n_hr.account.payment.type.csv',
-        "security/security.xml",
         "security/ir.model.access.csv",
         "views/res_company_view.xml",
         "views/fiskal_data_views.xml",
@@ -25,7 +24,7 @@
         "views/account_journal_view.xml",
         "views/res_partner_views.xml",
         "views/menuitems.xml",
-        "views/hr_account_payment_type_view.xml",
+        "views/l10n_hr_account_payment_type_view.xml",
         "report/report_invoice.xml",
     ],
     "auto_install": False,

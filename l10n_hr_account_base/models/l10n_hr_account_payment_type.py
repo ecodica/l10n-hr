@@ -1,9 +1,9 @@
 from odoo import fields, models
 
-class l10n_hr_account_payment_type(models.Model):
+class L10nHrAccountPaymentType(models.Model):
     _name = 'l10n_hr.account.payment.type'
     _description = "Croatian Payment Means"
 
-    name = fields.Char(string="Name", required=True, translate=True)
-    code = fields.Char(string="Code", required=True)
+    name = fields.Char(required=True, translate=True, readonly=True)
+    code = fields.Char(required=True, readonly=True)
     active = fields.Boolean()

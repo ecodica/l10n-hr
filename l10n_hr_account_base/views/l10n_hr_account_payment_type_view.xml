@@ -4,12 +4,17 @@
         <field name="name">l10n_hr.account.payment.type.form</field>
         <field name="model">l10n_hr.account.payment.type</field>
         <field name="arch" type="xml">
-            <form string="Invoice Payment Means">
+            <form>
                 <sheet>
-                    <group>
-                        <field name="name" />
-                        <field name="code" />
-                        <field name="active" />
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <group name="main">
+                        <group name="main_left">
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group name="main_right">
+                            <field name="code"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
@@ -20,10 +25,10 @@
         <field name="name">l10n_hr.account.payment.type.tree</field>
         <field name="model">l10n_hr.account.payment.type</field>
         <field name="arch" type="xml">
-            <tree string="Invoice Payment Means">
-                <field name="name" />
-                <field name="code" />
-                <field name="active" />
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="active"/>
             </tree>
         </field>
     </record>

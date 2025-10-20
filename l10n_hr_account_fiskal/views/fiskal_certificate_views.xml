@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+	<record id="view_l10n_hr_fiskal_certificate_tree" model="ir.ui.view">
+		<field name="name">l10n.hr.fiskal.certificate.tree</field>
+		<field name="model">l10n.hr.fiskal.certificate</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree>
+				<field name="name" />
+                <field name="cert_type" />
+				<field name="not_before" />
+                <field name="not_after" />
+				<field name="state" widget="badge" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="view_l10n_hr_fiskal_certificate_form" model="ir.ui.view">
+		<field name="name">l10n.hr.fiskal.certificate.form</field>
+		<field name="model">l10n.hr.fiskal.certificate</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button string="Convert certificate" type="object" name="button_convert_p12" invisible="state != 'draft' or (not cert_file)" />
+					<button string="Approve" type="object" name="action_validate" invisible ="state != 'convert'" />
+					<button string="Cancel" type="object" name="action_cancel"  invisible ="(state != 'convert') or (state != 'active')"/>
+					<field name="state" widget="statusbar" />
+				</header>
+				<sheet>
+					<group colspan="4" col="4">
+                        <field name="name" />
+                        <field name="cert_file" filename="cert_file_name" />
+						<field name="cert_file_name" invisible="1" class="oe_inline oe_right" />
+                        <field name="cert_password" invisible ="state != 'draft'" />
+                    </group>
+                    <group invisible ="not cert_type">
+                        <group>
+                            <field name="cert_subject" />
+                            <field name="cert_oib" />
+                            <field name="cert_issuer" />
+                        </group>
+                        <group>
+                            <field name="cert_type" />
+                            <field name="fiskal_schema" />
+                            <field name="not_before" />
+                            <field name="not_after" />
+                        </group>
+
+                        <group>
+                            <field name="pem_key" />
+                        </group>
+                        <group>
+                            <field name="pem_crt" />
+                        </group>
+                    </group>
+                </sheet>
+				<div class="oe_chatter">
+                    <field name="message_ids"/>
+                </div>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_l10n_hr_fiskal_certificate_tree" model="ir.actions.act_window">
+		<field name="name">Fiskal Certificates</field>
+		<field name="res_model">l10n.hr.fiskal.certificate</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="view_l10n_hr_fiskal_certificate_tree" />
+	</record>
+
+	<menuitem
+        id="menu_action_certificate_tree"
+        action="action_l10n_hr_fiskal_certificate_tree"
+        sequence="10"
+        parent="l10n_hr_account_base.menu_finance_config_croatia"
+    />
+
+
+</odoo>

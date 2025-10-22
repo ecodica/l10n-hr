@@ -10,7 +10,6 @@ class L10nHrFiscalMixin(models.AbstractModel):
         copy=False,
         help="Date when the document was actually created. "
              "Leave blank for current date.")
-    # refactor fisk 1.0 to use field with second sa and just trim in XML
     l10n_hr_fiscal_time = fields.Char(
         string="Time Of Fiscalization",
         copy=False,
@@ -23,13 +22,21 @@ class L10nHrFiscalMixin(models.AbstractModel):
              "regulations regardless of journal number.")
     # i za ulazne račune se ovdje moze upisati
     l10n_hr_payment_method = fields.Selection(
-        selection=[("T", "Bank transfer")],
+        selection=[("G", "Cash"),
+                   ("K", "Credit or debit cards"),
+                   ("C", "Bank Cheque"),
+                   ("T", "Bank transfer"),
+                   ("O", "Other payment means"),
+                   ],
         string="Croatia - Payment Method",
         default="T",
         help="According to Fiscalization Law and regulative "
-             "there are 5 possible options: T, G, K, C, O\n"
-             "T - Transaction bank account, is applicable without fiscalization\n"
-             " and for other options needed please install fiscalization extension module.")
+             "there is 5 possible options: \n"
+             "G - Cash (coins or bills), fiscalization required\n"
+             "K - Bank cards, fiscalization required\n"
+             "C - Cheque payment, fiscalization required\n"
+             "T - Transaction bank account\n"
+             "O - Other payment, fiskalisation required\n", )
     l10n_hr_fiscal_device_id = fields.Many2one(
         comodel_name="l10n_hr.fiscal.device",
         string="Fiscal Device",

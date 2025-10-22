@@ -48,10 +48,10 @@
                     </div>
                     <div
                         class="col-auto col-3 mw-100 mb-2"
-                        t-if="o.l10n_hr_invoice_time"
+                        t-if="o.l10n_hr_fiscal_time"
                     >
                         <strong>Confirmation time:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_invoice_time" />
+                        <p class="m-0" t-field="o.l10n_hr_fiscal_time" />
                     </div>
                     <div
                         class="col-auto col-3 mw-100 mb-2"

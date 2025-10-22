@@ -18,6 +18,12 @@ class AccountJournal(models.Model):
         column2="l10n_hr_fiscal_device_id",
         string="Allowed PoS Devices")
     l10n_hr_default_fiscal_payment_method = fields.Selection(
-        selection=[("T", "Bank transfer")],
+        selection=[
+            ("G", "Cash (bills and coins)"),
+            ("K", "Credit or debit cards"),
+            ("C", "Bank Cheque"),
+            ("T", "Bank transfer"),
+            ("O", "Other payment means"),
+        ],
         string="Default fiscal payment method for this journal",
         default="T")

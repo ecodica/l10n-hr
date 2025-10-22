@@ -30,7 +30,7 @@
                         <group name="l10n_hr_base_fiscal">
                             <field name="l10n_hr_show_required_fisk_fields_on_header" invisible="1"/>
                             <field name="l10n_hr_date_document" readonly ="state != 'draft'"/>
-                            <field name="l10n_hr_invoice_time" readonly="1"/>
+                            <field name="l10n_hr_fiscal_time" readonly="1"/>
                             <field name="l10n_hr_fiscal_user_id"/>
                             <field name="l10n_hr_allowed_fiscal_device_ids" invisible="1"/>
                             <field name="l10n_hr_fiscal_device_visible" invisible="1" />

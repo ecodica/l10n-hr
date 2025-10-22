@@ -33,7 +33,7 @@ class Company(models.Model):
         tracking=True,
         default="r1")  # TODO: multicompany improve!
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
-        string="Show Base Fiscalization Fields On Invoice", 
+        string="Show Base Fiscalization Fields On Invoice",
         default=True)
     l10n_hr_tax_representative_party_id = fields.Many2one(
         'res.partner',
@@ -59,11 +59,3 @@ class Company(models.Model):
                 last_date.year + 1
             else:
                 fields.Date.today().year
-
-
-class IrSequenceDateRange(models.Model):
-    _inherit = "ir.sequence.date_range"
-
-    def name_get(self):
-        res = [(d.id, "%s-%s" % (d.date_from.year, d.number_next_actual)) for d in self]
-        return res

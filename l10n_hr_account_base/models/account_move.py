@@ -3,54 +3,9 @@ from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
+    _inherit = ['account.move', 'l10n_hr.fiscal.mixin']
+    _name = 'account.move'
 
-    l10n_hr_date_document = fields.Date(
-        string="Document Date",
-        copy=False,
-        help="Date when the document was actually created. "
-             "Leave blank for current date.")
-    # refactor fisk 1.0 to use field with second sa and just trim in XML
-    l10n_hr_invoice_time = fields.Char(
-        string="Time Of Invoicing",
-        copy=False,
-        help="Croatia Fiscal datetime value as string, should respect format: hh:mm")
-    l10n_hr_invoice_time_extformat = fields.Char(
-        string="Time Of Invoicing Extended",
-        copy=False,
-        help="Croatia Fiscal datetime value as string in fiscal format i.e. extended with seconds, "
-             "should respect format: hh:mm:ss. It will serve where seconds are needed e.g."
-             "IssueTime for eRacun will be extracted from it."
-    )
-    l10n_hr_fiscal_number = fields.Char(
-        string="Fiscal Number",
-        copy=False,
-        readonly=True,
-        help="Required fiscal number, generated according to "
-             "regulations regardless of journal number.")
-    # i za ulazne račune se ovdje moze upisati
-    l10n_hr_payment_method = fields.Selection(
-        selection=[("T", "Bank transfer")],
-        string="Croatia - Payment Method",
-        default="T",
-        help="According to Fiscalization Law and regulative "
-             "there are 5 possible options: T, G, K, C, O\n"
-             "T - Transaction bank account, is applicable without fiscalization\n"
-             " and for other options needed please install fiscalization extension module.")
-    l10n_hr_fiscal_device_id = fields.Many2one(
-        comodel_name="l10n_hr.fiscal.device",
-        string="Fiscal Device",
-        help="Device that registers fiscal payment.")
-    l10n_hr_fiscal_user_id = fields.Many2one(
-        comodel_name="res.users",
-        string="Fiscal User",
-        domain=lambda self: self._get_l10n_hr_fiscal_user_id_domain(),
-        ondelete='restrict',
-        default=lambda self: self.env.user.id,
-        copy=False,
-        help="User who sent the fiscalisation message."
-             " Can be different from responsible person on invoice.",
-    )
     l10n_hr_allowed_fiscal_device_ids = fields.Many2many(
         comodel_name="l10n_hr.fiscal.device",
         compute="_compute_l10n_hr_allowed_fiscal_device_ids",
@@ -67,14 +22,7 @@ class AccountMove(models.Model):
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
     # original field advance_invoice from l10n_hr_account_advance_invoice
-    l10n_hr_advance_invoice = fields.Boolean("Advance invoice",
-                                     help="Indicates if invoice is for advance payment.")
-
-    def _get_l10n_hr_fiscal_user_id_domain(self):
-        """"Build domain to filter only internal partners."""
-        internal_users = self.env.ref('base.group_user')
-        domain = [('user_ids', 'in', internal_users.users.ids)]
-        return domain
+    l10n_hr_advance_invoice = fields.Boolean("Advance invoice", help="Indicates if invoice is for advance payment.")
 
     @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')
     def _check_l10n_hr_fiscal_number(self):
@@ -208,10 +156,9 @@ class AccountMove(models.Model):
             self.delivery_date = fields.Date.context_today(self)
         if not self.date:
             self.date = fields.Date.context_today(self)
-        if not self.l10n_hr_invoice_time:
+        if not self.l10n_hr_fiscal_time:
             datum = self.company_id.get_l10n_hr_time_formatted()
-            self.l10n_hr_invoice_time = datum["datum_racun"]
-            self.l10n_hr_invoice_time_extformat = datum["datum_vrijeme"]
+            self.l10n_hr_fiscal_time = datum["datum_vrijeme"]
         # set fiscal number
         if not self.invoice_user_id:
             self.invoice_user_id = self.env.user

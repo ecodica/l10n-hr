@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="not_fiscalized_invoices_systray">
+        <t t-if="state.counterTotal">
+            <Dropdown>
+                    <t t-set-slot="toggler">
+                        <div class="new_icon">
+                            <div class="icon_div">
+                                <div class="toggle-icon" role="button">
+                                    <i id='open_not_fiscalized_invoices'
+                                    class="fa fa-file-text fa-1.5x"
+                                    style="color: white;"
+                                    role="img" aria-label="Not Fiscalized Invoices"/>
+                                    <span class="badge rounded-pill" style="background-color: red!important;"><t t-esc="state.counterTotal"/></span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-set-slot="default">
+                        <t t-if="state.counterInvoice">
+                            <DropdownItem>
+                                <div t-on-click="_openNotFiscalizedInvoices" class="d-flex justify-content-between align-items-center">
+                                    <span class="o-mail-NotificationItem-name text-truncate fw-bold mb-0 px-3">Not Fiscalized Invoices</span>
+                                    <span class="rounded-pill px-2" style="color: white!important; background-color: red!important;">
+                                        <t t-esc="state.counterInvoice"/>
+                                    </span>
+                                </div>
+                            </DropdownItem>
+                        </t>
+                    </t>
+            </Dropdown>
+        </t>
+    </t>
+</templates>

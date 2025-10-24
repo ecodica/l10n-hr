@@ -1,7 +1,6 @@
 import base64
 import io
 import logging
-from datetime import datetime
 import pytz
 
 import qrcode
@@ -11,40 +10,71 @@ from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 from odoo.addons.l10n_hr_base.models.res_company import FISKAL_DATETIME_FORMAT, RACUN_DATETIME_FORMAT
 
-
 from ..fiskal import fiskal
 
 _logger = logging.getLogger(__name__)
 
 
-class FiscalFiscalMixin(models.AbstractModel):
+class L10nHrFiscal1Mixin(models.AbstractModel):
     """
     Basic fields and methods for all fiscal classes
     - inherit for invoice, sale, procurment etc...
     """
+    _inherit = 'l10n_hr.fiscal.mixin'
+    _name = "l10n_hr.fiscal1.mixin"
+    _description = "Croatia Fiscalization 1.0 base mixin"
 
-    _name = "l10n.hr.fiskal.mixin"
-    _description = "Croatia Fiscalisation base mixin"
+    l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
+    l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
+    l10n_hr_paragon_br = fields.Char(
+        "Paragon nr.",
+        readonly=True,
+        copy=False,
+        help="If system was down, and invoice is records on 'paragon blok',"
+             ". This needs to be entered BEFORE confirming the invoice.",
+    )
+    l10n_hr_late_delivery = fields.Boolean(
+        string="Late delivery",
+        readonly=True,
+        copy=False,
+        help="Checked if message could not be sent at time of invoicing",
+    )
+    l10n_hr_fiscal_qr = fields.Binary(
+        compute="_compute_l10n_hr_fiscal_qr",
+        string="Fiscal QR code",
+        help="Binary field visible in the interface",
+    )
+    l10n_hr_fiscal_log_ids = fields.One2many(
+        comodel_name="l10n_hr.fiscal.log",
+        inverse_name="res_id",
+        domain=lambda model: [('res_model', '=', model._name)],
+        string="Fiscal message logs",
+        help="Log of all messages sent and received for FINA",
+    )
 
-    def generate_fiskal_url(self):
-        """ Generate URL for fiscalisation """
+    @staticmethod
+    def _get_fiscal_amount_field_name(self):
+        return NotImplementedError('Must be defined in subclass!')
+
+    def generate_fiscal_url(self):
+        """ Generate URL for fiscalization """
         self.ensure_one()
         url = "https://porezna.gov.hr/rn?"
+        # Fiscalized invoice
         if self.l10n_hr_jir:
-            url += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
+            url += "jir=" + self.l10n_hr_jir
+        # If not fiscalized, for any reason whatsoever 
         else:
-            # ispis prije poslane fiskalne poruke ili je poslana poruka
-            # imala neku gresku pa JIR nije dodjeljen
             url += "zki=" + self.l10n_hr_zki
-        datum = self.l10n_hr_vrijeme_izdavanja.strftime("%Y%m%d_%H%M")
-        url += "&datv=" + datum
-        iznos = "&izn=%.2f" % self.amount_total
-        url += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        fiscal_time = self.l10n_hr_fiscal_time.strftime("%Y%m%d_%H%M")
+        url += "&datv=" + fiscal_time
+        amount = "&izn=%.2f" % self.get(self._get_fiscal_amount_field_name())
+        url += amount.replace(".", "")  # no decimal point in a link!
         return url
 
-    def _generate_fiskal_qr_code(self):
+    def _generate_fiscal_qr_code(self):
         self.ensure_one()
-        url = self.generate_fiskal_url()
+        url = self.generate_fiscal_url()
         qr = qrcode.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_L,
@@ -65,121 +95,42 @@ class FiscalFiscalMixin(models.AbstractModel):
         return res
 
     @api.depends("l10n_hr_jir", "l10n_hr_zki")
-    def _compute_l10n_hr_fiskal_qr(self):
-        for inv in self:
-            if not inv.l10n_hr_jir and not inv.l10n_hr_zki:
-                inv.l10n_hr_fiskal_qr
-                continue
-            inv.l10n_hr_fiskal_qr = inv._generate_fiskal_qr_code()
+    def _compute_l10n_hr_fiscal_qr(self):
+        for rec in self:
+            rec.l10n_hr_fiscal_qr = False
+            if rec.l10n_hr_jir or rec.l10n_hr_zki:
+                rec.l10n_hr_fiscal_qr = rec._generate_fiscal_qr_code()
 
-    l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
-    l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
-    l10n_hr_fiskal_user_id = fields.Many2one(
-        comodel_name="res.partner",
-        string="Fiscal User",
-        domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
-        ondelete='restrict',
-        copy=False,
-        help="User who sent the fiscalisation message to FINA."
-        " Can be different from responsible person on invoice.",
-    )
-    # l10n_hr_vrijeme_xml = fields.Char(  # probably not needed but heck...
-    #     string="XML time",
-    #     help="Value for fiscalization msg stored as string",
-    #     size=19,
-    #     readonly=True,
-    #     copy=False,
-    # )
-    l10n_hr_paragon_br = fields.Char(
-        "Paragon nr.",
-        readonly=True,
-        copy=False,
-        # states={"draft": [("readonly", False)]}, ## States are no longer used in odoo 17  - logc is handeled in the view
-        # TODO translateME!
-        help="If system was down, and invoice is records on 'paragon blok',"
-        ". This needs to be entered BEFORE confirming the invoice.",
-    )
-    l10n_hr_late_delivery = fields.Boolean(
-        string="Late delivery",
-        readonly=True,
-        copy=False,
-        # states={"draft": [("readonly", False)]}, ## States are no longer used in odoo 17  - logc is handeled in the view
-        help="Checked if message could not be sent at time of invoicing",
-    )
-    l10n_hr_fiskal_qr = fields.Binary(
-        compute="_compute_l10n_hr_fiskal_qr",
-        help="Binary field visible in the interface",
-    )
-
-    def _get_l10n_hr_fiskal_user_id_domain(self):
-        """"Build domain to filter only internal partners."""
-        internal_users = self.env.ref('base.group_user')
-        domain = [('user_ids', 'in', internal_users.users.ids)]
-        return domain
-
-    def _l10n_hr_post_fiskal_check(self):
+    def _l10n_hr_post_fiscal_check(self):
         res = []
-
-        if (
-            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.company_id.partner_id.company_registry
-        ):
-            res.append(
-                _("Company OIB is not not entered! It is required for fiscalisation")
-            )
-        if (
-            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.l10n_hr_fiskal_user_id.company_registry
-        ):
-            res.append(
-                _("User OIB is not not entered! It is required for fiscalisation")
-            )
-        if (not self.company_id.l10n_hr_fiskal_cert_id):
-            res.append(
-                _(
-                    "No fiscal certificate found, please install one "
-                    "activate and select it on company setup!"
+        if self.l10n_hr_fiscal_device_id and self.l10n_hr_fiscal_device_id.fiscalization_active:
+            if not self.company_id.company_registry:
+                res.append(
+                    _("Company OIB is not not entered! It is required for fiscalization")
                 )
-            )
-
-        # NOTE: if invoice is refunded, then force sam payment type on created credit note
-        if (
-            self.move_type == 'out_refund' and
-            self.reversed_entry_id and
-            self.l10n_hr_nacin_placanja != self.reversed_entry_id.l10n_hr_nacin_placanja
-        ):
-            l10n_hr_nacin_placanja = dict(
-                self._fields['l10n_hr_nacin_placanja']._description_selection(self.env)).get(
-                    self.reversed_entry_id.l10n_hr_nacin_placanja, '')
-            res.append(
-                _("Croatia Payment Means on origin invoice %s is different from the Croatia Payment Means on this "
-                  "invoice. Please change Croatia Payment Means to the %s"
-                ) % (self.reversed_entry_id.name, l10n_hr_nacin_placanja)
-            )
-        # NOTE: if invoice is refunded, then force same l10n_hr_fiskal_uredjaj_id on the created credit note
-        if (
-            self.move_type == 'out_refund' and
-            self.reversed_entry_id and
-            self.l10n_hr_fiskal_uredjaj_id != self.reversed_entry_id.l10n_hr_fiskal_uredjaj_id
-        ):
-            res.append(
-                _("Fiskal Device on origin invoice %s is different from the Fiskal Device on this "
-                  "invoice. Please change Fiskal Device to the %s"
-                ) % (self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiskal_uredjaj_id.name)
-            )
-
+            if not self.l10n_hr_fiscal_user_id.company_registry:
+                res.append(
+                    _("User OIB is not not entered! It is required for fiscalization")
+                )
+            if not self.company_id.l10n_hr_fiscal_cert_id:
+                res.append(
+                    _(
+                        "No Fiscal certificate found, please install one "
+                        "activate and select it on company setup!"
+                    )
+                )
         return res
 
-    def _l10n_hr_fiscalization_needed(self, message_type):
+    def _l10n_hr_fiscalization_needed(self):
         """"Check if invoice should be fiscalized"""
-        if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and (
-            not self.company_id.l10n_hr_fiskal_transaction_type_skip or
-            self.l10n_hr_nacin_placanja != "T"
+        if self.l10n_hr_fiscal_device_id.fiscalization_active and (
+                not self.company_id.l10n_hr_fiskal_transaction_type_skip or
+                self.l10n_hr_nacin_placanja != "T"
         ):
             return True
         return False
 
-    def _get_fisk_tax_values(self):
+    def _get_fisc_tax_values(self):
         tax_data = {
             "Pdv": {},
             "Pnp": {},
@@ -191,7 +142,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         for tax_line in self.line_ids.filtered(lambda l: l.display_type == 'tax'):
             if not tax_line.tax_line_id.l10n_hr_fiskal_type:
                 raise ValidationError(_("Tax '%s' missing fiskal type!") % tax_line.tax_line_id.name)
-            fiskal_type = tax_line.tax_line_id.l10n_hr_fiskal_type
+            fiskal_type = tax_line.tax_line_id.l10n_hr_fiscal_type
             stopa = tax_line.tax_line_id.amount
             # NOTE: osnovica and iznos should be on credit side so balance will be negative
             osnovica = tax_line.tax_base_amount
@@ -218,13 +169,13 @@ class FiscalFiscalMixin(models.AbstractModel):
         # NOTE: Stavke oslobodjene od poreza, Odoo ne kreira stavke temeljnice ako je stop 0.0
         # TODO: provjeriti kako slati stavke sa stopom 0 i da li ima takvih slucajeva u praksi
         for line in self.line_ids.filtered(
-            lambda line: line.display_type == "product"
+                lambda line: line.display_type == "product"
         ):
             for tax in line.tax_ids:
                 if not tax.l10n_hr_fiskal_type:
                     raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
                 fiskal_type = tax.l10n_hr_fiskal_type
-                osnovica = line.balance * (-1) # TODO verify if this logic is valid to get invoice and refund amounts
+                osnovica = line.balance * (-1)  # TODO verify if this logic is valid to get invoice and refund amounts
                 if fiskal_type not in ['oslobodenje', 'ne_podlijeze', 'marza']:
                     continue
                 if fiskal_type == "oslobodenje":
@@ -245,9 +196,9 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _prepare_fisk_racun_taxes(self, factory):
         res = {}
-        if not self.company_id.l10n_hr_fiskal_taxative:
+        if self.company_id.l10n_hr_tax_model not in ('r1', 'r2'):
             return res
-        tax_data = self._get_fisk_tax_values()
+        tax_data = self._get_fisc_tax_values()
         for pdv in tax_data["Pdv"]:
             if not res.get("Pdv"):
                 res["Pdv"] = []
@@ -317,15 +268,15 @@ class FiscalFiscalMixin(models.AbstractModel):
         if porezi.get("Pnp", None):
             pnp = factory.type_factory.PorezNaPotrosnjuType(Porez=porezi["Pnp"])
         oib_company = self.company_id.partner_id.company_registry
-        if self.company_id.l10n_hr_fiskal_cert_id.cert_type == "demo":
+        if self.company_id.l10n_hr_fiscal_cert_id.cert_type == "demo":
             # demo cert na tudjoj bazi... onda ide oib iz certa
-            cert_oib = self.company_id.l10n_hr_fiskal_cert_id.cert_oib
+            cert_oib = self.company_id.l10n_hr_fiscal_cert_id.cert_oib
             oib_company = cert_oib and cert_oib[2:] or False
 
         RacunType = self._get_fisk_racun_type(factory, msg_type)
         racun = RacunType(
             Oib=oib_company,
-            USustPdv=self.company_id.l10n_hr_fiskal_taxative,
+            USustPdv=self.company_id.l10n_hr_tax_model in ('r1', 'r2'),
             DatVrijeme=self._prepare_fisk_racun_dat_vrijeme(),
             OznSlijed=self.l10n_hr_fiskal_uredjaj_id.prostor_id.sljed_racuna,
             BrRac=BrRac,
@@ -337,7 +288,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # Naknade=ws_naknade,
             IznosUkupno=self._prepare_fisk_racun_invoice_total(),
             NacinPlac=self.l10n_hr_nacin_placanja,
-            OibOper=self.l10n_hr_fiskal_user_id.company_registry,
+            OibOper=self.l10n_hr_fiscal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,
             ParagonBrRac=self.l10n_hr_paragon_br or None,
@@ -359,9 +310,9 @@ class FiscalFiscalMixin(models.AbstractModel):
         if not racun.USustPdv:
             racun_osnovica = float(racun.IznosUkupno)
         amount_untaxed = (
-            round(float(racun.IznosUkupno),self.currency_id.decimal_places) < 0 and
-            self.amount_untaxed * (-1) or
-            self.amount_untaxed)
+                round(float(racun.IznosUkupno), self.currency_id.decimal_places) < 0 and
+                self.amount_untaxed * (-1) or
+                self.amount_untaxed)
         # NOTE: provjera da li iznos poreza na fisk racunu odgovora iznosu odoo poreza
         tax_amount = sum(self.line_ids.filtered(
             lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiskal_type == 'Pdv').mapped('balance')) * (-1)
@@ -374,9 +325,9 @@ class FiscalFiscalMixin(models.AbstractModel):
             raise ValidationError(_('Osnovica na fisk računu se razlikuje od osnovice na Odoo računu'))
         # NOTE: provjera da li suma osnovice i poreza sa fisk računa odgovara ukupno iznosu odoo računa
         if float_compare(
-            (racun_osnovica + pdv_iznos + pnp_iznos),
-            float(racun.IznosUkupno),
-            precision_digits=self.currency_id.decimal_places):
+                (racun_osnovica + pdv_iznos + pnp_iznos),
+                float(racun.IznosUkupno),
+                precision_digits=self.currency_id.decimal_places):
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
     def _fisk_msg_type(self):
@@ -389,66 +340,63 @@ class FiscalFiscalMixin(models.AbstractModel):
         if hasattr(response, "Jir") and not self.l10n_hr_jir:
             self.l10n_hr_jir = response.Jir
 
-    def fiskaliziraj(self, msg_type="racuni", delay_fiscalization=False):
+    def fiscalize(self, msg_type="racuni", delay_fiscalization=False):
         """
         Fiskalizira jedan izlazni racun ili point of sale račun
         msg_type : Racun,
         delay_fiscalization : odgodi poziv servisa za fiskalizaciju (generira se samo ZKI broj),
         """
-
         # exit if fiscalization is not needed for invoice
-        if not self._l10n_hr_fiscalization_needed(msg_type):
+        if not self._l10n_hr_fiscalization_needed():
             return
 
-        # don't fiscalize invoice if invoie alreday has jir
+        errors = self._l10n_hr_post_fiscal_check()
+        if errors:
+            msg = _("Fiscalization not possible: \n")
+            msg += "\n".join(errors)
+            raise ValidationError(msg)
+        # don't fiscalize invoice if invoice already has jir
         if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racun':
             # existing in shema 1.4 not in 1.5!
             msg_type = 'provjera'
         if self.l10n_hr_zki and not self.l10n_hr_jir and not self.l10n_hr_late_delivery:
-            # imam ZKI, nemam jir = naknadna dostava
             self.l10n_hr_late_delivery = True
         time_start = self.company_id.get_l10n_hr_time_formatted()
-        if not self.l10n_hr_fiskal_user_id:
+        if not self.l10n_hr_fiscal_user_id:
             # MUST USE CURRENT user for fiscalization!
             # Except in case of paragon račun? or naknadna dostava?
-            # but then it should be manualy entered already!
-            self.l10n_hr_fiskal_user_id = self.invoice_user_id.partner_id.id
-
-        errors = self._l10n_hr_post_fiskal_check()
-        if errors:
-            msg = _("Fiscalisation not possible: \n")
-            msg += "\n".join(errors)
-            raise ValidationError(msg)
-
-        fiskal_data = self.company_id.get_fiskal_data()
-        fiskal_data["time"] = time_start
+            # but then it should be manually entered already!
+            self.l10n_hr_fiscal_user_id = self.invoice_user_id.id
+        fiscal_data = self.company_id.get_fiscal_data()
+        fiscal_data["time"] = time_start
         fis_racun = self.l10n_hr_fiskalni_broj.split(
             self.company_id.l10n_hr_fiskal_separator
         )
         assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
-        fiskal_data["racun"] = fis_racun
+        fiscal_data["racun"] = fis_racun
         if not self.l10n_hr_zki:
-            if fiskal_data["demo"]:
+            if fiscal_data["demo"]:
                 # uzimam oib iz certifikata, bez obzira na company oib
-                oib = fiskal_data["cert_oib"]
+                oib = fiscal_data["cert_oib"]
             else:
-                oib = fiskal_data["company_oib"]
+                oib = fiscal_data["company_oib"]
 
             formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
-                pytz.timezone(self.env.context.get("tz")or self.env.user.tz or "UTC")).strftime(RACUN_DATETIME_FORMAT) or time_start["datum_racun"]
+                pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(
+                RACUN_DATETIME_FORMAT) or time_start["datum_racun"]
             zki_datalist = [
                 oib,
                 formatted_date,
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],
-                fiskal.format_decimal(self.amount_total),
+                fiskal.format_decimal(self.get(self._get_fiscal_amount_field_name())),
             ]
-            fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
+            fisk = fiskal.Fiscalization(data=fiscal_data)
             self.l10n_hr_zki = fiskal.generate_zki(
                 zki_datalist=zki_datalist, signer=fisk.signer
             )
-        fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
+        fisk = fiskal.Fiscalization(data=fiscal_data)
 
         # NOTE: call right service proxy
         # list of available services is in FiskalizacijaService.wsdl
@@ -458,7 +406,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             raise ValidationError(_("Service proxy %s not found", msg_type))
 
         if msg_type in self._fisk_msg_type():
-            racun = self._prepare_fisk_racun(fisk, fiskal_data, msg_type)
+            racun = self._prepare_fisk_racun(fisk, fiscal_data, msg_type)
             self._validate_fisk_racun(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
@@ -466,22 +414,23 @@ class FiscalFiscalMixin(models.AbstractModel):
             odoo_error = {}
             # NOTE: skip calling FINA fisc service
             if delay_fiscalization:
-                self.company_id.create_fiskal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
+                self.company_id.create_fiscal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
                 return
             # NOTE: call FINA fisc service
             try:
                 response = fisk._call_service(service_proxy, req_kw)
-                self.company_id.create_fiskal_log(msg_type, fisk, response, time_start, self)
+                self.company_id.create_fiscal_log(msg_type, fisk, response, time_start, self)
                 self._handle_fisk_response(response, msg_type)
             except AttributeError as e:
                 odoo_error = {'error_message': str(e) + '\n' + str(e.obj)}
             except Exception as e:
                 # NOTE: handle cases when response is not received from FINA
-                odoo_error = {'error_message': e.args [0]}
+                odoo_error = {'error_message': e.args[0]}
             # log odoo error
             if odoo_error.get('error_message'):
-                self.company_id.create_fiskal_log(msg_type, fisk, odoo_error, time_start, self)
+                self.company_id.create_fiscal_log(msg_type, fisk, odoo_error, time_start, self)
             # raise error
-            error_message = response and hasattr(response, 'error_message') and response['error_message']  or odoo_error.get('error_message')
+            error_message = response and hasattr(response, 'error_message') and response[
+                'error_message'] or odoo_error.get('error_message')
             if error_message and not self.company_id.l10n_hr_fiskal_silent_error_logging:
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)

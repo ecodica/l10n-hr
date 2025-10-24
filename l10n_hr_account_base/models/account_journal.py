@@ -21,7 +21,8 @@ class AccountJournal(models.Model):
         selection=[
             ("G", "Cash (bills and coins)"),
             ("K", "Credit or debit cards"),
-            ("C", "Bank Cheque"),
+            # does anybody use it anymore??
+            # ("C", "Bank Cheque"),
             ("T", "Bank transfer"),
             ("O", "Other payment means"),
         ],

@@ -25,16 +25,14 @@ class AccountMove(models.Model):
         selection_add=[
             ("G", "Cash"),
             ("K", "Credit or debit cards"),
-            ("C", "Bank Cheque"),
+            # ("C", "Bank Cheque"), not in use from 2025
             ("O", "Other payment means"),
         ],
-        help="According to Fiscalization Law and regulative "
-        "there is 5 possible options: \n"
-        "T - Transaction bank account\n"
-        "G - Cash (coins or bills), fiskalisation required\n"
-        "K - Bank cards, fiskalisation required\n"
-        "C - Cheque payment, fiskalisation required\n"
-        "O - Other payment, fiskalisation required\n",
+        help="The possible values are:\n"
+             " G - cash, K - cards, T - transaction account, O - other.\n"
+             "In the case of multiple payment methods for one invoice,"
+             " this should also be reported under O - other.\n"
+             "For all payment methods that are not specified, the designation O - other will be used. "
     )
     l10n_hr_fiskal_log_ids = fields.One2many(
         comodel_name="l10n.hr.fiskal.log",

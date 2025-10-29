@@ -26,7 +26,7 @@ class l10nHrInvoiceMixin(models.AbstractModel):
         domain=lambda self: self._get_l10n_hr_fiskal_user_id_domain(),
         ondelete='restrict',
         copy=False,
-        help="User who sent the fiscalisation message to FINA."
+        help="User who sent the fiscalization message to FINA."
         " Can be different from responsible person on invoice.",
     )
 

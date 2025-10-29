@@ -20,23 +20,21 @@ class L10nHrFiscalMixin(models.AbstractModel):
         readonly=True,
         help="Required fiscal number, generated according to "
              "regulations regardless of journal number.")
-    # i za ulazne račune se ovdje moze upisati
     l10n_hr_payment_method = fields.Selection(
         selection=[("G", "Cash"),
                    ("K", "Credit or debit cards"),
-                   ("C", "Bank Cheque"),
+                   # ("C", "Bank Cheque"),
                    ("T", "Bank transfer"),
                    ("O", "Other payment means"),
                    ],
         string="Croatia - Payment Method",
         default="T",
         help="According to Fiscalization Law and regulative "
-             "there is 5 possible options: \n"
+             "there are 4 possible options: \n"
              "G - Cash (coins or bills), fiscalization required\n"
              "K - Bank cards, fiscalization required\n"
-             "C - Cheque payment, fiscalization required\n"
              "T - Transaction bank account\n"
-             "O - Other payment, fiskalisation required\n", )
+             "O - Other payment, fiscalization required\n", )
     l10n_hr_fiscal_device_id = fields.Many2one(
         comodel_name="l10n_hr.fiscal.device",
         string="Fiscal Device",
@@ -48,7 +46,7 @@ class L10nHrFiscalMixin(models.AbstractModel):
         ondelete='restrict',
         default=lambda self: self.env.user.id,
         copy=False,
-        help="User who sent the fiscalisation message."
+        help="User who sent the fiscalization message."
              " Can be different from responsible person on invoice.",
     )
 

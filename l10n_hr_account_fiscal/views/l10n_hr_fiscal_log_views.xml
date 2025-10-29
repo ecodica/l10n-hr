@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="l10n_hr_fiscal_log_list_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_log_list_view</field>
+        <field name="model">l10n_hr.fiscal.log</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="company_id"/>
+                <field name="error_msg"/>
+                <field name="reply_timestamp"/>
+                <field name="process_time"/>
+                <field name="res_model"/>
+                <field name="res_id"/>
+                <field name="business_premise_id"/>
+                <field name="fiscal_device_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_hr_fiscal_log_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_log_form_view</field>
+        <field name="model">l10n_hr.fiscal.log</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="user_id"/>
+                    <field name="company_id"/>
+                    <field name="business_premise_id"/>
+                    <field name="fiscal_device_id"/>
+                    <field name="reply_timestamp"/>
+                    <field name="process_time"/>
+                </group>
+                <newline/>
+                <notebook colspan="4">
+                    <page string="Sent">
+                        <field name="content" nolabel="1"/>
+                    </page>
+                    <page string="Replied">
+                        <field name="reply_msg" nolabel="1"/>
+                    </page>
+                    <page string="Error">
+                        <field name="error_msg" nolabel="1"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hr_fiscal_log" model="ir.actions.act_window">
+        <field name="name">Fiscal message logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">l10n_hr.fiscal.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+            id="menu_action_check_l10n_hr_fiscal_log"
+            action="action_l10n_hr_fiscal_log"
+            parent="l10n_hr_account_base.menu_finance_config_croatia"
+            sequence="99"
+    />
+
+</odoo>

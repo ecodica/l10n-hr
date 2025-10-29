@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_company_form_l10n_hr_account_fiscal" model="ir.ui.view">
+        <field name="name">view_company_form_l10n_hr_account_fiscal</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_account_company_form"/>
+        <field name="arch" type="xml">
+            <field name="l10n_hr_fiscal_separator" position="after">
+                <field name="l10n_hr_fiscal_cert_id"/>
+                <field name="l10n_hr_fiscal_spec"/>
+                <field name="l10n_hr_fiscal_transaction_type_skip"/>
+                <field name="l10n_hr_fiscal_cancel_confirmed_invoice"/>
+                <field name="l10n_hr_fiscal_silent_error_logging"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

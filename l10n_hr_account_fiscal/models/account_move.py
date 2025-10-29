@@ -20,7 +20,7 @@ Buisines premise code must be second part of the invoice number separated by '/'
 
 class AccountMove(models.Model):
     _name = "account.move"
-    _inherit = ["account.move", "l10n_hr.fiscal1.mixin"]
+    _inherit = ["account.move", "l10n_hr.fiscal.mixin"]
 
     @staticmethod
     def _get_fiscal_amount_field_name(self):
@@ -72,7 +72,7 @@ class AccountMove(models.Model):
                     _("Fiscal Device on origin invoice %s is different from the Fiscal Device on this "
                       "invoice. Please change Fiscal Device to the %s"
                       ) % (
-                    self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiscal_device_id.name_get()[0][1])
+                        self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiscal_device_id.name_get()[0][1])
                 )
         return res
 
@@ -86,9 +86,8 @@ class AccountMove(models.Model):
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
-        delay_fiscalization = not self.company_id.l10n_hr_fiscal_on_confirm
         if self.l10n_hr_fiscal_device_id.fiscalization_active:
-            self.fiscalize(delay_fiscalization=delay_fiscalization)
+            self.fiscalize()
         return res
 
     @api.model

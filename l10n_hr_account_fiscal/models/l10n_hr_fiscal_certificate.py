@@ -64,8 +64,8 @@ class L10nHrFiscalCertificate(models.Model):
     name = fields.Char(readonly=True)
     cert_type = fields.Selection(
         selection=[
-            ("prod", "Fiskal Prod"),
-            ("demo", "Fiskal Demo"),
+            ("prod", "Prod"),
+            ("demo", "Demo"),
             ("other", "Other/Unknown"),
         ],
         readonly=True,
@@ -77,7 +77,7 @@ class L10nHrFiscalCertificate(models.Model):
             ("PROD_v1.6", "PROD Schema v1.6"),
             ("PROD_v1.7", "PROD Schema v1.7"),
         ],
-        string="Fiskalizaction schema",
+        string="Fiscalization schema",
         help=SCHEMA_HELP,
     )
     cert_issuer = fields.Char(
@@ -86,7 +86,7 @@ class L10nHrFiscalCertificate(models.Model):
     cert_subject = fields.Char(
         readonly=True,
     )
-    cert_oib = fields.Char(
+    cert_vat = fields.Char(
         readonly=True,
     )
     pem_key = fields.Text(
@@ -97,7 +97,7 @@ class L10nHrFiscalCertificate(models.Model):
     pem_crt = fields.Text(
         string="Certificate",
         readonly=True,
-        help="Fiskal certificate from user P12/PFX cert file",
+        help="Fiscal certificate from user P12/PFX cert file",
     )
     not_before = fields.Datetime(readonly=True)
     not_after = fields.Datetime(readonly=True)
@@ -183,7 +183,7 @@ class L10nHrFiscalCertificate(models.Model):
                 subject[b"O"].decode("utf-8"),
             ]
         )
-        self.cert_oib = subject[b"O"].decode("utf-8").split(" ")[-1]
+        self.cert_vat = subject[b"O"].decode("utf-8").split(" ")[-1]
         self.pem_key = SSLCrypto.dump_privatekey(
             SSLCrypto.FILETYPE_PEM, p12.get_privatekey()
         )

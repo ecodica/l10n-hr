@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="l10n_hr_fiscal_device_list_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_device_list_view</field>
+        <field name="model">l10n_hr.fiscal.device</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiscal_device_form"/>
+        <field name="arch" type="xml">
+            <field name="l10n_hr_lock" position="before">
+                <field name="fiscalization_active" widget="boolean_toggle"/>
+                <button string="TEST ECHO" type="object" name="button_l10n_hr_fiscal_echo"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

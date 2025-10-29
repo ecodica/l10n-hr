@@ -43,10 +43,10 @@ class ResCompany(models.Model):
         string="Skip Bank Transfer Fiscalization", default=True, tracking=1,
         help="""Transakcijski računi se ne fiskaliziraju"""
     )
-    l10n_hr_fiscal_on_confirm = fields.Boolean(
-        string="Fiscalize Invoice On Confirmation", default=True, tracking=1,
-        help="""Invoices will be fiscalized on confirmation"""
-    )
+    # l10n_hr_fiscal_on_confirm = fields.Boolean(
+    #     string="Fiscalize Invoice On Confirmation", default=True, tracking=1,
+    #     help="""Invoices will be fiscalized on confirmation"""
+    # )
     l10n_hr_fiscal_cancel_confirmed_invoice = fields.Boolean(
         string="Cancel Fiscalized Invoices", tracking=1,
         help="""Allow users to cancel fiscalized invoiced"""
@@ -54,7 +54,7 @@ class ResCompany(models.Model):
     l10n_hr_fiscal_silent_error_logging = fields.Boolean(
         string="Silent Error Logging", default=True, tracking=1,
         help="""If true and if the fiscalization process has failed, then users won't get a warning about it,\
-            but the issue will be logged in fiscalitation logs."""
+            but the issue will be logged in fiscalization logs."""
     )
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):

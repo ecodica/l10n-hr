@@ -15,15 +15,4 @@
         </field>
     </record>
 
-    <record id="view_partner_form_inherit_account" model="ir.ui.view">
-        <field name="name">res.partner.form.inherit.account</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account.view_partner_property_form" />
-        <field name="arch" type="xml">
-            <group id="invoice_send_settings" position="inside">
-                     <field name="l10n_hr_caba" invisible="country_code != 'HR'"/>
-            </group>
-        </field>
-    </record>
-
 </odoo>

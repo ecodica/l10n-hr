@@ -6,7 +6,7 @@
     -->
 
     <record id="uom.product_uom_unit" model="uom.uom">
-        <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_XUN"/>
+        <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_H87"/>
     </record>
 
     <record id="uom.product_uom_dozen" model="uom.uom">

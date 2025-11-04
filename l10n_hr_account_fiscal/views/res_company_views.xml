@@ -7,11 +7,24 @@
         <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_account_company_form"/>
         <field name="arch" type="xml">
             <field name="l10n_hr_fiscal_separator" position="after">
-                <field name="l10n_hr_fiscal_cert_id"/>
                 <field name="l10n_hr_fiscal_spec"/>
                 <field name="l10n_hr_fiscal_transaction_type_skip"/>
                 <field name="l10n_hr_fiscal_cancel_confirmed_invoice"/>
                 <field name="l10n_hr_fiscal_silent_error_logging"/>
+                <field name="l10n_hr_fiscal_test_env"/>
+                <field name="l10n_hr_fiscal_schema"/>
+                <field name="l10n_hr_fiscal_cert_id"/>
+                <separator string="Certificates"/>
+                <field name="l10n_hr_fiscal_cert_ids" context="{'default_scope': 'fina'}" nolabel="1">
+                    <list>
+                        <field name="name"/>
+                        <field name="scope"/>
+                        <field name="l10n_hr_type"/>
+                        <field name="date_end" widget="date"/>
+                        <field name="is_valid"/>
+                    </list>
+
+                </field>
             </field>
         </field>
     </record>

@@ -5,10 +5,11 @@ import os
 
 from lxml import etree
 
-from odoo import _, fields, models
+from odoo import _, fields, models, api
 from odoo.exceptions import MissingError
 
 from ..fiscal import fiscal
+from ..helper import SCHEMA_HELP
 
 
 class ResCompany(models.Model):
@@ -26,18 +27,27 @@ class ResCompany(models.Model):
         path = path.replace("models", "fiscal/")
         return path
 
-    l10n_hr_fiscal_cert_id = fields.Many2one(
-        comodel_name="l10n_hr.fiscal.certificate",
-        string="Fiscal certificate",
+    l10n_hr_fiscal_cert_ids = fields.Many2many(
+        comodel_name="certificate.certificate",
+        string="FINA Fiscal certificates",
         tracking=1,
-        domain="[('state', '=', 'active')]",
+        domain="[('scope', '=', 'fina')]",
+        help="Officially issued by Croatian FINA Agency, imported and activated",
+    )
+    l10n_hr_fiscal_cert_id = fields.Many2one(
+        comodel_name="certificate.certificate",
+        compute='_compute_l10n_hr_fiscal_cert',
+        string="Valid FINA Fiscal certificate",
+        tracking=True,
+        store=True,
+        domain="[('scope', '=', 'fina')]",
         help="Officially issued by Croatian FINA Agency, imported and activated",
     )
     l10n_hr_fiscal_spec = fields.Char(
         string="Special",
         size=1000,
         help="OIB informatičke tvrtke koja održava software, "
-        "za demo cert mora odgovarati OIBu sa demo certifikata",
+             "za demo cert mora odgovarati OIBu sa demo certifikata",
     )
     l10n_hr_fiscal_transaction_type_skip = fields.Boolean(
         string="Skip Bank Transfer Fiscalization", default=True, tracking=1,
@@ -56,6 +66,62 @@ class ResCompany(models.Model):
         help="""If true and if the fiscalization process has failed, then users won't get a warning about it,\
             but the issue will be logged in fiscalization logs."""
     )
+    l10n_hr_fiscal_test_env = fields.Boolean(
+        string="Fiscal Test Mode",
+        help="Use the test environment for Fiscalization",
+        default=True,
+        prefetch=False,
+    )
+    l10n_hr_fiscal_schema = fields.Selection(
+        selection=[
+            ("EDUC_v1.6", "DEMO schema v1.6"),
+            ("EDUC_v1.7", "DEMO schema v1.7"),
+            ("EDUC_v1.8", "DEMO schema v1.8"),
+            ("EDUC_v1.9", "DEMO schema v1.9"),
+            ("PROD_v1.6", "PROD Schema v1.6"),
+            ("PROD_v1.7", "PROD Schema v1.7"),
+            ("PROD_v1.8", "PROD Schema v1.8"),
+            ("PROD_v1.9", "PROD Schema v1.9"),
+        ],
+        string="Fiscalization schema",
+        prefetch=False,
+        help=SCHEMA_HELP,
+    )
+
+    @api.depends('country_id', 'l10n_hr_fiscal_cert_ids', 'l10n_hr_fiscal_cert_ids.l10n_hr_type')
+    def _compute_l10n_hr_fiscal_cert(self):
+        for company in self:
+            cert_id = False
+            if company.country_code == 'HR':
+                available_certs = company.l10n_hr_fiscal_cert_ids
+                if company.l10n_hr_fiscal_test_env:
+                    cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo'))
+                else:
+                    cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod'))
+            company.l10n_hr_fiscal_cert_id = cert_id
+
+    def _get_l10n_hr_fiscal_ssl_data(self):
+        """
+        key and cert are stored on disk because
+        ssl and crypto libraries expect them readable on disk or some url.
+        so we store both of them in odoo datastore
+        :return:
+        """
+        production = not self.l10n_hr_fiscal_test_env
+        f_path = self._get_fiscal_cert_path()
+        key, cert = self._get_key_cert_file_name()
+        for pem in (key, cert):
+            file = os.path.join(f_path, pem)
+            if pem.endswith("_key.pem"):
+                content = self.pem_key
+                key = file
+            else:
+                content = self.pem_crt
+                cert = file
+
+            if self._disk_check_exist(file) or self._disk_same_content(file, content):
+                self._disk_write_content(file, content)
+        return key, cert, production
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
@@ -91,12 +157,12 @@ class ResCompany(models.Model):
             "company_id": self.id,
         }
 
-        if isinstance(response, dict) and response.get('error_message'): # NOTE: case when response in to received
+        if isinstance(response, dict) and response.get('error_message'):  # NOTE: case when response in to received
             values.update({
                 "name": _("Fiscalization Failed"),
                 "greska": response.get('error_message', False)
             })
-        elif isinstance(response, dict) and response.get('delay_message'): # NOTE: case when response in to received
+        elif isinstance(response, dict) and response.get('delay_message'):  # NOTE: case when response in to received
             values.update({
                 "name": _("Fiscalization Delayed"),
                 "greska": _("Fiscalization Delayed"),
@@ -173,6 +239,3 @@ class ResCompany(models.Model):
             "demo": not production,
         }
         return res
-
-
-

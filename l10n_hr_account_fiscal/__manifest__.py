@@ -11,11 +11,13 @@
     "license": "AGPL-3",
     "depends": [
         "l10n_hr_account_base",
+        "certificate",
     ],
     "external_dependencies": {"python": ["zeep", "xmlsec==1.3.13"], "bin": []},
     "data": [
         "views/l10n_hr_pnp_category_views.xml",
         "views/product_template_views.xml",
+        "views/certificate_certificate_views.xml",
         "views/res_company_views.xml",
         "views/account_tax_views.xml",
         "views/l10n_hr_fiscal_certificate_views.xml",

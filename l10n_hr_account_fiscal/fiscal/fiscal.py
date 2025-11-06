@@ -6,18 +6,18 @@ from uuid import uuid4
 from lxml import etree
 from requests import Session
 from requests.exceptions import SSLError, ConnectionError
-from zeep import Client
+from zeep import Client, Settings
 from zeep.plugins import HistoryPlugin
 from zeep.transports import Transport
 
-from .zeep_signer import EnvelopedSignaturePlugin, Signer, Verifier
+from .zeep_signer import EnvelopedSignaturePlugin, BinarySigner, Verifier
 
 
 def generate_zki(zki_datalist, signer=None):
     """
-    as function so it can be called to ckeck generated ZKI without
-    instanciating Fiskalizacija class
-    parameteras are all strings with actual document data
+    as function so it can be called to check generated ZKI without
+    instantiating Fiscal class
+    parameters are all strings with actual document data
     zki_datalist:
       invoice data in this order: ž
       oib, datum_vrijeme, br_racuna, oznaka_pp, oznaka_nu, ukupno_iznos
@@ -27,7 +27,7 @@ def generate_zki(zki_datalist, signer=None):
 
 
 def format_decimal(decimal):
-    """Formats float for Fiskal communication"""
+    """Formats float for Fiscal communication"""
     return "%.2f" % decimal
 
 
@@ -58,18 +58,19 @@ class Fiscalization:
         :param other: optional variables
         """
         session = Session()
-        session.verify = data["fina_bundle"]
-        session.cert = (data["cert"], data["key"])
+        session.verify = data["fina_bundle_path"]
+        # session.cert = (data["cert"], data["key"])
         transport = Transport(session=session)
-        signer = Signer(cert_path=data["cert"], key_path=data["key"])
+        signer = BinarySigner(cert_data=data["cert_data"], key_data=data["key_data"])
         verifier = Verifier(
-            cert_path=data["app_cert"],
-            ca_cert_paths=[data["fina_bundle"]],
+            cert_path=data["app_cert_path"],
+            ca_cert_path=[data["fina_bundle_path"]],
         )
         history = HistoryPlugin()
-        fiskal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
+        fiscal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
+        settings = Settings(raw_response=True)
         self.client = Client(
-            data["wsdl"], transport=transport, plugins=[fiskal_plugin, history]
+            data["wsdl"], transport=transport, plugins=[fiscal_plugin, history], settings=settings
         )
         self.signer = signer
         self.verifier = verifier
@@ -140,23 +141,3 @@ class Fiscalization:
             * test_message - message to use
         """
         return self.client.service.echo(test_message)
-
-    # def send(self, method_name, data, nosend=False, raw_response=False):
-    #     '''Send request'''
-    #     method = getattr(self.client.service, method_name)
-    #     if not method:
-    #         raise ValueError('Unknown method: %s' % method_name)
-    #     if method_name == 'echo':
-    #         response = method(data)
-    #     else:
-    #         header = self.generate_header()
-    #         if nosend:
-    #             pre_nosend = self.client.options.nosend
-    #             self.client.options.nosend = True
-    #         response = method(header, data)
-    #         if nosend:
-    #             self.client.options.nosend = pre_nosend
-    #             response = response.envelope
-    #         if not raw_response:
-    #             response = self.process_response(header, response)
-    #     return response

@@ -87,6 +87,7 @@ class ResCompany(models.Model):
         prefetch=False,
         help=SCHEMA_HELP,
     )
+    l10n_hr_fiscal_demo_cert_vat = fields.Char('DEMO Cert VAT', prefetch=False)
 
     @api.depends('country_id', 'l10n_hr_fiscal_cert_ids', 'l10n_hr_fiscal_cert_ids.l10n_hr_type')
     def _compute_l10n_hr_fiscal_cert(self):
@@ -100,36 +101,13 @@ class ResCompany(models.Model):
                     cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod'))
             company.l10n_hr_fiscal_cert_id = cert_id
 
-    def _get_l10n_hr_fiscal_ssl_data(self):
-        """
-        key and cert are stored on disk because
-        ssl and crypto libraries expect them readable on disk or some url.
-        so we store both of them in odoo datastore
-        :return:
-        """
-        production = not self.l10n_hr_fiscal_test_env
-        f_path = self._get_fiscal_cert_path()
-        key, cert = self._get_key_cert_file_name()
-        for pem in (key, cert):
-            file = os.path.join(f_path, pem)
-            if pem.endswith("_key.pem"):
-                content = self.pem_key
-                key = file
-            else:
-                content = self.pem_crt
-                cert = file
-
-            if self._disk_check_exist(file) or self._disk_same_content(file, content):
-                self._disk_write_content(file, content)
-        return key, cert, production
-
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
         Inherit in other modules with proper super to add values
         """
         time_stop = self.get_l10n_hr_time_formatted()
-        t_obrada = time_stop["time_stamp"] - time_start["time_stamp"]
-        time_obr = "%s.%s s" % (t_obrada.seconds, t_obrada.microseconds)
+        p_time = time_stop["time_stamp"] - time_start["time_stamp"]
+        process_time = "%s.%s s" % (p_time.seconds, p_time.microseconds)
         error_log = ""
         if hasattr(response, "Greske") and response.Greske is not None:
             error_log = "\n".join(
@@ -148,21 +126,23 @@ class ResCompany(models.Model):
 
         values = {
             "user_id": self.env.user.id,
-            "type": msg_type,
-            "time_stamp": time_stop["datum_vrijeme"],
-            "time_obr": time_obr,
-            "sadrzaj": False,
-            "odgovor": False,
-            "greska": error_log != "" and error_log or "OK",
             "company_id": self.id,
+            "res_model": origin._name,
+            "res_id": origin.id,
+            "type": msg_type,
+            "reply_timestamp": time_stop["datum_vrijeme"],
+            "process_time": process_time,
+            "content": False,
+            "reply_msg": False,
+            "error_msg": error_log != "" and error_log or "OK",
         }
 
-        if isinstance(response, dict) and response.get('error_message'):  # NOTE: case when response in to received
+        if isinstance(response, dict) and response.get('error_message'):
             values.update({
                 "name": _("Fiscalization Failed"),
                 "greska": response.get('error_message', False)
             })
-        elif isinstance(response, dict) and response.get('delay_message'):  # NOTE: case when response in to received
+        elif isinstance(response, dict) and response.get('delay_message'):
             values.update({
                 "name": _("Fiscalization Delayed"),
                 "greska": _("Fiscalization Delayed"),
@@ -170,30 +150,29 @@ class ResCompany(models.Model):
         else:
             values.update({
                 "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
-                "time_stamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
-                "sadrzaj": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
-                "odgovor": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
+                "reply_timestamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
+                "content": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
+                "reply_msg": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
             })
 
         if origin._name == "account.move":
             values.update(
                 {
-                    "fiskal_prostor_id": origin.l10n_hr_fiscal_uredjaj_id.prostor_id.id,
-                    "fiskal_uredjaj_id": origin.l10n_hr_fiscal_uredjaj_id.id,
-                    "invoice_id": origin.id,
+                    "business_premise_id": origin.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.id,
+                    "fiscal_device_id": origin.l10n_hr_fiscal_device_id.id,
                 }
             )
-        elif origin._name == "l10n.hr.fiskal.uredjaj":
+        elif origin._name == "l10n_hr.fiscal.device":
             values.update(
                 {
-                    "fiskal_prostor_id": origin.prostor_id.id,
-                    "fiskal_uredjaj_id": origin.id,
+                    "business_premise_id": origin.l10n_hr_business_premise_id.id,
+                    "fiscal_device_id": origin.id,
                 }
             )
-        elif origin._name == "l10n.hr.fiskal.prostor":
+        elif origin._name == "l10n_hr.business.premise":
             values.update(
                 {
-                    "fiskal_prostor_id": origin.id,
+                    "business_premise_id": origin.id,
                 }
             )
         return values
@@ -202,19 +181,26 @@ class ResCompany(models.Model):
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
         self.env["l10n_hr.fiscal.log"].create(log_vals)
 
-    def button_test_echo(self, origin=None):
+    def button_l10n_hr_fiscal_test_echo(self, origin=None):
+        # if called from Company default origin to itself
+        origin = origin or self
         fd = self.get_fiscal_data()
         fisk = fiscal.Fiscalization(data=fd)
         time_start = self.get_l10n_hr_time_formatted()
         msg = "TEST message"
         echo = fisk.test_service(msg)
-        self.create_fiscal_log("echo", fisk, echo, time_start, origin)
+        self.create_fiscal_log("echo", fisk, echo, time_start, origin=origin)
 
     def get_fiscal_data(self):
-        fina_cert = self.l10n_hr_fiscal_cert_id
-        if not fina_cert:
+        self.ensure_one()
+        fiscal_cert = self.l10n_hr_fiscal_cert_id
+        if not fiscal_cert:
             raise MissingError(_("Fiscal Certificate not found! Check company setup!"))
-        key_file, cert_file, production = fina_cert.get_fiscal_ssl_data()
+        if not self.l10n_hr_fiscal_schema:
+            raise MissingError(_("Fiscal schema not found! Check company setup!"))
+        demo = self.l10n_hr_fiscal_test_env
+        cert_data = fiscal_cert.pem_certificate
+        key_data = fiscal_cert.private_key_id.pem_key
 
         fiscal_path = self._get_fiscal_path()
         schema = "".join(
@@ -222,20 +208,20 @@ class ResCompany(models.Model):
                 "file://",
                 fiscal_path,
                 "schema/Fiskalizacija-WSDL-",
-                self.l10n_hr_fiscal_cert_id.fiskal_schema,
+                self.l10n_hr_fiscal_schema,
             ]
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
-        cert_path = fiscal_path + "fina_cert/" + self.l10n_hr_fiscal_cert_id.cert_type
-        cer_oib = self.l10n_hr_fiscal_cert_id.cert_oib and self.l10n_hr_fiscal_cert_id.cert_oib[2:]
+        cert_path = fiscal_path + "fina_cert/" + self.l10n_hr_fiscal_cert_id.l10n_hr_type
+        cert_vat = self.l10n_hr_fiscal_demo_cert_vat and self.l10n_hr_fiscal_demo_cert_vat[2:]
         res = {
-            "company_oib": self.company_registry,
-            "cert_oib": cer_oib,
+            "company_vat": self.company_registry,
+            "cert_vat": cert_vat,
             "wsdl": wsdl_file,
-            "key": key_file,
-            "cert": cert_file,
-            "fina_bundle": cert_path + "/fina_bundle.pem",
-            "app_cert": cert_path + "/certificate.pem",
-            "demo": not production,
+            "key_data": key_data,
+            "cert_data": cert_data,
+            "fina_bundle_path": cert_path + "/fina_bundle.pem",
+            "app_cert_path": cert_path + "/certificate.pem",
+            "demo": demo,
         }
         return res

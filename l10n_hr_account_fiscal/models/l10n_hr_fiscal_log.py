@@ -32,8 +32,8 @@ class L10nHrFiscalLog(models.Model):
         readonly=True,
     )
     # related document
-    res_model = fields.Char('Related Document Model', readonly=True)
-    res_id = fields.Many2oneReference('Related Document ID', model_field='res_model', readonly=True)
+    res_model = fields.Char('Related Document Model', readonly=True, required=True)
+    res_id = fields.Many2oneReference('Related Document ID', model_field='res_model', readonly=True, required=True)
     business_premise_id = fields.Many2one(comodel_name="l10n_hr.business.premise",
                                           string="Business Premise", readonly=True)
     fiscal_device_id = fields.Many2one(comodel_name="l10n_hr.fiscal.device", string="POS Device", readonly=True)

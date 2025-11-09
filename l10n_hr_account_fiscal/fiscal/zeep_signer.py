@@ -160,7 +160,7 @@ class Verifier:
         sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
         try:
             ctx.verify(sig_node)
-        except Exception:
+        except Exception as E:
             # print(repr(E))
             pass
 
@@ -195,21 +195,17 @@ class BinarySigner:
             raise ValueError("Company private key data is missing")
 
         try:
-            key = serialization.load_pem_private_key(base64.b64decode(key_data), password)
-
+            key = xmlsec.Key.from_memory(base64.b64decode(key_data), xmlsec.KeyFormat.PEM,
+                                         password.encode("utf-8") if password else None)
         except xmlsec.Error as e:
             raise ValueError(f"Cannot load private key from buffer: {e}")
-
         return key
 
     def _load_xmlsec_cert(self, cert_data):
         if not cert_data:
             raise ValueError("Company certificate data is missing")
-
         try:
-            pass
-            # Use load_cert_from_buffer to load the certificate
-            # self.xmlsec_key.from_binary_data(cert_data)
+            self.xmlsec_key.load_cert_from_memory(base64.b64decode(cert_data), xmlsec.KeyFormat.CERT_PEM)
         except xmlsec.Error as e:
             raise ValueError(f"Cannot load certificate from buffer: {e}")
 
@@ -336,7 +332,7 @@ class BinaryVerifier:
         sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
 
         if sig_node is None:
-            # Handle case where signature node isn't found
+            # Handle a case where signature node isn't found
             return False  # Or raise an appropriate error
 
         try:

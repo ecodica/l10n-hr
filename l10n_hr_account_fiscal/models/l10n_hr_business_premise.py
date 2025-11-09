@@ -11,6 +11,6 @@ class L10nHrBusinessPremise(models.Model):
         help="Log of all messages sent and received for FINA",
     )
 
-    def button_l10n_hr_fiscal_echo(self):
-        self.company_id.button_test_echo(self)
+    def button_l10n_hr_test_fiscal_echo(self):
+        self.company_id.button_l10n_hr_test_fiscal_echo(self)
 

@@ -3,6 +3,7 @@ import io
 import logging
 import pytz
 import qrcode
+from datetime import datetime
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
@@ -17,8 +18,8 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
     Basic fields and methods for all fiscal classes
     - inherit for invoice, POS, etc...
     """
-    _inherit = 'l10n_hr.fiscal.mixin'
-    # _name = "l10n_hr.fiscal1.mixin"
+    # _inherit = 'l10n_hr.fiscal.mixin'
+    _name = "l10n_hr.fiscal1.mixin"
     _description = "Croatia Fiscalization 1.0 base mixin"
 
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
@@ -47,9 +48,10 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
         domain=lambda model: [('res_model', '=', model._name)],
         string="Fiscal message logs",
         help="Log of all messages sent and received for FINA",
+        readonly=True
     )
 
-    @staticmethod
+    @api.model
     def _get_fiscal_amount_field_name(self):
         return NotImplementedError('Must be defined in subclass!')
 
@@ -63,9 +65,9 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
         # If not fiscalized, for any reason whatsoever 
         else:
             url += "zki=" + self.l10n_hr_zki
-        fiscal_time = self.l10n_hr_fiscal_time.strftime("%Y%m%d_%H%M")
+        fiscal_time = datetime.strptime(self.l10n_hr_fiscal_time, FISCAL_DATETIME_FORMAT).strftime("%Y%m%d_%H%M")
         url += "&datv=" + fiscal_time
-        amount = "&izn=%.2f" % self.get(self._get_fiscal_amount_field_name())
+        amount = "&izn=%.2f" % self[self._get_fiscal_amount_field_name()]
         url += amount.replace(".", "")  # no decimal point in a link!
         return url
 
@@ -165,15 +167,13 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
         # NOTE: Stavke oslobodjene od poreza, Odoo ne kreira stavke temeljnice ako je stop 0.0
         # TODO: provjeriti kako slati stavke sa stopom 0 i da li ima takvih slucajeva u praksi
-        for line in self.line_ids.filtered(
-                lambda line: line.display_type == "product"
-        ):
+        for line in self.line_ids.filtered(lambda line: line.display_type == "product"):
             for tax in line.tax_ids:
-                if not tax.l10n_hr_fiskal_type:
+                if not tax.l10n_hr_fiscal_type:
                     raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
-                fiscal_type = tax.l10n_hr_fiskal_type
-                base_amount = line.balance * (
-                    -1)  # TODO verify if this logic is valid to get invoice and refund amounts
+                fiscal_type = tax.l10n_hr_fiscal_type
+                # TODO verify if this logic is valid to get invoice and refund amounts
+                base_amount = line.balance * (-1)
                 if fiscal_type not in ['oslobodenje', 'ne_podlijeze', 'marza']:
                     continue
                 if fiscal_type == "oslobodenje":
@@ -250,7 +250,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(FISCAL_DATETIME_FORMAT)
         return formatted_date
 
-    @staticmethod
+    @api.model
     def _get_fiscal_invoice_type(self, factory, msg_type):
         return factory.type_factory.RacunType
 
@@ -266,17 +266,17 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             pdv = factory.type_factory.PdvType(Porez=porezi["Pdv"])
         if porezi.get("Pnp", None):
             pnp = factory.type_factory.PorezNaPotrosnjuType(Porez=porezi["Pnp"])
-        oib_company = self.company_id.partner_id.company_registry
-        if self.company_id.l10n_hr_fiscal_cert_id.cert_type == "demo":
-            # demo cert na tudjoj bazi... onda ide oib iz certa
-            cert_oib = self.company_id.l10n_hr_fiscal_cert_id.cert_oib
-            oib_company = cert_oib and cert_oib[2:] or False
+        # oib_company = self.company_id.partner_id.company_registry
+        # if self.company_id.l10n_hr_fiscal_cert_id.cert_type == "demo":
+        #     # demo cert na tudjoj bazi... onda ide oib iz certa
+        #     cert_oib = self.company_id.l10n_hr_fiscal_cert_id.cert_oib
+        #     oib_company = cert_oib and cert_oib[2:] or False
 
         RacunType = self._get_fiscal_invoice_type(factory, msg_type)
         racun = RacunType(
-            Oib=oib_company,
+            Oib=fiscal_data['cert_vat'],
             USustPdv=self.company_id.l10n_hr_tax_model in ('r1', 'r2'),
-            DatVrijeme=self._prepare_fiscal_date_time(),
+            DatVrijeme=self.l10n_hr_fiscal_time,
             OznSlijed=self.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_sequence_by,
             BrRac=BrRac,
             Pdv=pdv,
@@ -329,9 +329,9 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
                 precision_digits=self.currency_id.decimal_places):
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
-    @staticmethod
+    @api.model
     def _fisc_msg_type(self):
-        """Return list of fis messge types that should be fiscalized."""
+        """Return list of fisc message types that should be fiscalized."""
         return ["racuni", "provjera"]
 
     def _handle_fisc_response(self, response, msg_type):
@@ -372,23 +372,14 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
         assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
         fiscal_data["racun"] = fis_racun
         if not self.l10n_hr_zki:
-            if fiscal_data["demo"]:
-                # uzimam oib iz certifikata, bez obzira na company oib
-                oib = fiscal_data["cert_oib"]
-            else:
-                oib = fiscal_data["company_oib"]
-
-            formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
-                pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(
-                INVOICE_DATETIME_FORMAT) or time_start["datum_racun"]
-
+            formatted_date = self.l10n_hr_fiscal_time or time_start["datum_racun"]
             zki_datalist = [
-                oib,
+                fiscal_data["cert_vat"],
                 formatted_date,
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],
-                fiscal.format_decimal(self.get(self._get_fiscal_amount_field_name())),
+                fiscal.format_decimal(self[self._get_fiscal_amount_field_name()]),
             ]
             fisk = fiscal.Fiscalization(data=fiscal_data)
             self.l10n_hr_zki = fiscal.generate_zki(
@@ -405,7 +396,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
         if msg_type in self._fisc_msg_type():
             racun = self._prepare_fiscal_invoice(fisk, fiscal_data, msg_type)
-            self._validate_fiscal_invoice(racun)
+            # self._validate_fiscal_invoice(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             response = None
@@ -430,5 +421,5 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             # raise error
             error_message = response and hasattr(response, 'error_message') and response[
                 'error_message'] or odoo_error.get('error_message')
-            if error_message and not self.company_id.l10n_hr_fiskal_silent_error_logging:
+            if error_message and not self.company_id.l10n_hr_fiscal_silent_error_logging:
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)

@@ -68,7 +68,7 @@ class Fiscalization:
         )
         history = HistoryPlugin()
         fiscal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
-        settings = Settings(raw_response=True)
+        settings = Settings(raw_response=False)
         self.client = Client(
             data["wsdl"], transport=transport, plugins=[fiscal_plugin, history], settings=settings
         )
@@ -120,7 +120,6 @@ class Fiscalization:
         except Exception as E:
             if isinstance(E, SSLError):
                 raise E
-
             try:
                 doc = etree.fromstring(E.detail)
             except etree.XMLSyntaxError:

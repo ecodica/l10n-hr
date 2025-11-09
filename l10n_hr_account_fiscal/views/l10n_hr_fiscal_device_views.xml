@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <field name="l10n_hr_lock" position="before">
                 <field name="fiscalization_active" widget="boolean_toggle"/>
-                <button string="TEST ECHO" type="object" name="button_l10n_hr_fiscal_echo"/>
+                <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo"/>
             </field>
         </field>
     </record>

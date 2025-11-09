@@ -94,7 +94,7 @@ class ResCompany(models.Model):
         for company in self:
             cert_id = False
             if company.country_code == 'HR':
-                available_certs = company.l10n_hr_fiscal_cert_ids
+                available_certs = company.l10n_hr_fiscal_cert_ids.filtered("is_valid")
                 if company.l10n_hr_fiscal_test_env:
                     cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo'))
                 else:
@@ -140,12 +140,12 @@ class ResCompany(models.Model):
         if isinstance(response, dict) and response.get('error_message'):
             values.update({
                 "name": _("Fiscalization Failed"),
-                "greska": response.get('error_message', False)
+                "error_msg": response.get('error_message', False)
             })
         elif isinstance(response, dict) and response.get('delay_message'):
             values.update({
                 "name": _("Fiscalization Delayed"),
-                "greska": _("Fiscalization Delayed"),
+                "error_msg": _("Fiscalization Delayed"),
             })
         else:
             values.update({
@@ -181,7 +181,7 @@ class ResCompany(models.Model):
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
         self.env["l10n_hr.fiscal.log"].create(log_vals)
 
-    def button_l10n_hr_fiscal_test_echo(self, origin=None):
+    def button_l10n_hr_test_fiscal_echo(self, origin=None):
         # if called from Company default origin to itself
         origin = origin or self
         fd = self.get_fiscal_data()
@@ -214,8 +214,12 @@ class ResCompany(models.Model):
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiscal_path + "fina_cert/" + self.l10n_hr_fiscal_cert_id.l10n_hr_type
         cert_vat = self.l10n_hr_fiscal_demo_cert_vat and self.l10n_hr_fiscal_demo_cert_vat[2:]
+        if self.l10n_hr_fiscal_test_env:
+            cert_vat = cert_vat
+        else:
+            cert_vat = self.company_registry
         res = {
-            "company_vat": self.company_registry,
+            # "company_vat": self.company_registry,
             "cert_vat": cert_vat,
             "wsdl": wsdl_file,
             "key_data": key_data,

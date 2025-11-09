@@ -19,18 +19,18 @@ Buisines premise code must be second part of the invoice number separated by '/'
 
 
 class AccountMove(models.Model):
+    _inherit = ["account.move", "l10n_hr.fiscal1.mixin"]
     _name = "account.move"
-    _inherit = ["account.move", "l10n_hr.fiscal.mixin"]
 
-    @staticmethod
+    @api.model
     def _get_fiscal_amount_field_name(self):
         return 'amount_total'
 
     @api.constrains('state')
     def _check_fiscalization_invoice_cancel(self):
         for invoice in self.filtered(lambda i: i.move_type in ["out_invoice", "out_refund"]):
-            if invoice.company_id.l10n_hr_fiskal_cancel_confirmed_invoice:
-                continue
+            # if invoice.company_id.l10n_hr_fiskal_cancel_confirmed_invoice:
+            #     continue
             if invoice.l10n_hr_zki and invoice.state != 'posted':
                 raise ValidationError(_("""Canceling or returning fiscalized invoiced in draft is disabled.
                     If necessary, enable this feature on company."""))
@@ -38,14 +38,14 @@ class AccountMove(models.Model):
     def _check_zki_on_confirm(self):
         """Check if on confirmed invoice ZKI is set for invoiced that should be fiscalized"""
         for invoice in self.filtered(lambda i: i.state == 'posted'):
-            if invoice._l10n_hr_fiscalization_needed('racuni') and not invoice.l10n_hr_zki:
+            if invoice._l10n_hr_fiscalization_needed() and not invoice.l10n_hr_zki:
                 raise ValidationError(_("""ZKI number is not set on invoice that should be fiscalized.
                     Check if fiscalization is properly configured."""))
 
     def _must_check_constrains_date_sequence(self):
-        """Extend to skip check if l10n_hr_fiskal_uredjaj_id is set."""
-        # NOTE: fiskal number are specific and they don't have date reference in them so we can skip that check
-        if self.l10n_hr_fiskal_uredjaj_id:
+        """Extend to skip check if l10n_hr_fiscal_device_id is set."""
+        # NOTE: fiscal number are specific and they don't have date reference in them so we can skip that check
+        if self.l10n_hr_fiscal_device_id:
             return False
         return super()._must_check_constrains_date_sequence()
 

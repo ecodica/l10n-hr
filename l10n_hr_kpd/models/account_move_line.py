@@ -22,7 +22,9 @@ class AccountMoveLine(models.Model):
                     kpd = fields.first(parent_categories).l10n_hr_kpd_id
             line.l10n_hr_kpd_id = kpd.id
 
+    @api.onchange('product_id')
     def _inverse_product_id(self):
+        super(AccountMoveLine, self)._inverse_product_id()
         if self.product_id or not self.l10n_hr_kpd_id:
             self._conditional_add_to_compute('l10n_hr_kpd_id', lambda line: (
                     line.display_type == 'product' and line.move_id.is_invoice(True)

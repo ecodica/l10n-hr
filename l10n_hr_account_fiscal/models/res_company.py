@@ -43,6 +43,8 @@ class ResCompany(models.Model):
         domain="[('scope', '=', 'fina')]",
         help="Officially issued by Croatian FINA Agency, imported and activated",
     )
+    l10n_hr_fiscal_cert_subject_vat = fields.Char(related='l10n_hr_fiscal_cert_id.l10n_hr_subject_vat',
+                                                  string='Fiscal Cert Subject VAT', readonly=True)
     l10n_hr_fiscal_spec = fields.Char(
         string="Special",
         size=1000,
@@ -87,7 +89,6 @@ class ResCompany(models.Model):
         prefetch=False,
         help=SCHEMA_HELP,
     )
-    l10n_hr_fiscal_demo_cert_vat = fields.Char('DEMO Cert VAT', prefetch=False)
 
     @api.depends('country_id', 'l10n_hr_fiscal_cert_ids', 'l10n_hr_fiscal_cert_ids.l10n_hr_type')
     def _compute_l10n_hr_fiscal_cert(self):
@@ -213,10 +214,11 @@ class ResCompany(models.Model):
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiscal_path + "fina_cert/" + self.l10n_hr_fiscal_cert_id.l10n_hr_type
-        cert_vat = self.l10n_hr_fiscal_demo_cert_vat and self.l10n_hr_fiscal_demo_cert_vat[2:]
+        cert_vat = self.l10n_hr_fiscal_cert_subject_vat and self.l10n_hr_fiscal_cert_subject_vat[2:]
         if self.l10n_hr_fiscal_test_env:
             cert_vat = cert_vat
         else:
+            # Maybe totally not needed
             cert_vat = self.company_registry
         res = {
             # "company_vat": self.company_registry,

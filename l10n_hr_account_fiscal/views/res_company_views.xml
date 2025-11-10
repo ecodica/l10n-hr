@@ -14,7 +14,7 @@
                 <field name="l10n_hr_fiscal_test_env"/>
                 <field name="l10n_hr_fiscal_schema"/>
                 <field name="l10n_hr_fiscal_cert_id"/>
-                <field name="l10n_hr_fiscal_demo_cert_vat"/>
+                <field name="l10n_hr_fiscal_cert_subject_vat"/>
                 <separator string="Certificates"/>
                 <button name="button_l10n_hr_test_fiscal_echo" type="object"
                         string="Test Fiscal connection" colspan="2"/>

@@ -22,7 +22,8 @@ class Certificate(models.Model):
         readonly=False,
         string="FINA type"
     )
-    l10n_hr_subject_vat = fields.Char('Subject VAT', readonly=True)
+    # allow user entry, fallback
+    l10n_hr_subject_vat = fields.Char('Subject VAT', readonly=False)
 
     @api.depends('content', 'pkcs12_password')
     def _compute_pem_certificate(self):

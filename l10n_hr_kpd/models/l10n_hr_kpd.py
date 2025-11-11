@@ -23,7 +23,7 @@ class L10nHrKpd(models.Model):
     date_start = fields.Date(string="Start Date", required=True)
     date_end = fields.Date(string="End Date")
     level = fields.Char(string="Level", readonly=True, required=True)
-    name = fields.Char(string="Name", required=True)
+    name = fields.Char(string="Name", required=True, translate=True)
     type = fields.Selection(
         string="Type",
         selection=[

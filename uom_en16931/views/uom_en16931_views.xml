@@ -41,10 +41,22 @@
         </field>
     </record>
 
+    <record id="uom_en16931_search_view" model="ir.ui.view">
+        <field name="name">uom_en16931_search_view</field>
+        <field name="model">uom.en16931</field>
+        <field name="arch" type="xml">
+            <search string="UoM EN16931">
+                <field name="name"/>
+                <field name="code"/>
+            </search>
+        </field>
+    </record>
+
     <record id="uom_en16931_action" model="ir.actions.act_window">
         <field name="name">EN16931 UoM</field>
         <field name="res_model">uom.en16931</field>
         <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="uom_en16931_search_view"/>
     </record>
 
 </odoo>

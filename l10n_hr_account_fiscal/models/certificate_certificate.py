@@ -28,29 +28,32 @@ class Certificate(models.Model):
     def _compute_pem_certificate(self):
         res = super()._compute_pem_certificate()
         for certificate in self:
-            content = base64.b64decode(certificate.with_context(bin_size=False).content)
-            cert = None
-            # Try to load the certificate in different format starting with DER then PKCS12 and
-            # finally PEM. If none succeeded, we report an error.
-            try:
-                cert = x509.load_der_x509_certificate(content)
-            except ValueError:
-                pass
-            if not cert:
+            certificate.l10n_hr_subject_vat = False
+            if certificate.content:
+                content = base64.b64decode(certificate.with_context(bin_size=False).content)
+                cert = None
+                # Try to load the certificate in different format starting with DER then PKCS12 and
+                # finally PEM. If none succeeded, we report an error.
                 try:
-                    pkcs12_password = certificate.pkcs12_password.encode(
-                        'utf-8') if certificate.pkcs12_password else None
-                    _key, cert, _additional_certs = pkcs12.load_key_and_certificates(content, pkcs12_password)
+                    cert = x509.load_der_x509_certificate(content)
                 except ValueError:
                     pass
-            if not cert:
-                try:
-                    cert = x509.load_pem_x509_certificate(content)
-                except ValueError:
-                    pass
-            try:
-                subject_vat = cert.subject.get_attributes_for_oid(ObjectIdentifier('2.5.4.97'))
-                certificate.l10n_hr_subject_vat = subject_vat[0].value if subject_vat else ""
-            except ValueError:
-                certificate.l10n_hr_subject_vat = None
+                if not cert:
+                    try:
+                        pkcs12_password = certificate.pkcs12_password.encode(
+                            'utf-8') if certificate.pkcs12_password else None
+                        _key, cert, _additional_certs = pkcs12.load_key_and_certificates(content, pkcs12_password)
+                    except ValueError:
+                        pass
+                if not cert:
+                    try:
+                        cert = x509.load_pem_x509_certificate(content)
+                    except ValueError:
+                        pass
+                if cert:
+                    try:
+                        subject_vat = cert.subject.get_attributes_for_oid(ObjectIdentifier('2.5.4.97'))
+                        certificate.l10n_hr_subject_vat = subject_vat[0].value if subject_vat else ""
+                    except ValueError:
+                        pass
         return res

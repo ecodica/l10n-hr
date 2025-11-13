@@ -35,7 +35,7 @@
                             <field name="l10n_hr_fiscal_device_visible" invisible="1" />
                             <field name="l10n_hr_fiscal_device_id" widget="selection" invisible ="not l10n_hr_fiscal_device_visible or l10n_hr_show_required_fisk_fields_on_header " domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
                             <!-- until fiscalisation module for cash payments has only one selectable ooption -->
-                            <field name="l10n_hr_payment_method" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
+                            <field name="l10n_hr_account_payment_type_id" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
                         </group>
                     </group>
                 </page>
@@ -43,7 +43,7 @@
 
             <field name="invoice_vendor_bill_id" position="after">
                 <field name="l10n_hr_fiscal_device_id" widget="selection" invisible="not l10n_hr_fiscal_device_visible or not l10n_hr_show_required_fisk_fields_on_header" domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
-                <field name="l10n_hr_payment_method" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
+                <field name="l10n_hr_account_payment_type_id" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
             </field>
 
             <field name="ref" position="before">

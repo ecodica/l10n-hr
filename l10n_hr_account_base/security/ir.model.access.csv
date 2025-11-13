@@ -3,3 +3,5 @@
 "access_model_business_premise_user","business_premise_user",model_l10n_hr_business_premise,"account.group_account_invoice",1,0,0,0
 "access_model_fiscal_device_manager","fiscal_device_manager",model_l10n_hr_fiscal_device,"account.group_account_manager",1,1,1,1
 "access_model_fiscal_device_user","fiscal_device_user",model_l10n_hr_fiscal_device,"account.group_account_invoice",1,0,0,0
+"access_model_l10n_hr_account_payment_type","l10n_hr_account_payment_type_user",model_l10n_hr_account_payment_type,"base.group_user",1,0,0,0
+"access_model_l10n_hr_account_payment_type_manager","l10n_hr_account_payment_type_manager",model_l10n_hr_account_payment_type,"account.group_account_manager",1,1,0,0

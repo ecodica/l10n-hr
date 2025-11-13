@@ -3,7 +3,7 @@
     "summary": "Croatia accounting localisation",
     "category": "Accounting/Localizations/Croatia",
     "images": [],
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "application": False,
     "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -15,6 +15,7 @@
         "l10n_hr_base",
     ],
     "data": [
+        "data/l10n_hr.account.payment.type.csv",
         "security/ir.model.access.csv",
         "views/res_company_view.xml",
         "views/fiscal_data_views.xml",
@@ -22,6 +23,7 @@
         "views/account_journal_view.xml",
         "views/res_partner_views.xml",
         "views/menuitems.xml",
+        "views/l10n_hr_account_payment_type_view.xml",
         "report/report_invoice.xml",
     ],
     "assets":{

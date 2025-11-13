@@ -17,7 +17,8 @@ class AccountJournal(models.Model):
         column1="l10n_hr_journal_id",
         column2="l10n_hr_fiscal_device_id",
         string="Allowed PoS Devices")
-    l10n_hr_default_fiscal_payment_method = fields.Selection(
-        selection=[("T", "Bank transfer")],
+    l10n_hr_default_account_payment_type_id = fields.Many2one(
+        comodel_name='l10n_hr.account.payment.type',
+        ondelete="restrict",
         string="Default fiscal payment method for this journal",
-        default="T")
+        default=lambda self: self.env['account.move'].get_default_l10n_hr_account_payment_type())

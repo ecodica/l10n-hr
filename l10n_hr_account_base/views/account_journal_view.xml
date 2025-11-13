@@ -9,7 +9,7 @@
             <notebook position="inside">
                 <page string="Croatia Specific" name="croatia_page" invisible ="type != 'sale'"><!-- attrs="{'invisible':[('company_id.country_id.code','!=', 'HR')]}" -->
                     <group>
-                        <field name="l10n_hr_default_fiscal_payment_method"/>
+                        <field name="l10n_hr_default_account_payment_type_id"/>
                         <field name="l10n_hr_business_premise_id"/>
                         <field name="l10n_hr_fiscal_device_ids" domain="[('l10n_hr_business_premise_id','=', l10n_hr_business_premise_id)]" groups="account.group_account_manager" invisible ="l10n_hr_business_premise_id == 'False'" widget="many2many_tags" readonly="1" />
                     </group>

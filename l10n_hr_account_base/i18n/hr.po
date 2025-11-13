@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-08 13:29+0000\n"
-"PO-Revision-Date: 2025-04-08 13:29+0000\n"
+"POT-Creation-Date: 2025-11-12 14:47+0000\n"
+"PO-Revision-Date: 2025-11-12 14:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -41,8 +41,8 @@ msgid "<strong>Place Of Issue</strong>"
 msgstr "<strong>Mjesto izdavanja</strong>"
 
 #. module: l10n_hr_account_base
-#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_payment_method
-#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_payment_method
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_account_payment_type_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_account_payment_type_id
 msgid ""
 "According to Fiscalization Law and regulative there are 5 possible options: T, G, K, C, O\n"
 "T - Transaction bank account, is applicable without fiscalization\n"
@@ -71,6 +71,7 @@ msgid "Activate Premise"
 msgstr "Aktiviraj prostor"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__active
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_state__active
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__active
 msgid "Active"
@@ -133,14 +134,18 @@ msgid "Another entry with the same name already exists."
 msgstr "U bazi već postoji zapis s jednakim nazivom."
 
 #. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_form
+msgid "Archived"
+msgstr "Arhivirano"
+
+#. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_attachment_count
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_attachment_count
 msgid "Attachment Count"
 msgstr "Broj priloženih dokumenata"
 
 #. module: l10n_hr_account_base
-#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_fiscal_payment_method__t
-#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_payment_method__t
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_T
 msgid "Bank transfer"
 msgstr "Transakcijski račun"
 
@@ -177,6 +182,21 @@ msgid "Business premises"
 msgstr "Poslovni prostori"
 
 #. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_K
+msgid "Card"
+msgstr "Kartica"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_G
+msgid "Cash"
+msgstr "Gotovina"
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_C
+msgid "Cheque"
+msgstr "Ček"
+
+#. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiskal_prostor_form
 msgid "Close"
 msgstr "Zatvori"
@@ -196,6 +216,11 @@ msgstr "Zatvori prostor"
 #: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__close
 msgid "Closed"
 msgstr "Zatvoren"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__code
+msgid "Code"
+msgstr "Šifra"
 
 #. module: l10n_hr_account_base
 #: model:ir.model,name:l10n_hr_account_base.model_res_company
@@ -218,12 +243,14 @@ msgid "Contact"
 msgstr "Kontakt"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__create_uid
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__create_uid
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__create_date
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__create_date
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__create_date
 msgid "Created on"
@@ -235,12 +262,6 @@ msgid "Croatia"
 msgstr "Hrvatska"
 
 #. module: l10n_hr_account_base
-#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_payment_method
-#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_payment_method
-msgid "Croatia - Payment Method"
-msgstr "Način plaćanja (Hrvatska)"
-
-#. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_invoice_time
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_invoice_time
 msgid "Croatia Fiscal datetime value as string, should respect format: "
@@ -250,6 +271,12 @@ msgstr "Datum i vrijeme izdavanja"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_move_form
 msgid "Croatia Fiskal Data"
 msgstr "Hrvatska - Fiskalni podaci"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_account_payment_type_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_account_payment_type_id
+msgid "Croatia Payment Means"
+msgstr "Način plaćanja"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_account_journal_l10n_hr_form
@@ -267,6 +294,11 @@ msgid "Croatia settings"
 msgstr "Postavke za Hrvatsku"
 
 #. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_l10n_hr_account_payment_type
+msgid "Croatian Payment Means"
+msgstr "Način plaćanja"
+
+#. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_document
 #: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_date_document
 msgid ""
@@ -274,7 +306,7 @@ msgid ""
 msgstr "Datum kreiranja dokumenta (ako je prazno uzima današnji datum)."
 
 #. module: l10n_hr_account_base
-#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__l10n_hr_default_fiscal_payment_method
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__l10n_hr_default_account_payment_type_id
 msgid "Default fiscal payment method for this journal"
 msgstr "Zadani način plaćanja za ovaj dnevnik."
 
@@ -300,6 +332,7 @@ msgid "Device that registers fiscal payment."
 msgstr "Uređaj na kojem se izdaje račun."
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__display_name
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__display_name
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__display_name
 msgid "Display Name"
@@ -386,6 +419,7 @@ msgid "Has Message"
 msgstr "Ima poruka"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__id
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__id
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__id
 msgid "ID"
@@ -437,10 +471,10 @@ msgid "Invoice Parts Separator"
 msgstr "Separator u fiskalnom broju"
 
 #. module: l10n_hr_account_base
-#. odoo-python
-#: code:addons/l10n_hr_account_base/models/account_move.py:0
-msgid "Invoice posting not possible:\n"
-msgstr "Potvrđivanje računa nije moguće:\n"
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_croatian_payment_means
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_croatian_payment_means
+msgid "Invoice Payment Means"
+msgstr "Način plaćanja računa"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_is_follower
@@ -498,12 +532,14 @@ msgid "L10N Hr Sequence"
 msgstr ""
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__write_uid
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__write_uid
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__write_date
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__write_date
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__write_date
 msgid "Last Updated on"
@@ -536,6 +572,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_account_payment_type__name
+msgid "Name"
+msgstr "Naziv"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_date_deadline
@@ -633,6 +674,11 @@ msgstr "Samo '/' ili '-' su zakonom dozvoljeni elementi"
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_fiscal_device_code
 msgid "Only integer number values allowed, without leading zeroes."
 msgstr "Samo cu cjelobrojne vrijednosti dozvoljene, bez nula na početku."
+
+#. module: l10n_hr_account_base
+#: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_O
+msgid "Other"
+msgstr "Ostalo"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiskal_prostor_form

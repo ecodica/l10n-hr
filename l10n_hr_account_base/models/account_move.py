@@ -7,6 +7,11 @@ from odoo.tools.sql import drop_index, index_exists
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    @api.model
+    def get_default_l10n_hr_account_payment_type(self):
+        """ Try to return 'Bank Transfer' as default payment type """
+        return self.env.ref('l10n_hr_account_base.l10n_hr_account_payment_type_T', raise_if_not_found=False)
+
     l10n_hr_date_document = fields.Date(
         string="Document Date",
         copy=False,
@@ -24,10 +29,11 @@ class AccountMove(models.Model):
         help="Required fiscal number, generated according to "
              "regulations regardless of journal number.")
     # i za ulazne račune se ovdje moze upisati
-    l10n_hr_payment_method = fields.Selection(
-        selection=[("T", "Bank transfer")],
-        string="Croatia - Payment Method",
-        default="T",
+    l10n_hr_account_payment_type_id = fields.Many2one(
+        comodel_name='l10n_hr.account.payment.type',
+        string="Croatia Payment Means",
+        ondelete="restrict",
+        default=lambda self: self.get_default_l10n_hr_account_payment_type(),
         help="According to Fiscalization Law and regulative "
              "there are 5 possible options: T, G, K, C, O\n"
              "T - Transaction bank account, is applicable without fiscalization\n"
@@ -244,6 +250,6 @@ class AccountMove(models.Model):
         res = super()._onchange_journal_id()
         if self.company_id.account_fiscal_country_id.code != "HR":
             return res
-        if self.journal_id.l10n_hr_default_fiscal_payment_method:
-            self.l10n_hr_payment_method = self.journal_id.l10n_hr_default_fiscal_payment_method
+        if self.journal_id.l10n_hr_default_account_payment_type_id:
+            self.l10n_hr_account_payment_type_id = self.journal_id.l10n_hr_default_account_payment_type_id
         return res

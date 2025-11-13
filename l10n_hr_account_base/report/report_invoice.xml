@@ -22,9 +22,9 @@
                 <strong>Internal Number</strong>
                 <div t-field="o.name"/>
             </div>
-            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_payment_method" name="l10n_hr_payment_method">
+            <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_account_payment_type_id" name="l10n_hr_payment_method">
                 <strong>Payment Method</strong>
-                <div t-field="o.l10n_hr_payment_method"/>
+                <div t-field="o.l10n_hr_account_payment_type_id"/>
             </div>
             <div class="col" t-if="o.country_code == 'HR' and o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''" name="l10n_place_of_issue">
                 <strong>Place Of Issue</strong>

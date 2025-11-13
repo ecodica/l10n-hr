@@ -239,3 +239,16 @@ class AccountMove(models.Model):
         if self.journal_id.l10n_hr_default_nacin_placanja:
             self.l10n_hr_nacin_placanja = self.journal_id.l10n_hr_default_nacin_placanja
         return res
+
+    def _search_default_journal(self):
+        """Some invoices like intercompany invoices are not created manually and therefore onchange
+        is not triggered, so logic with journals defined on partners has to be set here also
+        Fallback is to default although purchase_journal_id and sale_journal_id are required
+        therefore fallback should not happen at least at this moment"""
+        default_journal = super()._search_default_journal()
+        journal_id = None
+        if self.partner_id and self.is_outbound(include_receipts=True):
+            journal_id = self.partner_id.purchase_journal_id
+        elif self.partner_id and self.is_inbound(include_receipts=True):
+            journal_id = self.partner_id.sale_journal_id
+        return journal_id or default_journal

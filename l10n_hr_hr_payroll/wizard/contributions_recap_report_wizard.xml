@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_contributions_recap_report_wizard" model="ir.ui.view">
+      <field name="name">view.contributions.recap.report.wizard</field>
+      <field name="model">contributions.recap.report.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Forma za ispis rekapitulacije podataka za postupak kontrole">
+          <group>
+            <field name="year_id" required="1"/>
+            <field name="report_date"/>
+          </group>
+          <footer>
+            <button string="Ispis" name="print_report" type="object" class="oe_highlight"/>
+            or
+            <button string="Odustani" special="cancel" class="oe_link"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_contributions_recap_report_wizard" model="ir.actions.act_window">
+      <field name="name">Contributions recap report</field>
+      <field name="res_model">contributions.recap.report.wizard</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_contributions_recap_report_wizard"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

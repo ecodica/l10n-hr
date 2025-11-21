@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- config -->
+        <record id="ip1_form_report_config_01" model="ip1.form.report.config">
+            <field name="name">2023</field>
+        </record>
+
+        <!-- section VI -->
+        <!-- subsection 2 -->
+        <record id="ip1_form_report_position_vi_2_2_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">1</field>
+            <field name="name">redoviti rad prema rasporedu radnog vremena</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_12')),
+                (4, ref('hr_salary_rule_82')),
+                (4, ref('hr_salary_rule_83')),
+                (4, ref('hr_salary_rule_157')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_02" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">2</field>
+            <field name="name">redoviti rad nedjeljom</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_160')),
+                (4, ref('hr_salary_rule_238')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_03" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">3</field>
+            <field name="name">redoviti rad blagdanom i neradnim danom utvrđenim posebnim zakonom</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_162')),
+                (4, ref('hr_salary_rule_217')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_04" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">4</field>
+            <field name="name">redoviti rad noću</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_48')),
+                (4, ref('hr_salary_rule_218')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_05" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">5</field>
+            <field name="name">prekovremeni rad</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_41')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_06" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">6</field>
+            <field name="name">prekovremeni rad nedjeljom</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_07" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">7</field>
+            <field name="name">prekovremeni rad blagdanom i neradnim danom utvrđenim posebnim zakonom</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_08" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">8</field>
+            <field name="name">prekovremeni rad noću</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_09" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">9</field>
+            <field name="name">rad po pozivu iz pripravnosti</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_10" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">10</field>
+            <field name="name">stimulacija</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_36')),
+                (4, ref('hr_salary_rule_84')),
+                (4, ref('hr_salary_rule_236')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_11" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">11</field>
+            <field name="name">plaćeni dopust</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_56')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_12" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">12</field>
+            <field name="name">smjenski rad</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_191')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_13" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">13</field>
+            <field name="name">neplaćeni dopust</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_215')),
+                (4, ref('hr_salary_rule_222')),
+                (4, ref('hr_salary_rule_235')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_14" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">14</field>
+            <field name="name">dodatak na staž</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_93')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_2_15" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">02</field>
+            <field name="sequence">2</field>
+            <field name="name">odsutnost s rada</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_234')),
+            ]"/>
+        </record>
+
+        <!-- subsection 3 -->
+        <record id="ip1_form_report_position_vi_2_3_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">2</field>
+            <field name="name">naknada za godišnji odmor</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_29')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_02" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">2</field>
+            <field name="name">naknada za vrijeme privremene nesposobnosti za rad zbog bolesti na teret poslodavca</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_11')),
+                (4, ref('hr_salary_rule_117')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_03" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">3</field>
+            <field name="name">naknada za dane blagdana i neradne dane utvrđenim posebnim zakonom</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_40')),
+                (4, ref('hr_salary_rule_60')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_04" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">4</field>
+            <field name="name">naknada za vrijeme u kojemu je radnik odbio raditi zbog neprovedenih mjera zaštite zdravlja i sigurnosti na radu</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_05" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">5</field>
+            <field name="name">naknada za vrijeme prekida rada do kojega je došlo krivnjom poslodavca ili uslijed drugih okolnosti za koje radnik nije odgovoran</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_06" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">6</field>
+            <field name="name">naknada za vrijeme prekida rada do kojega je došlo u slučaju nastanka izvanrednih okolnosti nastalih uslijed epidemije bolesti, potresa, poplave, ekološkog incidenta i sličnih pojava</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_07" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">7</field>
+            <field name="name">naknada za vrijeme kada radnik ne radi zbog drugih opravdanih razloga određenih zakonom, drugim propisom, kolektivnim ugovorom, pravilnikom o radu ili ugovorom o radu</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_3_08" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">03</field>
+            <field name="sequence">8</field>
+            <field name="name">naknada za pripravnost</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+
+        <!-- subsection 4 -->
+        <record id="ip1_form_report_position_vi_2_4_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">04</field>
+            <field name="sequence">1</field>
+            <field name="name">propisani ili ugovoreni dodaci na plaću radnika (koji su dio plaće)</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+
+        <!-- subsection 5 -->
+        <record id="ip1_form_report_position_vi_2_5_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">05</field>
+            <field name="sequence">1</field>
+            <field name="name">plaća u naravi (oporeziva)</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_44')),
+            ]"/>
+        </record>
+
+        <!-- subsection 6 -->
+        <record id="ip1_form_report_position_vi_2_6_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">06</field>
+            <field name="sequence">1</field>
+            <field name="name">sati koje radnik nije radio iz razloga za koje je sam odgovoran</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_vi_2_6_02" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">062</field>
+            <field name="subsection">06</field>
+            <field name="sequence">2</field>
+            <field name="name">sati neopravdanog izostanka radnika s rada krivnjom radnika</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_148')),
+            ]"/>
+        </record>
+
+        <!-- section X -->
+        <record id="ip1_form_report_position_x_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">10</field>
+            <field name="sequence">1</field>
+            <field name="name">Primici radnika na temelju radnog odnosa koji se isplaćuju kao materijalno pravo (jubilarna nagrada, božićnica, regres i sl.)</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_166')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_216')),
+            ]"/>
+        </record>
+
+        <record id="ip1_form_report_position_x_02" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">10</field>
+            <field name="sequence">2</field>
+            <field name="name">Primici radnika na temelju radnog odnosa koji predstavljaju naknadu troška</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_49')),
+                (4, ref('hr_salary_rule_55')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_164')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_172')),
+                (4, ref('hr_salary_rule_173')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_175')),
+                (4, ref('hr_salary_rule_221')),
+            ]"/>
+        </record>
+
+        <record id="ip1_form_report_position_x_03" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">10</field>
+            <field name="sequence">3</field>
+            <field name="name">Primici radnika koji se smatraju plaćom prema Zakonu o radu, a prema poreznim propisima su neoporezivi</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_158')),
+            ]"/>
+        </record>
+            
+        <!-- section XIII.2 -->
+        <record id="ip1_form_report_position_xiii_2_01" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">132</field>
+            <field name="sequence">1</field>
+            <field name="name">doprinos za zdravstveno osiguranje prema plaći/naknadi plaće/ostalom primitku</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_4')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_xiii_2_02" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">132</field>
+            <field name="sequence">2</field>
+            <field name="name">doprinos za zdravstveno osiguranje prema naknadi plaće mobiliziranoj osobi</field>
+            <field name="rule_ids" eval="[]"/>
+        </record>
+        <record id="ip1_form_report_position_xiii_2_03" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">132</field>
+            <field name="sequence">3</field>
+            <field name="name">dodatni doprinos za mirovinsko osiguranje za staž osiguranja s povećanim trajanjem</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_65')),
+                (4, ref('hr_salary_rule_67')),
+            ]"/>
+        </record>
+        <record id="ip1_form_report_position_xiii_2_04" model="ip1.form.report.position">
+            <field name="config_id" ref="ip1_form_report_config_01"/>
+            <field name="section">132</field>
+            <field name="sequence">4</field>
+            <field name="name">dodatni doprinos za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za staž osiguranja koji se računa s povećanim trajanjem (II. stup)</field>
+            <field name="rule_ids" eval="[
+                (4, ref('hr_salary_rule_66')),
+            ]"/>
+        </record>
+    </data>
+
+</odoo>

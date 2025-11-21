@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_registration_report" model="ir.ui.view">
+        <field name="name">Registration report</field>
+        <field name="model">hr.employee.registration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Registration report" >
+                <group>
+					<label for="date_from" string="Date range:" class="oe_inline"/>
+                    <div class="oe_row">
+                        <div>
+                            <field name="date_from" class="oe_inline"/>
+                            -
+                            <field name="date_to" class="oe_inline"/>
+                        </div>
+                    </div>
+                </group>
+                <div class="oe_row">
+                  <group class="oe_inline">
+                    <field name = "include_application"></field>
+                    <field name = "include_termination"></field>
+                    <field name = "include_expiration"></field>
+                  </group>
+                </div>
+                <footer>
+                  <button name="print_report" string="Print" type="object" class="oe_highlight"/>
+                  <button string="Cancel" class="btn btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_print_registration_report" model="ir.actions.act_window">
+        <field name="name">Print registration report</field>
+        <field name="res_model">hr.employee.registration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="hr_employee_registration_report"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_hr_employee_application_termination"
+        name="Application and termination"
+        action="action_print_registration_report"
+        parent="hr.menu_hr_reporting_timesheet"
+        sequence="90"/>
+
+</odoo>

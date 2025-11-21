@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_io1">
+        <t t-call="web.basic_layout">
+            <style>
+                .table {
+                    table-layout: fixed;
+                }
+                .table tr,
+                .table td {
+                    border: 0px;
+                }
+                .custom-table {
+                    border: 1px solid black;
+                }
+                .custom-table th,
+                .custom-table td {
+                    border: 1px solid black!important;
+                }
+                .border-top {
+                    border-top: 1px solid black !important;
+                }
+                .border-right {
+                    border-right: 1px solid black !important;
+                }
+                .full-border {
+                    border: 1px solid black !important;
+                }
+                .shaded {
+                    background-color: lightgray;
+                }
+                .empty-row {
+                    height: 10px;
+                }
+
+            </style>
+            <t t-foreach="data" t-as="emp">
+                <div style="page-break-inside:avoid; page-break-after:always; font-size: 6pt;">
+                    <table class="table table-sm mb-2 full-border">
+                        <tr>
+                            <td colspan="10" class="fw-bold full-border">OBRAČUN ISPLAĆENE OTPREMNINE/NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                            <td colspan="2" class="fw-bold full-border">Obrazac IO1</td>
+                        </tr>
+                        <tr class="full-border">
+                            <td colspan="12" class="empty-row border-right"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="border-right fw-bold">I. PODACI O RADNIKU</td>
+                            <td colspan="5" class="border-right fw-bold">II. PODACI O POSLODAVCU</td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="border-right">1. Ime i prezime: <t t-esc="data[emp]['name']"/></td>
+                            <td colspan="5" class="border-right">1. Tvrtka/Ime i prezime: <t t-esc="company_data['name']"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="border-right">2. Adresa: <t t-esc="data[emp]['address']"/></td>
+                            <td colspan="5" class="border-right">2. Sjedište/Adresa: <t t-esc="company_data['address']"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" class="border-right">3. Osobni identifikacijski broj: <t t-esc="data[emp]['oib']"/></td>
+                            <td colspan="5" class="border-right">3. Osobni identifikacijski broj: <t t-esc="company_data['oib']"/></td>
+                        </tr>
+                        <tr>
+                            <t t-if="data[emp]['bank_account']">
+                                <td colspan="7" class="border-right">4. IBAN broj računa <t t-esc="data[emp]['bank_account']"/> kod <t t-esc="data[emp]['bank_name']"/></td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="7" class="border-right">4. IBAN broj računa__________________kod__________________</td>
+                            </t>
+
+                            <t t-if="company_data['iban']">
+                                <td colspan="5" class="border-right">4. IBAN broj računa <t t-esc="company_data['iban']"/></td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="5" class="border-right">4. IBAN broj računa__________________</td>
+                            </t>
+
+                        </tr>
+                        <tr>
+                            <t t-if="data[emp]['protected_bank_account']">
+                                <td colspan="7" class="border-right">5. IBAN broj računa iz članka 212. Ovršnog zakona <t t-esc="data[emp]['protected_bank_account']"/> kod <span t-esc="data[emp]['protected_bank_name']"/></td>
+                            </t>
+                            <t t-else="">
+                                <td colspan="7" class="border-right">5. IBAN broj računa iz članka 212. Ovršnog zakona __________________kod__________________</td>
+                            </t>
+                            <td colspan="5" class="border-right"><span/></td>
+                        </tr>
+                    </table>
+                    <table class="table table-sm custom-table mb-2">
+                        <tbody>
+                            <tr>
+                                <td colspan="12" class="fw-bold">III. PODACI O OTPREMINI</td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="border-right">1. RAZDOBLJE NA KOJE SE OTPREMNINA ODNOSI: GODINE OD <span t-esc="data[emp]['year_start']"/> DO <span t-esc="data[emp]['year_end']"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2. MJERILA ZA UTVRĐIVANJE PRAVA NA OTPREMNINU</td>
+                                <td colspan="2" class="text-center">ELEMENTI OBRAČUNA</td>
+                                <td colspan="2" class="text-center">IZNOS</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.1. broj godina za koje je radnik ostvario pravo na otpremninu</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['work_years']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.2. iznos prosječne bruto plaće u tri mjeseca prije prestanka ugovora o radu</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['calc_elem_gross_salary']"/></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['gross_salary']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.3. iznos jedne trećine prosječne bruto plaće u tri mjeseca prije prestanka ugovora o radu</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['calc_elem_trecina_place']"/></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['trecina_place']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.4. druga mjerila za izračun otpremnine</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['calc_elem_druga_mjerila']"/></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['druga_mjerila']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="8">3. IZNOS OTPREMNINE</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['iznos_otpremnine']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <!-- IMAM I NETO OTPREMNINU -->
+                            </tr>
+
+                            <tr>
+                                <td colspan="8">3.1. neoporezivi iznos</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['neoporezivi_iznos']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="8">3.2. oporezivi iznos</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['oporezivi_iznos']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="12" class="fw-bold">IV. PODACI O NAKNADI ZA NEISKORIŠTENI GODIŠNJI ODMOR/DIJELU NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">1. KALENDARSKA GODINA ZA KOJU GODIŠNJI ODMOR NIJE ISKORIŠTEN ILI NIJE ISKORIŠTEN U CIJELOSTI</td>
+                                <td colspan="2" class="text-center">ELEMENTI OBRAČUNA</td>
+                                <td colspan="2" class="text-center">IZNOS</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">1.1. godina (tekuća)</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['godisnji_tekuca']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">1.2. godina (prethodna)</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['godisnji_prethodna']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2. MJERILA ZA UTVRĐIVANJE PRAVA NA NAKNADU ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                                <td colspan="2" class="text-center"></td>
+                                <td colspan="2" class="text-center"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.1. ukupan broj dana godišnjeg odmora (temeljem Zakona o radu, drugog propisa, sporazuma sklopljenog između radničkog vijeća i poslodavca, kolektivnog ugovora, pravilnika o radu ili ugovora o radu)</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['ugovoreni_go']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.2. broj dana godišnjeg odmora koje radnik nije iskoristio</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['neiskoristeni_go_tekuci']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.3. broj dana godišnjeg odmora koje radnik nije iskoristio u prethodnoj godini</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['neiskoristeni_go_prethodni']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">2.4. ukupan broj dana godišnjeg odmora (ako radnik ostvaruje pravo na godišnji odmor za tekuću i prethodnu kalendarsku godinu)</td>
+                                <td class="text-center" colspan="2"><span t-esc="data[emp]['ukupno_godisnji']"/></td>
+                                <td class="text-right shaded" colspan="2"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">3. NAKNADA ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                                <td colspan="2" class="text-center"></td>
+                                <td colspan="2" class="text-right"><span t-esc="data[emp]['naknada_neiskoristeni_godisnji']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">3.1. naknada za tekuću godinu</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['naknada_go_tekuci']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">3.2. naknada za prethodnu godinu</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['naknada_go_prethodni']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="fw-bold">V. OSNOVICA ZA OBRAČUN DOPRINOSA (III.3.2. + IV.3.)</td>
+                                <td colspan="2" class="text-right"><span t-esc="data[emp]['osnovica_obracun_doprinosa']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">5.1. doprinos za mirovinsko osiguranje na temelju generacijske solidarnosti</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['mir_stup_1']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="8">5.2. doprinos za mirovinsko osiguranje na temelju individualne kapitalizirane štednje</td>
+                                <td class="text-center shaded" colspan="2"></td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['mir_stup_2']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="fw-bold">VI. DOHODAK</td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['dohodak']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10">1. NEOPOREZIVI ODBITAK (UKUPAN FAKTOR OSOBNOG ODBITKA)</td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['osobni_odbitak']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10">2. POREZNA OSNOVICA</td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['porezna_osnovica']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="fw-bold">VII. UKUPAN IZNOS POREZA</td>
+                                <td class="text-right" colspan="2"><span t-esc="data[emp]['taxes_total']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="">STOPA (%)</td>
+                                <td colspan="8" class="">OSNOVICA</td>
+                                <td colspan="2" class=""></td>
+                            </tr>
+                            <t t-foreach="data[emp]['taxes']" t-as="l">
+                                <tr>
+                                    <td colspan="2" class="">
+                                        6.<span t-esc="l_index+1" />. <span t-esc="l['stopa']" t-options="{'widget': 'float', 'precision': 0}"/>%
+                                    </td>
+                                    <td colspan="8" class=""><span t-esc="l['osnovica']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="2" class="text-right"><span t-esc="l['iznos']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                </tr>
+                            </t>
+                            <t t-if="display_secondary_currency">
+                                <tr>
+                                    <td colspan="12" class="text-right"><span t-esc="secondary_currency_rate_text"/>. <span t-esc="secondary_currency_amount_column_label"/></td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <t t-if="display_secondary_currency">
+                                    <td colspan="8" class="fw-bold">VIII. IZNOS ZA ISPLATU</td>
+                                    <td colspan="2" class="text-right"><span t-esc="data[emp]['neto_otpremnina_hrk']" t-options="{'widget': 'float', 'precision': 2}"/> <span t-esc="secondary_currency.symbol"/></td>
+                                    <td colspan="2" class="text-right"><span t-esc="data[emp]['neto_otpremnina']" t-options="{'widget': 'float', 'precision': 2}"/> <span t-esc="currency.symbol"/></td>
+                                </t>
+                                <t t-else="">
+                                    <td colspan="10" class="fw-bold">VIII. IZNOS ZA ISPLATU</td>
+                                    <td colspan="2" class="text-right"><span t-esc="data[emp]['neto_otpremnina']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                </t>
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="fw-bold">IX. DOPRINOSI NA OSNOVICU</td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="">1. OSNOVICA ZA UTVRĐIVANJE DOPRINOSA NA OSNOVICU PREMA OTPREMNINI</td>
+                                <td colspan="2" class="text-right"><span t-esc="data[emp]['osnovica_doprinosi']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="">2. IZNOS DOPRINOSA NA OSNOVICU</td>
+                                <td colspan="2" class="text-right"><span t-esc="data[emp]['zbroj_doprinos_osnovica']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="">2.1. doprinos za zdravstveno osiguranje</td>
+                                <td colspan="2" class="text-right"><span t-esc="data[emp]['doprinos_zdravstveno']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="">2.n.</td>
+                                <td colspan="2" class=""></td>
+                            </tr>
+                            <tr>
+                                <td colspan="10" class="fw-bold">X. DATUM ISPLATE/OBRAČUNA (datum obračuna se ispunjava u slučaju neisplate otpremnine/ naknade za neiskorišteni godišnji odmor)</td>
+                                <td colspan="2" class="text-center"><span t-esc="print_date"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="12" class="fw-bold">XI. NAPOMENA: <span t-esc="data[emp]['remark']"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- LINIJE ZA POTPIS -->
+                    <table class="table table-sm table-borderless" style="page-break-inside: avoid;">
+                        <tr>
+                            <td colspan="6"></td>
+                            <td colspan="4" class="text-center fw-bold">Ovlaštena osoba poslodavca</td>
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="12" class="no-border" style="border: 0;" />
+                        </tr>
+                        <tr>
+                            <td colspan="6"></td>
+                            <td colspan="4" class="text-center fw-bold border-top"><span>(IME I PREZIME)</span></td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_employee_recap">
+        <t t-call="web.basic_layout">
+            <style>
+                #address-table {
+                    font-weight: bold;
+                    width: 20%;
+                }
+
+                #title-table {
+                    width: 60%;
+                }
+
+                #table-borderless{
+                    border: 0px;
+                }
+
+                #run-names-table {
+                    width: 60%;
+                    font-size: 8pt;
+                }
+
+                #run-names-table tr td {
+                    width: 50%;
+                }
+
+                #run-names {
+                    font-size: 8pt;
+                }
+
+                .table-striped tbody tr:nth-of-type(odd) {
+                    background-color: rgba(0, 0, 0, 0.05);
+                }
+                
+                .font-weight-bold {
+                    font-weight: 700 !important;
+                  }
+
+            </style>
+            <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+
+                <table id="address-table" class="table-sm mb-3 table-borderless" align="left">
+                    <tr>
+                        <td class="m-0 p-0"><h5><span t-field="company.name"/></h5></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0"><span t-field="company.street"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">
+                            <t t-if="company.zip">
+                                <span t-esc="company.zip"/>
+                            </t>
+                            <t t-if="company.city">
+                                <span t-esc="company.city"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0"><span t-field="company.country_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">OIB: <span t-field="company.company_registry"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">IBAN: <span t-if="company.partner_id.bank_ids" t-field="company.partner_id.bank_ids[0].acc_number"/></td>
+                    </tr>
+                </table>
+
+                <table id="title-table" class="table-sm text-center mb-3 table-borderless">
+                    <tr>
+                        <td>
+                            <!-- display period only if selected on form -->
+                            <h5 class="text-center">
+                                REKAPITULACIJA PLAĆA PO DJELATNICIMA ZA OBRAČUNE
+                                <span t-if="period">
+                                    <br/> U RAZDOBLJU <span t-esc="period['date_from']" t-options="{'widget': 'date'}"/>
+                                    -
+                                    <span t-esc="period['date_to']" t-options="{'widget': 'date'}"/>
+                                </span>
+                            </h5>
+                        </td>
+                    </tr>
+                    <!-- display list or display 2-column table if list is long (>6) so it doesn't use too much space -->
+                    <t t-if="run_names_couples">
+                        <tr>
+                            <table id="run-names-table" class="table table-sm table-bordered text-center">
+                                <tr t-foreach="run_names_couples" t-as="run_names_couple">
+                                    <td class="m-0 p-0"><span t-esc="run_names_couple[0]"/></td>
+                                    <td class="m-0 p-0"><span t-esc="run_names_couple[1]"/></td>
+                                </tr>
+                            </table>
+                        </tr>
+                    </t>
+                    <t t-if="not run_names_couples">
+                        <tr t-foreach="run_names" t-as="run_name">
+                            <td class="m-0 p-0" id="run-names"><span t-esc="run_name"/></td>
+                        </tr>
+                    </t>
+                </table>
+
+                <table class="table table-sm table-striped table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr class="text-end">
+                            <th class="text-center"><span>R.br</span></th>
+                            <th class="text-center"><span>Šifra</span></th>
+                            <th class="text-center"><span>Ime i prezime</span></th>
+                            <th class="text-center"><span>Bruto plaća</span></th>
+                            <th class="text-center"><span>MIO I</span></th>
+                            <th class="text-center"><span>MIO II</span></th>
+                            <th class="text-center"><span>Dohodak</span></th>
+                            <th class="text-center"><span>Por.osn.</span></th>
+                            <th class="text-center"><span>Porez</span></th>
+                            <th class="text-center"><span>Neto plaća</span></th>
+                            <th class="text-center"><span>Obustave</span></th>
+                            <th class="text-center"><span>Neto dodaci</span></th>
+                            <th class="text-center"><span>Isplata</span></th>
+                            <th class="text-center"><span>Doprinosi na plaću</span></th>
+                            <th class="text-center"><span>Ukupni trošak plaće</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="emp_lines" t-as="q" class="text-end">
+                            <td><span t-esc="q['row']"/></td>
+                            <td><span t-esc="q['emp_code']"/></td>
+                            <td class="text-center"><span t-esc="q['emp_name']"/></td>
+                            <td><span t-esc="q['osnovica']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['mio1']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['mio2']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['doh']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['porosn']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['pdoh']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['neto']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['obs']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['dodn']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['ispl']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['dopna']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q['brutto2']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                    </tbody>
+                    <tfoot id="sums-row">
+                        <tr t-foreach="sum_line" t-as="t" class="text-end font-weight-bold">
+                            <td colspan="3" class="text-center"><span>Ukupno:</span></td>
+                            <td><span t-esc="t['osnovica']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['mio1']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['mio2']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['doh']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['porosn']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['pdoh']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['neto']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['obs']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['dodn']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['ispl']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['dopna']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t['brutto2']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="footer" style="float: right;">
+                  <div class="row">
+                    <small>
+                      <span class="page"/>/<span class="topage" />
+                    </small>
+                  </div>
+              </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

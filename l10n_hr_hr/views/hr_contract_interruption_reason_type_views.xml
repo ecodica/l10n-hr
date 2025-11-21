@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_view_contract_interruption_reason_type_form" model="ir.ui.view">
+        <field name="name">hr.contract.interruption.reason.type.form</field>
+        <field name="model">hr.contract.interruption.reason.type</field>
+        <field name="arch" type="xml">
+            <form string="Contract interruption reason type">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_interruption_reason_type_tree" model="ir.ui.view">
+        <field name="name">hr.contract.interruption.reason.type.tree</field>
+        <field name="model">hr.contract.interruption.reason.type</field>
+        <field name="arch" type="xml">
+            <list string="Contract interruption reason type">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_interruption_reason_type_search" model="ir.ui.view">
+        <field name="name">hr.contract.interruption.reason.type.search</field>
+        <field name="model">hr.contract.interruption.reason.type</field>
+        <field name="arch" type="xml">
+            <search string="Contract interruption reason types">
+                <field name="code" string="Contract interruption reason type" filter_domain="['|','|',('code','ilike',self),('name','ilike',self),('description','ilike',self)]"/>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_contract_interruption_reason_type_action" model="ir.actions.act_window">
+        <field name="name">Contract interruption reason types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.interruption.reason.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_contract_interruption_reason_type_search"/>
+    </record>
+
+    <menuitem id="hr_menu_contract_interruption_reason_type"
+              name="Contract interruption reason type"
+              parent="hr_submenu_view_contracts"
+              sequence="4"
+              action="hr_config_contract_interruption_reason_type_action"/>
+</odoo>

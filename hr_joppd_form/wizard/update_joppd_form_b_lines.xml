@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.actions.act_window" id="action_update_joppd_form_b_lines">
+        <field name="name">Update JOPPD form B side lines</field>
+        <field name="res_model">update.joppd.form.b.lines</field>
+        <field name="binding_model_id" ref="model_hr_joppd_form"/>
+        <field name="binding_view_types">form,list</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+
+    <record id="view_update_joppd_form_b_lines" model="ir.ui.view">
+        <field name="name">view.update.joppd.form.b.lines</field>
+        <field name="model">update.joppd.form.b.lines</field>
+        <field name="arch" type="xml">
+            <form>
+                <p> * Čarobnjak za ažuriranje stavki B strane JOPPD obrasca</p>
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <footer>
+                    <button
+                        name="action_update_joppd_form"
+                        string="Dopuni"
+                        type="object"
+                        class="btn-primary"
+                        confirm="Ažuriraj stavke B strane svih odabranih JOPPD obrazaca?"
+                    />
+                    or
+                    <button string="Odustani" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

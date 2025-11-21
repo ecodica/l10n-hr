@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="ip_report_wizard_view" model="ir.ui.view">
+      <field name="name">ip.report.wizard.view</field>
+      <field name="model">ip.report.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ispis IP obrasca">
+          <group>
+            <group>
+              <field name="year_id" required="1"/>
+              <field name="date" required="1"/>
+              <field name="select_all" invisible="year_id == False"/>
+            </group>
+            <group></group>
+          </group>
+          <field name="ip_form_employee_ids" nolabel="1" required="1" invisible="year_id == False">
+            <list string="Zaposlenici" editable="bottom" create="false" delete="false">
+              <field name="print_ip"/>
+              <field name="emp_id" column_invisible="1"/>
+              <field name="employee_id"/>
+            </list>
+          </field>
+          <footer>
+            <button string="Ispis" type="object" name="print_ip_form" class="oe_highlight"/>
+            or
+            <button string="Odustani" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_ip_report_wizard" model="ir.actions.act_window">
+      <field name="name">Print IP form</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">ip.report.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</openerp>

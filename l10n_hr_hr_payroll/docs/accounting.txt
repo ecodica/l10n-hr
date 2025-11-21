@@ -1,0 +1,12 @@
+Postavljanje knjiženja
+
+1. Otvoriti vrste shema knjiženja (Postava -> Vrste shema knjiženja)
+- npr. Plaća, Plaća u naravi, Drugi dohodak itd.
+
+2. Na svakom pravilu dodati sheme po kojima će se knjižiti i upisati pripadne postavke
+
+3. Na obračunu plaće upisati shemu po kojoj će se knjižiti
+
+4. Proknjiže se samo ona pravila koja imaju upisanu tu shemu
+
+5. Knjiženje se događa na akciju Isplati, u statusu Isplaćeno je moguće i Ažurirati temeljnicu (ako su dodane ili promijenjene neke postavke)

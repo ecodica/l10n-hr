@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="date_range_generator_view_form_inherit" model="ir.ui.view">
+      <field name="name">date.range.generator.form</field>
+      <field name="model">date.range.generator</field>
+      <field name="inherit_id" ref="date_range.date_range_generator_view_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="/form/sheet/group/group[@colspan='4']" position="inside">
+            <field name="fiscal_year" class="oe_inline"/>
+          </xpath>
+
+          <field name="date_start" position="attributes">
+            <attribute name="class">oe_inline</attribute>
+          </field>
+
+      </field>
+    </record>
+  </data>
+</odoo>

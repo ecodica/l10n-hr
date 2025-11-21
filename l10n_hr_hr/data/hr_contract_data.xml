@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1"> 
+
+        <record id="hr_contract_probation_period_months" model="ir.config_parameter">
+            <field name="key">hr_pay.hr_contract_probation_period_months</field>
+            <field name="value">6</field>
+        </record>
+
+        <record id="hr_contract_trainee_period_months" model="ir.config_parameter">
+            <field name="key">hr_pay.hr_contract_trainee_period_months</field>
+            <field name="value">12</field>
+        </record>
+
+        <record id="hr_contract_document_type_1" model="hr.contract.document.type">
+            <field name="name">Ugovor</field>
+        </record>
+
+        <record id="hr_contract_document_type_2" model="hr.contract.document.type">
+            <field name="name">Odluka</field>
+        </record>
+
+        <record id="hr_contract_document_type_3" model="hr.contract.document.type">
+            <field name="name">Aneks</field>
+        </record>
+
+        <record id="hr_contract_area_type_1" model="hr.contract.area.type">
+            <field name="name">Obveznopravni ugovori</field>
+        </record>
+
+        <record id="hr_contract_area_type_2" model="hr.contract.area.type">
+            <field name="name">Radnopravni ugovori</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_1" model="hr.contract.interruption.reason.type">
+            <field name="name">Smrt radnika</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_2" model="hr.contract.interruption.reason.type">
+            <field name="name">Smrt poslodavca fizičke osobe ili prestanak obrta po sili zakona ili brisanje trgovca pojedinca iz registra u skladu s posebnim propisima</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_3" model="hr.contract.interruption.reason.type">
+            <field name="name">Istek vremena na koje je sklopljen ugovor o radu na određeno vrijeme</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_4" model="hr.contract.interruption.reason.type">
+            <field name="name">Navršenih šezdeset pet godina života radnika i petnaest godina mirovinskog staža, osim ako se poslodavac i radnik drugačije ne dogovore</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_5" model="hr.contract.interruption.reason.type">
+            <field name="name">Sporazum radnika i poslodavca</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_6" model="hr.contract.interruption.reason.type">
+            <field name="name">Dostava pravomoćnog rješenja o priznanju prava na invalidsku mirovinu zbog potpunog gubitka radne sposobnosti za rad</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_7" model="hr.contract.interruption.reason.type">
+            <field name="name">Otkaz</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_8" model="hr.contract.interruption.reason.type">
+            <field name="name">Odluka nadležnog suda</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_work_statistics">
+        <t t-call="web.basic_layout">
+            <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+                <style>
+                    .table.table-sm {
+                        border: 1px solid black !important;
+                    }
+                    .table-sm th, .table-sm td {
+                        padding: 0.5mm 2mm;
+                    }
+                    .thead-light {
+                        font-weight: 800 !important;
+                        border-bottom: 2px solid black !important;
+                        border-color: black !important;
+                    }
+                    .thead-light th {
+                        color: black !important;
+                    }
+                    .table th, .table td {
+                        border-top: 1px solid black !important;
+                    }
+                    .title {
+                        margin-bottom: 0.5rem;
+                        font-family: inherit;
+                        font-size: 0.875rem;
+                        line-height: 1.2;
+                        color: inherit;
+                    }
+                    .table .thead-light th {
+                        color: #495057;
+                        background-color: #e9ecef;
+                        border-color: #dee2e6;
+                    }
+                </style>
+                <table class="table-sm table-borderless" style="font-weight: bold;width: 20%;" align="left">
+                    <tr>
+                        <td><h5><span t-field="data['company'].name"/></h5></td>
+                    </tr>
+                    <tr>
+                        <td><span t-field="data['company'].street"/></td>
+                    </tr>
+                    <tr>
+                        <td><span t-esc="data['company'].zip + ' ' + data['company'].city_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><span t-field="data['company'].country_id.name"/></td>
+                    </tr>
+                </table>
+
+                <table class="table-sm table-borderless" style="font-weight: bold;width: 20%;" align="right">
+                    <tr><td></td></tr>
+                </table>
+
+                <h5 class="text-center" style="font-weight: bold;"><span>Podaci za RAD-1G za </span><span t-esc="data['period']"/></h5>
+
+                <table class="table-sm table-borderless" style="font-size: 15px;margin-top: 100px;margin-bottom: 25px">
+                    <tr>
+                        <td><span style="font-weight: bold;">Sve organizacijske jedinice</span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="font-weight: bold;">Svi statusi radnika</span></td>
+                    </tr>
+                </table>
+
+                
+                <span class="title">1. ZAPOSLENI PREMA PODACIMA IZ KADROVSKE EVIDENCIJE</span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 70%;"> </th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['employment_data']" t-as="line" class="table-borderless">
+                        <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">2. ZAPOSLENI PREMA VRSTI RADNOG ODNOSA    <span t-esc="data['last_date']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 70%;"> </th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['work_type']" t-as="line" class="table-borderless">
+                        <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">3. ZAPOSLENI PREMA VRSTI RADNOG VREMENA    <span t-esc="data['last_date']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 70%;"> </th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['worktime_type']" t-as="line" class="table-borderless">
+                        <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">4. BROJ ZAPOSLENIH PREMA VISINI NETO PLAĆE ISPLAĆENE U    <span t-esc="data['period']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 85%;"> </th>
+                            <th class="text-end" style="width: 15%;">Broj zaposlenih</th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['salaries']" t-as="line" class="table-borderless">
+                        <td style="width: 85%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">5. ISPLAĆENA BRUTO I NETO PLAĆA PREMA SPOLU I ZAPOSLENI PREMA STUPNJU STRUČNE SPREME ZA OBAVLJANJE ODREĐENIH POSLOVA/RADNIH ZADATAKA ZA    <span t-esc="data['year_before']"/> - SAMO ZAPOSLENI CIJELU GODINU</span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 60%;"> </th>
+                            <th class="text-end" style="width: 13.3%;">Brutto</th>
+                            <th class="text-end" style="width: 13.3%;">Netto</th>
+                            <th class="text-end" style="width: 13.3%;">Broj zaposlenih</th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['yearly_salary']" t-as="line" class="table-borderless">
+                        <t t-if="line['name']">
+                            <td style="width: 60%;"><span t-esc="line['name']"/></td>
+                            <td class="text-end" style="width: 13.3%;"><span t-esc="line['bruto']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <td class="text-end" style="width: 13.3%;"><span t-esc="line['neto']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            <td class="text-end" style="width: 13.3%;"><span t-esc="line['number']" /></td>
+                        </t>
+                    </tr>
+                </table>
+
+                <div style="page-break-after: always;"/>
+
+                <span class="title">6. ZAPOSLENI PREMA STAROSTI I SPOLU, STANJE NA    <span t-esc="data['last_date']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 70%;"> </th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['employee_by_age']" t-as="line" class="table-borderless">
+                        <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                    </tr>
+                </table>
+
+	            <span class="title">7. ZAPOSLENI PREMA STUPNJU STRUČNOG OBRAZOVANJA, STANJE    <span t-esc="data['last_date']"/> (SVAKI STUPANJ POSEBNO) </span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 70%;"> </th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['education']" t-as="line" class="table-borderless">
+                        <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">8. SATI RADA ZAPOSLENIH U <span t-esc="data['year_before']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 85%;"> </th>
+                            <th class="text-end" style="width: 15%;">Sati</th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['employee_hours']" t-as="line" class="table-borderless">
+                        <td style="width: 85%;"><span t-esc="line['description']"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['total']" t-options="{'widget': 'float', 'precision': 2}" /></td>
+                    </tr>
+                </table>
+
+                <span class="title">9. BROJ ZAPOSLENIH PO JEDINICAMA SNIMANJA (NASELJU RADA), STANJE    <span t-esc="data['last_date']"/></span>
+                <table class="table table-sm" style="margin-top: 0px; margin-bottom: 25px">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-left" style="width: 70%;">Naselje</th>
+                            <th class="text-end" style="width: 15%;"><span>Broj zaposlenih</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Od toga žene</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['settlement_of_work']" t-as="line" class="table-borderless">
+                        <t t-if="line['description']">
+                            <td style="width: 70%;"><span t-esc="line['description']"/></td>
+                            <td class="text-end" style="width: 15%;"><span t-esc="line['total']" /></td>
+                            <td class="text-end" style="width: 15%;"><span t-esc="line['women']" /></td>
+                        </t>
+                    </tr>
+                </table>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

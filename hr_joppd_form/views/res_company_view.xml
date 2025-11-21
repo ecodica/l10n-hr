@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+    <record id="company_form_view_inherit" model="ir.ui.view">
+      <field name="name">company.form.view.inherit</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="/form/sheet/notebook" position="inside">
+          <page string="JOPPD" name="joppd">
+            <group>
+              <field name="joppd_create_name"/>
+              <field name="joppd_create_surname"/>
+              <field name="joppd_applicant_id"/>
+              <field name="joppd_applicant_email"/>
+              <field name="joppd_oib"/>
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

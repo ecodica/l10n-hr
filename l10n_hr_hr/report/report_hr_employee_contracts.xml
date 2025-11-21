@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_hr_employee_contracts">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="lang"/>
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                <div class="header" style="font-size: 10pt; font-family:Helvetica;">
+                    <div class="row">
+                    <div class="col-3 text-left">
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y, %H:%M')" />
+                    </div>
+                    <div class="col-6 text-center">
+                        <t t-foreach="res_company" t-as="company">
+                        <span t-field="company[0].partner_id" />
+                        </t>
+                    </div>
+                    <div class="col-3 text-right">
+                        <span class="page" />
+                        /
+                        <span class="topage" />
+                        <br />
+                    </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                    <div class="col-4 text-left">
+                        <t t-foreach="res_company" t-as="company">
+                        <div>
+                            <span t-field="company[0].partner_id" />
+                        </div>
+                        <div>
+                            <span t-field="company[0].partner_id.street" />
+                        </div>
+                        <div>
+                            <span t-field="company[0].partner_id.street2" />
+                        </div>
+                        <div>
+                            <span t-field="company[0].partner_id.zip" />
+                            <span t-field="company[0].partner_id.city_id" />
+                        </div>
+                        <div>
+                            <span t-field="company[0].partner_id.oib" />
+                        </div>
+                        </t>
+                    </div>
+                    </div>
+                </div>
+                <div t-if="data['include_application']" style="page-break-inside:avoid;page-break-after:always;font-size: 8pt;">
+                    <h5 style="text-align: center">Applications</h5>
+                    <table class="table-sm" >
+                        <tr>
+                            <td class="text-left">
+                                <strong>Date range:</strong>
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_from"/>
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_to"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table-sm o_main_table table-striped" style="font-size: 8pt;width:100%">
+                        <thead style="background-color:#C0C0C0;">
+                            <tr style="border-top: 1px solid black;border-bottom: 1px solid black;">
+                                <th class="text-right" width="30">
+                                    <span>No.</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Code</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Employee</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Application date</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-foreach="data['employees_application']" t-as="employee">
+                                <tr>
+                                    <t>
+                                        <td class="text-right">
+                                            <span t-esc="counter" />
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-if="employee.code" t-field="employee.code"/>
+                                            <span t-else="employee.code_associate" t-field="employee.code_associate"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="employee.name"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="employee.hire_date"/>
+                                        </td>
+                                    </t>
+                                    <t t-set="counter" t-value="counter+1"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div t-if="data['include_termination']" style="page-break-inside:avoid;page-break-after:always;font-size: 8pt;">
+                    <h5 style="text-align: center">Terminations</h5>
+                    <table class="table-sm" >
+                        <tr>
+                            <td class="text-left">
+                                <strong>Date range:</strong>
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_from"/>
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_to"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table-sm o_main_table table-striped" style="font-size: 8pt;width:100%">
+                        <thead  style="background-color:#C0C0C0;">
+                            <tr style="border-top: 1px solid black;border-bottom: 1px solid black;">
+                                <th class="text-right" width="30">
+                                    <span>No.</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Code</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Employee</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Termination date</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Termination reason</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Leave days</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-foreach="data['employees_termination']" t-as="contract">
+                                <tr>
+                                    <t>
+                                        <td class="text-right">
+                                            <span t-esc="counter"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-if="contract.employee_id.code" t-field="contract.employee_id.code"/>
+                                            <span t-else="contract.employee_id.code_associate" t-field="contract.employee_id.code_associate"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="contract.employee_id.name"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="contract.termination_date"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="contract.termination_reason"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="'%.2f' % contract.used_annual_leave_days"/>
+                                        </td>
+                                    </t>
+                                    <t t-set="counter" t-value="counter+1"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+                <div t-if="data['include_expiration']" style="page-break-inside:avoid;page-break-after:always;font-size: 8pt;">
+                    <h5 style="text-align: center">Expirations</h5>
+                    <table class="table-sm" >
+                        <tr>
+                            <td class="text-left">
+                                <strong>Date range:</strong>
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_from"/>
+                            </td>
+                            <td>
+                                -
+                            </td>
+                            <td>
+                                <p class="m-0" t-field="o.date_to"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table-sm o_main_table table-striped" style="font-size: 8pt;width:100%">
+                        <thead style="background-color:#C0C0C0;">
+                            <tr style="border-top: 1px solid black;border-bottom: 1px solid black;">
+                                <th class="text-right" width="30">
+                                    <span>No.</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>Code</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Employee</span>
+                                </th>
+                                <th class="text-left">
+                                    <span>Expiration date</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-foreach="data['employees_expiration']" t-as="contract">
+                                <tr>
+                                    <t>
+                                        <td class="text-right">
+                                            <span t-esc="counter"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-if="contract.employee_id.code" t-field="contract.employee_id.code"/>
+                                            <span t-else="contract.employee_id.code_associate" t-field="contract.employee_id.code_associate"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="contract.employee_id.name"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="contract.date_end_with_annexes"/>
+                                        </td>
+                                    </t>
+                                    <t t-set="counter" t-value="counter+1"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

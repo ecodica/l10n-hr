@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_date_range_tree_inherit" model="ir.ui.view">
+            <field name="name">date.range.tree</field>
+            <field name="model">date.range</field>
+            <field name="inherit_id" ref="date_range.view_date_range_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_end']" position="after">
+                    <field name="fiscal_year" required="True"/>
+                </xpath>
+
+                <!--<xpath expr="//field[@name='active']" position="before">
+                    <field name="can_user_close" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='active']" position="attributes">
+                    <attribute name="readonly">can_user_close == False</attribute>
+                </xpath>
+                 can_user_close je compute polje, prebaciti logiku u default view get? -->
+            </field>
+        </record>
+        <!-- Add date range menu items - copied over from date_range - usually it is under Settings>Technical -->
+        <!-- <menuitem id="account_date_range" name="Date ranges" parent="account.account_account_menu" sequence="13"/>
+        <menuitem action="date_range.date_range_type_action" string="Range Types" id="menu_account_date_range_type_action" parent="account_date_range" sequence="1"/>
+        <menuitem action="account.actions_account_fiscal_year" id="menu_account_fiscal_year" parent="account_date_range" sequence="2"/>
+        <menuitem action="date_range.date_range_action" string="Date ranges" id="menu_account_date_range_action" parent="account_date_range" sequence="3"/>
+        <menuitem action="date_range.date_range_generator_action" id="menu_account_date_range_generator_action" parent="account_date_range" sequence="4"/> -->
+    </data>
+</odoo>

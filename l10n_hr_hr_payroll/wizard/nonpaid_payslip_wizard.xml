@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+    <record id="nonpaid_payslip_wizard_form_view" model="ir.ui.view">
+      <field name="name">nonpaid.payslip.wizard.form.view</field>
+      <field name="model">nonpaid.payslip.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ispis neisplaćene plaće">
+          <group>
+            <separator string="Ispis neisplaćenih plaća"/>
+          </group>
+          <p>Ovdje možete promijeniti datum isplate, izdavanja i predaje ako želite. Ako ne želite ispisati datume, ostavite prazna polja.</p>
+          <group>
+            <field name="pay_date"/>
+            <field name="print_date"/>
+            <field name="handover_date"/>
+            <field name="authorised_person"/>
+          </group>
+          <footer>
+            <button name="print_payslips_as_nonpaid" type="object" string="Ispis" class="oe_highlight"/>
+            or
+            <button string="Odustani" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="nonpaid_payslip_wizard_action" model="ir.actions.act_window">
+      <field name="name">Non-paid payslip wizard</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">nonpaid.payslip.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="nonpaid_payslip_wizard_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+	</data>
+</odoo>

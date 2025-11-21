@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="hr_payroll_configuration_umanjenje_osnovice_za_doprinose" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Primici za koje se umanjuje osnovica za doprinose</field>
+            <field name="description">Primici za koje se umanjuje osnovica za doprinose</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_11')),
+                (4, ref('hr_salary_rule_12')),
+                (4, ref('hr_salary_rule_29')),
+                (4, ref('hr_salary_rule_36')),
+                (4, ref('hr_salary_rule_40')),
+                (4, ref('hr_salary_rule_41')),
+                (4, ref('hr_salary_rule_48')),
+                (4, ref('hr_salary_rule_56')),
+                (4, ref('hr_salary_rule_60')),
+                (4, ref('hr_salary_rule_82')),
+                (4, ref('hr_salary_rule_83')),
+                (4, ref('hr_salary_rule_84')),
+                (4, ref('hr_salary_rule_93')),
+                (4, ref('hr_salary_rule_117')),
+                (4, ref('hr_salary_rule_157')),
+                (4, ref('hr_salary_rule_160')),
+                (4, ref('hr_salary_rule_162')),
+                (4, ref('hr_salary_rule_191')),
+                (4, ref('hr_salary_rule_217')),
+                (4, ref('hr_salary_rule_218')),
+                (4, ref('hr_salary_rule_238')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_priznati_izdatak" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Priznati izdatak</field>
+            <field name="description">Priznati izdatak</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_69')),
+                (4, ref('hr_salary_rule_70'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_izaslani_porez_u_HR" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Izaslani porez u RH</field>
+            <field name="description">Ako se porez placa u HR, placa se i na bruto dodatak za izaslanje (ali ne i doprinosi)</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_185'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_izaslani_porez_ino_neto" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Izaslani porez inozemstvo neto</field>
+            <field name="description">Ako se porez placa u inozemstvu, placa se svejedno isplacuje u HR</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_187'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_izaslani_porez_ino" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Izaslani porez inozemstvo</field>
+            <field name="description">Porez i solidarni dodatak u inozemstvu</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_188')),
+                (4, ref('hr_salary_rule_189'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_bruto_dodaci" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Bruto dodaci</field>
+            <field name="description">Nadređene kategorije bruto dodataka koje se prikazuju na platnoj listi</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_29')),
+                (4, ref('hr_salary_rule_category_79'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_worked_days_parent_categories" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Radni dani i unosi - nadređene</field>
+            <field name="description">Nadređene kategorije za kategorije koje spadaju u Radni dani i unosi tab na isplatnom listiću</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_28')),
+                (4, ref('l10n_hr_payroll_base.NET'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_inputs_categories" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Unosi</field>
+            <field name="description">Sva pravila za unose pri obračunu plaća</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_29')),
+                (4, ref('hr_salary_rule_category_73')),
+                (4, ref('hr_salary_rule_category_55')),
+                (4, ref('hr_salary_rule_category_50')),
+                (4, ref('hr_salary_rule_category_81')),
+                (4, ref('hr_salary_rule_category_82')),
+                (4, ref('hr_salary_rule_category_83')),
+                (4, ref('hr_salary_rule_category_84')),
+                (4, ref('hr_salary_rule_category_79')),
+                (4, ref('hr_salary_rule_category_95'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_bolovanje_fond" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Bolovanje fond</field>
+            <field name="description">Kategorije bolovanja na fond</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_50')),
+                (4, ref('hr_salary_rule_51')),
+                (4, ref('hr_salary_rule_52')),
+                (4, ref('hr_salary_rule_90')),
+                (4, ref('hr_salary_rule_54')),
+                (4, ref('hr_salary_rule_57')),
+                (4, ref('hr_salary_rule_220')),
+                (4, ref('hr_salary_rule_58')),
+                (4, ref('hr_salary_rule_190')),
+                (4, ref('hr_salary_rule_155')),
+                (4, ref('hr_salary_rule_156')),
+                (4, ref('hr_salary_rule_194'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_dodaci_neto" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Neto dodaci</field>
+            <field name="description">Plaća, JOPPD B, Raspodjela po računima</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_49')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_92')),
+                (4, ref('hr_salary_rule_55')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_164')),
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_172')),
+                (4, ref('hr_salary_rule_173')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_175')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_216')),
+                (4, ref('hr_salary_rule_221')),
+                (4, ref('hr_salary_rule_166'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_doprinosi_iz_place" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Doprinosi iz plaće</field>
+            <field name="description">Doprinosi iz plaće</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_226')),
+                (4, ref('hr_salary_rule_227')),
+                (4, ref('hr_salary_rule_177')),
+                (4, ref('hr_salary_rule_178'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_doprinosi_na_placu" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Doprinosi na plaću</field>
+            <field name="description">Doprinosi na plaću</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_182')),
+                (4, ref('hr_salary_rule_6')),
+                (4, ref('hr_salary_rule_7')),
+                (4, ref('hr_salary_rule_65')),
+                (4, ref('hr_salary_rule_66')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_porezi" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porezi</field>
+            <field name="description">Porezi</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_18')),
+                (4, ref('hr_salary_rule_212')),
+                (4, ref('hr_salary_rule_213')),
+                (4, ref('hr_salary_rule_210')),
+                (4, ref('hr_salary_rule_211')),
+                (4, ref('hr_salary_rule_214')),
+                (4, ref('hr_salary_rule_26')),
+                (4, ref('hr_salary_rule_193')),
+                (4, ref('hr_salary_rule_219'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_dohodak_i_odbitak" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Dohodak i odbitak</field>
+            <field name="description">Dohodak i odbitak</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_13')),
+                (4, ref('hr_salary_rule_45'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_tax_relief" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porezne olakšice</field>
+            <field name="description">Porezne olakšice</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_219')),
+                (4, ref('hr_salary_rule_193'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_obustave" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Obustave</field>
+            <field name="description">Obustave</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_59')),
+                (4, ref('hr_salary_rule_61'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_brutto_2" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Brutto 2</field>
+            <field name="description">Brutto 2</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('l10n_hr_payroll_base.hr_rule_basic')),
+                (4, ref('hr_salary_rule_182')),
+                (4, ref('hr_salary_rule_6')),
+                (4, ref('hr_salary_rule_7')),
+                (4, ref('hr_salary_rule_49')),
+                (4, ref('hr_salary_rule_50')),
+                (4, ref('hr_salary_rule_51')),
+                (4, ref('hr_salary_rule_52')),
+                (4, ref('hr_salary_rule_90')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_54')),
+                (4, ref('hr_salary_rule_55')),
+                (4, ref('hr_salary_rule_65')),
+                (4, ref('hr_salary_rule_66')),
+                (4, ref('hr_salary_rule_92')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_155')),
+                (4, ref('hr_salary_rule_156')),
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_164')),
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_172')),
+                (4, ref('hr_salary_rule_173')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_175')),
+                (4, ref('hr_salary_rule_187')),
+                (4, ref('hr_salary_rule_185')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_216')),
+                (4, ref('hr_salary_rule_221')),
+                (4, ref('hr_salary_rule_166')),
+                (4, ref('hr_salary_rule_7')),
+                (4, ref('hr_salary_rule_65')),
+                (4, ref('hr_salary_rule_66'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_bruto_bez_sati" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Bruto bez sati</field>
+            <field name="description">Sve bruto kategorije i dodaci</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_36')),
+                (4, ref('hr_salary_rule_91')),
+                (4, ref('hr_salary_rule_93')),
+                (4, ref('hr_salary_rule_180')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_earnings" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Dohodak</field>
+            <field name="description">Dohodak</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_12')),
+                (4, ref('hr_salary_rule_41')),
+                (4, ref('hr_salary_rule_47')),
+                (4, ref('hr_salary_rule_42')),
+                (4, ref('hr_salary_rule_160')),
+                (4, ref('hr_salary_rule_162')),
+                (4, ref('hr_salary_rule_11')),
+                (4, ref('hr_salary_rule_29')),
+                (4, ref('hr_salary_rule_56')),
+                (4, ref('hr_salary_rule_48')),
+                (4, ref('hr_salary_rule_60')),
+                (4, ref('hr_salary_rule_53')),
+                (4, ref('hr_salary_rule_117')),
+                (4, ref('hr_salary_rule_40')),
+                (4, ref('hr_salary_rule_82')),
+                (4, ref('hr_salary_rule_83')),
+                (4, ref('hr_salary_rule_157')),
+                (4, ref('hr_salary_rule_36')),
+                (4, ref('hr_salary_rule_84')),
+                (4, ref('hr_salary_rule_37')),
+                (4, ref('hr_salary_rule_39')),
+                (4, ref('hr_salary_rule_44')),
+                (4, ref('hr_salary_rule_46')),
+                (4, ref('hr_salary_rule_91')),
+                (4, ref('hr_salary_rule_93')),
+                (4, ref('hr_salary_rule_144')),
+                (4, ref('hr_salary_rule_191')),
+                (4, ref('hr_salary_rule_180')),
+                (4, ref('hr_salary_rule_217')),
+                (4, ref('hr_salary_rule_218')),
+                (4, ref('hr_salary_rule_238')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_fees" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Naknade</field>
+            <field name="description">Naknade</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_49')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_92')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_55')),
+                (4, ref('hr_salary_rule_164')),
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_172')),
+                (4, ref('hr_salary_rule_173')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_175')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_216')),
+                (4, ref('hr_salary_rule_221')),
+                (4, ref('hr_salary_rule_166'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_rekapitulacija_poreza" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Rekapitulacija poreza</field>
+            <field name="description">Izvještaj rekapitulacije poreza</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_26')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_dodaci_neto_bez_putnih" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Neto dodaci bez putnih</field>
+            <field name="description">Neto dodaci bez putnih</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_92')),
+                (4, ref('hr_salary_rule_55')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_164')),
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_172')),
+                (4, ref('hr_salary_rule_173')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_175')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_216')),
+                (4, ref('hr_salary_rule_221')),
+                (4, ref('hr_salary_rule_166'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_sick_leave_company_without_injury_at_work" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Bolovanja na račun tvrtke bez ozljeda na radu</field>
+            <field name="description">Bolovanja na račun tvrtke bez ozljeda na radu</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_11')),
+                (4, ref('hr_salary_rule_117'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_sick_leave_fund_without_injury_at_work" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Bolovanja na fond bez ozljeda na radu</field>
+            <field name="description">Bolovanja na fond bez ozljeda na radu</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_50')),
+                (4, ref('hr_salary_rule_51')),
+                (4, ref('hr_salary_rule_52')),
+                (4, ref('hr_salary_rule_90')),
+                (4, ref('hr_salary_rule_57')),
+                (4, ref('hr_salary_rule_220')),
+                (4, ref('hr_salary_rule_58')),
+                (4, ref('hr_salary_rule_190')),
+                (4, ref('hr_salary_rule_155')),
+                (4, ref('hr_salary_rule_156')),
+                (4, ref('hr_salary_rule_194'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_injury_at_work" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Ozljeda na radu</field>
+            <field name="description">Ozljeda na radu</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_53')),
+                (4, ref('hr_salary_rule_54'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_not_paid" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Neplaćeno</field>
+            <field name="description">Neplaćeno</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_148')),
+                (4, ref('hr_salary_rule_215')),
+                (4, ref('hr_salary_rule_222'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_worked" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Rad</field>
+            <field name="description">Rad</field> 
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_12')),
+                (4, ref('hr_salary_rule_82')),
+                (4, ref('hr_salary_rule_83')),
+                (4, ref('hr_salary_rule_157')),
+                (4, ref('hr_salary_rule_217')),
+                (4, ref('hr_salary_rule_218')),
+                (4, ref('hr_salary_rule_238')),
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_overtime" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Prekovremeno</field>
+            <field name="description">Prekovremeno</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_41')),
+                (4, ref('hr_salary_rule_47')),
+                (4, ref('hr_salary_rule_42'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_not_worked_paid_by_company" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Neodrađeno, plaća tvrtka</field>
+            <field name="description">Neodrađeno, plaća tvrtka</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_29')),
+                (4, ref('hr_salary_rule_60')),
+                (4, ref('hr_salary_rule_11')),
+                (4, ref('hr_salary_rule_117')),
+                (4, ref('hr_salary_rule_40')),
+                (4, ref('hr_salary_rule_56')),
+                (4, ref('hr_salary_rule_53'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_not_worked_not_paid_by_company" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Neodrađeno, ne plaća tvrtka</field>
+            <field name="description">Neodrađeno, plaća tvrtka</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_50')),
+                (4, ref('hr_salary_rule_51')),
+                (4, ref('hr_salary_rule_52')),
+                (4, ref('hr_salary_rule_90')),
+                (4, ref('hr_salary_rule_54')),
+                (4, ref('hr_salary_rule_57')),
+                (4, ref('hr_salary_rule_220')),
+                (4, ref('hr_salary_rule_58')),
+                (4, ref('hr_salary_rule_190')),
+                (4, ref('hr_salary_rule_155')),
+                (4, ref('hr_salary_rule_156')),
+                (4, ref('hr_salary_rule_194'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_taxless_payments" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Isplate bez poreza</field>
+            <field name="description">Popis isplata na koje se ne obračunava porez i postoje definirani maksimumi</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_171')),
+                (4, ref('hr_salary_rule_174')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_221')),
+                (4, ref('hr_salary_rule_216'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_taxless_payments_monthly" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Mjesečne isplate bez poreza</field>
+            <field name="description">Mjesečne isplate na koje se ne obračunava porez</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_221'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_receipts_protected_account" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Isplate na zaštićeni račun</field>
+            <field name="description">Pravila koja se isplaćuju na zaštićeni račun</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_165')),
+                (4, ref('hr_salary_rule_50')),
+                (4, ref('hr_salary_rule_51')),
+                (4, ref('hr_salary_rule_52')),
+                (4, ref('hr_salary_rule_90')),
+                (4, ref('hr_salary_rule_155')),
+                (4, ref('hr_salary_rule_156')),
+                (4, ref('hr_salary_rule_54')),
+                (4, ref('hr_salary_rule_208')),
+                (4, ref('hr_salary_rule_153')),
+                (4, ref('hr_salary_rule_154')),
+                (4, ref('hr_salary_rule_49')),
+                (4, ref('hr_salary_rule_159')),
+                (4, ref('hr_salary_rule_150')),
+                (4, ref('hr_salary_rule_79')),
+                (4, ref('hr_salary_rule_80')),
+                (4, ref('hr_salary_rule_81')),
+                (4, ref('hr_salary_rule_167')),
+                (4, ref('hr_salary_rule_151')),
+                (4, ref('hr_salary_rule_152')),
+                (4, ref('hr_salary_rule_209')),
+                (4, ref('hr_salary_rule_168')),
+                (4, ref('hr_salary_rule_169')),
+                (4, ref('hr_salary_rule_158')),
+                (4, ref('hr_salary_rule_170')),
+                (4, ref('hr_salary_rule_221'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_timesheet_to_payslip_categories" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Evidencija rada na isplatnoj listi</field>
+            <field name="description">Timesheet to payslip</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_20')),
+                (4, ref('hr_salary_rule_category_21')),
+                (4, ref('hr_salary_rule_category_22')),
+                (4, ref('hr_salary_rule_category_31')),
+                (4, ref('hr_salary_rule_category_38')),
+                (4, ref('hr_salary_rule_category_49')),
+                (4, ref('hr_salary_rule_category_39')),
+                (4, ref('hr_salary_rule_category_86')),
+                (4, ref('hr_salary_rule_category_45')),
+                (4, ref('hr_salary_rule_category_46')),
+                (4, ref('hr_salary_rule_category_94')),
+                (4, ref('hr_salary_rule_category_85')),
+                (4, ref('hr_salary_rule_category_88')),
+                (4, ref('hr_salary_rule_category_76')),
+                (4, ref('hr_salary_rule_category_42')),
+                (4, ref('hr_salary_rule_category_71')),
+                (4, ref('hr_salary_rule_category_57')),
+                (4, ref('hr_salary_rule_category_56')),
+                (4, ref('hr_salary_rule_category_90'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_contributions_base" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Osnovica za doprinose</field>
+            <field name="description">Osnovica za doprinose</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_183')),
+                (4, ref('hr_salary_rule_184')),
+                (4, ref('hr_salary_rule_195'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_contributions_base_deducted" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Osnovica za doprinose - umanjena</field>
+            <field name="description">Osnovica za doprinose - umanjena</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_225'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_income_tax_1" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porez na dohodak 1</field>
+            <field name="description">Porez na dohodak 1</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_210'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_income_tax_2" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porez na dohodak 2</field>
+            <field name="description">Porez na dohodak 2</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_211'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_income_tax_1_base" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porez na dohodak 1 base</field>
+            <field name="description">Porez na dohodak 1 base</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_212')),
+                (4, ref('hr_salary_rule_231'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_income_tax_2_base" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porez na dohodak 2 base</field>
+            <field name="description">Porez na dohodak 2 base</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_213'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_profit_tax" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Porez na dobit</field>
+            <field name="description">Porez na dobit</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_214'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_war_disability_tax_relief" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Olakšica poreza HRVI</field>
+            <field name="description">Olakšica poreza Hrvatski ratni vojni invalid</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_219'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_supported_area_tax_relief" model="hr.payroll.salary.rule.configuration">
+            <field name="name">Umanjenje poreza na dohodak</field>
+            <field name="description">Umanjenje poreza na dohodak</field>
+            <field name="salary_rule_ids" eval="[
+                (4, ref('hr_salary_rule_193'))
+            ]"/>
+        </record>
+
+        <record id="hr_payroll_configuration_total_tax" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Porez na dohodak</field>
+            <field name="description">Porez na dohodak ukupno</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_11'))
+            ]"/>
+        </record>
+        <record id="hr_payroll_configuration_inactive_categories" model="hr.payroll.salary.rule.category.configuration">
+            <field name="name">Neaktive kategorije</field>
+            <field name="description">Neaktive kategorije</field>
+            <field name="salary_rule_category_ids" eval="[
+                (4, ref('hr_salary_rule_category_37')),
+                (4, ref('hr_salary_rule_category_38')),
+                (4, ref('hr_salary_rule_category_41')),
+            ]"/>
+        </record>
+    </data>
+</odoo>

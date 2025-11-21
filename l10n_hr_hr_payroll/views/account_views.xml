@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- REMOVE CANCEL BUTTONS ADDED IN account_cancel - WE ONLY NEED THE OPTION TO ENABLE CANCELLING ON ACCOUNT JOURNAL -->
+
+    <record id="hr_hr_payroll_bank_statement_draft_form_inherit" model="ir.ui.view">
+        <field name="name">HR.hr.payroll.bank.statement.draft.form.inherit</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account_cancel.bank_statement_draft_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_draft']" position="replace">
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_hr_payroll_bank_statement_cancel_form_inherit" model="ir.ui.view">
+        <field name="name">HR.hr.payroll.bank.statement.cancel.form.inherit</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account_cancel.bank_statement_cancel_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel_reconciliation']" position="replace">
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_hr_payroll_payment_cancel_form_inherit" model="ir.ui.view">
+        <field name="name">HR.hr.payroll.payment.cancel.form.inherit</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account_cancel.payment_cancel_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='cancel']" position="replace">
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_hr_payroll_view_move_form_inherit_account_cancel" model="ir.ui.view">
+        <field name="name">HR.hr.payroll.account.move.form.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account_cancel.view_move_form_inherit_account_cancel"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_cancel']" position="replace">
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

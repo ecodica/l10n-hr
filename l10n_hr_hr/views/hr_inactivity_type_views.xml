@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_view_inactivity_type_form" model="ir.ui.view">
+        <field name="name">hr.inactivity.type.form</field>
+        <field name="model">hr.inactivity.type</field>
+        <field name="arch" type="xml">
+            <form string="Inactivity type">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_inactivity_type_tree" model="ir.ui.view">
+        <field name="name">hr.inactivity.type.tree</field>
+        <field name="model">hr.inactivity.type</field>
+        <field name="arch" type="xml">
+            <list string="Inactivity type">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_view_inactivity_type_search" model="ir.ui.view">
+        <field name="name">hr.inactivity.type.search</field>
+        <field name="model">hr.inactivity.type</field>
+        <field name="arch" type="xml">
+            <search string="Inactivity types">
+                <field name="code" string="Inactivity type" filter_domain="['|','|',('code','ilike',self),('name','ilike',self),('description','ilike',self)]"/>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_inactivity_type_action" model="ir.actions.act_window">
+        <field name="name">Inactivity types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.inactivity.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_inactivity_type_search"/>
+    </record>
+
+    <menuitem id="hr_menu_inactivity_type"
+              name="Inactivity type"
+              parent="hr_submenu_view_employees"
+              sequence="40"
+              action="hr_config_inactivity_type_action"/>
+</odoo>

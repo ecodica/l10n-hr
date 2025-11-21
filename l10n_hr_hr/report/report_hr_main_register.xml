@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="hr_main_register_report">
+    <t t-call="web.basic_layout">
+      <div class="header" style="font-size: 10pt; font-family:Helvetica;">
+        <div class="row">
+          <div class="col-3 text-left">
+            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y, %H:%M')" />
+          </div>
+          <div class="col-6 text-center">
+            <t t-foreach="res_company" t-as="line">
+              <span t-field="line[0].partner_id" />
+            </t>
+          </div>
+          <div class="col-3 text-right">
+            <span class="page" />
+            /
+            <span class="topage" />
+            <br />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-4 text-left">
+            <t t-foreach="res_company" t-as="line">
+              <div>
+                <span t-field="line[0].partner_id" />
+              </div>
+              <div>
+                <span t-field="line[0].partner_id.street" />
+              </div>
+              <div>
+                <span t-field="line[0].partner_id.street2" />
+              </div>
+              <div>
+                <span t-field="line[0].partner_id.zip" />
+                <span t-field="line[0].partner_id.city_id" />
+              </div>
+              <div>
+                <span t-field="line[0].partner_id.oib" />
+              </div>
+            </t>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <t t-foreach="employee" t-as="line">
+          <div class="text-center">
+            <br />
+              <t t-if="line['is_employee'] == True">
+                <strong style="font-size: 13pt;">Matična knjiga zaposlenika</strong>
+              </t>
+              <t t-else="">
+              </t>
+            <br />
+              <t t-if="line['is_employee'] == True">
+                <strong style="font-size: 10pt;">
+                  Evidencija o radnicima koji kod poslodavca obavljaju poslove na temelju ugovora o radu
+                </strong>
+              </t>
+              <t t-else="">
+                <strong style="font-size: 13pt;">
+                  Evidencija o fizičkim osobama koje kod poslodavca obavljaju poslove na temelju drugih ugovora ili posebnih propisa
+                </strong>
+                <br/>
+                  <p style="font-size: 10pt;" >
+                    i studenti koji kod poslodavca rade posredstvom ovlaštenih posrednika u skladu s posebnim propisom
+                  </p>
+              </t>
+          </div>
+          <br />
+          <table class="table-sm o_main_table" style="width:100%; page-break-inside:auto;">
+            <thead style="font-size:9pt;">
+              <tr>
+                <th class="text-center" style=" border: 1px solid lightgray; width:3%;">Red.Br.</th>
+                <th class="text-center" style=" border: 1px solid lightgray; width:35%;">Opis</th>
+                <th class="text-center" style=" border: 1px solid lightgray; ">Podaci</th>
+              </tr>
+            </thead>
+            <tbody style="font-size:9pt;">
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>1.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Šifra</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['code']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>2.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Prezime i ime, ime roditelja</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['last_name']" />
+                  <span t-esc="str(line['first_name'])" />
+                  <t t-if="line['parent_name']">
+                    <span> ,</span>
+                    <span t-esc="line['parent_name']" />
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>3.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>OIB</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['oib']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>4.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Spol</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-if="line['gender']=='male'">
+                    Muško
+                  </span>
+                  <span t-if="line['gender']=='female'">
+                    Žensko
+                  </span>
+
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>5.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Datum i mjesto rođenja</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['birthday']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'/>
+                  <span t-esc="','"/>
+                  <span t-esc="line['place_of_birth']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>6.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Državljanstvo</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['employee'].nationality_id.name"/>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>7.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Adresa prebivališta ili stalnog boravišta</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-if="line['addr_type']">
+                    <t t-esc="line['addr_type']+', '" />
+                  </span>
+                  <span t-if="line['street']">
+                    <t t-esc="line['street']+', '" />
+                  </span>
+                  <span t-if="line['street2']">
+                    <t t-esc="line['street2']+', '" />
+                  </span>
+                  <span t-if="line['city']">
+                    <t t-esc="line['city']+', '" />
+                  </span>
+                  <span t-if="line['zip']">
+                    <t t-esc="line['zip']+', '" />
+                  </span>
+                  <span t-if="line['country_id']">
+                    <t t-esc="line['country_id']" />
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>8.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Dozvola za boravak i rad</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['work_permit'].start_date" t-options='{"widget": "date"}'/> - <span t-esc="line['work_permit'].expiration_date" t-options='{"widget": "date"}'/>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>9.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Stručno obrazovanje</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['education_type_id_1']" />
+                  <span t-if="line['vocation_1']">
+                    <span t-esc="' - ' + line['vocation_1']" />
+                    <br />
+                  </span>
+                  <span t-if="line['education_type_id_2']!=''">
+                    <br />
+                  </span>
+                  <span t-esc="line['education_type_id_2']" />
+                  <span t-if="line['vocation_2']">
+                    <span t-esc="' - ' + line['vocation_2']" />
+                    <br />
+                  </span>
+                  <span t-if="line['education_type_id_3']!=''">
+                    <br />
+                  </span>
+                  <span t-esc="line['education_type_id_3']" />
+                  <span t-if="line['vocation_3']">
+                    <span t-esc="' - ' + line['vocation_3']" />
+                    <br />
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>10.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Datum početka rada</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>
+                    <t t-esc="line['date_start']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                      <br />
+                    </span>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>11.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Naziv radnog mjesta</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['job_id']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>12.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Odjel</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['department_id']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>13.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Vrsta sklopljenog ugovora</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>
+                    <t t-foreach="contract" t-as="d">
+                      <span t-if="d['id']==line['id']">
+                        <t t-esc="d['contract_area_type']" />
+                        <br />
+                      </span>
+                    </t>
+                  </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-center" style="border: 1px solid lightgray;">
+                <span>14.</span>
+              </td>
+              <td class="text-left" style="border: 1px solid lightgray;">
+                <span>Naziv ugovora ili akta</span>
+              </td>
+              <td class="text-left" style="border: 1px solid lightgray;">
+                <t t-if="not contract">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="line['contract_no']" />
+                      <br />
+                    </span>
+                </t>
+                <t t-else="">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="d['contract_no']" />
+                      <br />
+                    </span>
+                  </t>
+                </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>15.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Trajanje probnog roka</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="d['trial_date_start']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                      <span t-if="d['trial_date_end']" >
+                        <t t-esc="' - ' "/>
+                        <t t-esc="d['trial_date_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'/>
+                        <br />
+                      </span>
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>16.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Trajanje pripravničkog staža</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="d['internship_date_start']"  t-options='{"widget": "date", "format": "dd.MM.yyyy"}'/>
+                      <span t-if="d['internship_date_end']">
+                        <t t-esc="' - ' "/>
+                        <t t-esc="d['internship_date_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'/>
+                        <br />
+                      </span>
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>17.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Trajanje rada u inozemstvu, mjesto rada</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-if="line['cession_overseas']">
+                    <t t-foreach="line['cession_overseas']" t-as="d">
+                      <t t-if="d.get('date_start')">
+                        <t t-esc="d['date_start']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                      </t>
+                      <span t-if="d.get('date_end')">
+                        -
+                        <t t-esc="d['date_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                        <t t-if="d.get('place_of_work')">
+                          <t t-esc="' - ' + d.get('place_of_work', '')" />
+                        </t>
+                        <br />
+                      </span>
+                    </t>
+                  </t>
+                   <t t-if="line['cession_overseas']">
+                    <t t-foreach="line['cession_overseas']" t-as="d">
+                      <t t-if="d.get('date_start')">
+                        <t t-esc="d['date_start']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                      </t>
+                      <span t-if="d.get('date_end')">
+                        -
+                        <t t-esc="d['date_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                        <t t-if="d.get('place_of_work')">
+                          <t t-esc="' - ' + d.get('place_of_work', '')" />
+                        </t>
+                        <br />
+                      </span>
+                    </t>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>18.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Mjesto rada</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['work_location']" />
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>19.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Radni sati tjedno</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <span t-esc="d['resource_calendar_id']" />
+                      <br />
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>19.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Staž s povećanim trajanjem</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <span t-if="d['internship_type']==str(0)">
+                        Nema
+                        <br />
+                      </span>
+                      <span t-if="d['internship_type']==str(1)">
+                        1 - 12/14
+                        <br />
+                      </span>
+                      <span t-if="d['internship_type']==str(2)">
+                        2 - 12/15
+                        <br />
+                      </span>
+                      <span t-if="d['internship_type']==str(3)">
+                        3 - 12/16
+                        <br />
+                      </span>
+                      <span t-if="d['internship_type']==str(4)">
+                        4 - 12/18
+                        <br />
+                      </span>
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>20.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Staž do početka rada</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['internship_until_emp_years']" />
+                  godina,
+                  <span t-esc="line['internship_until_emp_months']" />
+                  mjeseci,
+                  <span t-esc="line['internship_until_emp_days']" />
+                  dana
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>21.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Datum prestanka radnog odnosa</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="d['date_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}' />
+                      <br />
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>22.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Razlog prestanka radnog odnosa</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-foreach="contract" t-as="d">
+                    <span t-if="d['id']==line['id']">
+                      <t t-esc="d['termination_reason']" />
+                      <br />
+                    </span>
+                  </t>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>23.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span>Ukupan radni staž</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <span t-esc="line['internship_total_years']" />
+                  godina,
+                  <span t-esc="line['internship_total_months']" />
+                  mjeseci,
+                  <span t-esc="line['internship_total_days']" />
+                  dana
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center" style="border: 1px solid lightgray;">
+                  <span>24.</span>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <t t-if="line['is_employee'] == True">
+                    <span>
+                        Datum podnošenja prijave na obvezna osig. radnika kao osiguranika po osnovi radnog odnosa, uključujući i dobrovoljno mirovinsko osig., ako poslodavac sudjeluje u plaćanju istog, te obveznog zdravstvenog osig. tijekom rada u inozemstvu. 
+                    </span>
+                  </t>
+                  <t t-else="">
+                    <span>
+                        Datum podnošenja prijave na obvezna osiguranja fizičke osobe, ako je obveza osiguranja po toj osnovi propisana posebnim propisima.
+                    </span> 
+                  </t>
+                </td>
+                <td class="text-left" style="border: 1px solid lightgray;">
+                  <div>
+                    Početak: <span t-esc="line['insurance_start']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'></span>
+                  </div>
+                  <div>
+                    Zadnja promjena: <span t-esc="line['insurance_change']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'></span>
+                  </div>
+                  <div>
+                    Prestanak: <span t-esc="line['insurance_end']" t-options='{"widget": "date", "format": "dd.MM.yyyy"}'></span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="text-center" style="font-size: 10pt;">
+            <br />
+            <br />
+            <br />
+            <span>M.P.</span>
+          </div>
+          <br />
+          <div class="row" style="page-break-inside:avoid;">
+            <div class="col-4" />
+            <div class="col-8 text-center">
+              <table class="table table-borderless" style="font-size:10pt; font-family:Helvetica">
+                <tbody>
+                  <tr>
+                    <td class="text" style="border:0; width:1in;color:white">n/a</td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text-center" style="border:0;;"></td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text-center" style="border:0;;">
+                      <strong style="font-size: 10pt;">Potpis</strong>
+                    </td>
+                    <td class="text" style="border:0;; width:1in;"></td>
+                  </tr>
+                  <tr>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text" style="border-top:0; border-bottom: 0; padding:0;"></td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text-center" style="border:0;"></td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                    <td class="text" style="border-top:0; border-bottom: 1px solid black; width:3in;"></td>
+                    <td class="text" style="border:0; width:1in;"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style="page-break-after:always;" />
+            </div>
+          </div>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>

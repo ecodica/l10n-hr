@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_contributions_recap">
+        <t t-call="web.basic_layout">
+            <style>
+                .table-bordered > thead > tr > th {
+                    border: 1px solid black;
+                }
+                .table-bordered > tbody > tr > td {
+                    border: 1px solid black;
+                }
+                .table-bordered > tfoot > tr > td {
+                    border: 1px solid black;
+                }
+                #salary-table > thead > tr > th {
+                    width: 8.5%;
+                }
+                #employee-table > thead > tr > th {
+                    width: 16%;
+                }
+                .report-header{
+                    font-size: 10pt;
+                }
+                .header-first-column {
+                    width: 25%;
+                }
+                .header-second-column {
+                    width: 43.75%;
+                    border-bottom: solid 1px black !important; 
+                }
+                .header-third-column {
+                    width: 7.5%;
+                }
+                .header-fourth-column {
+                    width: 11.25%;
+                }
+                .header-fifth-column {
+                    width: 12.5%;
+                }
+                .underline {
+                    border-bottom: solid 1px black !important;
+                }
+                table {
+                    width: 100%;
+                }
+                .signature-line {
+                    width: 20%;
+                    border-top: solid 1px black !important;
+                }
+                .empty-cell{
+                    width: 20%;
+                }
+                .remark-section {
+                    page-break-inside: avoid;
+                }
+            </style>
+            <div class="page mr-3 ml-3" style="font-size: 9pt; font-family:Helvetica;">
+
+                <!-- report header -->
+                <div class="text-end col-12">Tablica 01/11</div>
+
+                <table class="report-header table-borderless">
+                    <tr>
+                        <td class="header-first-column">NAZIV I ADRESA OBVEZNIKA:</td>
+                        <td class="header-second-column"><span t-esc="company.name"/>, <span t-esc="company.street"/>, <span t-esc="company.city_id.name"/></td>
+                        <td class="header-third-column"></td>
+                        <td class="header-fourth-column"></td>
+                        <td class="header-fifth-column"></td>
+                    </tr>
+                    <tr>
+                        <td class="header-first-column">OIB:</td>
+                        <td class="header-second-column"><span t-esc="company.company_registry"/></td>
+                        <td class="header-third-column"></td>
+                        <td class="header-fourth-column">MIKROFILMSKI BROJ:</td>
+                        <td class="header-fifth-column underline"></td>
+                    </tr>
+                    <tr>
+                        <td class="header-first-column">MATIČNI BROJ POSLOVNOG SUBJEKTA:</td>
+                        <td class="header-second-column"><span t-esc="company.company_registry"/></td>
+                        <td class="header-third-column"></td>
+                        <td class="header-fourth-column"></td>
+                        <td class="header-fifth-column"></td>
+                    </tr>
+                    <tr>
+                        <td class="header-first-column"><span>REGISTARSKI BROJ:</span></td>
+                        <td class="header-second-column"><span t-esc="company.hzmo_registry_number"/></td>
+                        <td class="header-third-column"></td>
+                        <td class="header-fourth-column">Datum preuzimanja:</td>
+                        <td class="text-center header-fifth-column underline"><span t-esc="report_date" t-options="{'widget': 'date'}"/></td>
+                    </tr>
+                </table>
+
+                <!-- report title -->
+                <h5 class="text-center mt-3">REKAPITULACIJA PODATAKA ZA POSTUPAK KONTROLE <span t-esc="year.name"/>. GODINE</h5>
+
+                <!-- table header -->
+                <table id="salary-table" class="table-bordered table-striped table-sm mt-3">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="text-center align-middle" style="width: 6.5%">Red. broj</th>
+                            <th class="text-center align-middle"><span>Mjesec</span></th>
+                            <th class="text-center align-middle">Broj radnika na radu</th>
+                            <th class="text-center align-middle">Broj radnika koji primaju naknadu (na teret HZZO, na teret RH i na teret CSS)</th>
+                            <th class="text-center align-middle">Osnovica za plaćanje doprinosa</th>
+                            <th class="text-center align-middle">Obračunata plaća</th>
+                            <th class="text-center align-middle">Isplaćena plaća</th>
+                            <th class="text-center align-middle">Broj radnika na radnom mjestu sa stažem osiguranja s povećanim trajanjem - stupanj povećanja 12/14</th>
+                            <th class="text-center align-middle">Broj radnika na radnom mjestu sa stažem osiguranja s povećanim trajanjem - stupanj povećanja 12/15</th>
+                            <th class="text-center align-middle">Broj radnika na radnom mjestu sa stažem osiguranja s povećanim trajanjem - stupanj povećanja 12/16</th>
+                            <th class="text-center align-middle">Broj radnika na radnom mjestu sa stažem osiguranja s povećanim trajanjem - stupanj povećanja 12/18</th>
+                            <th class="text-center align-middle">Ukupan broj radnika na radnom mjestu sa stažem osiguranja s povećanim trajanjem (kol. 7-10)</th>
+                        </tr>
+                        <tr>
+                            <th class="text-center align-middle" style="width: 6.5%">0</th>
+                            <th class="text-center align-middle">1</th>
+                            <th class="text-center align-middle">2</th>
+                            <th class="text-center align-middle">3</th>
+                            <th class="text-center align-middle">4</th>
+                            <th class="text-center align-middle">5</th>
+                            <th class="text-center align-middle">6</th>
+                            <th class="text-center align-middle">7</th>
+                            <th class="text-center align-middle">8</th>
+                            <th class="text-center align-middle">9</th>
+                            <th class="text-center align-middle">10</th>
+                            <th class="text-center align-middle">11</th>
+                        </tr>
+                    </thead>
+                    <!-- data -->
+                    <tbody>
+                        <tr t-foreach="data" t-as="line">
+                            <td class="text-center"><span t-esc="line['number']"/></td>
+                            <td class="text-center"><span t-esc="line['month']"/></td>
+                            <td class="text-center"><span t-esc="line['employees_work']"/></td>
+                            <td class="text-center"><span t-esc="line['employees_fee']"/></td>
+                            <td class="text-end"><span t-esc="line['contributions_base']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td class="text-end"><span t-esc="line['brutto_calc']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td class="text-end"><span t-esc="line['brutto_paid']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td class="text-center"><span t-esc="line['emp_exp_12_14']"/></td>
+                            <td class="text-center"><span t-esc="line['emp_exp_12_15']"/></td>
+                            <td class="text-center"><span t-esc="line['emp_exp_12_16']"/></td>
+                            <td class="text-center"><span t-esc="line['emp_exp_12_18']"/></td>
+                            <td class="text-center"><span t-esc="line['emp_exp_total']"/></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="fw-bold">
+                            <td colspan="2" class="text-center"><span t-esc="sum_dict['number']"/></td>
+                            <td colspan="2"></td>
+                            <td class="text-end"><span t-esc="sum_dict['contributions_base']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td class="text-end"><span t-esc="sum_dict['brutto_calc']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td class="text-end"><span t-esc="sum_dict['brutto_paid']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td colspan="5"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                
+                <!-- remark -->
+                <div class="mt-1 remark-section">
+                    <span>NAPOMENA: Ovu tablicu popunjava obveznik obračunavanja i plaćanja doprinosa za 2005. god. i dalje.</span>
+                    <br/>
+                    <span>Rekapitulaciji treba priložiti popis radnika koji rade na radnom mjestu sa stažem osiguranja s povecanim trajanjem i to prema stupnju povecanja.</span>
+
+                    <!-- signature section -->
+                    <table class="mt-5 table-borderless">
+                        <tr>
+                            <td class="empty-cell"><span/></td>
+                            <td class="text-center signature-line">OVLAŠTENA OSOBA OBVEZNIKA</td>
+                            <td class="empty-cell"><span/></td>
+                            <td class="text-center signature-line">OVLAŠTENA OSOBA ZA KONTROLU</td>
+                            <td class="empty-cell"><span/></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- new page for each benefit level -->
+                <t t-foreach="employees_by_exp_benefit" t-as="employees">
+                    <p style="page-break-before:always;"/>
+
+                    
+                    <!-- report header -->
+                    <div class="text-end col-12">Tablica 02/11</div>
+
+                    <table class="report-header table-borderless">
+                        <tr>
+                            <td class="header-first-column">NAZIV I ADRESA OBVEZNIKA:</td>
+                            <td class="header-second-column"><span t-esc="company.name"/>, <span t-esc="company.street"/>, <span t-esc="company.city_id.name"/></td>
+                            <td class="header-third-column"></td>
+                            <td class="header-fourth-column"></td>
+                            <td class="header-fifth-column"></td>
+                        </tr>
+                        <tr>
+                            <td class="header-first-column">OIB:</td>
+                            <td class="header-second-column"><span t-esc="company.company_registry"/></td>
+                            <td class="header-third-column"></td>
+                            <td class="header-fourth-column">MIKROFILMSKI BROJ:</td>
+                            <td class="header-fifth-column underline"></td>
+                        </tr>
+                        <tr>
+                            <td class="header-first-column">MATIČNI BROJ POSLOVNOG SUBJEKTA:</td>
+                            <td class="header-second-column"><span t-esc="company.company_registry"/></td>
+                            <td class="header-third-column"></td>
+                            <td class="header-fourth-column"></td>
+                            <td class="header-fifth-column"></td>
+                        </tr>
+                        <tr>
+                            <td class="header-first-column"><span>REGISTARSKI BROJ:</span></td>
+                            <td class="header-second-column"><span t-esc="company.hzmo_registry_number"/></td>
+                            <td class="header-third-column"></td>
+                            <td class="header-fourth-column">Datum preuzimanja:</td>
+                            <td class="text-center header-fifth-column underline"><span t-esc="report_date" t-options="{'widget': 'date'}"/></td>
+                        </tr>
+                    </table>
+
+                    <!-- report title -->
+                    <h5 class="mt-3 text-center">
+                        <span>POPIS RADNIKA KOJIMA SE STAŽ OSIGURANJA RAČUNA S POVEĆANIM TRAJANJEM</span>
+                        <br/>
+                        <span>GODINA <span t-esc="employees['year']"/>. STUPANJ POVEĆANJA <span t-esc="employees['level']"/></span>
+                    </h5>
+
+                    <table id="employee-table" class="mt-3 table-sm table-bordered table-striped">
+                        <thead>
+                            <th class="text-center" style="width: 4%">RBR</th>
+                            <th class="text-center">IME I PREZIME</th>
+                            <th class="text-center">OSOBNI BROJ</th>
+                            <th class="text-center">OIB</th>
+                            <th class="text-center">RADNO MJESTO</th>
+                            <th class="text-center">OD</th>
+                            <th class="text-center">DO</th>
+                        </thead>
+                        <tbody>
+                            <!-- table data -->
+                            <tr t-foreach="employees['data']" t-as="line">
+                                <td class="text-center" style="width: 4%"><span t-esc="line['number']"/></td>
+                                <td class="text-center"><span t-esc="line['emp_name']"/></td>
+                                <td class="text-center"><span t-esc="line['emp_osobni_broj']"/></td>
+                                <td class="text-center"><span t-esc="line['oib']"/></td>
+                                <td class="text-center"><span t-esc="line['emp_job']"/></td>
+                                <td class="text-center"><span t-esc="line['params_start']" t-options="{'widget': 'date'}"/></td>
+                                <td class="text-center"><span t-esc="line['params_end']" t-options="{'widget': 'date'}"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- signature section -->
+                    <table class="mt-5 table-borderless">
+                        <tr>
+                            <td class="empty-cell"><span/></td>
+                            <td class="text-center signature-line">OVLAŠTENA OSOBA OBVEZNIKA</td>
+                            <td class="empty-cell"><span/></td>
+                            <td class="text-center signature-line">OVLAŠTENA OSOBA ZA KONTROLU</td>
+                            <td class="empty-cell"><span/></td>
+                        </tr>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

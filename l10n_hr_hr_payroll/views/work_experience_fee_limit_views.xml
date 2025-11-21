@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="work_experience_fee_limit_tree_view" model="ir.ui.view">
+            <field name="name">work.experience.fee.limit.tree.view</field>
+            <field name="model">work.experience.fee.limit</field>
+            <field name="arch" type="xml">
+                <list string="Ograničenja za jubilarnu nagradu">
+                    <field name="years"/>
+                    <field name="max_amount"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="work_experience_fee_limit_action" model="ir.actions.act_window">
+            <field name="name">Ograničenja za jubilarnu nagradu</field>
+            <field name="res_model">work.experience.fee.limit</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

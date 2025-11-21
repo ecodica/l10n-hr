@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="report_hr_employee">
+
+    <t t-call="web.basic_layout">
+      <div class="header" style="font-size: 10pt;">
+        <div class="row">
+          <div class="col-2 text-left">
+            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y, %H:%M')" />
+          </div>
+          <div class="col-8 text-center">
+            <t t-foreach="res_company" t-as="o">
+              <span t-field="o[0].partner_id" />
+            </t>
+          </div>
+          <div class="col-2 text-right">
+            <span class="page" />
+            /
+            <span class="topage" />
+          </div>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col-4 text-left">
+            <t t-foreach="res_company" t-as="o">
+              <div>
+                <span t-field="o[0].partner_id" />
+              </div>
+              <div>
+                <span t-field="o[0].partner_id.street" />
+              </div>
+              <div>
+                <span t-field="o[0].partner_id.street2" />
+              </div>
+              <div>
+                <span t-field="o[0].partner_id.zip" />
+                <span t-field="o[0].partner_id.city_id" />
+              </div>
+              <div>
+                <span t-field="o[0].partner_id.oib" />
+              </div>
+            </t>
+          </div>
+        </div>
+      </div>
+
+      <div class="page " style="font-size: 10pt; font-family:Helvetica;">
+        <div class="text-center">
+          <br />
+          <strong style="font-size: 15pt;">Zaposlenici</strong>
+        </div>
+        <br />
+        <table class="table-sm o_main_table" style="border-color:gray; font-size:10pt;">
+          <thead>
+            <tr>
+              <th class="text-center" style="width: 0.3in; border: 1px solid lightgray;">Red. Br.</th>
+              <th class="text-center" style="width: 1.5in; border: 1px solid lightgray;">Šifra</th>
+              <th class="text-center" style="width: 1.8in; border: 1px solid lightgray;">Prezime</th>
+              <th class="text-center" style="width: 1.8in; border: 1px solid lightgray;">Ime</th>
+              <th class="text-center" style="width: 1.5in; border: 1px solid lightgray;">OIB</th>
+              <th class="text-center" style="width: 1in; border: 1px solid lightgray;">Datum rođenja</th>
+              <th class="text-center" style="width: 2.8in; border: 1px solid lightgray;">Adresa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <t t-set="counter" t-value="0" />
+            <t t-foreach="docs" t-as="o">
+              <t t-set="counter" t-value="counter + 1" />
+              <tr style="page-break-inside:avoid;">
+                <td class="text-center" style="width: 0.3in; border: 1px solid lightgray;">
+                  <span t-esc="counter" />
+                  .
+                </td>
+                <td class="text-center" style="width: 1.5in; border: 1px solid lightgray;">
+                  <span t-field="o.code" />
+                </td>
+                <td class="text-center" style="width: 1.8in; border: 1px solid lightgray;">
+                  <span t-field="o.last_name" />
+                </td>
+                <td class="text-center" style="width: 1.8in; border: 1px solid lightgray;">
+                  <span t-field="o.first_name" />
+                </td>
+                <td class="text-center" style="width: 1.5in; border: 1px solid lightgray;">
+                  <span t-field="o.oib" />
+                </td>
+                <td class="text-center" style="width: 1in; border: 1px solid lightgray;">
+                  <span t-field="o.birthday" />
+                </td>
+                <td class="text-left" style="width: 2.8in; border: 1px solid lightgray;">
+                  <span t-if="o.addr_type">
+                    <t t-esc="str(o.addr_type.name)+': '" />
+                  </span>
+                  <span t-if="o.street">
+                    <t t-esc="str(o.street)+','" />
+                  </span>
+                  <span t-if="o.street2">
+                    <t t-esc="str(o.street2)+','" />
+                  </span>
+                  <br/>
+                  <span t-field="o.zip" />
+                  <span t-field="o.city" />
+                </td>
+              </tr>
+              <p style="page-break-inside:avoid;" />
+            </t>
+          </tbody>
+        </table>
+      </div>
+    </t>
+  </template>
+</odoo>

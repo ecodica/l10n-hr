@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_template_employee_absence" model="mail.template">
+            <field name="name">Unjustified absence of employee notification</field>
+            <field name="model_id" ref="base.model_res_company"/>
+            <field name="subject">Unjustified absences report</field>
+            <field name="email_from"></field>
+            <field name="email_to">${ctx['recipients']}</field>
+            <field name="partner_to"></field>
+            <field name="body_html" type="xml">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 14px;">
+                        Hello, 
+                        <br />
+                        <br />
+                        in the period ${ctx['date_from']}-${ctx['date_to']} there were ${ctx['records_count']} records of unjustified employee absence.
+                        <br />
+                        Detailed report is in the attachment of this email.
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="l10n_hr_hr_timesheet.info3_timesheet_absence_report"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="user_signature" eval="False"/>
+            <field name="lang">${ctx['lang']}</field>
+            <field name="report_name">Timesheet absence report</field>
+        </record>
+    </data>
+</odoo>

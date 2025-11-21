@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="hr_contracts_report">
+        <t t-call="web.basic_layout">
+            <div class="header" style="font-size: 10pt; font-family:Helvetica;">
+                <div class="row">
+                    <div class="col-3 text-left">
+                        <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d.%m.%Y, %H:%M')" />
+                    </div>
+                    <div class="col-6 text-center">
+                        <t t-foreach="res_company" t-as="o">
+                            <span t-field="o[0].partner_id" />
+                        </t>
+                    </div>
+                    <div class="col-3 text-right">
+                        <span class="page" />
+                        /
+                        <span class="topage" />
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-4 text-left">
+                        <t t-foreach="res_company" t-as="o">
+                            <div>
+                                <span t-field="o[0].partner_id" />
+                            </div>
+                            <div>
+                                <span t-field="o[0].partner_id.street" />
+                            </div>
+                            <div>
+                                <span t-field="o[0].partner_id.street2" />
+                            </div>
+                            <div>
+                                <span t-field="o[0].partner_id.zip" />
+                                <span t-field="o[0].partner_id.city_id" />
+                            </div>
+                            <div>
+                                <span t-field="o[0].partner_id.oib" />
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <t t-foreach="contract" t-as="o">
+                    <div class="text-center">
+                        <br />
+                        <strong style="font-size: 15pt;">UGOVOR</strong>
+                    </div>
+                    <br />
+                    <table class="table-sm o_main_table" style="border-color:gray; page-break-inside:auto;">
+                        <tbody style="font-size:9pt;">
+                            <tr style="width:100%">
+                                <td class="text-left" style="border-right: 2px solid gray; width:15%">
+                                    <span>Referenca ugovora</span>
+                                </td>
+                                <td class="text-left" style="width:75%">
+                                    <span t-esc="o['name']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Zaposlenik</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['employee_id']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>OIB</span>
+                                </td>
+                                <td class="text-left">
+                                    <t t-foreach="employee" t-as="d">
+                                        <span t-if="d['id'] == o['id']">
+                                            <t t-esc="d['oib']" />
+                                        </span>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Kategorija djelatnika</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['type_id']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Tvrtka</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['company_id']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Odjel</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['department_id']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Radno mjesto</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['job_id']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Opis radnog mjesta</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['job_description']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Lokacija rada</span>
+                                </td>
+                                <td class="text-left">
+                                    <t t-foreach="employee" t-as="d">
+                                        <span t-if="d['id'] == o['id']">
+                                            <t t-esc="d['work_location']" />
+                                        </span>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <br />
+                                    <strong>Pojedinosti ugovora</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Broj ugovora</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['contract_no']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Vrsta dokumenta</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['document_type']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Područje ugovora</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['area']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Tip ugovora</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['area_type']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Status ugovora</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-if="o['old_state']=='draft'">
+                                        Novi
+                                        <br />
+                                    </span>
+                                    <span t-if="o['old_state']=='open'">
+                                        U tijeku
+                                        <br />
+                                    </span>
+                                    <span t-if="o['old_state']=='pending'">
+                                        Za obnovu
+                                        <br />
+                                    </span>
+                                    <span t-if="o['old_state']=='close'">
+                                        Isteklo
+                                        <br />
+                                    </span>
+                                    <span t-if="o['old_state']=='cancel'">
+                                        Otkazano
+                                        <br />
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Početni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['date_start']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Završni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['date_end']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Razlog prekida</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['termination_reason']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Radni tjedan</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['resource_calendar_id']" />
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <br />
+                                    <strong>Probni rad</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Početni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['trial_date_start']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Završni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['trial_date_end']" />
+                                    <br />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <br />
+                                    <strong>Pripravnički staž</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Početni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['internship_date_start']" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left" style="border-right: 2px solid gray;">
+                                    <span>Završni datum</span>
+                                </td>
+                                <td class="text-left">
+                                    <span t-esc="o['internship_date_end']" />
+                                    <br />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br />
+                    <div>
+                        <table class="table-sm o_main_table" style="width:100%; border-color:gray; page-break-inside:auto;">
+                            <tbody style="font-size:10pt;">
+                                <tr>
+                                    <td class="text-left">
+                                        <strong>Bilješke</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left">
+                                        <span t-esc="o['notes']" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="page-break-after:always;" />
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

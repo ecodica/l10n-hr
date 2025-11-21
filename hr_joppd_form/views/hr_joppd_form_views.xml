@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- OBRAZAC -->
+		<record id="hr_joppd_form_tree_view" model="ir.ui.view">
+			<field name="name">JOPPD</field>
+			<field name="model">hr.joppd.form</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="JOPPD">
+					<field name="oznaka"/>
+					<field name="datum"/>
+					<field name="name"/>
+					<field name="vrsta"/>
+					<field name="date_from" column_invisible="not context.get('travel_order_view')"/>
+					<field name="date_to" column_invisible="not context.get('travel_order_view')"/>
+					<field name="state"/>
+					<field name="parent_id" />
+					<field name="child_ids" />
+					<field name="company_id" groups="base.group_multi_company"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_joppd_form_form_view" model="ir.ui.view">	 	
+			<field name="name">JOPPD</field>
+			<field name="model">hr.joppd.form</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="JOPPD">
+					<header>
+						<button
+							string="Ažuriraj A"
+							name="calc_stranaA"
+							type="object"
+							invisible="state == 'finish' or form_type == 'travel_order' or state not in ('add','cor')"/>
+						<!-- tipka za XML treba biti vidljiva u svim statusima -->
+						<button
+							string="Generiraj XML"
+							name="action_obrazac_joppd_generate_xml"
+							type="object"/>
+						<button
+							string="Dopuni"
+							name="button_joppd_dopuna"
+							type="object"
+							invisible="state == 'draft'"
+							help="Otvara novi prazni obrazac za dopunu podataka"/>
+						<button 
+							string="Ispravi"
+							name="button_joppd_ispravak"
+							type="object"
+							invisible="state == 'draft'"
+							help="Kopira postojeće podatke u novi obrazac za ispravak"/>
+						<button
+							string="Zaključaj JOPPD obrazac"
+							name="button_obrazac_finish"
+							type="object"
+							invisible="state != 'sent'"
+							class="oe_highlight"
+							help="Koristiti tek kad je obrazac prihvaćen od strane Porezne uprave"
+							confirm="Jeste li sigurni da želite zaključati JOPPD obrazac?"/>
+						<button
+							string="Postavi na nacrt"
+							name="button_draft_joppd"
+							type="object"
+							invisible="state in ('draft', 'add', 'corr')"
+							confirm="Jeste li sigurni da želite postaviti JOPPD obrazac u nacrt?"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,sent,finish"/>
+					</header>							
+					<sheet>
+						<group colspan="4" col="3">					
+							<group colspan="2" col="2">
+								<field name="form_type" invisible="1"/>
+								<field name="name"/>
+								<field name="datum" required="1" readonly="state == 'finish'"/>
+								<label for="date_from" string="Razdoblje" invisible="form_type == 'payroll'"/>
+								<div invisible="form_type == 'payroll'">
+									<div>
+										<field name="date_from" class="oe_inline" required="form_type == 'travel_order'"/>
+										-
+										<field name="date_to" class="oe_inline" required="form_type == 'travel_order'"/>
+									</div>
+								</div>
+								<field name="oznaka" readonly="1" force_save="1"/>
+								<field name="vrsta" readonly="1" force_save="1"/>
+								<field name="is_modified"/>
+                    			<field name="company_id" groups="base.group_multi_company"/>
+							</group>
+						</group>
+						<notebook colspan="4">
+							<page string="Strana A">	
+								<field name="stranaA_ids" nolabel="1" readonly="1">
+									<list string="StranaA" >
+										<field name="joppd_id" column_invisible="1"/>
+										<field name="position" string="Pozicija JOPPD obrasca"/>									
+										<field name="val" />
+									</list>									
+								</field>
+							</page>
+							
+							<page string="Strana B">
+								<!-- button hidden in travel order view because we have a fixed mechanism in place for creating payments and JOPPD B items -->
+								<button 
+									string="Obrada podataka strane B"
+									type="object"
+									name="stranaB_view_all"
+									invisible="form_type == 'travel_order'"
+									class="btn btn-secondary me-2"
+								/>
+								<!--
+									do not allow sorting for version == 2 - correction
+									in this case we must keep the same order as the origin version -->
+								<button 
+									string="Poredaj po nazivu zaposlenika"
+									name="action_order_by_employee_name"
+									type="object"
+									style="margin-left: 10px;"
+									invisible="vrsta == '2' or state not in ('draft','add')"
+									class="btn btn-secondary me-2"
+								/>
+								<newline/>			
+								<field name="stranaB_ids" nolabel="1" readonly="1">
+									<list name="sB" colors="navy:user_edit==True">
+										<field name="user_edit" column_invisible="1"/>
+										<field name="b1" readonly="1"/>
+										<field name="hr_employee_id"/>
+										<field name="b61" column_invisible="1"/>									
+										<field name="b10" />
+										<field name="b11" />
+										<field name="b12" />									
+										<field name="b121" />
+										<field name="b122" />
+										<field name="b132" column_invisible="1"/>									
+										<field name="b133" />
+										<field name="b134" />	
+										<field name="b135" />								
+										<field name="b162" />
+									</list>
+								</field>
+							</page>
+							<page string="Naknadne verzije" invisible="child_ids == None">
+								<field name="child_ids" nolabel="1" help="Naknadne verzije obrasca (nadopune, ispravci)"/>
+							</page>
+							<page string="Potrebno pregledati" >
+								<field name="check_ids" nolabel="1" readonly="1">
+									<list string="Za provjeru" editable="bottom" create="false" delete="true">
+										<field name="sequence"/>
+										<field name="employee_id"/>
+										<field name="description"/>
+									</list>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record id="hr_joppd_form_b_tree_view" model="ir.ui.view">	 	
+			<field name="name">hr.joppd.form.b.tree.view</field>
+			<field name="model">hr.joppd.form.b</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="JOPPD StranaB" editable="bottom">	
+					<field name="b1" readonly="1"/>
+					<field name="hr_employee_id"/>
+					<field name="hr_employee_state" column_invisible="1"/>					
+					<field name="user_edit" column_invisible="1"/>					
+					<field name="hr_department" column_invisible="1"/>
+					<field name="b2" />
+					<field name="b3" />
+					<field name="b61" />					
+					<field name="b62" />
+					<field name="b71" />
+					<field name="b72" />
+					<field name="b8" />
+					<field name="b9" />
+					<field name="b10" />
+					<field name="b100" />
+					<field name="b101" />
+					<field name="b102" />
+					<field name="b11" />
+					<field name="b12" />
+					<field name="b121" />
+					<field name="b122" />
+					<field name="b123" />
+					<field name="b124" />
+					<field name="b125" />
+					<field name="b126" />
+					<field name="b127" />
+					<field name="b128" />
+					<field name="b129" />
+					<field name="b131" />
+					<field name="b132" />
+					<field name="b133" />
+					<field name="b134" />
+					<field name="b135" />
+					<field name="b141" />
+					<field name="b142" />
+					<field name="b151" />
+					<field name="b152" />
+					<field name="b161" />
+					<field name="b162" />
+					<field name="b17" />
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_joppd_form_b_tree_view_locked" model="ir.ui.view">	 	
+			<field name="name">hr.joppd.form.b.tree.view.locked</field>
+			<field name="model">hr.joppd.form.b</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="JOPPD StranaB" edit="false" create="false" delete="false">
+					<field name="b1" readonly="1"/>
+					<field name="hr_employee_id"/>
+					<field name="hr_employee_state" column_invisible="1"/>					
+					<field name="user_edit" column_invisible="1"/>					
+					<field name="hr_department" column_invisible="1"/>
+					<field name="b2" />
+					<field name="b3" />
+					<field name="b61" />					
+					<field name="b62" />
+					<field name="b71" />
+					<field name="b72" />
+					<field name="b8" />
+					<field name="b9" />
+					<field name="b10" />
+					<field name="b100" />
+					<field name="b101" />
+					<field name="b102" />
+					<field name="b11" />
+					<field name="b12" />
+					<field name="b121" />
+					<field name="b122" />
+					<field name="b123" />
+					<field name="b124" />
+					<field name="b125" />
+					<field name="b126" />
+					<field name="b127" />
+					<field name="b128" />
+					<field name="b129" />
+					<field name="b131" />
+					<field name="b132" />
+					<field name="b133" />
+					<field name="b134" />
+					<field name="b135" />
+					<field name="b141" />
+					<field name="b142" />
+					<field name="b151" />
+					<field name="b152" />
+					<field name="b161" />
+					<field name="b162" />
+					<field name="b17" />
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_joppd_form_b_search_view" model="ir.ui.view">
+			<field name="name">hr_joppd_form_b_search_view</field>
+			<field name="model">hr.joppd.form.b</field>
+			<field name="arch" type="xml">
+				<search string="Search Naziv">
+					<field string="Naziv" name="hr_employee_id" filter_domain="['|',('hr_employee_id','ilike',self),('hr_department','ilike',self)]" />
+					<filter string="Uređivani podaci" name="user_edit" domain="[('user_edit','=',True)]"/>
+					<filter string="Izvorni podaci" name="user_edit" domain="[('user_edit','=',False)]"/>				
+					<separator />
+					<group expand="0" string="Group By...">
+						<filter string="Oznaka Stjecatelja" name="stjecatelj" context="{'group_by':'b61'}" />
+						<filter string="Oznaka Primitka" name="primitak" context="{'group_by':'b62'}" />
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="hr_joppd_form_B_action" model="ir.actions.act_window">
+			<field name="name">Obrazac JOPPD strana B</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.joppd.form.b</field>
+			<field name="view_mode">list</field>		
+			<field name="view_id" ref="hr_joppd_form_tree_view"/>
+		</record>
+    
+    
+		<!--JOPPD codes tree view-->
+
+		<record id="info3_l10n_hr_joppd_sifre_tree" model="ir.ui.view">
+		<field name="name">info3.l10n.hr.joppd.sifre.tree</field>
+		<field name="model">l10n.hr.joppd.sifre</field>
+		<field name="arch" type="xml">
+			<list string="JOPPD ">
+			<field name="name" />
+			<field name="description" />
+			</list>
+		</field>
+		</record>
+
+
+		<!-- JOPPD XML attachment-->
+		
+		<record id="joppd_xml_attachment_form" model="ir.ui.view">
+			<field name="model">ir.attachment</field>
+			<field name="arch" type="xml">
+				<form string="Privitci">
+					<group>
+						<label for="datas" string="XML datoteka"/>
+						<div>
+							<div>
+								<!-- field datas needs to be readonly because it can't be downloaded in edit mode -->
+								<field name="datas" widget="" filename="name" readonly="1"/>
+								<field name="name" invisible="1"/>
+							</div>
+						</div>
+					</group>
+					<footer>
+						<button string="Odustani" special="cancel" class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+    
+	</data>
+</openerp>

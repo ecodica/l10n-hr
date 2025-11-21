@@ -1,0 +1,13 @@
+.custom-field-height table thead>tr>th>div>span {
+    width: 100%;
+    text-wrap: wrap;
+}
+
+.custom-notebook-header>div:first-child>ul {
+    display: flex;
+    flex-wrap: wrap !important;
+}
+
+.custom-field-height table tbody td {
+    text-wrap: wrap !important;
+}

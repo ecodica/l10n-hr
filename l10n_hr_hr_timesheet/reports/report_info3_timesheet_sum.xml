@@ -1,0 +1,216 @@
+<odoo>
+    <template id="report_info3_timesheet_sum">
+            <t t-call="web.basic_layout">
+                <style>
+                    .table thead tr td {
+                        padding: 1px;
+                        border: 0.5px solid black;
+                        vertical-align: middle;
+                        height: 15px;
+                    }
+                    .table tbody tr td {
+                        padding: 1px;
+                        border: 0.5px solid black;
+                        vertical-align: middle;
+                        height: 15px;
+                    }
+                    .title-side-column {
+                        width: 25%;
+                        padding 5px;
+                    }
+                    .title-middle-column {
+                        border-bottom: 1px solid black;
+                        width: 30%;
+                        padding: 5px;
+                    }
+                    .table-header-row {
+                        background-color: lightgray;
+                    }
+                    .legend-table tr td:nth-child(even) {
+                        width: 8.5%;
+                        padding: 1px 2px 0px 3px;
+                        text-align: left;
+                    }
+                    .legend-table tr td:nth-child(odd) {
+                        width: 1.5%;
+                        text-align:right;
+                    }
+                </style>
+                <!-- whole doc container -->
+                <div style="font-size: 7pt; font-family:Helvetica;">
+                    <div class="text-center" style="font-size: 10pt;">
+                        <t t-if="report_lines[0]['employee_by_contract'] == True">
+                            <strong>Mjesečna rekapitulacija evidencije o radnom vremenu radnika</strong>
+                        </t>
+                        <t t-else="">
+                            <strong>Mjesečna rekapitulacija evidencije o trajanju rada određenih kategorija fizičkih osoba</strong>
+                        </t>
+                    </div>
+                    <div style="width: 100%; margin-top: 10px;">
+                        <table id="title_table" class="table-borderless" style="width:40%; margin:auto">
+                            <tr>
+                                <td class="title-side-column"><strong>POSLODAVAC:</strong></td>
+                                <td class="title-middle-column text-center" style="border-bottom: 1px solid black;">
+                                    <span t-esc="report_lines[0]['company_name']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="title-side-column"><strong>EVIDENCIJA ZA MJESEC:</strong></td>
+                                <td class="title-middle-column text-center" style="border-bottom: 1px solid black;">
+                                    <span t-esc="report_lines[0]['month']"/></td>
+                                <td style="padding-left:45px; text-align: right;"><strong>MJESEČNI FOND SATI: </strong></td>
+                                <td style="border-bottom: 1px solid black; width:50px; text-align:center;"><span t-esc="report_lines[0]['number_of_hours']"/></td>
+                            </tr>
+                            <tr>
+                                <td class="title-side-column"><strong>EVIDENCIJA ZA GODINU:</strong></td>
+                                <td class="title-middle-column text-center" style="border-bottom: 1px solid black;"><span t-esc="report_lines[0]['year']"/></td>
+                                <td style="padding-left:45px; text-align: right;"><strong>BROJ RADNIH DANA: </strong></td>
+                                <td style="border-bottom: 1px solid black; width:50px; text-align:center;"><span t-esc="report_lines[0]['number_of_days']"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="legend" style="margin-top: 10px;">
+                        <table class="legend-table table-borderless">
+                            <tr>
+                                <td>1 - </td><td>Dnevno radno vrijeme u satima (RR)</td>
+                                <td>4 - </td><td>Praznik/Blagdan (BL)</td>
+                                <td>7 - </td><td>Dnevni odmor (DO)</td>
+                                <td>10 - </td><td>Smjenski rad (SR)</td>
+                                <td>13 - </td><td>Terenski rad (TR)</td>
+                                <td>16 - </td><td>Bolovanje (BO)</td>
+                                <td>19 - </td><td>Druga roditeljska prava (RP)</td>
+                                <td>22 - </td><td>Nenazočnost na zahtjev radnika (NR)</td>
+                                <td>25 - </td><td>Isključenje s rada (lockout) (ISR)</td>
+                                <td>28 - </td><td>Vrijeme pripravnosti (VP)</td>
+                            </tr>
+                            <tr>
+                                <td>2 - </td><td>Noćni rad (NO)</td>
+                                <td>5 - </td><td>Neradni dan - nedjelja (NDN)</td>
+                                <td>8 - </td><td>Tjedni odmor (TO)</td>
+                                <td>11 - </td><td>Izaslani rad (IR)</td>
+                                <td>14 - </td><td>Terenski rad inozemstvo (TRI)</td>
+                                <td>17 - </td><td>Bolovanje na teret fonda (BOF)</td>
+                                <td>20 - </td><td>Plaćeni dopust (PD)</td>
+                                <td>23 - </td><td>Nenazočnost krivnjom radnika (NKR)</td>
+                                <td>26 - </td><td>Sati zastoja krivnjom poslodavca (SZP)</td>
+                                <td>29 - </td><td>Roditeljski dopust (RDP)</td>
+                            </tr>
+                            <tr>
+                                <td>3 - </td><td>Prekovremeni rad (PRR)</td>
+                                <td>6 - </td><td>Neradni dan - praznik (NDP)</td>
+                                <td>9 - </td><td>Godišnji odmor (GO)</td>
+                                <td>12 - </td><td>Preraspodjeljeno radno vrijeme (PR)</td>
+                                <td>15 - </td><td>Dvokratni rad (DR)</td>
+                                <td>18 - </td><td>Rodiljni dopust (RD)</td>
+                                <td>21 - </td><td>Neplaćeni dopust (ND)</td>
+                                <td>24 - </td><td>Štrajk (STR)</td>
+                                <td>27 - </td><td>Vrijeme zastoja (VZ)</td>
+                                <td>30 - </td><td>Očinski dopust i dopust drugog posvojitelja (OD)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>31 - </td><td>Odsutnost s rada (ODSR)</td>
+                                <td>32 - </td><td>Neplaćeni dopust za pružanje osobne skrbi (NDSK)</td>
+                                <td>33 - </td><td>Neplaćeni dopust kandidata (NDKA)</td>
+                                <td>34 - </td><td>Nenazočnost zbog vojne obveze ili služenja u ugovornoj pričuvi (NHVO)</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="timesheet" style="margin-top: 10px;">
+                        <table class="table text-center">
+                            <thead>
+                                <tr class="table-header-row">
+                                    <td rowspan="2">Rbr.</td><td rowspan="2">Ime i prezime </td><td>UDRV</td><td>RR</td><td>NO</td><td>PRR</td>
+                                    <td>BL</td><td>NDN</td><td>NDP</td><td>DO</td><td>TO</td><td>GO</td><td>SR</td>
+                                    <td>IR</td><td>PR</td><td>TR</td><td>TRI</td><td>DR</td><td>BO</td><td>BOF</td>
+                                    <td>RD</td><td>OD</td><td>RDP</td><td>RP</td><td>PD</td><td>ND</td><td>ODSR</td><td>NDSK</td><td>NDKA</td><td>NHVO</td><td>NR</td><td>NKR</td><td>ŠTR</td>
+                                    <td>ISR</td><td>SZP</td><td>VZ</td><td>VP</td><td rowspan="2">Ukupno</td>
+                                </tr>
+                                <tr class="table-header-row">
+                                    <td>0</td><td>1</td>
+                                    <td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+                                    <td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td>
+                                    <td>16</td><td>17</td><td>18</td><td>30</td><td>29</td><td>19</td><td>20</td><td>21</td><td>31</td><td>32</td><td>33</td><td>34</td><td>22</td>
+                                    <td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="row_no" t-value="1"/>
+                                <tr t-foreach="report_lines" t-as="line">
+                                    <td><span t-esc="row_no"/>.</td>
+                                    <td style="width: 9%; text-align: left; padding-left: 5px;">
+                                        <span t-esc="line['employee_name']"/>
+                                    </td>
+                                    <td><span t-esc="line['avg_hours_per_day']"/></td>
+                                    <td><span t-esc="line['data'][0]['total']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['night_work']"/></td>
+                                    <td><span t-esc="line['data'][0]['overtime']"/></td>
+                                    <td><span t-esc="line['data'][0]['holiday']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['non_working_sunday']"/></td>
+                                    <td><span t-esc="line['data'][0]['non_working_holiday']"/></td>
+                                    <td><span t-esc="line['data'][0]['daily_rest']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['weekly_rest']"/></td>
+                                    <td><span t-esc="line['data'][0]['annual_leave_hours']"/></td>
+                                    <td><span t-esc="line['data'][0]['shift_work']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['split_shift_work']"/></td>
+                                    <td><span t-esc="line['data'][0]['rescheduled_hours']"/></td>
+                                    <td><span t-esc="line['data'][0]['fieldwork']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['fieldwork_abroad']"/></td>
+                                    <td><span t-esc="line['data'][0]['seconded_work']"/></td>
+                                    <td><span t-esc="line['data'][0]['sick_leave']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['sick_leave_fund']"/></td>
+                                    <td><span t-esc="line['data'][0]['maternity_leave']"/></td>
+                                    <td><span t-esc="line['data'][0]['paternity_leave']"/></td>
+                                    <td><span t-esc="line['data'][0]['parental_leave']"/></td>
+                                    <td><span t-esc="line['data'][0]['other_maternity_leave']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['paid_leave']"/></td>
+                                    <td><span t-esc="line['data'][0]['unpaid_leave']"/></td>
+                                    
+                                    <td><span t-esc="line['data'][0]['work_absence']"/></td>
+                                    <td><span t-esc="line['data'][0]['unpaid_personal_care']"/></td>
+                                    <td><span t-esc="line['data'][0]['unpaid_candidacy']"/></td>
+                                    <td><span t-esc="line['data'][0]['military_leave_absence']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['absence']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['absence_fault']"/></td>
+                                    <td><span t-esc="line['data'][0]['strike']"/></td>
+                                    <td><span t-esc="line['data'][0]['lockout']"/></td>
+
+                                    <td><span t-esc="line['data'][0]['outage']"/></td>
+                                    <td><span t-esc="line['data'][0]['time_outage']"/></td>
+                                    <td><span t-esc="line['data'][0]['standby_hours']"/></td>
+                                    <td style="font-weight: bold;"><span t-esc="line['data'][0]['hours_sum']"/></td>
+                                    <t t-set="row_no" t-value="row_no +1"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--Signature line-->
+                    <div style="padding-left: 80px; margin-top: 30px;">
+                        <table class="table-borderless">
+                            <tbody>
+                                <tr>
+                                    <td style="width:70%;"></td>
+                                    <td style="border-bottom: 1px solid black;width:350px;"></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"></td>
+                                    <td class="text-center" style="font-size: 10px;">Odgovorna osoba</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="footer" style="float: right; font-size:12px;">
+                        <span class="page"/>/<span class="topage"/>
+                    </div>
+                </div>
+            </t>
+    </template>
+</odoo>

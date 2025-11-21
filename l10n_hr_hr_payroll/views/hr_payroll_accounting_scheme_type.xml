@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="hr_payroll_accounting_scheme_type_tree_view" model="ir.ui.view">	 	
+			<field name="name">hr.payroll.accounting.scheme.type.tree.view</field>
+			<field name="model">hr.payroll.accounting.scheme.type</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="Vrste shema knjiženja">
+					<field name="name"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_payroll_accounting_scheme_type_form_view" model="ir.ui.view">	 	
+			<field name="name">hr.payroll.accounting.scheme.type.form.view</field>
+			<field name="model">hr.payroll.accounting.scheme.type</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="Vrste shema knjiženja">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_hr_payroll_accounting_scheme_type" model="ir.actions.act_window">
+			<field name="name">Vrste shema knjiženja</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.payroll.accounting.scheme.type</field>
+			<field name="view_mode">list,form</field>		
+			<field name="view_id" ref="hr_payroll_accounting_scheme_type_tree_view"/>
+		</record>
+		
+	</data>
+</openerp>

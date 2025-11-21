@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="payslip_run_reports_wizard_form" model="ir.ui.view">
+			<field name="name">payslip.run.reports.wizard.form</field>
+			<field name="model">payslip.run.reports.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Izvještaji obračuna plaće">
+					<group>
+						<field name="report_type"/>
+						<label for="date_from" string="Razdoblje isplate" invisible="report_type not in ('recap', 'emp_recap', 'emp_average_salary')"/>
+						<div class="oe_row" invisible="report_type not in ('recap', 'emp_recap', 'emp_average_salary')">
+							<div>
+								<field
+									name="date_from"
+									class="oe_inline"
+									required="report_type in ('emp_average_salary')"
+								/>
+								-
+								<field
+									name="date_to"
+									class="oe_inline"
+									required="report_type in ('emp_average_salary')"
+								/>
+							</div>
+						</div>
+						<field
+								name="payslip_run_ids"
+								required="True"
+								options="{'no_create': True}"
+							>
+								<list editable="bottom">
+									<field name="name"/>
+									<field name="employee_count"/>
+									<field name="slip_ids_count"/>
+									<field name="date_start" />
+									<field name="date_end"/>
+									<field name="journal_id"/>
+									<field name="pay_date"/>
+									<field name="company_id"/>
+									<field name="state"/>
+								</list>
+							</field>
+						<field
+							name="department_id"
+							options="{'no_create': True}"
+							invisible="report_type in (False,'emp_recap','emp_average_salary')"
+						/>
+						<field
+							name="employee_ids"
+							options="{'no_create': True}"
+							invisible="report_type not in ('emp_recap', 'emp_average_salary')"
+						/>
+					</group>
+					<footer>
+						<button string="Ispiši PDF" type="object" name="select_report_type" class="oe_highlight"/>
+						<span invisible="report_type in ('emp_average_salary', 'io1_report', 'ip1_form')">
+							or
+							<button
+								string="Ispiši Excel"
+								type="object"
+								name="select_report_type_xlsx"
+								class="oe_highlight"
+							/>
+						</span>
+						or
+						<button string="Odustani" special="cancel" class="oe_link"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_payslip_run_reports_wizard" model="ir.actions.act_window">
+			<field name="name">Payslip run reports</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">payslip.run.reports.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		
+	</data>
+</odoo>

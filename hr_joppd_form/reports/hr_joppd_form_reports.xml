@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_joppd_form_a" model="ir.actions.report">
+            <field name="name">JOPPD Obrazac - Strana A</field>
+            <field name="model">hr.joppd.form</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_joppd_form.joppd_form_a</field>
+            <field name="report_file">hr_joppd_form.joppd_form_a</field>
+            <field name="binding_model_id" ref="model_hr_joppd_form"/>
+            <field name="paperformat_id" ref="hr_joppd_form.paperformat_a4_lower_margin_no_header_spacing"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <record id="report_joppd_form_b" model="ir.actions.report">
+            <field name="name">JOPPD Obrazac - Strana B</field>
+            <field name="model">hr.joppd.form</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">hr_joppd_form.joppd_form_b</field>
+            <field name="report_file">hr_joppd_form.joppd_form_b</field>
+            <field name="binding_model_id" ref="model_hr_joppd_form"/>
+            <field name="paperformat_id" ref="hr_joppd_form.paperformat_a4_landscape_joppd_b"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

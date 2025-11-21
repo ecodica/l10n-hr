@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="hr_salary_parameters_search_view" model="ir.ui.view">
+			<field name="name">hr.salary.parameters.search.view</field>
+			<field name="model">hr.salary.parameters</field>
+			<field name="arch" type="xml">
+				<search string="Parametri plaće">
+					<field name="name"/>
+					<field name="contract_id"/>
+					<field name="employee_id"/>
+					<group expand="1" string="Group By">
+						<filter string="Employee" name='group_employee' context="{'group_by':'employee_id'}"/>
+						<filter string="Contract" name='group_contract' context="{'group_by':'contract_id'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="hr_salary_parameters_tree_view" model="ir.ui.view">	 	
+			<field name="name">hr.salary.parameters.tree.view</field>
+			<field name="model">hr.salary.parameters</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="Parametri plaće">
+					<field name="name"/>
+					<field name="contract_id"/>
+					<field name="employee_id"/>
+					<field name="date_from"/>
+					<field name="date_to"/>
+					<field name="company_id" groups="base.group_multi_company"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_salary_parameters_form_view" model="ir.ui.view">	 	
+			<field name="name">hr.salary.parameters.form.view</field>
+			<field name="model">hr.salary.parameters</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="Parametri plaće">
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<!-- disable edit when creating through contract form view -->
+								<field
+									name="contract_id"
+									readonly="context.get('contract_id', False)"
+									force_save="1"
+									options="{'no_create': True, 'no_create_edit': True}"
+								/>
+								<field name="employee_id" force_save="1" options="{'no_create': True, 'no_create_edit': True}"/>
+								<field name="date_from"/>
+								<field name="date_to"/>
+								<field name="day_hours"/>
+								<field name="joppd_b9"/>
+								<field name="joppd_b72" options="{'no_create': True, 'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field name="struct_id" options="{'no_create': True, 'no_create_edit': True}"/>
+								<field name="struct_code"/>
+								<field name="department_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            	<field name="job_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            	<field name="job_description"/>
+								<field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_create_edit': True}"/>
+							</group>
+						</group>
+						<group>
+							<group>
+								<field name="experience_coef"/>
+								<field name="joppd_b61" options="{'no_create': True, 'no_create_edit': True}"/>
+							</group>
+							<group>
+								<field
+									name="joppd_b62"
+									invisible="struct_code not in ('HR6','HR7','HR14')"
+									required="struct_code in ('HR6','HR7','HR14')"
+									options="{'no_create': True, 'no_create_edit': True}"
+								/>
+								<field
+									name="work_abroad_city_id"
+									invisible="struct_code not in ('HR15','HR16','HR17','HR18')"
+									required="struct_code in ('HR15','HR16','HR17','HR18')"
+									options="{'no_create': True, 'no_create_edit': True}"
+								/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Podaci o plaći" name="salary_information">
+								<group>
+									<field name="calculate_salary_by_coefficient"/>
+									<field
+										name="base_salary"
+										readonly="1"
+										invisible="calculate_salary_by_coefficient == False"
+										required="calculate_salary_by_coefficient == True"
+									/>
+									<field
+										name="salary_coef"
+										readonly="1"
+										invisible="calculate_salary_by_coefficient == False"
+										required="calculate_salary_by_coefficient == True"
+									/>
+								</group>
+								<group>
+									<group>
+										<separator string="Plaća"/>
+										<field name="salary_calculation_type"/>
+										<field name="wage" readonly="calculate_salary_by_coefficient == True" force_save="1"/>
+										<field name="wage_hour"/>
+										<separator string="Prosječne satnice za bolovanje"/>
+										<field name="average_salary_net"/>
+										<field name="average_salary_gross"/>
+										<label for="average_salary_date_from" string="Datum isplate"/>
+										<div>
+											<field name="average_salary_date_from" class="oe_inline"/>
+										- 
+											<field name="average_salary_date_to" class="oe_inline"/>
+										</div>
+										<button
+											string="Izračunaj prosječne satnice"
+											colspan="2"
+											name="%(action_sick_leave_average_wage_wizard)d"
+											type="action"
+											class="oe_clear oe_highlight"
+										/>
+
+									</group>
+									<group>
+										<separator string="Doprinosi"/>
+										<field name="is_director"/>
+										<field name="min_contributions_base"/>
+										<field name="max_contributions_base"/>
+										<field name="mio2"/>
+										<field name="benefit_id" invisible="1"/>
+										<!--visible and required if structure with benefits is selected-->
+										<field name="health_insurance_contribution_pct"/>
+										<field name="health_insurance_contribution_pct_additional_income"/>
+										<field name="internship_type"/>
+										<field name="dmio1b_percentage"/>
+										<field name="dmio2b_percentage"/>
+									</group>
+									<group>
+										<separator string="Porezne olakšice"/>
+										<field name="has_war_disability"/>
+										<field name="war_disability_pct" invisible="has_war_disability == False" required="has_war_disability == True"/>
+										<field name="supported_area"/>
+									</group>
+								</group>
+							</page>
+							<page string="Osobni odbitci">
+								<group>
+									<field name="tax_deduction_ids">
+										<list string="Osobni odbitci" editable="top">											
+											<field name="sequence" column_invisible="1"/>
+											<field name="status"/>
+											<field name="tax_deduction_id"/>
+											<field name="qty"/>
+											<field name="tax_deduction_coef"/>
+											<field name="deduction_shared_with"/>
+										</list>
+									</field>
+									<field name="tax_deduction_coef"/>
+									<field name="tax_deduction_amount"/>
+									<field name="annual_deduction"/>
+								</group>
+							</page>
+							<page string='Ulazi'>
+								<field name='input_line_ids'>
+									<list editable="bottom">
+										<!-- context is used in name_get for more comprehensive rule overview -->
+										<field name="rule_id" context="{'show_code': True}" options="{'no_create': True}"/>
+										<field name="amount"/>
+									</list>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_hr_salary_parameters" model="ir.actions.act_window">
+			<field name="name">Salary parameters</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.salary.parameters</field>
+			<field name="view_mode">list,form</field>		
+			<field name="view_id" ref="hr_salary_parameters_tree_view"/>
+		</record>
+		
+	</data>
+</openerp>

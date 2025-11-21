@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_hr_payslip_run_recap">
+        <t t-call="web.basic_layout">
+            <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+                <style>
+                    .table-sm th, .table-sm td {
+                        padding: 0.5mm 2mm;
+                    }
+
+                    .table-borderless{
+                        border: 0px;
+                    }
+
+                    .theader-class{
+                        background-color: #e9ecef;
+                        color: #495057;
+
+                    }
+                </style>
+                <table class="table-sm table-borderless" style="font-weight: bold;width: 20%;" align="left">
+                    <tr>
+                        <td><h5><span t-field="data['company'].name"/></h5></td>
+                    </tr>
+                    <tr>
+                        <td><span t-field="data['company'].street"/></td>
+                    </tr>
+                    <tr>
+                    <td>
+                        <t t-if="data['company']">
+                            <span t-esc="data['company'].zip"/>
+                        </t>
+                        <t t-if="data['company']">
+                            <span t-esc="data['company'].city"/>
+                        </t>
+                    </td>
+                    </tr>
+                    <tr>
+                        <td><span t-field="data['company'].country_id.name"/></td>
+                    </tr>
+                </table>
+                <table class="table-sm table-borderless" style="font-weight: bold;width: 20%;" align="right">
+                    <tr>
+                        <td>IBAN: <span t-if="data['company'].partner_id.bank_ids" t-field="data['company'].partner_id.bank_ids[0].acc_number"/></td>
+                    </tr>
+                    <tr>
+                        <td>OIB: <span t-field="data['company'].company_registry"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: normal;">Broj zaposlenika: <span t-esc="data['number_of_employees']"/></td>
+                    </tr>
+                </table>
+
+                <h5 class="text-center" style="font-weight: bold;"><span>Rekapitulacija obračuna plaće</span></h5>
+
+                <table class="table-sm table-borderless" style="font-size: 15px;margin-top: 100px;margin-bottom: 0">
+                    <tr>
+                        <td><span style="font-weight: bold;">Obračuni: </span><span t-esc="data['run_names']"/></td>
+                    </tr>
+                    <tr t-if="data['department_name']">
+                        <td><span style="font-weight: bold;">Isplatno mjesto: </span> <span t-esc="data['department_name']"/></td>
+                    </tr>
+                </table>
+
+                <!-- REKAPITULACIJA SATI -->
+                <table class="table table-sm table-light" style="margin-top: 25px; margin-bottom: 0">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 70%;"><span>Rekapitulacija sati</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Sati</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Bruto</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['payslip_totals']" t-as="line" t-if="line[5] == 'line'">
+                        <td style="width: 70%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['payslip_totals']" t-as="line" t-if="line[5] == 'total'" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 70%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- DOPRINOSI IZ PLAĆE -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" >
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 70%;"><span>Doprinosi iz plaće</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Stopa</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['contributions_from_salaries']" t-as="line" t-if="line[4] == 'line'">
+                        <td style="width: 70%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['contributions_from_salaries']" t-as="line" t-if="line[4] == 'total'" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td class="text-start" style="width: 70%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- izaslani rad - porez u HR -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" t-if="data['work_abroad_hr']">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Izaslani rad</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['work_abroad_hr']" t-as="line">
+                        <td style="width: 75%;">
+                            <span t-raw="line[0]"/>
+                        </td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- DOHODAK -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Dohodak</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['income']" t-as="line" t-if="line[3] != 'IOOD'" style="font-weight: bold;">
+                        <td style="width: 75%;"></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- Umanjenje porezne osnovice -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Umanjenje porezne osnovice</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['income']" t-as="line" t-if="line[3] != 'DOH'" style="font-weight: bold;">
+                        <td style="width: 75%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- PRIZNATI IZDATAK -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" t-if="data['admitted_cost']">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 60%;"><span>Priznati izdatak</span></th>
+                            <th style="width: 25%;"><span></span></th>
+                            <th class="text-end" style="width: 15%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['admitted_cost']" t-as="line">
+                        <td style="width: 60%;">
+                            <span t-raw="line[0]"/>
+                        </td>
+                        <td style="width: 25%;"></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr style="font-weight: bold; border-top: 2px solid black !important">
+                        <td style="width: 60%;">Ukupno</td>
+                        <td style="width: 25%;"></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="sum(line[2] for line in data['admitted_cost'])" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+                
+                <!-- Porez -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Porezi</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['taxes']" t-as="line">
+                        <td style="width: 75%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['neto']" t-as="line" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 75%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- izaslani rad - porez u inozemstvu -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" t-if="data['work_abroad_ino']">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Izaslani rad</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['work_abroad_ino']" t-as="line" >
+                        <td style="width: 75%;">
+                            <span t-raw="line[0]"/>
+                        </td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- Nadoknade -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" >
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 70%;"><span>Nadoknade</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Sati</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['payslip_lines_totals']" t-as="line" t-if="line[4] == 'line'">
+                        <td style="width: 70%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]" /></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['payslip_lines_totals']" t-as="line" t-if="line[4] == 'total'" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 70%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- Obustave -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" >
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Obustave</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['suspensions']" t-as="line" t-if="line[4] == 'line'">
+                        <td style="width: 75%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['suspensions']" t-as="line" t-if="line[4] == 'total'" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 75%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- Isplata -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" t-if="data['payment']">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Isplate</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['payment']" t-as="line" style="font-weight: bold;">
+                        <td style="width: 75%;"></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- DOPRINOSI NA PLAĆE -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" >
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 70%;"><span>Doprinosi na plaće</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Stopa</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['contributions_on_salaries']" t-as="line" t-if="line[4] == 'line'">
+                        <td style="width: 70%;">
+                            <span t-raw="line[0]"></span>
+                        </td>
+                        <td class="text-end" style="width: 15%;">
+                            <span t-if="line[1] != 0" t-esc="line[1]" t-options="{'widget': 'float', 'precision': 2}"/>
+                            <span t-if="line[1] == 0"></span>
+                        </td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['contributions_on_salaries']" t-as="line" t-if="line[4] == 'total'" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 70%;"><span t-esc="line[0]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[1]"/></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                <!-- Isplata -->
+                <table class="table table-sm" style="margin-top: 25px; margin-bottom: 0" t-if="data['brutto2']">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 75%;"><span>Ukupni trošak plaće</span></th>
+                            <th class="text-end" style="width: 25%;"><span>Iznos</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['brutto2']" t-as="line" style="font-weight: bold;">
+                        <td style="width: 75%;"></td>
+                        <td class="text-end" style="width: 25%;"><span t-esc="line[0] or 0" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>
+
+                 <!-- Rekapitulacija poreza -->
+                <table class="table-sm table-borderless" align="left" style="font-weight: bold;">
+                    <tr>
+                        <td><span>Rekapitulacija poreza</span></td>
+                    </tr>
+                </table>
+                <table class="table table-sm" style="">
+                    <thead class="theader-class">
+                        <tr>
+                            <th class="text-start" style="width: 70%;"><span>Općina/Grad</span></th>
+                            <th class="text-end" style="width: 15%;"><span>Ukupno</span></th>
+                        </tr>
+                    </thead>
+                    <tr t-foreach="data['local_tax']" t-as="line">
+                        <td style="width: 70%;">
+                            <span t-raw="line['city_name']"/>
+                        </td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                    <tr t-foreach="data['local_tax_sum']" t-as="line" style="font-weight: bold;border-top: 2px solid black !important">
+                        <td style="width: 70%;"><span>Ukupno</span></td>
+                        <td class="text-end" style="width: 15%;"><span t-esc="line[0]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                    </tr>
+                </table>   
+
+                <!-- LINIJE ZA POTPIS -->
+                <!-- <table class="table table-sm" style="margin-top: 15mm;">
+                    <tr>
+                        <td style="border-bottom: 1px solid black; border-top: 0;"></td>
+                        <td style="border: 0"></td>
+                        <td style="border-bottom: 1px solid black; border-top: 0;"></td>
+                        <td style="border: 0"></td>
+                        <td style="border-bottom: 1px solid black; border-top: 0;"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><span>Obračunao</span></td>
+                        <td style="border-top: 0"></td>
+                        <td class="text-center"><span>Radnik</span></td>
+                        <td style="border-top: 0"></td>
+                        <td class="text-center"><span>Direktor</span></td>
+                    </tr>
+                </table> -->
+            </div>
+        </t>
+    </template>
+
+</odoo>

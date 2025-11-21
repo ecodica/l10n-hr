@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    
+        <!-- Salary rule category -->
+        <record id="hr_salary_rule_category_form_l10n_hr" model="ir.ui.view">
+            <field name="name">hr.salary.rule.category.form.l10n.hr</field>
+            <field name="model">hr.salary.rule.category</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_salary_rule_category_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Kategorija plaća">
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="parent_id"/>
+                                <field name="skip_hours" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="note" />
+                            </group>
+                        </group>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Salary rule -->
+        <record id="hr_salary_rule_form_l10n_hr" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.l10n.hr</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_salary_rule_form"/>
+            <field name="priority">30</field>
+            <field name="arch" type="xml">
+                <field name="appears_on_payslip" position="after">
+                   <field name="is_for_contributions_base_deduction"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="JOPPD">
+                        <group col="4">
+                            <field name="joppd_b61"/>
+                            <field name="joppd_b62"/>
+                            <field name="joppd_b151"/>
+                            <field name="joppd_b161"/>
+                        </group>
+                    </page>
+                    <page string="IP1 form">
+                        <group>
+                            <field name="ip1_form_coef"/>
+                            <field name="ip1_position_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//form/notebook/page[1]" position="replace">
+                    <!-- replace original page to modify field value column width (original is very narrow) -->
+                    <page string="Općenito" name="general">
+                        <group string="Uvjeti" name="conditions">
+                            <group>
+                                <field name="condition_select"/>
+                            </group>
+                                <field name="condition_python" invisible="condition_select != 'python'" required="condition_select == 'python'" colspan="4"/>
+                                <field name="condition_range" invisible="condition_select != 'range'" required="condition_select == 'range'"/>
+                            <group>
+                            <field name="condition_range_min" colspan="2" invisible="condition_select != 'range'" required="condition_select == 'range'"/>
+                            <field name="condition_range_max" colspan="2" invisible="condition_select != 'range'" required="condition_select == 'range'"/>
+                            </group>
+                        </group>
+                        <group string="Izračun" name="computation">
+                            <group>
+                                <field name="amount_select"/>
+                                <field colspan="4" name="amount_python_compute" invisible="amount_select != 'code'" required="amount_select == 'code'" nolabel="1"/>
+                                <field name="amount_percentage_base" invisible="amount_select != 'percentage'" required="amount_select == 'percentage'"/>
+                                <field name="quantity" invisible="amount_select == 'code'" required="amount_select != 'code'"/>
+                                <field name="amount_fix"  invisible="amount_select != 'fix'" required="amount_select == 'fix'"/>
+                                <field name="amount_percentage" invisible="amount_select != 'percentage'" required="amount_select == 'percentage'"/>
+                            </group>
+                        </group>
+                        <group string="Company Contribution" name="company_contribution">
+                            <group>
+                                <field name="bank_account_number"/>
+                                <field name="broj_modela"/>
+                                <field name="poziv_na_broj"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <!-- crediting -->
+                <xpath expr="//page[3]" position="replace">
+                    <page string="Računovodstvo" name="rule_accounting">
+                        <group>
+                            <group string="Računovodstvo" name="accounting">
+                                <!-- ZAKOMENTIRANO <field name="scheme_ids" context="{'salary_rule_view': True, 'default_rule_id': active_id}"/> -->
+                                <field name="crediting"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--dodavanje checkbox za knjiženje u tree view pravila-->
+        <record id="info3_salary_rule_accounting" model="ir.ui.view">
+            <field name="name">info3.salary.rule.accounting</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_salary_rule_list"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="groups">base.group_no_one</attribute>
+                </field>
+                <xpath expr="//list/field[@name='register_id']" position="after">
+                    <field name="crediting"/>
+                    <field name="ip1_position_ids"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_rule_filter_inherit" model="ir.ui.view">
+            <field name="name">hr.salary.rule.select.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_rule_filter"/>
+            <field name="arch" type="xml">
+                <field name="condition_range_min" position="after">
+                    <filter string="U IP1 obrascu" name="in_ip1_form" domain="[('ip1_position_ids', '!=', False)]"/>
+                    <filter string="Nije u IP1 obrascu" name="not_in_ip1_form" domain="[('ip1_position_ids', '=', False)]"/>
+                    <separator/>
+                </field>
+            </field>
+        </record>
+
+        <!-- remove domain so PN22 and DMIO child rules are visible - main reason is accounting settings -->
+        <record id="l10n_hr_payroll_base.action_salary_rule_form" model="ir.actions.act_window">
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="view_hr_payroll_structure_form_inherit" model="ir.ui.view">
+            <field name="name">hr.payroll.structure.form.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="b61"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hr_payroll_structure_list_view_inherit" model="ir.ui.view">
+            <field name="name">hr.payroll.structure.tree.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_payroll_structure_list_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="b61"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

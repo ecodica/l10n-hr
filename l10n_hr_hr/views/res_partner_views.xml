@@ -1,0 +1,30 @@
+<odoo>
+  <data>
+
+      <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//div[@name='div_address']/field[@name='street']" position="before">
+                    <field name="parent_type" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="addr_type" placeholder="Address Type" invisible="type == 'contact' and (is_company == True or parent_id != False)" options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"/>
+                </xpath>
+            </field>
+      </record>
+
+
+      <record id="res_partner_view_form_private" model="ir.ui.view">
+            <field name="name">res.partner.form.address</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_view_form_private"/>
+            <field name="arch" type="xml">
+                <field name="street" position="before">
+                    <field name="addr_type" placeholder="Address Type"/>
+                </field>
+            </field>
+      </record>
+
+  </data>
+</odoo>

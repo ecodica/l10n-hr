@@ -1,0 +1,3502 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-25 11:56+0000\n"
+"PO-Revision-Date: 2024-10-25 11:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__internship_type__0
+msgid "0 - None"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__internship_type__1
+msgid "1 - 12/14"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"1 - 12/14\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__internship_type__2
+msgid "2 - 12/15"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"2 - 12/15\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__internship_type__3
+msgid "3 - 12/16"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"3 - 12/16\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__internship_type__4
+msgid "4 - 12/18"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"4 - 12/18\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__4_1
+msgid "4.1"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__4_2
+msgid "4.2"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__7_1
+msgid "7.1"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__7_2
+msgid "7.2"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__8_1
+msgid "8.1"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__hko_level__8_2
+msgid "8.2"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"<br/>\n"
+"                                    <strong>Pojedinosti ugovora</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"<br/>\n"
+"                                    <strong>Pripravnički staž</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"<br/>\n"
+"                                    <strong>Probni rad</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"<br/>\n"
+"                        <strong style=\"font-size: 15pt;\">UGOVOR</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"<br/>\n"
+"            <br/>\n"
+"            <br/>\n"
+"            <span>M.P.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid ""
+"<br/>\n"
+"          <strong style=\"font-size: 15pt;\">Zaposlenici</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid ""
+"<span class=\"page\"/>\n"
+"                        /\n"
+"                        <span class=\"topage\"/>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid ""
+"<span class=\"page\"/>\n"
+"            /\n"
+"            <span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid ""
+"<span class=\"page\"/>\n"
+"            /\n"
+"            <span class=\"topage\"/>\n"
+"            <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"<span>\n"
+"                        Datum podnošenja prijave na obvezna osig. radnika kao osiguranika po osnovi radnog odnosa, uključujući i dobrovoljno mirovinsko osig., ako poslodavac sudjeluje u plaćanju istog, te obveznog zdravstvenog osig. tijekom rada u inozemstvu. \n"
+"                    </span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"<span>\n"
+"                        Datum podnošenja prijave na obvezna osiguranja fizičke osobe, ako je obveza osiguranja po toj osnovi propisana posebnim propisima.\n"
+"                    </span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span> ,</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>1.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>10.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>11.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>12.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>13.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>14.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>15.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>16.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>17.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>18.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>19.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>2.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>20.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>21.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>22.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>23.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>24.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>3.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>4.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>5.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>6.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>7.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>8.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>9.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Adresa prebivališta ili stalnog boravišta</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Application date</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Broj ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Code</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Datum i mjesto rođenja</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Datum početka rada</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Datum prestanka radnog odnosa</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Dozvola za boravak i rad</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Državljanstvo</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Employee</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Expiration date</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Kategorija djelatnika</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Leave days</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Lokacija rada</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Mjesto rada</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Naziv radnog mjesta</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Naziv ugovora ili akta</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>No.</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>OIB</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Odjel</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Opis radnog mjesta</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Područje ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Početni datum</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Prezime i ime, ime roditelja</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Radni sati tjedno</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Radni tjedan</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Radno mjesto</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Razlog prekida</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Razlog prestanka radnog odnosa</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Referenca ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Spol</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Status ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Staž do početka rada</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Staž s povećanim trajanjem</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Stručno obrazovanje</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Termination date</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<span>Termination reason</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Tip ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Trajanje pripravničkog staža</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Trajanje probnog roka</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Trajanje rada u inozemstvu, mjesto rada</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Tvrtka</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Ukupan radni staž</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Vrsta dokumenta</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Vrsta sklopljenog ugovora</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Zaposlenik</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<span>Završni datum</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<span>Šifra</span>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"<strong style=\"font-size: 10pt;\">\n"
+"                  Evidencija o radnicima koji kod poslodavca obavljaju poslove na temelju ugovora o radu\n"
+"                </strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<strong style=\"font-size: 10pt;\">Potpis</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"<strong style=\"font-size: 13pt;\">\n"
+"                  Evidencija o fizičkim osobama koje kod poslodavca obavljaju poslove na temelju drugih ugovora ili posebnih propisa\n"
+"                </strong>\n"
+"                <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "<strong style=\"font-size: 13pt;\">Matična knjiga zaposlenika</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "<strong style=\"font-size: 15pt;\">Radni staž zaposlenika</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid "<strong>Bilješke</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "<strong>Date range:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_needaction
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_needaction
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_needaction
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "Active"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_partner__addr_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_users__addr_type
+msgid "Addr. Type"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_tree_view_ui
+msgid "Address"
+msgstr "Adresa"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_address_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__addr_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__addr_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.res_partner_view_form_private
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_partner_form
+msgid "Address Type"
+msgstr "Vrsta adrese"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.open_view_address_type
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_view_address_type
+msgid "Address Types"
+msgstr "Vrste adresa"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid "Adresa"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__address_work_id
+msgid "Adresa mjesta rada zaposlenika."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__amount
+msgid "Amount"
+msgstr "Iznos"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__contract_type__annex
+msgid "Annex"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__child_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_form_code
+msgid "Annexes"
+msgstr "Aneksi ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__annual_leave
+msgid "Annual leave"
+msgstr "Godišnji odmor"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__annual_leave_days_to_pay
+msgid "Annual leave days to pay"
+msgstr "Godišnji za isplatiti"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__annual_leave_days_used
+msgid "Annual leave days used"
+msgstr "Iskorišteno godišnjeg"
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_hr_employee_application_termination
+msgid "Application and termination"
+msgstr "Izvještaj prijava i odjava"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "Applications"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "Archived"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "Associates by tag"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__attachment
+msgid "Attachment"
+msgstr "Privitak"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__attach_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_note__note_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__att_data
+msgid "Attachment file"
+msgstr "Datoteka privitka"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__extra_att_data
+msgid "Attachment file - Accessories"
+msgstr "Datoteka privitka - Dodaci"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__attach_filename
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__attach_file_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__att_filename
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__att_fname
+msgid "Attachment filename"
+msgstr "Datoteka privitka"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__extra_att_fname
+msgid "Attachment filename - Accessories"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_authority
+msgid "Authority"
+msgstr "Nadležno tijelo"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Birth"
+msgstr "Rođenje"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_registration_report
+msgid "Cancel"
+msgstr "Odustani"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__old_state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_transportation_carrier_action
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__carrier_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_transportation_carrier
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_carrier_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_carrier_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_carrier_tree
+msgid "Carrier"
+msgstr "Prijevoznik"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__category_type_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Categories"
+msgstr "Kategorije"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_driving_licence_category
+msgid "Categories for driving licence"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__name
+msgid "Category name"
+msgstr "Oznaka kategorije"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_category_type
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_category_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_category_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_category_type_tree
+msgid "Category type"
+msgstr "Kategorija"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_category_type_action
+msgid "Category types"
+msgstr "Kategorije"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_cession
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_cession_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Cession"
+msgstr "Ustupanja zaposlenika"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_cession_overseas
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_cession_overseas_form
+msgid "Cession Overseas"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__cession_business_entity
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__cession_business_entity
+msgid "Cession business entity"
+msgstr "Klijent"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__cession_ids
+msgid "Cessions"
+msgstr "Ustupanje zaposlenika"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__cession_overseas_ids
+msgid "Cessions(Overseas)"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee_children_register_line.py:0
+#, python-format
+msgid "Child OIB is not valid"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__children_register_line_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Children register"
+msgstr "Evidencija djece"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_children_register_line
+msgid "Children register line"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Citizenship & Other Information"
+msgstr "Državljanstvo i identifikacijski brojevi"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__city
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__city
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "City"
+msgstr "Grad"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__coach_id
+msgid "Coach"
+msgstr "Voditelj"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_department__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__code
+msgid "Code"
+msgstr "Šifra"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__code_associate
+msgid "Code Associate"
+msgstr "Šifra suradnika"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_job__coefficient
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_job__coefficient
+msgid "Coefficient"
+msgstr "Koeficijent"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__company_id
+msgid "Company id"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_transportation_carrier
+msgid "Company which employee uses to go to work or from work."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Contact Information"
+msgstr "Informacije o kontaktu"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__contract_type__contract
+msgid "Contract"
+msgstr "Ugovor"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__area
+msgid "Contract Area"
+msgstr "Područje ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__area_type
+msgid "Contract Area Type"
+msgstr "Tip ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__contract_no
+msgid "Contract Number"
+msgstr "Broj ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__termination_reason
+msgid "Contract Termination Reason"
+msgstr "Razlog prekida ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_type__name
+msgid "Contract Type"
+msgstr "Vrsta ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract_area_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__area_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_contract_area_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_area_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_area_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_area_type_tree
+msgid "Contract area type"
+msgstr "Područje ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_contract_area_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_area_type_search
+msgid "Contract area types"
+msgstr "Područje ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract_document_type
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_contract_document_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_document_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_document_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_document_type_tree
+msgid "Contract document type"
+msgstr "Vrsta dokumenta"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_contract_document_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_document_type_search
+msgid "Contract document types"
+msgstr "Vrste dokumenata"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_contract__date_end_with_annexes
+msgid "Contract end date is max end date including all annexes."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Annex can not start before parent "
+"contract does: {1}, {2}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Contract without end date cannot be "
+"created because employee already has a contract starting after selected "
+"start date ({1}) on contract {2}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Employee already has a contract "
+"starting before and ending after selected start date ({1}) on contract {2}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Employee already has a contract "
+"starting before selected end date ({1}) and ending after selected start date"
+" ({2}) on contract {3}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Employee already has a contract with"
+" same start date ({1}) on contract {2}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Contract for employee {0} is not valid. Employee has a running contract "
+"without end date: {1}, {2}."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract_interruption_reason_type
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_contract_interruption_reason_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_interruption_reason_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_interruption_reason_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_interruption_reason_type_tree
+msgid "Contract interruption reason type"
+msgstr "Razlog prekida ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_contract_interruption_reason_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_interruption_reason_type_search
+msgid "Contract interruption reason types"
+msgstr "Razlozi prekida ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract_subarea_type
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_contract_subarea_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_subarea_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_subarea_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_subarea_type_tree
+msgid "Contract subarea type"
+msgstr "Tip ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_contract_subarea_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_contract_subarea_type_search
+msgid "Contract subarea types"
+msgstr "Tipovi ugovora"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__contract_type
+msgid "Contract type"
+msgstr "Vrsta dokumenta"
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_submenu_view_contracts
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_view_tree_inherit
+msgid "Contracts"
+msgstr "Ugovori"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__country_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Country"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__county_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "County"
+msgstr "Županija"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Create employee contact"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.actions.act_window,help:l10n_hr_hr.action_employee_degree_config
+msgid "Create first employee degree here"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Croatian Pension Insurance Institute"
+msgstr "Prijava na obvezna osiguranja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__hko_level
+msgid "Croatian Qualification Level"
+msgstr "Razina Hrvatskog kvalifikacijskog okvira"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Dana"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_note__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__date_from
+msgid "Date From"
+msgstr "Datum od"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__date_to
+msgid "Date To"
+msgstr "Datum do"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__date_from
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__date_from
+msgid "Date from"
+msgstr "Datum od"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__date_of_birth
+msgid "Date of brith"
+msgstr "Datum rođenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__notice_date
+msgid "Date of giving the notice"
+msgstr "Datum predaje otkaza"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__insurance_change
+msgid "Date of the latest change to the aplication by HZMO."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_registration_report
+msgid "Date range:"
+msgstr "Razdoblje:"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__date_to
+msgid "Date to"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__hire_date
+msgid "Date when employee was hired"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid "Datum rođenja"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_days
+msgid "Days in field"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_days
+msgid "Days total"
+msgstr "Ukupno dana"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_days
+msgid "Days until employee"
+msgstr "Dana do zaposlenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_days
+msgid "Days with employer"
+msgstr "Dana kod zaposlenika"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__degree_id
+msgid "Degree"
+msgstr "Stručna sprema"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_department
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__department_id
+msgid "Department"
+msgstr "Odjel"
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_jobs_menu_item
+msgid "Departments"
+msgstr "Odjeli"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__institution_description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__description
+msgid "Description"
+msgstr "Opis"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__qualification_description
+msgid "Description of Learning outcomes"
+msgstr "Opisnice razina ishoda učenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__disability_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_employee_disability
+msgid "Disabilities"
+msgstr "Invalidnosti"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_disability
+msgid "Disability"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_disability_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__disability_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_disability_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_disability_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_disability_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_disability_type_tree
+msgid "Disability type"
+msgstr "Vrsta invalidnosti"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_disability_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_disability_type_search
+msgid "Disability types"
+msgstr "Vrste invalidnosti"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_company__hr_config_display_employee_code_in_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_config_settings__hr_config_display_employee_code_in_name
+#: model:ir.model.fields,help:l10n_hr_hr.field_res_config_settings__hr_config_display_employee_code_in_name
+msgid "Display employee code in name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Domestic"
+msgstr "Tuzemstvo"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Driving licence"
+msgstr "Vozačka dozvola"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_category_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_driving_licence_category_search
+msgid "Driving licence categories"
+msgstr "Kategorije vozačke dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_driving_licence_category_action
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_driving_licence_category
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_driving_licence_category_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_driving_licence_category_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_driving_licence_category_tree
+msgid "Driving licence category"
+msgstr "Kategorija vozačke dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_number
+msgid "Driving licence number"
+msgstr "Broj vozačke dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__qualification_point_type__3
+msgid "ECTS"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__qualification_point_type__2
+msgid "ECVET"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:res.groups,name:l10n_hr_hr.group_edit_employee_code
+msgid "Edit employee code"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_education_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Education"
+msgstr "Obrazovanje"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.open_view_education_institution
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__edu_institution
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_view_education_institution
+msgid "Education Institution"
+msgstr "Obrazovna ustanova"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.open_view_education_type
+#: model:ir.model,name:l10n_hr_hr.model_hr_education_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__education_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_view_education_type
+msgid "Education Type"
+msgstr "Vrsta obrazovanja"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_education_institution
+msgid "Education institution"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__education_ids
+msgid "Educations"
+msgstr "Edukacija"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__employee_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "Employee"
+msgstr "Zaposlenik"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.open_view_jobs_form
+msgid "Employee Jobs"
+msgstr "Radna mjesta"
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_medical_exam
+msgid "Employee Medical Exams"
+msgstr "Liječnički pregledi"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#: code:addons/l10n_hr_hr/models/hr_transportation_carrier.py:0
+#, python-format
+msgid "Employee OIB is not valid"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_permit
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_tree
+msgid "Employee Permits and Visas"
+msgstr "Dozvole i vize"
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_view_employee_category_form
+msgid "Employee Tags"
+msgstr "Oznake zaposlenika"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_report_hr_hr_report_hr_employee_contracts
+msgid "Employee contracts within date limit report"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.action_employee_degree_config
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_degree
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__name
+#: model:ir.ui.menu,name:l10n_hr_hr.menu_item_employee_degree_config
+msgid "Employee degree"
+msgstr "Stručna sprema"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_company__hr_config_employee_display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_config_settings__hr_config_employee_display_name
+msgid "Employee display name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_education
+msgid "Employee education"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_inactivity
+msgid "Employee inactivity"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_jobs_menu_item_root
+msgid "Employee jobs"
+msgstr "Radna mjesta"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_form
+msgid "Employee medic exam"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_tree
+msgid "Employee medic exams"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.action_employee_medical_exam
+msgid "Employee medical exams"
+msgstr "Liječnički pregledi zaposlenika"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_form
+msgid "Employee permit"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.action_employee_permit
+msgid "Employee permits and visas"
+msgstr "Dozvole i vize"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_registration_wizard
+msgid "Employee registration report wizard"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__employee_ids
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_submenu_view_employees
+msgid "Employees"
+msgstr "Zaposlenici"
+
+#. module: l10n_hr_hr
+#: model:ir.module.category,name:l10n_hr_hr.module_category_info3_employees_other
+msgid "Employees - Other"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_category_list_inherit
+msgid "Employees Tags"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "Employees by tag"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "Employees with selected code / associate's code already exist: {}"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.report,name:l10n_hr_hr.report_hr_main_register
+msgid "Employee Registry"
+msgstr "Evidencija o radnicima"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.report,print_report_name:l10n_hr_hr.report_hr_main_register
+msgid "'Employee Registry'"
+msgstr "'Evidencija o radnicima'"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__enabled_manual_code_input
+msgid "Enabled Manual Code Input"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__end_date
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "End date"
+msgstr "Završni datum"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__date_end_with_annexes
+msgid "End date including annexes"
+msgstr "Završni datum računajući anekse"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__insurance_end
+msgid "End date to the pension insurance at HZMO."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__internship_date_end
+msgid "End of Internship"
+msgstr "Kraj pripravničkog staža"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__estimated_length_of_stay_date_period
+msgid "Estimated Length Of Stay Date Period"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__estimated_length_of_stay_date_from
+msgid "Estimated length of stay date from"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__estimated_length_of_stay_date_to
+msgid "Estimated length of stay date to"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee_work_permit.py:0
+#, python-format
+msgid ""
+"Estimated length of stay start date must be earlier than estimated length of"
+" stay end date."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__eko_level
+msgid "European Qualification Level"
+msgstr "Razina Europskog kvalifikacijskog okvira"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_experience
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Experience"
+msgstr "Iskustva"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_experience_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__experience_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_experience_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_experience_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_experience_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_experience_type_tree
+msgid "Experience type"
+msgstr "Vrsta iskustva"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_experience_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_experience_type_search
+msgid "Experience types"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__experience_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_employee_experience
+msgid "Experiences"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_expiration_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__expiration_date
+msgid "Expiration date"
+msgstr "Završni datum"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "Expirations"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__old_state__close
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "Expired"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_employee_children_register_line__gender__female
+msgid "Female"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:hr.status,name:l10n_hr_hr.status_finished
+msgid "Finished"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__first_name
+msgid "First Name"
+msgstr "Ime"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_first_issue_date
+msgid "First issue date"
+msgstr "Datum prvog izdavanja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__res_company__hr_config_employee_display_name__first_name_first
+msgid "First_name Last_Name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__is_foreign_citizen
+msgid "Foreign citizen"
+msgstr "Strani državljanin"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__free_days
+msgid "Free days"
+msgstr "Slobodni dani"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__date_from
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__date_from
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__date_from
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__date_from
+msgid "From date"
+msgstr "Datum od"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__gender
+msgid "Gender"
+msgstr "Spol"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Godina"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_report_hr_hr_hr_contracts_report
+msgid "HR contracts report"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_education_type__qualification_point_type__1
+msgid "HROO"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__hzmo_id
+msgid "HZMO identification number"
+msgstr "Osobni broj osiguranika (HZMO)"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__hzzo_id
+msgid "HZZO identification number"
+msgstr "Matični broj osigurane osobe (HZZO)"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__has_message
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__has_message
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__has_message
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__has_supplementary_health_insurance
+msgid "Has supplementary health insurance"
+msgstr "Dopunsko zdravstveno osiguranje"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__hire_date
+msgid "Hire date"
+msgstr "Datum zaposlenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__id_card_issue_date
+msgid "ID card issue date"
+msgstr "Datum važenja osobne iskaznice"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_hr_res_config_settings_form_view
+msgid "If checked displays Employee brutto wage in HR Contract Form view"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_hr_res_config_settings_form_view
+msgid "If checked displays employees code in employees name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_hr_res_config_settings_form_view
+msgid "If checked enables manuall input for emplyoee code"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__message_needaction
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__message_needaction
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__message_needaction
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__message_has_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__message_has_sms_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__message_has_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__message_has_sms_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__message_has_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__message_has_sms_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__message_has_error
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_contract__sequence_generated
+#: model:ir.model.fields,help:l10n_hr_hr.field_res_company__is_contract_sequence
+msgid ""
+"If this option is enabled, an automatic counter is used to assign the "
+"contract number."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Ime"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:hr.status,name:l10n_hr_hr.status_inprogress
+msgid "In progress"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__inactivity_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inactivity_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Inactivity"
+msgstr "Mirovanja"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_inactivity_type
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_inactivity_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_inactivity_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_inactivity_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_inactivity_type_tree
+msgid "Inactivity type"
+msgstr "Vrsta mirovanja"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_inactivity_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_inactivity_type_search
+msgid "Inactivity types"
+msgstr "Vrsta mirovanja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__include_application
+msgid "Include applications"
+msgstr "Prijave"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__include_expiration
+msgid "Include expirations"
+msgstr "Istek"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__include_termination
+msgid "Include terminations"
+msgstr "Odjave"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_res_config_settings__hr_config_manually_input_employee_code
+msgid "Instead of being genrated by a seqeunce, manually input employee code"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__insurance_end
+msgid "Insurance date end"
+msgstr "Datum prestanka"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__insurance_start
+msgid "Insurance date start"
+msgstr "Datum početka"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_form_code
+msgid "Internship"
+msgstr "Pripravnički staž"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "Internship - days can not be larger than 30."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "Internship - month can not be larger than 12."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "Internship - year can not be larger than 99."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_days_export
+msgid "Internship Company Days Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_months_export
+msgid "Internship Company Months Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_years_export
+msgid "Internship Company Years Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_days_export
+msgid "Internship Field Days Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_months_export
+msgid "Internship Field Months Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_years_export
+msgid "Internship Field Years Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_days_export
+msgid "Internship Prize Days Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_months_export
+msgid "Internship Prize Months Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_years_export
+msgid "Internship Prize Years Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_days_export
+msgid "Internship Total Days Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_months_export
+msgid "Internship Total Months Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_years_export
+msgid "Internship Total Years Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_days_export
+msgid "Internship Until Emp Days Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_months_export
+msgid "Internship Until Emp Months Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_years_export
+msgid "Internship Until Emp Years Export"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__internship_type
+msgid "Internship With Increased Duration"
+msgstr "Staž s povećanim trajanjem"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid "Internship period can be max %s months"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid "Internship start date must be earlier than end date."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__is_associate_in_tags
+msgid "Is Associate In Tags"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__is_employee_in_tags
+msgid "Is Employee In Tags"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_is_follower
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_is_follower
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_is_follower
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_issue_date
+msgid "Issue date - Expiration date"
+msgstr "Datum izdavanja - Datum isteka"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__issuing_authority
+msgid "Issuing authority"
+msgstr "Tijelo koje je izdalo dozvolu"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__issuing_partner
+msgid "Issuing partner"
+msgstr "Poslovni subjekt izdavanja"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"Isteklo\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__jmbg
+msgid "JMBG"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_hr_job_form_inherit_hr_pay
+msgid "Job"
+msgstr "Radno mjesto"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__job_description
+msgid "Job Description"
+msgstr "Opis posla"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_job
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__job_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__work_place
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__work_place
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_job__name
+msgid "Job Position"
+msgstr "Radno mjesto"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__description
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__description
+msgid "Jobs description"
+msgstr "Opis poslova"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__last_name
+msgid "Last Name"
+msgstr "Prezime"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_driving_licence_category__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_degree__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_registration_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__res_company__hr_config_employee_display_name__last_name_first
+msgid "Last_name First_name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__insurance_change
+msgid "Latest change date"
+msgstr "Datum zadnje promjene"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_leave_type__i3_leave_type
+msgid "Leave type"
+msgstr "Tip odsustva"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_report_hr_hr_hr_main_register_report
+msgid "Main register report"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_employee_children_register_line__gender__male
+msgid "Male"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__parent_id
+msgid "Manager"
+msgstr "Menadžer"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_company__hr_config_manually_input_employee_code
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_config_settings__hr_config_manually_input_employee_code
+msgid "Manually input employee code"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__maternity_leave
+msgid "Maternity leave"
+msgstr "Porodiljni dopust"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+msgid "Medic exam"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__medic_exam_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Medical Exams"
+msgstr "Liječnički pregledi"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_medic_exam
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_medic_exam_form
+msgid "Medical exam"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__medical_exam_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_medical_exam_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_medical_exam_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_medic_exam_filter
+msgid "Medical exam type"
+msgstr "Vrste liječničkih pregleda"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_medical_exam_type
+msgid "Medical exam type register"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_medical_exam_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_medical_exam_type_search
+msgid "Medical exam types"
+msgstr "Vrste liječničkih pregleda"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__medical_institution
+msgid "Medical institution"
+msgstr "Zdravstvena ustanova"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_has_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_has_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_has_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Mjeseci"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_months
+msgid "Months in field"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_months
+msgid "Months total"
+msgstr "Ukupno mjeseci"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_months
+msgid "Months until employee"
+msgstr "Mjeseci do zaposlenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_months
+msgid "Months with employer"
+msgstr "Mjeseci kod poslodavca"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"Must create 'hr.contract' seqeunce for %s, to be able to create new "
+"Contracts"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "Must create '{}' sequence for generating {} code."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_education_type.py:0
+#, python-format
+msgid "Must select point type!"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Muško"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_address_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_category_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_area_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_document_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_interruption_reason_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_disability_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_experience_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_inactivity_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_medical_exam_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_status__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_type__name
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_resource_calendar__name
+msgid "Name"
+msgstr "Naziv"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__father_name_surname
+msgid "Name and surname of father"
+msgstr "Ime i prezime oca"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__mother_name_surname
+msgid "Name and surname of mother"
+msgstr "Ime i prezime majke"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__nationality_id
+msgid "Nationality"
+msgstr "Nacionalnost"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__country_id
+msgid "Nationality (Country)"
+msgstr "Nacionalnost (država)"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"Nema\n"
+"                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Neprekinuti staž do zaposlenja u državnom i javnom sektoru"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__old_state__draft
+msgid "New"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__notes_note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__note
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_note__note
+msgid "Note"
+msgstr "Napomena"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__notes_att_data
+msgid "Note attachment file"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__notes_att_fname
+msgid "Note attachment filename"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__driving_licence_note
+msgid "Note in driving licence"
+msgstr "Napomena u vozačkoj dozvoli"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Notes"
+msgstr "Bilješke"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__notice_period
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_form_code
+msgid "Notice period"
+msgstr "Otkazni rok"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"Novi\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__number
+msgid "Number"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid ""
+"Number of children and children register records are not consistent!\n"
+"\n"
+"Employees:\n"
+"{}"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__message_needaction_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__message_needaction_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__message_needaction_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__message_has_error_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__message_has_error_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__message_has_error_counter
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__oib
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__oib
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_carrier__oib
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid "OIB"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#: code:addons/l10n_hr_hr/models/hr_employee_children_register_line.py:0
+#: code:addons/l10n_hr_hr/models/hr_transportation_carrier.py:0
+#, python-format
+msgid "OIB field must be a number"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#: code:addons/l10n_hr_hr/models/hr_employee_children_register_line.py:0
+#: code:addons/l10n_hr_hr/models/hr_transportation_carrier.py:0
+#, python-format
+msgid "OIB field must be exactly 11 characters long"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Odjel"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__old_state
+msgid "Old State"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_hr_res_config_settings_form_view
+msgid ""
+"On save, updates all active and inactive employees and related partners and "
+"users names. From that moment employee display name is updated on related "
+"objects and everywhere in the system."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid "Only Expired and Cancelled contracts can be archived."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Opis"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_employee_children_register_line__gender__other
+msgid "Other"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"Otkazano\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__overall
+msgid "Overall"
+msgstr "Ukupno"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__overall_transportation_for_payment
+msgid "Overall price for payment"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Overseas"
+msgstr "Inozemstvo"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__paid_leave
+msgid "Paid leave"
+msgstr "Plaćeni dopust"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__parent_name
+msgid "Parent Name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__parent_id
+msgid "Parent contract"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__parental_leave
+msgid "Parental leave"
+msgstr "Roditeljski dopust"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__partner_id
+msgid "Partner related to this employee."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_permit_type__type__passport
+msgid "Passport"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__passport_issue_date
+msgid "Passport issue date"
+msgstr "Datum važenja putovnice"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__percentage
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_disability__percentage
+msgid "Percentage"
+msgstr "Postotak"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__percentage
+msgid "Percentage %"
+msgstr "Postotak %"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_education_form
+msgid "Period"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:hr.address.type,name:l10n_hr_hr.address_type_permanent
+msgid "Permanent Residence"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "Permit"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_permit_type__type
+msgid "Permit Type"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_permit_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_permit_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_permit_filter
+msgid "Permit type"
+msgstr "Vrsta dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_permit_type
+msgid "Permit type register"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_permit_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_permit_type_search
+msgid "Permit types"
+msgstr "Vrsta dozvole"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Permits and visas"
+msgstr "Dozvole i vize"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__phone
+msgid "Phone"
+msgstr "Telefon"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__place_of_work
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__place_of_work
+msgid "Place of work"
+msgstr "Mjesto rada"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Podaci"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__points
+msgid "Points"
+msgstr "Stečeni bodovi"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Početak:"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Prestanak:"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__previous_last_name
+msgid "Previous Last Name"
+msgstr "Prethodno prezime"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Prezime"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_registration_report
+msgid "Print"
+msgstr "Ispis"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.action_print_registration_report
+msgid "Print registration report"
+msgstr "Ispis izvještaja ugovora"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Private Information"
+msgstr "Privatne informacije"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__private_email
+msgid "Private email"
+msgstr "Privatna e-pošta"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__private_phone
+msgid "Private phone/mobile"
+msgstr "Privatni mobilni telefon"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_days
+msgid "Prize days"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_months
+msgid "Prize months"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_prize_years
+msgid "Prize years"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__probation_date_from
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__probation_date_from
+msgid "Probation from date"
+msgstr "Probni rok"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__probation_period
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__probation_period
+msgid "Probation period"
+msgstr "Probni rok"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee_cession.py:0
+#, python-format
+msgid "Probation start date must be earlier than probation end date."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__probation_date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__probation_date_to
+msgid "Probation to date"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__qualification_type
+msgid "Qualification Type"
+msgstr "Vrsta kvalifikacije"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__qualification_point_type
+msgid "Qualification point type"
+msgstr "Vrsta kvalifikacijskih bodova"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_type__volume_points
+msgid "Qualification volume"
+msgstr "Obujam kvalifikacije"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__address_work_id
+msgid "Radna adresa"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+msgid "Red. Br."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Red.Br."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_registers_menu_item
+msgid "Registers"
+msgstr "Evidencije"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_registration_report
+msgid "Registration report"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__residence_and_work_permit_att_data
+msgid "Residence and work permit attachment file"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__residence_and_work_permit_att_filename
+msgid "Residence and work permit attachment filename"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__residence_permit_att_data
+msgid "Residence permit attachment file"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__residence_permit_att_filename
+msgid "Residence permit attachment filename"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_resource_calendar
+msgid "Resource Working Time"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__old_state__open
+msgid "Running"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "SSN in home country"
+msgstr "SSN u matičnoj zemlji"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__coach_id
+msgid ""
+"Select the \"Employee\" who is the coach of this employee.\n"
+"The \"Coach\" has no specific rights or responsibilities by default."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__sequence_generated
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_company__is_contract_sequence
+msgid "Sequence generated Contract number"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_submenu_view_settings
+msgid "Settings"
+msgstr "Postavke"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_res_config_settings__hr_config_employee_display_name
+msgid "Setup employee display name"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__sick_leave
+msgid "Sick leave"
+msgstr "Bolovanje"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__sick_leave_fund
+msgid "Sick leave paid by fund"
+msgstr "Bolovanje na fond"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__start_date
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__start_date
+msgid "Start date"
+msgstr "Početni datum"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee_cession.py:0
+#: code:addons/l10n_hr_hr/models/hr_employee_disability.py:0
+#: code:addons/l10n_hr_hr/models/hr_employee_experience.py:0
+#, python-format
+msgid "Start date must be earlier than end date."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee__insurance_start
+msgid "Start date of insurance by HZMO."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_contract__trial_date_start
+msgid "Start date of trial period."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__internship_date_start
+msgid "Start of Internship"
+msgstr "Početak pripravničkog staža"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__trial_date_start
+msgid "Start of Trial Period"
+msgstr "Početak probnog rada"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__state_id
+msgid "State"
+msgstr "Status"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_status
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__state_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__state_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__state_id
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__state_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_status
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_status_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_status_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_status_tree
+msgid "Status"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_status_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_status_search
+msgid "Statuses"
+msgstr "Statusi"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Staž do zaposlenja"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Staž kod poslodavca"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Staž za jubilarnu nagradu"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__street
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__street
+msgid "Street"
+msgstr "Ulica"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Street 2..."
+msgstr "Ulica2"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Street..."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__street2
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__street2
+msgid "Street2"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.view_employee_filter_inherit
+msgid "Students by tag"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__surname
+msgid "Surname"
+msgstr "Prezime"
+
+#. module: l10n_hr_hr
+#: model:hr.address.type,name:l10n_hr_hr.address_type_temporary
+msgid "Temporary Residence"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_contracts
+msgid "Terminations"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract_subarea_type.py:0
+#, python-format
+msgid "There are overlaping contracts of this Area Type."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_leave_type
+msgid "Time Off Type"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_contract__old_state__pending
+msgid "To Renew"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_disability__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_experience__date_to
+msgid "To date"
+msgstr "Datum do"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Total Work Experience"
+msgstr "Ukupan staž"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__transportation_work_ids
+msgid "Transport from and to work"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Transportation"
+msgstr "Prijevoz"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_transportation_work
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_transportation_work_form
+msgid "Transportation from and to work"
+msgstr "Prijevoz s posla i na posao"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_transportation_type
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_transportation_work__transport_type_id
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_transportation_type
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_type_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_type_search
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_type_tree
+msgid "Transportation type"
+msgstr "Vrsta prijevoza"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_transportation_type_action
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_view_transportation_type_search
+msgid "Transportation types"
+msgstr "Vrste prijevoza"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_form_code
+msgid "Trial"
+msgstr "Probni rad"
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid "Trial period can be max %s months"
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid "Trial start date must be earlier than end date."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contract_view_search_inherited
+msgid "Trial/Internship period near expiration"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__type_id
+msgid "Type"
+msgstr "Vrsta mirovanja"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"U tijeku\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_contract
+msgid "Ugovor djelatnika"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Ukupan staž"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_leave_type__i3_leave_type__unpaid_leave
+msgid "Unpaid leave"
+msgstr "Neplaćeni dopust"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__used_annual_leave_days
+msgid "Used days of annual leave"
+msgstr "Broj dana godišnjeg koji se koristi"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract_subarea_type__used_in_internship_calculation
+msgid "Used in internship calculation"
+msgstr "Ulazi u obračun staža"
+
+#. module: l10n_hr_hr
+#: model:res.groups,name:l10n_hr_hr.group_hr_contract_user
+msgid "User"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__user_has_code_edit_privilege
+msgid "User Has Code Edit Privilege"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__visa_id
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_permit_type__type__visa
+msgid "Visa"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__visa_expiration_date
+msgid "Visa Expiration Date"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__visa_issue_authority
+msgid "Visa issuing authority"
+msgstr "Tijelo izdavanja vize"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__vocation
+msgid "Vocation"
+msgstr "Zvanje"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_contract__hr_config_hr_contract_wage_visible
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_company__hr_config_hr_contract_wage_visible
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_res_config_settings__hr_config_hr_contract_wage_visible
+#: model:ir.model.fields,help:l10n_hr_hr.field_res_config_settings__hr_config_hr_contract_wage_visible
+msgid "Wage visible in HR Contract Form"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_children_register_line__website_message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__website_message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_medic_exam__website_message_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_children_register_line__website_message_ids
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_inactivity__website_message_ids
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_medic_exam__website_message_ids
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_employee_work_permit__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Work Experience"
+msgstr "Staž"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Work Experience In The Company"
+msgstr "Staž kod poslodavca"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Work Experience Until Employment"
+msgstr "Staž do zaposlenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__work_license_id
+msgid "Work License"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_permit_type__type__work_permit
+msgid "Work Permit"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__work_duration
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__work_duration
+msgid "Work duratioin [Day/Week]"
+msgstr "Trajanje radnog dana/tjedna"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__work_period
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__work_period
+msgid "Work period"
+msgstr "Trajanje rada"
+
+#. module: l10n_hr_hr
+#: model:ir.model,name:l10n_hr_hr.model_hr_employee_work_permit
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_work_permit_form
+msgid "Work permit"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__work_permit_number
+msgid "Work permit number"
+msgstr "Broj dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_work_permit__permit_type_id
+msgid "Work permit type"
+msgstr "Vrsta dozvole"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__work_permit_ids
+msgid "Work permits"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__writen_agreement_att_data
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__writen_agreement_att_data
+msgid "Writen Agreement attachment file"
+msgstr "Datoteka privitka - Pisani sporazum"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession__writen_agreement_att_fname
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__writen_agreement_att_fname
+msgid "Written Agreement attachment filename"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_field_years
+msgid "Years in field"
+msgstr "Godina u polju"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_total_years
+msgid "Years total"
+msgstr "Ukupno godina"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_until_emp_years
+msgid "Years until employee"
+msgstr "Godina do zaposlenja"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__internship_company_years
+msgid "Years with employer"
+msgstr "Godina kod poslodavca"
+
+#. module: l10n_hr_hr
+#: model:ir.model.constraint,message:l10n_hr_hr.constraint_hr_employee_children_register_line_unique_oib
+msgid "You can not have children with the same OIB."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.constraint,message:l10n_hr_hr.constraint_hr_employee_unique_oib
+msgid "You can not have employees with the same OIB and company."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.constraint,message:l10n_hr_hr.constraint_hr_employee_unique_ssnid
+msgid "You can not have employees with the same SSN and company."
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.constraint,message:l10n_hr_hr.constraint_hr_transportation_carrier_unique_oib
+msgid "You can not have two carriers with the same OIB and company."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_contract.py:0
+#, python-format
+msgid ""
+"You have multiple contracts in the same range for work experience "
+"calculation."
+msgstr ""
+
+#. module: l10n_hr_hr
+#. odoo-python
+#: code:addons/l10n_hr_hr/models/hr_employee.py:0
+#, python-format
+msgid "You have to choose at least employee or associate tag"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.education_institution_form_view_ui
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "ZIP"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_contracts_report
+msgid ""
+"Za obnovu\n"
+"                                        <br/>"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Zadnja promjena:"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_education_institution__zip
+msgid "Zip"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__zip
+msgid "Zip code"
+msgstr "Poštanski broj"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "dana"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "godina,"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid ""
+"i studenti koji kod poslodavca rade posredstvom ovlaštenih posrednika u "
+"skladu s posebnim propisom"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "mjeseci,"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "n/a"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_job__code
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.report_hr_employee_experience
+msgid "Šifra"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_main_register_report
+msgid "Žensko"
+msgstr ""
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__emergency_contact
+msgid "Emergency Contact"
+msgstr "Kontakt osoba za hitne slučaje"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee__emergency_phone
+msgid "Emergency Phone"
+msgstr "Broj kontakt osobe za hitne slučaje"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Emergency Contact"
+msgstr "Kontakt za hitne slučajeve"
+
+#. module: l10n_hr_hr
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr.hr_employee_inherit_view_form
+msgid "Emergency Contact Phone"
+msgstr "Telefonski broj kontakta"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_education__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_inactivity__date_to
+msgid "Date to"
+msgstr "Datum do"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__work_license_id
+msgid "Work License"
+msgstr "Dozvola za rad"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__visa_expiration_date
+msgid "Visa Expiration Date"
+msgstr "Datum isteka vize"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,field_description:l10n_hr_hr.field_hr_employee_cession_overseas__visa_id
+#: model:ir.model.fields.selection,name:l10n_hr_hr.selection__hr_permit_type__type__visa
+msgid "Visa"
+msgstr "Viza"
+
+#. module: l10n_hr_hr
+#: model:ir.model.fields,help:l10n_hr_hr.field_hr_contract__structure_type_id
+msgid ""
+"Used for automatically setting 'Working Schedule' field. Each structure can "
+"be edited so it is connected to different working schedules."
+msgstr "Koristi se za automatsko postavljanje polja 'Radni tjedan'. Svaka struktura se može urediti i povezati na drugačiji radni tjedan."
+
+#. module: l10n_hr_hr
+#: model:ir.ui.menu,name:l10n_hr_hr.hr_menu_payroll_structure_type
+msgid "Payroll structure type"
+msgstr "Vrsta strukture plaće"
+
+#. module: l10n_hr_hr
+#: model:ir.actions.act_window,name:l10n_hr_hr.hr_config_payroll_structure_type_action
+msgid "Payroll structure types"
+msgstr "Vrste struktura plaće"

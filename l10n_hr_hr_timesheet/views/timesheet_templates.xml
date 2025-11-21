@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <template id="assets_backend" name="timesheet assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/l10n_hr_hr_timesheet/static/src/css/info3_timesheet_line_quickadd.css"/>
+                <script type="text/javascript" src="/l10n_hr_hr_timesheet/static/src/js/info3_timesheet_line_quickadd.js"></script>
+            </xpath>
+        </template>
+</odoo>

@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="joppd_form_a">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <style>
+                    .color {
+                        background-color: #E2DDED;
+                    }
+
+                    .table {
+                        width: 98%;
+                        margin: auto;
+                    }
+
+                    table, tr, td {
+                        border: 2px solid black;
+                        border-collapse: collapse;
+                        padding: 5px;
+                    }
+
+                    table {
+                        table-layout: fixed;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 0 auto;
+                    }
+
+                    colgroup {
+                        width: 100%;
+                    }
+                </style>
+                <div class="container" style="text-align:center;font-family: Helvetica; font-size: 10pt;">
+                    <div style="text-align:right;">
+                        <span>OBRAZAC JOPPD</span><br/>
+                        <span>-stranica A-</span>
+                    </div>
+                    <span>IZVJEŠĆE</span><br/>
+                    <span>o primicima, porezu na dohodak i prirezu te doprinosima za obvezna osiguranja</span><br/>
+                    <span>na dan <span t-field="o.datum"/></span>
+                </div>
+                <div class="table-sm mt-2" style="font-family: Helvetica; font-size: 8pt;">
+                    <table>
+                        <colgroup>
+                            <col width="1%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                            <col width="2%"/><col width="2%"/>
+                        </colgroup>
+                        <tr>
+                            <td class="color" colspan="5">I.</td>
+                            <td class="color" colspan="10">OZNAKA IZVJEŠĆA</td>
+                            <td class="text-center" colspan="5"><span t-field="o.oznaka"/></td>
+                            <td class="color" colspan="5">II.</td>
+                            <td class="color" colspan="18">VRSTA IZVJEŠĆA</td>
+                            <td class="text-center" colspan="7"><span t-esc="o.vrsta"/></td>
+                        </tr>
+                        <tr class="color">
+                            <td colspan="5">III.</td>
+                            <td colspan="15">PODACI O:</td>
+                            <td colspan="15">III.1. PODNOSITELJU IZVJEŠĆA</td>
+                            <td colspan="15">III.2. OBVEZNIKU PLAĆANJA</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="15">Naziv/ime i prezime</td>
+                            <td colspan="15"><span t-field="o.company_id.name"/></td>
+                            <td colspan="15"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="15">Adresa</td>
+                            <td colspan="15"><span t-field="o.company_id.street"/>,<span t-field="o.company_id.city" style="margin-left: 5px;"/></td>
+                            <td colspan="15"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="15">Adresa elektroničke pošte</td>
+                            <td colspan="15"><span t-field="o.company_id.joppd_applicant_email"/></td>
+                            <td colspan="15"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="15">OIB</td>
+                            <td colspan="15"><span t-field="o.company_id.company_registry"/></td>
+                            <td colspan="15"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">5.</td>
+                            <td colspan="15">Oznaka podnositelja</td>
+                            <td colspan="15"><span t-field="o.company_id.joppd_applicant_id"/></td>
+                            <td class="color" colspan="15"></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">IV.1.</td>
+                            <td class="color" colspan="15">BROJ OSOBA NA KOJE SE PODNOSI IZVJEŠĆE</td>
+                            <td class="text-center align-middle" colspan="4"><span t-field="o.number_of_employees"/></td>
+                            <td class="color" colspan="3">IV.2.</td>
+                            <td class="color" colspan="18">BROJ REDAKA NA POPISU POJEDINAČNIH OBRAČUNA SA STRANICE B</td>
+                            <td class="text-center align-middle" colspan="5"><span t-esc="len(o.stranaB_ids)"/></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">V.</td>
+                            <td class="color" colspan="38">PODACI O UKUPNOM IZNOSU OBRAČUNANOG PREDUJMA POREZA NA DOHODAK I PRIREZA POREZU NA DOHDOAK</td>
+                            <td class="color" colspan="7">IZNOS</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi nesamostalnog rada (1.1.+1.2.)</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a51']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.1.</td>
+                            <td colspan="38">Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (plaća)</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a511']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.2.</td>
+                            <td colspan="38">Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (mirovina)</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a512']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od kapitala</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a52']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od imovinskih prava i posebnih vrsta imovine</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a53']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od osiguranja</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a54']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">5.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi primitka od kojeg se utvrđuje drugi dohodak</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a55']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">6.</td>
+                            <td colspan="38">Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od kamata</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a56']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VI.</td>
+                            <td class="color" colspan="38">PODACI O UKUPNOM IZNOSU OBRAČUNANOG DOPRINOSA</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VI.1.</td>
+                            <td class="color" colspan="38">DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU GENERACIJSKE SOLIDARNOSTI</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi radnog odnosa</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a611']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi drugog dohotka</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a612']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi poduzetničke plaće</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a613']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a614']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">5.</td>
+                            <td colspan="38">Ukupan iznos posebnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osobe osigurane u određenim okolnostima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a615']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">6.</td>
+                            <td colspan="38">Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za staž osiguranja koji se računa s povećanim trajanjem</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a616']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">7.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a617']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VI.2.</td>
+                            <td class="color" colspan="38">DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>                        
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi radnog odnosa</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a621']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi drugog dohotka</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a622']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi poduzetničke plaće</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a623']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a624']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">5.</td>
+                            <td colspan="38">Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za staž osiguranja koji se računa s povećanim trajanjem</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a625']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">6.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a626']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VI.3.</td>
+                            <td class="color" colspan="38">DOPRINOS ZA ZDRAVSTVENO OSIGURANJE</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi radnog odnosa</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a631']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi radnog odnosa</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a632']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi poduzetničke plaće</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a633']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi poduzetničke plaće</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a634']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">5.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi drugog dohotka</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a635']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">6.</td>
+                            <td colspan="38">Ukupan iznos posebnog doprinosa za korištenje zdravstvene zaštite u inozemstvu</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a636']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">7.</td>
+                            <td colspan="38">Ukupan iznos dodatnog doprinosa za zdravstveno osiguranje – za obveznike po osnovi korisnika mirovina</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a637']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">8.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zdravstveno osiguranje - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a638']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">9.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zaštitu zdravlja na radu - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a639']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">10.</td>
+                            <td colspan="38">Ukupan iznos posebnog doprinosa za zaštitu zdravlja na radu - za osobe osigurane u određenim okolnostima</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a6310']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">11.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a6311']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">12.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a6312']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VI.4.</td>
+                            <td class="color" colspan="38">DOPRINOS ZA ZAPOŠLJAVANJE</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zapošljavanje</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a641']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Ukupan iznos posebnog doprinosa za zapošljavanje osoba s invaliditetom</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a642']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">3.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zapošljavanje po osnovi poduzetničke plaće</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a643']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">4.</td>
+                            <td colspan="38">Ukupan iznos doprinosa za zapošljavanje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a644']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">&#160;</td>
+                            <td colspan="38">&#160;</td>
+                            <td colspan="7">&#160;</td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VII.</td>
+                            <td class="color" colspan="38">ISPLAĆENI NEOPOREZIVI PRIMICI</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a7']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">VIII.</td>
+                            <td class="color" colspan="38">NAPLAĆENA KAMATA ZA DOPRINOSE ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a8']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">IX.</td>
+                            <td class="color" colspan="38">UKUPAN IZNOS NEOPOREZIVIH PRIMITAKA NEREZIDENATA KOJE ISPLAĆUJU NEPROFITNE ORGANIZACIJE DO PROPISANOG IZNOSA</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a9']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                        <tr>
+                            <td class="color" colspan="5">X.</td>
+                            <td class="color" colspan="38">PODACI O BROJU OSOBA I NAKNADI UTVRĐENOJ SUKLADNO ODREDBAMA ZAKONA O PROFESIONALNOJ REHABILITACIJI I ZAPOŠLJAVANJU OSOBA S INVALIDITETOM</td>
+                            <td class="color" colspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">1.</td>
+                            <td colspan="38">Broj osoba s invaliditetom koje je obveznik bio dužan zaposliti</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a101']"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">2.</td>
+                            <td colspan="38">Iznos obračunane naknade</td>
+                            <td class="text-right" colspan="7"><span t-esc="data[o.id]['a102']" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_permit_tree" model="ir.ui.view">
+        <field name="name">employee.work.permit.tree</field>
+        <field name="model">hr.employee.work.permit</field>
+        <field name="arch" type="xml">
+            <list string="Employee Permits and Visas" default_order="start_date desc">
+                <field name="employee_id" options="{'no_create': True}"/>
+                <field name="permit_type_id" options="{'no_create': True}"/>
+                <field name="work_permit_number"/>
+                <field name="start_date"/>
+                <field name="expiration_date"/>
+                <field name="issuing_authority"/>
+                <field name="att_data" filename="att_filename"/>
+                <field name="att_filename" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_permit_form" model="ir.ui.view">
+        <field name="name">employee.work.permit.form</field>
+        <field name="model">hr.employee.work.permit</field>
+        <field name="arch" type="xml">
+            <form string="Employee permit">
+                <group>
+                    <group>
+                        <field name="employee_id" options="{'no_create': True}" invisible="context.get('hide_employee')" required="False"/>
+                        <field name="permit_type_id" options="{'no_create': True}"/>
+                        <field name="work_permit_number"/>
+                        <field name="start_date"/>
+                        <field name="expiration_date"/>
+                        <field name="issuing_authority"/>
+                        <field name="att_data" filename="att_filename"/>
+                        <field name="att_filename" invisible="1"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_permit_filter" model="ir.ui.view">
+      <field name="name">employee.permit.filter</field>
+      <field name="model">hr.employee.work.permit</field>
+      <field name="arch" type="xml">
+        <search string="Permit">
+          <field name="employee_id"/>
+          <filter name="expired" string="Expired" domain="[('expiration_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+          <group expand="0" string="Group By">
+            <filter string="Employee" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+            <filter string="End date" name="expiration_date" domain="[]" context="{'group_by':'expiration_date'}"/>
+            <filter string="Permit type" name="permit_type" domain="[]" context="{'group_by':'permit_type_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_employee_permit" model="ir.actions.act_window">
+      <field name="name">Employee permits and visas</field>
+      <field name="res_model">hr.employee.work.permit</field>
+      <field name="view_mode">list,form</field>
+      <field name="domain">[('employee_id', '!=', False)]</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+          (0, 0, {'view_mode': 'list', 'view_id': ref('view_employee_permit_tree')}),
+          (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_permit_form')})]"/>
+      <field name="search_view_id" ref="view_employee_permit_filter"/>
+    </record>
+
+    <record id="hr_view_permit_type_search" model="ir.ui.view">
+        <field name="name">hr.permit.type.search</field>
+        <field name="model">hr.permit.type</field>
+        <field name="arch" type="xml">
+            <search string="Permit types">
+                <field name="name" string="Permit type" filter_domain="[('name','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_permit_type_action" model="ir.actions.act_window">
+        <field name="name">Permit types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.permit.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_permit_type_search"/>
+    </record>
+    
+    <menuitem id="hr_menu_permit"
+        name="Employee Permits and Visas"
+        action="action_employee_permit"
+        groups="hr.group_hr_manager,hr.group_hr_user"
+        parent="hr_registers_menu_item"
+    />
+
+    <menuitem id="hr_menu_permit_type"
+        name="Permit type"
+        parent="hr_submenu_view_employees"
+        sequence="6"
+        action="hr_config_permit_type_action"    
+    />
+
+</odoo>

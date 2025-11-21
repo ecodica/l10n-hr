@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_config_payroll_structure_type_action" model="ir.actions.act_window">
+        <field name="name">Payroll structure types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payroll.structure.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="hr_menu_payroll_structure_type"
+        name="Payroll structure type"
+        parent="hr_submenu_view_contracts"
+        sequence="60"
+        action="hr_config_payroll_structure_type_action"
+    />
+</odoo>

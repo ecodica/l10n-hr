@@ -1,0 +1,7 @@
+<templates>
+    <t t-name="l10n_hr_hr_timesheet.Info3TimesheetRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
+        <xpath expr="//table" position="before">
+            <Info3TimesheetDashboard />
+        </xpath>
+    </t>
+</templates>

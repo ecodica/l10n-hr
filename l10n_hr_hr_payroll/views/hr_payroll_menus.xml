@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- MAIN MENUS -->
+        <!-- override to add security group -->
+        <menuitem
+            id="l10n_hr_payroll_base.menu_hr_payroll_root"
+            name="Obračun plaće"
+            sequence="45"
+            web_icon="l10n_hr_payroll_base,static/description/earnings-icon.png"
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+        />
+
+        <!-- START copy menuitems to add sequence -->
+        <menuitem
+            id="l10n_hr_payroll_base.menu_department_tree"
+            action="l10n_hr_payroll_base.action_view_hr_payslip_form"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="20"
+        />
+        
+        <menuitem
+            id="l10n_hr_payroll_base.menu_hr_payslip_run"
+            action="l10n_hr_payroll_base.action_hr_payslip_run_tree"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+            sequence="10"
+        />
+        <!-- END copy -->
+
+		<menuitem
+			id="menu_hr_salary_parameters"
+			action="action_hr_salary_parameters"
+			name="Parametri plaće"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+			sequence="25"
+        	groups="l10n_hr_payroll_base.group_hr_payroll_user"
+		/>
+
+		<menuitem
+			id="menu_hr_joppd_form_payroll"
+			action="action_hr_joppd_form_payroll"
+			name="Obrazac JOPPD"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+			sequence="30"
+        	groups="l10n_hr_payroll_base.group_hr_payroll_user"
+		/>
+		
+        <menuitem
+            id="menu_hr_hr_payroll_disability_fee"
+            action="action_hr_hr_payroll_disability_fee"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+            sequence="70"
+        />
+        
+		<menuitem
+			id="menu_hr_payroll_reports"
+			name="Izvještaji"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_root"
+			sequence="80"
+        />
+
+        <!-- override to change group - we want it to be visible only in debug mode -->
+        <record id="l10n_hr_payroll_base.menu_hr_payroll_configuration" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6, 0, [ref('base.group_no_one')])]"/>
+        </record>
+
+        <!-- MAIN MENUS END -->
+
+        <!-- CONFIGURATION SUBMENUS START -->
+		<menuitem
+			id="hr_report_menu"
+			action="hr_report_action"
+			name="HR Izvještaji"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+			sequence="66"
+        />
+
+        <!-- add menuitems for tax deduction and work exp benefit here as well because payroll users have no access to the menu in Employees module -->
+        <menuitem
+            id="menu_tax_deduction_payroll"
+            action="tax_deduction_action"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+            sequence="70"
+            name="Odbitak poreza"
+        />
+
+        <menuitem
+            id="menu_work_exp_benefit_payroll"
+            action="action_work_exp_benefit_tree"
+            name="Staž s povećanim trajanjem"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+            sequence="75"
+        />
+
+        <menuitem
+			id="hr_payroll_accounting_scheme"
+			action="action_hr_payroll_accounting_scheme"
+			name="Sheme knjiženja"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+        	groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+			sequence="79"
+        />
+
+		<menuitem
+			id="hr_payroll_accounting_scheme_type"
+			action="action_hr_payroll_accounting_scheme_type"
+			name="Vrste shema knjiženja"
+			parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+        	groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+			sequence="80"
+        />
+
+        <menuitem
+            id="menu_work_experience_fee_limit"
+            action="work_experience_fee_limit_action"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+            sequence="80"
+            name="Ograničenja za jubilarnu nagradu"
+        />
+
+        <menuitem
+            id="menu_ip1_form_report_config_root"
+            parent="l10n_hr_payroll_base.menu_hr_payroll_configuration"
+            sequence="90"
+            name="IP1 obrazac"
+        />
+        
+        <menuitem
+            id="menu_ip1_form_report_config"
+            action="action_ip1_form_report_config"
+            parent="menu_ip1_form_report_config_root"
+            sequence="10"
+            name="Konfiguracije"
+        />
+        
+        <menuitem
+            id="menu_ip1_form_report_position"
+            action="action_ip1_form_report_position"
+            parent="menu_ip1_form_report_config_root"
+            sequence="20"
+            name="Pozicije"
+        />
+        <!-- CONFIGURATION SUBMENUS END -->
+
+        <!-- REPORT SUBMENUS -->
+        <menuitem
+            id="menu_info3_payslip_confirmation_form"
+            action="action_info3_payslip_confirmation_form"
+            name="Potvrda o plaći"
+            parent="menu_hr_payroll_reports"
+            sequence="6"
+        />
+
+        <menuitem
+            id="menu_additional_income_report_wizard"
+            action="action_additional_income_report_wizard"
+            name="Potvrda o drugom dohotku"
+            parent="menu_hr_payroll_reports"
+            sequence="7"
+        />
+
+        <menuitem
+            id="menu_info3_sepa_form"
+            action="action_info3_sepa_form"
+            name="Generiranje SEPA datoteke"
+            parent="menu_hr_payroll_reports"
+            sequence="19"
+            groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+        />
+
+        <menuitem
+            id="menu_account_banking_sepa"
+            action="info3_action_account_banking_sepa"
+            name="SEPA datoteke"
+            parent="menu_hr_payroll_reports"
+            sequence="20"
+        />
+
+        <menuitem
+            id="menu_contributions_recap_report_wizard"
+            action="action_contributions_recap_report_wizard"
+            name="Rekapitulacija podataka za postupak kontrole"
+            parent="menu_hr_payroll_reports"
+            sequence="30"
+        />
+
+		<menuitem
+			id="menu_payslip_run_reports_wizard"
+			action="action_payslip_run_reports_wizard"
+			name="Izvještaji obračuna plaće"
+			parent="menu_hr_payroll_reports"
+			sequence="70"
+		/>
+
+        <menuitem
+            id="menu_ip_report_wizard"
+            action="action_ip_report_wizard"
+            name="IP obrazac"
+            parent="menu_hr_payroll_reports"
+            sequence="71"
+        />
+
+		<menuitem
+			id="menu_work_statistics_wizard"
+			action="action_work_statistics_wizard"
+			name="Obrazac RAD-1G"
+			parent="menu_hr_payroll_reports"
+			sequence="72"
+		/>
+        <!-- REPORT SUBMENUS END -->
+    </data>
+</odoo>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="hr_payroll_configuration_rule_tree_view" model="ir.ui.view">
+    <field name="name">hr.payroll.rule.configuration.tree.view</field>
+    <field name="model">hr.payroll.salary.rule.configuration</field>
+    <field name="arch" type="xml">
+      <list string="Konfiguracija pravila obračuna plaća">
+        <field name="name"/>
+        <field name="description"/>
+        <field name="salary_rule_ids"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="hr_payroll_configuration_rule_form_view" model="ir.ui.view">
+    <field name="name">hr.payroll.rule.configuration.form.view</field>
+    <field name="model">hr.payroll.salary.rule.configuration</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Konfiguracija">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+            <field name="salary_rule_ids"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="hr_payroll_salary_rule_configuration_search" model="ir.ui.view">
+    <field name="name">hr.payroll.salary.rule.configuration.view.search</field>
+    <field name="model">hr.payroll.salary.rule.configuration</field>
+    <field name="arch" type="xml">
+      <search string="Pretraži konfiguracije pravila obračuna">
+        <field name="salary_rule_ids" filter_domain="[('salary_rule_ids.name', 'ilike', self)]" string="Ime Pravila" />
+        <field name="name" filter_domain="[('name', 'ilike', self)]" string="Naziv konfiguracije" />
+        <field name="description" filter_domain="[('description', 'ilike', self)]" string="Opis konfiguracije" />
+        <field name="salary_rule_ids" filter_domain="[('salary_rule_ids.code', 'ilike', self)]" string="Šifra" />
+        <field name="salary_rule_ids" filter_domain="[('salary_rule_ids.category_id', 'ilike', self)]" string="Kategorija" />
+      </search>
+    </field>
+  </record>
+
+  <record id="hr_payroll_rule_configuration_action" model="ir.actions.act_window">
+      <field name="name">Konfiguracija pravila obračuna plaća</field>
+      <field name="res_model">hr.payroll.salary.rule.configuration</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="hr_payroll_configuration_rule_tree_view"/>
+  </record>
+
+  <menuitem id="menu_hr_payroll_rule_configuration"
+    action="hr_payroll_rule_configuration_action"
+    name="Konfiguracija pravila obračuna plaća"
+    parent="l10n_hr_payroll_base.salary_rules_config_header"
+    sequence="30"
+  />
+
+  <record id="hr_payroll_configuration_category_tree_view" model="ir.ui.view">
+    <field name="name">hr.payroll.category.configuration.tree.view</field>
+    <field name="model">hr.payroll.salary.rule.category.configuration</field>
+    <field name="arch" type="xml">
+      <list string="Konfiguracija kategorija pravila obračuna plaća">
+        <field name="name"/>
+        <field name="description"/>
+        <field name="salary_rule_category_ids"/>
+      </list>
+    </field>
+  </record>
+
+  <record id="hr_payroll_configuration_category_form_view" model="ir.ui.view">
+    <field name="name">hr.payroll.category.configuration.form.view</field>
+    <field name="model">hr.payroll.salary.rule.category.configuration</field>
+    <field name="type">form</field>
+    <field name="arch" type="xml">
+      <form string="Konfiguracija">
+        <sheet>
+          <group>
+            <field name="name"/>
+            <field name="description"/>
+            <field name="salary_rule_category_ids"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="hr_payroll_salary_rule_category_configuration_search" model="ir.ui.view">
+    <field name="name">hr.payroll.salary.rule.category.configuration.view.search</field>
+    <field name="model">hr.payroll.salary.rule.category.configuration</field>
+    <field name="arch" type="xml">
+      <search string="Pretraži konfiguracije kategorija pravila obračuna plaće">
+        <field name="salary_rule_category_ids" filter_domain="[('salary_rule_category_ids.name', 'ilike', self)]" string="Ime Pravila" />
+        <field name="salary_rule_category_ids" filter_domain="[('salary_rule_category_ids.code', 'ilike', self)]" string="Šifra" />
+        <field name="name" filter_domain="[('name', 'ilike', self)]" string="Naziv Kategorije" />
+        <field name="description" filter_domain="[('description', 'ilike', self)]" string="Opis Kategorije" />
+      </search>
+    </field>
+  </record>
+
+  <record id="hr_payroll_category_configuration_action" model="ir.actions.act_window">
+      <field name="name">Konfiguracija kategorija pravila obračuna plaća</field>
+      <field name="res_model">hr.payroll.salary.rule.category.configuration</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="hr_payroll_configuration_category_tree_view"/>
+  </record>
+
+  <menuitem id="menu_hr_payroll_category_configuration"
+    action="hr_payroll_category_configuration_action"
+    name="Konfiguracija kategorija pravila obračuna plaća"
+    parent="l10n_hr_payroll_base.salary_rules_config_header"
+    sequence="40"
+  />
+
+</odoo>

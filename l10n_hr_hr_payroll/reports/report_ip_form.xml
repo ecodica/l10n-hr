@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_ip_form">
+        <t t-foreach="docs" t-as="emp">
+            <t t-call="web.basic_layout">
+                <style>
+                    .page {
+                        padding: 50px 4rem !important;
+                    }
+                    .container {
+                        font-size: 10pt;
+                        font-family: Helvetica;
+                    }
+                </style>
+                <div class="page container">
+                    <div id="report-title" class="col-12">
+                        <h5 class="fw-bold"><span t-esc="company.name"/></h5>
+                        <h6 class="fw-bold">IP Obrazac</h6>
+                    </div>
+                    <table class="table mb-0">
+                        <tbody>
+                            <tr class="fw-bold">
+                                <td>I. PODACI O POSLODAVCU, ISPLATITELJU PLAĆE ILI MIROVINE</td>
+                                <td>II. PODACI O RADNIKU, UMIROVLJENIKU, OSOBI KOJA OSTVARUJE PLAĆU</td>
+                            </tr>
+                            <tr>
+                                <td>1. NAZIV/IME I PREZIME: <t t-esc="company.name"/></td>
+                                <td>1. IME I PREZIME: <t t-esc="emp._get_display_name_format('first_name_first').format(emp.first_name, emp.last_name)"/></td>
+                            </tr>
+                            <tr>
+                                <td>2. ADRESA: <t t-esc="company_address"/></td>
+                                <td>2. ADRESA: <t t-esc="data[emp.id]['address']"/></td>
+                            </tr>
+                            <tr>
+                                <td>3. OIB: <t t-esc="company.company_registry"/></td>
+                                <td>3. OIB: <t t-esc="emp.oib"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table mt-0">
+                        <tbody>
+                            <tr class="fw-bold">
+                                <td colspan="6">
+                                    III. PODACI O PLAĆI, MIROVINI, DOPRINOSIMA, POREZU I PRIREZU ZA <t t-esc="year"/>. GODINU
+                                </td>
+                                <td colspan="3">IDENTIFIKATOR</td>
+                            </tr>
+                            <tr class="text-center">
+                                <th>Mjesec isplate</th>
+                                <th>Šifra grada</th>
+                                <th>Isplaćena plaća</th>
+                                <th>Uplaćeni doprinosi iz plaće</th>
+                                <th>Dohodak</th>
+                                <th>Osobni odbitak</th>
+                                <th>Porezna osnovica</th>
+                                <th>Porez i prirez</th>
+                                <th>Neto isplata</th>
+                            </tr>
+                            <tr class="text-end" t-foreach="data[emp.id]['report_data']" t-as="line">
+                                <td class="text-center"><span t-esc="line[0]"/></td>
+                                <td class="text-center"><span t-esc="line[1]"/></td>
+                                <td><span t-esc="line[2]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[3]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[4]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[5]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[6]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[7]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <td><span t-esc="line[8]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="text-end fw-bold">
+                                <td colspan="2" class="text-center">Ukupno</td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[2] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[3] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[4] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[5] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[6] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[7] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                                <td>
+                                    <span
+                                        t-esc="sum(line[8] for line in data[emp.id]['report_data'])"
+                                        t-options="{'widget': 'float', 'precision': 2}"
+                                    />
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="row mt-5">
+                        <div class="row col-6">
+                          <p class="col-5 mb-0 pb-0">DATUM SASTAVLJANJA:</p>
+                          <p class="col-4 mb-0 pb-0 text-center" style="border-bottom: 1px solid black; height: 8mm;"><span t-esc="date" t-options="{'widget': 'date'}"/></p>
+                        </div>
+                        <div class="row col-6">
+                          <p class="col-6 offset-3 mt-4 text-center" style="border-top: 1px solid black;">POTPIS ISPLATITELJA</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

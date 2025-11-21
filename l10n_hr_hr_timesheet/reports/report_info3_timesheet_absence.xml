@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_info3_timesheet_absence">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="lang"/>
+                    <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div style="page-break-inside:avoid;page-break-after:always;font-size: 8pt;">
+                        <h5 style="text-align: center" t-esc="data.get('heading')"/>
+                        <table class="table-sm" >
+                            <tr>
+                                <td class="text-left">
+                                    <strong t-esc="data.get('date_range').get('description')"/>
+                                </td>
+                                <td>
+                                    <p class="m-0" t-esc="data.get('date_range').get('date_from')"/>
+                                </td>
+                                <td>
+                                    -
+                                </td>
+                                <td>
+                                    <p class="m-0" t-esc="data.get('date_range').get('date_to')"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <strong t-esc="data.get('number_of_records').get('description')"/>
+                                </td>
+                                <td>
+                                    <p class="m-0" widget="integer" t-esc="data.get('number_of_records').get('count')"/>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <table class="table-sm o_main_table table-striped" style="font-size: 8pt;width:100%">
+                            <thead style="background-color:#C0C0C0;">
+                                <tr style="border-top: 1px solid black;border-bottom: 1px solid black;">
+                                    <th class="text-right" width="30">
+                                        <span t-esc="data.get('header').get('counter')"/>
+                                    </th>
+                                    <th class="text-left">
+                                        <span t-esc="data.get('header').get('name')"/>
+                                    </th>
+                                    <th class="text-center">
+                                        <span t-esc="data.get('header').get('code')"/>
+                                    </th>
+                                    <th class="text-left">
+                                        <span t-esc="data.get('header').get('department')"/>
+                                    </th>
+                                    <th class="text-left">
+                                        <span t-esc="data.get('header').get('absence_date')"/>
+                                    </th>
+                                    <th class="text-left">
+                                        <span t-esc="data.get('header').get('entry_date')"/>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="data.get('unjustified_absences')" t-as="item">
+                                    <tr>
+                                        <td class="text-right">
+                                            <span t-esc="item.get('counter')"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="item.get('name')"/>
+                                        </td>
+                                        <td class="text-center">
+                                            <span t-esc="item.get('code')"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="item.get('department')"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="item.get('absence_date')"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-esc="item.get('entry_date')"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

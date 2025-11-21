@@ -1,0 +1,14 @@
+id,status,tax_deduction_coef,name,sequence
+21,TRUE,1,Osnovni osobni odbitak,1
+22,TRUE,0.5,Uzdržavani članovi/alimentacije,2
+23,TRUE,0.5,Prvo dijete,3
+24,TRUE,0.7,Drugo dijete,4
+25,TRUE,1.0,Treće dijete,5
+26,TRUE,1.4,Četvrto dijete,6
+27,TRUE,1.9,Peto dijete,7
+28,TRUE,2.5,Šesto dijete,8
+29,TRUE,3.2,Sedmo dijete,9
+30,TRUE,4.0,Osmo dijete,10
+31,TRUE,4.9,Deveto dijete,11
+32,TRUE,0.3,Osobni odbitak za invalidnost,12
+33,TRUE,1.0,Osobni odbitak za 100% invalidnost,13

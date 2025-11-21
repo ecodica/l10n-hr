@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_tax_city">
+    <t t-call="web.basic_layout">
+        
+        <div class="page">
+            <style>
+            * {
+                font-family: Helvetica;
+                font-size: 8pt !important;
+            }
+            .table-title{
+                font-weight:bold;
+                font-size:8pt;
+                background-color:#cee6f2;
+            }
+            .bold{
+                font-weight:bold;
+                font-size:9pt;
+            }
+            .table-header{
+                margin-left:auto;
+                margin-right:auto
+                text-alignment:center;
+            }
+            .table-header p{
+                text-align:center; 
+                vertical-align: middle;
+            }
+            .no-padding-margin{
+                padding: 0;
+                margin: 0;
+            }
+            .no-margin{
+                margin-bottom:0;
+            }
+            .city_data{
+                margin-top:10px;
+            }
+            table > tbody > tr > td {
+                text-align:right;
+            }
+            table > thead > tr > th{
+                text-align:right;
+            }
+            .table-striped tbody tr:nth-of-type(odd) {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
+            </style>
+
+            <!-- header -->
+            <div style="background-color:#f7feff;padding:15px;">
+                <div>
+                    <p style="font-size:8pt;font-weight:bold;" t-esc="company['name']"></p>
+                </div>
+                <div class="row">
+                    <p class="col-6" t-esc="company['address']"></p>
+                </div>
+                <div class="row">
+                    <p class="col-9">
+                        OIB: <span t-esc="company['oib']"></span>
+                    </p>
+                    <p class="col-3" style="margin-left:-14px;">
+                        Financijski iznosi u <span t-esc="company['currency'].name"/>
+                    </p>
+                </div>
+            </div>
+            <!-- header-end -->
+            
+            <!-- page start -->     
+            <div class="table-header container" style="margin-top:10px;">
+                <p class="bold no-margin">
+                    Porezi po općinama
+                </p>
+                <p class="no-margin" t-esc="name"></p>
+            </div>
+
+            <div class="row">
+                <p class="bold col-6">Naziv obračuna:</p>
+            </div>
+            <t t-foreach="payslip_runs" t-as="run">
+                <div class="row">
+                    <div class="col-6">
+                        <span t-esc="run.name"></span>
+                    </div>
+                    <div class="col-3">
+                        <p>
+                            Od datuma: <span t-esc="run.date_start" t-options="{'widget': 'date'}"></span>
+                        </p>
+                    </div>
+                    <div class="col-3">
+                        <p>
+                            Do datuma: <span t-esc="run.date_end" t-options="{'widget': 'date'}"></span>
+                        </p>
+                    </div>
+                </div>
+            </t>
+            
+            <!-- main tables -->
+            <t t-foreach="cities_data" t-as="city">
+                <div class="city_data">
+                    
+                    <table class="table table-sm table-striped">
+                        <thead >
+                            <tr class="table-header container table-title">
+                                <th colspan="6">
+                                    <p class="no-margin" t-esc="city"></p>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th style="text-align:left">Rbr.</th>
+                                <th style="text-align:left">Prezime i ime</th>
+                                <th style="text-align:left">OIB</th>
+                                <th>Porez</th>
+                                <th>Ukupno</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="cities_data[city]['line']" t-as="line">
+                                <tr>
+                                    <td style="text-align:left;">
+                                        <p class="no-margin" t-esc="line_index + 1"></p>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <p class="no-margin" t-esc="line[1]"></p>
+                                    </td>
+                                    <td style="text-align:left;">
+                                        <p class="no-margin" t-esc="line[2]"></p>
+                                    </td>
+                                    <td>
+                                        <p class="no-margin" t-esc="line[3]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                                    </td>
+                                    <td>
+                                        <p class="no-margin" t-esc="line[5]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr>
+                                <td>
+                                </td>
+                                <td style="text-align:left; font-weight:bold;">
+                                    <p class="no-margin">Ukupno</p>
+                                </td>
+                                <td>
+                                </td>
+                                <td>
+                                    <p class="no-margin" style="font-weight:bold;" t-esc="cities_data[city]['total'][3]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                                </td>
+                                <td>
+                                    <p class="no-margin" style="font-weight:bold;" t-esc="cities_data[city]['total'][5]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+            <!-- main tables end -->
+
+            <!-- sums -->
+            <div class="city_data">
+
+                <table class="table table-sm table-striped">
+                    
+                    <thead >
+                    <tr class="table-header container table-title">
+                        <th colspan="3">
+                            <p class="no-margin">Suma svih gradova</p>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Porez</th>
+                        <th>Ukupno</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p class="no-margin" t-esc="sums[0][0]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                            </td>
+                            <td>
+                                <p class="no-margin" t-esc="sums[0][2]" t-options="{'widget': 'float', 'precision': 2}"></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- sums end -->
+
+            <!-- footer -->
+            <div class="footer">
+                <div class="row container">
+                    <center><span>Stranica </span><span class="page" /> od <span class="topage" /></center>
+                </div>
+            </div>
+            <!-- footer end -->
+
+            <!-- page end -->
+        </div>
+    </t>
+</template>
+
+</odoo>

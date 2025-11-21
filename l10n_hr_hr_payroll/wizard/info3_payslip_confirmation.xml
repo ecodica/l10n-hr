@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_info3_payslip_confirmation_form" model="ir.ui.view">
+      <field name="name">info3.payslip.confirmation.form.view</field>
+      <field name="model">info3.payslip.confirmation.form</field>
+      <field name="arch" type="xml">
+        <form string="Ispiši potvrdu o plaći">
+          <group>
+            <group>
+              <field name="date"/>
+            </group>
+            <group>
+              <field name="employee" domain="[('is_employee', '=', True)]"/>
+            </group>
+          </group>
+          <footer>
+            <button name="print_report" string="Ispis" type="object" class="oe_highlight"/>
+            or
+            <button special="cancel" string="Odustani" type="object"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_info3_payslip_confirmation_form" model="ir.actions.act_window">
+      <field name="name">Ispiši potvrdu o plaći</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">info3.payslip.confirmation.form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_info3_payslip_confirmation_form"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

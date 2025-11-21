@@ -1,0 +1,2242 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_hr_timesheet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-02 10:35+0000\n"
+"PO-Revision-Date: 2024-08-02 10:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+msgid "*Check department settings if manager is not on the list."
+msgstr "*Provjerite postavke odjela ukoliko voditelj nije na listi"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "10"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "10 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "11"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "11 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "12"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "12 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "13"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "13 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "14"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "14 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "15"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "15 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "16"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "16 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "17"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "17 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "18"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "18 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "19"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "19 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "20"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "20 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "21"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "21 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "22"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "22 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "23"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "23 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "24"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "24 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "25"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "25 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "26"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "26 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "27"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "27 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "28"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "28 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "29"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "29 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "30"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "30 -"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<span class=\"page\"/>/<span class=\"topage\"/>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong><span>BROJ RADNIH DANA: </span></strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong><span>MJESEČNI FOND SATI: </span></strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>BROJ RADNIH DANA: </strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>EVIDENCIJA ZA GODINU:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>EVIDENCIJA ZA MJESEC:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong>Evidencija o radnom vremenu</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong>IME I PREZIME RADNIKA:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>MJESEČNI FOND SATI: </strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>Mjesečna rekapitulacija evidencije o radnom vremenu</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong>ORG. JEDINICA:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "<strong>POSLODAVAC:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid ""
+"<strong>Podaci o radnom vremenu</strong> (obveza iz čl. 8. Pravilnika o "
+"načinu vođenja evidencije o radnicima - Nar.nov. br. 66/10)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "<strong>RADNO MJESTO:</strong>"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__absence_fault
+msgid "Absence by worker fault"
+msgstr "Odsustvo krivnjom radnika"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Absence date"
+msgstr "Datum izostanka"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__absence
+msgid "Absence hours during the daily schedule demanded by worker"
+msgstr "Sati odsustva tijekom dnevnog rasporeda koje zahtjeva zaposlenik"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__absence_fault
+msgid "Absence hours during the daily schedule faultet by worker."
+msgstr "Sati odsustva tijekom dnevnog rasporeda krivnjom zaposlenika."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__absence
+msgid "Absence on worker request"
+msgstr "Odsustvo na zahtjev radnika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__employee_active
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Active"
+msgstr "Aktivni"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+#, python-format
+msgid "Add employees"
+msgstr "Dodaj zaposlenike"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_timesheet_wizard
+msgid "Add multiple employees"
+msgstr "Dodaj više zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__info3_timesheet_work_time_control_wizard__choice__a
+msgid "All"
+msgstr "Svi"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__analytic_account_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__analytic_account_id
+msgid "Analytic account"
+msgstr "Analitički konto"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__annual_leave_hours
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__annual_leave_hours
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__annual_leave_hours
+msgid "Annual leave hours"
+msgstr "Godišnji odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Archived"
+msgstr "Arhivirani"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Associates by tag"
+msgstr "Suradnici po oznaci"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Autofill"
+msgstr "Automatsko popunjavanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "BL"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "BO"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "BOF"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Based on department filter:"
+msgstr "Filter zaposlenika po odjelu:"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Blagdan (BL)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Bolovanje (BO)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Bolovanje na teret fonda (BOF)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__business_trip
+msgid "Business trip hours"
+msgstr "Službeni put"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.hr_timesheet_absence_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_work_time_control_wizard
+msgid "Cancel"
+msgstr "Odustani"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__choice
+msgid "Choice"
+msgstr "Filter sati"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Code"
+msgstr "Šifra"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__company_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__company_id
+msgid "Company"
+msgstr "Poduzeće"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_timesheet_config
+msgid "Configuration"
+msgstr "Postava"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__create_uid
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__create_date
+msgid "Created on"
+msgstr "Kreirano"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "DO"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "DR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__daily_rest
+msgid "Daily rest"
+msgstr "Dnevni odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__date_view
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_holiday__date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__date_from
+msgid "Date From"
+msgstr "Datum od"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__date_to
+msgid "Date To"
+msgstr "Datum do"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__date_day
+msgid "Date day"
+msgstr "Dan"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__date_from
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+msgid "Date from"
+msgstr "Od datuma"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Date of entry"
+msgstr "Datum unosa"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.hr_timesheet_absence_report
+msgid "Date range"
+msgstr "Razdoblje"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Date range:"
+msgstr "Razdoblje:"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__date_to
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__date_to
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+msgid "Date to"
+msgstr "Do datuma"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__date_to_day
+msgid "Date to day"
+msgstr "Datum do dana"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__date_to
+msgid ""
+"Date to which selected employees with given values will be added (max 7 "
+"days)"
+msgstr "Datum kojem će se dodati odabrani zaposlenici s navedenim vrijednostima (najviše 7 dana)"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "Datum"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Day:"
+msgstr "Dan:"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_hr_department
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__department_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__department
+#, python-format
+msgid "Department"
+msgstr "Odjel"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Department:"
+msgstr "Odjel:"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__display_name
+msgid "Display Name"
+msgstr "Naziv za prikaz"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Dnevni odmor (DO)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Dnevno radno vrijeme u satima (RR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__fieldwork
+msgid "Domestic field work"
+msgstr "Terenski rad tuzemni"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Dopust rodiljni/roditeljski (RD)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Druga roditeljska prava (RP)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Dvokratni rad (DR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__employee_view_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__employee_id
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__timesheet_report_wizard__print_contract_area__employee
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Employee"
+msgstr "Zaposlenik"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_timesheet_absent_employees_report
+msgid "Employee absence report"
+msgstr "Izvještaj neopravdanih izostanka zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.hr_timesheet_absence_report
+msgid "Employee absence wizard"
+msgstr "Neopravdani izostanak zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Employee filter :"
+msgstr "Filter zaposlenika :"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard_line_tree
+msgid "Employee line"
+msgstr "Linija zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_timesheet_wizard_line
+msgid "Employee line for timesheet wizard"
+msgstr "Stavka zaposlenika na čarobnjaku za brzo dodavanje zapisa praćenja vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_timesheet_work_time_control_wizard_line
+msgid "Employee line for work hours control wizard"
+msgstr "Stavka zaposlenika na čarobnjaku za kontrolu fonda sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__category_ids
+msgid "Employee tags"
+msgstr "Oznake zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_timesheet_absence_wizard
+msgid "Employee timesheet absence wizard"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Employee:"
+msgstr "Zaposlenik:"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__employee_line_ids
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__employee_lines
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__employee_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__employee_lines
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__employee_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_work_time_control_wizard
+msgid "Employees"
+msgstr "Zaposlenici"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Employees by tag"
+msgstr "Zaposlenici po oznaci"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__end_time
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__end_time
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__end_time
+msgid "End of work"
+msgstr "Kraj rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__info3_timesheet_work_time_control_wizard__choice__e
+msgid "Equal"
+msgstr "Jednako"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__fieldwork_abroad
+msgid "Field work abroad"
+msgstr "Terenski rad inozemni"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__fieldwork_abroad
+msgid "Fieldwork abroad"
+msgstr "Terenski rad (inozemni)"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__fieldwork
+msgid "Fieldwork hours"
+msgstr "Terenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__filled_dates
+msgid "Filled dates"
+msgstr "Popunjeni datumi"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "GO"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_work_time_control_wizard
+msgid "Get Employees"
+msgstr "Unesi zaposlenike"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_view_info3_timesheet_wizard
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_view_info3_timesheet_work_time_control_wizard
+msgid "Get employees"
+msgstr "Unesi zaposlenike"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Godišnji odmor (GO)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Group By"
+msgstr "Grupiraj po"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_hr_timesheet_autofill_wizard_line
+msgid "HR timesheet autofill wizard line"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Has department records"
+msgstr "Popunjena evidencija za odjel"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__holiday
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__holiday
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__holiday
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__holiday
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__holiday
+msgid "Holiday"
+msgstr "Praznik / Blagdan"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_hr_timesheet_holidays
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.open_view_info3_holiday
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_holiday
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.info3_holiday_menu
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_timesheet_holidays
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_holiday_form
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_holiday_tree
+msgid "Holidays"
+msgstr "Blagdani"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__hours
+msgid "Hours"
+msgstr "Sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__annual_leave_hours
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__annual_leave_hours
+msgid "Hours of annual leave"
+msgstr "Godišnji odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__fieldwork
+msgid "Hours of domestic field work"
+msgstr "Sati tuzemnog terenskog rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__fieldwork
+msgid "Hours of field work"
+msgstr "Terenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__fieldwork_abroad
+msgid "Hours of field work abroad"
+msgstr "Sati inozemnog terenskog rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__fieldwork_abroad
+msgid "Hours of fieldwork abroad."
+msgstr "Sati terenskog rada u inozemstvu."
+
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__maternity_leave
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__maternity_leave
+msgid "Hours of maternity leave"
+msgstr "Sati porodiljnog dopusta"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__paid_leave
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__paid_leave
+msgid "Hours of paid leave"
+msgstr "Plaćeni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__parental_leave
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__parental_leave
+msgid "Hours of parental leave"
+msgstr "Sati roditeljskog dopusta"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__paternity_leave
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__paternity_leave
+msgid "Hours of paternity leave"
+msgstr "Sati očinskog dopusta"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__seconded_work
+msgid "Hours of seconded work."
+msgstr "Dvokratni rad."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__sick_leave
+msgid "Hours of sick leave"
+msgstr "Bolovanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__sick_leave
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__sick_leave
+msgid "Hours of sick leave paid by company"
+msgstr "Bolovanje na teret poduzeća"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__sick_leave_fund
+msgid "Hours of sick leave paid by health insurance fund"
+msgstr "Bolovanje na teret fonda"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__unpaid_leave
+msgid "Hours of unpaid leave"
+msgstr "Sati neplaćenog dopusta"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__night_work
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__night_work
+msgid "Hours of work at night"
+msgstr "Noćni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__rescheduled_hours
+msgid "Hours of work in rescheduled working time"
+msgstr "Sati rada u preraspodjeljenom radnom vremenu"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__non_working_holiday
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__non_working_holiday
+msgid "Hours of work on non-working holiday"
+msgstr "Rad blagdanom/praznikom"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__non_working_sunday
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__non_working_sunday
+msgid "Hours of work on non-working sunday"
+msgstr "Rad nedjeljom"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__holiday
+msgid "Hours on a holiday"
+msgstr "Sati na blagdan"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__business_trip
+msgid "Hours spend on business trip"
+msgstr "Sati provedeni na službenom putu"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__strike
+msgid "Hours spent on strike"
+msgstr "Sati provedeni u štrajku"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__end_time
+msgid "Hours when work was completed"
+msgstr "Završetak rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__start_time
+msgid "Hours when work was started"
+msgstr "Početak rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "IR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "ISR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_timesheet_report_wizard__category_ids
+msgid "If entered, preselects employees with given tags"
+msgstr "Ako je uneseno, unaprijed bira zaposlenike s unesenim oznakama"
+
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__employee_active
+msgid ""
+"If the active field is set to False, it will allow you to hide the resource "
+"record without removing it."
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Ime i prezime radnika"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+msgid "Import Employees"
+msgstr "Dohvat zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Isključenje s rada (lockout) (ISR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Izaslani rad (IR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "Kraj rada"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Zadnji promijenio"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_absence_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__write_date
+msgid "Last Updated on"
+msgstr "Vrijeme promjene"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__info3_timesheet_work_time_control_wizard__choice__l
+msgid "Less"
+msgstr "Manje"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__less_hours
+msgid "Less hours"
+msgstr "Manje sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__lockout
+msgid "Lockout"
+msgstr "Isključenje s rada (lockout)"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__lockout
+msgid "Lockout hours"
+msgstr "Isključenje s rada (lockout)"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__manager_id
+#: model:res.groups,name:l10n_hr_hr_timesheet.group_hr_hr_timesheet_manager
+msgid "Manager"
+msgstr "Voditelj"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_department__manager_add_on_timesheet
+msgid "Manager can add himself on timesheet"
+msgstr "Voditelj odjela može dodati sam sebe na šihtericu"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__maternity_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__maternity_leave
+msgid "Maternity leave hours"
+msgstr "Rodiljni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__max_work_hours
+msgid "Max work hours"
+msgstr "Maksimalan broj sati"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet.py:0
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_sum.py:0
+#, python-format
+msgid "Mjesec i godina moraju biti odabrani!"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_hr_holiday
+msgid "Model for adding holidays"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Month:"
+msgstr "Mjesec:"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__info3_timesheet_work_time_control_wizard__choice__m
+msgid "More"
+msgstr "Više"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__more_hours
+msgid "More hours"
+msgstr "Više sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "ND"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "NDN"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "NDP"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "NKR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "NO"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "NR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_holiday__name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_holiday__name
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__employee_name
+#, python-format
+msgid "Name"
+msgstr "Naziv"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__employee_name
+#, python-format
+msgid "Name"
+msgstr "Zaposlenik"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Nedjelja"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet.py:0
+#, python-format
+msgid "Nema podataka za ispis!"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Nenazočnost krivnjom radnika (NKR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Nenazočnost na zahtjev radnika (NR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Neplaćeni dopust (ND)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Neradni dan - nedjelja (NDN)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Neradni dan - praznik (NDP)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__night_work
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__night_work
+msgid "Night work hours"
+msgstr "Noćni sati"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "No."
+msgstr "R.br."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__non_working_holiday
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__non_working_holiday
+msgid "Non-working holiday hours"
+msgstr "Rad blagdanom"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__non_working_sunday
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__non_working_sunday
+msgid "Non-working sunday hours"
+msgstr "Rad nedjeljom"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Noćni rad (NO)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Number of records:"
+msgstr "Broj zapisa:"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "OD"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Odgovorna osoba"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:res.groups,name:l10n_hr_hr_timesheet.group_hr_hr_timesheet_user
+msgid "Officer"
+msgstr "Službenik"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__other_maternity_leave
+msgid "Other maternity leave"
+msgstr "Druga roditeljska prava"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__other_maternity_leave
+msgid "Other maternity leaves and rights"
+msgstr "Druga roditeljska prava"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__outage
+msgid "Outage hours"
+msgstr "Sati prekinutog rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__time_outage
+msgid "Outage time"
+msgstr "Početak prekida rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__overtime
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__overtime
+msgid "Overtime hours"
+msgstr "Prekovremeni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__overtime
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__overtime
+msgid "Overtime work hours"
+msgstr "Prekovremeni sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__overwrite
+msgid "Overwrite existing lines"
+msgstr "Prepiši postojeće unose"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Očinski dopust (OD)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "PD"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "PR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "PRR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__paid_leave
+msgid "Paid leave"
+msgstr "Plaćeni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__paid_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__paid_leave
+msgid "Paid leave hours"
+msgstr "Plaćeni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__parental_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__parental_leave
+msgid "Parental leave hours"
+msgstr "Roditeljski dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__paternity_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__paternity_leave
+msgid "Paternity leave hours"
+msgstr "Očinski dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__period_id
+msgid "Period from"
+msgstr "Period od"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Petak"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Plaćeni dopust (PD)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Ponedjeljak"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+msgid "Početak rada"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Prekovremeni rad (PRR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Preraspodjeljeno radno vrijeme (PR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.hr_timesheet_absence_report
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_timesheet_report_wizard
+msgid "Print"
+msgstr "Ispis"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Print detailed report"
+msgstr "Ispiši detaljno"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Print summarized report"
+msgstr "Ispiši sumarno"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "RD"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "RDP"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "RP"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "RR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Rbr."
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:res.groups,name:l10n_hr_hr_timesheet.group_hr_hr_timesheet_receive_notification
+msgid "Receive notification about unjustified absence"
+msgstr "Primaj obavijest o neopravdanim izostancima"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Refresh form"
+msgstr "Osvježi"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__replace_existing
+msgid "Replace existing"
+msgstr "Zamijeni postojeće"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_ir_actions_report
+msgid "Report Action"
+msgstr "Akcija izvještaja"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_reports
+msgid "Reporting"
+msgstr "Izvještavanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__rescheduled_hours
+msgid "Rescheduled hours"
+msgstr "Preraspodjeljeni sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.module.category,description:l10n_hr_hr_timesheet.module_category_hr_hr_timesheet
+msgid "Restrictions on Timesheet menu"
+msgstr "Razine prava u modulu Evidencija radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Roditeljski dopust (RDP)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "SR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "SZP"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Sati zastoja krivnjom poslodavca (SZP)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__seconded_work
+msgid "Seconded work"
+msgstr "Dvokratni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__shift_work
+msgid "Shift hours"
+msgstr "Smjenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__shift_work
+msgid "Shift work"
+msgstr "Smjenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Show active only"
+msgstr "Prikaži samo aktivne"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Show both active and inactive"
+msgstr "Prikaži i aktivne i neaktivne"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Show both options"
+msgstr "Trenutni odjel i popunjena evidencija"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Show current department only"
+msgstr "Prikaži samo trenutni odjel"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Show inactive only"
+msgstr "Prikaži samo neaktivne"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__sick_leave_fund
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__sick_leave_fund
+msgid "Sick leave fund hours"
+msgstr "Bolovanje fond"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__sick_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__sick_leave
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__sick_leave
+msgid "Sick leave hours"
+msgstr "Bolovanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Smjenski rad (SR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__split_shift_work
+msgid "Split shift work"
+msgstr "Podjela radne smjene"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__split_shift_work
+msgid "Split shift work - shift that is splitted into two parts."
+msgstr "Podijeli smjenski rad - smjena koja je podijeljena u dva djela."
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Srijeda"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__standby_hours
+msgid "Standby hours"
+msgstr "Vrijeme pripravnosti"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__standby_hours
+msgid "Standby hours and hours of work per call"
+msgstr "Sati pripravnosti i sati rada po pozivu"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__start_time
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__start_time
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__start_time
+msgid "Start of work"
+msgstr "Početak rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__strike
+msgid "Strike hours"
+msgstr "Štrajk"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_search_view
+msgid "Students by tag"
+msgstr "Studenti po oznaci"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Subota"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__sum_of_hours
+msgid "Sum of hours"
+msgstr "Ukupno sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "TO"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "TR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "TRI"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__employee_category_ids
+msgid "Tags"
+msgstr "Oznake zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Terenski rad (TR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Terenski rad inozemstvo (TRI)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:res.groups,comment:l10n_hr_hr_timesheet.group_hr_hr_timesheet_receive_notification
+msgid ""
+"The user will receive an email notification about employee's unjustified "
+"absence."
+msgstr "Korisnik će primati e-mail obavijest o neopravdanom izostanku zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__annual_leave_hours
+msgid "Time and hours of annual leave."
+msgstr "Sati godišnjeg odmora."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__outage
+msgid "Time and hours of downtime, outages, etc.."
+msgstr "Vrijeme i sati prekida"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__daily_rest
+msgid "Time of daily rest."
+msgstr "Vrijeme dnevnog odmora."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__weekly_rest
+msgid "Time of weekly rest"
+msgstr "Vrijeme tjednog odmora"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__time_outage
+msgid "Time when outages started"
+msgstr "Vrijeme početka prekida"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_info3_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_timesheet
+#: model:ir.module.category,name:l10n_hr_hr_timesheet.module_category_hr_hr_timesheet
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_timesheet
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_timesheet_root
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Timesheet"
+msgstr "Evidencija radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.module.category,name:l10n_hr_hr_timesheet.module_category_hr_hr_timesheet_absence
+msgid "Timesheet - other"
+msgstr "Evidencija radnog vremena - ostalo"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.act_window,name:l10n_hr_hr_timesheet.action_hr_timesheet_autofill_wizard
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_hr_timesheet_autofill_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Timesheet autofill"
+msgstr "Automatsko popunjavanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_report_report_info3_timesheet_absence
+msgid "Timesheet employee absence report"
+msgstr "Izvještaj o neopravdanim izostancima zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__timesheet_id
+msgid "Timesheet record"
+msgstr "Evidencija radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_report_report_info3_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_report_report_info3_timesheet_sum
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_timesheet_report_wizard
+msgid "Timesheet report"
+msgstr "Izvještaj evidencije radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_timesheet_report_wizard
+msgid "Timesheet report wizard"
+msgstr "Čarobnjak za izvještaj evidencije radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard_line__timesheet_wizard_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__timesheet_wizard_id
+msgid "Timesheet wizard id"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Tjedni odmor (TO)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Total"
+msgstr "Ukupno"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total absence"
+msgstr "Ukupno odsustvo"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total absence fault"
+msgstr "Ukupno odsustvo krivnjom radnika"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total annual leave"
+msgstr "Ukupan godišnji odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total business trip"
+msgstr "Ukupan službeni put"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total daily rest"
+msgstr "Ukupan dnevni odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total fieldwork"
+msgstr "Ukupan terenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total fieldwork abroad"
+msgstr "Ukupan terenski rad inozemni"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total holiday"
+msgstr "Ukupan praznik"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__total
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__total
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__total
+msgid "Total hours"
+msgstr "Redovni sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total lockout"
+msgstr "Ukupno isključenje s rada (lockout)"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total maternity"
+msgstr "Ukupan porodiljni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total night"
+msgstr "Ukupan noćni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total other maternity"
+msgstr "Ukupna druga roditeljska prava"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total outage"
+msgstr "Ukupan prekid"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total overtime"
+msgstr "Ukupan prekovremeni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total paid leave"
+msgstr "Ukupan plaćeni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total parental"
+msgstr "Ukupno roditeljski dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total paternity"
+msgstr "Ukupno očinski dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total rescheduled"
+msgstr "Ukupni preraspodjeljeni sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total seconded work"
+msgstr "Ukupan dvokratni rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total shift"
+msgstr "Ukupan smjenski rad"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total sick leave"
+msgstr "Ukupno bolovanje"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total sick leave fund"
+msgstr "Ukupno bolovanje na teret fonda"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total split shift"
+msgstr "Ukupna podjela radne smjene"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total standby"
+msgstr "Ukupno vrijeme pripravnosti"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total strike"
+msgstr "Ukupan štrajk"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total sum"
+msgstr "Ukupan zbroj"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__total
+msgid "Total time of work"
+msgstr "Ukupno sati rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total unpaid leave"
+msgstr "Ukupno neplaćenog dopusta"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.info3_timesheet_tree_view
+msgid "Total weekly rest"
+msgstr "Ukupan tjedni odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "UDRV"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+#, python-format
+msgid "Ukupno"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.ui.menu,name:l10n_hr_hr_timesheet.menu_hr_timesheet_absence_report
+msgid "Unjustified absences"
+msgstr "Neopravdani izostanci"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#, python-format
+msgid "Unjustified employee absence"
+msgstr "Neopravdani izostanci zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.actions.server,name:l10n_hr_hr_timesheet.ir_cron_timesheet_absent_employees_ir_actions_server
+msgid "Unjustified employee absences report"
+msgstr "Izvještaj o neopravdanim izostancima zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__unpaid_leave
+msgid "Unpaid leave hours"
+msgstr "Neplaćeni dopust"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Update employees"
+msgstr "Ažuriraj"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Utorak"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "VP"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "VZ"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Vrijeme pripravnosti (VP)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Vrijeme zastoja (VZ)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__weekly_rest
+msgid "Weekly rest"
+msgstr "Tjedni odmor"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__wizard_id
+msgid "Wizard"
+msgstr "Čarobnjak"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_info3_timesheet_work_time_control_wizard
+msgid "Work hours control wizard"
+msgstr "Čarobnjak za kontrolu fonda sati"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_work_time_control_wizard
+#, python-format
+msgid "Work time control"
+msgstr "Kontrola fonda sati"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__workday_end_time
+msgid "Workday end time"
+msgstr "Kraj rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__workday_start_time
+msgid "Workday start time"
+msgstr "Početak rada"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard__write_hours
+msgid "Write hours"
+msgstr "Ručni unos sati"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "Year:"
+msgstr "Godina:"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "active"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "active_and_inactive"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "current_and_has_records"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "current_dep_only"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "has_dep_records"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-javascript
+#: code:addons/l10n_hr_hr_timesheet/static/src/views/info3_timesheet_dashboard/info3_timesheet_dashboard.xml:0
+#, python-format
+msgid "inactive"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_info3_timesheet_wizard
+msgid "or"
+msgstr "ili"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/wizard/info3_timesheet_wizard.py:0
+#, python-format
+msgid "Četvrtak"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "ŠTR"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.report_info3_timesheet_sum
+msgid "Štrajk (STR)"
+msgstr ""
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__unpaid_personal_care
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__unpaid_personal_care
+msgid "Unpaid personal care"
+msgstr "Neplaćeni dopust za pružanje osobne skrbi"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__unpaid_candidacy
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__unpaid_candidacy
+msgid "Unpaid candidacy leave"
+msgstr "Neplaćeni dopust kandidata"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__work_absence
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__work_absence
+msgid "Personal emergency absence"
+msgstr "Odsutnost iz osobnih razloga"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__work_absence
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__work_absence
+msgid "Absence due to a personal emergency."
+msgstr "Odsutnost s posla zbog osobito važnog i hitnog obiteljskog razloga uzrokovanog bolešću ili nesretnim slučajem."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet__military_leave_absence
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__military_leave_absence
+msgid "Absence for military service."
+msgstr "Sati nenazočnosti zbog vojne obveze ili služenja u ugovornoj pričuvi HVO."
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__military_leave_absence
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_wizard__military_leave_absence
+msgid "Military leave of absence"
+msgstr "Nenazočnost zbog vojne obveze ili služenja u ugovornoj pričuvi"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_timesheet_report_wizard__print_contract_area
+msgid "Print Contract Area"
+msgstr "Filter evidencije"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields.selection,name:l10n_hr_hr_timesheet.selection__timesheet_report_wizard__print_contract_area__other
+msgid "Other"
+msgstr "Fizičke osobe"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__show_only_leaves
+msgid "Show only leaves"
+msgstr "Učitaj samo odsustva"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Timesheet"
+msgstr "Evidencija radnog vremena"
+
+#. module: l10n_hr_hr_timesheet
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Get employees data"
+msgstr "Dohvati zaposlenike"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard__employee_filter_ids
+#: model_terms:ir.ui.view,arch_db:l10n_hr_hr_timesheet.view_hr_timesheet_autofill_wizard
+msgid "Employee filter"
+msgstr "Filter zaposlenika"
+
+#. module: l10n_hr_hr_timesheet
+#. odoo-python
+#: code:addons/l10n_hr_hr_timesheet/reports/report_info3_timesheet_absence.py:0
+#: model:ir.model,name:l10n_hr_hr_timesheet.model_hr_department
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_hr_timesheet_autofill_wizard_line__department_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__department_id
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet_work_time_control_wizard_line__department
+#, python-format
+msgid "Department"
+msgstr "Odjel"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,field_description:l10n_hr_hr_timesheet.field_info3_timesheet__sunday_work_hours
+msgid "Sunday Work Hours"
+msgstr "Rad nedjeljom (RNED)"
+
+#. module: l10n_hr_hr_timesheet
+#: model:ir.model.fields,help:l10n_hr_hr_timesheet.field_timesheet_report_wizard__print_contract_area
+msgid ""
+"For the selected filtering option 'Employee', time tracking records are "
+"printed for workers from the category of employees based on the contract "
+"area 'Labor contracts' (where fixed-term/indefinite employment contracts are"
+" classified...) defined on the contract.For the selected filtering option "
+"'Other', time tracking records are printed for workers from the category of "
+"physical persons based on contract areas that do not belong to the Labor law"
+" contracts area (where students, apprentices, professional training... are "
+"classified) defined on the contract are classified.Employees are displayed "
+"in the list based on the Contract Area related to the last active "
+"contract.If records are printed for a past period in which the worker "
+"belonged to a different category, it is necessary to change the record "
+"filter to the category for which the worker had a contract in the period for"
+" which the report is being printed."
+msgstr "Za odabranu opciju filtriranja 'Zaposlenik', ispisuje se evidencija praćenja vremena za radnike iz kategorije zaposlenika na temelju područja ugovora 'Radnopravni ugovori' (gdje se svrstavaju Ugovor o radu na određeno/neodređeno...) definirano na ugovoru. \n"
+"Za odabranu opciju filtriranja 'Fizičke osobe', ispisuje se evidencija praćenja vremena za radnike iz kategorije fizičkih osoba na temelju područja ugovora koja ne pripadaju području Radnopravni ugovori (gdje se svrstavaju studenti, učenici, stručno osposobljavanje...) definirano na ugovoru. \n"
+"Zaposlenici se u listi prikazuju na temelju Područja ugovora koje se odnosi na važeći ugovor za odabrano razdoblje ispisa. \n"

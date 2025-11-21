@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payroll_custom_hr_payslip_form_view" model="ir.ui.view">
+            <field name="name">payroll.custom.hr.payslip.form.view</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_payslip_form"/>
+            <field name="priority">60</field>
+            <field name="arch" type="xml">
+                <!-- edit statusbar_visible option -->
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,paid"/>
+                </xpath>
+                <!--disable editing on forms, only allow on payslip_run-->
+                <xpath expr="/form" position="attributes">
+                    <attribute name="create">false</attribute>
+                    <attribute name="class">hr_hr_slip_form</attribute>
+                </xpath>
+                <button name="compute_sheet" position="after">
+                <button
+                    name="annual_tax_calculation"
+                    type="object"
+                    string="Godišnji obračun"
+                    class="oe_highlight"
+                    invisible="annual_calculation == False or state != 'draft' "
+                />
+                </button>
+                <xpath expr="//header" position="inside">
+                    <field name="show_nonpaid_salary_options" invisible="1"/>
+                    <button
+                        class="m-2"
+                        name="action_delete_payslip"
+                        type="object"
+                        string="Obriši listić"
+                        icon="fa-remove"
+                        groups="l10n_hr_hr_payroll.group_info3_hr_payslip_force_unlink"
+                        confirm="Sigurno želite obrisati listić? Ova akcija se ne može poništiti!"
+                    />
+                    <button
+                        name="print_ip1_report"
+                        type="object"
+                        string="Ispiši IP1"
+                        icon="fa-print"
+                        class="btn btn-secondary oe_edit_only"
+                    />
+                    <button
+                        name="print_io1_report"
+                        type="object"
+                        string="Ispiši IO1"
+                        icon="fa-print"
+                        class="btn btn-secondary oe_edit_only"
+                    />
+                    <button
+                        name="%(nonpaid_payslip_wizard_action)d"
+                        type="action"
+                        string="Ispiši NP1"
+                        icon="fa-print"
+                        class="btn btn-secondary oe_edit_only"
+                        invisible="show_nonpaid_salary_options == False"
+                    />
+                    <button
+                        name="%(payslip_forced_payment_request_wizard_action)d"
+                        type="action"
+                        string="Ispiši ZPN1"
+                        icon="fa-print"
+                        class="btn btn-secondary oe_edit_only"
+                        invisible="show_nonpaid_salary_options == False"
+                    />
+                    <button
+                        name="%(nonpaid_payslip_wizard_action)d"
+                        type="action"
+                        string="Ispiši NO1"
+                        icon="fa-print"
+                        class="btn btn-secondary oe_edit_only"
+                        invisible="show_nonpaid_salary_options == False"
+                        context="{'report_no1_type': 'NO1'}"
+                    />
+                    <button
+                        name="action_send_by_email"
+                        type="object"
+                        string="Pošalji IP1 mailom"
+                        icon="fa-envelope"
+                        confirm="Pošalji IP1 obrazac mailom?"
+                        class="btn btn-secondary oe_edit_only me-2"
+                        invisible="hr_config_send_payslips_by_email == False"
+                    />
+                </xpath>
+                <!--hide all buttons that aren't defined, don't work or aren't needed-->
+                <xpath expr="//form/header/button[@name='action_payslip_done']" position="replace">
+                </xpath>
+                <xpath expr="//form/header/button[@name='action_payslip_cancel']" position="replace">
+                </xpath>
+                <xpath expr="//form/header/button[@name='refund_sheet']" position="replace">
+                    <!--button doesn't work-->
+                    <!--<button string="Refund" name="refund_sheet" type="object" invisible="context.get('not_on_run', False)" attrs="{'invisible': [('state', 'not in', ['confirm', 'done'])]}" class="oe_highlight"/>-->
+                </xpath>
+                <xpath expr="//form/header/button[@name='compute_sheet']" position="replace">
+                    <!--computing is only allowed on payslip_run in draft state-->
+                    <button string="Izračunaj list" name="compute_sheet" type="object" invisible="context.get('not_on_run') or state !='draft' or annual_calculation == True" class="oe_highlight"/>
+                </xpath>
+
+                <xpath expr="//field[@name='date_from']" position="replace">
+                    <field name="date_from" class="payroll_date"/>
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="replace">
+                    <field name="date_to" class="payroll_date"/>
+                </xpath>
+                <!-- override group for easier control over field placement -->
+                <xpath expr="//form/sheet/group" position="replace">
+                    <group>
+                        <group>
+                            <label for="date_from" string="Razdoblje"/>
+                            <div>
+                                <field name="date_from" class="oe_inline" readonly="state != 'draft'"/> - <field name="date_to" class="oe_inline" readonly="state != 'draft'"/>
+                            </div>
+                            <field name="number" readonly="state != 'draft'"/>
+                            <field name="name" readonly="state != 'draft'"/>
+                            <field name="manual_input" readonly="state != 'draft'"/>
+                            <field name="mail_id" invisible="hr_config_send_payslips_by_email == False" readonly="1"/>
+                            <field name="mail_state" invisible="hr_config_send_payslips_by_email == False" readonly="1"/>
+                            <field name="hr_config_send_payslips_by_email" invisible="1"/>
+                        </group>
+                        <group>
+                        <field
+                                name="salary_parameters_id"
+                                domain="[
+                                    ('employee_id', '=', employee_id),
+                                    ('date_from', '&lt;=', date_to),
+                                    '|',('date_to', '&gt;=', date_from),
+                                    ('date_to', '=', False)
+                                ]"
+                                required="1"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="contract_id"
+                                domain="[
+                                    ('employee_id', '=', employee_id),
+                                    ('date_start', '&lt;=', date_to),
+                                    '|',('date_end', '&gt;=', date_from),
+                                    ('date_end', '=', False)
+                                ]"
+                                required="1"
+                                context="{'default_employee_id': employee_id}"
+                                options="{'no_create': True, 'no_create_edit': True}"
+                                readonly="state != 'draft'"
+                            />
+                            <field name="struct_id" required="1" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                            <field name="check_taxless_lunch_fee_amout" readonly="state != 'draft'"/>
+                            <!-- field credit_note not in use -->
+                            <field name="credit_note" invisible="1" readonly="state != 'draft'"/>
+                            <field name="salary_in_kind" invisible="1"/>
+                            <field name="severance" invisible="1"/>
+                            <field name="annual_calculation" invisible="1"/>
+                        </group>
+                    </group>
+                </xpath>
+                <!-- <xpath expr="/form/sheet/notebook/page/field[@name='worked_days_line_ids']/tree/field[@name='number_of_days']" position="replace"/>
+                <xpath expr="/form/sheet/notebook/page/field[@name='worked_days_line_ids']/tree/field[@name='contract_id']" position="replace"/> -->
+                <xpath expr="/form/sheet/notebook/page/field[@name='input_line_ids']/list/field[@name='contract_id']" position="replace"/>
+                <xpath expr="/form/sheet/notebook/page/field[@name='input_line_ids']/list/field[@name='amount']" position="before">
+                    <button
+                        name="action_from_netto"
+                        string="Neto kalkulator"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="parent.state not in ('draft')"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page/field[@name='worked_days_line_ids']" position="replace">
+                    <field name="worked_days_line_ids" readonly="state != 'draft'">
+                        <list string="Radni dani" editable="bottom">
+                            <field name="name" column_invisible="True"/>
+                            <field name="category_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                            <field name="code"/>
+                            <field name="number_of_hours" />
+                            <field name="sequence" column_invisible="True"/>
+                        </list>
+                        <form string="Radni dan">
+                            <group col="4">
+                                <field name="name"/>
+                                <field name="code"/>
+                                <field name="payslip_id"/>
+                                <field name="sequence"/>
+                                <field name="number_of_hours"/>
+                            </group>
+                        </form>
+                    </field>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[1]/separator[1]" position="after">
+                    <group>
+                        <group>
+                            <field name="month_work_hours" readonly="state != 'draft'"/>
+                            <field name="employee_number_of_days_in_month" readonly="state != 'draft'"/>
+                            <field name="sick_leave_fund_date_from" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="user_work_hours" readonly="1" />
+                            <field name="employee_number_of_days_at_work" readonly="state != 'draft'"/>
+                            <field name="sick_leave_fund_date_to" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[4]" position="inside">
+                    <separator string="Bankovni računi i obustave"/>
+                    <group>
+                        <group>
+                            <field name="employee_partner" invisible="1"/>
+                            <field name="bank_account_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="protected_bank_account_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                            <field name="giro_bank_account_id" options="{'no_create': True}" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="bank_lines" context="{'short_bank_acc': True}">
+                            <list string="Stavke" editable="bottom">
+                                <field name="payslip_id" column_invisible="True" />
+                                <field name="description" />
+                                <field name="code" />
+                                <field name="payment_method_id" />
+                                <field name="bank_account_id" />
+                                <field name="acc_type" />
+                                <field name="amount" sum="Suma" />
+                            </list>
+                        </field>
+                        <field name="suspension_lines">
+                            <!-- ZAKOMENTIRANO editable="false" -->
+                            <list string="Obustave">
+                                <field name="description" />
+                                <field name="payslip_id" column_invisible="True" />
+                                <field name="bank_account_id" />
+                                <field name="is_company_account" readonly="True"/>
+                                <field name="amount" sum="Suma"/>
+                                <field name="suspension_id" column_invisible="True" />
+                            </list>
+                        </field>
+                    </group>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page[4]" position="after">
+                    <page string="Parametri zaposlenika" name="employee_settings">
+                        <group>
+                            <group string="Podaci o plaći">
+                                <field name="salary_calculation_type" readonly="state != 'draft'"/>
+                                <field name="wage" readonly="state != 'draft'"/>
+                                <field name="hourly_wage" readonly="state != 'draft'"/>
+                                <field name="day_hours" readonly="state != 'draft'"/>
+                                <field name="transport_amount" readonly="state != 'draft'"/>
+                                <field name="sick_leave_average_hourly_wage_gross" readonly="state != 'draft'"/>
+                                <field name="sick_leave_average_hourly_wage_net" readonly="state != 'draft'"/>
+                                <field name="i3_config_sick_leave_company_percentage" readonly="state != 'draft'"/>
+                                <field name="hr_config_sick_leave_company_calc_method" string="Način izračuna"/>
+                                <field name="min_sick_leave_hourly_rate" readonly="state != 'draft'"/>
+                                <field name="max_sick_leave_hourly_rate" readonly="state != 'draft'"/>
+                                <field name="sick_leave_average_no_salary_hourly_wage_net" readonly="state != 'draft'"/>
+                                <field name="min_contributions_base" readonly="state != 'draft'"/>
+                                <field name="max_contributions_base" readonly="state != 'draft'"/>
+                                <field name="use_avg_hourly_wage_for_annual_leave_calculation" readonly="state != 'draft'"/>
+                                <field name="unused_leave_average_hourly_wage" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Doprinosi">
+                                <field name="joppd_b72" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                                <field name="use_manual_contributions_base_deduction" readonly="state != 'draft'"></field>
+                                <field name="contributions_base_deduction_amount" readonly="use_manual_contributions_base_deduction == False or state != 'draft'"/>
+                                <field name="health_insurance_contribution_pct" readonly="state != 'draft'"/>
+                                <field name="health_insurance_contribution_pct_additional_income" readonly="state != 'draft'"/>
+                                <field name="mio2" readonly="state != 'draft'"/>
+                                <field name="dmio1b_percentage" readonly="state != 'draft'"/>
+                                <field name="dmio2b_percentage" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Porezi">
+                                <field name="porez_razred_1_granica" readonly="state != 'draft'"/>
+                                <field name="supported_area" readonly="state != 'draft'"/>
+                                <field name="has_war_disability" readonly="state != 'draft'"/>
+                                <field name="war_disability_pct" readonly="state != 'draft'"/>
+                                <field name="total_tax_base" readonly="state != 'draft'"/>
+                                <field name="total_tax_deduction" readonly="state != 'draft'" string="Iskorišteni osobni odbitak"/>
+                                <field name="tax_deduction_amount" readonly="state != 'draft'"/>
+                                <field name="tax_deduction_coef" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Koeficijent">
+                                <field name="calculate_salary_by_coefficient" readonly="state != 'draft'"/>
+                                <field name="base_salary" readonly="state != 'draft'"/>
+                                <field name="salary_coef" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Iskustva">
+                                <field name="internship_total_years" readonly="state != 'draft'"/>
+                                <field name="experience_coef" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Postavke obračuna" name="calculation_settings">
+                        <group>
+                            <group string="Postavke plaće" name="salary_settings">
+                                <field name="i3_config_average_wage" readonly="state != 'draft'"/>
+                                <field name="i3_config_minimal_wage" readonly="state != 'draft'"/>
+                                <field name="i3_config_min_contributions_base" readonly="state != 'draft'" string="Minimalna mjesečna osnovica za doprinose"/>
+                                <field name="i3_config_min_contributions_base_directors" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_contributions_base" readonly="state != 'draft'" string="Maksimalna mjesečna osnovica za doprinose"/>
+                                <field name="i3_config_min_sick_leave_fee_net" readonly="state != 'draft'"/>
+                                <field name="i3_config_min_sickleave_min_base" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_sick_leave_fee_net" readonly="state != 'draft'"/>
+                                <field name="hr_config_contributions_base_deduction_limit_1" readonly="state != 'draft'"/>
+                                <field name="hr_config_contributions_base_deduction_limit_2" readonly="state != 'draft'"/>
+                                <field name="hr_config_contributions_base_deduction_fixed_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_sick_hours_travel" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Neoporezive naknade" name="non_taxable">
+                                <field name="i3_config_max_child_birth_fee" readonly="state != 'draft'"/>
+                                <field name="i3_config_taxless_bonus_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_taxless_reward_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_undocumented_lunch_fee_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_documented_lunch_fee_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_vacation_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_remote_work_fee_amount" readonly="state != 'draft'"/>
+                                <field name="i3_config_max_supplementary_insurance" readonly="state != 'draft'"/>
+                            </group>
+                            <group string="Porezi" name="taxes">
+                                <field name="i3_config_osnovica" readonly="state != 'draft'"/>
+                                <field name="i3_config_osnovica_uzdrzavani" readonly="state != 'draft'"/>
+                                <field name="i3_config_razred_1" readonly="state != 'draft'"/>
+                                <field name="i3_config_razred_1_posto" readonly="state != 'draft'"/>
+                                <field name="i3_config_razred_2_posto" readonly="state != 'draft'"/>
+                                <field name="i3_config_capital_gain_1_pct" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+                        <group string="Jubilarne nagrade" name="rewards" >
+                            <field name="work_exp_fee_limit_ids" readonly="state != 'draft'">
+                                <list>
+                                    <field name="years"/>
+                                    <field name="max_amount"/>
+                                </list>
+                            </field>
+                        </group>
+                        <group string="Analitika" name="analytics">
+                            <field name="i3_config_analytic_distribution_account_type_ids" readonly="state != 'draft'"/>
+                        </group>
+                    </page>
+                    <page string="Adresa" name="address">
+                        <group>
+                            <group>
+                                <separator string="Adresa"/>
+                                <field name="addr_type" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                                <field name="street" readonly="state != 'draft'"/>
+                                <field name="street2" readonly="state != 'draft'"/>
+                                <field name="city" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                                <field name="zip_code" readonly="state != 'draft'"/>
+                                <field name="county_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                                <field name="country_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Obustave" name="suspensions">
+                        <field name="suspension_ids" readonly="state != 'draft'">
+                            <list class="custom-field-height"
+                                decoration-danger="max_ratio == '1/1'"
+                                decoration-info="max_ratio == '1/2'"
+                                decoration-success="max_ratio == '1/3'"
+                                decoration-muted="i3_active == False">
+                                <field name="sequence"/>
+                                <field name="suspension_id"/>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="suspension_type"/>
+                                <field name="max_ratio"/>
+                                <field name="membership_base"/>
+                                <field name="membership_base_pct"/>
+                                <field name="i3_active" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Analitička raspodjela po odjelima" name="departments">
+                        <field name="department_distribution_ids" readonly="state != 'draft'">
+                            <list editable="bottom">
+                                <field name="cost_center_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="department_analytic_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="percentage" sum="percentage_sum"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Otpremnina" name="severance_page" invisible="severance == False">
+                        <button
+                            name="set_severance_fields"
+                            string="Dohvati parametre otpremnine"
+                            type="object"
+                            class="oe_highlight"/>
+                        <group>
+                            <separator string="Otpremnina"/>
+                            <field name="severance_from_year" readonly="state != 'draft'"/>
+                            <field name="severance_to_year" readonly="state != 'draft'"/>
+                            <field name="number_of_years_severance" readonly="state != 'draft'"/>
+                            <field name="average_gross_salary" readonly="state != 'draft'"/>
+                            <field name="calc_elem_average_gross_salary" readonly="state != 'draft'"/>
+                            <field name="average_gross_salary_third" readonly="state != 'draft'"/>
+                            <field name="calc_elem_average_gross_salary_third" readonly="state != 'draft'"/>
+                            <field name="severance_pay_other_criteria" readonly="state != 'draft'"/>
+                            <field name="calc_elem_severance_pay_other_criteria" readonly="state != 'draft'"/>
+                            <field name="defined_leave" readonly="state != 'draft'"/>
+                            <field name="unused_leave_current_year" readonly="state != 'draft'"/>
+                            <field name="unused_leave_previous_year" readonly="state != 'draft'"/>
+                            <field name="severance_remark" readonly="state != 'draft'"/>
+                        </group>
+                    </page>
+                    <page string="Godišnji obračun" name="annual_calculation_page" invisible="annual_calculation == False" >
+                        <group>
+                            <separator string="Godišnji obračun"/>
+                            <field name="annual_brutto"/>
+                            <field name="annual_salary_contributions"/>
+                            <field name="annual_income"/>
+                            <field name="annual_planned_deduction"/>
+                            <field name="annual_used_deduction"/>
+                            <field name="annual_planned_tax_base"/>
+                            <field name="annual_tax_base"/>
+                            <field name="i3_config_razred_1_posto"/>
+                            <field name="i3_config_razred_2_posto"/>
+                            <field name="annual_tax_obligation"/>
+                            <field name="annual_total_tax"/>
+                            <field name="annual_tax_calculated"/>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='total']" position="after">
+                    <field name="computed_total" readonly="1" groups="base.group_no_one"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook" position="before">
+                        <button string="Spremi bez zatvaranja" name="save_lines" type="object" class="btn btn-primary oe_edit_only me-2" invisible="state != 'draft'"/>
+                        <button
+                            string="Dohvati podatke za obračun"
+                            name="get_calculation_parameters"
+                            type="object"
+                            invisible="state != 'draft'"
+                            class="btn btn-primary oe_edit_only me-2"
+                        />
+                </xpath>
+                <xpath expr="//field[@name='line_ids']" position="before">
+                    <group>
+                        <field
+                            name="manual_edit"
+                            groups="l10n_hr_hr_payroll.group_info3_hr_payroll_edit_payslip_line"
+                            readonly="state != 'draft'"/>
+                        <!-- added invisible field (restriction added in odoo 16, field must be in view if used in domain of other field) -->
+                        <field
+                            name="manual_edit" 
+                            invisible="1"
+                            groups="!l10n_hr_hr_payroll.group_info3_hr_payroll_edit_payslip_line"/>
+                    </group>
+                </xpath> 
+                <xpath expr="//field[@name='line_ids']" position="attributes">
+                    <attribute name="readonly">not manual_edit</attribute>
+                    <attribute name="class">custom-field-height</attribute>
+                </xpath> 
+
+                <xpath expr="//field[@name='line_ids']/list" position="attributes">
+                    <attribute name="decoration-warning">code == 'ISPL'</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='line_ids']/list/field[@name='sequence']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="groups">base.group_no_one</attribute>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='sequence']" position="replace"/>
+                <xpath expr="//field[@name='line_ids']/list/field[@name='name']" position="before">
+                    <field name="sequence" groups="base.group_no_one" readonly="1" force_save="1"/>
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page/field[@name='input_line_ids']/list/field[@name='code']" position="replace">
+                    <field name="code"/>
+                </xpath>
+
+                <xpath expr="//group[@name='accounting']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payslip_run_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="info3_view_hr_payslip_tree" model="ir.ui.view">
+            <field name="name">info3.view.hr.payslip.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="annual_type" column_invisible="1" />
+                    <field name="employee_changed_municipality" column_invisible="1" />
+                </xpath>
+                <xpath expr="//list" position="attributes">
+                    <attribute name="decoration-danger">annual_type =='no_values' or (hr_config_send_payslips_by_email and mail_state and mail_state != 'sent')</attribute>
+                    <attribute name="decoration-info">annual_type =='values'</attribute>
+                    <attribute name="decoration-warning">employee_changed_municipality == True</attribute>
+                    <attribute name="create">false</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="before">
+                    <field name="user_work_hours"/>
+                    <field name="payslips_number"/>
+                    <field name="hr_config_send_payslips_by_email" column_invisible="1"/>
+                    <field name="mail_state" invisible="hr_config_send_payslips_by_email == False"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!--we use this context to see whether we are on payslip run or payslip list view because we want to hide some buttons and disable editing if not on payslip run-->
+        <record id="l10n_hr_payroll_base.action_view_hr_payslip_form" model="ir.actions.act_window">
+            <field name="context">{'not_on_run': True}</field>
+        </record>
+
+        <record id="l10n_hr_payroll_base.act_hr_employee_payslip_list" model="ir.actions.act_window">
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id, 'not_on_run': True}</field>
+        </record>
+        <!-- END context comment -->
+
+    </data>
+</odoo>

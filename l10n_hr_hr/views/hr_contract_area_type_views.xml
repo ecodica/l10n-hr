@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_view_contract_area_type_form" model="ir.ui.view">
+        <field name="name">hr.contract.area.type.form</field>
+        <field name="model">hr.contract.area.type</field>
+        <field name="arch" type="xml">
+            <form string="Contract area type">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_area_type_tree" model="ir.ui.view">
+        <field name="name">hr.contract.area.type.tree</field>
+        <field name="model">hr.contract.area.type</field>
+        <field name="arch" type="xml">
+            <list string="Contract area type">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_area_type_search" model="ir.ui.view">
+        <field name="name">hr.contract.area.type.search</field>
+        <field name="model">hr.contract.area.type</field>
+        <field name="arch" type="xml">
+            <search string="Contract area types">
+                <field name="code" string="Contract area type" filter_domain="['|','|',('code','ilike',self),('name','ilike',self),('description','ilike',self)]"/>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_contract_area_type_action" model="ir.actions.act_window">
+        <field name="name">Contract area types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.area.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_contract_area_type_search"/>
+    </record>
+
+    <menuitem id="hr_menu_contract_area_type"
+              name="Contract area type"
+              parent="hr_submenu_view_contracts"
+              sequence="3"
+              action="hr_config_contract_area_type_action"/>
+
+</odoo>

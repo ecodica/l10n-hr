@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="res.company" name="set_defaults_on_install">
+            <value model="res.company" search="[]"/>
+        </function>
+        <record id="default" model="ir.config_parameter" forcecreate="0">
+            <field name="key">l10n_hr_hr_payroll.i3_config_calculate_experiance_allowance</field>
+            <field name="value">internal_experience</field>
+        </record>
+    </data>
+</odoo>

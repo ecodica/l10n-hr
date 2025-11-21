@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_view_employee_experience" model="ir.ui.view">
+            <field name="name">hr.employee.experience.form</field>
+            <field name="model">hr.employee.experience</field>
+            <field name="arch" type="xml">
+                <form string="Experiences">
+                    <sheet>
+                        <group>
+                            <field name="experience_type_id"/>
+                            <field name="name"/>
+                            <field name="note"/>
+                            <field name="issuing_partner"/>
+                            <field name="date_from"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="date_to"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                            <field name="state_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_view_employee_disability" model="ir.ui.view">
+            <field name="name">hr.employee.disability.form</field>
+            <field name="model">hr.employee.disability</field>
+            <field name="arch" type="xml">
+                <form string="Disabilities">
+                    <sheet>
+                        <group>
+                            <field name="disability_type_id"/>
+                            <field name="name"/>
+                            <field name="percentage"/>
+                            <field name="date_from"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="date_to"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="state_id"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_education_form" model="ir.ui.view">
+            <field name="name">hr.employee.education.form</field>
+            <field name="model">hr.employee.education</field>
+            <field name="arch" type="xml">
+            <form string="Education">
+                <sheet>
+                    <group>
+                        <label for="date_from" string="Period"/>
+                        <div class="o_row">
+                            <field name="date_from"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}" nolabel="1"/>
+                            -
+                            <field name="date_to"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}" nolabel="1"/>
+                        </div>
+                        <field name="education_type_id"/>
+                        <field name="vocation" default_focus='1'/>
+                        <field name="points"/>
+                        <field name="edu_institution"/>
+                        <field name="attachment" filename="attach_file_name"/>
+                        <field name="attach_file_name" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_cession_form" model="ir.ui.view">
+            <field name="name">hr.employee.cession.form</field>
+            <field name="model">hr.employee.cession</field>
+            <field name="arch" type="xml">
+                <form string="Cession">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="cession_business_entity"/>
+                            <field name="work_place"/>
+                            <field name="description"/>
+                            <field name="place_of_work"/>
+                            <field name="work_duration"/>
+                            <label for="probation_date_from"/>
+                            <div class="o_row">
+                                <field name="probation_date_from"
+                                       nolabel="1"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                 -
+                                <field name="probation_date_to"
+                                       nolabel="1"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            </div>
+                            <label for="date_from"/>
+                            <div class="o_row">
+                                <field name="date_from"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                -
+                                <field name="date_to"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            </div>
+                            <field name="state_id"/>
+                            <field name="note"/>
+                            <field name="writen_agreement_att_data" filename="att_fname"/>
+                            <field name="writen_agreement_att_fname" invisible="1"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_cession_overseas_form" model="ir.ui.view">
+            <field name="name">hr.employee.cession.overseas.form</field>
+            <field name="model">hr.employee.cession.overseas</field>
+            <field name="arch" type="xml">
+                <form string="Cession Overseas">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="work_license_id"/>
+                            <field name="visa_id"/>
+                            <field name="visa_expiration_date"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="visa_issue_authority"/>
+                            <field name="cession_business_entity"/>
+                            <field name="work_place"/>
+                            <field name="description"/>
+                            <field name="place_of_work"/>
+                            <field name="work_duration"/>
+                            <label for="probation_date_from"/>
+                            <div class="o_row">
+                                <field name="probation_date_from"
+                                       nolabel="1"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                 -
+                                <field name="probation_date_to"
+                                       nolabel="1"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            </div>
+                            <label for="date_from"/>
+                            <div class="o_row">
+                                <field name="date_from"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                -
+                                <field name="date_to"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            </div>
+                            <field name="state_id"/>
+                            <field name="note"/>
+                            <field name="writen_agreement_att_data" filename="att_fname"/>
+                            <field name="writen_agreement_att_fname" invisible="1"/>
+                            <field name="extra_att_data" filename="att_fname"/>
+                            <field name="extra_att_fname" invisible="1"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_work_permit_form" model="ir.ui.view">
+            <field name="name">hr.employee.work.permit.form</field>
+            <field name="model">hr.employee.work.permit</field>
+            <field name="arch" type="xml">
+                <form string="Work permit">
+                    <sheet>
+                        <group>
+                            <field name="permit_type_id" options="{'no_create': True}"/>
+                            <field name="work_permit_number"/>
+                            <field name="start_date"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="expiration_date"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="issuing_authority"/>
+                            <field name="att_data" filename="att_filename"/>
+                            <field name="att_filename" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_inactivity_form" model="ir.ui.view">
+            <field name="name">hr.employee.inactivity.form</field>
+            <field name="model">hr.employee.inactivity</field>
+            <field name="arch" type="xml">
+                <form string="Inactivity">
+                    <sheet>
+                        <group>
+                            <field name="type_id"/>
+                            <field name="name"/>
+                            <field name="date_from"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="date_to"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                            <field name="state_id"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_employee_medic_exam_form" model="ir.ui.view">
+            <field name="name">hr.employee.medic_exam.form</field>
+            <field name="model">hr.employee.medic_exam</field>
+            <field name="arch" type="xml">
+                <form string="Medical exam">
+                    <sheet>
+                        <group>
+                            <field name="medical_exam_type_id" options="{'no_create': True}"/>
+                            <field name="start_date"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="end_date"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                                'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            <field name="medical_institution"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_transportation_work_form" model="ir.ui.view">
+            <field name="name">hr.transportation.work.form</field>
+            <field name="model">hr.transportation.work</field>
+            <field name="arch" type="xml">
+                <form string="Transportation from and to work">
+                    <sheet>
+                        <group>
+                            <field name="transport_type_id"/>
+                            <field name="carrier_id"/>
+                            <field name="amount"/>
+                            <field name="percentage"/>
+                            <field name="overall"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="hr_employee_inherit_view_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.inherit.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="priority" eval="71" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes"> 
+                    <attribute name="class">hr_hr_emp_form</attribute>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]" position="replace">
+                    <div class="oe_title" style="padding:0;">
+                        <div class="o_row">
+                            <h3>
+                                <label for="first_name" class="oe_edit_only"/>
+                                <field name="first_name" required="True" class="oe_edit_only"/>
+                                <label for="last_name" class="oe_edit_only"/>
+                                <field name="last_name" required="True" class="oe_edit_only"/>
+                            </h3>
+                            <h1>
+                                <field name="name" readonly="True" force_save="1" class="oe_read_only"/>
+                            </h1>
+                        </div>
+                        <h6>
+                            <field name="category_ids"  placeholder="Type" widget="many2many_tags" options="{'color_field': 'color'}" optional="hide"/>
+                        </h6>
+                    </div>
+                </xpath>
+                <xpath expr="//label[@for='resource_calendar_id']" position="replace"/>
+                <xpath expr="//field[@name='resource_calendar_id']" position="replace"/>
+                <xpath expr="//page[@name='public']//group[4]//div[@class='d-flex align-items-center']" position="replace"/>
+
+
+                <!--Add button to copy into partner -->
+                <xpath expr="//div[@class='row justify-content-between position-relative w-100 m-0 mb-2']" position="after">
+                    <group groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                            <label for="partner_id"/>
+                            <div id="field_partner_id">
+                                <field name="partner_id" readonly="1"/>
+                            </div>
+                    </group>
+                </xpath>
+
+                <xpath expr="//field[@name='code']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='mobile_phone']/../.." position="before">
+                    <group>
+                        <group>
+                            <field name ="enabled_manual_code_input" invisible="1"/>
+                            <field name ="is_employee_in_tags" invisible="1"/>
+                            <field name ="is_associate_in_tags" invisible="1"/>
+                            <field name ="user_has_code_edit_privilege" invisible="1"/>
+                            <field name="code"
+                                   readonly="
+                                   enabled_manual_code_input == True and
+                                   is_employee_in_tags != False or
+                                   id == False or
+                                   user_has_code_edit_privilege == True"
+                                   required="
+                                   enabled_manual_code_input == True and
+                                   is_employee_in_tags != False and
+                                   (id == False or user_has_code_edit_privilege == True)
+                                   "
+                                    style="width:150px;"/>
+                            <field name="code_associate"
+                                    readonly="not (
+                                    enabled_manual_code_input == True and
+                                    is_associate_in_tags != False and
+                                    (id == False or user_has_code_edit_privilege == True)
+                                    )"
+                                    required="
+                                    enabled_manual_code_input == True and
+                                    is_associate_in_tags != False and
+                                    (id == False or user_has_code_edit_privilege == True)
+                                    "
+                                    style="width:150px; padding:2px 4px;"/>
+                        </group>
+                        <group name="placeholder">
+                        </group>
+                    </group>
+                </xpath>
+                
+                <xpath expr="//page[@name='personal_information']" position='replace'/>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="%(hr_org_chart.action_hr_employee_org_chart)d" icon="fa-users" type="action" context="{'hierarchy_res_id': id}" groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                    </button>
+                </xpath>
+
+                <xpath expr="//page[@name='public']" position="before">
+                    <page name="personal_information" string="Private Information" groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                        <group>
+                            <group string="Citizenship &amp; Other Information">
+                                <field name="nationality_id" options='{"no_open": True, "no_create": True}'/>
+                                <field name="oib" required="True"/>
+                                <field name="ssnid" string="SSN in home country"/>
+                                <field name="jmbg"/>
+                                <field name="hzmo_id"/>
+                                <field name="hzzo_id"/>
+                                <field name="has_supplementary_health_insurance"/>
+                                <field name="identification_id" groups="hr.group_hr_user"/>
+                                <field name="id_card_issue_date"
+                                       autocomplete="off"
+                                       options="{'datepicker': {
+                                                    'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                    'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                <field name="passport_id" groups="hr.group_hr_user"/>
+                                <field name="passport_issue_date"
+                                        autocomplete="off"
+                                        options="{'datepicker': {
+                                             'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                             'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                            </group>
+                            <group string="Contact Information">
+
+                                <field name="addr_type" placeholder="Address Type"/>
+                                <field name="street" placeholder="Street..." required="True"/>
+                                <field name="street2" placeholder="Street 2..."/>
+                                <field name="city" placeholder="City" required="True"/>
+                                <field name="zip" placeholder="ZIP" required="True"/>
+                                <field name="county_id" placeholder="County"/>
+                                <field name="country_id" placeholder="Country" options='{"no_open": True, "no_create": True}'/>
+                                <separator/>
+                                <field name="degree_id" options='{"no_open": True, "no_create": True, "no_create_edit":True}'/>
+                                <field name="private_phone"/>
+                                <field name="private_email" widget="email"/>
+                                <field name="emergency_contact" string="Emergency Contact"/>
+                                <field name="emergency_phone" string="Emergency Contact Phone"/>
+                                <field name="km_home_work" groups="hr.group_hr_user"/>
+                            </group>
+                            <group string="Status">
+                                <field name="gender"/>
+                                <field name="marital"/>
+                                <field name="spouse_complete_name" invisible="marital not in ('married', 'cohabitant')"/>
+                                <field name="spouse_birthdate" invisible="marital not in ('married', 'cohabitant')"/> 
+                                <field name="children"/>
+                                <separator string="Children register" colspan="2"/>
+                                <field name="children_register_line_ids" nolabel="1" colspan="2">
+                                    <list editable="bottom" class="custom-field-height">
+                                        <field name="name"/>
+                                        <field name="surname"/>
+                                        <field name="oib"/>
+                                        <field name="date_of_birth"/>
+                                        <field name="gender"/>
+                                    </list>
+                                </field>
+                            </group>
+                            <group string="Birth" name="birth">
+                                <field name="birthday"
+                                   autocomplete="off"
+                                   options="{'datepicker': {
+                                        'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                        'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                <field name="place_of_birth" groups="hr.group_hr_user"/>
+                                <field name="country_of_birth" groups="hr.group_hr_user"/>
+                                <field name="parent_name"/>
+                                <field name="previous_last_name"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//field[@name='parent_name']" position="replace">
+                    <field name="father_name_surname"/>
+                    <field name="mother_name_surname"/>
+                </xpath>
+
+                <xpath expr="//page[@name='public']" position="after"> 
+                    <page string="Education" groups="hr.group_hr_user"> 
+                        <field name="education_ids">
+                            <list class="custom-field-height">
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="education_type_id"/>
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="vocation"/>
+                                <field name="points"/>
+                                <field name="edu_institution"/>
+                                <field name="attachment" filename="attach_file_name" column_invisible="1"/>
+                                <field name="attach_file_name"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Experience" groups="hr.group_hr_user">
+                        <field name="experience_ids">
+                            <list class="custom-field-height">
+                                <field name="experience_type_id"/>
+                                <field name="name"/>
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="note"/>
+                                <field name="issuing_partner"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="att_data" filename="att_fname" column_invisible="1"/>
+                                <field name="att_fname" />
+                                <field name="state_id"/>
+                            </list>
+                        </field>
+                    </page> 
+                    <page string="Inactivity" groups="hr.group_hr_user"> 
+                        <field name="inactivity_ids">
+
+                            <list class="custom-field-height">
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="type_id"/>
+                                <field name="name"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="att_data" filename="att_fname" column_invisible="1"/>
+                                <field name="att_fname" />
+                                <field name="state_id"/>
+                                <field name="note"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Disabilities" groups="hr.group_hr_user">
+                        <field name="disability_ids">
+                            <list class="custom-field-height">
+                                <field name="disability_type_id"/>
+                                <field name="name"/>
+                                <field name="percentage"/>
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="state_id"/>
+                                <field name="att_fname" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Medical Exams" groups="hr.group_hr_user">
+                        <field name="medic_exam_ids" context="{'default_employee_id': 'employee_id', 'hide_employee': 1}">
+                            <list class="custom-field-height">
+                                <field name="medical_exam_type_id" options="{'no_create': True}"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="medical_institution"/>
+                                <field name="att_data" filename="att_fname" column_invisible="1"/>
+                                <field name="att_fname"/>
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="note"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Work Experience" groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                        <div style="text-align:right">
+                            <group colspan="5" col="5">
+                                    <group colspan="2" col="1">
+                                        <separator string="Work Experience Until Employment"/>
+                                    </group>
+                                    <group colspan="2" col="1">
+                                        <separator string="Work Experience In The Company"/>
+                                    </group>
+                                    <group colspan="2" col="1">
+                                        <separator string="Total Work Experience"/>
+                                    </group>
+                            </group>
+                        </div>
+                        <hr/>
+                        <div style="text-align:right">
+                            <group colspan="5" col="5">
+                                    <group colspan="2" col="1">
+                                        <field name="internship_until_emp_years"/>
+                                        <field name="internship_until_emp_months"/>
+                                        <field name="internship_until_emp_days"/>
+                                    </group>
+                                    <group colspan="2" col="1">
+                                        <field name="internship_company_years"/>
+                                        <field name="internship_company_months"/>
+                                        <field name="internship_company_days"/>
+                                    </group>
+                                    <group colspan="2" col="1">
+                                        <field name="internship_total_years"/>
+                                        <field name="internship_total_months"/>
+                                        <field name="internship_total_days"/>
+                                    </group>
+                            </group>
+                        </div>
+                    </page>
+                    
+                    <page string="Cession" groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                        <notebook>
+                            <page string="Domestic">
+                            <field name="cession_ids">
+                            <list class="custom-field-height">
+                                <field name="name"/>
+                                <field name="cession_business_entity"/>
+                                <field name="work_place"/>
+                                <field name="place_of_work"/>
+                                <field name="probation_period"/>
+                                <field name="work_period"/>
+                                <field name="state_id"/>
+                                <field name="employee_id" column_invisible="1"/>
+                            </list>
+                            </field>
+                            </page>
+                            <page string="Overseas">
+                            <field name="cession_overseas_ids">
+                            <list class="custom-field-height">
+                                <field name="work_license_id"/>
+                                <field name="visa_id"/>
+                                <field name="visa_expiration_date"/>
+                                <field name="cession_business_entity"/>
+                                <field name="work_place"/>
+                                <field name="place_of_work"/>
+                                <field name="probation_period"/>
+                                <field name="work_period"/>
+                                <field name="state_id"/>
+                                <field name="employee_id" column_invisible="1"/>
+                            </list>
+                            </field>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Permits and visas" groups="hr.group_hr_user">
+                        <field name="work_permit_ids" context="{'default_employee_id': 'employee_id', 'hide_employee': 1}">
+                            <list class="custom-field-height">
+                                <field name="permit_type_id" options="{'no_create': True}"/>
+                                <field name="work_permit_number"/>
+                                <field name="start_date"/>
+                                <field name="expiration_date"/>
+                                <field name="issuing_authority"/>
+                                <field name="att_data" filename="att_filename"/>
+                                <field name="att_filename" column_invisible="1"/>
+                                <field name="employee_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Transportation" groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user">
+                        <notebook>
+                            <page string="Transportation from and to work">
+                                    <field name="transportation_work_ids">
+                                        <list class="custom-field-height">
+                                            <field name="transport_type_id"/>
+                                            <field name="carrier_id"/>
+                                            <field name="amount"/>
+                                            <field name="percentage"/>
+                                            <field name="overall"/>
+                                            <field name="employee_id" column_invisible="1"/>
+                                        </list>
+                                    </field>
+                                    <field name="overall_transportation_for_payment"/>
+                            </page>
+                            <page string="Driving licence">
+                                <group>
+                                    <field name="driving_licence_number" />
+                                    <field name="driving_licence_authority"/>
+                                    <field name="driving_licence_first_issue_date"
+                                           autocomplete="off"
+                                           style ="width:200px;"
+                                           options="{'datepicker': {
+                                                     'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                     'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                    <label for="driving_licence_issue_date"/>
+                                    <div>
+                                        <field name="driving_licence_issue_date"
+                                               nolabel="1"
+                                               style ="width:200px;"
+                                               autocomplete="off"
+                                               options="{'datepicker': {
+                                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                        -
+                                        <field name="driving_licence_expiration_date"
+                                               nolabel="1"
+                                               style ="width:200px;"
+                                               autocomplete="off"
+                                               options="{'datepicker': {
+                                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                                    </div>
+                                    <field name="driving_category_id"/>
+                                    <field name="driving_licence_note"/>
+                                    <field name="driving_licence_att_data" filename="driving_licence_att_fname"/>
+                                    <field name="driving_licence_att_fname" invisible="1"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </page>
+                    <page string="Categories" groups="hr.group_hr_user">
+                        <field name="category_type_ids"/>
+                    </page>
+                    <page string="Notes" name="notes" groups="hr.group_hr_user">
+                        <field name="note_ids" string="Notes">
+                            <list editable="top">
+                                <field name="date"/>
+                                <field name="note"/>
+                                <field name="note_data" filename="note_fname"/>
+                                <field name="note_fname"  column_invisible="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+
+                <!-- add work address -->
+                <xpath expr="//field[@name='work_location_id']" position="before">
+                    <field name="address_work_id"/>
+                </xpath>
+
+                <xpath expr="//field[@name='work_location_id']" position="after">
+                    <field name="hire_date" />
+                </xpath>
+                <xpath expr="//group[@name='managers']" position="before">
+                    <group name="insurance" id="insurance_funds" string="Croatian Pension Insurance Institute ">
+                        <field name="insurance_start" />
+                        <field name="insurance_change" />
+                        <field name="insurance_end" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="last_name"/>
+                    <field name="first_name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_category_list_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.category.list</field>
+            <field name="model">hr.employee.category</field>
+            <field eval="8" name="priority"/>
+            <field name="inherit_id" ref="hr.view_employee_category_list"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//list" position="replace">
+                     <list string="Employees Tags" edit="false" create="false" delete="false" import="false">
+                        <field name="name"/>
+                    </list>
+                </xpath>
+
+            </field>
+        </record>
+       
+        <record id="view_employee_filter_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.search.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="priority" eval="25"/>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="code"/>
+                </field>
+                <field name="job_id" position="after">
+                    <field name="oib" />
+                    <field name="ssnid" string="SSN in home country"/>
+                </field>
+                <xpath expr="//filter[@name='inactive']" position="replace">
+                    <filter string="Employees by tag" name="zaposlenici" domain="[('category_ids.name', '=', 'Zaposlenik')]"/>
+                    <filter string="Associates by tag" name="suradnici" domain="[('category_ids.name', '=', 'Suradnik')]"/> 
+                    <filter string="Students by tag" name="studenti" domain="[('category_ids.name', '=', 'Student')]"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="Active" name="active" domain="[('active','=',True)]" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- override to replace base.group_user with group_contract_manager -->
+        <menuitem
+            id="hr.menu_hr_root"
+            name="Employees"
+            groups="hr.group_hr_user,hr_contract.group_hr_contract_manager"
+            web_icon="hr,static/description/icon.png"
+            sequence="75"
+        />
+
+        <menuitem
+            id="hr.menu_human_resources_configuration"
+            name="Configuration"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_manager,hr_contract.group_hr_contract_manager"
+            sequence="100"/>
+
+        <menuitem
+            id="hr_submenu_view_employees"
+            name="Employees"
+            groups="hr.group_hr_manager"
+            parent="hr.menu_human_resources_configuration"
+            sequence="1"/>
+            
+        <!-- replace all groups - using menuitem notation only adds new groups and doesn't replace those that were removed -->
+        <record id="hr_submenu_view_employees" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_manager')])]"/>
+        </record>
+
+        <menuitem
+            id="hr_submenu_view_contracts"
+            name="Contracts"
+            parent="hr.menu_human_resources_configuration"
+            sequence="2"/>
+
+        <!-- replace all groups - using menuitem notation only adds new groups and doesn't replace those that were removed -->
+        <record id="hr_submenu_view_contracts" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('hr_contract.group_hr_contract_manager')])]"/>
+        </record>
+
+        <menuitem
+            id="hr_submenu_view_settings"
+            name="Settings"
+            parent="hr.menu_human_resources_configuration"
+            sequence="4"/>
+
+        <!-- replace all groups - using menuitem notation only adds new groups and doesn't replace those that were removed -->
+        <record id="hr_submenu_view_settings" model="ir.ui.menu">
+            <field name="groups_id" eval="[(6,0,[ref('hr.group_hr_manager')])]"/>
+        </record>
+
+        <menuitem
+            id="hr.hr_menu_configuration"
+            name="Settings"
+            parent="hr_submenu_view_settings"
+            sequence="5"
+            action="hr.hr_config_settings_action"
+            groups="base.group_system"/>
+
+        <record id="hr.menu_view_employee_category_form" model="ir.ui.menu">
+            <field name="parent_id" ref="hr_submenu_view_employees"/>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <menuitem
+            id="hr_contract.hr_menu_contract_type"
+            action="hr.hr_contract_type_action"
+            parent="hr_submenu_view_contracts"
+            groups="hr.group_hr_manager,hr_contract.group_hr_contract_manager"
+            sequence="1"
+            />
+
+        <menuitem
+            id="hr_registers_menu_item"
+            name="Registers"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="90"
+        />
+
+        <!-- hide department menu item because it already exists in main toolbar -->
+        <menuitem id="hr.menu_hr_department_tree" active="False"/>
+
+        <!-- move work locations, departure reasons and skill types to employeess -->
+        <menuitem id="hr.menu_hr_work_location_tree" parent="hr_submenu_view_employees"/>
+        <menuitem id="hr.menu_hr_departure_reason_tree" parent="hr_submenu_view_employees"/>
+        <menuitem id="hr_skills.hr_skill_type_menu" parent="hr_submenu_view_employees"/>
+
+    </data>
+</odoo>

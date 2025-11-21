@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<!-- HR REPORTI -->
+		<record id="hr_report_tree_view" model="ir.ui.view">	 	
+			<field name="name">Pregled izvještaja</field>
+			<field name="model">hr.report</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="HR Izvještaji" >	
+					<field name="name" />
+					<field name="code" />
+					<field name="report_type" />
+					<field name="parent_id"/>					
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_report_form_view" model="ir.ui.view">	 	
+			<field name="name">Izvještaj </field>
+			<field name="model">hr.report</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="HR Izvještaji">	
+					<group>
+						<field name="name" />
+						<field name="code" />
+						<field name="report_type" />				
+						<field name="parent_id"/>
+					</group>
+					<notebook>
+						<page string="Sub reports">
+							<field name="child_ids"/>
+						</page>
+						<page string="Lines" >
+							<field name="line_ids"/>
+						</page>
+					</notebook>					
+				</form>
+			</field>
+		</record>
+
+		<record id="hr_report_action" model="ir.actions.act_window">
+			<field name="name">HR Izvještaji</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.report</field>
+			<field name="view_mode">list,form</field>		
+			<field name="view_id" ref="hr_report_tree_view"/>
+		</record>
+
+		<!-- REPORT LINES -->
+		<record id="hr_report_line_tree_view" model="ir.ui.view">	 	
+			<field name="name">Pregled stavaka izvještaja</field>
+			<field name="model">hr.report.line</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="HR Stavke izvjestaja" >
+					<field name="report_id" column_invisible="1"/>
+					<field name="sequence"/>
+					<field name="parent_id" column_invisible="1"/>
+					<field name="field_type" />					
+					<field name="code" />
+					<field name="description"/>					
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_report_line_form_view" model="ir.ui.view">	 	
+			<field name="name">Pregled stavaka izvještaja</field>
+			<field name="model">hr.report.line</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="HR Stavke izvještaja">	
+					<group>
+						<field name="report_id"/>
+						<field name="parent_id"/>
+						<field name="code" />
+						<field name="description"/>
+						<field name="help_text"/>
+						<field name="field_type" />
+						<field name="required"/>				
+					</group>
+				</form>
+			</field>
+		</record>
+	</data>
+</odoo>

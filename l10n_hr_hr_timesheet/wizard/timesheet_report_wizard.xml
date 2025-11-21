@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_timesheet_report_wizard" model="ir.ui.view">
+      <field name="name">view.timesheet.report.wizard</field>
+      <field name="model">timesheet.report.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Timesheet report">
+          <group>
+            <field name="category_ids" widget="many2many_tags" options="{'no_create': True}" context="{'hr_timesheet_skip_onchange_category': False}"/>
+            <field name="print_contract_area" />
+            <field name="employee_ids" options="{'no_create': True}" context="{'tree_view_ref': 'hr_hr_timesheet.view_hr_employee_tree_custom_timesheet'}"/>
+          </group>
+          <footer>
+            <button string="Print" name="print_report" type="object" class="oe_highlight"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_hr_employee_tree_custom_timesheet" model="ir.ui.view">
+      <field name="name">hr.employee.tree.custom.timesheet</field>
+      <field name="model">hr.employee</field>
+      <field name="arch" type="xml">
+          <list string="Employees">
+              <field name="last_name"/>
+              <field name="first_name"/>
+              <field name="work_email"/>
+              <field name="department_id"/>
+              <field name="job_id"/>
+              <field name="parent_id"/>
+          </list>
+      </field>
+    </record>
+  </data>
+</odoo>

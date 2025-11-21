@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="view_employee_leave_periodically_form" model="ir.ui.view">
+      <field name="name">employee.leave.period.form</field>
+      <field name="model">info3.hr.employee.annual.leave.periodically</field>  
+      <field name="arch" type="xml">
+        <form string="Godišnji odmori po mjesecima">
+          <group>
+            <field name="employee_id" readonly="1" />
+            <field name="department_id"/>
+            <field name="period" readonly="1"/>
+            <field name="used_leave" />
+          </group>
+        </form>
+      </field>
+    </record>
+    
+    <record id="view_employee_leave_periodically_tree" model="ir.ui.view">
+      <field name="name">employee.leave.period.tree</field>
+      <field name="model">info3.hr.employee.annual.leave.periodically</field>
+      <field name="arch" type="xml">
+        <list string="Godišnji odmori po mjesecima">
+          <field name="employee_id" />
+          <field name="department_id"/>
+          <field name="period" />
+          <field name="used_leave" />      
+        </list>
+      </field>
+    </record>
+
+    <record id="employee_leave_periodically_filter" model="ir.ui.view">
+      <field name="name">employee.leave.period.filter</field>
+      <field name="model">info3.hr.employee.annual.leave.periodically</field>
+      <field name="arch" type="xml">
+        <search string="Godišnji">
+          <field name="employee_id" string="Zaposlenici"/>
+          <field name="department_id" string="Odjel"/>
+          <group expand="0" string="Grupiraj po">
+              <filter string="Razdoblje" name="period" domain="[]" context="{'group_by':'period'}"/>
+              <filter string="Zaposlenik" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+              <filter string="Odjel" name="department" domain="[]" context="{'group_by':'department_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+    
+    <record id="action_employee_leave_periodically" model="ir.actions.act_window">
+      <field name="name">Godišnji odmori po mjesecima</field>
+      <field name="res_model">info3.hr.employee.annual.leave.periodically</field>
+      <field name="view_id" ref="view_employee_leave_periodically_tree"/>
+      <field name="search_view_id" ref="employee_leave_periodically_filter"/>
+    </record>
+
+    <record id="view_employee_leave_yearly_form" model="ir.ui.view">
+      <field name="name">employee.leave.yearly.form</field>
+      <field name="model">info3.hr.employee.annual.leave.year</field>
+      <field name="arch" type="xml">
+        <form string="Godišnji odmori po mjesecima">
+          <group>
+            <field name="employee_id" readonly="1"/>
+            <field name="department_id"/>
+            <field name="year" readonly="1"/>
+            <field name="old_leave" />
+            <field name="leave" />
+            <field name="total_leave" />
+            <field name="used_leave_qty" />
+            <field name="remaining_leave" />
+          </group>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_employee_leave_yearly" model="ir.ui.view">
+      <field name="name">employee.leave.yearly</field>
+      <field name="model">info3.hr.employee.annual.leave.year</field>
+      <field name="arch" type="xml">
+        <list string="Godišnji odmori po godinama">
+            <field name="employee_id" />
+            <field name="department_id"/>
+            <field name="year" />
+            <field name="old_leave" />
+            <field name="leave" />
+            <field name="total_leave" />
+            <field name="used_leave_qty" />
+            <field name="remaining_leave" />
+        </list>
+      </field>
+    </record>
+
+    <record id="employee_leave_yearly_filter" model="ir.ui.view">
+      <field name="name">employee.leave.yearly.filter</field>
+      <field name="model">info3.hr.employee.annual.leave.year</field>
+      <field name="arch" type="xml">
+        <search string="Godišnji">
+          <field name="employee_id" string="Zaposlenici"/>
+          <field name="department_id" string="Odjel"/>
+          <group expand="0" string="Group By">
+            <filter string="Godina" name="year" domain="[]" context="{'group_by':'year'}"/>
+            <filter string="Zaposlenik" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+            <filter string="Odjel" name="department" domain="[]" context="{'group_by':'department_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_employee_leave_yearly" model="ir.actions.act_window">
+      <field name="name">Godišnji odmor po godinama</field>
+      <field name="res_model">info3.hr.employee.annual.leave.year</field>
+      <field name="view_id" ref="view_employee_leave_yearly"/>
+      <field name="view_mode">list,form</field>
+      <field name="search_view_id" ref="employee_leave_yearly_filter"/>
+    </record>
+
+</odoo>

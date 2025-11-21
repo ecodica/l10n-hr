@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_add_inputs_on_payslip" model="ir.ui.view">
+      <field name="name">view.add.inputs.on.payslip</field>
+      <field name="model">hr.payslip.add.inputs.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Payslips by Employees">
+          <group>
+            <field name="code"/>
+            <field name="name" />
+            <field name="amount"/>
+            <field name="run_id" invisible="1"/>
+          </group>
+            <separator string="Employees" colspan="4"/>
+            <newline/>
+              <field  name="employee_ids" nolabel="1" domain="[('payslip_id.payslip_run_id','=', run_id)]" colspan="2">
+                <list string="Employees" editable="bottom" create="false">
+                <field name="employee_id" readonly="1" />
+                <field name="payslip_id" column_invisible="1"/>
+                <field name="contract_id" column_invisible="1" />
+                <field name="code" readonly="1" force_save="1"/>
+                <field name="amount" sum="Sum"/>
+              </list>
+            </field>
+          <footer>
+            <button string="Add" name="add_inputs_on_payslip" type="object" class="oe_highlight"/>
+            <button string="Cancel" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_add_inputs_on_payslip" model="ir.actions.act_window">
+      <field name="name">Add inputs on paylips</field>
+      <field name="res_model">hr.payslip.add.inputs.wizard</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_add_inputs_on_payslip"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

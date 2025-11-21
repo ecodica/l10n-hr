@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="hr.salary.rule" name="set_defaults_on_install">
+            <value model="hr.salary.rule" search="[]"/>
+        </function>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_hr_joppd_sifre_user,l10n.hr.joppd.sifre.hr_user,model_l10n_hr_joppd_sifre,base.group_user,1,0,0,0
+access_l10n_hr_joppd_sifre_manager,l10n.hr.joppd.sifre.manager,model_l10n_hr_joppd_sifre,group_hr_joppd_form_manager,1,1,1,1
+access_hr_joppd_form_user,hr.joppd.form.user,model_hr_joppd_form,base.group_user,1,0,0,0
+access_hr_joppd_form_manager,hr.joppd.form.manager,model_hr_joppd_form,group_hr_joppd_form_manager,1,1,1,1
+access_hr_joppd_form_a_user,hr.joppd.form.a.user,model_hr_joppd_form_a,base.group_user,1,0,0,0
+access_hr_joppd_form_a_manager,hr.joppd.form.a.manager,model_hr_joppd_form_a,group_hr_joppd_form_manager,1,1,1,1
+access_hr_joppd_form_b_user,hr.joppd.form.b.user,model_hr_joppd_form_b,base.group_user,1,0,0,0
+access_hr_joppd_form_b_manager,hr.joppd.form.b.manager,model_hr_joppd_form_b,group_hr_joppd_form_manager,1,1,1,1
+access_hr_joppd_form_check_line_user,hr.joppd.form.check.line.user,model_hr_joppd_form_check_line,base.group_user,1,0,0,0
+access_hr_joppd_form_check_line,hr.joppd.form.check.line,model_hr_joppd_form_check_line,group_hr_joppd_form_manager,1,1,1,1
+access_hr_report_user,hr.report.user,model_hr_report,base.group_user,1,0,0,0
+access_hr_report_manager,hr.report.manager,model_hr_report,group_hr_joppd_form_manager,1,1,1,1
+access_hr_report_line_user,hr.report.line.user,model_hr_report_line,base.group_user,1,0,0,0
+access_hr_report_line_manager,hr.report.line.manager,model_hr_report_line,group_hr_joppd_form_manager,1,1,1,1
+access_update_joppd_form_b_lines,update.joppd.form.b.lines.manager,model_update_joppd_form_b_lines,group_hr_joppd_form_manager,1,1,1,1

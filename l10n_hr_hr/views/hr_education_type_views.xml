@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="education_type_view_ui" model="ir.ui.view">
+            <field name="name">hr.education.type.tree</field>
+            <field name="model">hr.education.type</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="eko_level"/>
+                    <field name="hko_level"/>
+                    <field name="qualification_type"/>
+                    <field name="qualification_point_type"/>
+                    <field name="volume_points"/>
+                    <field name="qualification_description"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="education_type_formview_ui" model="ir.ui.view">
+            <field name="name">hr.education.type.form</field>
+            <field name="model">hr.education.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="eko_level"/>
+                            <field name="hko_level"/>
+                            <field name="qualification_type"/>
+                            <label for="volume_points"/>
+                            <div class="o_row">
+                                <field name="qualification_point_type" nolabel="1"/>
+                                <field name="volume_points" nolabel="1"/>
+                            </div>
+                            <field name="qualification_description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="open_view_education_type" model="ir.actions.act_window">
+            <field name="name">Education Type</field>
+            <field name="res_model">hr.education.type</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <menuitem
+            id="menu_view_education_type"
+            action="open_view_education_type"
+            parent="hr_submenu_view_employees"
+            sequence="10"/>
+    </data>
+</odoo>

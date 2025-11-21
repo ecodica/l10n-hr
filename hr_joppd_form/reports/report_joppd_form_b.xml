@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="joppd_form_b">
+        <t t-call="web.basic_layout">
+            <t t-foreach="docs" t-as="o">
+                <style>
+                    * {
+                        line-height: 15px;
+                        font-size: 10px !important;
+                        margin: 0 !important;
+                        padding: 1px !important;
+                    }
+
+                    .color {
+                        background-color: #E2DDED;
+                    }
+
+                    .table {
+                        width: 100%;
+                        margin: 100px auto;
+                    }
+
+                    td {
+                        vertical-align: middle !important;
+                        text-align: center !important;
+                    }
+
+                    table, tr, td {
+                        border: 1px solid black;
+                        border-collapse: collapse;
+                        page-break-inside: avoid !important;
+                    }
+
+                    table td {
+                        border-top: 1px solid black !important;
+                    }
+
+                    table {
+                        table-layout: fixed;
+                        box-sizing: border-box;
+                        width: 100%;
+                        margin: 0 auto;
+                    }
+                
+                    .row-container{
+                        page-break-inside: avoid !important;
+                    }
+                    * {
+                        box-sizing: border-box;
+                        border-collapse: collapse;
+                    }
+                </style>
+
+                <!-- I, II, III and IV need to be vertically aligned so we aligned I, II, III to the bottom of their divs -->
+                <div class="header">
+                    <div class="row"  style="font-size: 10px !important;">
+                        <div class="col-3">
+                            <span style="position: absolute; bottom: 0;">I. OIB podnositelja izvješća: <span t-field="o.company_id.company_registry"/></span>
+                        </div>
+                        <div class="col-3">
+                            <span style="position: absolute; bottom: 0;">II. Oznaka izvješća: <span t-field="o.oznaka"/></span>
+                        </div>
+                        <div class="col-3">
+                            <span style="position: absolute; bottom: 0;">III. Vrsta izvješća: <span t-field="o.vrsta"/></span>
+                        </div>
+                        <div class="col-3 text-right" align="right">
+                            <span>-Stranica B-</span><br/>
+                            <span>IV. Redni broj stranice
+                                <span class="page"/>
+                                /
+                                <span class="topage"/>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                        
+                <div class="page">
+                    <table>
+                        <colgroup>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/><col width="1.66%"/>
+                            <col width="1.66%"/>
+                        </colgroup>
+                        <table class="row-container" style="border:0px;">
+                            <tr class="color">
+                                <td colspan="3" rowspan="2"><span>1. Redni broj</span></td>
+                                <td colspan="2">2. Šifra općine / grada prebivališta / boravišta</td>
+                                <td colspan="4">4. OIB stjecatelja / osiguranika</td>
+                                <td colspan="3">6.1. Oznaka stjecatelja / osiguranika</td>
+                                <td colspan="3">7.1. Obveza dodatnog doprinosa za MO za staž s povećanim trajanjem</td>
+                                <td colspan="3">8. Oznaka prvog / zadnjeg mjeseca u osiguranju po istoj osnovi</td>
+                                <td colspan="3">10. Ukupni sati rada prema kojima se radi obračun</td>
+                                <td colspan="3">10.0. Ukupni neodrađeni sati rada (10.-odrađeni sati rada)</td>
+                                <td colspan="3">11. Iznos primitka (oporezivi)</td>
+                                <td colspan="3">12.1. Doprinos za mirovinsko osiguranje</td>
+                                <td colspan="3">12.3. Doprinos za zdravstveno osiguranje</td>
+                                <td colspan="3">12.5. Doprinos za zapošljavanje</td>
+                                <td colspan="3">12.7. Dodatni doprinos za mirovinsko osiguranje za staž osiguranja koji se računa s povećanim trajanjem - II STUP</td>
+                                <td colspan="3">
+                                    <t t-if="o.datum > datetime.datetime(2023, 12, 31).date()">
+                                        12.9. Iznos umanjenja osnovice
+                                    </t>
+                                    <t t-else="">
+                                        12.9.Poseban doprinos za zapošljavanje osoba s invaliditetom
+                                    </t>
+                                </td>
+                                <td colspan="3">13.2. Izdatak - uplaćeni doprinos za mirovinsko osiguranje</td>
+                                <td colspan="3">13.4. Osobni odbitak</td>
+                                <td colspan="3">14.1. Iznos obračunanog poreza na dohodak</td>
+                                <td colspan="3">15.1. Oznaka neoporezivog primitka</td>
+                                <td colspan="3">16.1. Oznaka načina isplate</td>
+                                <td colspan="3">17. Obračunani primitak od nesam. rada (plaća)</td>
+                            </tr>
+                            <tr class="color">
+                                <td colspan="2">3. Šifra općine / grada rada</td>
+                                <td colspan="4">5. Ime i prezime stjecatelja / osiguranika</td>
+                                <td colspan="3">6.2. Oznaka primitka / obveze doprinosa</td>
+                                <td colspan="3">
+                                    <t t-if="o.datum > datetime.datetime(2023, 12, 31).date()">
+                                        7.2. Tip umanjenja osnovice
+                                    </t>
+                                    <t t-else="">
+                                        7.2. Obveza posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom
+                                    </t>
+                                </td>
+                                <td colspan="3">9. Oznaka punog / nepunog radnog vremena ili rada s polovicom radnog vremena</td>
+                                <td colspan="3">10.1. Razdoblje obračuna od</td>
+                                <td colspan="3">10.2.Razdoblje obračuna do</td>
+                                <td colspan="3">12. Osnovica za obračun doprinosa</td>
+                                <td colspan="3">12.2. Doprinos za mirovinsko osiguranje - II STUP</td>
+                                <td colspan="3">12.4. Doprinos za zaštitu zdravlja na radu</td>
+                                <td colspan="3">12.6. Dodatni doprinos za mirovinsko osig. za staž osiguranja koji se računa s povećanim trajanjem</td>
+                                <td colspan="3">12.8. Poseban doprinos za korištenje zdravstvene zaštite u inozemstvu</td>
+                                <td colspan="3">13.1. Izdatak</td>
+                                <td colspan="3">13.3. Dohodak</td>
+                                <td colspan="3">13.5. Porezna osnovica</td>
+                                <td colspan="3">14.2. Iznos obračunanog prireza porezu na dohodak</td>
+                                <td colspan="3">15.2. Iznos neoporezivog primitka</td>
+                                <td colspan="3">16.2. Iznos za isplatu</td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </table>
+                        <t t-foreach="o.stranaB_ids" t-as="line">
+                            <table class="row-container" style="border:0px; ">
+                                <tr>
+                                    <td colspan="3" rowspan="2"><span t-field="line.b1" t-if="line.b1"/></td>
+                                    <td colspan="2"><span t-field="line.b2.code" t-if="line.b2.code"/></td>
+                                    <td colspan="4"><span t-field="line.b4" t-if="line.b4"/></td>
+                                    <td colspan="3"><span t-field="line.b61.name" t-if="line.b61.name"/></td>
+                                    <td colspan="3"><span t-esc="line.b71" t-if="line.b71"/></td>
+                                    <td colspan="3"><span t-esc="line.b8" t-if="line.b8"/></td>
+                                    <td colspan="3"><span t-field="line.b10" t-if="line.b10" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b100" t-if="line.b100" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b11" t-if="line.b11" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b121" t-if="line.b121" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b123" t-if="line.b123" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b125" t-if="line.b125" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b127" t-if="line.b127" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b129" t-if="line.b129" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b132" t-if="line.b132" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b134" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b141" t-if="line.b141" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b151.name" t-if="line.b151.name"/></td>
+                                    <td colspan="3"><span t-field="line.b161.name" t-if="line.b161.name"/></td>
+                                    <td colspan="3"><span t-field="line.b17" t-if="line.b17" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><span t-field="line.sudo().b3.code" t-if="line.sudo().b3.code"/></td>
+                                    <td colspan="4"><span t-if="line.hr_employee_id"
+                                        t-esc="line.hr_employee_id._get_display_name_format('first_name_first').format(line.hr_employee_id.first_name, line.hr_employee_id.last_name)"/></td>
+                                    <td colspan="3"><span t-field="line.b62.name" t-if="line.b62.name"/></td>
+                                    <td colspan="3"><span t-esc="line.b72" t-if="line.b72"/></td>
+                                    <td colspan="3"><span t-esc="line.b9" t-if="line.b9"/></td>
+                                    <td colspan="3"><span t-field="line.b101" t-if="line.b101"/></td>
+                                    <td colspan="3"><span t-field="line.b102" t-if="line.b102"/></td>
+                                    <td colspan="3"><span t-field="line.b12" t-if="line.b12" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b122" t-if="line.b122" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b124" t-if="line.b124" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b126" t-if="line.b126" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b128" t-if="line.b128" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b131" t-if="line.b131" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b133" t-if="line.b133" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b135" t-if="line.b135" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b142" t-if="line.b142" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b152" t-if="line.b152" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"><span t-field="line.b162" t-if="line.b162" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </table>
+                        </t>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

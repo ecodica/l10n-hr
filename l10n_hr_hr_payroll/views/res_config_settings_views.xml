@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payroll_custom_res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">payroll.custom.res.config.settings.form.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="45"/>
+        <field name="inherit_id" ref="l10n_hr_payroll_base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//block[@name='payroll_block']" position="after">
+                <block title="Učitaj predefinirane postavke obračuna plaća">
+                    <setting id="set_payroll_defaults_button" string="Učitaj predefinirane vrijednosti postavka za plaće" help="Ova akcija je nepovratna!" >
+                        <button name="set_l10n_hr_payroll_defaults" type="object" string="Ponovno učitaj" class="btn-secondary ps-2" icon="fa-warning"
+                                title="Ponovno učitaj postavke plaća. Ova akcija je nepovratna." confirm="Ova akcija će učitati predefinirane vrijednosti svih polja vezanih za obračun plaće. Ova akcija je NEPOVRATNA. Želite li nastaviti?"/>
+                    </setting>
+                </block>
+                <block title="Postavke obračuna plaće" name="payroll_settings_container">
+                    <setting id="calculate_salary_by_coefficient" company_dependent="1" string="Izračun plaće na temelju koeficijenta" help ="Osnovica za plaću">
+                        <field name="i3_config_calculate_salary_by_coefficient"/>
+                        <field name="i3_config_base_salary" invisible="not i3_config_calculate_salary_by_coefficient" />
+                    </setting>
+                    <setting id="annual_leave_wage" company_dependent="1" string="Računaj godišnji odmor prema satnici" help ="Broj mjeseci za izračun prosječne satnice za godišnji">
+                        <field name="i3_config_use_avg_hourly_wage_for_annual_leave_calculation"  />
+                        <field name="i3_config_annual_leave_wage_number_of_months" invisible="not i3_config_use_avg_hourly_wage_for_annual_leave_calculation"/>
+                    </setting>
+                    <setting id="send_contract_expiration" company_dependent="1" string="Ugovori u isteku" help="Šalji mail o ugovorima u isteku (Broj dana prije isteka ugovora)">
+                        <field name="i3_config_send_contract_expiration"/>
+                        <field name="i3_config_send_contract_expiration_time" />
+                        <div>
+                            <button class="oe_stat_button" name="i3_config_send_contract_expiration_email" icon="fa-envelope " string="Pošalji mail sada" type="object"/>
+                        </div>
+                    </setting>
+                    <setting id="send_payslips_by_email" company_dependent="1" string="Slanje IP1 obrasca mailom" help="Omogući opciju slanja IP1 obrasla mailom">
+                        <field name="hr_config_send_payslips_by_email"/>
+                    </setting>
+                    <setting id="max_annual_leave" company_dependent="1" string="Godišnji odmor" help="Maksimalna količina godišnjeg odmora">
+                        <field name="i3_config_max_annual_leave"/>
+                    </setting>
+                </block>
+                <block title="Bonusi" name ="payroll_bonuses">
+                    <setting company_dependent="1" string="Rođenje djeteta" help="Maksimalni iznos naknade za rođenje djeteta" id="max_child_birth_fee" >
+                        <field name="i3_config_max_child_birth_fee"/>
+                    </setting>
+                    <setting id="practice" company_dependent="1" string ="Praksa" help ="Praksa - naknade učenicima">
+                        <field name="i3_config_max_apprenticeship_amount"/>
+                    </setting>
+                    <setting id ="scholarship" string ="Stipendije i potpora djetetu" company_dependent="1" help="SKOL - Stipendije i potpora djetetu">
+                        <field name="i3_config_max_scholarship_amount"/>
+                    </setting>
+                    <setting string="Prigodne nagrade" help ="PN22 - Prigodne nagrade" id="prizes_occasional_occurrence" company_dependent="1">
+                        <field name="i3_config_taxless_bonus_amount"/>
+                    </setting>
+                    <setting string="Nagrade za radne rezultate" help="NAG - Nagrade za radne rezultate" company_dependent="1">
+                        <field name="i3_config_max_taxless_reward_amount"/>
+                    </setting>
+                    <setting string ="Naknada za prehranu - Paušal" help="PREH65 - Paušalna naknada za prehranu" company_dependent="1">
+                        <field name="i3_config_max_undocumented_lunch_fee_amount"/>
+                    </setting>
+                    <setting string ="Naknada za prehranu - Dokumentacija" help ="Naknada za prehranu na temelju dokumentacije" company_dependent="1">
+                        <field name="i3_config_max_documented_lunch_fee_amount"/>
+                    </setting>
+                    <setting string ="Odmor radnika" help ="ODM - Odmor radnika (regres)" company_dependent="1">
+                        <field name="i3_config_max_vacation_amount"/>
+                    </setting>
+                    <setting company_dependent="1" string="Naknada za rad na izdvojenom mjestu" help="RADIZDVMJ - mjesečna naknada za rad na izdvojenom mjestu">
+                        <field name="i3_config_max_remote_work_fee_amount"/>
+                    </setting>
+                    <setting company_dependent="1" string="Premije - osiguranja" help ="PREMZDROSIG - Premije dodatnog i dopunskog zdravstvenog osiguranja">
+                        <field name="i3_config_max_supplementary_insurance"/>
+                    </setting>
+                </block>
+                <block title="Plaća, doprinosi i odbici ">
+                    <block title="Plaća">
+                        <setting id="minimal_wage" company_dependent="1" string="Minimalna plaća" help="Minimalna plaća">
+                            <field name="i3_config_minimal_wage"/>
+                        </setting>
+                        <setting id="average_wage" company_dependent="1" string="Prosječna plaća" help="Prosječna plaća za izračun obustava">
+                            <field name="i3_config_average_wage"/>
+                        </setting>
+                        <setting id="show_nonpaid_salary_options" company_dependent="1" string="Neisplaćena plaća" help="Prikaži opcije za neisplaćenu plaću" >
+                            <field name="i3_config_show_nonpaid_salary_options"/>
+                        </setting>
+                        <setting id="set_experiance_calculation_parameter" company_dependent="1" string="Način obračuna dodatka na staž" help="Postavi opciju za obračun dodatka na staž" title="Odaberi način obračuna dodatka na staž prema odabranom parametru. Staž se upisuje na formi zaposlenika pod karticom 'Staž'." >
+                            <field name="i3_config_calculate_experiance_allowance" widget="radio" />
+                        </setting>
+                    </block>
+                    <block title="Doprinosi">
+                        <setting company_dependant="1" string="Osnovica za doprinose (Min)" help="Minimalna mjesečna osnovica za doprinose">
+                            <field name="i3_config_min_contributions_base"/>
+                        </setting>
+                        <setting company_dependent="1" string="Osnovica za doprinose - uprava (Min)" help="Minimalna mjesečna osnovica za doprinose za članove uprave" >
+                            <field name="i3_config_min_contributions_base_directors"/>
+                        </setting>
+                        <setting company_dependent="1" string="Osnovica za doprinose (Max)" help="Maksimalna mjesečna osnovica za doprinose">
+                            <field name="i3_config_max_contributions_base"/>
+                        </setting>
+                        <setting company_dependent="1" string="Doprinosi - zdravstvo"  help="Doprinos za zdravstveno osiguranje (%)">
+                            <field name="i3_config_health_insurance_contribution_pct"/>
+                        </setting>
+                        <setting company_dependent="1" string="Doprinosi - zdravstvo (Drugi dohodak)" help="Doprinos za zdravstveno osiguranje - drugi dohodak (%)">
+                            <field name="i3_config_health_insurance_contribution_pct_additional_income"/>
+                        </setting>
+                    </block>
+                    <block title="Postavke umanjenja osnovica za doprinose" id="contributions" >
+                        <setting company_dependent="1" title="Donja granica" help="Donja granica za umanjenje osnovice za doprinose" >
+                            <field name="hr_config_contributions_base_deduction_limit_1"/>
+                        </setting>
+                        <setting company_dependent="1" title="Gornja granica" help="Gornja granica za umanjenje osnovice za doprinose">
+                            <field name="hr_config_contributions_base_deduction_limit_2"/>
+                        </setting>
+                        <setting company_dependent="1" title="Fiksni iznos" help="Fiksni iznos umanjenja osnovice za doprinose">
+                            <field name="hr_config_contributions_base_deduction_fixed_amount"/>
+                        </setting>
+                    </block>
+                    <block title="Osnovica osobnog odbitka" id="contributions_deduction">
+                        <setting company_dependent="1" string="Osnovica" help="Osnovica osobnog odbitka">
+                            <field name="i3_config_osnovica"/>
+                        </setting>
+                        <setting company_dependent="1" string="Osnovica - članovi obitelji" help="Osnovica za uzdržavane članove i djecu">
+                            <field name="i3_config_osnovica_uzdrzavani"/>
+                        </setting>
+                    </block>
+                </block>
+                <block title="Porezi" id="taxes">
+                    <setting company_dependent="1" string="Raspon" help="Raspon prvog poreznog razreda">
+                        <field name="i3_config_razred_1"/>
+                    </setting>
+                    <setting company_dependent="1" string="Prvi porezni razred" help ="Postotak poreza za 1. porezni razred (%)">
+                        <field name="i3_config_razred_1_posto"/>
+                    </setting>
+                    <setting company_dependent="1" string="Drugi porezni razred" help ="Postotak poreza za 2. porezni razred (%)">
+                        <field name="i3_config_razred_2_posto"/>
+                    </setting>
+                    <setting company_dependent="1" string="Dohodak od kapitala" help ="Postotak za 1. razred poreza na dohodak od kapitala (%)">
+                        <field name="i3_config_capital_gain_1_pct"/>
+                    </setting>
+                </block>
+                <block title="Bolovanja" id="sick_leave">
+                    <block title="Neto iznos naknade za bolovanje">
+                        <setting company_dependent="1" string="Naknade za bolovanje (Neto)" help="Minimalni neto iznos naknade za bolovanje">
+                            <field name="i3_config_min_sick_leave_fee_net"/>
+                        </setting>
+                        <setting company_dependent="1" string="Naknade za bolovanje (Neto)" help="Maksimalni neto iznos naknade za bolovanje">
+                            <field name="i3_config_max_sick_leave_fee_net"/>
+                        </setting>
+                        <setting company_dependent="1" string="Bolovanje na fond (Bez prosjeka plaće)" help ="Minimalna mjesečna osnovica za bolovanje na FOND kad nema prosjeka dvije isplaćene plaće">
+                            <field name="i3_config_min_sickleave_min_base"/>
+                        </setting>
+                        <setting string="Bolovanje na teret poslodavca" help="Način izračuna bolovanja na teret poslodavca">
+                            <field name="hr_config_sick_leave_company_calc_method"/>
+                        </setting>
+                    </block>
+                    <block title ="Bolovanje na teret poslodavca">
+                        <setting company_dependent="1" string="Izračun prosječne satnice" help ="Broj mjeseci za izračun prosječne satnice">
+                            <field name="i3_config_sick_leave_number_of_months"/>
+                        </setting>
+
+                        <setting string="Postotak za izračun" help="Postotak za izračun bolovanja na teret poslodavca (%)">
+                            <field name="i3_config_sick_leave_company_percentage"/>
+                        </setting>
+                    </block>
+                </block>
+                <block title="Osobe s invaliditetom (OSI)" id="disability_fee">
+                    <setting company_dependent="1" string="Minimalni broj zaposlenika" help="Minimalni broj zaposlenika">
+                        <field name="i3_config_disability_fee_min_number_of_employees"/>
+                    </setting>
+                    <setting company_dependent="1" string="Udio minimalne plaće" help="Udio minimalne plaće za izračun naknade">
+                        <field name="i3_config_disability_fee_percentage"/>
+                    </setting>
+                    <setting company_dependent="1" string="Potrebna kvota" help="Potrebna kvota zaposlenih osoba s invaliditetom u postotku (%)">
+                        <field name="i3_config_disability_quota_percentage"/>
+                    </setting>
+                    <setting company_dependent="1" string="Knjiži naknadu (OSI)" help="Knjiži naknadu za osobe s invaliditetom" >
+                        <field name="i3_config_disability_fee_crediting"/>
+                    </setting>
+                    <setting company_dependent="1"  string="Potražni konto" help=" Potražni konto za knjiženje naknade (OSI)" invisible="i3_config_disability_fee_crediting == False" required="i3_config_disability_fee_crediting == True">
+                        <field name="i3_config_account_credit_disability"/>
+                    </setting>
+                    <setting company_dependent="1"  string="Dugovni konto" help=" Dugovni konto za knjiženje naknade (OSI)" invisible="i3_config_disability_fee_crediting == False" required="i3_config_disability_fee_crediting == True">
+                        <field name="i3_config_account_debit_disability"/>
+                    </setting>
+                </block>
+                <block company_dependent="1" title="Analitičko računovodstvo" id="analytic_accounting">
+                    <setting id="analytic_distribution_account_type" string="Vrste konta za analitičku raspodjelu" help ="Ove vrste konta će se raspodijeliti analitički kod isplate plaće temeljem postavki na zaposleniku.">
+                    </setting>
+                    <field name="i3_config_analytic_distribution_account_type_ids"/>
+                </block>
+                <block title="SEPA konfiguracija">
+                    <setting company_dependent="1" id="batch_booking" string="Batch booking" help="Koristi batch booking za SEPA">
+                        <field name="i3_config_batch_booking"/>
+                    </setting>
+                    <setting id="batch_booking_end_to_end" company_dependent="1" string="End to end za SEPA nalog" help="Nemoj koristiti end to end za SEPA">
+                        <field name="i3_config_use_end_to_end"/>
+                    </setting>
+                    <setting id="sepa_pain_type" company_dependent="1" string="SEPA PAIN format" help="SEPA PAIN format za obračun plaća">
+                        <field name="i3_config_sepa_pain_type"/>
+                    </setting>
+                </block>
+                <block title="Putni troškovi" id="travel_expenses">
+                    <setting company_dependent="1" id="sick_hours_travel" string="Putni troškovi - bolovanje" help="Nemoj uračunati bolovanje za putne troškove">
+                        <field name="i3_config_sick_hours_travel"/>
+                    </setting>
+                    <setting company_dependent="1" string="Ručni unos putnih troškova" help="Omogući ručni unos putnih troškova na isplatnom listiću">
+                        <field name="i3_config_payslip_transport_amount_manual_input"/>
+                    </setting>
+                </block>
+                <block id="payslip" title="Isplatni listić">
+                    <setting id="print_work_exp_on_payslip" string="Staž" help="Ispiši staž na listić" company_dependent="1">
+                        <field name="i3_config_print_work_exp_on_payslip"/>
+                    </setting>
+                    <setting company_dependent="1" string="Neto naknade" help="Ispiši neto naknade bez isplate na listić ">
+                        <field name="hr_config_print_nonpaid_netto_fees_on_payslip_report"/>
+                    </setting>
+                    <setting company_dependent="1" string="Ukupni trošak plaće" help="Ispiši ukupni trošak plaće na listić">
+                        <field name="hr_config_print_brutto2_on_payslip"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

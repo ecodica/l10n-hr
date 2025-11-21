@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+    <!-- add group so only users with holidays access see menuitem -->
+    <record id="hr_holidays.action_hr_holidays_summary_employee" model="ir.actions.act_window">
+        <field name="groups_id" eval="[(6,0,[ref('hr_holidays.group_hr_holidays_user')])]"/>
+    </record>
+
+    <record id="edit_holiday_status_form_inherit" model="ir.ui.view">
+        <field name="name">hr.leave.type.form.inherit</field>
+        <field name="model">hr.leave.type</field>
+        <field name="inherit_id" ref="hr_holidays.edit_holiday_status_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='time_type']" position="after">
+                <field name="i3_leave_type"/>
+            </xpath>
+        </field>
+        
+    </record>
+</odoo>

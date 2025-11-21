@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<template id="report_hr_payslip_confirmation">
+    <t t-call="web.basic_layout">
+        <div class="page" style="border:1px solid black;">
+            <style>
+            .bold{
+                font-weight:Bold;
+                font-size:12px;
+            }
+
+            #header-general{
+                height:100px;
+                margin-top:0px;
+                background-color:white;
+            }
+            #header-employee{
+                background-color:white;
+                height:200px;
+            }
+            .border-right{
+                border-right:1px solid black !important;
+            }
+            .border-bottom{
+                border-bottom:1px solid black !important;
+            }
+            .row{
+                margin:0 !important;
+                padding:0 !important;
+            }
+            .container{
+                margin:0 !important;
+                padding:0 !important;
+                font-family:Helvetica;
+                font-size: 10pt;
+            }
+            .no-padding{
+                padding:0px;
+            }
+            .no-margin{
+                margin:0px;
+            }
+            .padding-top-left-sm{
+                padding-left:5px;
+                padding-top:5px;
+            }
+            p{
+                margin:0;
+                padding:0;
+            }
+            #additional-data{
+                height:115px;
+            }
+            #additional-data-footer{    
+                height:200px;
+            }
+            #payroll-data{
+                height:450px;
+            }
+            tr{
+                height:35px;
+            }
+            .border-right{
+                border-right:1px solid black;
+            }
+            table.table-bordered{
+                border:1px solid black;
+                border-right:0px;
+                border-left:0px;
+            }
+            table.table-bordered > thead > tr > th{
+                border:1px solid black !important;
+                text-align:center;
+            }
+            table.table-bordered > thead > tr > th:last-child{
+                border-left:0 !important;
+                border-right:0 !important;
+            }
+            table.table-bordered > thead > tr > th:first-child{
+                border-left:0 !important;
+                border-right:0 !important;
+            }
+
+            table.table-bordered > tbody > tr > td{
+                border:1px solid black !important;
+                text-align:right;
+            }
+
+            table.table-bordered > tbody > tr > td:last-child{
+                border-left:0 !important;
+                border-right:0 !important;
+            }
+            table.table-bordered > tbody > tr > td:first-child{
+                text-align:left;
+                border-left:0 !important;
+                border-right:0 !important;
+            }
+            
+            table.table-bordered > tbody > tr:first-child > td{
+                text-align:center;
+            }
+            * {
+                box-sizing: border-box;
+                border-collapse: collapse;
+            }
+            </style>
+            <!-- page start -->
+            <div class = "container">
+                <div id="header-general" class="row">
+                    <div class="col-3 border-right no-padding no-margin">
+                        <div class="border-bottom  padding-top-left-sm" style="height:50px;">
+                            <p class="bold" >
+                                NAZIV OBVEZNIKA I UPLATE DOPRINOSA
+                            </p>
+                        </div>
+                        <div class="border-bottom" style="height:50px;"> 
+                            <p class="bold padding-top-left-sm" style="padding-top:13px;"> 
+                                Broj obveze:
+                            </p>
+                        </div>
+                        </div>
+
+                        <div class="col-4 border-right no-padding no-margin">
+                        <div class="border-bottom  padding-top-left-sm" style="height:50px;">
+                            <p class="bold" style="text-align:center;padding-top:20px;" t-esc="company.name"></p>
+                        </div>
+                        <div class="border-bottom" style="height:50px;"> 
+                            <p class="bold" style="text-align:center;padding-top:20px" t-esc="company.hzzo_commitment_number"></p>
+                        </div>
+                        </div>
+                        <div class="col-5 border-bottom">
+                            <p class="bold" style="font-size:15px; text-align:center;padding-top:65px">
+                                POTVRDA o plaći
+                            </p>
+                        </div>
+                </div>
+                    
+                <div class="row" id="header-employee" >
+                        <div class="border-right col-6">
+                            <div>
+                                <p class="bold">
+                                        1. PODACI O OSIGURANIKU
+                                </p>
+                                
+                                <div class="row">
+                                    <p class="col-6">
+                                        Prezime:
+                                    </p>
+                                    <span  t-esc="employee.last_name"/>
+                                </div>
+
+                                <br></br>
+                                <div class="row">
+                                    <p class="col-6">
+                                        Dan, mjesec,<br></br>
+                                        godina rođenja:
+                                    </p>
+                                    <!-- added sudo because birthday is accessible only for hr_user and we want hr_payroll_user to be able to print -->
+                                    <span t-esc="employee.sudo().birthday" t-options="{'widget': 'date'}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="padding-top-left-sm col-6" style="margin-top:15px">
+                            <div class="row">
+                                <p class="col-5">
+                                    Ime:
+                                </p>
+                                <span class="col-7 no-padding" t-esc="employee.first_name"/>
+                            </div>
+
+                            <br></br>
+                            <div class="row">
+                                <p class="col-5">
+                                    OIB:
+                                </p>
+                                <span class="col-7 no-padding" t-esc="employee.oib"/>
+                            </div>
+                            <br></br>
+
+                            <div class="row">
+                                <p class="col-5">
+                                    MBO <br></br>
+                                    osigurane <br></br>
+                                    osobe:
+                                </p>
+                                <span class="col-7 no-padding"><br></br><br></br><span  t-esc="employee.hzmo_id"/></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="additional-data container-fluid" style="border-top:1px solid black;">
+                    <div style="height:35px;" class="border-bottom padding-top-left-sm col-12">
+                        <p class="padding-top-left-sm" style="padding-top:2px;">
+                            Osiguranik indiviudalne kapitalizirane štednje - II stup mirovinskog osiguranja: <span t-esc="mio"/>
+                        </p>
+                    </div>
+                    <div style="height:80px;">
+                        <div class="padding-top-left-sm">
+                            <p class="bold">
+                                2. PODACI O IZNOSIMA PLAĆE KOJA JE OSIGURANIKU ISPLAĆENA U POSLJEDNJIH ŠEST MJESECI
+                                PRIJE MJESECA U KOJEM JE NASTUPIO SLUČAJ NA OSNOVI KOJEG SE STJEČE PRAVO NA NAKNADU
+                             </p>
+                        </div>
+                        <div class="padding-top-left-sm">
+                            <p>
+                                tj. u razdoblju od <span t-esc="date_from" t-options="{'widget': 'date'}"/> do <span t-esc="date_to" t-options="{'widget': 'date'}"/>, a za mjesece:
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <table class="table table-sm table-bordered">
+                     <thead class="thead">
+                        <tr>
+                            <th rowspan="4"><p>Isplata izvršena za mj./god</p></th>
+                            <th rowspan="4"><p>Plaća</p></th>
+                            <th rowspan="4"><p>Isplaćena plaća</p></th>
+                            <th colspan="6"><p>Broj sati</p></th>
+                        </tr>
+                        <tr>
+                            <th colspan="2"><p>provedenih na radu u</p></th>
+                            <th rowspan="3"><p>Odsutnost s rada s pravom na naknadu plaće po ZOR-u</p></th>
+                            <th rowspan="3"><p>Ukupno sati</p></th>
+                            <th rowspan="3"><p>Sati privremene nesposobnosti na teret HZZO</p></th>
+                            <th rowspan="3"><p>Sati prema kalendaru radnog vremena</p></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p>punom radnom vremenu</p>
+                            </th>
+                            <th>
+                                <p>dužem od punog radnog vremena</p>
+                            </th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>1.</p>
+                            </td>
+                            <td>
+                                <p>2.</p>
+                            </td>
+                            <td>
+                                <p>3.</p>
+                            </td>
+                            <td>
+                                <p>4.</p>
+                            </td>
+                            <td>
+                                <p>5.</p>
+                            </td>
+                            <td>
+                                <p>6.</p>
+                            </td>
+                            <td>
+                                <p>7.</p>
+                            </td>
+                            <td>
+                                <p>8.</p>
+                            </td>
+                            <td>
+                                <p>9.</p>
+                            </td>
+                        </tr>
+
+                        <t t-foreach="data" t-as="slip">
+                            <tr>
+                                <td>
+                                    <span t-esc="slip['mon_year']" t-if="slip['brutto'] != '-' "/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['brutto']" t-if="slip['brutto'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['netto']" t-if="slip['netto'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['full_work']" t-if="slip['full_work'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['overtime']" t-if="slip['overtime'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['absence']" t-if="slip['absence'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['worked_hours']" t-if="slip['worked_hours'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['sick_leave']" t-if="slip['sick_leave'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td>
+                                    <span t-esc="slip['month_hours']" t-if="slip['month_hours'] != '-' " t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+
+                <div id="additional-data-footer container-fluid">
+                    <div style="height:150px;" class="padding-top-left-sm col-12">
+                        <p class="padding-top-left-sm bold">
+                            3. Osnovicu čini prosječni iznos plaće isplaćene u posljednjih šest mjeseci, a koja iznosi
+                            <span t-esc="data_footer['brutto_hour']" t-options="{'widget': 'float', 'precision': 2}"/> <span t-esc="currency.name"/> po satu
+                            brutto, odnosno <span t-esc="data_footer['netto_hour']" t-options="{'widget': 'float', 'precision': 2}"/> <span t-esc="currency.name"/> po satu netto.
+                        </p>
+                    </div>
+                    <div style="height:50px;" class="col-12 row">
+                        <div class="col-6">
+                            <p style="padding-left:5px;">
+                               <span t-esc="data_footer['city']"/>, <span t-esc="data_footer['date']" t-options="{'widget': 'date'}"/>
+                             </p>
+                        </div>
+                        <div class="col-6">
+                            <p style="margin-left:150px;">
+                                _____________________________________<br/>
+                                Ime i prezime / OIB odgovorne osobe
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin:5px;">
+                    <p class="font-weight-bold">Napomena:</p>
+                    <p>
+                        Plaće isplaćene do 31. prosinca 2022. godine iskazuju se u kunama, a plaće isplaćene od 1. siječnja 2023. godine iskazuju se u eurima.
+                        Iznosi isplaćeni u kunama za svaki pojedini mjesec preračunavaju se u eure te se zbrajaju s iznosima isplaćenim u eurima i dijele s ukupnim
+                        brojem sati za koje su isplaćene plaće u šestomjesečnom obračunskom razdoblju. Dobivena satna osnovica (bruto/neto) iskazuje se u eurima.
+                    </p>
+                </div>
+               
+            <!-- page end -->
+        </div>
+    </t>
+</template>
+
+</odoo>

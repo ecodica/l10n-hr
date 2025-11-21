@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- QWeb Reports & XLSX Reports -->
+
+    <record id="payslip_confirmation_report" model="ir.actions.report">
+        <field name="name">Potvrda o plaći</field>
+        <field name="model">info3.payslip.confirmation.form</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_hr_payslip_confirmation</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_hr_payslip_confirmation</field>
+        <field name="print_report_name">"Potvrda o plaći"</field>
+        <field name="binding_model_id" ref="model_info3_payslip_confirmation_form"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="tax_cities" model="ir.actions.report">
+        <field name="name">Porez po gradu</field>
+        <field name="model">payslip.run.reports.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_tax_city</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_tax_city</field>
+        <field name="print_report_name">"Porez po gradu"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="fees_earnings_report" model="ir.actions.report">
+        <field name="name">Izvještaj obračuna plaće</field>
+        <field name="model">payslip.run.reports.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_fees_earnings</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_fees_earnings</field>
+        <field name="print_report_name">"Izvještaj obračuna plaće"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+    <record id="hr_payslip_run_recap_report" model="ir.actions.report">
+        <field name="name">Rekapitulacija obračuna plaće</field>
+        <field name="model">payslip.run.reports.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_hr_payslip_run_recap</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_hr_payslip_run_recap</field>
+        <field name="print_report_name">"Rekapitulacija obračuna plaće"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="employee_recap_report" model="ir.actions.report">
+        <field name="name">Rekapitulacija po zaposleniku</field>
+        <field name="model">payslip.run.reports.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_employee_recap</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_employee_recap</field>
+        <field name="print_report_name">"Rekapitulacija po zaposleniku"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_landscape_low_margin"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+    <record id="employee_average_salary_report" model="ir.actions.report">
+        <field name="name">Prosjek plaće zaposlenika</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_employee_average_salary</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_employee_average_salary</field>
+        <field name="print_report_name">"Prosjek plaće zaposlenika"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_landscape_low_margin"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="additional_income_report" model="ir.actions.report">
+        <field name="name">Potvrda o drugom dohotku</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_additional_income</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_additional_income</field>
+        <field name="print_report_name">"Potvrda o drugom dohotku"</field>
+        <field name="binding_model_id" ref="model_hr_employee"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_landscape_low_margin"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="hr_payslip_run_suspensions_report" model="ir.actions.report">
+        <field name="name">Izvještaj obustava</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_hr_payslip_run_suspensions</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_hr_payslip_run_suspensions</field>
+        <field name="print_report_name">"Izvještaj obustava"</field>
+        <field name="binding_model_id" ref="model_hr_payslip_run"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="ip_form_report" model="ir.actions.report">
+        <field name="name">IP obrazac</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_ip_form</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_ip_form</field>
+        <field name="print_report_name">"IP obrazac"</field>
+        <field name="binding_model_id" ref="model_ip_report_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_landscape_low_margin"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="contributions_recap_report" model="ir.actions.report">
+        <field name="name">Rekapitulacija podataka za postupak kontrole</field>
+        <field name="model">hr.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_contributions_recap</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_contributions_recap</field>
+        <field name="print_report_name">"Rekapitulacija podataka za postupak kontrole"</field>
+        <field name="binding_model_id" ref="model_contributions_recap_report_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_landscape_low_margin"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="hr_report_work_statistics" model="ir.actions.report">
+        <field name="name">Obrazac RAD-1G</field>
+        <field name="model">work.statistics.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_work_statistics</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_work_statistics</field>
+        <field name="binding_model_id" ref="model_work_statistics_wizard"/>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_hr_payslip_run_suspensions_xlsx" model="ir.actions.report">
+        <field name="name">Obustave</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_run_suspensions_xlsx</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_run_suspensions_xlsx</field>
+        <field name="print_report_name">"Izvještaj obustava na obračunu"</field>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="report_employee_recap_xlsx" model="ir.actions.report">
+        <field name="name">Rekapitulacija plaća po djelatnicima</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_employee_recap_xlsx</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_employee_recap_xlsx</field>
+        <field name="print_report_name">"Rekapitulacija plaća po djelatnicima"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="report_tax_city_xlsx" model="ir.actions.report">
+        <field name="name">Porez po gradu</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_tax_city_xlsx</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_tax_city_xlsx</field>
+        <field name="print_report_name">"Izvještaj poreza po gradu"</field>
+        <field name="binding_model_id" ref="model_hr_payslip_run"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="hr_payslip_run_recap_report_xlsx" model="ir.actions.report">
+        <field name="name">Rekapitulacija obračuna plaće</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hr_hr_payroll.hr_payslip_run_recap_report_xlsx</field>
+        <field name="report_file">l10n_hr_hr_payroll.hr_payslip_run_recap_report_xlsx</field>
+        <field name="print_report_name">"Izvještaj rekapitulacije obračuna plaće"</field>
+        <field name="binding_model_id" ref="model_hr_payslip_run"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="hr_payslip_fees_earning_report_xlsx" model="ir.actions.report">
+        <field name="name">Popis zarada i naknada</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">l10n_hr_hr_payroll.hr_payslip_fees_earning_report_xlsx</field>
+        <field name="report_file">l10n_hr_hr_payroll.hr_payslip_fees_earning_report_xlsx</field>
+        <field name="print_report_name">"Popis zarada i naknada"</field>
+        <field name="binding_model_id" ref="model_payslip_run_reports_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="ip1_form_report" model="ir.actions.report">
+        <field name="name">IP1 obrazac</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_ip1_form</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_ip1_form</field>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_medium_header_spacing"/>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="model_hr_payslip"/>
+    </record>
+
+    <record id="io1_report" model="ir.actions.report">
+        <field name="name">IO1 obrazac</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_io1</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_io1</field>
+        <field name="print_report_name">object._get_io1_report_base_filename()</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+        <field name="binding_model_id" ref="model_hr_payslip"/>
+    </record>
+
+    <record id="hr_payslip_forced_payment_request_report" model="ir.actions.report">
+        <field name="name">ZPN1 obrazac</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_payslip_forced_payment_request</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_payslip_forced_payment_request</field>
+        <field name="print_report_name">object._get_zpn1_report_base_filename()</field>
+        <field name="binding_model_id" ref="model_payslip_forced_payment_request_wizard"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+    </record>
+
+    <record id="no1_report" model="ir.actions.report">
+        <field name="name">NO1 obrazac</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_hr_hr_payroll.report_no1</field>
+        <field name="report_file">l10n_hr_hr_payroll.report_no1</field>
+        <field name="print_report_name">object._get_no1_report_base_filename()</field>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="l10n_hr_hr_payroll.paperformat_a4_lower_margin_no_header_spacing"/>
+    </record>
+</odoo>

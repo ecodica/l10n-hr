@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_netto_to_brutto_wizard" model="ir.ui.view">
+      <field name="name">view.add.inputs.on.payslip</field>
+      <field name="model">hr.payslip.input.netto.to.brutto</field>
+      <field name="arch" type="xml">
+        <form>
+          <group>
+            <group>
+              <field name="calc_type"/>
+              <field name="use_work_exp_bonus"/>
+              <field name="payslip_netto_fees"/>
+              <field name="work_exp_bonus_coef" invisible="use_work_exp_bonus == False"/>
+              <field name="netto"/>
+              <field name="expenditure_pct" invisible="calc_type != 'additional_income'"/>
+              <field name="use_manual_contributions_base_deduction" invisible="calc_type == 'additional_income'"/>
+              <field name="contributions_base_deduction_amount" invisible="calc_type == 'additional_income'"/>
+              <field name="mio2" invisible="calc_type == 'additional_income'"/>
+              <button name="action_compute" string="Izračunaj" type="object" class="oe_highlight" icon="fa-calculator"/>
+            </group>
+            <group>
+              <!-- makes no sense to calculate yearly data on parameters -->
+              <field name="use_yearly_data" invisible="context.get('from_salary_parameters')"/>
+              <field name="tax_deduction" invisible="calc_type == 'additional_income'"/>
+              <field name="tax_1_limit" invisible="calc_type == 'additional_income'"/>
+              <field name="tax_1_pct"/>
+              <field name="tax_2_pct" invisible="calc_type == 'additional_income'"/>
+              <field name="lower_brutto_contributions_base_deduction_limit" invisible="calc_type == 'additional_income'"/>
+              <field name="upper_brutto_contributions_base_deduction_limit" invisible="calc_type == 'additional_income'"/>
+              <field name="contribution_base_deduction" invisible="calc_type == 'additional_income'"/>
+            </group>
+          </group>
+          
+          <group>
+            <group>
+              <field name="brutto"/>
+              <field name="brutto_without_work_exp_bonus" invisible="use_work_exp_bonus == False"/>
+              <field name="brutto_difference"/>
+            </group>
+            <group>
+              <field name="payslip_brutto_salary"/>
+            </group>
+          </group>
+          <footer>
+            <button name="action_save_brutto_and_compute" string="Spremi bruto i izračunaj" type="object" class="oe_highlight"/>
+            <button name="action_save_brutto" string="Spremi bruto" type="object" icon="fa-pencil" invisible="context.get('from_salary_parameters')"/>
+            <button name="action_save_difference_and_compute" string="Spremi razliku i izračunaj" type="object" class="oe_highlight" invisible="context.get('from_salary_parameters')"/>
+            <button name="action_save_difference" string="Spremi razliku" type="object" icon="fa-pencil" invisible="context.get('from_salary_parameters')"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_netto_to_brutto_wizard" model="ir.actions.act_window">
+      <field name="name">Convert netto to brutto</field>
+      <field name="res_model">hr.payslip.input.netto.to.brutto</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_netto_to_brutto_wizard"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

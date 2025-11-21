@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="view_assign_annual_leave" model="ir.ui.view">
+      <field name="name">view.assign.annual.leave</field>
+      <field name="model">assign.annual.leave</field>
+      <field name="arch" type="xml">
+        <form string="Dodijeli godišnji odmor zaposlenicima">
+          <group>
+            <group>
+              <field name="year_id" options="{'no_create': True}"/>
+            </group>
+            <group>
+              <field name="number_of_days"/>
+            </group>
+            <group>
+              <field name="department_id" options="{'no_create': True}"/>
+            </group>
+          </group>
+            <field name="assign_leave_line_ids" nolabel="1">
+              <list string="Zaposlenici" editable="bottom">
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="old_leave"/>
+                <field name="new_leave"/>
+                <field name="leave_year_id" column_invisible="1"/>
+              </list>
+            </field>
+          <footer>
+            <button
+              string="Potvrdi"
+              name="assign_annual_leave"
+              type="object"
+              class="oe_highlight"
+              confirm="Ako nastavite, svi postojeći zapisi za odabrane zaposlenike će se prebrisati."/>
+            or
+            <button string="Odustani" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_assign_annual_leave" model="ir.actions.act_window">
+      <field name="name">Dodijeli godišnji odmor</field>
+      <field name="res_model">assign.annual.leave</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="view_assign_annual_leave"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

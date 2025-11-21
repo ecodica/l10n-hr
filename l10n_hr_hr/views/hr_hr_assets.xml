@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="hr_hr_assets_backend" inherit_id="web.assets_backend">
+      <xpath expr="//script[last()]" position="after">
+            <link rel="stylesheet" href="/l10n_hr_hr/static/src/css/hr_hr.css"/>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_hr_payroll_contract_form_view" model="ir.ui.view">
+            <field name="name">hr.payroll.custom.contract.form.view</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_contract_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='termination_reason']" position="before" >
+                    <field name="termination_date"/>
+                </xpath>
+                <xpath expr="//field[@name='resource_calendar_id']" position="replace"></xpath>
+                <xpath expr="//group[@name='accounting']" position="replace"></xpath>
+                <xpath expr="//page[@name='information']" position="replace">
+                    <page string="Parametri plaće" name="information" invisible="contract_type == 'annex'" groups="l10n_hr_payroll_base.group_hr_payroll_user">
+                        <!-- context is added so we have the default contract value when creating through this view -->
+                        <field name="salary_parameters_ids" context="{'contract_id': id, 'department_id': department_id, 'job_id': job_id, 'job_description': job_description}">
+                            <list string="Parametri plaće">
+                                <field name="name"/>
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="note"/>
+                                <button string="Kopiraj" name="copy_parameters" type="object"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payroll_contract_form_view_inherit" model="ir.ui.view">
+            <field name="name">hr.payroll.contract.form.view.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/header" position="inside">
+                    <button string='Dupliciraj s parametrima' name='open_duplicate_wizard' type='object' context="{'default_contract_id': id}" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

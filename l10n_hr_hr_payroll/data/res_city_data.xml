@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="jopppd_health_insurance_fund_fee_city" model="res.city">
+            <field name="name">Grad za naknade na teret HZZO-a</field>
+            <field name="code">000</field>
+            <field name="country_id" ref="base.hr"/> 
+            <field name="zipcode">0</field>
+        </record>
+        
+    </data>
+</odoo>

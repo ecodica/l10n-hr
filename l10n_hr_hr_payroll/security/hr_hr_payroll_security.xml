@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <!-- HR payroll security category and groups -->
+    <record model="ir.module.category" id="module_category_info3_hr_payroll">
+      <field name="name">Payroll</field>
+      <field name="description">Restrictions on Payroll menu</field>
+      <field name="sequence">20</field>
+    </record>
+    
+    <record id="group_res_city_sick_leave_edit" model="res.groups">
+        <field name="name">Edit city for sick leave paid by fund</field>
+        <field name="category_id" ref="l10n_hr_hr_payroll.module_category_info3_hr_payroll"/>
+        <field name="comment">Users of this group can view and edit city with code 000 which is used as city of work (b3 column) for JOPPD form in case of sick leave paid by health insurance fund</field>
+    </record>
+
+    <record id="group_info3_hr_payroll_edit_payslip_line" model="res.groups">
+      <field name="name">Edit payslip lines</field>
+      <field name="comment">Users of this group can edit payslip lines (Salary Computation tab on payslip form)</field>
+      <field name="category_id" ref="l10n_hr_hr_payroll.module_category_info3_hr_payroll"/>
+    </record>
+
+    <!-- rules -->
+    <!-- multi-company -->
+    <record id="hr_payslip_multi_company_rule" model="ir.rule">
+        <field name="name">Payslip multi-company</field>
+        <field name="model_id" ref="model_hr_payslip"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_payslip_run_multi_company_rule" model="ir.rule">
+        <field name="name">Payslip run multi-company</field>
+        <field name="model_id" ref="model_hr_payslip_run"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_payroll_disability_fee_payment_multi_company_rule" model="ir.rule">
+        <field name="name">Disability fee multi-company</field>
+        <field name="model_id" ref="model_hr_payroll_disability_fee_payment"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|', ('company_id','=',False), ('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="hr_salary_parameters_multi_company_rule" model="ir.rule">
+        <field name="name">Salary parameters multi-company</field>
+        <field name="model_id" ref="model_hr_salary_parameters"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+    <record id="info3_sepa_multi_company_rule" model="ir.rule">
+        <field name="name">SEPA multi-company</field>
+        <field name="model_id" ref="model_info3_sepa"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+    <!-- /multi-company -->
+
+    <!-- enable edit for sick leave paid by HZZO city (code = 000, needed for JOPPD b3) only to a specific group -->
+    <record id="res_city_non_sick_leave_rule" model="ir.rule">
+        <field name="name">City non-sick leave rule</field>
+        <field name="model_id" ref="model_res_city"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="domain_force">['|', ('code', '=', False), ('code', '!=', '000')]</field>
+    </record>
+
+    <record id="res_city_sick_leave_rule" model="ir.rule">
+        <field name="name">City sick leave rule</field>
+        <field name="model_id" ref="model_res_city"/>
+        <field name="groups" eval="[(4, ref('l10n_hr_hr_payroll.group_res_city_sick_leave_edit'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <!-- /enable edit for sick leave paid by HZZO city (code = 000, needed for JOPPD b3) only to a specific group -->
+    
+    
+    <record id="group_info3_hr_payslip_force_unlink" model="res.groups">
+      <field name="name">Force delete payslip</field>
+      <field name="comment">Users of this group can delete payslips regardless of state and other conditions. Mainly for correcting already paid payslips, so we do not need to recalculate the whole payslip run.</field>
+      <field name="category_id" ref="l10n_hr_hr_payroll.module_category_info3_hr_payroll"/>
+    </record> 
+  </data>
+</odoo>

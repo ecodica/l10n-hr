@@ -1,0 +1,1 @@
+Holidays configuration must be added manually for accurate auto-fill of timesheets.

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+    <record id="hr_view_status_form" model="ir.ui.view">
+        <field name="name">hr.status.form</field>
+        <field name="model">hr.status</field>
+        <field name="arch" type="xml">
+            <form string="Status">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_status_tree" model="ir.ui.view">
+        <field name="name">hr.status.tree</field>
+        <field name="model">hr.status</field>
+        <field name="arch" type="xml">
+            <list string="Status">
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+        <record id="hr_view_status_search" model="ir.ui.view">
+        <field name="name">hr.status.search</field>
+        <field name="model">hr.status</field>
+        <field name="arch" type="xml">
+            <search string="Statuses">
+                <field name="name" string="Status"/>
+            </search>
+        </field>
+    </record>
+
+
+
+    <record id="hr_config_status_action" model="ir.actions.act_window">
+        <field name="name">Statuses</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.status</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_status_search"/>
+
+    </record>
+
+    <menuitem id="hr_menu_status"
+              name="Status"
+              parent="hr_submenu_view_settings"
+              groups="base.group_no_one"
+              sequence="2"
+              action="hr_config_status_action"/>
+
+    <record id="status_inprogress" model="hr.status">
+        <field name="name">In progress</field>
+    </record>
+
+    <record id="status_finished" model="hr.status">
+        <field name="name">Finished</field>
+    </record>
+
+    </data>
+</odoo>

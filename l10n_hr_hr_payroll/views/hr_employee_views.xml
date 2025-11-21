@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_bank_form_inherit_partner" model="ir.ui.view">
+                <field name="name">res.partner.form.address</field>
+                <field name="model">res.partner.bank</field>
+                <field name="inherit_id" ref="base.view_partner_bank_form"/>
+                <field name="arch" type="xml">
+                    <field name="partner_id" position="attributes">
+                        <attribute name="options">{'no_create': True, 'no_quick_create': True}</attribute>
+                        <attribute name="readonly">context.get('is_navigated_through_employee_form', False)</attribute>
+                    </field>
+                </field>
+        </record>
+        
+        <record id="hr_hr_payroll_employee_tree_view" model="ir.ui.view">
+            <field name="name">hr.hr.payroll.employee.tree.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//list/field[@name='active']" position="after">
+                    <field name="is_employee" column_invisible="1"/>
+                </xpath>
+            </field>
+        </record> 
+
+        <record id="payroll_hr_hr_employee_inherit_view_form" model="ir.ui.view">
+            <field name="name">hr.payroll.employee.form.view.foreign.citizen</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="l10n_hr_hr.hr_employee_inherit_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='nationality_id']" position="after">
+                    <field name="is_foreign_citizen"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payroll_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.payroll.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='department_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//notebook" position="attributes">
+                    <attribute name="class" add="custom-notebook-header" separator=" "/>                  
+                </xpath>
+                <xpath  expr="//div[@id='o_work_employee_main']" position="inside">
+                    <group name="contract_info" string="Informacije o ugovoru">
+                        <field name="hire_date" />
+                        <field name="termination_date"/>
+                    </group>
+                </xpath>
+                
+                <xpath expr="//div[@id='o_work_employee_main']" position="inside">
+                    <group string="Analitička raspodjela po odjelima">
+                        <field name="department_weighted_distribution"/>
+                        <field name="department_distribution_ids">
+                            <list string="Analitička raspodjela po odjelima" editable="bottom">
+                                <field name="department_analytic_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="cost_center_id" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                                <field name="percentage" sum="percentage_sum"/>
+                            </list>
+                        </field>
+                    </group>
+                </xpath>
+
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="bank_accounts" string="Bankovni računi" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
+                        <field name="bank_account_ids">
+                            <list editable="top" class="custom-field-height">
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="bank_account_id" domain="[('partner_id', '=', parent.partner_id)]" context="{'default_partner_id': parent.partner_id, 'is_navigated_through_employee_form': True}" options="{'no_create': False, 'no_quick_create' : True}"/>
+                                <field name="account_number"/>
+                                <field name="bank_name"/>
+                                <field name="account_type"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="main_account"/>
+                            </list>
+                             <form>
+                                <group>
+                                    <group>
+                                        <field name="employee_id"/>
+                                        <field name="bank_account_id"/>
+                                        <field name="bank_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="account_type"/>
+                                        <field name="main_account"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                    <page name="suspensions" string="Obustave" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
+                        <field name="suspension_ids" widget="one2many_list" context="{ 'employee_id': id }">
+                            <list class ="custom-field-height"
+                                decoration-danger="max_ratio == '1/1'"
+                                decoration-info="max_ratio == '1/2'"
+                                decoration-success="max_ratio == '1/3'"
+                                decoration-muted="i3_active == False">
+                                <field name="sequence"/>
+                                <field name="name"/>
+                                <field name="start_date"/>
+                                <field name="amount"/>
+                                <field name="currency_id"/>
+                                <field name="suspension_type"/>
+                                <field name="max_ratio"/>
+                                <field name="membership_base"/>
+                                <field name="membership_base_pct"/>
+                                <field name="i3_active" />
+                            </list>
+                        </field>
+                    </page>
+                    <page string="Neoporezive isplate" name="taxless_payments" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
+                        <!-- set context to trigger name_get override -->
+                        <field name="taxless_payment_ids" context="{'show_code': True}">
+                            <list string="Neoporezive isplate" editable="top" class="custom-field-height">
+                                <field name="payment_date"/>
+                                <field name="payslip_run_id" readonly="1"/>
+                                <!-- set context to trigger name_search override -->
+                                <field name="salary_rule_id" attrs="{'readonly': [('payslip_run_id', '!=', False)], 'required': True}" context="{'show_code': True}"/>
+                                <field name="payment_amount"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="rescheduled_hours" string="Preraspodjeljeni sati" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
+                        <field name="rescheduled_hours_ids">
+                            <!-- ZAKOMENTIRANO editable="false" -->
+                            <list>
+                                <field name="employee_id" column_invisible="1"/>
+                                <field name="date"/>
+                                <field name="number_of_hours" widget="float_time" sum="resheduled_sum"/>
+                            </list>
+                        </field>
+                    </page>
+                    <page name="annual_leave" string="Godišnji odmor" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
+                        <group>
+                            <field name="use_avg_hourly_wage_for_annual_leave_calculation"/>
+                            <field name="average_gross_wage" groups="l10n_hr_payroll_base.group_hr_payroll_manager,l10n_hr_payroll_base.group_hr_payroll_user"/>
+                            <label for="period_from" string="Date paid" groups="l10n_hr_payroll_base.group_hr_payroll_manager,l10n_hr_payroll_base.group_hr_payroll_user"/>
+                            <div groups="l10n_hr_payroll_base.group_hr_payroll_manager,l10n_hr_payroll_base.group_hr_payroll_user">
+                                <field name="period_from"/>
+                                -
+                                <field name="period_to"/>
+                            </div>
+                            <button
+                                string="Računaj bruto satnicu"
+                                class="btn btn-sm btn-secondary"
+                                colspan="2"
+                                name="%(action_unused_annual_leave_average_gross_wage_wizard)d"
+                                type="action"
+                                groups="l10n_hr_payroll_base.group_hr_payroll_manager,l10n_hr_payroll_base.group_hr_payroll_user"
+                            />
+                            <field name="annual_leave_yearly_ids">
+                                <list string="Godišnji odmor po godinama" editable="top" class="custom-field-height">
+                                    <field name="year"/>
+                                    <field name="old_leave"/>
+                                    <field name="leave"/>
+                                    <field name="total_leave"/>
+                                    <field name="used_leave" column_invisible="1"/>
+                                    <field name="used_leave_qty" readonly="1"/>
+                                    <field name="remaining_leave"/>
+                                    <field name="create_date"/>
+                                    <field name="create_uid"/>
+                                    <field name="write_time"/>
+                                    <field name="write_user"/>
+                                </list>
+                            </field>
+                            <field name="annual_leave_periodically_ids">
+                                <list string="Godišnji odmor po mjesecima" editable="top" class="custom-field-height">
+                                    <field name="period"/>
+                                    <field name="used_leave"/>
+                                    <field name="payslip_run_id"/>
+                                    <field name="create_date"/>
+                                    <field name="create_uid"/>
+                                    <field name="write_time"/>
+                                    <field name="write_user"/>
+                                </list>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Povijest napredovanja">
+                        <group>
+                            <group>
+                                <field name="hire_date"/>
+                            </group>
+                        </group>
+                        <field name="job_history_ids">
+                            <list editable="top">
+                                <field name="department_id"/>
+                                <field name="job_id"/>
+                                <field name="parent_id"/>
+                                <field name="date_to"/>
+                            </list>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payroll_employee_view_search" model="ir.ui.view">
+            <field name="name">hr.payroll.employee.search.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <separator/>
+                    <filter string="Zaposlenici" name="filter_is_employee" icon="terp-gtk-select-all" domain="[('is_employee','=',True)]" />
+                    <filter string="Suradnici" name="filter_is_not_employee" icon="terp-gtk-select-all" domain="[('is_employee','=',False)]" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- ADD REQUIRED ATTRIBUTE TO DATE_FROM AND DATE_TO TO EMPLOYEE CESSION -->
+
+        <record id="hr_payroll_employee_cession_form_view" model="ir.ui.view">
+            <field name="name">hr.payroll.employee.cession.form.view</field>
+            <field name="model">hr.employee.cession</field>
+            <field name="inherit_id" ref="l10n_hr_hr.hr_employee_cession_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/div/field[@name='date_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/div/field[@name='date_to']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payroll_employee_cession_overseas_form_view" model="ir.ui.view">
+            <field name="name">hr.payroll.employee.cession.overseas.form.view</field>
+            <field name="model">hr.employee.cession.overseas</field>
+            <field name="inherit_id" ref="l10n_hr_hr.hr_employee_cession_overseas_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/div/field[@name='date_from']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//form/sheet/group/div/field[@name='date_to']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

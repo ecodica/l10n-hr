@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<template id="report_ip1_form">
+<t t-foreach="docs" t-as="payslip">
+    <t t-call="web.basic_layout">
+        <style type="text/css">
+            .table {
+                font-size: 8pt;
+                table-layout: fixed;
+                font-family:'DejaVuSans';
+                color:black;
+            }
+            .table tr,
+            .table td {
+                border: 0px;
+            }
+            .custom-table {
+                border: 1px solid black;
+            }
+            .custom-table th,
+            .custom-table td {
+                border: 1px solid black;
+            }
+            .border-right {
+                border-right: 1px solid black!important;
+            }
+            .border-top {
+                border-top: 1px solid black !important;
+            }
+            .full-border {
+                border: 1px solid black !important;
+            }
+            .empty-row {
+                border-right: 1px solid #000;
+                height: 10px;
+            }
+            table th {
+                text-align: left;
+            }
+            #section_xii_title {
+                font-size: 10pt;
+            }
+            .fw-bolder {
+                font-weight: 900 !important;
+            }
+
+        </style>
+        <t t-set="lang" t-value="lang"/>
+        <t t-set="payslip" t-value="payslip.with_context(lang=lang)"/>
+        <t t-set="data" t-value="report_data[payslip.id]"/>
+        <t t-set="display_secondary_currency" t-value="data['display_secondary_currency']"/>
+        <div style="page-break-inside:avoid; page-break-after:always;">
+            <table class="table table-sm mb-2 full-border">
+                <tr id="title">
+                    <td colspan="10" class="fw-bolder full-border"><span t-esc="data['title']['name']"/></td>
+                    <td colspan="2" class="fw-bolder full-border"><span t-esc="data['title']['code']"/></td>
+                </tr>
+                <tr>
+                    <td colspan="12" class="empty-row full-border"></td>
+                </tr>
+                <tr id="section_i_ii_title">
+                    <td colspan="7" class="border-right fw-bolder"><span t-esc="data['section_i_ii']['title']['i']"/></td>
+                    <td colspan="5" class="border-right fw-bolder"><span t-esc="data['section_i_ii']['title']['ii']"/></td>
+                </tr>
+                <tr id="section_i_ii_data" t-foreach="data['section_i_ii']['data']" t-as="line">
+                    <td colspan="7" class="border-right"><span t-esc="line['i']"/></td>
+                    <td colspan="5" class="border-right"><span t-esc="line['ii']"/></td>
+                </tr>
+            </table>
+            <table class="table table-sm mb-2 custom-table">
+                <tr id="section_iii_title">
+                    <th colspan="12"><spane t-esc="data['section_iii']['title']"/></th>
+                </tr>
+                <tr id="section_iii_data" t-foreach="data['section_iii']['data']" t-as="line">
+                    <td colspan="12"><span t-esc="line"/></td>
+                </tr>
+                <tr id="section_iv_title">
+                    <th colspan="12"><span t-esc="data['section_iv']['title']"/></th>
+                </tr>
+                <tr id="section_iv_data" t-foreach="data['section_iv']['data']" t-as="line">
+                    <td colspan="7"><span t-esc="line['label']"/></td>
+                    <td colspan="5"><span t-esc="line['value']" widget="date"/></td>
+                </tr>
+                <tr id="section_v_title">
+                    <th colspan="6"><span t-esc="data['section_v']['label']"/></th>
+                    <td colspan="6"><span t-esc="data['section_v']['value']"/></td>
+                </tr>
+                <tr id="section_vi_title">
+                    <th colspan="12"><span t-esc="data['section_vi']['vi_title']"/></th>
+                </tr>
+                <tr id="section_vi_header">
+                    <td colspan="7" class="text-center"><span t-esc="data['section_vi']['vi_header']['name']"/></td>
+                    <td colspan="1" class="text-center"><span t-esc="data['section_vi']['vi_header']['hours']"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_vi']['vi_header']['compute']"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_vi']['vi_header']['amount']"/></td>
+                </tr>
+                <tr id="section_vi_1">
+                    <th colspan="7"><span t-esc="data['section_vi']['vi_1']['name']"/></th>
+                    <td colspan="1" class="text-end fw-bolder"><span t-esc="data['section_vi']['vi_1']['hours']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td colspan="2" class="text-center fw-bolder"><span t-esc="data['section_vi']['vi_1']['compute']"/></td>
+                    <td colspan="2" class="text-end fw-bolder"><span t-esc="data['section_vi']['vi_1']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vi_2">
+                    <td colspan="7"><span t-esc="data['section_vi']['vi_2']['name']"/></td>
+                    <td colspan="1" class="text-end"><span t-esc="data['section_vi']['vi_2']['hours']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_vi']['vi_2']['compute']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_vi']['vi_2']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vi_2_data" t-foreach="data['section_vi']['vi_2_data']" t-as="line">
+                    <td colspan="7"><span t-esc="line['name']"/></td>
+                    <td colspan="1" class="text-end"><span t-esc="line['hours']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="line['compute']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vi_3" t-if="data['section_vi']['vi_3_data']">
+                    <th colspan="7"><span t-esc="data['section_vi']['vi_3']['name']"/></th>
+                    <td colspan="1" class="text-end"><span t-esc="data['section_vi']['vi_3']['hours']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_vi']['vi_3']['compute']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_vi']['vi_3']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vi_3_data" t-foreach="data['section_vi']['vi_3_data']" t-as="line">
+                    <td colspan="7"><span t-esc="line['name']"/></td>
+                    <td colspan="1" class="text-end"><span t-esc="line['hours']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="line['compute']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vi_4_title" t-if="data['section_vi']['vi_4']['header']">
+                    <th colspan="5" class="text-center"><span t-esc="data['section_vi']['vi_4']['header']['name']"/></th>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_vi']['vi_4']['header']['contributions']"/></td>
+                    <td colspan="3" class="text-center"><span t-esc="data['section_vi']['vi_4']['header']['hours']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_vi']['vi_4']['header']['amount']"/></td>
+                </tr>
+                <tr id="section_vi_4_data" t-foreach="data['section_vi']['vi_4']['data']" t-as="line">
+                    <th colspan="5"><span t-esc="line['name']"/></th>
+                    <td colspan="2"><span t-esc="line['contributions']"/></td>
+                    <td colspan="3"><span t-esc="line['hours']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vii_title">
+                    <th colspan="12"><span t-esc="data['section_vii']['title']"/></th>
+                </tr>
+                <tr id="section_vii_header">
+                    <td colspan="10" class="text-center"><span t-esc="data['section_vii']['header']['name']"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_vii']['header']['amount']"/></td>
+                </tr>
+                <tr id="section_vii_total" t-foreach="data['section_vii']['total']" t-as="line">
+                    <th colspan="10"><span t-esc="line['name']"/></th>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_vii_data" t-foreach="data['section_vii']['data']" t-as="line">
+                    <td colspan="10"><span t-esc="line['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_viii_title">
+                    <th colspan="12"><span t-esc="data['section_viii']['title']"/></th>
+                </tr>
+
+                <tr id="section_viii_lines" t-foreach="data['section_viii']['data']" t-as="line">
+                    <th colspan="10"><span t-esc="line['name']"/></th>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    
+                    <t t-if="'type' in line and line['type'] == 'expenses'">
+                        <tr t-foreach="line['lines']" t-as="expense_line">
+                            <td colspan="10"><span t-esc="expense_line['name']"/></td>
+                            <td colspan="2" class="text-end"><span t-esc="expense_line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                        </tr>
+                    </t>
+                    <t t-if="'type' in line and line['type'] == 'taxes'">
+                        <t t-set="tax_lines_header" t-value="line['lines']['header']"/>
+                        <tr id="section_viii_tax_header">
+                            <td colspan="3" class="text-center"><span t-esc="tax_lines_header['pct']"/></td>
+                            <td colspan="7" class="text-center"><span t-esc="tax_lines_header['base']"/></td>
+                            <td colspan="2" class="text-center"><span t-esc="tax_lines_header['amount']"/></td>
+                        </tr>
+                        <tr t-foreach="line['lines']['data']" t-as="tax_line">
+                            <td colspan="3"><span t-esc="tax_line['pct']"/></td>
+                            <td colspan="7" class="text-center"><span t-esc="tax_line['base']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                            <td colspan="2" class="text-end"><span t-esc="tax_line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                        </tr>
+                    </t>
+                </tr>
+                <tr id="section_ix_title">
+                    <th colspan="10"><span t-esc="data['section_ix']['name']"/></th>
+                    <td colspan="2" class="text-end fw-bolder"><span t-esc="data['section_ix']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_x_title">
+                    <th colspan="10"><span t-esc="data['section_x']['title']['name']"/></th>
+                    <td colspan="2" class="text-end fw-bolder"><span t-esc="data['section_x']['title']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_x_header">
+                    <td colspan="1"><span t-esc="data['section_x']['header']['sequence']"/></td>
+                    <td colspan="6" class="text-center"><span t-esc="data['section_x']['header']['name']"/></td>
+                    <td colspan="3" class="text-center"><span t-esc="data['section_x']['header']['period']"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="data['section_x']['header']['amount']"/></td>
+                </tr>
+                <tr id="section_x_data" t-foreach="data['section_x']['data']" t-as="line">
+                    <td colspan="1"><span t-esc="line['sequence']"/></td>
+                    <td colspan="6"><span t-esc="line['name']"/></td>
+                    <td colspan="3" class="text-center"><span t-esc="line['period']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xi_title">
+                    <th colspan="10"><span t-esc="data['section_xi']['title']['name']"/></th>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_xi']['title']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xi_data" t-foreach="data['section_xi']['data']" t-as="line">
+                    <td colspan="10"><span t-esc="line['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xii_sccy" t-if="display_secondary_currency">
+                    <td colspan="8"><span t-esc="secondary_currency_rate_text"/></td>
+                    <td colspan="2" class="text-center"><span t-esc="secondary_currency_amount_column_label"/></td>
+                    <td colspan="2" class="text-center"></td>
+                </tr>
+                <tr id="section_xii_title">
+                    <t t-if="display_secondary_currency">
+                        <th colspan="8"><span t-esc="data['section_xii']['title']['name']"/></th>
+                        <td colspan="2" class="text-end"><span t-esc="data['section_xii']['title']['amount_sccy']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                    </t>
+                    <t t-else="">
+                        <th colspan="10"><span t-esc="data['section_xii']['title']['name']"/></th>
+                    </t>
+                    <th colspan="2" class="text-end"><span t-esc="data['section_xii']['title']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></th>
+                </tr>
+                <tr id="section_xii_data" t-foreach="data['section_xii']['data']" t-as="line">
+                    <td colspan="10"><span t-esc="line['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xiii_title">
+                    <th colspan="12"><span t-esc="data['section_xiii']['title']"/></th>
+                </tr>
+                <tr id="section_xiii_1">
+                    <td colspan="10"><span t-esc="data['section_xiii']['xiii_1']['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_xiii']['xiii_1']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xiii_2">
+                    <td colspan="10"><span t-esc="data['section_xiii']['xiii_2']['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_xiii']['xiii_2']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xiii_2_list" t-foreach="data['section_xiii']['xiii_2_data']" t-as="line">
+                    <td colspan="10"><span t-esc="line['name']"/></td>
+                    <td colspan="2" class="text-end"><span t-esc="line['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xiv">
+                    <th colspan="10"><span t-esc="data['section_xiv']['title']"/></th>
+                    <td colspan="2" class="text-end"><span t-esc="data['section_xiv']['amount']" t-options="{'widget': 'float', 'precision': currency_precision}"/></td>
+                </tr>
+                <tr id="section_xv">
+                    <th colspan="12"><span t-esc="data['section_xv']['title']"/></th>
+                </tr>
+            </table>
+            <table class="table table-sm table-borderless" style="page-break-inside: avoid;">
+                <tr>
+                    <td colspan="6"></td>
+                    <td colspan="4" class="font-small text-center fw-bolder" style="padding-bottom:25px; border-bottom:1px solid black;">Ovlaštena osoba poslodavca</td>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td colspan="12" class="no-border" style="border: 0;" />
+                </tr>
+                <tr>
+                    <td colspan="6"></td>
+                    <td colspan="4" class="font-small text-center fw-bolder"><span>(IME I PREZIME)</span></td>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+        </div>
+    </t>
+</t>
+
+</template>
+
+</odoo>

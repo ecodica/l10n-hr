@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="hr_payroll_accounting_scheme_form_view" model="ir.ui.view">	 	
+			<field name="name">hr.payroll.accounting.scheme.form.view</field>
+			<field name="model">hr.payroll.accounting.scheme</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<form string="Shema knjiženja">
+					<sheet>
+						<group>
+							<field name="rule_id" options="{'no_create': True, 'no_open': True}" default="context.get('default_rule_id', False)" invisible="context.get('salary_rule_view', True)"/>
+							<field name="type_id" options="{'no_create': True, 'no_open': True}"/>
+							<field name="type_name" invisible="1"/>
+							<field name="use_analytic_distribution"/>
+							<field name="account_debit" options="{'no_create': True}"/>
+							<field name="account_credit" options="{'no_create': True}"/>
+							<field name="department_account_ids">
+								<list editable="bottom">
+									<field name="department_id" options="{'no_create': True}"/>
+									<field name="debit_account_id" options="{'no_create': True}"/>
+									<field name="credit_account_id" options="{'no_create': True}"/>
+								</list>
+							</field>
+							<field name="group_by_department"/>
+							<field name="group_by_municipality"/>
+							<field name="group_by_employee"/>
+							<field name="group_debit"/>
+							<field name="group_credit"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="hr_payroll_accounting_scheme_tree_view" model="ir.ui.view">	 	
+			<field name="name">hr.payroll.accounting.scheme.tree.view</field>
+			<field name="model">hr.payroll.accounting.scheme</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<list string="Sheme knjiženja">
+					<field name="rule_id" invisible="context.get('salary_rule_view', True)"/>
+					<field name="type_id"/>
+					<field name="use_analytic_distribution"/>
+					<field name="account_debit"/>
+					<field name="account_credit"/>
+					<field name="group_by_department"/>
+					<field name="group_by_municipality"/>
+					<field name="group_by_employee"/>
+					<field name="group_debit"/>
+					<field name="group_credit"/>
+				</list>
+			</field>
+		</record>
+
+		<record id="hr_payroll_accounting_scheme_search_view" model="ir.ui.view">	 	
+			<field name="name">hr.payroll.accounting.scheme.search.view</field>
+			<field name="model">hr.payroll.accounting.scheme</field>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="rule_id"/>
+					<field name="type_id"/>
+					<field name="account_debit"/>
+					<field name="account_credit"/>
+					<group expand="0" string="Grupiraj po">
+						<filter string="Pravilo" name="group_scheme_rule" context="{'group_by':'rule_id'}"/>
+						<filter string="Vrsta" name="group_scheme_type" context="{'group_by':'type_id'}"/>
+						<filter string="Dugovni konto" name="group_scheme_debit_account" context="{'group_by':'account_debit'}"/>
+						<filter string="Potražni konto" name="group_scheme_credit_account" context="{'group_by':'account_credit'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+
+		<record id="action_hr_payroll_accounting_scheme" model="ir.actions.act_window">
+			<field name="name">Sheme knjiženja</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.payroll.accounting.scheme</field>
+			<field name="view_mode">list,form</field>		
+			<field name="view_id" ref="hr_payroll_accounting_scheme_tree_view"/>
+			<field name="context">{'salary_rule_view': False}</field>
+		</record>
+
+	</data>
+</openerp>

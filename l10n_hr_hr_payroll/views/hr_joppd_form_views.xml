@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	
+		<!-- OBRAZAC -->
+		<record id="hr_joppd_form_tree_view_inherit" model="ir.ui.view">
+			<field name="model">hr.joppd.form</field>
+			<field name="inherit_id" ref="hr_joppd_form.hr_joppd_form_tree_view"/>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='vrsta']" position="after">
+					<field name="payslip_run_ids" widget="many2many_tags" invisible="not context.get('payroll_view')"/>
+					<field name="show_nonpaid_salary_options" column_invisible="1"/>
+                    <field name="joppd_payslip_run_type"/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="hr_joppd_form_form_view_inherit" model="ir.ui.view">
+			<field name="name">JOPPD</field>
+			<field name="model">hr.joppd.form</field>
+			<field name="inherit_id" ref="hr_joppd_form.hr_joppd_form_form_view"/>
+			<field name="priority">16</field>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='calc_stranaA']" position="before">
+					<!-- dobro je da bude vidljiv kod dopune obrasca da se lakse povuku podaci s novog obracuna -->
+					<button
+						string="Preuzmi podatke"
+						name="get_batch_data_stranaB"
+						type="object"
+						invisible="state == 'finish' or vrsta in ('2','4') or form_type != 'payroll'"
+						confirm="Svi postojeći podaci će biti poništeni! Želite li preuzeti nove podatke?"
+					/>
+				</xpath>
+				<xpath expr="//field[@name='datum']" position="after">
+					<field name="show_nonpaid_salary_options" invisible="1"/>
+					<!-- show/hide depending on HR setting -->
+					<field name="joppd_payslip_run_type" invisible="show_nonpaid_salary_options == False"/>
+					<field
+						name="payslip_run_ids"
+						widget="many2many_tags"
+						invisible="datum == False or form_type != 'payroll'"
+						options="{'no_create': True}"
+						domain="[('pay_date', '=', datum), ('payslip_run_type', '=', joppd_payslip_run_type)]"
+					/>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="action_hr_joppd_form_payroll" model="ir.actions.act_window">
+			<field name="name">JOPPD obrazac</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.joppd.form</field>
+			<field name="view_mode">list,form</field>		
+        	<field name="context">{'default_form_type': 'payroll', 'payroll_view': True}</field>
+        	<field name="domain">[('form_type', '=', 'payroll')]</field>
+		</record>
+
+	</data>
+</openerp>

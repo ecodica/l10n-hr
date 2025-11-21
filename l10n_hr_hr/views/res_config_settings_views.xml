@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_hr_res_config_settings_form_view" model="ir.ui.view">
+        <field name="name">hr.hr.res.config.settings.form.view</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="45"/>
+        <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='home_working_setting']" position="after">
+                
+                <setting id ="hr_config_employee_display_name_setting" help ="On save, updates all active and inactive employees and related partners and users names. From that moment employee display name is updated on related objects and everywhere in the system.">
+                    <field name="hr_config_employee_display_name" />
+                </setting>
+
+                <setting id ="hr_config_hr_contract_wage_visible_setting" help ="If checked displays Employee brutto wage in HR Contract Form view">
+                    <field name="hr_config_hr_contract_wage_visible" />
+                </setting>
+
+                <setting id ="hr_config_display_employee_code_in_name_setting" help ="If checked displays employees code in employees name">
+                    <field name="hr_config_display_employee_code_in_name" />
+                </setting>
+
+                <setting id ="hr_config_manually_input_employee_code_setting" help ="If checked enables manuall input for emplyoee code">
+                    <field name="hr_config_manually_input_employee_code" />
+                </setting>
+                
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

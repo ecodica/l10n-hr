@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_additional_income">
+        <t t-foreach="docs" t-as="emp">
+            <t t-call="web.basic_layout">
+                <style>
+                    #doc_container {
+                        font-size: 9pt;
+                        font-family:Helvetica;
+                        margin-left: 10mm;
+                        margin-right: 10mm;
+                        padding-top: 15mm;
+                        padding-bottom: 15mm;
+                    }
+                    #sums_row {
+                        border-top: 1px solid black;
+                        font-weight: bold;
+                    }
+                    .amount_column {
+                        width: 8.8%;
+                    }
+                    .not_amount_column {
+                        width: 3.2%;
+                    }
+                    .doc_header_th {
+                        width: 45%;
+                    }
+                    .doc_header_td {
+                        width: 55%;
+                    }
+                    * {
+                        box-sizing: border-box;
+                        border-collapse: collapse;
+                    }
+                </style>
+                <div class="page" id="doc_container">
+                    <!-- header tables wrapper -->
+                    <div>
+                        <!-- PODACI O ISPLATITELJU -->
+                        <table class="table table-sm table-bordered" style="width: 48%;" align="left">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="doc_header_th">Naziv / ime i prezime isplatitelja</th>
+                                    <td class="doc_header_td"><span t-esc="company.name"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="doc_header_th">Adresa isplatitelja</th>
+                                    <td class="doc_header_td"><span t-esc="company_address"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="doc_header_th">OIB</th>
+                                    <td class="doc_header_td"><span t-esc="company.company_registry"/></td>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!-- PODACI O POREZNOM OBVEZNIKU -->
+                        <table class="table table-sm table-bordered" style="width: 48%;" align="right">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th class="doc_header_th">Ime i prezime poreznog obveznika</th>
+                                    <td class="doc_header_td"><span t-esc="data[emp.id]['name']"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="doc_header_th">Adresa poreznog obveznika</th>
+                                    <td class="doc_header_td"><span t-esc="data[emp.id]['address']"/></td>
+                                </tr>
+                                <tr>
+                                    <th class="doc_header_th">OIB</th>
+                                    <td class="doc_header_td"><span t-esc="data[emp.id]['oib']"/></td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="mt-4 mb-4">
+                    <h6 class="text-center">POTVRDA O ISPLAĆENOM PRIMITKU, DOHOTKU, UPLAĆENOM DOPRINOSU, POREZU NA DOHODAK I 
+                        PRIREZU U <span t-esc="year.name"/>. GODINI</h6>
+                    </div>
+                    <!-- PODACI O POREZNOM OBVEZNIKU -->
+                    <table class="table table-sm table-bordered">
+                        <thead class="thead-light">
+                            <tr class="text-center">
+                                <th class="not_amount_column">R.Br.</th>
+                                <th class="amount_column">Nadnevak isplate primitka</th>
+                                <th class="amount_column">Primitak po osnovi</th>
+                                <th class="amount_column">Iznos primitka</th>
+                                <th class="amount_column">Izdatak u postotku</th>
+                                <th class="amount_column">Iznos izdatka</th>
+                                <th class="amount_column">Iznos uplaćenog doprinosa iz primitka</th>
+                                <th class="amount_column">Dohodak</th>
+                                <th class="amount_column">Nadnevak uplate doprinosa poreza i prireza</th>
+                                <th class="amount_column">Iznos uplaćenog poreza i prireza</th>
+                                <th class="amount_column">Neto isplata</th>
+                                <th class="amount_column">Oznaka primitka</th>
+                            </tr>
+                            <tr class="text-center">
+                                <th class="not_amount_column">1</th>
+                                <th class="amount_column">2</th>
+                                <th class="amount_column">3</th>
+                                <th class="amount_column">4</th>
+                                <th class="amount_column">5</th>
+                                <th class="amount_column">6</th>
+                                <th class="amount_column">7</th>
+                                <th class="amount_column">8 (4-6-7)</th>
+                                <th class="amount_column">9</th>
+                                <th class="amount_column">10</th>
+                                <th class="amount_column">11</th>
+                                <th class="amount_column">12</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="line_counter" t-value="1"/>
+                            <tr t-foreach="data[emp.id]['slip_lines']" t-as="slip_line">
+                                <td class="not_amount_column text-center">
+                                    <span t-esc="line_counter"/>.
+                                </td>
+                                <td class="amount_column text-center">
+                                    <span t-esc="slip_line['date_paid']" t-options="{'widget': 'date'}"/>
+                                </td>
+                                <td class="amount_column text-center">DRUGI DOHODAK</td>
+                                <td class="amount_column text-right">
+                                    <span t-esc="slip_line['primitak']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-center">
+                                    <span t-esc="slip_line['izdatak_pct']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-right">
+                                    <span t-esc="slip_line['izdatak']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-right">
+                                <span t-esc="slip_line['doprinosi']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-right">
+                                <span t-esc="slip_line['dohodak']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-center">
+                                <span t-esc="slip_line['date_paid']" t-options="{'widget': 'date'}"/>
+                                </td>
+                                <td class="amount_column text-right">
+                                <span t-esc="slip_line['porez']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-right">
+                                <span t-esc="slip_line['isplata']" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="amount_column text-center">
+                                <span t-esc="slip_line['oznaka_primitka']"/>
+                                </td>
+                                
+                                <t t-set="line_counter" t-value="line_counter + 1"/>
+                            </tr>
+                        </tbody>
+                        <tfoot id="sums_row">
+                            <tr>
+                                <td class="text-right" colspan="3">Ukupno</td>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['primitak'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td/>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['izdatak'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['doprinosi'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['dohodak'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td/>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['porez'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="sum(slip_line['isplata'] for slip_line in data[emp.id]['slip_lines'])" t-options="{'widget': 'float', 'precision': 2}"/>
+                                </td>
+                                <td/>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="row mt-5">
+                        <div class="row col-6">
+                          <p class="col-2 mb-0 pb-0 offset-1">NADNEVAK</p>
+                          <p class="col-4 mb-0 pb-0 text-center" style="border-bottom: 1px solid black; height: 5mm;"><span t-esc="print_date" t-options="{'widget': 'date'}"/></p>
+                        </div>
+                        <div class="row col-6">
+                          <p class="col-6 offset-3 mt-4 text-center" style="border-top: 1px solid black;">POTPIS ISPLATITELJA</p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

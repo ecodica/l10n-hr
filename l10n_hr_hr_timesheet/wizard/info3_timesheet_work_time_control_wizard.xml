@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_info3_timesheet_work_time_control_wizard" model="ir.ui.view">
+            <field name="name">Work time control</field>
+              <field name="model">info3.timesheet.work.time.control.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Get Employees">
+                  <separator string="Work time control"/>
+                  <group>
+                    <group>
+                      <field name="period_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                      <field name="choice"/>
+                    </group>
+                    <group>
+                      <field name="write_hours"/>
+                      <field name="sum_of_hours" readonly="write_hours == False"/>
+                    </group>
+                  </group>
+                  <field name="employee_lines" readonly="1">
+                    <list
+                      string="Employees"
+                      decoration-danger="hours &lt; max_work_hours" 
+                      column_invisible="timesheet_wizard_id != True">
+                      <field name="employee_name"/>
+                      <field name="department"/>
+                      <field name="hours" readonly="1"/>
+                      <field name="max_work_hours" column_invisible="1"/>
+                      <field name="timesheet_wizard_id" column_invisible="1"/>
+                    </list>
+                  </field>
+
+                  <footer>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                  </footer>
+
+                </form>
+              </field>
+            </record>
+
+            <record id="action_view_info3_timesheet_work_time_control_wizard" model="ir.actions.act_window">
+              <field name="name">Get employees</field>
+              <field name="type">ir.actions.act_window</field>
+              <field name="res_model">info3.timesheet.work.time.control.wizard</field>
+              <field name="view_mode">form</field>
+              <field name="view_id" ref="view_info3_timesheet_work_time_control_wizard"/>
+              <field name="target">new</field>
+            </record>
+
+          </data>
+</odoo>

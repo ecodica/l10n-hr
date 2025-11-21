@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <!-- view for sepa tree-->
+    <record id="info3_sepa_form" model="ir.ui.view">
+      <field name="name">info3.sepa.tree</field>
+      <field name="model">info3.sepa</field>
+      <field name="arch" type="xml">
+        <form string="Generiranje SEPA datoteke">
+          <group>
+            <field name="name" readonly="1"/>
+            <field name="date" readonly="1"/>
+            <field name="file_id" readonly="1"/>
+            <field name="payslip_run_ids" widget="many2many_tags"/>
+            <field name="user_edit" readonly="1"/>
+            <field name="company_id" groups="base.group_multi_company"/>
+          </group>
+          <field name="lines">
+            <list string="Lines">
+              <field name="primatelj" readonly="1"/>
+              <field name="nazivprim" readonly="1"/>
+              <field name="ibanprim" readonly="1"/>
+              <field name="opis" readonly="1"/>
+              <field name="ispl" readonly="1" sum="Iznos"/>
+            </list>
+          </field>
+        </form>
+      </field>
+    </record>
+
+    <!-- view for sepa form-->
+    <record id="info3_sepa_tree" model="ir.ui.view">
+      <field name="name">info3.sepa.tree</field>
+      <field name="model">info3.sepa</field>
+      <field name="arch" type="xml">
+        <list string="SEPA plaćanje">
+          <field name="name"/>
+          <field name="date"/>
+          <field name="payslip_run_ids" widget="many2many_tags"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+        </list>
+      </field>
+    </record>
+    
+     <record id="info3_action_account_banking_sepa" model="ir.actions.act_window">
+      <field name="name">SEPA datoteke</field>
+      <field name="res_model">info3.sepa</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="info3_sepa_tree"/>
+    </record>
+
+    <record id="view_banking_export_sepa_form" model="ir.ui.view">
+        <field name="name">account.banking.export.sepa.form</field>
+        <field name="model">banking.export.sepa</field>
+        <field name="arch" type="xml">
+            <form string="SEPA plaćanje">
+                <notebook>
+                    <page string="Opći podaci">
+                        <group>
+                            <field name="total_amount" />
+                            <field name="nb_transactions" />
+                            <field name="batch_booking" />
+                            <field name="charge_bearer"/>
+                            <field name="create_date" />
+                            <newline />
+                            <field name="sepa_file" filename="filename"/>
+                            <field name="filename" invisible="True"/>
+                        </group>
+                    </page>
+                    <page string="Nalozi za plaćanje">
+                        <field name="payment_order_ids" colspan="4" nolabel="1">
+                            <list colors="blue:state in ('draft');gray:state in ('cancel','done');black:state in ('open')" string="Payment Orders">
+                                <field name="description"/>
+                                <field name="date_generated"/>
+                                <field name="date_done"/>
+                                <field name="total_company_currency"/>
+                                <field name="state"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_banking_export_sepa_tree" model="ir.ui.view">
+        <field name="name">account.banking.export.sepa.tree</field>
+        <field name="model">banking.export.sepa</field>
+        <field name="arch" type="xml">
+            <list string="SEPA Credit Transfer">
+                <field name="filename"/>
+                <field name="create_date"/>
+                <field name="nb_transactions"/>
+            </list>
+        </field>
+    </record>
+
+<!-- 
+    <record id="action_account_banking_sepa" model="ir.actions.act_window">
+        <field name="name">SEPA Credit Transfer Files</field>
+        <field name="res_model">banking.export.sepa</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">list,form</field>
+    </record> -->
+
+
+  </data>
+</openerp>

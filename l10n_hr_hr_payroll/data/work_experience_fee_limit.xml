@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="work_exp_fee_10" model="work.experience.fee.limit">
+            <field name="years">10</field>
+            <field name="max_amount">1500</field>
+        </record>
+
+        <record id="work_exp_fee_15" model="work.experience.fee.limit">
+            <field name="years">15</field>
+            <field name="max_amount">2000</field>
+        </record>
+
+        <record id="work_exp_fee_20" model="work.experience.fee.limit">
+            <field name="years">20</field>
+            <field name="max_amount">2500</field>
+        </record>
+
+        <record id="work_exp_fee_25" model="work.experience.fee.limit">
+            <field name="years">25</field>
+            <field name="max_amount">3000</field>
+        </record>
+
+        <record id="work_exp_fee_30" model="work.experience.fee.limit">
+            <field name="years">30</field>
+            <field name="max_amount">3500</field>
+        </record>
+
+        <record id="work_exp_fee_35" model="work.experience.fee.limit">
+            <field name="years">35</field>
+            <field name="max_amount">4000</field>
+        </record>
+
+        <record id="work_exp_fee_40" model="work.experience.fee.limit">
+            <field name="years">40</field>
+            <field name="max_amount">5000</field>
+        </record>
+
+    </data>
+</odoo>

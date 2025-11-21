@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <record id="unused_annual_leave_average_gross_wage_wizard_form_view" model="ir.ui.view">
+      <field name="name">unused.annual.leave.average.gross.wage.wizard.form.view</field>
+      <field name="model">unused.annual.leave.average.gross.wage.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Izračun prosječne bruto satnice">
+          <separator string="Računaj prosječnu bruto satnicu"/>
+          
+          <group>
+            <group>
+              <field name="date_from" string="Od datuma"/>
+              <field name="date_to" string="Do datuma"/>
+              <field name="average_gross_wage"/>
+            </group>
+          </group>
+
+          <field name="average_salary_line_ids"/>
+          
+          <footer>
+            <button name="save_average_gross_wage" string="Spremi" type="object" class="oe_highlight"/>
+            or
+            <button string="Odustani" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_unused_annual_leave_average_gross_wage_wizard" model="ir.actions.act_window">
+      <field name="name">Prosječna bruto satnica</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">unused.annual.leave.average.gross.wage.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="unused_annual_leave_average_gross_wage_wizard_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+    <record id="unused_annual_leave_average_gross_wage_wizard_tree" model="ir.ui.view">
+      <field name="name">unused.annual.leave.average.gross.wage.wizard.line.tree</field>
+      <field name="model">unused.annual.leave.average.gross.wage.wizard.line</field>
+      <field name="arch" type="xml">
+        <list string="Plaće" create="false">
+          <field name="paid_date"/>
+          <field name="payslip_run_id"/>
+          <field name="month_work_hours" sum="Total month work hours"/>
+          <field name="user_work_hours" sum="Total user work hours"/>
+          <field name="salary_gross" sum="Total gross salary"/>
+          <field name="salary_payout" sum="Total net salary"/>
+        </list>
+      </field>
+    </record>
+
+  </data>
+</odoo>

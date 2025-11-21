@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- menu = if True then report is available in Print menu on model form and tree view -->
+        <report
+            id="report_id" 
+            model="model.name"
+            string="Payslip run recap"
+            report_type="qweb-pdf"
+            name="Report name"
+            file="report_template_id"
+            header="False"
+            menu="False"/>
+
+    </data>
+</odoo>

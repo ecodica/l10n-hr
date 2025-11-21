@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <function name="write" model="ir.model.data"> 
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_payroll'), ('name', '=', 'group_hr_payroll_user')]"/>
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+
+        <!-- override group to remove hr_user and hr_contract_manager from implied groups     -->
+        <record id="l10n_hr_payroll_base.group_hr_payroll_user" model="res.groups">
+            <field name="implied_ids" eval="[(5,)]"/>
+        </record>
+
+        <!-- reset noupdate -->
+        <function name="write" model="ir.model.data"> 
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_payroll'), ('name', '=', 'group_hr_payroll_user')]"/>
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+    </data>
+</odoo>

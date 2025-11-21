@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <record model="ir.module.category" id="module_category_hr_joppd_form">
+        <field name="name">JOPPD form</field>
+        <field name="sequence">120</field>
+    </record>
+
+    <record model="res.groups" id="group_hr_joppd_form_user">
+        <field name="name">User</field>
+        <field name="category_id" ref="module_category_hr_joppd_form"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record model="res.groups" id="group_hr_joppd_form_manager">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="module_category_hr_joppd_form"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_joppd_form_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="hr_joppd_form_multi_company_rule" model="ir.rule">
+        <field name="name">JOPPD form multi-company</field>
+        <field name="model_id" ref="model_hr_joppd_form"/>
+        <field eval="True" name="global"/>
+        <field name="domain_force">['|', ('company_id','=',False), ('company_id','child_of',[user.company_id.id])]</field>
+    </record>
+
+  </data>
+</odoo>

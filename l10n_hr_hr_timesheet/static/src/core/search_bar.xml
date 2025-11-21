@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="l10n_hr_hr_timesheet.SearchBar.Facets" t-inherit="web.SearchBar.Facets" t-inherit-mode="extension">
+        <xpath expr="//div[contains(@class, 'o_searchview_facet')]" position="attributes">
+            <attribute name="t-att-class">
+                {o_facet_with_domain: facet.domain, [facet.class]: facet.class}
+            </attribute>
+        </xpath>
+    </t>
+</templates>

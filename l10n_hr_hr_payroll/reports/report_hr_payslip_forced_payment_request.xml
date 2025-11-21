@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="l10n_hr_hr_payroll.report_hr_payslip_forced_payment_request_document">
+        <t t-call="web.basic_layout">
+            <t t-set="lang" t-value="lang"/>
+            <t t-set="payslip" t-value="payslip.with_context(lang=lang)"/>
+            <t t-set="data" t-value="report_slip_data[payslip.id]"/>
+            <style>
+                .table {
+                    table-layout: fixed;
+                }
+                .page {
+                    padding: 50px 1rem 25px 1rem !important;
+                }
+                .font-medium {
+                    font-size: 9pt;
+                }
+                .empty-row {
+                    height: 10px;
+                }
+                .empty-row-bigger {
+                    height: 15px;
+                }
+                .colored {
+                    background-color: #dee5ff;
+                }
+            </style>
+
+            <div class="page" style="font-size: 11pt; font-family: Helvetica; line-height:20px;">
+
+                <!-- Header Table -->
+                <div class="text-end">
+                    <span class="fst-italic" style="">Obrazac ZPN-01</span>
+                </div>
+                <table class="table table-sm mb-0 table-borderless" style="margin-top:30px;">
+                    <!-- Names -->
+                    <tr>
+                        <td colspan="16">Podaci o radniku/ovrhovoditelju:</td>
+                        <td colspan="1"/>
+                        <td colspan="16">Podaci o poslodavcu/ovršeniku:</td>
+                    </tr>
+                    <tr>
+                        <td colspan="16" class="text-center colored"><span t-esc="data['name']"/></td>
+                        <td colspan="1"/>
+                        <td colspan="16" class="text-center colored"><span t-esc="company['name']"/></td>
+                    </tr>
+                    <tr class="font-medium">
+                        <td colspan="16" class="text-center">(ime i prezime)</td>
+                        <td colspan="1"/>
+                        <td colspan="16" class="text-center">(ime i prezime/naziv)</td>
+                    </tr>
+                    <!-- Addresses -->
+                    <tr class="empty-row"></tr>
+                    <tr>
+                        <td colspan="16" class="text-center colored"><span t-esc="data['address']"/></td>
+                        <td colspan="1"/>
+                        <td colspan="16" class="text-center colored"><span t-esc="company['address']"/></td>
+                    </tr>
+                    <tr class="font-medium">
+                        <td colspan="16" class="text-center">(adresa)</td>
+                        <td colspan="1"/>
+                        <td colspan="16" class="text-center">(adresa/sjedište)</td>
+                    </tr>
+                    <!-- OIBs -->
+                    <tr class="empty-row"></tr>
+                    <tr>
+                        <td colspan="7" class="colored text-center"><span style="letter-spacing:4px;" t-esc="data['oib']"/></td>
+                        <td colspan="9" class="text-center font-medium">(osobni identifikacijski broj / OIB)</td>
+                        <td colspan="1"/>
+                        <td colspan="7" class="colored text-center"><span style="letter-spacing:4px;" t-esc="company['oib']"/></td>
+                        <td colspan="9" class="text-center font-medium">(osobni identifikacijski broj / OIB)</td>
+                    </tr>
+                    <!-- Authorised Name -->
+                    <tr class="empty-row-bigger"></tr>
+                    <tr>
+                        <td colspan="17"/>
+                        <td colspan="16" class="colored text-center" style="height:20px;"><span t-esc="company['authorised_person']"/></td>
+                    </tr>
+                    <tr>
+                        <td colspan="17"/>
+                        <td colspan="16" class="text-center font-medium">(ime i prezime/adresa punomoćnika)</td>
+                    </tr>
+                    <!-- Authorised OIB -->
+                    <tr class="empty-row"></tr>
+                    <tr>
+                        <td colspan="17"/>
+                        <td colspan="7" class="colored text-center"><span style="letter-spacing:4px;" t-esc="company['authorised_person_oib']"/></td>
+                        <td colspan="9" class="text-center font-medium">(osobni identifikacijski broj / OIB)</td>
+                    </tr>
+                </table>
+                <div class="text-justify" style="margin-top:30px;">
+                    <span>
+                        Na temelju članka 33. Zakona o osiguranju radničkih tražbina („Narodne novine“, broj 70/17) Financijskoj
+                        agenciji podnosi se
+                    </span>
+                    <div class="text-center" style="font-size: 14pt; margin: 10px 0;">
+                        <strong>
+                            ZAHTJEV ZA PRISILNU NAPLATU
+                        </strong>
+                    </div>
+                    <span>
+                        na temelju obračuna poslodavca:
+                    </span>
+                    <div class="colored text-center" style="display: flex; flex-direction:row; align-items:center; padding:5px 0;">
+                        <span t-esc="company['name']"/>,
+                        <span t-esc="company['address']"/>,
+                        <span t-esc="company['oib']"/>
+                    </div>
+                    <div class="text-center font-medium">
+                        <span>
+                            (ime i prezime/naziv, adresa/sjedište, OIB)
+                        </span>
+                    </div>
+                    <table class="table table-sm mb-0 table-borderless" style="margin-top:5px;">
+                        <tr>
+                            <td>o neisplati dospjelog iznosa plaće/naknade plaće od</td>
+                            <td class="text-center colored"><span t-esc="dates['pay_date']"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-center font-medium">(nadnevak obračuna)</td>
+                        </tr>
+                    </table>
+                    <span class="text-justify" style="text-justify: inter-word;">
+                        Predmetni zahtjev za prisilnu naplatu zajedno s priloženim obračunom poslodavca o neisplaćenoj plaći/naknadi plaće
+                        podnosim Financijskoj agenciji radi naplate tražbine iz priložene ovršne isprave te zahtijevam da se novčana sredstva
+                        s mojih računa u visini iznosa obračuna neisplaćene plaće odnosno naknade plaće, uvećanog za zakonsku zateznu
+                        kamatu koja na taj iznos teče od dospijeća pa do isplate sukladno propisima koji uređuju provedbu ovrhe na novčanim
+                        sredstvima, prenesu u korist radnika/ovrhovoditelja, račun broj:
+                    </span>
+                    <div class="colored text-center" style="align-items:center; padding:5px 0;">
+                        <span style="letter-spacing:4px;" t-esc="data['bank_account']"/>
+                    </div>
+                    <div class="text-center font-medium" style="padding:5px 0;">
+                        <span>(za ovrhovoditelja upisati broj redovnog računa (IBAN)/model i poziv na broj primatelja)</span>
+                    </div>
+                    <div class="colored text-center" style="align-items:center; padding:5px 0;">
+                        <span style="letter-spacing:4px;" t-esc="data['protected_bank_account']"/>
+                    </div>
+                    <div class="text-center font-medium" style="padding:5px 0;">
+                        <span>(za ovrhovoditelja upisati broj računa iz čl. 212. Ovršnog zakona (IBAN)/model i poziv na broj primatelja)</span>
+                    </div>
+                    <span class="text-justify" style="text-justify: inter-word;">
+                        Suglasan sam da po predmetnom zahtjevu za prisilnu naplatu kojeg podnosim Financijskoj agenciji zajedno s prilo-
+                        ženim obračunom neisplaćene plaće/naknade plaće, a radi naplate tražbine iz priložene ovršne isprave, Financijska
+                        agencija odmah izda nalog za prijenos novčanih sredstava na račun ovrhovoditelja naznačen u zahtjevu za prisilnu
+                        naplatu.<br />
+                        Pod kaznenom i materijalnom odgovornošću izjavljujem da su navedeni podaci istiniti.
+                    </span>
+                    <div class="row mt-4">
+                        <div class="col-6" />
+                        <div class="col-6">
+                            <span>Poslodavac/punomoćnik:</span>
+                            <div class="colored text-center" style="align-items:center; padding:5px 0;">
+                                <br/>
+                            </div>
+                            <div class="text-center font-medium">
+                                <span>(potpis)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-6">
+                            <span>Prilog:</span>
+                            <br />
+                            <span>• Izvornik obračuna poslodavca</span>
+                        </div>
+                        <div class="col-6">
+                            <div class="colored text-center" style="display: flex; flex-direction:row; align-items:center; padding:5px 0;">
+                                <span t-esc="dates['print_date']"/>,
+                                <span t-esc="company['city']"/>
+                            </div>
+                            <div class="text-center font-medium">
+                                <span>(nadnevak i mjesto)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_payslip_forced_payment_request">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="payslip">
+                <t t-call="l10n_hr_hr_payroll.report_hr_payslip_forced_payment_request_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

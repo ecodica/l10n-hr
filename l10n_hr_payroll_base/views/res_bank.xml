@@ -1,0 +1,41 @@
+<odoo>
+  <data>
+    <record id="view_res_bank_form_inherit" model="ir.ui.view">
+        <field name="name">res.bank.form.inherit</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="/form/sheet/group[2]/group[1]/div//field[@name='state']" position="replace">
+              <field name="state" invisible="True"/>
+            </xpath>
+            <xpath expr="//field[@name='bic']" position="after">
+              <field name="leading_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_bank_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.bank.form.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+          <xpath expr="/form/sheet//group[2]" position="inside">
+            <field name="is_company_account"/>
+            <field name="active"/>
+          </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_bank_tree_inherit" model="ir.ui.view">
+        <field name="name">res.partner.bank.tree.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_tree"/>
+        <field name="arch" type="xml">
+          <xpath expr="//list" position="inside">
+            <field name="active"/>
+          </xpath>
+        </field>
+    </record>
+
+  </data>
+</odoo>

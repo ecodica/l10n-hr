@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+    <record id="work_statistics_wizard_view" model="ir.ui.view">
+      <field name="name">work.statistics.wizard.view</field>
+      <field name="model">work.statistics.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ispiši obrazac RAD-1G">
+          <group>
+            <group>
+              <field name="date"/>
+            </group>
+            <group></group>
+          </group>
+          <footer>
+            <button string="Ispis" type="object" name="print_work_statistics" class="oe_highlight"/>
+            or
+            <button string="Odustani" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_work_statistics_wizard" model="ir.actions.act_window">
+      <field name="name">Ispiši obrazac RAD-1G</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">work.statistics.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</openerp>

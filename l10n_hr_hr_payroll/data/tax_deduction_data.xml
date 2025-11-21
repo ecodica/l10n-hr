@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<odoo>
+ <data>
+   <record id="tax_deduction_update" model="ir.cron">
+      <field name="name">tax.deduction.update</field>
+      <field name="active">False</field>
+      <field name="model_id" ref="model_hr_salary_parameters"/>
+      <field name="state">code</field>
+      <field name="code">
+# Available variables:
+#  - env: Odoo Environment on which the action is triggered
+#  - model: Odoo Model of the record on which the action is triggered; is a void recordset
+#  - record: record on which the action is triggered; may be void
+#  - records: recordset of all records on which the action is triggered in multi-mode; may be void
+#  - time, datetime, dateutil, timezone: useful Python libraries
+#  - log: log(message, level='info'): logging function to record debug information in ir.logging table
+#  - Warning: Warning Exception to use with raise
+# To return an action, assign: action = {...}
+salary_parameters = model.search([])
+
+end_date = datetime.datetime(2023, 11, 30).date()
+for salary_p in salary_parameters:
+    date_from = salary_p.date_from
+    date_to = salary_p.date_to
+    if date_to and date_to &lt;= end_date:
+        continue
+    elif date_from &lt;= end_date and (not date_to or date_to &gt; end_date):
+        salary_p.write({'date_to': end_date})
+        new_date = end_date + datetime.timedelta(1)
+        new_salary_p = salary_p.copy(default={'name': u"{0}-{1}".format(salary_p.employee_id.name,
+                    new_date.strftime('%d.%m.%Y'))})
+        new_salary_p._update_deduction_ids()
+        continue
+    salary_p._update_deduction_ids()</field>
+   </record>
+ </data>
+</odoo>

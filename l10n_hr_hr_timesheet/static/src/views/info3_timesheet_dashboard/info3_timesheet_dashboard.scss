@@ -1,0 +1,64 @@
+.o_list_renderer:has(.info3-timesheet-dashboard) {
+    .o_list_table {
+        margin-top: 90px;
+
+        @media (max-width: 1800px) {
+            margin-top: 130px;
+        }
+        @media (max-width: 783px) {
+            margin-top: 170px;
+        }
+    }
+}
+
+.info3-timesheet-dashboard {
+    position: fixed;
+    width: 100%;
+    margin: auto;
+
+    button,
+    label {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    @media (max-width: 1800px) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .buttons-start {
+            order: 1;
+        }
+
+        .filters {
+            order: 3;
+        }
+
+        .buttons-end {
+            order: 2;
+        }
+    }
+}
+
+.custom-field-height {
+    .table {
+        table-layout: auto !important;
+
+        th div span {
+            white-space: break-spaces;
+        }
+    }
+}
+
+.employee-red {
+	color: red;
+}
+
+.employee-blue {
+	color: #5bb5f7;
+}
+
+.o_searchview_facet.hidden {
+	display: none !important;
+}

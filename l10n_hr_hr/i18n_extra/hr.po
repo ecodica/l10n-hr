@@ -1,0 +1,208 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_hr
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-25 11:56+0000\n"
+"PO-Revision-Date: 2024-10-25 11:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_org_chart
+#: model:ir.actions.act_window,name:hr_org_chart.action_hr_employee_org_chart
+#: model:ir.ui.menu,name:hr_org_chart.menu_hr_employee_org_chart
+msgid "Org Chart"
+msgstr "Organigram"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_resource_calendar__contracts_count
+msgid "# Contracts using it"
+msgstr "Broj ugovora s radnim vremenom"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_resource_calendar_view
+msgid "Working Schedules"
+msgstr "Radno vrijeme"
+
+#. module: hr_skills
+#: model:ir.model.fields,field_description:hr_skills.field_hr_skill_type__skill_level_ids
+#: model_terms:ir.ui.view,arch_db:hr_skills.hr_employee_skill_type_view_form
+msgid "Levels"
+msgstr "Razine"
+
+#. module: hr_skills
+#: model:ir.actions.act_window,name:hr_skills.hr_resume_type_action
+msgid "Resume Line Types"
+msgstr "Linije životopisa"
+
+#. module: hr_contract
+#: model:ir.model.fields,field_description:hr_contract.field_resource_calendar__contracts_count
+msgid "# Contracts using it"
+msgstr "Broj ugovora s radnim vremenom"
+
+#. module: hr
+#: model:ir.ui.menu,name:hr.menu_resource_calendar_view
+msgid "Working Schedules"
+msgstr "Radno vrijeme"
+
+#. module: resource
+#: model:ir.actions.act_window,name:resource.action_resource_calendar_form
+#: model:ir.ui.menu,name:resource.menu_resource_calendar
+msgid "Working Schedules"
+msgstr "Radno vrijeme"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_mail_activity_plan__steps_count
+msgid "Steps Count"
+msgstr "Broj Koraka"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_hr_employee_view_form3
+msgid ""
+"<span invisible=\"contracts_count != 1\" class=\"o_stat_text text-danger\">\n"
+"                                    Contract\n"
+"                                </span>\n"
+"                                <span invisible=\"contracts_count == 1\" class=\"o_stat_text text-danger\">\n"
+"                                    Contracts\n"
+"                                </span>"
+msgstr ""
+"<span invisible=\"contracts_count != 1\" class=\"o_stat_text text-danger\">\n"
+"                                    Ugovor\n"
+"                                </span>\n"
+"                                <span invisible=\"contracts_count == 1\" class=\"o_stat_text text-danger\">\n"
+"                                    Ugovori\n"
+"                                </span>"
+
+#. module: hr_contract
+#: model_terms:ir.ui.view,arch_db:hr_contract.hr_contract_view_form
+msgid ""
+"<span invisible=\"contracts_count == 1\" class=\"o_stat_text\">\n"
+"                                        Contracts\n"
+"                                    </span>\n"
+"                                    <span invisible=\"contracts_count &gt; 1\" class=\"o_stat_text\">\n"
+"                                        Contract\n"
+"                                    </span>"
+msgstr ""
+"<span invisible=\"contracts_count == 1\" class=\"o_stat_text\">\n"
+"                                        Ugovori\n"
+"                                    </span>\n"
+"                                    <span invisible=\"contracts_count &gt; 1\" class=\"o_stat_text\">\n"
+"                                        Ugovor\n"
+"                                    </span>"
+
+#. module: hr
+#. odoo-javascript
+#: code:addons/hr/static/src/components/department_chart/department_chart.xml:0
+#, python-format
+msgid "Department Organization"
+msgstr "Organigram Odjela"
+
+#. module: website_hr_recruitment
+#: model_terms:ir.ui.view,arch_db:website_hr_recruitment.default_description
+msgid ""
+"Perform assigned responsibilities, collaborate with team members, and adhere to company policies.\n"
+"        Strong communication, problem-solving, and work ethic required.\n"
+"        Adaptability, initiative, and willingness to learn are valued."
+msgstr ""
+"Potrebno je učinkovito obavljati dodijeljene odgovornosti, surađivati s članovima tima i pridržavati se politika tvrtke.n"
+"        Potrebne su jasne komunikacijske vještine, izražene sposobnosti rješavanja problema i visoka radna etika.\n"
+"        Cijene se prilagodljivost, inicijativa i spremnost na učenje."
+
+#. module: hr_holidays
+#: model:ir.ui.menu,name:hr_holidays.menu_hr_holidays_my_leaves
+msgid "My Time"
+msgstr "Moja odsustva"
+
+#. module: hr_holidays
+#: model:ir.actions.act_window,name:hr_holidays.open_view_accrual_plans
+#: model:ir.ui.menu,name:hr_holidays.hr_holidays_accrual_menu_configuration
+#: model_terms:ir.ui.view,arch_db:hr_holidays.hr_accrual_plan_view_tree
+msgid "Accrual Plans"
+msgstr "Obračunski planovi"
+
+#. module: hr_holidays
+#. odoo-javascript
+#: code:addons/hr_holidays/static/src/views/calendar/filter_panel/calendar_filter_panel.xml:0
+#: model:ir.actions.act_window,name:hr_holidays.hr_leave_mandatory_day_action
+#: model:ir.ui.menu,name:hr_holidays.hr_holidays_mandatory_day_menu_configuration
+#, python-format
+msgid "Mandatory Days"
+msgstr "Obavezni Dani"
+
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_mail_activity_type__summary
+msgid "Default Summary"
+msgstr "Sažetak"
+
+#. module: hr_holidays
+#: model:ir.model.fields,field_description:hr_holidays.field_hr_leave_type__allows_negative
+msgid "Allow Negative Cap"
+msgstr "Dopusti prekoračenje"
+
+#. module: hr_holidays
+#: model_terms:ir.ui.view,arch_db:hr_holidays.edit_holiday_status_form
+msgid "Negative Cap"
+msgstr "Prekoračenje"
+
+#. module: hr_skills
+#: model:ir.ui.menu,name:hr_skills.menu_human_resources_configuration_resume
+#: model_terms:ir.ui.view,arch_db:hr_skills.hr_employee_public_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:hr_skills.hr_employee_public_view_search
+#: model_terms:ir.ui.view,arch_db:hr_skills.hr_employee_view_form
+#: model_terms:ir.ui.view,arch_db:hr_skills.hr_employee_view_search
+#: model_terms:ir.ui.view,arch_db:hr_skills.res_users_view_form
+#: model_terms:ir.ui.view,arch_db:hr_skills.resume_line_view_form
+msgid "Resume"
+msgstr "Životopis"
+
+#. module: hr_skills
+#. odoo-javascript
+#: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
+#, python-format
+msgid "There are no skills defined in the library."
+msgstr "Trenutno nema definiranih vještina u knjižnici."
+
+#. module: hr_skills
+#. odoo-javascript
+#: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
+#, python-format
+msgid "Why not try adding some ?"
+msgstr "Želite li dodati nove?"
+
+#. module: hr_skills
+#. odoo-javascript
+#: code:addons/hr_skills/static/src/fields/skills_one2many/skills_one2many.xml:0
+#, python-format
+msgid "Timeline"
+msgstr "Vremenska crta"
+
+#. module: hr_hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_hr_payroll.payroll_custom_hr_payslip_form_view
+msgid "Experience"
+msgstr "Iskustvo"
+
+#. module: hr_skills
+#: model_terms:ir.ui.view,arch_db:hr_skills.report_employee_cv_main_panel
+msgid "Experience"
+msgstr "Iskustvo"
+
+#. module: web
+#. odoo-javascript
+#: code:addons/web/static/src/legacy/js/fields/relational_fields.js:0
+#, python-format
+msgid "Open: "
+msgstr "Otvori: "
+
+#. module: hr_contract
+#: model:ir.ui.menu,name:hr_contract.hr_menu_contract_type
+msgid "Employment types"
+msgstr "Vrste zaposlenja"
+

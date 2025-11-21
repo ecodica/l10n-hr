@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="payroll_custom_hr_payslip_run_form_view" model="ir.ui.view">
+            <field name="name">payroll.custom.hr.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <!-- ZAKOMENTIRANO JER BREAKA FORMU -->
+                <!-- <xpath expr="//form/sheet" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </xpath> -->
+                <xpath expr="//form/sheet/label[@for='name']" position="after">
+                    <field name="show_nonpaid_salary_options" invisible="1"/>
+                    <div name="button_box" class="oe_button_box">
+                        <button
+                            string="Naknada za OSI"
+                            name="calculate_disability_fee"
+                            type="object"
+                            invisible="disability_fee_payment_id != False"
+                            icon="fa-money"
+                            groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                        />
+                        <button
+                            string="Otkaži naknadu za OSI"
+                            name="cancel_disability_fee"
+                            type="object"
+                            invisible="disability_fee_payment_id == False"
+                            groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                        />
+                        <button
+                            string="Ispiši IP1"
+                            name="print_all_ip1"
+                            type="object"
+                            icon="fa-print"
+                        />
+                        <button
+                            string="Ispiši IO1"
+                            name="print_all_io1_reports"
+                            type="object"
+                            icon="fa-print"
+                        />
+                        <!-- show/hide depending on HR setting -->
+                        <button
+                            name="%(nonpaid_payslip_wizard_action)d"
+                            invisible="show_nonpaid_salary_options == False"
+                            type="action"
+                            string="Ispiši NP1"
+                            icon="fa-print"
+                            context="{'whole_payslip_run': True}"
+                        />
+                        <!-- show/hide depending on HR setting -->
+                        <button
+                            name="%(payslip_forced_payment_request_wizard_action)d"
+                            invisible="show_nonpaid_salary_options == False"
+                            type="action"
+                            string="Ispiši ZPN1"
+                            icon="fa-print"
+                            context="{'whole_payslip_run': True}"
+                        />
+                        <button
+                            name="%(nonpaid_payslip_wizard_action)d"
+                            invisible="show_nonpaid_salary_options == False"
+                            type="action"
+                            string="Ispiši NO1"
+                            icon="fa-print"
+                            context="{'whole_payslip_run': True, 'report_no1_type': 'NO1'}"
+                        />
+                        <button
+                            string="Pošalji IP1 obrazac mailom"
+                            name="action_send_payslips_by_email"
+                            type="object"
+                            icon="fa-envelope"
+                            confirm="Pošalji sve IP1 obrasce mailom?"
+                            invisible="hr_config_send_payslips_by_email == False"
+                        />
+                    </div>
+                </xpath>
+
+                <xpath expr="//form/sheet/group[1]" position="replace">
+                    <button string="Ažuriraj naziv listića" name="action_update_payslips_name" type="object" icon="fa-refresh" class="oe_edit_only" invisible="state != 'draft'"/>
+                    <group>
+                        <group>
+                            <separator string="Razdoblje" colspan="2"/>
+                            <label for="date_start" string="Razdoblje"/>
+                            <div>
+                                <field name="date_start" on_change="onchange_date(date_start, date_end, context)" class="payroll_date" readonly="state != 'draft'"/>
+                                 -
+                                <field name="date_end" on_change="onchange_date(date_start, date_end, context)" class="payroll_date" readonly="state != 'draft'"/>
+                            </div>
+                            <field name="period_work_hours" readonly="state in ('close','paid')"/>
+                            <field name="pay_date" readonly="state in ('posted','paid')"/>
+
+                            <separator string="Računovodstvo"/>
+                            <field name="journal_id" options="{'no_create': True, 'no_create_edit': True}" readonly="state != 'draft'" close="readonly == False" domain="[('type', '=', 'payroll')]"/>
+                            <field name="credit_note" invisible="1"/>
+                            <field
+                                name="hr_accounting_scheme_type_id"
+                                options="{'no_create': True, 'no_open': True}"
+                                readonly="state == 'posted'"
+                            />
+                            <field
+                                name="move_id"
+                                readonly="1"
+                            />
+                            <separator string="Naknada za invaliditet" colspan="2" invisible="disability_fee_payment_id == False"/>
+                            <field name="disability_fee_payment_id" invisible="disability_fee_payment_id == False"/>
+                            <field name="disability_fee_amount" invisible="disability_fee_payment_id == False"/>
+                            <field name="disability_fee_payment_ids" invisible="1"/>
+                            <field name="hr_config_send_payslips_by_email" invisible="1"/>
+
+                            <separator colspan="2"/>
+                            <field name="bank_account_id" options="{'no_create': True}"/>
+                            <field
+                                name="payslips_without_tax_return_tolerance"
+                                invisible="annual_calc == False"
+                                groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                            />
+                        </group>
+                        <group>
+                            <separator string="Opcije" colspan="2"/>
+
+                            <!-- show/hide depending on HR setting -->
+                            <field
+                                name="payslip_run_type"
+                                readonly="state not in ('draft', 'close')"
+                                invisible="show_nonpaid_salary_options == False"
+                                required="1"
+                            />
+
+                            <field
+                                name="salary_in_kind"
+                                readonly="state != 'draft' or annual_calc == True"
+                            />
+                            <field
+                                name="i3_add_only_inputs"
+                                readonly="state not in 'draft' or annual_calc == True"
+                            />
+                            <field
+                                name="i3_profit_payment"
+                                readonly="state not in 'draft' or annual_calc == True"
+                            />
+
+                            <field name="annual_calc" readonly="1"/>
+                            <field 
+                                name="severance"
+                                readonly="state != 'draft' or annual_calc == True"
+                            />
+
+                            <separator string="Valute" colspan="2"/>
+                            <field name="i3_currency" readonly="state != 'draft'"/>
+                            <field name="i3_work_abroad_currency" readonly="state != 'draft'"/>
+
+                            <separator colspan="2"/>
+                            <field name="company_id" options="{'no_create': True, 'no_create_edit': True}" groups="base.group_multi_company" readonly="state != 'draft'"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//form/sheet/separator" position="before">
+                    <div style="float: right">
+                        <div>
+                            Broj listića: <field name="slip_ids_count"/>
+                        </div>
+                        <div>
+                            Broj zaposlenika: <field name="employee_count"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='slip_ids']" position="replace">
+                        <header name="annual_calculation_button_box" class="oe_button_box">
+                            <button
+                                string="Obriši zaposlenike bez povrata"
+                                name="annual_calculation_delete_employees_without_tax_return"
+                                type="object"
+                                icon="fa-trash"
+                                class="btn btn-secondary"
+                                style="margin-right: 5px;"
+                                groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                                invisible="annual_calc == False"
+                                help="Obriši zaposlenike kod kojih nema povrata poreza (obojani crveno)."
+                            />
+                            <button
+                                string="Obriši nepotpune zaposlenike"
+                                name="annual_calculation_delete_incomplete_employees"
+                                type="object"
+                                icon="fa-trash"
+                                class="btn btn-secondary"
+                                style="margin-right: 5px;"
+                                groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                                invisible="annual_calc == False"
+                                help="Obriši zaposlenike koji imaju manje od 12 isplatnih listića u ovoj godini."
+                            />
+                            <button
+                                string="Obriši zaposlenike koji su mijenjali prebivalište/boravište"
+                                name="annual_calculation_delete_employees_residence"
+                                type="object"
+                                class="btn btn-secondary"
+                                style="margin-right: 5px;"
+                                icon="fa-trash"
+                                groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                                invisible="annual_calc == False"
+                                help="Obriši zaposlenike koji su mijenjali prebivalište/boravište izvan općine/grada (obojani žuto)."
+                            />
+                        </header>
+                    <field name="slip_ids" context="{'i3_add_only_inputs': i3_add_only_inputs, 'salary_in_kind': salary_in_kind}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='%(l10n_hr_payroll_base.action_hr_payslip_by_employees)d']" position="before">
+                    <button 
+                    name="%(action_hr_payslip_contribution_distribution)d" 
+                    type="action"
+                    string="Umanjenje osnovice za doprinose"
+                    invisible="annual_calc == True or state != 'draft'"/>
+                </xpath>
+
+                <!-- only payroll manager is able to create payslips -->
+                <xpath expr="//button[@name='%(l10n_hr_payroll_base.action_hr_payslip_by_employees)d']" position="attributes">
+                    <attribute name="groups">l10n_hr_payroll_base.group_hr_payroll_manager</attribute>
+                    <attribute name="invisible">annual_calc == True or state not in ['draft']</attribute>
+                </xpath>
+
+                <xpath expr="//button[@name='close_payslip_run']" position="replace" class="oe_highlight">
+                    <!-- payroll_user can only see buttons which don't change payslips -->
+                    <button
+                        string="Isplati"
+                        name="pay_payslip_run"
+                        type="object"
+                        class="oe_highlight"
+                        invisible="state != 'close' or payslip_run_type == 'nonpaid_salary'"
+                        confirm="Ako nastavite, svi platni listići biti će zatvoreni i nećete ih moći obrisati/ažurirati!"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Potvrdi plaće"
+                        name="close_payslip_run"
+                        type="object"
+                        invisible="state != 'draft'"
+                        class="oe_highlight oe_save_only"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Obriši obračun"
+                        name="clear_payslip_lines"
+                        type="object"
+                        invisible="state != 'draft'"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Obračunaj"
+                        name="calc_payslip_run"
+                        type="object"
+                        invisible="state != 'draft'"
+                        class="oe_save_only"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                        context="{'whole_payslip_run': True}"
+                    />
+                    <button
+                        string="Dohvati podatke za obračun"
+                        name="get_calculation_parameters"
+                        help="Za svaki listić se dohvate parametri zaposlenika i postavke obračuna. Na ovoj akciji se ne radi izračun plaće."
+                        type="object"
+                        invisible="state != 'draft'"
+                        class="oe_save_only"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button string="Provjeri godišnji"
+                        name="check_leaves"
+                        type="object"
+                        invisible="state != 'draft' or annual_calc == True" />
+                    <button
+                        string="Godišnji obračun"
+                        name="annual_calculation_open_wizard"
+                        type="object"
+                        invisible="state != 'draft'"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Dodaj dodatke na obračun"
+                        name="%(action_add_inputs_on_payslip)d"
+                        type="action"
+                        invisible="state != 'draft' or annual_calc == True"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Proknjiži"
+                        name="post_salary_account_move"
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="state != 'paid' or move_id == False"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                     <button
+                        name="action_update_account_move"
+                        string="Ažuriraj stavke temeljnice"
+                        type="object"
+                        class="oe_highlight"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                        invisible="state != 'paid'"
+                    />
+                    <button
+                        string="Otkaži knjiženje"
+                        name="cancel_post"
+                        type="object"
+                        invisible="state != 'posted'"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                    <button
+                        string="Otkaži isplatu"
+                        name="cancel_payment"
+                        type="object"
+                        invisible="state != 'paid'"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                </xpath>
+                <xpath expr="//button[@name='draft_payslip_run']" position="replace" class="oe_highlight">
+                    <button
+                        string="Postavi na nacrt"
+                        name="draft_payslip_run"
+                        type="object"
+                        invisible="state != 'close'"
+                        groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                    />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="info3_hr_payslip_run_tree" model="ir.ui.view">
+            <field name="name">info3.hr.payslip.run.tree</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.hr_payslip_run_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='credit_note']" position="replace">
+                    <field name="pay_date" />
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="employee_count"/>
+                    <field name="slip_ids_count"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

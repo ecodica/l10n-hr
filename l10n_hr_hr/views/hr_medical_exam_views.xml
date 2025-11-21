@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_medic_exam_tree" model="ir.ui.view">
+        <field name="name">employee.medic.exam.tree</field>
+        <field name="model">hr.employee.medic_exam</field>
+        <field name="arch" type="xml">
+            <list string="Employee medic exams" default_order="start_date desc">
+                <field name="employee_id" options="{'no_create': True}"/>
+                <field name="medical_exam_type_id" options="{'no_create': True}"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="medical_institution"/>
+                <field name="att_data" filename="att_fname"/>
+                <field name="att_fname" column_invisible="1"/>
+                <field name="note"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_employee_medic_exam_form" model="ir.ui.view">
+        <field name="name">employee.medic.exam.form</field>
+        <field name="model">hr.employee.medic_exam</field>
+        <field name="arch" type="xml">
+            <form string="Employee medic exam">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" options="{'no_create': True}" invisible="context.get('hide_employee')"/>
+                            <field name="medical_exam_type_id" options="{'no_create': True}"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="medical_institution"/>
+                            <field name="att_data" filename="att_fname"/>
+                            <field name="att_fname" invisible="1"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_employee_medic_exam_filter" model="ir.ui.view">
+      <field name="name">employee.medic.exam.filter</field>
+      <field name="model">hr.employee.medic_exam</field>
+      <field name="arch" type="xml">
+        <search string="Medic exam">
+          <field name="employee_id" string="Employee" filter_domain="[('employee_id','ilike',self)]"/>
+          <filter name="expired" string="Expired" domain="[('end_date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+          <group expand="0" string="Group By">
+            <filter string="Employee" name="employee" domain="[]" context="{'group_by':'employee_id'}"/>
+            <filter string="End date" name="end_date" domain="[]" context="{'group_by':'end_date'}"/>
+            <filter string="Medical exam type" name="medical_exam_type_id" domain="[]" context="{'group_by':'medical_exam_type_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_employee_medical_exam" model="ir.actions.act_window">
+      <field name="name">Employee medical exams</field>
+      <field name="res_model">hr.employee.medic_exam</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+          (0, 0, {'view_mode': 'list', 'view_id': ref('view_employee_medic_exam_tree')}),
+          (0, 0, {'view_mode': 'form', 'view_id': ref('view_employee_medic_exam_form')})]"/>
+      <field name="search_view_id" ref="view_employee_medic_exam_filter"/>
+    </record>
+
+    <record id="hr_view_medical_exam_type_search" model="ir.ui.view">
+        <field name="name">hr.medical.exam.type.search</field>
+        <field name="model">hr.medical.exam.type</field>
+        <field name="arch" type="xml">
+            <search string="Medical exam types">
+                <field name="name" string="Medical exam type" filter_domain="[('name','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_medical_exam_type_action" model="ir.actions.act_window">
+        <field name="name">Medical exam types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.medical.exam.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_medical_exam_type_search"/>
+    </record>
+    
+    <menuitem id="hr_menu_medical_exam"
+        name="Employee Medical Exams"
+        action="action_employee_medical_exam"
+        parent="hr_registers_menu_item"
+        groups="hr.group_hr_manager,hr.group_hr_user"
+        sequence="10"
+    />
+
+    <menuitem id="hr_menu_medical_exam_type"
+        name="Medical exam type"
+        parent="hr_submenu_view_employees"
+        sequence="60"
+        action="hr_config_medical_exam_type_action"    
+    />
+
+</odoo>

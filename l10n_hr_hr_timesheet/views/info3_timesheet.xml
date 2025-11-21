@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="info3_timesheet_search_view" model="ir.ui.view">
+        <field name="name">info3.timesheet.search.view</field>
+        <field name="model">info3.timesheet</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <filter string="Employees by tag" name="employees" domain="[('employee_category_ids.name', '=', 'Zaposlenik')]"/>
+                <filter string="Associates by tag" name="associates" domain="[('employee_category_ids.name', '=', 'Suradnik')]"/> 
+                <filter string="Students by tag" name="students" domain="[('employee_category_ids.name', '=', 'Student')]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('employee_active', '=', False)]"/>
+                <filter string="Active" name="active" domain="[('employee_active','=', True)]" />
+                <group expand="0" string="Group By">
+                    <filter name="group_by_employee" string="Employee" domain="[]" context="{'group_by':'employee_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="info3_timesheet_form_view" model="ir.ui.view">
+        <field name="name">info3.timesheet.form.view</field>
+        <field name="model">info3.timesheet</field>
+        <field name="arch" type="xml">
+            <form string="Timesheet">
+                <sheet>
+                    <field name="start_time" widget="float_time"/>
+                    <field name="end_time" widget="float_time"/>
+                    <field name="total" widget="float_time"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="info3_timesheet_tree_view" model="ir.ui.view">
+        <field name="name">info3.timesheet.tree.view</field>
+        <field name="model">info3.timesheet</field>
+        <field name="arch" type="xml">
+            <list string="Timesheet" editable="top" js_class="info3_timesheet" class="custom-field-height">
+                <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="employee_category_ids" options="{'no_create': True, 'no_open': True}" widget="many2many_tags" readonly="1"/>
+                <field name="employee_active" column_invisible="1"/>
+                <field name="manager_id" column_invisible="1"/>
+                <field name="department_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="company_id" column_invisible="1"/>
+                <field name="date"/>
+                <field name="analytic_account_id"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+                <field name="total" widget="float_time" sum="Total sum"/>
+
+                <field name="night_work" widget="float_time" sum="Total night"/>
+                <field name="overtime" widget="float_time" sum="Total overtime"/>
+                <field name="holiday" widget="float_time" sum="Total holiday"/>
+                <field name="sunday_work_hours" widget="float_time" sum="Total sunday work hours" />
+                <field name="non_working_sunday" widget="float_time" sum="Total holiday"/>
+                <field name="non_working_holiday" widget="float_time" sum="Total holiday"/>
+                
+                <field name="daily_rest" widget="float_time" sum="Total daily rest"/>
+                <field name="weekly_rest" widget="float_time" sum="Total weekly rest"/>
+                <field name="annual_leave_hours" widget="float_time" sum="Total annual leave"/>
+                
+                <field name="shift_work" widget="float_time" sum="Total shift"/>
+                <field name="split_shift_work" widget="float_time" sum="Total split shift"/>
+                <field name="rescheduled_hours" widget="float_time" sum="Total rescheduled"/>
+                
+                <field name="fieldwork" widget="float_time" sum="Total fieldwork"/>
+                <field name="fieldwork_abroad" widget="float_time" sum="Total fieldwork abroad"/>
+                <field name="seconded_work" widget="float_time" sum="Total seconded work"/>
+                
+                <field name="sick_leave" widget="float_time" sum="Total sick leave"/>
+                <field name="sick_leave_fund" widget="float_time" sum="Total sick leave fund"/>
+                <field name="maternity_leave" widget="float_time" sum="Total maternity"/>
+                <field name="paternity_leave" widget="float_time" sum="Total paternity"/>
+                <field name="parental_leave" widget="float_time" sum="Total parental"/>
+                <field name="other_maternity_leave" widget="float_time" sum="Total other maternity"/>
+                
+                <field name="paid_leave" widget="float_time" sum="Total paid leave"/>
+                <field name="unpaid_leave" widget="float_time" sum="Total unpaid leave"/>
+                <field name="unpaid_personal_care" widget="float_time" sum="Total unpaid leave" />
+                <field name="unpaid_candidacy" widget="float_time" sum="Total unpaid leave"/>
+                <field name="work_absence" widget="float_time" sum="Total sum" />
+                <field name="military_leave_absence" widget="float_time" sum="_unknown_yet" />
+                <field name="absence" widget="float_time" sum="Total absence"/>
+                
+                <field name="absence_fault" widget="float_time" sum="Total absence fault"/>
+                
+                <field name="strike" widget="float_time" sum="Total strike"/>
+                <field name="lockout" widget="float_time" sum="Total lockout"/>
+                <field name="outage" widget="float_time" sum="Total outage"/>
+                
+                <field name="time_outage"/>
+                <field name="business_trip" widget="float_time" sum="Total business trip"/>
+                <field name="standby_hours" widget="float_time" sum="Total standby"/>
+                <field name="write_date"/>
+                <field name="write_uid"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_info3_timesheet" model="ir.actions.act_window">
+        <field name="name">Timesheet</field>
+        <field name="res_model">info3.timesheet</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <menuitem
+        id="menu_timesheet_root"
+        name="Timesheet"
+        groups="l10n_hr_hr_timesheet.group_hr_hr_timesheet_user"
+        web_icon="l10n_hr_hr_timesheet,static/description/timetable-icon.png"
+    />
+
+    <menuitem
+        id="menu_timesheet"
+        parent="menu_timesheet_root"
+        name="Timesheet"
+        action="action_info3_timesheet"
+    />
+
+    <menuitem 
+        id="menu_timesheet_config" 
+        parent="menu_timesheet_root"
+        name="Configuration" 
+        sequence="20"/>
+
+    <menuitem id="menu_reports"
+        name="Reporting"
+        parent="menu_timesheet_root"
+        sequence="99"/>
+
+    <menuitem 
+        id="menu_timesheet_holidays" 
+        parent="menu_timesheet_config"
+        name="Holidays" 
+        action="action_hr_timesheet_holidays"/>
+
+    <menuitem
+        id="info3_holiday_menu"
+        action="open_view_info3_holiday"
+        name="Holidays"
+        parent="hr_holidays.menu_hr_holidays_configuration"
+        groups="hr_holidays.group_hr_holidays_user"
+        sequence="2"
+    />
+
+</odoo>

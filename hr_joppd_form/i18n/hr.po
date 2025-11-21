@@ -1,0 +1,1779 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_joppd_form
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-11 12:29+0000\n"
+"PO-Revision-Date: 2022-11-11 12:29+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "1 - Pravna osoba"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b1
+msgid "1. Redni broj"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "1.1."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "1.2."
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "10 - SKDD"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "10."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b10
+msgid "10. Ukupni sati rada"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "10. Ukupni sati rada prema kojima se radi obračun"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b100
+msgid "10.0. Ukupni neodrađeni sati rada"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "10.0. Ukupni neodrađeni sati rada (10.-odrađeni sati rada)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b101
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "10.1. Razdoblje obračuna od"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b102
+msgid "10.2. Razdoblje obračuna do"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "10.2.Razdoblje obračuna do"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "11 - Poslodavac u stečaju u slučaju izravne isplate plaće koju Agencija za osiguranje radničkih potraživanja u slučaju stečaja poslodavaca isplaćuje radniku"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "11."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b11
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "11. Iznos primitka (oporezivi)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "12 - Osiguranik po osnovi rada kod poslodavca s registriranim sjedištem ili mjestom poslovanja u drugoj državi članici Europske unije koji je od tog poslodavca preuzeo obvezu doprinosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "12."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b12
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12. Osnovica za obračun doprinosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.1. Doprinos za mirovinsko osiguranje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b121
+msgid "12.1. Doprinos za mirovinsko osiguranje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b122
+msgid "12.2. Dopr. za mir. osig. II Stup"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.2. Doprinos za mirovinsko osiguranje - II STUP"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.3. Doprinos za zdravstveno osiguranje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b123
+msgid "12.3. Zdravstveno osig."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b124
+msgid "12.4. Doprinos za zašt.zdravlja na radu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.4. Doprinos za zaštitu zdravlja na radu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.5. Doprinos za zapošljavanje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b125
+msgid "12.5. Doprinosi za zapošljavanje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b126
+msgid "12.6. Dodatni dop. za mir. osig. - staž pov. traj."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.6. Dodatni doprinos za mirovinsko osig. za staž osiguranja koji se računa s povećanim trajanjem"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b127
+msgid "12.7. Dod.dop. za mir. osig.- staž pov. traj. II STUP"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.7. Dodatni doprinos za mirovinsko osiguranje za staž osiguranja koji se računa s povećanim trajanjem - II STUP"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b128
+msgid "12.8. Poseban dop. - zdrav.zašt.ino."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.8. Poseban doprinos za korištenje zdravstvene zaštite u inozemstvu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b129
+msgid "12.9. Iznos umanjenja osnovice"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "12.9. Iznos umanjenja osnovice"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "13 - Poslodavac u slučaju kada druga osoba umjesto toga poslodavca isplaćuje plaću"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b131
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "13.1. Izdatak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "13.2. Izdatak - uplaćeni doprinos za mirovinsko osiguranje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b132
+msgid "13.2. Izdatak -upla.dop. mir.osig"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b133
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "13.3. Dohodak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b134
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "13.4. Osobni odbitak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b135
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "13.5. Porezna osnovica"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b141
+msgid "14.1. Izn.obr. poreza na dohodak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "14.1. Iznos obračunanog poreza na dohodak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b142
+msgid "14.2. Izn.obr. prireza por.na doh."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "14.2. Iznos obračunanog prireza porezu na dohodak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b151
+msgid "15.1. Oznaka neopor. primitka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "15.1. Oznaka neoporezivog primitka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b152
+msgid "15.2. Iznos neopor. primitka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "15.2. Iznos neoporezivog primitka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b161
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "16.1. Oznaka načina isplate"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b162
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "16.2. Iznos za isplatu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b17
+msgid "17. Obračun. prim. od nesam. rada (plaća)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "17. Obračunani primitak od nesam. rada (plaća)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "2 - Fizička osoba koja obavlja samostalnu djelatnost i po toj osnovi obveznik je poreza na dohodak ili poreza na dobit"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "2. Šifra općine / grada prebivališta / boravišta"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b2
+msgid "2. Šifra općine/grada prebivališta/boravišta"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "3 - Poslodavci diplomatske misije i konzularni uredi stranih država i međunarodnih organizacija koji u Republici Hrvatskoj uživaju diplomatski imunitet – za doprinose obračunane za osiguranike po osnovi radnog odnosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "3. Šifra općine / grada rada"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b3
+msgid "3. Šifra općine/grada rada"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "4 - Ostale fizičke osobe"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b4
+msgid "4. OIB"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "4. OIB stjecatelja / osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "5 - Ostali poslovni subjekti"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "5. Ime i prezime stjecatelja / osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__hr_employee_id
+msgid "5. Ime i prezime stjecatelja/osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "6 - Škola ili ustanova za osiguranike"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "6.1. Oznaka stjecatelja / osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b61
+msgid "6.1. Oznaka stjecatelja/ osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "6.2. Oznaka primitka / obveze doprinosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b62
+msgid "6.2. Oznaka primitka/ obveze doprinosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "7 - HZMO"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b71
+msgid "7.1. Dodatni doprinosi MO"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "7.1. Obveza dodatnog doprinosa za MO za staž s povećanim trajanjem"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b72
+msgid "7.2. Tip umanjenja osnovice"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "7.2. Tip umanjenja osnovice"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "8 - HZZO"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b8
+msgid "8. Oznaka mjeseca osiguranja"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "8. Oznaka prvog / zadnjeg mjeseca u osiguranju po istoj osnovi"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:res.company,joppd_applicant_id:0
+msgid "9 - Ostala tijela (izuzev HZMO i HZZO)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "9. Oznaka punog / nepunog radnog vremena ili rada s polovicom radnog vremena"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__b9
+msgid "9. Oznaka radnog vremena"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "<span>1. Redni broj</span>"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+msgid "Addition"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Adresa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Adresa elektroničke pošte"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_res_company__joppd_applicant_email
+msgid "Applicant E-Mail"
+msgstr "E-Mail podnositelja"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Are you sure you want to finish the JOPPD form?"
+msgstr "Jeste li sigurni da želite zaključati JOPPD obrazac?"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Are you sure you want to set the JOPPD form to draft?"
+msgstr "Jeste li sigurni da želite postaviti JOPPD obrazac u nacrt?"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_xml_attachment_form
+msgid "Attachments"
+msgstr "Privitci"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "BROJ OSOBA NA KOJE SE PODNOSI IZVJEŠĆE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "BROJ REDAKA NA POPISU POJEDINAČNIH OBRAČUNA SA STRANICE B"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Broj osoba s invaliditetom koje je obveznik bio dužan zaposliti"
+msgstr ""
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form.py:0
+#, python-format
+msgid "Can not create JOPPD form XML file because there are some cities without codes: {0}"
+msgstr "Nije moguće generirati XML datoteku JOPPD obrasca jer na nekim gradovima nije upisana šifra: {0}"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_xml_attachment_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.view_update_joppd_form_b_lines
+msgid "Cancel"
+msgstr "Odustani"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__child_ids
+msgid "Child"
+msgstr "Podređeni izvještaji"
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form_b.py:0
+#, python-format
+msgid "City for employee {0} address has not been entered"
+msgstr "Nije unesen grad na adresi zaposlenika {0}"
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form_b.py:0
+#, python-format
+msgid "City for employee {0} work address has not been entered"
+msgstr "Nije unesen grad na adresi rada zaposlenika {0}"
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "Cjelobrojni iznos"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Click this button when the form has been accepted by Tax administration"
+msgstr "Koristiti tek kad je obrazac prihvaćen od strane Porezne uprave"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__code
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__name
+msgid "Code"
+msgstr "Šifra"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__company_id
+msgid "Company"
+msgstr "Tvrtka"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Copy data to a new form for correction"
+msgstr "Kopira postojeće podatke u novi obrazac za ispravak"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Correct"
+msgstr "Ispravi"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+msgid "Correction"
+msgstr "Ispravak"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Create new empty form to update data"
+msgstr "Otvara novi prazni obrazac za dopunu podataka"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_res_company__joppd_create_name
+msgid "Created By (Name)"
+msgstr "Sastavio (ime)"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_res_company__joppd_create_surname
+msgid "Created By (Surname)"
+msgstr "Sastavio (prezime)"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__create_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__create_uid
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__create_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__create_date
+msgid "Created on"
+msgstr "Kreirano"
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "DA/NE polje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU GENERACIJSKE SOLIDARNOSTI"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "DOPRINOS ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "DOPRINOS ZA ZAPOŠLJAVANJE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "DOPRINOS ZA ZDRAVSTVENO OSIGURANJE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__date_from
+msgid "Date from"
+msgstr "Datum od"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__date_to
+msgid "Date to"
+msgstr "Datum do"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__hr_department
+msgid "Department"
+msgstr "Odjel"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__description
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__description
+msgid "Description"
+msgstr "Opis"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__display_name
+#: model:ir.model.fields,field_description:hr_joppd_form.field_report_hr_joppd_form_joppd_form_a__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__hr_employee_state
+msgid "Djelatnik prirez(KOD)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,vrsta:0
+msgid "Dopuna izvješća"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+msgid "Draft"
+msgstr "Nacrt"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form__date_to
+msgid "End of the period for which JOPPD form is being created"
+msgstr "Završni datum razdoblja za koje se kreira JOPPD obrazac"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__field_type
+msgid "Field type"
+msgstr "Vrsta polja"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Finish JOPPD form"
+msgstr "Zaključaj JOPPD obrazac"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+msgid "Finished"
+msgstr "Zaključano"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__form_type
+msgid "Form type"
+msgstr "Vrsta obrasca"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Generate XML"
+msgstr "Generiraj XML"
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form.py:0
+#, python-format
+msgid "Generated XML is not valid with JOPPD XSD Schema. {0}"
+msgstr "Generirana XML datoteka nije u skladu s JOPPD shemom. {0}"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Group By..."
+msgstr "Grupiraj po"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_report
+msgid "HR report"
+msgstr "HR Izvještaj"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_report_line
+msgid "HR report line"
+msgstr "Stavka HR izvještaja"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__help_text
+msgid "Help"
+msgstr "Pomoć"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "I. OIB podnositelja izvješća:"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_report_hr_joppd_form_joppd_form_a__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "II."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "II. Oznaka izvješća:"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "III."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_b
+msgid "III. Vrsta izvješća:"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "III.1. PODNOSITELJU IZVJEŠĆA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "III.2. OBVEZNIKU PLAĆANJA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "ISPLAĆENI NEOPOREZIVI PRIMICI"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "IV.1."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "IV.2."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "IX."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "IZNOS"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "IZVJEŠĆE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "Informativno polje, ne traži unos podataka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,vrsta:0
+msgid "Ispravak izvješća"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "Izbor zadanih podataka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Iznos obračunane naknade"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b121
+msgid "Iznos obračunanih doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti\n"
+"primjenom propisane stope na osnovicu za obračun doprinosa."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__is_modified
+msgid "Izvješće ručno modificirano"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__parent_id
+msgid "Izvorni dokument"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Izvorni podaci"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,vrsta:0
+msgid "Izvorno izvješće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__joppd_id
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.company_form_view_inherit
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_tree_view
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.info3_l10n_hr_joppd_sifre_tree
+msgid "JOPPD"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_report_hr_joppd_form_joppd_form_a
+msgid "JOPPD A report"
+msgstr "JOPPD strana A"
+
+#. module: hr_joppd_form
+#: model:ir.actions.report,name:hr_joppd_form.report_joppd_form_a
+msgid "JOPPD Obrazac - Strana A"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.actions.report,name:hr_joppd_form.report_joppd_form_b
+msgid "JOPPD Obrazac - Strana B"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_tree_view
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_tree_view_locked
+msgid "JOPPD StranaB"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_l10n_hr_joppd_sifre
+msgid "JOPPD codes"
+msgstr "JOPPD šifre"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_joppd_form
+#: model:ir.module.category,name:hr_joppd_form.module_category_hr_joppd_form
+msgid "JOPPD form"
+msgstr "Obrazac JOPPD"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_joppd_form_a
+msgid "JOPPD form A side"
+msgstr "A strana JOPPD obrasca"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_joppd_form_b
+msgid "JOPPD form B side"
+msgstr "B strana JOPPD obrasca"
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form.py:0
+#, python-format
+msgid "JOPPD form create user name or surname has not been set on company."
+msgstr "Na tvrtki nije postavljeno ime ili prezime podnositelja za JOPPD."
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__joppd_id
+msgid "JOPPD id"
+msgstr "JOPPD"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_hr_joppd_form_check_line
+msgid "JOPPD lines that need to be checked manually"
+msgstr "Stavke JOPPD-a koje je potrebno naknadno provjeriti"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__joppd_id
+msgid "JOPPD obrazac"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre____last_update
+#: model:ir.model.fields,field_description:hr_joppd_form.field_report_hr_joppd_form_joppd_form_a____last_update
+msgid "Last Modified on"
+msgstr "Zadnja izmjena"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__write_uid
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__write_uid
+msgid "Last Updated by"
+msgstr "Autor zadnje izmjene"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__write_date
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__write_date
+msgid "Last Updated on"
+msgstr "Zadnje ažuriranje"
+
+#. module: hr_joppd_form
+#: model:res.groups,name:hr_joppd_form.group_hr_joppd_form_manager
+msgid "Manager"
+msgstr "Voditelj"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Mjeseci unutar perioda osnove"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "NAPLAĆENA KAMATA ZA DOPRINOSE ZA MIROVINSKO OSIGURANJE NA TEMELJU INDIVIDUALNE KAPITALIZIRANE ŠTEDNJE"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,vrsta:0
+msgid "Naknada za invaliditet"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Naknadne verzije"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Naknadne verzije obrasca (nadopune, ispravci)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Naziv"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Naziv/ime i prezime"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b71:0
+msgid "Nema dodatnog doprinosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Nema prethodne obveze"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b72:0
+msgid "Nije obveznik"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__number_of_employees
+msgid "Number of employees"
+msgstr "Broj zaposlenika"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "OBRAZAC JOPPD -"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_res_company__joppd_oib
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "OIB"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "OZNAKA IZVJEŠĆA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Obrada podataka strane B"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.actions.act_window,name:hr_joppd_form.hr_joppd_form_B_action
+msgid "Obrazac JOPPD strana B"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b71
+msgid "Obveza dodatnog doprinosa za mirovinsko osiguranje\n"
+"za staž osiguranja s povećanim trajanjem – upisuje se:\n"
+"0 – ukoliko podnositelj po osnovi isplaćenog primitka/obračunane naknade ili\n"
+"    osnovice za obračun doprinosa nema obvezu obračuna dodatnog doprinosa za \n"
+"    mirovinsko osiguranje za staž osiguranja s povećanim trajanjem,\n"
+"1 – ukoliko podnositelj po osnovi isplaćenog primitka/osnovice za obračun doprinosa\n"
+"    ima obvezu obračuna dodatnog doprinosa za mirovinsko osiguranje za \n"
+"    staž osiguranja s povećanim trajanjem kada se 12 mjeseci računa kao 14 mjeseci,\n"
+"2 – ukoliko podnositelj po osnovi isplaćenog primitka/osnovice za obračun doprinosa\n"
+"    ima obvezu obračuna dodatnog doprinosa za mirovinsko osiguranje za \n"
+"    staž osiguranja s povećanim trajanjem kada se 12 mjeseci računa kao 15 mjeseci,\n"
+"3 – ukoliko podnositelj po osnovi isplaćenog primitka/osnovice za obračun doprinosa \n"
+"    ima obvezu obračuna dodatnog doprinosa za mirovinsko osiguranje za \n"
+"    staž osiguranja s povećanim trajanjem kada se 12 mjeseci računa kao 16 mjeseci,\n"
+"4 – ukoliko podnositelj po osnovi isplaćenog primitka/osnovice za obračun doprinosa\n"
+"    ima obvezu obračuna dodatnog doprinosa za mirovinsko osiguranje za \n"
+"    staž osiguranja s povećanim trajanjem kada se 12 mjeseci računa kao 18 mjeseci."
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Obveza nastala nakon perioda"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b72
+msgid "Obveza posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom – upisuje se:\n"
+"0 – ukoliko podnositelj nije obveznik posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom,\n"
+"1 – ukoliko je podnositelj obveznik posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom, po stopi od 0,1%\n"
+"2 – ukoliko je podnositelj obveznik posebnog doprinosa za poticanje zapošljavanja osoba s invaliditetom, po stopi od 0,2%,"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b71:0
+msgid "Obveza za 12=14 mjes."
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b71:0
+msgid "Obveza za 12=15 mjes."
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b71:0
+msgid "Obveza za 12=16 mjes."
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b71:0
+msgid "Obveza za 12=18 mjes."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__description
+msgid "Opis"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b12
+msgid "Osnovica za obračun doprinosa (pod 12.). Kada je osnovica viša od najviše mjesečne ili \n"
+"najviše godišnje osnovice za obračun doprinosa za obvezno mirovinsko osiguranje, \n"
+"upisuje se stvarni iznos osnovice (ne upisuje se iznos najviše mjesečne ili godišnje osnovice)."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Oznaka Primitka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Oznaka Stjecatelja"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__oznaka
+msgid "Oznaka izvješća"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_res_company__joppd_applicant_id
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Oznaka podnositelja"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b8
+msgid "Oznaka prvog/zadnjeg mjeseca u obveznom osiguranju po istoj osnovi – upisuje se:\n"
+"0 – ukoliko po osnovi isplaćenog primitka/obračunane naknade ili osnovice \n"
+"    za obračun doprinosa ne postoji obveza prethodnog obveznog osiguranja ili utvrđivanja prava po toj osnovi,\n"
+"1 – ukoliko je to prvi mjesec obveznog osiguranja/korištenja prava po osnovi za koju je izvršen obračun,\n"
+"2 – ukoliko je to zadnji mjesec obveznog osiguranja/korištenja prava po osnovi za koju je izvršen obračun,\n"
+"3 – ukoliko su to ostali mjeseci unutar obveznog osiguranja/korištenja prava po osnovi za koju je izvršen obračun,\n"
+"4 – ukoliko obvezno osiguranje/korištenje prava po osnovi za koju je izvršen obračun počinje i završava unutar jednog (izvještajnog) mjeseca,\n"
+"5 – ukoliko je obveza doprinosa nastala nakon prestanka obveznog osiguranja i ne odnosi se na određeni mjesec proveden u tom osiguranju.\n"
+"\n"
+"Oznake od 1 do 5 unose se za sve skupine stjecatelja primitka/osiguranika za koje se pod razdoblje \n"
+"za koje se obračunava obveza doprinosa i/ili razdoblje za koje se primitak isplaćuje (pod 10.1. i 10.2.)\n"
+"upisuje mjesec dana ili kraće od mjesec dana, odnosno više od mjesec dana ako se isplaćuju zaostale plaće i mirovine,\n"
+"te za ostale primitke od nesamostalnog rada iz članka 22. stavka 3. Zakona o doprinosima,"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b9
+msgid "Oznaka punog, nepunog radnog vremena ili rada s polovicom radnog vremena  – upisuje se:\n"
+"0 – ukoliko ne postoji radno vrijeme,\n"
+"1 – ukoliko je osiguranik prijavljen na puno radno vrijeme,\n"
+"2 – ukoliko je osiguranik prijavljen na nepuno radno vrijeme,\n"
+"3 – za osobe koje rade s polovicom punog radnog vremena radi njege djeteta s teškoćama u razvoju.\n"
+"\n"
+"Oznake od 1 do 3 unose se za sljedeće skupine oznaka stjecatelja primitka/osiguranika iz Priloga 2.\n"
+"Stjecatelj primitka/osiguranik: 0001-0019; 0021-0029; 0031-0039; 5701-5799,\n"
+"a oznaka 0 za sve ostale skupine oznaka stjecatelja primitka/osiguranika"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "PODACI O BROJU OSOBA I NAKNADI UTVRĐENOJ SUKLADNO ODREDBAMA ZAKONA O PROFESIONALNOJ REHABILITACIJI I ZAPOŠLJAVANJU OSOBA S INVALIDITETOM"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "PODACI O UKUPNOM IZNOSU OBRAČUNANOG DOPRINOSA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "PODACI O UKUPNOM IZNOSU OBRAČUNANOG PREDUJMA POREZA NA DOHODAK I PRIREZA POREZU NA DOHDOAK"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "PODACI O:"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__parent_id
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__parent_id
+msgid "Parent"
+msgstr "Nadređeni"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,form_type:0
+msgid "Payroll"
+msgstr "Obračun plaće"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Period"
+msgstr "Razdoblje"
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "Polje za unos teksta proizvoljen duljine"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__position
+msgid "Position"
+msgstr "Pozicija"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Potrebno pregledati"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_a__position
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Pozicija JOPPD obrasca"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Početak i kraj u istom mjesecu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__check_ids
+msgid "Provjera"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Prvi mjesec po osnovi"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b101
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b102
+msgid "Razdoblje za koje se obračunava obveza doprinosa i/ili razdoblje za koje se primitak isplaćuje\n"
+"odnosno u kojem se isplaćuje. Razdoblje može biti:\n"
+"1 - mjesec dana ili kraće od mjesec dana ako u jednom mjesecu počinje i/ili završava razdoblje \n"
+"    osiguranja prema istoj osnovi osiguranja, što se upisuje u formatu od DD.MM.GGGG. do DD.MM.GGGG\n"
+"2 - više mjeseci, a manje od godinu dana (kalendarske godine), što se upisuje u formatu od DD.MM.GGGG. do DD.MM.\n"
+"3 - te kalendarska godina što se upisuje u formatu od 01.01.GGGG. do 31.12.GGGG."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__sequence
+msgid "Redni broj"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.report,report_type:0
+msgid "Repeting data"
+msgstr "Ponavljajući podaci"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__report_id
+msgid "Report"
+msgstr "Izvještaj"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__code
+msgid "Report code"
+msgstr "Šifra izvještaja"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__line_ids
+msgid "Report lines"
+msgstr "Stavke izvještaja"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__name
+msgid "Report name"
+msgstr "Naziv izvještaja"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__required
+msgid "Required"
+msgstr "Obavezno"
+
+#. module: hr_joppd_form
+#: model:ir.model,name:hr_joppd_form.model_res_company
+msgid "Res Company"
+msgstr "Tvrtka"
+
+#. module: hr_joppd_form
+#: selection:hr.report,report_type:0
+msgid "Root - Report name"
+msgstr "Root - Naziv izvještaja"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_b__user_edit
+msgid "Ručno uređivano"
+msgstr ""
+
+#. module: hr_joppd_form
+#: code:addons/hr_joppd_form/models/hr_joppd_form.py:0
+#, python-format
+msgid "Schema Path is not valid or Schema is not valid. "
+msgstr "Nije ispravna shema ili putanja do sheme"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Search Naziv"
+msgstr "Pretraži po Nazivu"
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,state:0
+msgid "Sent"
+msgstr "Poslano"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report_line__sequence
+msgid "Sequence"
+msgstr "Redni broj"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Set to draft"
+msgstr "Postavi na nacrt"
+
+#. module: hr_joppd_form
+#: selection:hr.report,report_type:0
+msgid "Single occurance podaci"
+msgstr "Neponavljajući podaci"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form__date_from
+msgid "Start of the period for which JOPPD form is being created"
+msgstr "Početni datum razdoblja za koje se kreira JOPPD obrazac"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__state
+msgid "Status"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b72:0
+msgid "Stopa 0,1%"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b72:0
+msgid "Stopa 0,2%"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__stranaA_ids
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Strana A"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__stranaB_ids
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Strana B"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "StranaA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_report__report_type
+msgid "Tip"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form,form_type:0
+msgid "Travel order"
+msgstr "Putni nalog"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__code_type
+msgid "Type of code"
+msgstr "Vrsta šifre"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "UKUPAN IZNOS NEOPOREZIVIH PRIMITAKA NEREZIDENATA KOJE ISPLAĆUJU NEPROFITNE ORGANIZACIJE DO PROPISANOG IZNOSA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za staž osiguranja koji se računa s povećanim trajanjem"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos dodatnog doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za staž osiguranja koji se računa s povećanim trajanjem"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos dodatnog doprinosa za zdravstveno osiguranje – za obveznike po osnovi korisnika mirovina"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi drugog dohotka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi poduzetničke plaće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti po osnovi radnog odnosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osiguranike za koje se doprinos uplaćuje prema posebnim propisima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi drugog dohotka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi poduzetničke plaće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje po osnovi radnog odnosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje za osiguranike za koje se doprinos uplaćuje prema posebnim propisima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zapošljavanje"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zapošljavanje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zapošljavanje po osnovi poduzetničke plaće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zaštitu zdravlja na radu - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi poduzetničke plaće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zaštitu zdravlja na radu po osnovi radnog odnosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zdravstveno osiguranje - za osiguranike za koje se doprinos uplaćuje prema posebnim propisima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi drugog dohotka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi obavljanja samostalne djelatnosti za osobe koje su same za sebe obvezne obračunati doprinose"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi poduzetničke plaće"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos doprinosa za zdravstveno osiguranje po osnovi radnog odnosa"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos posebnog doprinosa za korištenje zdravstvene zaštite u inozemstvu"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos posebnog doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti za osobe osigurane u određenim okolnostima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos posebnog doprinosa za zapošljavanje osoba s invaliditetom"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos posebnog doprinosa za zaštitu zdravlja na radu - za osobe osigurane u određenim okolnostima"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od imovinskih prava i posebnih vrsta imovine"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od kamata"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od kapitala"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi dohotka od osiguranja"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi nesamostalnog rada (1.1.+1.2.)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan iznos predujma poreza na dohodak i prireza porezu na dohodak po osnovi primitka od kojeg se utvrđuje drugi dohodak"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (mirovina)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "Ukupan zbroj stupaca 14.1. i 14.2. sa stranice B pod oznakom stjecatelja primitka/osiguranika (plaća)"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Update"
+msgstr "Dopuni"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Update A"
+msgstr "Ažuriraj A"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b10
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form_b__b100
+msgid "Upisuje se broj obračunanih sati rada za isplatu plaće, za slijedeće skupine \n"
+"oznaka stjecatelja primitka/osiguranika iz Priloga 2. Stjecatelj primitka/osiguranik:\n"
+"0001-0019, 0021-0029, 0031-0039, 5701-5799,\n"
+"a kada izvješće o korištenju prava iz obveznih osiguranja podnosi poslodavac,\n"
+"odnosno osoba koja je obveznik doprinosa, te obveznik obračunavanja i obveznik plaćanja doprinosa\n"
+"sukladno članku 182. stavku 3. Zakona o doprinosima upisuje se broj obračunanih \n"
+"sati rada za vrijeme korištenja prava.\n"
+"Oznaka 0 upisuje se za sve ostale skupine oznaka stjecatelja primitka/osiguranika.\n"
+"Kod isplate zaostale plaće ne upisuje se broj sati rada za mjesece za koje se plaća isplaćuje\n"
+"ako je isti iskazan u ranijim razdobljima kod podnošenja izvješća za obračunane doprinose\n"
+"za obvezna osiguranja po osnovi plaće. Obračunani sati rada za pojedini mjesec iskazuju se samo jednom,\n"
+"kod isplate redovne plaće odnosno obračuna obveznih doprinosa,\n"
+"a kod svih ostalih isplata u tijeku jednog mjeseca (za ostale primitke koji se isplaćuju uz plaću,\n"
+"za isplatu određenog primitka u naravi i drugo) ne upisuje se broj sati rada. odnosno upisuje se 0,"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form__vrsta
+msgid "Upisuje se oznaka :\n"
+"1 kada se podnosi prvo (izvorno) izvješće, \n"
+"2 kada se podnosi ispravak već podnesenog izvješća koje je zaprimljeno od nadležne ispostave Porezne uprave,\n"
+"3 kada se dopunjuju podaci iskazani na izvornom izvješću. \n"
+"Oznaka 1 pod vrstom izvješća može se upisati samo jednom za istu oznaku izvješća,\n"
+"istog podnositelja izvješća i istog obveznika plaćanja."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_hr_joppd_form__oznaka
+msgid "Upisuje se oznaka izvješća u obliku GG001 do GG365(366),\n"
+"a sastoji se od kombinacije oznake zadnje dvije znamenke godine\n"
+"i rednog broja dana u godini na koji je izvršena isplata primitka\n"
+"ili na koji su obračunani i uplaćeni doprinosi, odnosno na koji je\n"
+"podnesen Obrazac.\n"
+" Svaki dan u godini ima svoju oznaku te se oznaka izvješća ne može ponavljati."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_b_search_view
+msgid "Uređivani podaci"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:res.groups,name:hr_joppd_form.group_hr_joppd_form_user
+msgid "User"
+msgstr "Korisnik"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VI."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VI.1."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VI.2."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VI.3."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VI.4."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VII."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VIII."
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "VRSTA IZVJEŠĆA"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_a__val
+msgid "Value"
+msgstr "Vrijednost"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__child_ids
+msgid "Verzije"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__vrsta
+msgid "Vrsta izvješća"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_xml_attachment_form
+msgid "XML datoteka"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Za provjeru"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.joppd.form.b,b8:0
+msgid "Zadnji mjesec po osnovi"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form_check_line__employee_id
+msgid "Zaposlenik"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "Znakovni niz ograničene duljine"
+msgstr ""
+
+#. module: hr_joppd_form
+#: selection:hr.report.line,field_type:0
+msgid "decimalni iznos"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "na dan"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "o primicima, porezu na dohodak i prirezu te doprinosima za obvezna osiguranja"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.joppd_form_a
+msgid "stranica A-"
+msgstr ""
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.view_update_joppd_form_b_lines
+msgid "* Wizard will update B lines for all selected JOPPD forms"
+msgstr "* Čarobnjak za ažuriranje stavki B strane JOPPD obrasca"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__datum
+msgid "Report date"
+msgstr "Datum izvješća"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.view_update_joppd_form_b_lines
+msgid "Update B side lines for all selected JOPPD form?"
+msgstr "Ažuriraj stavke B strane svih odabranih JOPPD obrazaca?"
+
+#. module: hr_joppd_form
+#: model:ir.actions.act_window,name:hr_joppd_form.action_update_joppd_form_b_lines
+msgid "Update JOPPD form B side lines"
+msgstr "Ažuriraj stavke B strane"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.view_update_joppd_form_b_lines
+msgid "or"
+msgstr "ili"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.view_update_joppd_form_b_lines
+msgid "Update"
+msgstr "Ažuriraj"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_l10n_hr_joppd_sifre__sort_name
+msgid "Code for sorting"
+msgstr "Šifra za sortiranje"
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,help:hr_joppd_form.field_l10n_hr_joppd_sifre__sort_name
+msgid "This field is only used to correct sorting."
+msgstr "Ovo polje se koristi samo za ispravno sortiranje."
+
+#. module: hr_joppd_form
+#: model:ir.model.fields,field_description:hr_joppd_form.field_hr_joppd_form__name
+msgid "Name"
+msgstr "Naziv"
+
+#. module: hr_joppd_form
+#: model_terms:ir.ui.view,arch_db:hr_joppd_form.hr_joppd_form_form_view
+msgid "Order by employee name"
+msgstr "Poredaj po nazivu zaposlenika"

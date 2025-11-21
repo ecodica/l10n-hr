@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_hr_timesheet_autofill_wizard" model="ir.ui.view">
+      <field name="name">Timesheet autofill</field>
+      <field name="model">hr.timesheet.autofill.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Timesheet autofill">
+          <group>
+            <group>
+              <field name="date_from"/>
+              <field name="workday_start_time" widget="float_time"/>
+            </group>
+            <group>
+              <field name="date_to"/>
+              <field name="workday_end_time" widget="float_time"/>
+            </group>
+          </group>
+          <group>
+            <field name="show_only_leaves"/>
+          </group>
+
+          <button name="get_employees_data" string="Get employees data" type="object" class="oe_highlight"/>
+
+          <notebook>
+            <page string="Timesheet">
+              <field name="employee_line_ids">
+                <list string="Employees" editable="bottom" create="false" decoration-danger="timesheet_id != False" class="custom-field-height">
+                  <field name="employee_id" readonly="1" force_save="1" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="department_id" readonly="1" force_save="1" options="{'no_create': True, 'no_open': True}"/>
+                  <field name="date" readonly="1" force_save="1"/>
+                  <field name="start_time" widget="float_time"/>
+                  <field name="end_time" widget="float_time"/>
+                  <field name="total" widget="float_time" sum="Total"/>
+                  <field name="annual_leave_hours" widget="float_time" sum="Total"/>
+                  <field name="sick_leave" widget="float_time" sum="Total"/>
+                  <field name="sick_leave_fund" widget="float_time" sum="Total"/>
+                  <field name="maternity_leave" widget="float_time" sum="Total"/>
+                  <field name="parental_leave" widget="float_time" sum="Total"/>
+                  <field name="unpaid_leave" widget="float_time" sum="Total"/>
+                  <field name="paid_leave" widget="float_time" sum="Total"/>
+                  <field name="holiday" widget="float_time" sum="Total"/>
+                  <field name="timesheet_id" invisible="1"/>
+                </list>
+              </field>
+            </page>
+
+            <page string="Employee filter">
+              <field name="employee_filter_ids" options="{'no_create': True}" context="{'search_default_zaposlenici': True}"/>
+            </page>
+          </notebook>
+          <footer>
+            <button name="update_employees" string="Update employees" type="object" class="oe_highlight dom_refresh"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_hr_timesheet_autofill_wizard" model="ir.actions.act_window">
+      <field name="name">Timesheet autofill</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.timesheet.autofill.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_hr_timesheet_autofill_wizard"/>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

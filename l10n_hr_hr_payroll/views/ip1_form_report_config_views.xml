@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_ip1_form_report_config_form" model="ir.ui.view">
+            <field name="name">ip1.form.report.config.form</field>
+            <field name="model">ip1.form.report.config</field>
+            <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button name="toggle_active" type="object" groups="l10n_hr_payroll_base.group_hr_payroll_manager"
+                            class="oe_stat_button" icon="fa-archive">
+                        <field name="active" widget="boolean_button"
+                            options='{"terminology": "active"}'/>
+                    </button>
+                </div>
+                <group>
+                    <field name="name"/>
+                    <field name="position_ids">
+                        <!-- ZAKOMENTIRANO editable="false"  -->
+                        <list create="false" delete="false">
+                            <field name="section"/>
+                            <field name="subsection"/>
+                            <field name="sequence"/>
+                            <field name="name"/>
+                            <field name="print_always"/>
+                            <field name="rule_ids"/>
+                        </list>
+                    </field>
+                </group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_ip1_form_report_config_tree" model="ir.ui.view">
+            <field name="name">ip1.form.report.config.tree</field>
+            <field name="model">ip1.form.report.config</field>
+            <field name="arch" type="xml">
+                <list decoration-muted="active==False">
+                    <field name="name"/>
+                    <field name="position_ids"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_ip1_form_report_config_filter" model="ir.ui.view">
+            <field name="name">ip1.form.report.config</field>
+            <field name="model">ip1.form.report.config</field>
+            <field name="arch" type="xml">
+                <search string="Konfiguracija IP1 obrasca">
+                    <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active','=',False)]"/>
+                    <separator/>
+                </search>
+             </field>
+         </record>
+
+        <record id="action_ip1_form_report_config" model="ir.actions.act_window">
+            <field name="name">Konfiguracije IP1 obrasca</field>
+            <field name="res_model">ip1.form.report.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Kreiraj novu konfiguraciju
+            </p><p>
+                Ovdje možete dodati konfiguracije za izvještaj IP1 obrazac.
+            </p>
+            </field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+
+
+        <record id="view_ip1_form_report_position_form" model="ir.ui.view">
+            <field name="name">ip1.form.report.position.form</field>
+            <field name="model">ip1.form.report.position</field>
+            <field name="arch" type="xml">
+            <form>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="config_id" options="{'no_create': True}"/>
+                        <field name="section"/>
+                        <field name="subsection" invisible="section != '062'" required="section == '062'"/>
+                        <field name="sequence"/>
+                        <field name="print_always"/>
+                        <field name="active"/>
+                    </group>
+                    <group colspan="4">
+                        <field name="name"/>
+                        <field name="rule_ids" options="{'no_create': True}"/>
+                    </group>
+                </group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_ip1_form_report_position_tree" model="ir.ui.view">
+            <field name="name">ip1.form.report.position.tree</field>
+            <field name="model">ip1.form.report.position</field>
+            <field name="arch" type="xml">
+                <list decoration-muted="active==False">
+                    <field name="config_id"/>
+                    <field name="section"/>
+                    <field name="subsection"/>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="print_always"/>
+                    <field name="rule_ids"/>
+                    <field name="active"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_ip1_form_report_position_filter" model="ir.ui.view">
+            <field name="name">ip1.form.report.position</field>
+            <field name="model">ip1.form.report.position</field>
+            <field name="arch" type="xml">
+                <search string="Pozicija IP1 obrasca">
+                    <filter string="Active" name="active" domain="[('active','=',True)]"/>
+                    <filter string="Inactive" name="inactive" domain="[('active','=',False)]"/>
+                    <separator/>
+                </search>
+             </field>
+         </record>
+
+        <record id="action_ip1_form_report_position" model="ir.actions.act_window">
+            <field name="name">Pozicija u izvještaju IP1 obrazac</field>
+            <field name="res_model">ip1.form.report.position</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Kreiraj novu poziciju
+            </p><p>
+                Ovdje možete dodati pozicije za konfiguraciju izvještaja IP1 obrazac.
+            </p>
+            </field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+
+    </data>
+</odoo>

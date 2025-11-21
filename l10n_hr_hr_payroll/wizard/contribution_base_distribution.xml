@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_contribution_base_distribution" model="ir.ui.view">
+            <field name="name">contribution_base_distribution</field>
+            <field name="model">contribution.base.distribution</field>
+            <field name="arch" type="xml">
+                <form string="Raspodjela umanjenja osnovice za doprinose">
+                    <group>
+                        <label
+                            for="date_from"
+                            string="Razdoblje Isplate"/>
+                        <div class="oe_row">
+                            <div>
+                                <field
+                                    name="date_from"
+                                    class="oe_inline"/>
+                                -
+                                <field
+                                    name="date_to"
+                                    class="oe_inline"/>
+                            </div>
+                        </div>
+                        <field name="employees_selection"/>
+                        <field name="payslip_run_ids">
+                            <list>
+                                <field name="name" />
+                                <field name="employee_count" />
+                                <field name="slip_ids_count" />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="journal_id" />
+                                <field name="pay_date" />
+                                <field name="company_id" />
+                                <field name="state" />
+                            </list>
+                        </field>
+                    </group>
+                    <button name="fetch_data" string="Prikaži listiće" type="object" class="oe_highlight" icon="fa-refresh"/>
+                    <notebook>
+                        <page string="Isplatni listići">
+                            <div>
+                                <field name="employees_with_salary" required="1">
+                                    <list string="Employees with salary" create="false" delete="false" editable="top" options="{'no_create': True, 'no_open': True}">
+                                        <field name="emp_id" column_invisible="1"/>
+                                        <field name="employee_id"/>
+                                        <field name="payslip_id"/>
+                                        <field name="pay_date"/>
+                                        <field name="run_state"/>
+                                        <field name="salary"/>
+                                        <field name="amount_osnumosndop"/>
+                                        <field name="amount_osnumosndop_monthly"/>
+                                        <field name="amount_umosndop"/>
+                                        <field name="joppd_b72" attrs="{'readonly':[('run_state', '!=', 'draft')]}"/>
+                                        <field name="manual_deduction" attrs="{'readonly':[('run_state', '!=', 'draft')]}"/>
+                                    </list>
+                                </field>
+                            </div>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button 
+                            name="compute_distribution" 
+                            icon="fa-cogs" 
+                            string="Obračunaj listiće" 
+                            type="object" 
+                            class="oe_highlight"
+                            confirm="Obračunaj listiće u nacrtu s novim iznosom umanjenja osnovice za doprinose?"
+                        />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payslip_contribution_distribution" model="ir.actions.act_window">
+            <field name="name">Umanjenje osnovice za doprinose</field>
+            <field name="res_model">contribution.base.distribution</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="view_contribution_base_distribution"/>
+            <field name="target">new</field>
+        </record>
+
+</odoo>

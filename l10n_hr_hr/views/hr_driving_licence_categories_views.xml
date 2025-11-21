@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_view_driving_licence_category_form" model="ir.ui.view">
+        <field name="name">hr.driving_licence.category.form</field>
+        <field name="model">hr.driving_licence.category</field>
+        <field name="arch" type="xml">
+            <form string="Driving licence category">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_driving_licence_category_tree" model="ir.ui.view">
+        <field name="name">hr.driving_licence.category.tree</field>
+        <field name="model">hr.driving_licence.category</field>
+        <field name="arch" type="xml">
+            <list string="Driving licence category">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_view_driving_licence_category_search" model="ir.ui.view">
+        <field name="name">hr.driving_licence.category.search</field>
+        <field name="model">hr.driving_licence.category</field>
+        <field name="arch" type="xml">
+            <search string="Driving licence categories">
+                <field name="code" string="Driving licence category" filter_domain="['|','|',('code','ilike',self),('name','ilike',self),('description','ilike',self),('category_name','ilike',self)]"/>
+                <field name="name"/>
+                <field name="description"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_driving_licence_category_action" model="ir.actions.act_window">
+        <field name="name">Driving licence category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.driving_licence.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_driving_licence_category_search"/>
+    </record>
+
+    <menuitem id="hr_menu_driving_licence_category"
+              name="Driving licence category"
+              parent="hr_submenu_view_employees"
+              sequence="90"
+              action="hr_config_driving_licence_category_action"/>
+</odoo>

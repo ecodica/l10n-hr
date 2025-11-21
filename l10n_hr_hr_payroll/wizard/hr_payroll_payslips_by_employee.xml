@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_hr_hr_payslip_by_employees" model="ir.ui.view">
+            <field name="name">hr.payslip.employees.override.compute</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="inherit_id" ref="l10n_hr_payroll_base.view_hr_payslip_by_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group/field[@name='employee_ids']" position="replace">
+                    <!-- postavljanje defaultnog filtera jer su unutar hr.employee objekta podrzani i vanjski suradnici kojima se isplacuje samo ugovor o djelu -->
+                    <field name="employee_ids" nolabel="1" colspan="4" context="{'search_default_filter_is_employee': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_info3_timesheet_wizard" model="ir.ui.view">
+      <field name="name">Add employees</field>
+      <field name="model">info3.timesheet.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Import Employees">
+
+          <separator string="Add employees"/>
+
+          <group>
+            <group col="4" colspan="1">
+              <label string="Date from" for="date"/>
+              <field name="date" nolabel="1"/>
+              <field name="date_day" nolabel="1" readonly="1" />             
+              <p>&#160;</p>
+              <field name="overwrite" />
+            </group>
+            <group col="4" colspan="1">
+              <label string="Date to" for="date_to"/>
+              <field name="date_to" nolabel="1"/>
+              <field name="date_to_day" nolabel="1" readonly="1" />
+              <p>&#160;</p>
+            </group>
+          </group>
+          
+          <group>
+            <group>
+              <field name="analytic_account_id"/>
+            </group>
+          </group>
+
+          <br />
+
+          <field name="employee_lines">
+            <list string="Employees" decoration-danger="filled_dates != ''" editable="top">
+              <field name="employee_id" options="{'no_create': True, 'no_open': True}"/>
+              <field name="filled_dates" readonly="1"/>
+            </list>
+          </field>
+          
+          <p colspan="2" style="color:grey; font-style: italic">*Check department settings if manager is not on the list.</p>
+
+          <br />
+
+          <group>
+            <group>
+              <field name="start_time" widget="float_time"/>
+              <field name="end_time" widget="float_time"/>
+              <field name="total" widget="float_time"/>
+              <field name="non_working_sunday" widget="float_time"/>
+              <field name="non_working_holiday" widget="float_time"/>
+              <field name="annual_leave_hours" widget="float_time"/>
+              <field name="night_work" widget="float_time"/>
+              <field name="overtime" widget="float_time"/>
+            </group>
+            <group>
+              <field name="holiday" widget="float_time"/>
+              <field name="sick_leave" widget="float_time"/>
+              <field name="sick_leave_fund" widget="float_time"/>
+              <field name="fieldwork" widget="float_time"/>
+              <field name="fieldwork_abroad" widget="float_time"/>
+              <field name="maternity_leave" widget="float_time"/>
+              <field name="paternity_leave" widget="float_time"/>
+              <field name="parental_leave" widget="float_time"/>
+              <field name="paid_leave" widget="float_time"/>
+            </group>
+          </group>
+
+          <footer>
+            <button name="add_employees" string="Add employees" type="object" class="oe_highlight dom_refresh"/>
+            or
+            <button string="Cancel" class="oe_link" special="cancel" />
+          </footer>
+
+        </form>
+      </field>
+    </record>
+
+    <record id="action_view_info3_timesheet_wizard" model="ir.actions.act_window">
+      <field name="name">Get employees</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">info3.timesheet.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_info3_timesheet_wizard"/>
+      <field name="target">new</field>
+    </record>
+
+
+    <record id="view_info3_timesheet_wizard_line_tree" model="ir.ui.view">
+      <field name="name">info3.timesheet.wizard.line.tree</field>
+      <field name="model">info3.timesheet.wizard.line</field>
+      <field name="arch" type="xml">
+        <list string="Employee line" create="false">
+          <field name="employee_id"/>
+        </list>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_template_id">
+        <t t-foreach="docs" t-as="slip">
+            <t t-call="web.basic_layout">
+                <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+                    <span t-esc="data['name']"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

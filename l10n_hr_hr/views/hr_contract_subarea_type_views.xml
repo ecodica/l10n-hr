@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_view_contract_subarea_type_form" model="ir.ui.view">
+        <field name="name">hr.contract.subarea.type.form</field>
+        <field name="model">hr.contract.subarea.type</field>
+        <field name="arch" type="xml">
+            <form string="Contract subarea type">
+                <sheet>
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="used_in_internship_calculation"/>
+                        <field name="area_type_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_subarea_type_tree" model="ir.ui.view">
+        <field name="name">hr.contract.subarea.type.tree</field>
+        <field name="model">hr.contract.subarea.type</field>
+        <field name="arch" type="xml">
+            <list string="Contract subarea type">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="used_in_internship_calculation"/>
+                <field name="area_type_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="hr_view_contract_subarea_type_search" model="ir.ui.view">
+        <field name="name">hr.contract.subarea.type.search</field>
+        <field name="model">hr.contract.subarea.type</field>
+        <field name="arch" type="xml">
+            <search string="Contract subarea types">
+                <field name="code" string="Contract subarea type" filter_domain="['|','|',('code','ilike',self),('name','ilike',self),('description','ilike',self)]"/>
+                <field name="name"/>
+                <field name="description"/>
+                <field name="used_in_internship_calculation"/>
+                <field name="area_type_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_config_contract_subarea_type_action" model="ir.actions.act_window">
+        <field name="name">Contract subarea types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.contract.subarea.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="hr_view_contract_subarea_type_search"/>
+    </record>
+
+    <menuitem id="hr_menu_contract_subarea_type"
+              name="Contract subarea type"
+              parent="hr_submenu_view_contracts"
+              sequence="3"
+              action="hr_config_contract_subarea_type_action"/>
+
+</odoo>

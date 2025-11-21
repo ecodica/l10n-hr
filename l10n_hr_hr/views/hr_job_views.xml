@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hr_job_form_inherit_hr_pay" model="ir.ui.view">
+        <field name="name">hr.job.form.inherit_mv</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="replace">
+                <form>
+                    <sheet string="Job">
+                        <group>
+                            <field name="code"/>
+                            <field name="name"/>
+                            <field name="coefficient"/>
+                        </group>
+                        <div >
+                            <label for="description"/>
+                            <field name="description"/>
+                        </div>
+                    </sheet>
+                </form>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_job_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.job.tree.inherit</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="replace">
+                <list>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="coefficient"/>
+                </list>
+            </xpath>
+        
+        </field>
+    </record>
+    
+    
+    <record id="open_view_jobs_form" model="ir.actions.act_window">
+        <field name="name">Employee Jobs</field>
+        <field name="res_model">hr.job</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+            id="hr_jobs_menu_item"
+            name="Departments"
+            parent="hr.menu_human_resources_configuration"
+            groups="hr.group_hr_manager,hr.group_hr_user,hr_contract.group_hr_contract_manager"
+            sequence="3"
+            />
+     <menuitem
+            id="hr_jobs_menu_item_root"
+            name="Employee jobs"
+            parent="hr_jobs_menu_item"
+            groups="hr.group_hr_manager,hr.group_hr_user,hr_contract.group_hr_contract_manager"
+            action="open_view_jobs_form"
+            />
+
+</odoo>

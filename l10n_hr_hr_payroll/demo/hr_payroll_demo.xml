@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="hr_employee_city" model="res.city">
+        <field name="name">Varaždin</field>
+        <field name="country_id" ref="base.hr"/>
+    </record>
+
+    <record id="hr_contract_subarea_type_1" model="hr.contract.subarea.type">
+        <field name="name">Obveznopravni ugovori</field>
+        <field name="code">obv</field>
+        <field name="area_type_id">1</field>
+    </record>
+
+    <record id="hr_employee_ivana_vidovic" model="hr.employee">
+        <field name="name">Ivana Vidović</field>
+        <field name="first_name">Ivana</field>
+        <field name="last_name">Vidović</field>
+        <field name="mobile_phone">555-0130</field>
+        <field name="gender">female</field>
+        <field name="birthday">1985-08-25</field>
+        <field name="marital">single</field>
+        <field name="street">Ivana Gorana Kovačića 22</field>
+        <field name="zip">10000</field>
+        <field name="oib">56624778896</field>
+        <field name="job_title">Programer mobilnih aplikacija (IOS)</field>
+        <field name="children">0</field>
+        <field name="active">True</field>
+        <field name="department_id" ref="hr.dep_ps"/>
+        <field name="city" ref="l10n_hr_hr_payroll.hr_employee_city"/>
+    </record>
+
+    <record id="hr_employee_ivana_vidovic_contract" model="hr.contract">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_vidovic"/>
+        <field name="company_id">1</field>
+        <field name="date_start">2022-07-01</field>
+        <field name="resource_calendar_id">1</field>
+        <field name="area">2</field>
+        <field name="area_type" ref="l10n_hr_hr_payroll.hr_contract_subarea_type_1"/>
+        <field name="contract_type">contract</field>
+        <field name="internship_type">0</field>
+        <field name="active">True</field>
+        <field name="state">draft</field>
+        <field name="schedule_pay">monthly</field>
+        <field name="notice_period">0</field>
+        <field name="wage">630.43</field>
+        <field name="name">Ivana Vidović - Ugovor</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+    </record>
+
+    <record id="hr_employee_ivana_vidovic_contract_parameters" model="hr.salary.parameters">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_vidovic"/>
+        <field name="contract_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_vidovic_contract"/>
+        <field name="name">Ivana Vidović - Ugovor - 2022-07-01</field>
+        <field name="date_from">2022-07-01</field>
+        <field name="wage">630.43</field>
+        <field name="internship_type">0</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="joppd_b9">1</field>
+        <field name="struct_id" ref="l10n_hr_hr_payroll.hr_payroll_structure_5"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+    </record>
+
+    <record id="hr_employee_ivana_ivic" model="hr.employee">
+        <field name="name">Ivana Ivić</field>
+        <field name="first_name">Ivana</field>
+        <field name="last_name">Ivić</field>
+        <field name="mobile_phone">555-0131</field>
+        <field name="gender">female</field>
+        <field name="birthday">1985-08-21</field>
+        <field name="marital">single</field>
+        <field name="street">Ivana Gorana Kovačića 21</field>
+        <field name="zip">10000</field>
+        <field name="oib">24233713764</field>
+        <field name="job_title">Programer mobilnih aplikacija (IOS)</field>
+        <field name="children">0</field>
+        <field name="active">True</field>
+        <field name="department_id" ref="hr.dep_ps"/>
+        <field name="city" ref="l10n_hr_hr_payroll.hr_employee_city"/>
+    </record>
+
+    <record id="hr_employee_ivana_ivic_contract" model="hr.contract">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_ivic"/>
+        <field name="company_id">1</field>
+        <field name="date_start">2022-07-01</field>
+        <field name="resource_calendar_id">1</field>
+        <field name="area">2</field>
+        <field name="area_type" ref="l10n_hr_hr_payroll.hr_contract_subarea_type_1"/>
+        <field name="contract_type">contract</field>
+        <field name="internship_type">0</field>
+        <field name="active">True</field>
+        <field name="state">draft</field>
+        <field name="schedule_pay">monthly</field>
+        <field name="notice_period">0</field>
+        <field name="wage">720.43</field>
+        <field name="name">Ivana Ivić - Ugovor</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+    </record>
+
+    <record id="hr_employee_ivana_ivic_contract_parameters" model="hr.salary.parameters">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_ivic"/>
+        <field name="contract_id" ref="l10n_hr_hr_payroll.hr_employee_ivana_ivic_contract"/>
+        <field name="name">Ivana Ivić - Ugovor - 2022-07-01</field>
+        <field name="date_from">2022-07-01</field>
+        <field name="wage">720.43</field>
+        <field name="internship_type">0</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="joppd_b9">1</field>
+        <field name="struct_id" ref="l10n_hr_hr_payroll.hr_payroll_structure_5"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+    </record>
+
+    <record id="hr_employee_marko_maric" model="hr.employee">
+        <field name="name">Marko Marić</field>
+        <field name="first_name">Marko</field>
+        <field name="last_name">Marić</field>
+        <field name="mobile_phone">555-0132</field>
+        <field name="gender">male</field>
+        <field name="birthday">1985-08-22</field>
+        <field name="marital">single</field>
+        <field name="street">Ivana Gorana Kovačića 25</field>
+        <field name="zip">10000</field>
+        <field name="oib">21051520134</field>
+        <field name="job_title">Programer mobilnih aplikacija (IOS)</field>
+        <field name="children">0</field>
+        <field name="active">True</field>
+        <field name="department_id" ref="hr.dep_ps"/>
+        <field name="city" ref="l10n_hr_hr_payroll.hr_employee_city"/>
+    </record>
+
+    <record id="hr_employee_marko_maric_contract" model="hr.contract">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_marko_maric"/>
+        <field name="company_id">1</field>
+        <field name="date_start">2022-07-05</field>
+        <field name="resource_calendar_id">1</field>
+        <field name="area">2</field>
+        <field name="area_type" ref="l10n_hr_hr_payroll.hr_contract_subarea_type_1"/>
+        <field name="contract_type">contract</field>
+        <field name="internship_type">0</field>
+        <field name="active">True</field>
+        <field name="state">draft</field>
+        <field name="schedule_pay">monthly</field>
+        <field name="notice_period">0</field>
+        <field name="wage">820.43</field>
+        <field name="name">Marko Marić - Ugovor</field>
+    </record>
+
+    <record id="hr_employee_marko_maric_contract_parameters" model="hr.salary.parameters">
+        <field name="employee_id" ref="l10n_hr_hr_payroll.hr_employee_marko_maric"/>
+        <field name="contract_id" ref="l10n_hr_hr_payroll.hr_employee_marko_maric_contract"/>
+        <field name="name">Marko Marić - Ugovor - 2022-07-05</field>
+        <field name="date_from">2022-07-05</field>
+        <field name="wage">820.43</field>
+        <field name="internship_type">0</field>
+        <field name="job_id" ref="hr.job_developer"/>
+        <field name="joppd_b9">1</field>
+        <field name="struct_id" ref="l10n_hr_hr_payroll.hr_payroll_structure_5"/>
+        <field name="department_id" ref="hr.dep_ps"/>
+    </record>
+
+    <record id="account_journal_pay" model="account.journal">
+        <field name="name">"Plaće"</field>
+        <field name="code">"PLA"</field>
+        <field name="active">True</field>
+        <field name="sequence">71</field>
+        <field name="company_id">1</field>
+        <field name="type">payroll</field>
+        <field name="invoice_reference_type">invoice</field>
+        <field name="invoice_reference_model">odoo</field>
+    </record>
+
+    <record id="hr_payslip_run_january" model="hr.payslip.run">
+        <field name="name">"Plaća 01-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-01-01</field>
+        <field name="date_end">2024-01-31</field>
+        <field name="pay_date">2024-01-31</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_february" model="hr.payslip.run">
+        <field name="name">"Plaća 02-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-02-01</field>
+        <field name="date_end">2024-02-29</field>
+        <field name="pay_date">2024-02-29</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_march" model="hr.payslip.run">
+        <field name="name">"Plaća 03-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-03-01</field>
+        <field name="date_end">2024-03-31</field>
+        <field name="pay_date">2024-03-31</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_april" model="hr.payslip.run">
+        <field name="name">"Plaća 04-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-04-01</field>
+        <field name="date_end">2024-04-30</field>
+        <field name="pay_date">2024-04-30</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_may" model="hr.payslip.run">
+        <field name="name">"Plaća 05-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-05-01</field>
+        <field name="date_end">2024-05-31</field>
+        <field name="pay_date">2024-05-31</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_june" model="hr.payslip.run">
+        <field name="name">"Plaća 06-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-06-01</field>
+        <field name="date_end">2024-06-30</field>
+        <field name="pay_date">2024-06-30</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+
+    <record id="hr_payslip_run_july" model="hr.payslip.run">
+        <field name="name">"Plaća 07-2024 ADVIRA d.o.o."</field>
+        <field name="state">draft</field>
+        <field name="date_start">2024-07-01</field>
+        <field name="date_end">2024-07-31</field>
+        <field name="pay_date">2024-07-31</field>
+        <field name="period_work_hours">184</field>
+        <field name="i3_currency">1</field>
+        <field name="payslip_run_type">salary_payment</field>
+        <field name="i3_work_abroad_currency">1</field>
+        <field name="journal_id" ref="l10n_hr_hr_payroll.account_journal_pay" />
+    </record>
+</odoo>

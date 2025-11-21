@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <!--sepa form view-->
+    <record id="view_info3_sepa_form" model="ir.ui.view">
+      <field name="name">info3.sepa.form.view</field>
+      <field name="model">info3.sepa.form</field>     
+        <field name="arch" type="xml">
+          <form string="Generiranje SEPA datoteke">
+            <field name="state" invisible="1"/>
+            <group invisible="state != 'create'">
+              <field name="payment_date"/>
+              <field
+                name="payslip_run_ids"
+                widget="many2many_tags"
+                domain="[('pay_date', '=', payment_date)]"
+                invisible="payment_date == False"
+                options="{'no_create': True}"
+              />
+              <field name="joppd_num" invisible="1"/>
+              <field name="company_id" invisible="state != 'create'"/>
+              <field name="date" invisible="state != 'create'" readonly ="1"/>
+              <field
+                name="bank_account_id"
+                invisible="state != 'create'"
+                options="{'no_create': 1, 'no_open': 1}"
+              />
+              <field name="use_batch_booking"  invisible="state != 'create'"/>
+              <field name="type_of_payment"  invisible="state != 'create'" readonly="use_batch_booking == True"/>
+              <field name="disability_fee" invisible="state != 'create'" on_change="disability_fee(disability_fee)" />
+
+            </group>
+            <group invisible="state != 'finish'">
+              <field name="date" readonly="1"/>
+              <field name="sepa_file" filename="filename"/>
+              <field name="filename" invisible="True"/>
+            </group>
+            <footer>
+              <button string="Generiraj" name="get_data" type="object" class="oe_highlight" invisible="state != 'create'"/>
+              <span invisible="state != 'create'"> or </span>
+              <button string="Odustani" special="cancel" class="oe_link" invisible="state != 'create'"/>           
+            </footer>
+          </form>
+      </field>
+    </record>
+
+    <!-- edit SEPA lines view-->
+    <record id="view_info3_sepa_line_help" model="ir.ui.view">
+      <field name="name">info3.sepa.lines.help.view</field>
+      <field name="model">info3.sepa.line.help</field>
+      <field name="arch" type="xml">
+        <form string="Edit SEPA lines">
+          <group>
+            <field name="number_of_created_lines"/>
+            <field name="manual_edit" force_save="1"/>
+          </group>
+          <separator string="Lines"/>
+          <field name="lines"/>
+          <footer>
+            <button name="create_sepa" string="Generate XML" type="object" class="oe_highlight"/>
+            or
+            <button string="Cancel" special="cancel" class="oe_link"/>           
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_info3_sepa_line_help" model="ir.actions.act_window">
+      <field name="name">Edit SEPA lines</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">info3.sepa.line.help</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_info3_sepa_line_help"/>
+      <field name="target">new</field>
+    </record>
+    
+    <record id="view_info3_sepa_line" model="ir.ui.view">
+      <field name="name">view.info3.sepa.line.tree</field>
+      <field name="model">info3.sepa.line</field>
+      <field name="arch" type="xml">
+        <list string="Lines" editable="bottom" create="false" delete="true">
+          <field name="primatelj"/>
+          <field name="nazivprim"/>
+          <field name="ibanprim"/>
+          <field name="bic"/>
+          <field name="opis"/>
+          <field name="modelplat"/>
+          <field name="modelprim"/>
+          <field name="ispl" sum="Total"/>
+          <field name="user_edit" column_invisible="1"/>
+        </list>
+      </field>
+    </record>
+
+    <record id="action_info3_sepa_form" model="ir.actions.act_window">
+      <field name="name">Generiraj SEPA datoteku</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">info3.sepa.form</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="view_info3_sepa_form"/>
+      <field name="target">new</field>
+    </record>
+    
+    <!--tree view for sepa, and download link-->
+    <record id="info3_view_banking_export_sepa_tree" model="ir.ui.view">
+      <field name="name">info3.account.banking.export.sepa.tree</field>
+      <field name="model">info3.sepa.form</field>
+      <field name="arch" type="xml">
+        <list string="SEPA Credit Transfer">
+          <field name="filename"/>
+          <field name="sepa_file" filename="filename"/>
+          <field name="date"/>
+        </list>
+      </field>
+    </record>
+
+  </data>
+</openerp>

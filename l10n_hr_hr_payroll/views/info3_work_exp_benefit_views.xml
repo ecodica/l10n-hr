@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="info3_work_exp_benefit_form_view" model="ir.ui.view">
+            <field name="name">info3.work.exp.benefit.form</field>
+            <field name="model">info3.work.exp.benefit</field>
+            <field name="arch" type="xml">
+                <form string="Staž s povećanim trajanjem">
+                    <group col="4">
+                        <group>
+                            <field name="internship_type" required="1"/>
+                            <field name="mio_2" invisible="internship_type == False" on_change="onchange_mio2(mio_2)"/>
+                            <!-- visible and required if benefit_type is set and not 0 -->
+                            <field name="dmio1b" invisible="internship_type == False" required="internship_type != False"/>
+                            <!-- visible and required if benefit type is set and not 0 and mio2 is True -->
+                            <field name="dmio2b" invisible="internship_type == False" required="internship_type != False"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="info3_work_exp_benefit_tree_view" model="ir.ui.view">
+            <field name="name">info3.work.exp.benefit.tree</field>
+            <field name="model">info3.work.exp.benefit</field>
+            <field name="arch" type="xml">
+                <list string="Staž s povećanim trajanjem">
+                    <field name="internship_type"/>
+                    <field name="mio_2"/>
+                    <field name="dmio1b"/>
+                    <field name="dmio2b"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_work_exp_benefit_tree" model="ir.actions.act_window">
+            <field name="name">Staž s povećanim trajanjem</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">info3.work.exp.benefit</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="info3_work_exp_benefit_tree_view"/>
+        </record>
+
+    </data>
+</odoo>

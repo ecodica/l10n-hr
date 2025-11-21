@@ -1,0 +1,99 @@
+<odoo>
+  <data>
+    <record id="city_form_view" model="ir.ui.view">
+        <field name="name">Grad</field>
+        <field name="model">res.city</field>
+        <field name="arch" type="xml">
+            <form string="Grad">
+            <sheet>
+                <group name="Podaci o gradu">
+                    <field name="name"/> 
+                    <field name="code"/>
+                    <field name="country_id" options="{'no_create': True, 'no_edit': True}"/>
+                    <field name="zipcode"/>
+                    <field name="acc_number"/>
+                    <field name="tax_rate_ids">
+                        <list string="Porezna stopa" editable="top">
+                            <field name="lower_tax_rate"/>
+                            <field name="higher_tax_rate"/>
+                            <field name="tax_date_from"/>
+                        </list>
+                    </field>
+                </group>
+            </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_city_tree_inherit" model="ir.ui.view">
+        <field name="name">res.city.tree.inherit</field>
+        <field name="model">res.city</field>
+        <field name="inherit_id" ref="base_address_extended.view_city_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="/list/field[@name='state_id']" position="after">
+                <field name="code"/>
+            </xpath>
+            <xpath expr="//list" position="attributes">
+                <attribute name="editable"></attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    <record id="res_city_tax_rate_tree" model="ir.ui.view">
+        <field name="name">res.city.tax.rate.tree</field>
+        <field name="model">res.city.tax.rate</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="city_id"/>
+                <field name="lower_tax_rate"/>
+                <field name="higher_tax_rate"/>
+                <field name="tax_date_from"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="res_city_tax_rate_form" model="ir.ui.view">
+        <field name="name">res.city.tax.rate.form</field>
+        <field name="model">res.city.tax.rate</field>
+        <field name="arch" type="xml">
+            <form string="Porezne stope po gradovima">
+                <group>
+                    <group>
+                        <field name="city_id"/>
+                        <field name="lower_tax_rate"/>
+                    </group>
+                    <group>
+                        <field name="higher_tax_rate"/>
+                        <field name="tax_date_from"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_city_tax_rate_search" model="ir.ui.view">
+        <field name="name">res.city.tax.rate.search</field>
+        <field name="model">res.city.tax.rate</field>
+        <field name="arch" type="xml">
+            <search string="Gradovi">
+                <field name="city_id"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_by_city" string="City" domain="[]" context="{'group_by':'city_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="city_tax_rates_actions" model="ir.actions.act_window">
+        <field name="name">Porezne stope gradova</field>
+        <field name="res_model">res.city.tax.rate</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="res_city_tax_rate_search"/>
+    </record>
+
+    <record id="base_address_extended.action_res_city_tree" model="ir.actions.act_window">
+        <field name="view_mode">list,form</field>
+    </record>
+
+  </data>
+</odoo> 

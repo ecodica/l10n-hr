@@ -1,0 +1,4 @@
+"id","name","code","parent_id/id","report_type"
+"joppd","Obrazac JOPPD","JOPPD",,"root"
+"joppd-a","Obrazac JOPPD - Strana A","JOPPD-A","joppd","single"
+"joppd-b","Obrazac JOPPD - Strana B","JOPPD-B","joppd","multi"

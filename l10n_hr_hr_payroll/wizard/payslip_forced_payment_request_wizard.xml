@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+    <record id="payslip_forced_payment_request_wizard_form_view" model="ir.ui.view">
+      <field name="name">payslip.forced.payment.request.wizard.form.view</field>
+      <field name="model">payslip.forced.payment.request.wizard</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+        <form string="Ispis zahtjeva za prisilnu naplatu">
+          <group>
+            <separator string="Ispis zahtjeva za prisilnu naplatu"/>
+          </group>
+          <p>Ako želite, ovdje možete promijeniti datum isplate, datum i mjesto izdavanja i podatke o punomoćniku. Ako ih ne želite ispisati, ostavite prazna polja.</p>
+          <group>
+            <field name="pay_date"/>
+            <field name="print_date"/>
+            <field name="print_place"/>
+            <field name="authorised_person"/>
+            <field name="authorised_person_oib"/>
+          </group>
+          <footer>
+            <button name="print_forced_payslip_payment_request" type="object" string="Ispis" class="oe_highlight"/>
+            or
+            <button string="Odustani" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="payslip_forced_payment_request_wizard_action" model="ir.actions.act_window">
+      <field name="name">Forced payslip payment request wizard</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">payslip.forced.payment.request.wizard</field>
+      <field name="view_mode">form</field>
+      <field name="view_id" ref="payslip_forced_payment_request_wizard_form_view"/>
+      <field name="target">new</field>
+    </record>
+
+	</data>
+</odoo>

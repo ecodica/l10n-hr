@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.module.category" id="module_category_info3_employees_other">
+            <field name="name">Employees - Other</field>
+            <field name="sequence">40</field>
+        </record>
+        <!-- add new group for editing employee code -->
+		<record id="group_edit_employee_code" model="res.groups">
+            <field name="name">Edit employee code</field>
+            <field name="category_id" ref="l10n_hr_hr.module_category_info3_employees_other"/>
+        </record>
+
+        <!-- add new group for contract module -->
+        <record id="group_hr_contract_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="hr_contract.group_hr_contract_manager"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- add contract_user as implied -->
+        <record id="hr_contract.group_hr_contract_manager" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('group_hr_contract_user'))]"/>
+        </record>
+
+        <record id="hr_rule_employee_by_user_company" model="ir.rule">
+            <field name="name">Employee by user company</field>
+            <field name="model_id" ref="model_hr_employee"/>
+            <field name="domain_force">[('company_id','in',[user.company_id.id])]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="hr_rule_contract_by_user_company" model="ir.rule">
+            <field name="name">Contract by user company</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="domain_force">[('company_id','in',[user.company_id.id])]</field>
+            <field name="global" eval="True"/>
+        </record>
+
+        <record id="hr_category_type_rule" model="ir.rule">
+            <field name="name">Category Type company rule</field>
+            <field name="model_id" ref="model_hr_category_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_experience_type_rule" model="ir.rule">
+            <field name="name">Experience Type company rule</field>
+            <field name="model_id" ref="model_hr_experience_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_contract_document_type_rule" model="ir.rule">
+            <field name="name">Contract Document Type company rule</field>
+            <field name="model_id" ref="model_hr_contract_document_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_contract_area_type_rule" model="ir.rule">
+            <field name="name">Contract Area Type company rule</field>
+            <field name="model_id" ref="model_hr_contract_area_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_contract_subarea_type_rule" model="ir.rule">
+            <field name="name">Contract Subarea Type company rule</field>
+            <field name="model_id" ref="model_hr_contract_subarea_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_contract_interruption_reason_type_rule" model="ir.rule">
+            <field name="name">Contract Interruption Reason Type company rule</field>
+            <field name="model_id" ref="model_hr_contract_interruption_reason_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_contract_type_rule" model="ir.rule">
+            <field name="name">Contract Type company rule</field>
+            <field name="model_id" ref="model_hr_contract_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_disability_type_rule" model="ir.rule">
+            <field name="name">Disability Type company rule</field>
+            <field name="model_id" ref="model_hr_disability_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_inactivity_type_rule" model="ir.rule">
+            <field name="name">Inactivity Type company rule</field>
+            <field name="model_id" ref="model_hr_inactivity_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_transportation_type_rule" model="ir.rule">
+            <field name="name">Transportation Type company rule</field>
+            <field name="model_id" ref="model_hr_transportation_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_transportation_carrier_rule" model="ir.rule">
+            <field name="name">Transportation Carrier company rule</field>
+            <field name="model_id" ref="model_hr_transportation_carrier"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_driving_licence_category_rule" model="ir.rule">
+            <field name="name">Driving Licence Category company rule</field>
+            <field name="model_id" ref="model_hr_driving_licence_category"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_education_type_rule" model="ir.rule">
+            <field name="name">Education Type company rule</field>
+            <field name="model_id" ref="model_hr_education_type"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record id="hr_education_institution_rule" model="ir.rule">
+            <field name="name">Education Institution company rule</field>
+            <field name="model_id" ref="model_hr_education_institution"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_allow_all">
+            <field name="name">hr_contract: Allow all ops for draft state</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="domain_force">[('state', '=', 'draft')]</field> 
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_disable_delete">
+            <field name="name">hr_contract: Disable delete op for all states except draft</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="domain_force">[('state', 'in', ('open', 'pending', 'cancel'))]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+        <record model="ir.rule" id="hr_contract_close_state">
+            <field name="name">hr_contract: Disable delete op for all states except draft</field>
+            <field name="model_id" ref="model_hr_contract"/>
+            <field name="domain_force">[('state', '=', 'close')]</field>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_unlink" eval="False"/>
+        </record>
+
+    </data>
+
+</odoo>

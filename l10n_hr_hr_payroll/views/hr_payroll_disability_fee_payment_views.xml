@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="hr_hr_payroll_disability_fee_payment_tree_view" model="ir.ui.view">
+            <field name="name">hr.hr.payroll.disability.fee.payment.tree.view</field>
+            <field name="model">hr.payroll.disability.fee.payment</field>
+            <field name="arch" type="xml">
+                <list string="Naknade za nezapošljavanje OSI">
+                    <field name="payslip_run_id"/>
+                    <field name="number_of_emps_total"/>
+                    <field name="min_number_of_emps_with_disabilities"/>
+                    <field name="number_of_emps_with_disabilities"/>
+                    <field name="disability_fee_number_of_emps"/>
+                    <field name="disability_fee_amount"/>
+                    <field name="state"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="hr_hr_payroll_disability_fee_payment_form_view" model="ir.ui.view">
+            <field name="name">hr.hr.payroll.disability.fee.payment.form.view</field>
+            <field name="model">hr.payroll.disability.fee.payment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Isplati" name="pay_disability_fee" class="oe_highlight" type="object" invisible="state != 'draft'"/>
+                        <button string="Vrati u nacrt" name="draft_disability_fee" type="object" invisible="state != 'paid'"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Broj zaposlenih">
+                                <field name="payslip_run_id" readonly="state == 'paid'"/>
+                                <field name="min_total_number_of_emps_to_pay_fee" readonly="state == 'paid'"/>
+                                <field name="number_of_emps_total" readonly="state == 'paid'"/>
+                                <field name="emps_with_disabilities_quota_pct" readonly="state == 'paid'"/>
+                                <field name="number_of_emps_with_disabilities" readonly="state == 'paid'"/>
+                                <field name="min_number_of_emps_with_disabilities" readonly="state == 'paid'"/>
+                            </group>
+                            <group string="Iznos">
+                                <field name="minimal_wage" readonly="state == 'paid'"/>
+                                <field name="disability_fee_pct" readonly="state == 'paid'"/>
+                                <field name="disability_fee_number_of_emps" readonly="state == 'paid'"/>
+                                <field name="disability_fee_amount" readonly="state == 'paid'"/>
+                            </group>
+                            <group string="Knjiži">
+                                <field name="credit_disability_fee" readonly="state == 'paid'"/>
+                                <field
+                                    name="disability_fee_credit_account_id"
+                                    readonly="state == 'paid'"
+                                    invisible="credit_disability_fee == False"
+                                    required="credit_disability_fee == True"
+                                />
+                                <field
+                                    name="disability_fee_debit_account_id"
+                                    invisible="credit_disability_fee == False"
+                                    readonly="state == 'paid'"
+                                    required="credit_disability_fee == True"
+                                />
+                            </group>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_hr_payroll_disability_fee_payment_search_view" model="ir.ui.view">
+            <field name="name">hr.hr.payroll.disability.fee.payment.search.view</field>
+            <field name="model">hr.payroll.disability.fee.payment</field>
+            <field name="arch" type="xml">
+                <search string="Naknade za nezapošljavanje OSI">
+                    <field name="payslip_run_id"/>
+                </search>
+            </field>
+        </record>
+
+		<record id="action_hr_hr_payroll_disability_fee" model="ir.actions.act_window">
+			<field name="name">Naknada za nezapošljavanje OSI</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.payroll.disability.fee.payment</field>
+			<field name="view_mode">list,form</field>		
+			<field name="view_id" ref="hr_hr_payroll_disability_fee_payment_tree_view"/>
+		</record>
+
+    </data>
+</odoo>

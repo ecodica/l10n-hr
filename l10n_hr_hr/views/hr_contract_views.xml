@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+       <record id="hr_contract_form_code" model="ir.ui.view">
+        <field name="name">hr.contract.view.code.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="l10n_hr_payroll_base.hr_contract_form_inherit_extra"/>
+        <field name="arch" type="xml">
+            <field name="date_start" position="replace">
+                <field name="date_start"
+                       autocomplete="off"
+                       options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+            </field>
+            <field name="date_end" position="replace">
+                <field name="date_end"
+                       autocomplete="off"
+                       options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+            </field>
+
+            <field name="company_id" position="replace"></field>
+            <field name="currency_id" position="replace"></field> 
+            <field name="struct_id" position="replace"></field> 
+            <field name="schedule_pay" position="replace"></field>
+            <!-- disable create and edit for employee -->
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="options">{'no_create': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="currency_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='structure_type_id']" position="before">
+                <field name="contract_type"/>
+                <field
+                    name="parent_id"
+                    domain="[('contract_type', '=', 'contract'), ('employee_id', '=', employee_id), ('date_start', '&lt;', date_start)]"
+                    required="contract_type == 'annex' and employee_id != False"
+                    invisible="contract_type != 'annex' or employee_id == False"
+                />
+            </xpath>
+            <xpath expr="//group/group[2]" position="inside">
+                <field name="sequence_generated" invisible="1"/>
+                <field name="contract_no" readonly="sequence_generated == True"/>
+                <field name="area"/>
+                <field name="area_type"/>
+                <field name="attach_data" filename="attach_filename"/>
+                <field name="attach_filename" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="job_description"/>
+            </xpath>
+            <xpath expr="//field[@name='date_start']" position="before">
+                <field name="hr_config_hr_contract_wage_visible" invisible="1"/>
+                <field name="wage" invisible="not hr_config_hr_contract_wage_visible"/>
+            </xpath>
+            <xpath expr="//group[@name='top_info_left']/div" position="after">
+                <field name="date_end_with_annexes"/>
+                <field name="termination_reason"/>
+                <field name="internship_type"/>
+            </xpath>
+            <xpath expr="//group[@name='notes_group']" position="before">
+                <group name="notice_group" string="Notice period ">
+                    <field name="notice_period"/>
+                    <field name="notice_date"/>
+                    <field name="used_annual_leave_days"/>
+                    <field name="annual_leave_days_used"/>
+                    <field name="annual_leave_days_to_pay"/>
+                </group>
+            </xpath> 
+            <xpath expr="//page[@name='information']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+           <!-- Trial & Internship -->
+            <xpath expr="//group[@name='notes_group']" position="before">
+                <group name="bottom_info_left">
+                    <group name="trial" string="Trial">
+                        <field name="trial_date_start"
+                               autocomplete="off"
+                               options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                        <field name="trial_date_end"
+                               autocomplete="off"
+                               options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                    </group>
+                    <group name="internship" string="Internship">
+                        <field name="internship_date_start"
+                               autocomplete="off"
+                               options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                        <field name="internship_date_end"
+                               autocomplete="off"
+                               options="{'datepicker': {
+                                            'buttons': {'showClose' : true, 'showClear' : true, 'showToday' : true},
+                                            'icons': {'clear': 'fa fa-trash-o'}}}"/>
+                    </group>
+                </group>
+            </xpath> 
+            <!-- add annexes tab -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Annexes" invisible="contract_type == 'annex'">
+                    <field name="child_ids" readonly="1">
+                        <list string="Annexes">
+                            <field name="name"/>
+                            <field name="employee_id"/>
+                            <field name="job_id"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="wage" invisible="1"/>
+                            <field name="message_needaction" invisible="1"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="hr_contract_view_search_inherited" model="ir.ui.view">
+        <field name="name">hr.contract.search.inherited</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='not_running']" position="before">
+                 <filter name="trial_internship" string="Trial/Internship period near expiration"
+                domain="['|','&amp;',
+                        ('trial_date_end', '&gt;', (context_today() - datetime.timedelta(days=15)).strftime('%Y-%m-%d')),
+                        ('trial_date_end', '&lt;=', context_today().strftime('%Y-%m-%d')),
+                        '&amp;', 
+                        ('internship_date_end', '&gt;', (context_today() - datetime.timedelta(days=15)).strftime('%Y-%m-%d')),
+                        ('internship_date_end', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator />
+            </xpath>
+        </field>
+    </record> 
+    
+    <record id="hr_contract_view_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.contract.tree.inherit</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <list position="replace">
+                <list string="Contracts" decoration-bf="message_needaction == True">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="job_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="date_end_with_annexes"/>
+                    <field name="wage" column_invisible="1"/>
+                    <field name="message_needaction" column_invisible="1"/>
+                </list>
+            </list>
+        </field>
+    </record>
+
+    <!-- enable access to contract user - new group added in this module -->
+    <menuitem
+        id="hr_contract.hr_menu_contract"
+        action="hr_contract.action_hr_contract"
+        parent="hr.menu_hr_root"
+        sequence="4"
+        groups="l10n_hr_hr.group_hr_contract_user"
+    />
+</odoo>

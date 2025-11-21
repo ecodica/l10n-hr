@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_hr_payslip_run_suspensions">
+        <t t-call="web.basic_layout">
+            <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+                <div class="row">
+                    <div class="col-4" style="font-weight: bold;" align="left">
+                        <h5 class="pb-0 mb-0 pt-0 mt-0"><span t-field="data['company'].name"/></h5>
+                        <span t-field="data['company'].street"/><br/>
+                        <t t-if="data['company'].zip">
+                            <t t-esc="data['company'].zip"/>
+                        </t>
+                        <t t-if="data['company'].city_id.name">
+                            <t t-esc="data['company'].city_id.name"/>
+                        </t>
+                        <span t-field="data['company'].country_id.name"/><br/>
+                        OIB: <span t-field="data['company'].company_registry"/>
+                    </div>
+                    <div class="col-4 text-center">
+                        <h5>Obustave</h5>
+                    </div>
+                </div>
+                <br/>
+                <span style="font-weight: bold;">Obračuni plaće: </span><br/>
+                <t t-foreach="data['run_names']" t-as="run">
+                    <span t-esc="run['name']"/><br/>
+                </t>
+                <div class="mt-4">
+                    <table class="table table-sm table-striped table-bordered">
+                        <thead>
+                            <th>R.Br.</th>
+                            <th>Zaposlenik</th>
+                            <th>Naziv obustave</th>
+                            <th>IBAN</th>
+                            <th class="text-right">Iznos</th>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_amount" t-value="0"/>
+                            <t t-set="line_counter" t-value="1"/>
+                            <tr t-foreach="data['suspension_lines']" t-as="line">
+                                <td><span t-esc="line_counter"/></td>
+                                <td><span t-esc="line[0]"/></td>
+                                <td><span t-esc="line[1]"/></td>
+                                <td><span t-esc="line[2]"/></td>
+                                <td class="text-right"><span t-esc="line[3]" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                                <t t-set="total_amount" t-value="total_amount + line[3]"/>
+                                <t t-set="line_counter" t-value="line_counter + 1"/>
+                            </tr>
+                        </tbody>
+                        <tfoot style="font-weight: bold;">
+                            <td class="text" colspan="4">Ukupno</td>
+                            <td class="text-right"><span t-esc="total_amount" t-options="{'widget': 'float', 'precision': 2}"/></td>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

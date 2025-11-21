@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+    
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_payroll'), ('name', '=', 'hr_payroll_rule_officer')]"/>
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+
+        <!-- discard rule from hr_payroll module -->
+        <record id="l10n_hr_payroll_base.hr_payroll_rule_officer" model="ir.rule">
+            <field name="domain_force" eval="[(1, '=', 1)]"/>
+            <field name="groups" eval="[(5,)]"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
+            <field name="perm_create" eval="False"/>
+        </record>
+
+        <!-- reset noupdate -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_payroll'), ('name', '=', 'hr_payroll_rule_officer')]"/>
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+    </data>
+</odoo>

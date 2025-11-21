@@ -1,0 +1,1197 @@
+id,active,appears_on_payslip,bank_account_number,register_id/id,amount_fix,category_id/id,quantity,condition_range_max,condition_range_min,broj_modela,parent_rule_id/id,name,note,company_id/id,joppd_b161/id,joppd_b151/id,amount_percentage,amount_percentage_base,poziv_na_broj,analytic_account_id/id,condition_python,amount_python_compute,condition_range,sequence,input_ids/id,condition_select,amount_select,code,account_tax_id/id,joppd_b61/id,joppd_b62/id
+l10n_hr_payroll_base.hr_rule_basic,TRUE,TRUE,,,,l10n_hr_payroll_base.BASIC,1,,,,,Osnovica,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'
+result = rules.NET > categories.NET * 0.10","amount = 0   
+if (categories.EBRT >= 0): 
+	amount = categories.EBRT
+result = amount",payslip.wage,15,,Always True,Python Code,BASIC,,,
+l10n_hr_payroll_base.hr_rule_taxable,TRUE,TRUE,,,,l10n_hr_payroll_base.GROSS,1,,,,,Bruto,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10",result = categories.BASIC + categories.ALW,payslip.wage,100,,Always True,Python Code,GROSS,,,
+l10n_hr_payroll_base.hr_rule_net,TRUE,TRUE,,l10n_hr_payroll_base.contrib_register_employees,,l10n_hr_payroll_base.NET,1,,,,,Neto,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10",result = categories.BASIC + categories.ALW + categories.DED,payslip.wage,200,,Always True,Python Code,NET,,,
+hr_salary_rule_4,TRUE,TRUE,HR65 1001 0051 5501 0000 1,,,hr_salary_rule_category_23,1,,,HR68,,Doprinos za obvezno zdravstveno osiguranje,,base.main_company,,,,categories.OSNDOP,8486-OIBP-JOPPD,,"
+result = rules.NET > categories.NET * 0.10",result = categories.OSNDOP * payslip.health_insurance_contribution_pct / 100.0,payslip.wage,301,,Always True,Python Code,DZDR,,,
+hr_salary_rule_6,TRUE,TRUE,,,,hr_salary_rule_category_23,1,,,HR68,,Doprinos za zdravstveno osiguranje zaštite zdravlja na radu,,base.main_company,,,0.5,categories.OSNDOP,8630-OIBP-JOPPD,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10"," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days. 
+# inputs: object containing the computed inputs.  
+# Note: returned value have to be set in the variable 'result'  
+result = payslip.wage * 0.10",payslip.wage,302,,Always True,Percentage (%),DZNR,,,
+hr_salary_rule_7,TRUE,TRUE,,,,hr_salary_rule_category_23,1,,,HR68,,Doprinos za zapošljavanje,,base.main_company,,,1.7,categories.OSNDOP,8753-OIBP-JOPPD,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10"," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days. 
+# inputs: object containing the computed inputs.  
+# Note: returned value have to be set in the variable 'result'  
+result = payslip.wage * 0.10",payslip.wage,303,,Always True,Percentage (%),DZAP,,,
+hr_salary_rule_11,TRUE,TRUE,,,1000,hr_salary_rule_category_22,1,,,,,"Bolovanje ",,base.main_company,,,,,,,result = worked_days.BO.number_of_hours != 0,"
+amount = ( worked_days.BO.number_of_hours * payslip.sick_leave_average_hourly_wage_gross) * payslip.i3_config_sick_leave_company_percentage / 100.0
+amount = round(amount, 2)
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,BO,,,
+hr_salary_rule_12,TRUE,TRUE,,,,hr_salary_rule_category_20,1,,,,,Redovan rad,,base.main_company,,,,,,,result = worked_days.RR.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.RR.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",payslip.wage,10,,Python Expression,Python Code,RR,,,
+hr_salary_rule_13,TRUE,TRUE,,,,hr_salary_rule_category_9,1,,,,,Dohodak,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","result = round(categories.BASIC, 2) - round(categories.DMIO, 2)",payslip.wage,50,,Always True,Python Code,DOH,,,
+hr_salary_rule_14,TRUE,TRUE,,,,hr_salary_rule_category_7,1,,,,,Doprinosi MIO,,base.main_company,,,100,categories.DMIO1,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+amount = round(categories.DOP, 2)
+result = amount",payslip.wage,26,,Always True,Python Code,DMIO,,,
+hr_salary_rule_15,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_14,Doprinos za MIO I,,base.main_company,,,15,categories.OSNDOP,8168-OIBP-JOPPD,,result = (payslip.mio2 == True),"
+amount = round(categories.OSNDOP * 0.15, 2)
+result = amount",payslip.wage,20,,Python Expression,Python Code,DMIO1,,,
+hr_salary_rule_16,TRUE,TRUE,HR76 1001 0051 7000 3600 1,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_14,Doprinos za MIO II,,base.main_company,,,5,categories.OSNDOP,2283-OIBP-JOPPD,,result = payslip.mio2,"
+res = 0
+if categories.DMIOU > 0:
+    res=  round(categories.DMIOU,2) - round(categories.DMIO,2)
+result = res
+",payslip.wage,23,,Python Expression,Python Code,DMIO2,,,
+hr_salary_rule_35,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_14,Doprinos za MIO I,,base.main_company,,,20,categories.OSNDOP,8168-OIBP-JOPPD,,result = (payslip.mio2 == False),,payslip.wage,22,,Python Expression,Percentage (%),DMIO1,,,
+hr_salary_rule_17,TRUE,TRUE,,,,hr_salary_rule_category_10,1,,,,,Osobni odbitak,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+run = payslip.payslip_run_id
+used_on_other_payslip_runs = payslip.sum('IOOD',run.date_start, run.date_end, ('paid',))
+used_on_this_payslip_run = payslip.amount_on_payslip_run('IOOD')
+used_total = used_on_other_payslip_runs + used_on_this_payslip_run
+if payslip.tax_deduction_amount > 0:
+	result = max(payslip.tax_deduction_amount - used_total, 0)
+else: 
+	result = 0
+",payslip.wage,60,,Always True,Python Code,OOD,,,
+hr_salary_rule_18,TRUE,TRUE,,,,hr_salary_rule_category_13,1,,,,,Porezna osnovica,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+osn = categories.DOH - categories.OOD  
+if osn < 0:
+	osn = 0
+result = osn
+",payslip.wage,101,,Always True,Python Code,POROSN,,,
+hr_salary_rule_21,FALSE,FALSE,,,,hr_salary_rule_category_25,1,,,,,Osnovica osobnog odbitka,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10"," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days. 
+# inputs: object containing the computed inputs.  
+# Note: returned value have to be set in the variable 'result'  
+result = payslip.i3_config_osnovica",payslip.wage,5,,Always True,Python Code,OODB,,,
+hr_salary_rule_26,TRUE,TRUE,,,,hr_salary_rule_category_58,1,,,HR68,,Porez na dohodak,,base.main_company,,,100,categories.PDOH,1880-OIBP-JOPPD,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+amount = round(categories.PDOH, 2) - round(categories.PDOHU, 2) - round(categories.OPDOHHRVI, 2)
+result = amount
+",payslip.wage,114,,Always True,Python Code,PDOH,,,
+hr_salary_rule_27,TRUE,TRUE,,,,l10n_hr_payroll_base.NET,1,,,,,Neto plaća,,base.main_company,,,,,,,"result = categories.POROSN > ","
+# categories.PDOH i pravilo PDOH nije isto!
+# u categories se zbrajaju iznosi poreza PRIJE umanjenja za potpomognuto podrucje i HRVI
+# u PDOH su uracunata umanjenja
+amount = round( categories.DOH - ( PDOH + categories.PRIR ), 2)
+result = amount",payslip.wage,116,,Always True,Python Code,NETO,,,
+hr_salary_rule_29,TRUE,TRUE,,,,hr_salary_rule_category_21,1,,,,,Godišnji odmor,,base.main_company,,,,,,,result = worked_days.GO.number_of_hours,"
+c = 0
+amount = 0
+worked_hours = worked_days.GO.number_of_hours
+if payslip.use_avg_hourly_wage_for_annual_leave_calculation:
+	amount = worked_hours * payslip.unused_leave_average_hourly_wage
+else:
+	overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+	payslip_regular_hours = payslip.user_work_hours - overtime
+	employee_month_hours = payslip.month_work_hours
+	total_month_hours = payslip.payslip_run_id.period_work_hours
+	if payslip.salary_calculation_type == 'fixed_salary':
+		c = worked_hours / payslip_regular_hours
+		amount = payslip.wage * c
+	elif payslip.salary_calculation_type == 'hourly_wage':
+		amount = worked_hours * payslip.hourly_wage
+	elif payslip.salary_calculation_type == 'employee_work_hours':
+		c = worked_hours / employee_month_hours
+		amount = payslip.wage * c
+	elif payslip.salary_calculation_type == 'month_work_hours':
+		c = worked_hours / total_month_hours
+		amount = payslip.wage * c
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,GO,,,
+hr_salary_rule_36,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Stimulacija,,base.main_company,,,,,,,result = inputs.STIM != 0,"
+result = inputs.STIM.amount 
+",payslip.wage,12,,Python Expression,Python Code,STIM,,,
+hr_salary_rule_37,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Provizija,,base.main_company,,,,,,,result = inputs.PROV.amount != 0,result = inputs.PROV.amount,payslip.wage,13,,Python Expression,Python Code,PROV,,,
+hr_salary_rule_39,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Utvrđeni dodatak,,base.main_company,,,,,,,result = inputs.UTVD != 0,"
+if payslip.use_hourly_wage:     
+	result = payslip.hourly_wage * inputs.UTVD.amount 
+else:     
+	result = payslip.wage * (inputs.UTVD.amount/100)
+",payslip.wage,12,,Python Expression,Python Code,UTVD,,,
+hr_salary_rule_40,TRUE,TRUE,,,,hr_salary_rule_category_20,1,,,,,Neradni dani,,base.main_company,,,,,,,result = worked_days.ND.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.ND.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,ND,,,
+hr_salary_rule_41,TRUE,TRUE,,,1000,hr_salary_rule_category_31,1,,,,,Prekovremeni rad ( radni dan ),,base.main_company,,,,,,,result = worked_days.PRR.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.PRR.number_of_hours
+payslip_hours = payslip.user_work_hours
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 1.5
+if payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type in ('fixed_salary','employee_work_hours'):
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,PRR,,,
+hr_salary_rule_42,FALSE,TRUE,,,1000,hr_salary_rule_category_37,1,,,,,Prekovremeni rad ( nedjelja ),,base.main_company,,,,,,,result = worked_days.PRN.number_of_hours != 0,"
+# pravilo deaktivirano 25.03.2019. jer ce se za sve vrste prekovremenog rada koristiti PRR, a za rad nedjeljom i praznikom su napravljena pravila RN i RP koja sluze kao dodatak
+c = 0 
+if payslip.use_hourly_wage:     
+	amount = (worked_days.PRN.number_of_hours * payslip.hourly_wage) *1.5 
+else:     
+	c = worked_days.PRN.number_of_hours / payslip.month_work_hours     
+	amount = ( payslip.wage * c ) * 1.5  
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,PRN,,,
+hr_salary_rule_43,TRUE,TRUE,,,,hr_salary_rule_category_33,1,,,,,Iznos za isplatu,,base.main_company,,,,,,,"result = categories.POROSN > ","
+odn = 0
+sum = 0
+suma = 0
+obustave = 0
+suma = categories.NET 
+odn = categories.ODN 
+obustave = categories.OBS
+if payslip.payslip_run_id.salary_in_kind:
+	sum = 0
+elif obustave > 0 or odn > 0:
+	sum = suma - odn - obustave
+elif obustave > 0:
+	sum = suma - obustave
+elif odn > 0:
+	sum = suma - odn
+else:
+	sum = suma
+sum = round(sum, 2)
+result = sum
+",payslip.wage,121,,Always True,Python Code,ISPL,,,
+hr_salary_rule_44,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Naknada u naravi,,base.main_company,,,,,,,result = inputs.NNAR.amount != 0,result = inputs.NNAR.amount,payslip.wage,14,,Python Expression,Python Code,NNAR,,,
+hr_salary_rule_45,TRUE,FALSE,,,,hr_salary_rule_category_34,1,,,,,Iskorišten osobni odbitak,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+iood = categories.DOH - categories.OOD  
+if iood >= 0:      
+	iood = categories.OOD 
+else:    
+	iood = categories.OOD + iood         
+result = iood
+",payslip.wage,61,,Always True,Python Code,IOOD,,,
+hr_salary_rule_46,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Akontacija,,base.main_company,,,,,,,result = inputs.AKON.amount != 0,result = inputs.AKON.amount,payslip.wage,13,,Python Expression,Python Code,AKON,,,
+hr_salary_rule_47,FALSE,TRUE,,,1000,hr_salary_rule_category_38,1,,,,,Prekovremeni rad ( praznik ),,base.main_company,,,,,,,result = worked_days.PRP.number_of_hours != 0,"
+# pravilo deaktivirano 25.03.2019. jer ce se za sve vrste prekovremenog rada koristiti PRR, a za rad nedjeljom i praznikom su napravljena pravila RN i RP koja sluze kao dodatak
+c = 0 
+if payslip.use_hourly_wage:     
+	amount = (worked_days.PRP.number_of_hours * payslip.hourly_wage) * 1.5 
+else:     
+	c = worked_days.PRP.number_of_hours / payslip.month_work_hours     
+	amount = ( payslip.wage * c ) * 1.5  
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,PRP,,,
+hr_salary_rule_48,TRUE,TRUE,,,1000,hr_salary_rule_category_39,1,,,,,Noćni rad,,base.main_company,,,,,,,result = worked_days.NOC.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.NOC.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 0.3
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,NOC,,,,
+hr_salary_rule_49,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Putni trošak,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_19,,,,,result = inputs.PRV != 0,"
+result = inputs.PRV.amount",payslip.wage,119,,Python Expression,Python Code,PRV,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_50,TRUE,TRUE,,,,hr_salary_rule_category_40,1,,,,,Bolovanje - Fond 50%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.BOF50.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net * 0.5
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net * 0.5
+amount = round(worked_days.BOF50.number_of_hours * net_rate, 2)
+result = amount
+",payslip.wage,118,,Python Expression,Python Code,BOF50,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_51,TRUE,TRUE,,,,hr_salary_rule_category_42,1,,,,,Bolovanje - Fond 70%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.BOF70.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net * 0.7
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net * 0.7
+amount = round(worked_days.BOF70.number_of_hours * net_rate, 2)
+result = amount
+",payslip.wage,118,,Python Expression,Python Code,BOF70,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_52,TRUE,TRUE,,,,hr_salary_rule_category_43,1,,,,,Bolovanje - Fond 80%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.BOF80.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net * 0.8
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net * 0.8
+
+amount = round(worked_days.BOF80.number_of_hours * net_rate, 2)
+result = amount
+",payslip.wage,118,,Python Expression,Python Code,BOF80,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_53,FALSE,TRUE,,,,hr_salary_rule_category_41,1,,,,,Ozljeda na radu,,base.main_company,,,,,,,result = worked_days.ONR.number_of_hours != 0,"
+c = 0 
+if payslip.use_hourly_wage:     
+	amount = (worked_days.ONR.number_of_hours * payslip.hourly_wage) * 1 
+else:     
+	c = worked_days.ONR.number_of_hours / payslip.month_work_hours     
+	amount = ( payslip.wage * c ) * 1  
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,ONR,,,,
+hr_salary_rule_54,TRUE,TRUE,,,,hr_salary_rule_category_44,1,,,,,Ozljeda na radu - Fond,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.ONRF.number_of_hours != 0,"
+if not payslip.skip_minimum_check_sickleave_calculations:
+	net_rate = payslip.sick_leave_average_hourly_wage_net
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net
+amount = worked_days.ONRF.number_of_hours * net_rate 
+result = amount",payslip.wage,118,,Python Expression,Python Code,ONRF,,hr_joppd_form.p-2_5209,hr_joppd_form.p-3_0000,
+hr_salary_rule_55,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Odvojeni život,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_25,,,,,result = inputs.ODZ.amount > 0,"
+result = inputs.ODZ.amount
+",payslip.wage,119,,Python Expression,Python Code,ODZ,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_56,TRUE,TRUE,,,,hr_salary_rule_category_45,1,,,,,Plaćeni dopust,,base.main_company,,,,,,,result = worked_days.PD.number_of_hours > 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.PD.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,PD,,,,
+hr_salary_rule_57,TRUE,TRUE,,,,hr_salary_rule_category_46,1,,,,,Porodiljni dopust,,base.main_company,hr_joppd_form.p-5_0,,,,,,result = worked_days.PDT.number_of_hours != 0,,payslip.wage,11,,Python Expression,Fixed Amount,PDT,,hr_joppd_form.p-2_5203,hr_joppd_form.p-3_0000,
+hr_salary_rule_58,TRUE,TRUE,,,,hr_salary_rule_category_47,1,,,,,Komplikacije u trudnoći,,base.main_company,hr_joppd_form.p-5_0,,,,,,result = worked_days.PDTK.number_of_hours != 0,,payslip.wage,11,,Python Expression,Fixed Amount,PDTK,,hr_joppd_form.p-2_5207,hr_joppd_form.p-3_0000,
+hr_salary_rule_59,TRUE,TRUE,,,,hr_salary_rule_category_48,1,,,,,Obustave,,base.main_company,,,,,,,result = payslip.suspension_ids,"
+net = (categories.NET + categories.NETM) if categories.NETM else categories.NET
+basic = categories.BASIC + categories.BASICM if categories.BASICM else categories.BASIC
+wage = net - (categories.BO + categories.BO100) * (net / basic) if basic else 0
+average_wage = payslip.i3_config_average_wage
+currency = payslip.payslip_run_id.i3_currency
+
+suspended = 0 
+
+#get suspensions and sort them by priority  
+for s in payslip.suspension_ids:
+	amount = 0
+	date = payslip.payslip_run_id.pay_date
+
+	if s.start_date > date or not s.i3_active:
+		continue
+	
+	payed = s.paid_amount
+
+	if s.max_ratio == '3':
+		ratio = 1.0 / 3.0
+	elif s.max_ratio == '2':
+		ratio = 1.0 / 2.0
+	elif s.max_ratio == '4':
+		ratio = 1.0 / 4.0
+	elif s.max_ratio == '34':
+		ratio = 3.0 / 4.0
+	else:
+		ratio = 1.0
+
+	if s.suspension_type == 'membership':
+		suspendable = 0
+	elif s.max_ratio == '1':
+		suspendable = wage
+	elif s.max_ratio == '2':
+		if wage < average_wage:
+			# 1/2 of employees wage is protected => 1/2 is suspendable
+			suspendable = wage * 1.0 / 2.0
+		else:
+			# 1/2 of average wage is protected => everything above it is suspendable
+			suspendable = wage - 1.0 / 2.0 * average_wage
+	elif s.max_ratio == '34':
+		if wage < average_wage:
+			# 1/4 of employees wage is protected => 3/4 is suspendable
+			suspendable = wage * 3.0 / 4.0
+		else:
+			# 1/4 of average wage is protected => everything above it is suspendable
+			suspendable = wage - 1.0 / 4.0 * average_wage
+	else:
+		if (wage *(3.0/4.0)) > (average_wage * (2.0/3.0)):
+			# 2/3 of average wage is protected => everything above it is suspendable
+			suspendable = wage - ((2.0/3.0) * average_wage)
+		else:
+			# 3/4 of employees wage is protected => 1/4 is suspendable
+			suspendable = wage * (1.0/4.0)
+
+	if s.suspension_type == 'membership':
+		base = 0
+		if s.membership_base == 'netto':
+			base = net
+		elif s.membership_base == 'brutto':
+			base = basic
+		amount = base * s.membership_base_pct / 100.0
+	elif s.suspension_type == 'distraint':
+		# if end_amount is entered -> consider it
+		if s.end_amount:
+			remaining = s.end_amount - (s.start_amount + s.paid_amount)
+			amount = min(remaining, suspendable)
+		else:
+			amount = suspendable
+	else:
+		remaining = (s.end_amount - (s.start_amount + payed)) if s.end_amount > 0 else s.amount
+		amount = s.amount if remaining >= s.amount else remaining
+
+	take = 0     
+	take_corr = 0     
+	if amount > 0:
+		if s.suspension_type == 'membership':
+			take = amount
+		elif amount < (suspendable - suspended):
+			take = amount
+		else:
+			take = max(suspendable - suspended, 0)
+		take = round(take, 2)
+		if take:
+			# round amount for each account and sum (this is the way suspension lines are created)
+			# (else round(98.8 * 1.5%) = 1.48, but 3× round(98.8 * 0.5%) = 1.47
+			# this way we get same amount for each account, even though their sum != 1.48
+			for dist_line in s.bank_account_distribution_ids:
+				bank_acc_amount = round(float(take * dist_line.share) / 100.0, 2)
+				take_corr += bank_acc_amount
+		if s.suspension_type in ('fixed','alimony') and s.amount:
+			# in case there is more than one payslip in month
+			# distraint and membership have no limit because they depend directly on netto or brutto salary
+			# fixed_amount and alimony have monthly amounts which need to be paid so we make sure they are not overpaid
+			paid_this_month = s.paid_this_month
+			paid_on_this_payslip_run = payslip.get_suspension_calculated_amount(s.suspension_id)
+			suspension_amount = s.amount
+			to_pay = max(suspension_amount - paid_this_month - paid_on_this_payslip_run, 0)
+			take_corr = min(take_corr, to_pay)
+	suspended += take_corr
+	if payslip.payslip_run_id.i3_profit_payment or payslip.payslip_run_id.i3_add_only_inputs or payslip.payslip_run_id.salary_in_kind:
+		suspended = 0
+
+result = suspended
+",payslip.wage,117,,Python Expression,Python Code,OBS,,,
+hr_salary_rule_60,TRUE,TRUE,,,,hr_salary_rule_category_49,1,,,,,Blagdan,,base.main_company,,,,,,,result = worked_days.BLG.number_of_hours > 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.BLG.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,BLG,,,
+hr_salary_rule_61,TRUE,TRUE,,,,hr_salary_rule_category_50,1,,,,,Topli obrok,,base.main_company,,,,,,,result = inputs.TOPOB != 0,"
+result = inputs.TOPOB.amount
+",payslip.wage,117,,Python Expression,Python Code,TOPOB,,,
+hr_salary_rule_64,TRUE,TRUE,,,,hr_salary_rule_category_23,1.0,,,,,Doprinosi MIO beneficirani,,base.main_company,,,,categories.BASIC,,,"
+result = rules.NET > categories.NET * 0.10","
+result = categories.DOPMIOB
+",payslip.wage,320,,Always True,Python Code,DMIOB,,,
+hr_salary_rule_65,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_53,1,,,HR68,hr_salary_rule_64,Dodatni doprinos za MIO I,,base.main_company,,,,,8168-OIBP-JOPPD,,result = (payslip.mio2 == True),"
+amount = 0
+koef = payslip.dmio1b_percentage / 100
+amount = categories.OSNDOP * koef
+result = amount
+",payslip.wage,310,,Python Expression,Python Code,DMIO1B,,,
+hr_salary_rule_66,TRUE,TRUE,HR76 1001 0051 7000 3600 1,,,hr_salary_rule_category_53,1,,,HR68,hr_salary_rule_64,Dodatni doprinos za MIO II,,base.main_company,,,,,2283-OIBP-JOPPD,,result = payslip.mio2,"
+amount = 0
+koef = payslip.dmio2b_percentage / 100
+amount = categories.OSNDOP * koef
+result = amount
+",payslip.wage,311,,Python Expression,Python Code,DMIO2B,,,
+hr_salary_rule_67,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_53,1,,,HR68,hr_salary_rule_64,Dodatni doprinos za MIO I (samo I. stup),,base.main_company,,,,,8168-OIBP-JOPPD,,result = (payslip.mio2 == False),"
+amount = 0
+koef = payslip.dmio1b_percentage / 100
+amount = categories.OSNDOP * koef
+result = amount
+",payslip.wage,312,,Python Expression,Python Code,DMIO1B,,,,
+hr_salary_rule_68,True,True,,,,hr_salary_rule_category_28,1,,,,,Plaća,,base.main_company,,,100.0,payslip.wage,,,result=True,,payslip.wage,5,,Always True,Percentage (%),WAGE,,,,
+hr_salary_rule_69,True,True,,,,hr_salary_rule_category_89,1,,,,,Priznati izdatak autoru 30%,,base.main_company,,,30.0,categories.DRDOH,,,result=True,,payslip.wage,13,,Always True,Percentage (%),PIA30,,,,
+hr_salary_rule_70,TRUE,TRUE,,,,hr_salary_rule_category_89,1,,,,,Priznati izdatak umjetniku 25%,,base.main_company,,,25.0,categories.DRDOH,,,result=True,,payslip.wage,13,,Always True,Percentage (%),PIU25,,,,
+hr_salary_rule_167,TRUE,TRUE,,,,hr_salary_rule_category_55,1,,,,,Prigodne nagrade za tekuće porezno razdoblje,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_22,,,,,result = inputs.PN22.amount != 0,result = inputs.PN22.amount,,120,,Python Expression,Python Code,PN22,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_79,TRUE,TRUE,,,,hr_salary_rule_category_55,1,,,,hr_salary_rule_167,Božićnica,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_22,,,,,result = inputs.BOZ != 0,result = inputs.BOZ.amount,payslip.wage,119,,Python Expression,Python Code,BOZ,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_80,TRUE,TRUE,,,,hr_salary_rule_category_55,1,,,,hr_salary_rule_167,Uskrsnica,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_22,,,,,result = inputs.USK != 0,result = inputs.USK.amount,payslip.wage,119,,Python Expression,Python Code,USK,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_81,TRUE,TRUE,,,,hr_salary_rule_category_55,1,,,,hr_salary_rule_167,Regres,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_22,,,,,result = inputs.REG != 0,result = inputs.REG.amount,payslip.wage,119,,Python Expression,Python Code,REG,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_82,TRUE,TRUE,,,,hr_salary_rule_category_57,1,,,,,Terenski rad inozemstvo,,base.main_company,hr_joppd_form.p-5_1,,,,,,result = worked_days.TERI.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.TERI.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",,11,,Python Expression,Python Code,TERI,,,
+hr_salary_rule_83,TRUE,TRUE,,,,hr_salary_rule_category_56,1,,,,,Terenski rad tuzemstvo,,base.main_company,hr_joppd_form.p-5_1,,,,,,result = worked_days.TERT.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.TERT.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",,11,,Python Expression,Python Code,TERT,,,
+hr_salary_rule_84,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Stimulacija %,,base.main_company,,,,,,,result = inputs.STIMP !=0,"
+rr_amount = 0
+prr_amount = 0
+pct = inputs.STIMP.amount / 100.0
+if worked_days.RR:
+	rr_amount = RR
+if worked_days.PRR:
+	prr_amount = PRR
+res = (rr_amount + prr_amount) * pct
+result = res",,14,,Python Expression,Python Code,STIMP,,,
+hr_salary_rule_85,TRUE,TRUE,,,,hr_salary_rule_category_61,1,24000,,,,Porez na dohodak 24%,,base.main_company,,,24,categories.POSN24,,,result = POSN24 > 0,,categories.POSNOVICA,111,,Python Expression,Percentage (%),POR24,,,
+hr_salary_rule_86,TRUE,TRUE,,,,hr_salary_rule_category_62,1,36000,,,,Porez na dohodak 36%,,base.main_company,,,36,categories.POSN36,,,result = POSN36 > 0,,categories.POSNOVICA,112,,Python Expression,Percentage (%),POR36,,,
+hr_salary_rule_87,TRUE,TRUE,,,,hr_salary_rule_category_59,1,,,,,Porezna osnovica 24%,,base.main_company,,,,,,,result = (payslip.total_tax_base + categories.POROSN) > 0,"
+osnovica24 = 0 
+osnovica36 = 0  
+
+granica1 = payslip.porez_razred_1_granica
+
+donos_osnovice = payslip.total_tax_base 
+osnovica = categories.POROSN 
+ukupno_osnovica = donos_osnovice + osnovica  
+
+if ukupno_osnovica <= granica1:             
+	osnovica24 = osnovica                  
+	
+if ukupno_osnovica > granica1:     
+	if (donos_osnovice > granica1):                     
+		osnovica24 = osnovica              
+	else:                  
+		osnovica24 = granica1 - donos_osnovice
+		osnovica36 = ukupno_osnovica - granica1                          					
+result = osnovica24 
+",payslip.wage,102,,Always True,Python Code,POSN24,,,
+hr_salary_rule_88,TRUE,TRUE,,,,hr_salary_rule_category_60,1,,,,,Porezna osnovica 36%,,base.main_company,,,,,,,result = (payslip.total_tax_base + categories.POROSN) > 0,"
+osnovica24 = 0 
+osnovica36 = 0  
+
+granica1 = payslip.porez_razred_1_granica
+
+donos_osnovice = payslip.total_tax_base 
+osnovica = categories.POROSN 
+ukupno_osnovica = donos_osnovice + osnovica  
+
+if ukupno_osnovica <= granica1:             
+	osnovica24 = osnovica                  
+	
+if ukupno_osnovica > granica1:     
+	if (donos_osnovice > granica1):                     
+		osnovica24 = osnovica              
+	else:                  
+		osnovica24 = granica1 - donos_osnovice
+		osnovica36 = ukupno_osnovica - granica1                          					
+result = osnovica36 
+",payslip.wage,104,,Always True,Python Code,POSN36,,,
+hr_salary_rule_89,FALSE,FALSE,,,,hr_salary_rule_category_25,1,,,,,Osnovica za uzdržavane članove i djecu,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10"," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days. 
+# inputs: object containing the computed inputs.  
+# Note: returned value have to be set in the variable 'result'  
+result = payslip.i3_config_osnovica_uzdrzavani",payslip.wage,5,,Always True,Python Code,OODU,,,,
+hr_salary_rule_90,TRUE,TRUE,,,,hr_salary_rule_category_63,1,,,,,Bolovanje - Fond 100%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.BOF100.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net
+amount = round(worked_days.BOF100.number_of_hours * net_rate, 2)
+result = amount
+",payslip.wage,119,,Python Expression,Python Code,BOF100,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_91,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Otpremnina oporezivo,,base.main_company,,,,,,,result = inputs.OTPO != 0,"
+result = inputs.OTPO.amount",payslip.wage,12,,Python Expression,Python Code,OTPO,,,,
+hr_salary_rule_92,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Otpremnina neoporezivo,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_26,,,,,result = inputs.OTPN != 0,"
+result = inputs.OTPN.amount 
+",payslip.wage,120,,Python Expression,Python Code,OTPN,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_93,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Dodatak na staž %,,base.main_company,,,,,,,result = True,"
+amount = 0
+coeff = 0
+if not payslip.payslip_run_id.salary_in_kind:
+	coeff = (payslip.experience_coef * payslip.internship_total_years)/100
+	if (categories.EBRT >= 0): 
+		amount = categories.EBRT  
+res = amount * coeff
+result = res",,14,,Always True,Python Code,DODST,,,
+hr_salary_rule_117,TRUE,TRUE,,,1000,hr_salary_rule_category_64,1,,,,,Bolovanje 100%,,base.main_company,,,,,,,result = worked_days.BO100.number_of_hours != 0,"
+amount = ( worked_days.BO100.number_of_hours * payslip.sick_leave_average_hourly_wage_gross ) 
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,BO100,,,
+hr_salary_rule_143,TRUE,FALSE,,,,hr_salary_rule_category_70,1,,,HR68,,Doprinos MIO ukupno,,base.main_company,,,20,categories.OSNDOP,8168-OIBP-JOPPD,,result = (payslip.mio2 == True),,payslip.wage,19,,Python Expression,Percentage (%),DMIOU,,,
+hr_salary_rule_144,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Bruto dobit,,base.main_company,,,,,,,result = inputs.DOB.amount != 0,result = inputs.DOB.amount,payslip.wage,14,,Python Expression,Python Code,DOB,,,
+hr_salary_rule_145,TRUE,TRUE,,,,hr_salary_rule_category_12,1,12000,,,,Porez na dohodak 12%,,base.main_company,,,12,categories.EBRT,,,result = categories.EBRT > 0,"
+tax = categories.EBRT * 0.12
+result = tax
+",categories.POSNOVICA,111,,Python Expression,Percentage (%),POR12,,,
+hr_salary_rule_147,TRUE,TRUE,,,,l10n_hr_payroll_base.NET,1,,,,,Neto isplata,,base.main_company,,,,,,,"result = categories.EBRT > ",result = categories.EBRT - ( categories.PDOH + categories.PRIR ),payslip.wage,116,,Always True,Python Code,NETO,,,
+hr_salary_rule_148,TRUE,TRUE,,,,hr_salary_rule_category_71,1,,,,,Izostanak radnika,,base.main_company,,,,,,,result = worked_days.IR.number_of_hours != 0,"
+days_total = payslip.employee_number_of_days_in_month
+days_worked = payslip.employee_number_of_days_at_work
+min_con_base = payslip.min_contributions_base
+result = min_con_base * days_worked / days_total",,11,,Always True,Python Code,IR,,,
+hr_salary_rule_149,TRUE,TRUE,,,,hr_salary_rule_category_72,1,,,,,Neiskorišteni godišnji odmor,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'
+result = worked_days.GON.number_of_hours != 0",result = worked_days.GON.number_of_hours * payslip.unused_leave_average_hourly_wage,,11,,Python Expression,Python Code,GON,,,,
+hr_salary_rule_150,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Naknada za rođenje djeteta,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_21,,,,,result = inputs.NZRD != 0,result = inputs.NZRD.amount,,120,,Python Expression,Python Code,NZRD,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_151,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Terenski dodatak tuzemni,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_23,,,,,result = inputs.TDT != 0,result = inputs.TDT.amount,,120,,Python Expression,Python Code,TDT,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_152,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Terenski dodatak inozemni,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_23,,,,,result = inputs.TDI != 0,result = inputs.TDI.amount,,120,,Python Expression,Python Code,TDI,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_153,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Dnevnica domaća,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_17,,,,,result = inputs.DD != 0,result = inputs.DD.amount,,120,,Python Expression,Python Code,DD,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_154,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Dnevnica inozemna,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_17,,,,,result = inputs.DI != 0,result = inputs.DI.amount,,120,,Python Expression,Python Code,DI,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0000,
+hr_salary_rule_155,TRUE,TRUE,,,,hr_salary_rule_category_74,1,,,,,Njega djeteta - Fond 70%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.NjDF70.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net * 0.7
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net * 0.7
+amount = worked_days.NjDF70.number_of_hours * net_rate 
+result = amount
+",payslip.wage,118,,Python Expression,Python Code,NjDF70,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_156,TRUE,TRUE,,,,hr_salary_rule_category_75,1,,,,,Njega djeteta - Fond 100%,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_12,,,,,result = worked_days.NjDF100.number_of_hours != 0,"
+net_rate = payslip.sick_leave_average_hourly_wage_net
+min_rate = payslip.min_sick_leave_hourly_rate
+max_rate = payslip.max_sick_leave_hourly_rate
+if not payslip.skip_minimum_check_sickleave_calculations:
+	if net_rate < min_rate:
+		net_rate = min_rate
+	elif net_rate > max_rate:
+		net_rate = max_rate
+else:
+	net_rate = payslip.sick_leave_average_no_salary_hourly_wage_net * 0
+amount = worked_days.NjDF100.number_of_hours * net_rate 
+result = amount
+",payslip.wage,118,,Python Expression,Python Code,NjDF100,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_157,TRUE,TRUE,,,,hr_salary_rule_category_76,1,,,,,Službeni put,,base.main_company,hr_joppd_form.p-5_1,,,,,,result = worked_days.SLP.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.SLP.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",,11,,Python Expression,Python Code,SLP,,,,
+hr_salary_rule_158,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Nagrada za radne rezultate,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_63,,,,,result = inputs.NAG != 0,result = inputs.NAG.amount,,120,,Python Expression,Python Code,NAG,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_159,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Dar djetetu do 15g,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_21,,,,,result = inputs.DAR != 0,result = inputs.DAR.amount,,120,,Python Expression,Python Code,DAR,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_160,TRUE,TRUE,,,,hr_salary_rule_category_77,1,,,,,Dodatak za rad nedjeljom,,base.main_company,,,,,,,result = worked_days.DRN.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.DRN.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 0.5
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,DRN,,,
+hr_salary_rule_162,TRUE,TRUE,,,,hr_salary_rule_category_78,1,,,,,Dodatak za rad praznikom,,base.main_company,,,,,,,result = worked_days.DRP.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.DRP.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 0.5
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,DRP,,,,
+hr_salary_rule_164,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Naknada za korištenje privatnog automobila u službene svrhe,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_18,,,,,result = inputs.PRIV.amount != 0,result = inputs.PRIV.amount,,120,,Python Expression,Python Code,PRIV,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_165,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Doplatak za djecu,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_08,,,,,result = inputs.DJDOP.amount != 0,result = inputs.DJDOP.amount,,120,,Python Expression,Python Code,DJDOP,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_166,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Potpora zbog invalidnosti ili smrtnog slučaja,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_20,,,,,result = inputs.SS.amount != 0,result = inputs.SS.amount,,120,,Python Expression,Python Code,SS,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_168,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Nagrade radnicima za navršene godine staža,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_60,,,,,result = inputs.NAGST.amount != 0,result = inputs.NAGST.amount,,120,,Python Expression,Python Code,NAGST,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_169,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Prigodne nagrade za prethodna razdoblja,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_61,,,,,result = inputs.PN61.amount != 0,result = inputs.PN61.amount,,120,,Python Expression,Python Code,PN61,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_170,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Paušalna naknada za prehranu,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_65,,,,,result = inputs.PREH65.amount != 0,result = inputs.PREH65.amount,,120,,Python Expression,Python Code,PREH65,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_171,TRUE,TRUE,,,,hr_salary_rule_category_95,1,,,,,Naknada za prehranu na temelju dokumentacije,,base.main_company,hr_joppd_form.p-5_5,hr_joppd_form.p-4_66,,,,,result = inputs.PREH66.amount != 0,result = inputs.PREH66.amount,,120,,Python Expression,Python Code,PREH66,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_172,TRUE,TRUE,,,,hr_salary_rule_category_95,1,,,,,Troškovi smještaja radnika koji se podmiruju bezgotovinskim putem,,base.main_company,hr_joppd_form.p-5_3,hr_joppd_form.p-4_67,,,,,result = inputs.SMJ67.amount != 0,result = inputs.SMJ67.amount,,120,,Python Expression,Python Code,SMJ67,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_173,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Troškovi smještaja radnika koji se podmiruju na račun radnika,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_68,,,,,result = inputs.SMJ68.amount != 0,result = inputs.SMJ68.amount,,120,,Python Expression,Python Code,SMJ68,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_174,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Troškovi namijenjeni odmoru radnika,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_69,,,,,result = inputs.ODM.amount != 0,result = inputs.ODM.amount,,120,,Python Expression,Python Code,ODM,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_175,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Troškovi redovne skrbi djece radnika,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_70,,,,,result = inputs.SKRB.amount != 0,result = inputs.SKRB.amount,,120,,Python Expression,Python Code,SKRB,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_176,TRUE,TRUE,,,,hr_salary_rule_category_7,1,,,,,Doprinosi MIO umanjeni,,base.main_company,,,100,categories.DMIOU1,,," 
+result = rules.NET > categories.NET * 0.10",result = categories.DOP,payslip.wage,26,,Always True,Python Code,DMIOUM,,,
+hr_salary_rule_177,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_176,Doprinos za MIO I umanjeni,,base.main_company,,,7.5,categories.OSNDOP,8176-OIBP-JOPPD,,result = (payslip.mio2 == True),,payslip.wage,20,,Python Expression,Percentage (%),DMIOU1,,,
+hr_salary_rule_178,TRUE,TRUE,HR76 1001 0051 7000 3600 1,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_176,Doprinos za MIO II umanjeni,,base.main_company,,,2.5,categories.OSNDOP,2291-OIBP-JOPPD,,result = (payslip.mio2 == True),,payslip.wage,20,,Python Expression,Percentage (%),DMIOU2,,,
+hr_salary_rule_179,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_176,Doprinos za MIO I umanjeni,,base.main_company,,,10,categories.OSNDOP,8176-OIBP-JOPPD,,result = (payslip.mio2 == False),,payslip.wage,22,,Python Expression,Percentage (%),DMIOU1,,,
+hr_salary_rule_180,TRUE,TRUE,,,,hr_salary_rule_category_79,1,,,,,Bruto iznos drugog dohotka,,base.main_company,,,,,,,result = inputs.DRDOH != 0,result = inputs.DRDOH.amount,payslip.wage,12,,Python Expression,Python Code,DRDOH,,,
+hr_salary_rule_181,TRUE,TRUE,,,,hr_salary_rule_category_59,1,,,,,Porezna osnovica 24%,,base.main_company,,,,,,,result = (categories.POROSN) > 0,result = categories.POROSN,payslip.wage,102,,Always True,Python Code,POSN24,,,
+hr_salary_rule_182,TRUE,TRUE,HR65 1001 0051 5501 0000 1,,,hr_salary_rule_category_23,1,,,HR68,,Doprinos za obvezno zdravstveno osiguranje,,base.main_company,,,,,8540-OIBP-JOPPD,,result = rules.NET > categories.NET * 0.10,result = categories.OSNDOP * payslip.health_insurance_contribution_pct_additional_income / 100.0,payslip.wage,301,,Always True,Python Code,DZDR,,,
+hr_salary_rule_183,TRUE,TRUE,,,,hr_salary_rule_category_80,1,,,,,Osnovica za doprinose,,base.main_company,,,,,,,result = rules.NET > categories.NET * 0.10,"
+# na ugovoru je osnovica za doprinose zapisana uzevsi u obzir radno vrijeme zaposlenika (broj sati dnevno / 8 * osnovica)
+# ovdje je potrebno samo napraviti korekciju obzirom na broj odradjenih dana
+
+if payslip.payslip_run_id.salary_in_kind:
+	con_base = categories.BASIC
+else:
+	ratio = 1
+	if payslip.employee_number_of_days_at_work and payslip.employee_number_of_days_in_month:
+		ratio = payslip.employee_number_of_days_at_work / payslip.employee_number_of_days_in_month
+	min_con_base = payslip.min_contributions_base * ratio
+	con_base = max(categories.BASIC,min_con_base)
+	if categories.BASIC == 0:
+		con_base = 0
+result = con_base
+",payslip.wage,18,,Always True,Python Code,OSNDOP,,,,
+hr_salary_rule_184,TRUE,TRUE,,,,hr_salary_rule_category_80,1,,,,,Osnovica za doprinose,,base.main_company,,,120,categories.BASIC,,,result = rules.NET > categories.NET * 0.10,,payslip.wage,18,,Always True,Percentage (%),OSNDOP,,,,
+hr_salary_rule_185,TRUE,TRUE,,,,hr_salary_rule_category_81,1,,,,,Bruto dodatak za izaslanje,,base.main_company,,,,,,,result = inputs.BDI != 0,result = inputs.BDI.amount,payslip.wage,49,,Python Expression,Python Code,BDI,,,,
+hr_salary_rule_186,TRUE,TRUE,,,,hr_salary_rule_category_9,1,,,,,Dohodak,,base.main_company,,,,,,,result = rules.NET > categories.NET * 0.10,"result = round(categories.BASIC, 2) + round(categories.BDI, 2) - round(categories.DMIO, 2)",payslip.wage,50,,Always True,Python Code,DOH,,,,
+hr_salary_rule_187,TRUE,TRUE,,,,hr_salary_rule_category_82,1,,,,,Neto plaća u inozemstvu,,base.main_company,,,,,,,result = inputs.NETOINO != 0,result = inputs.NETOINO.amount * payslip.payslip_run_id.i3_work_abroad_currency,payslip.wage,116,,Python Expression,Python Code,NETOINO,,,,
+hr_salary_rule_188,TRUE,TRUE,,,,hr_salary_rule_category_83,1,,,,,Porez na dohodak u inozemstvu,,base.main_company,,,,,,,result = inputs.PDOHINO != 0,result = inputs.PDOHINO.amount * payslip.payslip_run_id.i3_work_abroad_currency,payslip.wage,114,,Python Expression,Python Code,PDOHINO,,,,
+hr_salary_rule_189,TRUE,TRUE,,,,hr_salary_rule_category_84,1,,,,,Solidarni dodatak u inozemstvu,,base.main_company,,,,,,,result = inputs.SDINO != 0,result = inputs.SDINO.amount * payslip.payslip_run_id.i3_work_abroad_currency,payslip.wage,115,,Python Expression,Python Code,SDINO,,,,
+hr_salary_rule_190,TRUE,TRUE,,,,hr_salary_rule_category_85,1,,,,,Roditeljski dopust,,base.main_company,hr_joppd_form.p-5_0,,,,,,result = worked_days.RDT.number_of_hours != 0,,payslip.wage,11,,Python Expression,Fixed Amount,RDT,,hr_joppd_form.p-2_5204,hr_joppd_form.p-3_0000,
+hr_salary_rule_191,TRUE,TRUE,,,1000,hr_salary_rule_category_86,1,,,,,Smjenski rad,,base.main_company,,,,,,,result = worked_days.SMJRAD.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.SMJRAD.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 0.1
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,SMJRAD,,,
+hr_salary_rule_193,TRUE,TRUE,,,,hr_salary_rule_category_87,1,,,,,Umanjenje poreza na dohodak,,base.main_company,,,,,,,result = payslip.supported_area,"
+base = round(categories.PDOH, 2) - round(categories.OPDOHHRVI, 2)
+amount = round(0.5 * base, 2)
+result = amount
+",payslip.wage,113,,Python Expression,Python Code,PDOHU,,,,
+hr_salary_rule_194,TRUE,TRUE,,,,hr_salary_rule_category_88,1,,,,,Izolacija,,base.main_company,hr_joppd_form.p-5_0,,,,,,result = worked_days.IZO.number_of_hours != 0,,payslip.wage,11,,Python Expression,Fixed Amount,IZO,,hr_joppd_form.p-2_5201,hr_joppd_form.p-3_0000,
+hr_salary_rule_195,TRUE,TRUE,,,,hr_salary_rule_category_80,1,,,,,Osnovica za doprinose,,base.main_company,,,100,categories.BASIC - categories.PPT,,,result = rules.NET > categories.NET * 0.10,,payslip.wage,18,,Always True,Percentage (%),OSNDOP,,,,
+hr_salary_rule_196,TRUE,TRUE,,,,hr_salary_rule_category_13,1,,,,,Porezna osnovica,,base.main_company,,,,,,," result = rules.NET > categories.NET * 0.10","
+osn = categories.DOH - categories.PPT
+if osn < 0:
+	osn = 0
+result = osn
+",payslip.wage,101,,Always True,Python Code,POROSN,,,
+hr_salary_rule_208,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Nagrade učenicima za vrijeme praktičnog rada i naukovanja,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_13,,,,,result = inputs.PRAKSA != 0,result = inputs.PRAKSA.amount,,120,,Python Expression,Python Code,PRAKSA,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021
+hr_salary_rule_209,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Stipendije i potpora djetetu za školovanje do 15. godine života,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_28,,,,,result = inputs.SKOL != 0,result = inputs.SKOL.amount,,120,,Python Expression,Python Code,SKOL,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021
+hr_salary_rule_210,TRUE,TRUE,,,,hr_salary_rule_category_61,1,,,,,Porez na dohodak - 1. razred,,base.main_company,,,,,,,result = True,"
+tax = round(categories.POSN1 * payslip.i3_config_razred_1_posto / 100, 2)
+result = tax
+",contract.wage,111,,Python Expression,Python Code,POR1,,,,
+hr_salary_rule_211,TRUE,TRUE,,,,hr_salary_rule_category_62,1,,,,,Porez na dohodak - 2. razred,,base.main_company,,,,,,,result = (categories.POSN2 > 0),"
+tax = round(categories.POSN2 * payslip.i3_config_razred_2_posto / 100, 2)
+result = tax
+",contract.wage,112,,Python Expression,Python Code,POR2,,,,
+hr_salary_rule_212,TRUE,TRUE,,,,hr_salary_rule_category_59,1,,,,,Porezna osnovica - 1. razred,,base.main_company,,,,,,,result = True,"
+osnovica_1 = 0 
+osnovica_2 = 0  
+
+granica1 = payslip.porez_razred_1_granica 
+
+used_on_this_payslip_run = payslip.amount_on_payslip_run('POROSN')
+donos_osnovice = employee.total_tax_base + used_on_this_payslip_run
+osnovica = categories.POROSN
+ukupno_osnovica = donos_osnovice + osnovica
+
+if ukupno_osnovica <= granica1:             
+	osnovica_1 = osnovica                  
+	
+if ukupno_osnovica > granica1:     
+	if (donos_osnovice > granica1):                     
+		osnovica_2 = osnovica              
+	else:                  
+		osnovica_1 = granica1 - donos_osnovice
+		osnovica_2 = ukupno_osnovica - granica1                          					
+result = osnovica_1 
+",contract.wage,102,,Always True,Python Code,POSN1,,,,
+hr_salary_rule_213,TRUE,TRUE,,,,hr_salary_rule_category_60,1,,,,,Porezna osnovica - 2. razred,,base.main_company,,,,,,,result = (employee.total_tax_base + categories.POROSN) > 0,"
+osnovica_1 = 0 
+osnovica_2 = 0  
+
+granica1 = payslip.porez_razred_1_granica
+
+used_on_this_payslip_run = payslip.amount_on_payslip_run('POROSN')
+donos_osnovice = employee.total_tax_base + used_on_this_payslip_run
+osnovica = categories.POROSN
+ukupno_osnovica = donos_osnovice + osnovica
+
+if ukupno_osnovica <= granica1:             
+	osnovica_1 = osnovica                  
+	
+if ukupno_osnovica > granica1:     
+	if (donos_osnovice > granica1):                     
+		osnovica_2 = osnovica              
+	else:                  
+		osnovica_1 = granica1 - donos_osnovice
+		osnovica_2 = ukupno_osnovica - granica1                          					
+result = osnovica_2 
+",contract.wage,104,,Always True,Python Code,POSN2,,,,
+hr_salary_rule_214,TRUE,TRUE,,,,hr_salary_rule_category_12,1,,,,,Porez na dohodak od kapitala - 1. razred,,base.main_company,,,,categories.EBRT,,,result = categories.EBRT > 0,"
+tax = round(categories.EBRT * payslip.i3_config_capital_gain_1_pct / 100.00, 2)
+result = tax
+",,111,,Python Expression,Python Code,PORKAP1,,,,
+hr_salary_rule_215,TRUE,TRUE,,,,hr_salary_rule_category_90,1,,,,,Neplaćeni dopust,,base.main_company,,,,,,,result = worked_days.NDOP.number_of_hours != 0,"
+days_total = payslip.employee_number_of_days_in_month
+days_worked = payslip.employee_number_of_days_at_work
+min_con_base = payslip.min_contributions_base
+result = min_con_base * days_worked / days_total",,11,,Always True,Python Code,NDOP,,,,
+hr_salary_rule_216,TRUE,TRUE,,,,hr_salary_rule_category_95,1,,,,,Premije dodatnog i dopunskog zdravstvenog osiguranja,,base.main_company,hr_joppd_form.p-5_3,hr_joppd_form.p-4_71,,,,,result = inputs.PREMZDROSIG.amount != 0,result = inputs.PREMZDROSIG.amount,,120,,Python Expression,Python Code,PREMZDROSIG,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_217,TRUE,TRUE,,,1000,hr_salary_rule_category_91,1,,,,,Rad blagdanom i praznikom,,base.main_company,,,,,,,result = worked_days.RBP.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.RBP.number_of_hours
+payslip_hours = payslip.user_work_hours
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 1.5
+if payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type in ('fixed_salary','employee_work_hours'):
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,RBP,,,
+hr_salary_rule_218,TRUE,TRUE,,,1000,hr_salary_rule_category_92,1,,,,,Rad noću,,base.main_company,,,,,,,result = worked_days.RNOC.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.RNOC.number_of_hours
+payslip_hours = payslip.user_work_hours
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 1.3
+if payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type in ('fixed_salary','employee_work_hours'):
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",payslip.wage,11,,Python Expression,Python Code,RNOC,,,
+hr_salary_rule_219,TRUE,TRUE,,,,hr_salary_rule_category_93,1,,,,,Olakšica poreza na dohodak za HRVI,,base.main_company,,,,,,,result = payslip.has_war_disability,"
+amount = round(categories.PDOH * payslip.war_disability_pct / 100, 2)
+result = amount
+",payslip.wage,112,,Python Expression,Python Code,OPDOHHRVI,,,
+hr_salary_rule_220,TRUE,TRUE,,,,hr_salary_rule_category_94,1,,,,,Očinski dopust,,base.main_company,hr_joppd_form.p-5_0,,,,,,result = worked_days.ODT.number_of_hours != 0,,payslip.wage,11,,Python Expression,Fixed Amount,ODT,,hr_joppd_form.p-2_5204,hr_joppd_form.p-3_0000,
+hr_salary_rule_221,TRUE,TRUE,,,,hr_salary_rule_category_73,1,,,,,Naknada za rad na izdvojenom mjestu,,base.main_company,hr_joppd_form.p-5_1,hr_joppd_form.p-4_73,,,,,result = inputs.RADIZDVMJ.amount != 0,result = inputs.RADIZDVMJ.amount,,120,,Python Expression,Python Code,RADIZDVMJ,,hr_joppd_form.p-2_0000,hr_joppd_form.p-3_0021,
+hr_salary_rule_222,TRUE,TRUE,,,,hr_salary_rule_category_96,1,,,,,Neplaćeni dopust za pružanje osobne skrbi,,base.main_company,,,,,,,result = worked_days.NDOPSKRB.number_of_hours != 0,"
+days_total = payslip.employee_number_of_days_in_month
+days_worked = payslip.employee_number_of_days_at_work
+min_con_base = payslip.min_contributions_base
+result = min_con_base * days_worked / days_total",,11,,Always True,Python Code,NDOPSKRB,,,,
+hr_salary_rule_223,TRUE,TRUE,,,,hr_salary_rule_category_97,1,,,,,Neiskorišteni godišnji odmor za prethodnu godinu,,base.main_company,,,,,,," 
+result = worked_days.GONPR.number_of_hours != 0",result = worked_days.GONPR.number_of_hours * payslip.unused_leave_average_hourly_wage,,11,,Python Expression,Python Code,GONPR,,,,
+hr_salary_rule_224,TRUE,TRUE,,,,hr_salary_rule_category_98,1,,,,,Umanjenje osnovice za doprinose,,base.main_company,,,,,,,result = True,"
+amount = 0
+deduction = payslip.contributions_base_deduction_amount
+if payslip.use_manual_contributions_base_deduction:
+	if deduction:
+		amount = deduction
+	else:
+		amount = 0
+else:
+	limit_1 = payslip.hr_config_contributions_base_deduction_limit_1
+	limit_2 = payslip.hr_config_contributions_base_deduction_limit_2
+	fixed_deduction = payslip.hr_config_contributions_base_deduction_fixed_amount
+	deductable_base = categories.OSNUMOSNDOP
+	if deductable_base <= limit_1:
+		amount = min(fixed_deduction, deductable_base)
+	elif deductable_base > limit_1 and deductable_base <= limit_2:
+		amount = 0.5 * (limit_2 - deductable_base)
+result = amount
+",payslip.wage,17,,Always True,Python Code,UMOSNDOP,,,,
+hr_salary_rule_225,TRUE,TRUE,,,,hr_salary_rule_category_99,1,,,,,Osnovica za doprinose - umanjena,,base.main_company,,,,,,,result = True,"
+amount = round(categories.OSNDOP - categories.UMOSNDOP, 2)
+result = amount
+",payslip.wage,19,,Always True,Python Code,OSNDOPUM,,,,
+hr_salary_rule_230,TRUE,TRUE,,,,hr_salary_rule_category_7,1,,,,,Doprinosi MIO,,base.main_company,,,,,,," 
+# Available variables: 
+#---------------------- 
+# payslip: object containing the payslips 
+# employee: hr.employee object 
+# contract: hr.contract object 
+# rules: object containing the rules code (previously computed) 
+# categories: object containing the computed salary rule categories (sum of amount of all rules belonging to that category). 
+# worked_days: object containing the computed worked days 
+# inputs: object containing the computed inputs  
+# Note: returned value have to be set in the variable 'result'  
+result = rules.NET > categories.NET * 0.10","
+amount = round(categories.DOP, 2)
+result = amount",payslip.wage,26,,Always True,Python Code,DMIO,,,
+hr_salary_rule_226,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_230,Doprinos za MIO I,,base.main_company,,,15,categories.OSNDOPUM,8168-OIBP-JOPPD,,result = (payslip.mio2 == True),,payslip.wage,20,,Python Expression,Percentage (%),DMIO1,,,
+hr_salary_rule_227,TRUE,TRUE,HR76 1001 0051 7000 3600 1,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_230,Doprinos za MIO II,,base.main_company,,,5,categories.OSNDOP,2283-OIBP-JOPPD,,result = payslip.mio2,,payslip.wage,23,,Python Expression,Percentage (%),DMIO2,,,
+hr_salary_rule_228,TRUE,TRUE,HR12 1001 0051 8630 0016 0,,,hr_salary_rule_category_8,1,,,HR68,hr_salary_rule_230,Doprinos za MIO I,,base.main_company,,,20,categories.OSNDOPUM,8168-OIBP-JOPPD,,result = (payslip.mio2 == False),,payslip.wage,22,,Python Expression,Percentage (%),DMIO1,,,
+hr_salary_rule_229,TRUE,TRUE,,,,hr_salary_rule_category_100,1,,,,,Osnovica za izračun umanjenja osnovice za doprinose,,base.main_company,,,,,,,result = True,"
+# za izracun ovog pravila napravljen je hook na metodi _get_payslip_lines na hr.payslip objektu
+result = 0
+",payslip.wage,16,,Always True,Python Code,OSNUMOSNDOP,,,,
+hr_salary_rule_231,TRUE,TRUE,,,,hr_salary_rule_category_59,1,,,,,Porezna osnovica - 1. razred,,base.main_company,,,,,,,result = True,"
+osnovica = categories.POROSN
+result = osnovica",contract.wage,102,,Always True,Python Code,POSN1,,,,
+hr_salary_rule_234,TRUE,TRUE,,,,hr_salary_rule_category_101,1,,,,,Odsutnost s rada,,base.main_company,,,,,,,result = worked_days.ODSR.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.ODSR.number_of_hours
+overtime = worked_days.PRR.number_of_hours if worked_days.PRR else 0
+payslip_regular_hours = payslip.user_work_hours - overtime
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+if payslip.salary_calculation_type == 'fixed_salary':
+	c = worked_hours / payslip_regular_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage
+elif payslip.salary_calculation_type == 'employee_work_hours':
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c
+result = amount
+",payslip.wage,10,,Python Expression,Python Code,ODSR,,,
+hr_salary_rule_235,TRUE,TRUE,,,,hr_salary_rule_category_102,1,,,,,Neplaćeni dopust kandidata,,base.main_company,,,,,,,result = worked_days.NDOPKAND.number_of_hours != 0,"
+days_total = payslip.employee_number_of_days_in_month
+days_worked = payslip.employee_number_of_days_at_work
+min_con_base = payslip.min_contributions_base
+result = min_con_base * days_worked / days_total",,11,,Always True,Python Code,NDOPKAND,,,,
+hr_salary_rule_236,TRUE,TRUE,,,,hr_salary_rule_category_29,1,,,,,Nadopuna neta,,base.main_company,,,,,,,result = inputs.STIMNN != 0,"
+result = inputs.STIMNN.amount
+",payslip.wage,12,,Python Expression,Python Code,STIMNN,,,
+hr_salary_rule_237,TRUE,TRUE,,,,hr_salary_rule_category_50,1,,,,,Multisport kartica,,base.main_company,,,,,,,result = inputs.MSPORT != 0,"
+result = inputs.MSPORT.amount
+",payslip.wage,117,,Python Expression,Python Code,MSPORT,,,
+hr_salary_rule_238,TRUE,TRUE,,,,l10n_hr_hr_payroll.hr_salary_rule_category_102,1,,,,,Rad nedjeljom,,base.main_company,,,,,,,result = worked_days.RNED.number_of_hours != 0,"
+c = 0
+amount = 0
+worked_hours = worked_days.RNED.number_of_hours
+payslip_hours = payslip.user_work_hours
+employee_month_hours = payslip.month_work_hours
+total_month_hours = payslip.payslip_run_id.period_work_hours
+coef = 1.5
+if payslip.salary_calculation_type == 'hourly_wage':
+	amount = worked_hours * payslip.hourly_wage * coef
+elif payslip.salary_calculation_type in ('fixed_salary','employee_work_hours'):
+	c = worked_hours / employee_month_hours
+	amount = payslip.wage * c * coef
+elif payslip.salary_calculation_type == 'month_work_hours':
+	c = worked_hours / total_month_hours
+	amount = payslip.wage * c * coef
+result = amount
+",contract.wage,11,,Python Expression,Python Code,RNED,,,,

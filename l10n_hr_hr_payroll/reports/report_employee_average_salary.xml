@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_employee_average_salary">
+        <t t-foreach="docs" t-as="emp">
+        <t t-call="web.basic_layout">
+            <style>
+                #address-table {
+                    font-weight: bold;
+                    width: 20%;
+                }
+
+                #title-table {
+                    width: 60%;
+                }
+
+                #run-names-table {
+                    width: 60%;
+                    font-size: 8pt;
+                }
+
+                #run-names-table tr td {
+                    width: 50%;
+                }
+
+                #run-names {
+                    font-size: 8pt;
+                }
+
+                .table-striped tbody tr:nth-of-type(odd) {
+                    background-color: rgba(0, 0, 0, 0.05);
+                  }
+                  
+            </style>
+            <div class="page" style="font-size: 8pt; font-family:Helvetica;">
+
+                <table id="address-table" class="table-sm mb-3 table-borderless" align="left">
+                    <tr>
+                        <td class="m-0 p-0"><h5><span t-field="company.name"/></h5></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0"><span t-field="company.street"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">
+                            <t t-if="company.zip">
+                                <t t-esc="company.zip"/>
+                            </t>
+                            <t t-if="company.city_id">
+                                <t t-esc="company.city_id.name"/>
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0"><span t-field="company.country_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">OIB: <span t-field="company.company_registry"/></td>
+                    </tr>
+                    <tr>
+                        <td class="m-0 p-0">IBAN: <span t-if="company.partner_id.bank_ids" t-field="company.partner_id.bank_ids[0].acc_number"/></td>
+                    </tr>
+                </table>
+
+                <table id="title-table" class="table-sm mb-3 table-borderless" style="margin:auto;">
+                    <tr>
+                        <td>
+                            <h5>PROSJEK PLAĆE ZA DJELATNIKA</h5>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold">Djelatnik:</span> <span t-field="emp.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold">OIB:</span> <span t-field="emp.oib"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="font-weight-bold">Period:</span>
+                            <span t-esc="period['date_from']" t-options="{'widget': 'date'}"/>
+                            -
+                            <span t-esc="period['date_to']" t-options="{'widget': 'date'}"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-sm table-striped table-bordered" style="width: 100%;">
+                    <thead>
+                        <tr class="text-end">
+                            <th class="text-center"><span>Obračun</span></th>
+                            <th class="text-center"><span>Datum isplate</span></th>
+                            <th class="text-center"><span>Sati</span></th>
+                            <th class="text-center"><span>Bruto plaća</span></th>
+                            <th class="text-center"><span>Ukupni trošak plaće</span></th>
+                            <th class="text-center"><span>Doprinosi</span></th>
+                            <th class="text-center"><span>Dohodak</span></th>
+                            <th class="text-center"><span>Odbici</span></th>
+                            <th class="text-center"><span>Osnovice</span></th>
+                            <th class="text-center"><span>Porez</span></th>
+                            <th class="text-center"><span>Neto plaća</span></th>
+                            <th class="text-center"><span>Isplata</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="emp_lines[emp.id]" t-as="q" class="text-end">
+                            <td class="text-start" ><span t-esc="q[0]"/></td>
+                            <td><span t-esc="q[1]" t-options="{'widget': 'date'}"/></td>
+                            <td><span t-esc="q[2]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[3]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[4]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[5]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[6]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[7]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[8]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[9]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[10]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="q[11]" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                    </tbody>
+                    <tfoot id="sums-row">
+                        <tr t-foreach="sum_line[emp.id]" t-as="t" class="text-end font-weight-bold">
+                            <td class="text-start fw-bold"><span t-esc="t[0]"/></td>
+                            <td></td>
+                            <td><span t-esc="t[1]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[2]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[3]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[4]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[5]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[6]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[7]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[8]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[9]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                            <td><span t-esc="t[10]" class="fw-bold" t-options="{'widget': 'float', 'precision': prec}"/></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </t>
+        <!-- end of basic_layout -->
+        </t>
+        <!-- end of foreach -->
+    </template>
+
+</odoo>

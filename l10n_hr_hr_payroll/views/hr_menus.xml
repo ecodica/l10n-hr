@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_city_tax_rates"
+            action="city_tax_rates_actions"
+            parent="contacts.menu_localisation"
+            sequence="10"
+            name="Porezne stope po gradovima"/>
+
+        <menuitem
+            action="tax_deduction_action"
+            id="menu_tax_deduction"
+            parent="l10n_hr_hr.hr_submenu_view_contracts"
+            sequence="10"
+            name="Odbitak poreza"
+        />
+
+        <menuitem
+            id="menu_work_exp_benefit"
+            action="action_work_exp_benefit_tree"
+            name="Staž s povećanim trajanjem"
+            parent="l10n_hr_hr.hr_submenu_view_contracts"
+            sequence="15"
+        />
+
+        <!--menu added to group annual leave menus-->  
+        <menuitem
+            id="menu_hr_annual_leaves"
+            name="Godišnji odmori"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="95"
+        />
+
+        <menuitem
+            action="action_employee_leave_periodically"
+            id="menu_employee_leave_periodically"
+            sequence="10"
+            parent="menu_hr_annual_leaves"
+            groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user"
+        />
+
+        <menuitem
+            action="action_employee_leave_yearly"
+            id="menu_employee_leave_yearly"
+            sequence="20"
+            parent="menu_hr_annual_leaves"
+            groups="hr.group_hr_user,l10n_hr_payroll_base.group_hr_payroll_user"
+        />
+
+        <menuitem
+            id="menu_assign_annual_leave"
+            action="action_assign_annual_leave"
+            name="Dodijeli godišnji odmor"
+            parent="menu_hr_annual_leaves"
+            sequence="30"
+            groups="hr.group_hr_manager,l10n_hr_payroll_base.group_hr_payroll_manager"
+        />
+
+        <menuitem
+            id="menu_hr_salary_suspensions_root"
+            name="Obustave plaće"
+            parent="hr.menu_hr_root"
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="93"
+        />
+        
+        <menuitem
+            id="menu_hr_salary_suspensions"
+            parent="menu_hr_salary_suspensions_root"
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="5"
+            action="action_hr_salary_suspensions"
+        />
+        
+       <menuitem
+            id="menu_hr_salary_suspension_payments"
+            parent="menu_hr_salary_suspensions_root"
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="10"
+            action="action_hr_salary_suspension_payments"
+        />
+
+        <menuitem 
+            id="contribution_base_deduction_wizard" 
+            action="action_hr_payslip_contribution_distribution" 
+            parent="menu_hr_payroll_reports" 
+            groups="l10n_hr_payroll_base.group_hr_payroll_user"
+            sequence="30"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="temp">
+         <table class="inner-table">
+            <tbody>
+                <tr class="border-bottom">
+                    <td class="border-right" style="width: 49.9%;">Naziv primatelja</td>
+                    <td class="text-center" style="width: 50%;"><span t-if="naziv_primatelja != ''" t-esc="naziv_primatelja"/></td>
+                </tr>
+                <tr class="border-bottom">
+                    <td class="border-right" style="width: 49.9%;">IBAN</td>
+                    <td class="text-center" style="width: 50%;"><span t-if="iban != ''" t-esc="iban"/></td>
+                </tr>
+                <tr>
+                    <td class="border-right" style="width: 49.9%;">Model i poziv na broj primatelja</td>
+                    <td class="text-center" style="width: 50%;"><span t-if="model_poziv != ''" t-esc="model_poziv"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="report_no1">
+        <t t-call="web.basic_layout">
+            <style>
+                .font-weight-normal {
+                    font-weight: normal;
+                }
+                .footer-div-ime {
+                    display: -webkit-box; 
+                    -webkit-box-orient: vertical; 
+                    -webkit-box-pack: center; 
+                    border-left: 1px solid black; 
+                    -webkit-box-align: center; 
+                    width: 50%; 
+                    padding-top: 10px;"
+                }
+                .footer-div-datum {
+                    padding-left: 4px; 
+                    white-space: nowrap; 
+                    display: -webkit-box;  
+                    -webkit-box-align: center; 
+                    height: 60px;
+                }
+                .footer-div {
+                    border: 1px solid black; 
+                    width: 100%; 
+                    font-weight: bold;
+                    display: -webkit-box; 
+                    border-top: 0;
+                }
+                .td-napomena {
+                    display: inline; 
+                    font-weight: bold; 
+                    margin: 0;"
+                }
+                .inner-table-td {
+                    padding: 0; 
+                    width: 40%; 
+                    border-right: 0.5px solid black; 
+                    border-bottom: 0.5px solid black;
+                }
+                .font-weight-bold {
+                    font-weight: bold;
+                }
+                .inner-table {
+                    margin: 0; 
+                    padding: 0;
+                    empty-cells: show;
+                    width: 100%;
+                }
+                * {
+                    page-break-inside: avoid;
+                    font-size: 6pt !important;
+                }
+                .border-bottom {
+                    border-bottom: 0.5px solid black!important;
+                }
+                .no-bottom-border {
+                    border-bottom: 0px !important;
+                }
+                .inner-table > tbody > tr {
+                    width: 100%;
+                }
+                td {
+                    padding: 4px;
+                }
+                .table {
+                    table-layout: fixed;
+                }
+                .page {
+                    padding: 10px 2rem 25px 2rem !important;
+                }
+                .container {
+                    font-size: 9pt;
+                    font-family: Helvetica;
+                }
+                .custom-table {
+                    border: 0.5px solid black;
+                }
+                .custom-table th,
+                .custom-table td {
+                    border: 1;
+                }
+                .table-sm > tbody > tr.full-border-top {
+                    border-top: 0.5px solid black!important;
+                }
+                .bordered-full {
+                    border: 0.5px solid black!important;
+                }
+                .bordered-left-right {
+                    border-right: 0.5px solid black!important;
+                    border-left: 0.5px solid black!important;
+                }
+                .border-right {
+                    border-right: 0.5px solid black!important;
+                }
+                .padded-small {
+                    padding-left: 20px!important;
+                }
+                .padded {
+                    padding-left: 40px!important;
+                }
+                .shaded {
+                    background-color: lightgray;
+                }
+                .font-small {
+                    font-size: 6pt;
+                }
+                .font-medium {
+                    font-size: 8pt;
+                }
+                .header-title > :nth-child(1) {
+                    display: inline-block;
+                }
+                .header-title > :nth-child(2) {
+                    display: inline-block;
+                    float: right;
+                }
+                .empty-row {
+                    border-right: 0.5px solid #000;
+                    height: 10px;
+                }
+                .no-top-border {
+                    border-top: 0 !important;
+                }
+                .text-center {
+                    text-align: center;
+                }
+                .no-margin {
+                    margin: 0;
+                }
+            </style>
+            <t t-foreach="data" t-as="slip">
+                <table class="table table-sm custom-table mb-0 no-bottom-border">
+                    <tr>
+                        <td colspan="10" class="font-weight-bold border-right bordered-full">OBRAČUN NEISPLAĆENE ILI DJELOMIČNO NEISPLAĆENE OTPREMNINE/ NEISPLAĆENE ILI DJELOMIČNO NEISPLAĆENE NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                        <td colspan="2" class="font-weight-bold border-right bordered-full">Obrazac NO1</td>
+                    </tr>
+                    <tr class="full-border-top">
+                        <td colspan="12" class="empty-row bordered-full"></td>
+                    </tr>
+                    <tr class="full-border-top">
+                        <td colspan="7" class="font-weight-bold border-right no-top-border">I. PODACI O RADNIKU</td>
+                        <td colspan="5" class="font-weight-bold border-right no-top-border">II. PODACI O POSLODAVCU</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="border-right no-top-border">1. Ime i prezime: <span  
+                        t-esc="slip['name']"/></td>
+                        <td colspan="5" class="border-right no-top-border">1. Tvrtka/Ime i prezime: <span  
+                        t-esc="company_data['name']"/></td>
+                    </tr>
+                    <tr class="no-top-border">
+                        <td colspan="7" class="border-right no-top-border">2. Adresa: <span  
+                        t-esc="slip['address']"/></td>
+                        <td colspan="5" class="border-right no-top-border">2. Sjedište/Adresa: <span 
+                        t-esc="company_data['address']"/></td>
+                    </tr>
+                    <tr class="no-top-border">
+                        <td colspan="7" class="border-right no-top-border">3. Osobni identifikacijski broj: <span 
+                            t-esc="slip['oib']"/></td>
+                        <td colspan="5" class="border-right no-top-border">3. Osobni identifikacijski broj: <span  
+                        t-esc="company_data['oib']"/></td>
+                    </tr>
+                    <tr  class="no-top-border">
+                        <td colspan="7" class="border-right no-top-border">4. IBAN broj računa <span t-esc="slip['bank_account']"/> kod <span t-esc="slip['bank_name']"/></td>
+                        <td colspan="5" class="border-right no-top-border">4. IBAN broj računa <span t-esc="company_data['iban']"/></td>
+                    </tr>
+                </table>
+                <table class="inner-table">
+                    <tbody>
+                        <tr class="full-border-top">
+                            <td colspan="99" class="border-right font-weight-bold bordered-full">III.  RAZDOBLJE NA KOJE SE OTPREMNINA ODNOSI: <t t-if="slip['display_severance']">GODINE OD <span t-esc="slip['year_start']"/> DO <span t-esc="slip['year_end']"/> </t></td>
+                        </tr>
+                        <tr>
+                            <td colspan="99" class="font-weight-bold bordered-full">IV. PODACI O OTPREMNINI/DJELU OTPREMNINE KOJI NISU ISPLAĆENI RADNIKU DO DANA IZDAVANJA OBRAČUNA</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center bordered-full">Opis</td>
+                            <td colspan="1" class="text-center bordered-full">Iznos</td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3" class="text-left font-weight-bold bordered-full">1. IZNOS OTPREMNINE ZA ISPLATU RADINKU</td>
+                            <td colspan="1" class="text-center bordered-full"><span t-if="slip['display_severance']" t-esc="slip['iznos_otpremnine']" t-options='{"widget": "float", "precision": 2}'/></td>
+                        </tr>
+                        <tr>
+                            <td class="text-left font-weight-bold bordered-full"  colspan="99">2. IZNOS OBRAČUNATIH, A NEUPLAĆENIH JAVNIH DAVANJA IZ OTPREMNINE</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center bordered-full" style="width: 45%;">Opis</td>
+                            <td class="text-center bordered-full" style="width: 15%;">Iznos</td>
+                            <td class="text-center bordered-full" style="width: 20%;">Opis</td>
+                            <td class="text-center bordered-full" style="width: 20%;">Podaci o uplatnom računu</td>
+                        </tr>
+                        <tr>
+                            <td class="bordered-full" style="width: 45%;">2.1. Obračunata, a neuplaćena obveza doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti (I. stup)
+                            </td>
+                            <td class="text-center bordered-full" style="width: 15%;">
+                                    <span t-if="slip['display_severance']" t-esc="slip['mir_stup_1_otpremnina']"  t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                            <td class="inner-table-td"  colspan="2">
+                                <t t-set="naziv_primatelja" t-value="'Državni proračun' if slip['display_severance'] else ''"/>
+                                <t t-set="iban" t-value="'HR1210010051863000160' if slip['display_severance'] else ''"/>
+                                <t t-set="model_poziv" t-value="('HR68 8168-%s-%s' % (company_data['oib'], slip['joppd']))  if slip['display_severance'] else ''"/>
+                                <t t-call="l10n_hr_hr_payroll.temp"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="bordered-full" style="width: 45%;">2.2. Obračunata, a neuplaćena obveza doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje (II. stup)
+                            </td>
+                            <td class="text-center bordered-full" style="width: 15%;">
+                                <span t-if="slip['display_severance']" t-esc="slip['mir_stup_2_otpremnina']" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                            <td class="inner-table-td" colspan="2">
+                                <t t-set="naziv_primatelja" t-value="'Doprinos za MIO za starost na temelju individualne kapitalizirane štednje'  if slip['display_severance'] else ''"/>
+                                <t t-set="iban" t-value="'HR7610010051700036001'  if slip['display_severance'] else ''"/>
+                                <t t-set="model_poziv" t-value="('HR68 2283-%s-%s' % (company_data['oib'], slip['joppd']))  if slip['display_severance'] else ''"/>
+                                <t t-call="l10n_hr_hr_payroll.temp"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="45%;" class="bordered-full">2.3. Obračunata, a neuplaćena obveza poreza na dohodak</td>
+                            <td class="text-center bordered-full" style="width: 15%;">
+                                <span t-if="slip['display_severance']" t-esc="slip['por_otpo']" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                            <td class="inner-table-td" colspan="2">
+                                <t t-set="naziv_primatelja" t-value="slip['city_name']  if slip['display_severance'] else ''"/>
+                                <t t-set="iban" t-value="slip['city_iban'] if slip['display_severance'] else ''"/>
+                                <t t-set="model_poziv" t-value="('HR68 1880-%s-%s' % (company_data['oib'], slip['joppd'])) if slip['display_severance'] else ''"/>
+                                <t t-call="l10n_hr_hr_payroll.temp"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="font-weight-bold bordered-full">V. KALENDARSKA GODINA ZA KOJU GODIŠNJI ODMOR NIJE ISKORIŠTEN ILI NIJE ISKORIŠTEN U CIJELOSTI</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="bordered-full">1. Godina (tekuća)  <t t-if="slip['display_go']"> <span t-esc="slip['godisnji_tekuca']"/> </t></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="bordered-full">2. Godina (prethodna)  <t t-if="slip['display_go']"> <span t-esc="slip['godisnji_prethodna']"/> </t></td>
+                        </tr>
+                        <tr class="bordered-full">
+                            <td colspan="4" class="font-weight-bold border-right">VI. PODACI O NAKNADI ZA NEISKORIŠTEN GODIŠNJI ODMOR/DIJELU NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR KOJI NISU ISPLAĆENI RADNIKU DO DANA IZDAVANJA OBRAČUNA</td>
+                        </tr>
+                        <tr>
+                            <table class="inner-table no-border" style="width: 99.9%">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center bordered-full" colspan="13">Opis</td>
+                                        <td class="text-center bordered-full" colspan="2">Broj/iznos</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="bordered-full" colspan="13">
+                                            <p class="no-margin font-weight-bold">1. BROJ DANA GODIŠNJEG ODMORA
+                                            </p>
+                                            <p class="no-margin">(temeljem Zakona o radu, drugog propisa, sporazumom sklopljenog između radničkog vijeća i poslodavca, kolektivnog ugovora, pravilnika o radu ili ugovora o radu)</p>
+                                        </td>
+                                        <td class="text-center bordered-full" colspan="2"><span t-if="slip['display_go']"
+                                        t-esc="slip['ugovoreni_go']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bordered-full" colspan="13">
+                                            <p class="no-margin font-weight-bold">2. BROJ DANA GODIŠNJEG ODMORA KOJE RADNIK NIJE ISKORISTIO</p>
+                                        </td>
+                                        <td class="text-center bordered-full" colspan="2"><span t-if="slip['display_go']"
+                                        t-esc="slip['neiskoristeni_go_tekuci']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bordered-full" colspan="13">
+                                            <p class="no-margin font-weight-bold">3. BROJ DANA GODIŠNJEG ODMORA KOJE RADNIK NIJE ISKORISTIO U PRETHODNOJ GODINI
+                                            </p>
+                                        </td>
+                                        <td class="text-center bordered-full" colspan="2"><span t-if="slip['display_go']"
+                                        t-esc="slip['neiskoristeni_go_prethodni']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bordered-full" colspan="13">
+                                            <p class="no-margin font-weight-bold">4. UKUPAN BROJ DANA GODIŠNJEG
+                                            </p>
+                                            <p class="no-margin">(ako radnik ostvaruje pravo na godišnji odmor za tekuću i prethodnu kalendarsku godinu)</p>
+                                        </td>
+                                        <td class="text-center bordered-full" colspan="12"><span t-if="slip['display_go']"
+                                        t-esc="slip['ukupno_godisnji']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="bordered-full" colspan="13">
+                                            <p class="no-margin font-weight-bold">5. IZNOS NAKNADE ZA ISPLATU RADNIKU
+                                            </p>
+                                        </td>
+                                        <td class="text-center bordered-full" colspan="2"><span t-if="slip['display_go']"
+                                        t-esc="slip['naknada_go_tekuci'] + slip['naknada_go_prethodni']" t-options='{"widget": "float", "precision": 2}'/></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="99" class="bordered-full no-bottom-border font-weight-bold">6. IZNOS OBRAČUNATIH, A NEUPLAĆENIH JAVNIH DAVANJA IZ NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </tr>
+                        <tr>
+                        <table class="inner-table no-top-border" style="width: 99.9%;">
+                            <thead>
+                                <tr>
+                                    <td class="text-center bordered-full no-top-border" style="width: 45%;">Opis</td>
+                                    <td class="text-center bordered-full no-top-border" style="width: 15%;">Iznos</td>
+                                    <td class="text-center bordered-full no-top-border" style="width: 20%;">Opis</td>
+                                    <td class="text-center bordered-full no-top-border" style="width: 20%;">Podaci o uplatnom računu</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bordered-full">
+                                    <td style="width: 45%;">
+                                        6.1. Obračunata, a neuplaćena obveza doprinosa za mirovinsko osiguranje na temelju generacijske solidarnosti (I. stup)
+                                    </td>
+                                    <td class="text-center bordered-full" style="width: 15%;">
+                                        <span t-if="slip['display_go']" t-esc="slip['mir_stup_1_go']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="inner-table-td"  colspan="2">
+                                        <t t-set="naziv_primatelja" t-value="'Državni proračun' if slip['display_go'] else ''"/>
+                                        <t t-set="iban" t-value="'HR1210010051863000160' if slip['display_go'] else ''"/>
+                                        <t t-set="model_poziv" t-value="('HR68 8168-%s-%s' % (company_data['oib'], slip['joppd'])) if slip['display_go'] else ''"/>
+                                        <t t-call="l10n_hr_hr_payroll.temp"/>
+                                    </td>
+                                </tr>
+                                <tr class="bordered-full">
+                                    <td style="width: 45%;">
+                                        6.2. Obračunata, a neuplaćena obveza doprinosa za mirovinsko osiguranje na temelju individualne kapitalizirane štednje (II. stup)
+                                    </td>
+                                    <td class="text-center bordered-full" style="width: 15%;">
+                                        <span t-if="slip['display_go']" t-esc="slip['mir_stup_2_go']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="inner-table-td" colspan="2">
+                                        <t t-set="naziv_primatelja" t-value="'Doprinos za MIO za starost na temelju individualne kapitalizirane štednje' if slip['display_go'] else ''"/>
+                                        <t t-set="iban" t-value="'HR7610010051700036001' if slip['display_go'] else ''"/>
+                                        <t t-set="model_poziv" t-value="('HR68 2283-%s-%s' % (company_data['oib'], slip['joppd'])) if slip['display_go'] else ''"/>
+                                        <t t-call="l10n_hr_hr_payroll.temp"/>
+                                    </td>
+                                </tr>
+                                <tr class="bordered-full">
+                                    <td style="width: 45%;">
+                                        6.3. Obračunata, a neuplaćena obveza poreza na dohodak
+                                    </td>
+                                    <td class="text-center bordered-full" style="width: 15%;">
+                                        <span t-if="slip['display_go']" t-esc="slip['por_go']" t-options='{"widget": "float", "precision": 2}'/>
+                                    </td>
+                                    <td class="inner-table-td" colspan="2">
+                                        <t t-set="naziv_primatelja" t-value="slip['city_name'] if slip['display_go'] else ''"/>
+                                        <t t-set="iban" t-value="slip['city_iban'] if slip['display_go'] else ''"/>
+                                        <t t-set="model_poziv" t-value="('HR68 1880-%s-%s' % (company_data['oib'], slip['joppd'])) if slip['display_go'] else ''"/>
+                                        <t t-call="l10n_hr_hr_payroll.temp"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="13" class="bordered-full font-weight-bold">VII. DATUM DOSPJELOSTI OTPREMNINE/NAKNADE ZA NEISKORIŠTENI GODIŠNJI ODMOR <span style="float: right; font-weight: normal;" t-esc="dates['pay_date']"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="bordered-full"> <p class="td-napomena">VIII. NAPOMENA</p> Na dospjeli, a neisplaćeni iznos otpremine, odnosno naknade za neiskorišteni godišnji odmor teče zakonska zatezna kamata propisana sukladno članku 29. Zakona o obveznim odnosima za odnose koji nisu odnosi iz trgovačkih ugovora i ugovora između trgovca i osobe javnog prava, počevši od datuma dospijeća pa do isplate.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footer-div">
+                    <div style="min-width: 50%;">
+                        <div class="border-bottom footer-div-datum">
+                            <t t-if="company_data['city'] and dates['print_date']">
+                                IX. MJESTO I DATUM IZDAVANJA: <span class="font-weight-normal" t-esc="company_data['city'].name"/>, <span class="font-weight-normal" t-esc="dates['print_date']"/>
+                            </t>
+                            <t t-else="">
+                                IX. MJESTO I DATUM IZDAVANJA:__________________________
+                            </t>
+                        </div>
+                        <div class="footer-div-datum">
+                            <t t-if="dates['handover_date']">
+                                X. DATUM PREDAJE RADNIKU/RADNICI: <span class="font-weight-normal" t-esc="dates['handover_date']"/>
+                            </t>
+                            <t t-else="">
+                                X. DATUM PREDAJE RADNIKU/RADNICI:__________________________
+                            </t>
+                        </div>
+                    </div>
+                    <div class="footer-div-ime">
+                        <p class="no-margin;">IME I PREZIME</p>
+                        <p class="no-margin;">OVLAŠTENE OSOBE POSLODAVCA</p>
+                        <br></br>
+                        <p class="no-margin;"><span t-esc="slip['odgovorna_osoba']"/></p>
+                        <br></br>
+                        <p class="no-margin;">_________________________________</p>
+                        <p>(potpis ovlaštene osobe poslodavca)</p>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -130,7 +130,6 @@
                     </page>
                     <page name="rescheduled_hours" string="Preraspodjeljeni sati" groups="l10n_hr_payroll_base.group_hr_payroll_user,hr.group_hr_user">
                         <field name="rescheduled_hours_ids">
-                            <!-- ZAKOMENTIRANO editable="false" -->
                             <list>
                                 <field name="employee_id" column_invisible="1"/>
                                 <field name="date"/>

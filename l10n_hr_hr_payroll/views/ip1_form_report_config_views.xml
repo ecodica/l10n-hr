@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        
         <record id="view_ip1_form_report_config_form" model="ir.ui.view">
             <field name="name">ip1.form.report.config.form</field>
             <field name="model">ip1.form.report.config</field>
@@ -18,7 +17,6 @@
                 <group>
                     <field name="name"/>
                     <field name="position_ids">
-                        <!-- ZAKOMENTIRANO editable="false"  -->
                         <list create="false" delete="false">
                             <field name="section"/>
                             <field name="subsection"/>

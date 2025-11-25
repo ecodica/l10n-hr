@@ -94,7 +94,7 @@
                     <page string="Računovodstvo" name="rule_accounting">
                         <group>
                             <group string="Računovodstvo" name="accounting">
-                                <!-- ZAKOMENTIRANO <field name="scheme_ids" context="{'salary_rule_view': True, 'default_rule_id': active_id}"/> -->
+                                <field name="scheme_ids" context="{'salary_rule_view': True, 'default_rule_id': id}"/>
                                 <field name="crediting"/>
                             </group>
                         </group>

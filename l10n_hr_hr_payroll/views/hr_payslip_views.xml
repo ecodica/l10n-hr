@@ -227,7 +227,6 @@
                             </list>
                         </field>
                         <field name="suspension_lines">
-                            <!-- ZAKOMENTIRANO editable="false" -->
                             <list string="Obustave">
                                 <field name="description" />
                                 <field name="payslip_id" column_invisible="True" />

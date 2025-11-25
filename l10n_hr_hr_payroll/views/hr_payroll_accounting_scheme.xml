@@ -10,7 +10,7 @@
 				<form string="Shema knjiženja">
 					<sheet>
 						<group>
-							<field name="rule_id" options="{'no_create': True, 'no_open': True}" default="context.get('default_rule_id', False)" invisible="context.get('salary_rule_view', True)"/>
+							<field name="rule_id" options="{'no_create': True, 'no_open': True}" default="context.get('default_rule_id', False)"/>
 							<field name="type_id" options="{'no_create': True, 'no_open': True}"/>
 							<field name="type_name" invisible="1"/>
 							<field name="use_analytic_distribution"/>
@@ -40,7 +40,7 @@
 			<field name="priority">16</field>
 			<field name="arch" type="xml">
 				<list string="Sheme knjiženja">
-					<field name="rule_id" invisible="context.get('salary_rule_view', True)"/>
+					<field name="rule_id"/>
 					<field name="type_id"/>
 					<field name="use_analytic_distribution"/>
 					<field name="account_debit"/>

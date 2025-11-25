@@ -182,13 +182,9 @@
       <field name="inherit_id" ref="base.view_partner_form"/>
       <field name="arch" type="xml">
         <xpath expr="//form" position="attributes">
-            <attribute name="create">true</attribute>
-            <attribute name="edit">true</attribute>
-            <attribute name="delete">true</attribute>
-            
-            <!-- ZAKOMENTIRANO <attribute name="create" groups="l10n_hr_payroll_base.group_create_customer">true</attribute>
+            <attribute name="create" groups="l10n_hr_payroll_base.group_create_customer">true</attribute>
             <attribute name="edit" groups="l10n_hr_payroll_base.group_create_customer">true</attribute>
-            <attribute name="delete" groups="l10n_hr_payroll_base.group_create_customer">true</attribute> -->
+            <attribute name="delete" groups="l10n_hr_payroll_base.group_create_customer">true</attribute>
         </xpath>
       </field>
     </record>
@@ -210,8 +206,8 @@
       </field>
     </record>
 
-    <!-- res.partner Form - CREATE AND VALIDATE CUSTOMER ZAKOMENTIRANO--> 
-    <!-- <record id="view_partner_form_group_create_and_validate_customer" model="ir.ui.view">
+    <!-- res.partner Form - CREATE AND VALIDATE CUSTOMER-->
+    <record id="view_partner_form_group_create_and_validate_customer" model="ir.ui.view">
       <field name="name">res.partner.form.group.create.validate.customer</field>
       <field name="model">res.partner</field>
       <field name="inherit_id" ref="l10n_hr_payroll_base.view_partner_form_inherit"/>
@@ -229,7 +225,6 @@
           <attribute name="invisible" groups="l10n_hr_payroll_base.group_create_and_validate_customer">not_validated == False</attribute>
         </xpath>
       </field>
-    </record> -->
-    
+    </record>
   </data>
 </odoo>

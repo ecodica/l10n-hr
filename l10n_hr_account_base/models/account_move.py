@@ -248,7 +248,7 @@ class AccountMove(models.Model):
         default_journal = super()._search_default_journal()
         journal_id = None
         if self.partner_id and self.is_outbound(include_receipts=True):
-            journal_id = self.partner_id.purchase_journal_id
+            journal_id = self.with_company(self.company_id).partner_id.purchase_journal_id
         elif self.partner_id and self.is_inbound(include_receipts=True):
-            journal_id = self.partner_id.sale_journal_id
+            journal_id = self.with_company(self.company_id).partner_id.sale_journal_id
         return journal_id or default_journal

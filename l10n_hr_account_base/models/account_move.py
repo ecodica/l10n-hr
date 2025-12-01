@@ -3,13 +3,9 @@ from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
-    _inherit = ["account.move"]
+    _inherit = ["account.move", "l10n_hr.fiscal.mixin"]
     _name = 'account.move'
 
-    l10n_hr_fiscal_time = fields.Char(
-        string="Time Of Fiscalization",
-        copy=False,
-        help="Croatia Fiscal datetime value as string, should respect format: hh:mm")
     l10n_hr_date_document = fields.Date(
         string="Document Date",
         copy=False,
@@ -73,12 +69,6 @@ class AccountMove(models.Model):
         compute="_compute_l10n_hr_is_ref_required")
     # original field advance_invoice from l10n_hr_account_advance_invoice
     l10n_hr_advance_invoice = fields.Boolean("Advance invoice", help="Indicates if invoice is for advance payment.")
-
-    def _get_l10n_hr_fiscal_user_id_domain(self):
-        """"Build domain to filter only internal partners."""
-        internal_users = self.env.ref('base.group_user')
-        domain = [('user_ids', 'in', internal_users.users.ids)]
-        return domain
 
     @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')
     def _check_l10n_hr_fiscal_number(self):

@@ -49,6 +49,11 @@ class L10nHrFiscalMixin(models.AbstractModel):
         help="User who sent the fiscalization message."
              " Can be different from responsible person on invoice.",
     )
+    # backwards compatibility
+    l10n_hr_invoice_time = fields.Char(
+        string="Deprecated field",
+        copy=False,
+    )
 
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""

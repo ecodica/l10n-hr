@@ -296,6 +296,10 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             OstaliPor=None,
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
+            # todo ADD OIB
+            OibPrimateljaRacuna=self.partner_id.vat and self.partner_id.vat[:2] or ''
+
+
         )
         return racun
 

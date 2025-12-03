@@ -108,23 +108,19 @@ class FiscalFiscalMixin(models.AbstractModel):
             and not self.company_id.partner_id.vat
         ):
             res.append(
-                _("Comapny OIB is not not entered! It is required for fiscalisation")
+                _("Company OIB is not not entered! It is required for fiscalization")
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
             and not self.l10n_hr_fiskal_user_id.partner_id.vat
         ):
             res.append(
-                _("User OIB is not not entered! It is required for fiscalisation")
+                _("User OIB is not not entered! It is required for fiscalization")
             )
-        if (
-            self.l10n_hr_nacin_placanja != "T"
-            and not self.company_id.l10n_hr_fiskal_cert_id
-        ):
+        if not self.company_id.l10n_hr_fiskal_cert_id:
             res.append(
                 _(
                     "No fiscal certificate found, please install one "
-                    "activate and select it on company setup!"
                 )
             )
         return res
@@ -282,6 +278,8 @@ class FiscalFiscalMixin(models.AbstractModel):
             OstaliPor=None,
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
+            # this is valid OIB, for B2C and B2B customers, without a country prefix
+            OibPrimateljaRacuna=self.partner_id.company_registry or ''
         )
         return racun
 

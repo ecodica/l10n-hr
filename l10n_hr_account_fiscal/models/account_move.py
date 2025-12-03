@@ -86,7 +86,7 @@ class AccountMove(models.Model):
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
-        if self.l10n_hr_fiscal_device_id.fiscalization_active:
+        if self.l10n_hr_fiscal_device_id.fiscalization_active and self.l10n_hr_business_process_type_id.code == 'XF1':
             self.fiscalize()
         return res
 

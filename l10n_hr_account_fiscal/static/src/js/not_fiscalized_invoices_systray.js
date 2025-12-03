@@ -31,7 +31,7 @@ export class NotFiscalizedInvoicesSystray extends Component {
         ];
         this.action.doAction({
             type: "ir.actions.act_window",
-            name: _t("Not Fiscalized Invoces"),
+            name: _t("Not Fiscalized Invoices"),
             res_model: "account.move",
             view_mode: "tree,form",
             views: [[false, "list"], [false, "form"]],

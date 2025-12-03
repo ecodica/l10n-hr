@@ -7,10 +7,12 @@
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_move_form"/>
             <field name="arch" type="xml">
-                <field name="l10n_hr_fiscal_user_id" position="after">
+                <field name="l10n_hr_payment_method" position="after">
                     <field name="l10n_hr_business_process_type_id" options="{'no_create_edit': True, 'no_open': True}"/>
                     <field name="l10n_hr_business_process_type_code" invisible="1"/>
-                    <field name="l10n_hr_business_process_name" invisible="l10n_hr_business_process_type_code != 'P99'" required="l10n_hr_business_process_type_code == 'P99'"/>
+                    <field name="l10n_hr_business_process_name"
+                           invisible="l10n_hr_business_process_type_code != 'P99'"
+                           required="l10n_hr_business_process_type_code == 'P99'"/>
                 </field>
             </field>
         </record>

@@ -20,3 +20,4 @@ class L10nHrBusinessProcessType(models.Model):
         for bpt in self:
             if bpt.code and bpt.name:
                 bpt.display_name = bpt.code + ' - ' + bpt.name
+

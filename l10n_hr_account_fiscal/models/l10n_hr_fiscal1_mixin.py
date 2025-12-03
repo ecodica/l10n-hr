@@ -296,10 +296,8 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             OstaliPor=None,
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
-            # todo ADD OIB
-            OibPrimateljaRacuna=self.partner_id.vat and self.partner_id.vat[:2] or ''
-
-
+            # this is valid OIB, for B2C and B2B customers, without a country prefix
+            OibPrimateljaRacuna=self.partner_id.company_registry or ''
         )
         return racun
 
@@ -400,7 +398,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
         if msg_type in self._fisc_msg_type():
             racun = self._prepare_fiscal_invoice(fisk, fiscal_data, msg_type)
-            # self._validate_fiscal_invoice(racun)
+            self._validate_fiscal_invoice(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             response = None

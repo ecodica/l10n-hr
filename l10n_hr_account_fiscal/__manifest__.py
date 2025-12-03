@@ -13,6 +13,7 @@
         "l10n_hr_account_base",
         "certificate",
         "l10n_hr_business_process_type",
+        "web",
     ],
     "external_dependencies": {"python": ["zeep", "xmlsec==1.3.13"], "bin": []},
     "data": [

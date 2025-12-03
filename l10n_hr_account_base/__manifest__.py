@@ -3,7 +3,7 @@
     "summary": "Croatia accounting localisation",
     "category": "Accounting/Localizations/Croatia",
     "images": [],
-    "version": "18.0.3.0.0",
+    "version": "18.0.4.0.0",
     "application": False,
     "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",

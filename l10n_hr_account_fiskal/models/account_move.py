@@ -14,12 +14,12 @@ class AccountMove(models.Model):
             ("O", "Other payment means"),
         ],
         help="According to Fiscalization Law and regulative "
-        "there is 5 possible options: \n"
-        "T - Transaction bank account\n"
-        "G - Cash (coins or bills), fiskalisation required\n"
-        "K - Bank cards, fiskalisation required\n"
-        "C - Cheque payment, fiskalisation required\n"
-        "O - Other payment, fiskalisation required\n",
+             "there is 5 possible options: \n"
+             "T - Transaction bank account\n"
+             "G - Cash (coins or bills), fiskalisation required\n"
+             "K - Bank cards, fiskalisation required\n"
+             "C - Cheque payment, fiskalisation required\n"
+             "O - Other payment, fiskalisation required\n",
     )
     l10n_hr_fiskal_log_ids = fields.One2many(
         comodel_name="l10n.hr.fiskal.log",
@@ -37,19 +37,13 @@ class AccountMove(models.Model):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
         # TODO selection or decision which to send ?
-        # - possible not fiscalisation of invoices paid on transaction acc?
-        # need to put smart options what and when not to send...
-        if (
-            not self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and self.l10n_hr_nacin_placanja != "T"
-        ):
-            raise ValidationError(
-                _(
-                    "Fiscalization is not active for %s!! "
-                    "Only Transaction account payment is allowed!"
-                )
-                % self.journal_id.display_name
-            )
-        if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and self.l10n_hr_nacin_placanja != 'T':
-            self.fiskaliziraj()
+        bp_type = self.l10n_hr_business_process_type_id and self.l10n_hr_business_process_type_id.code or ''
+        # Do not check/fiscalize for other business process types
+        if bp_type != 'XF1':
+            return res
+        else:
+            if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
+                raise ValidationError(_("Fiscalization is not active for %s!! " % self.journal_id.display_name))
+            else:
+                self.fiskaliziraj()
         return res

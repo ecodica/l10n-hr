@@ -3,7 +3,7 @@
     "summary": "Croatia Fiscalizacija računa",
     "category": "Croatia",
     "images": [],
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "application": False,
     "author": "Daj mi 5, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -11,6 +11,7 @@
     "license": "AGPL-3",
     "depends": [
         "l10n_hr_account_base",
+        "l10n_hr_business_process_type",
     ],
     "external_dependencies": {"python": ["zeep", "xmlsec"], "bin": []},
     "data": [

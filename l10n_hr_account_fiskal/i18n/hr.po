@@ -164,7 +164,7 @@ msgstr "Oznečeno ako poruku fiskalizacije nije bilo moguće poslati u vrijeme i
 #. odoo-python
 #: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
 #, python-format
-msgid "Comapny OIB is not not entered! It is required for fiscalisation"
+msgid "Company OIB is not not entered! It is required for fiscalization"
 msgstr "OIB Tvrtke nije unešen! To je obavezan podatak za fiskalizaciju"
 
 #. module: l10n_hr_account_fiskal

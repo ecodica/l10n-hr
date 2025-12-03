@@ -8,6 +8,7 @@ from OpenSSL import crypto as SSLCrypto
 from odoo import _, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import config as odoo_config
+from ..helper import SCHEMA_HELP
 
 _logger = logging.getLogger(__name__)
 
@@ -21,24 +22,6 @@ DEMO = {
     "FISKAL 2": "fina_cert/demo/demo2020_sub_ca.pem",
     "FISKAL 1": "fina_cert/demo/demo2014_sub_ca.pem",
 }
-
-SCHEMA_HELP = """
-verzija: 1.3 Datum verzije: 04.07.2016.
-- u WSDL-u dodana nova metoda "provjera"
-- u schemi dodani novi elementi "ProvjeraZahtjev" i "ProvjeraOdgovor"
-
-verzija: 1.4 Datum verzije: 27.04.2017.
-- u WSDL-u izbačena metoda "poslovniProstor"
--u schemi izbačeni elementi "PoslovniProstorZahtjev",
-   "PoslovniProstorOdgovor"i ostalo vezano za prijavu poslovnih prostora
-
-verzija: 1.5 Datum verzije: 20.12.2019.
-- u WSDL-u dodane dvije metode "prateciDokumenti" i "racuniPD"
-- u schemi dodani elementi "PrateciDokumentiZahtjev",
-   "PrateciDokumentiOdgovor", "RacunPDZahtjev",
-   "RacunPDOdgovor" i ostalo vezano za nove elemente.
-
-"""
 
 
 class FiskalCertificate(models.Model):
@@ -67,9 +50,15 @@ class FiskalCertificate(models.Model):
     fiskal_schema = fields.Selection(
         selection=[
             ("EDUC_v1.6", "DEMO schema v1.6"),
+            ("EDUC_v1.7", "DEMO schema v1.7"),
+            ("EDUC_v1.8", "DEMO schema v1.8"),
+            ("EDUC_v1.9", "DEMO schema v1.9"),
             ("PROD_v1.6", "PROD Schema v1.6"),
+            ("PROD_v1.7", "PROD Schema v1.7"),
+            ("PROD_v1.8", "PROD Schema v1.8"),
+            ("PROD_v1.9", "PROD Schema v1.9"),
         ],
-        string="Fiskalizaction schema",
+        string="Fiscalization schema",
         help=SCHEMA_HELP,
     )
     cert_issuer = fields.Char(

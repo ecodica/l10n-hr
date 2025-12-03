@@ -7,8 +7,12 @@ class Partner(models.Model):
     l10n_hr_sale_journal_id = fields.Many2one(
         comodel_name='account.journal', 
         string='Sale Journal', 
-        domain=[('type', '=', 'sale')])
+        domain=[('type', '=', 'sale')],
+        company_dependent=True,
+    )
     l10n_hr_purchase_journal_id = fields.Many2one(
         comodel_name='account.journal', 
         string='Purchase Journal', 
-        domain=[('type', '=', 'purchase')])
+        domain=[('type', '=', 'purchase')],
+        company_dependent=True,
+    )

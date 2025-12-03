@@ -3,7 +3,7 @@
     <t t-name="not_fiscalized_invoices_systray">
         <t t-if="state.counterTotal">
             <Dropdown>
-                    <t t-set-slot="toggler">
+                    <t>
                         <div class="new_icon">
                             <div class="icon_div">
                                 <div class="toggle-icon" role="button">

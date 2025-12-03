@@ -66,4 +66,9 @@
       <field name="name">Poslovni proces koji definira kupac</field>
     </record>
 
+    <record id="l10n_hr_business_process_type_xf1" model="l10n.hr.business.process.type">
+      <field name="code">XF1</field>
+      <field name="name">Fiskalizacija 1.0. Krajnja potrošnja</field>
+    </record>
+
 </odoo>

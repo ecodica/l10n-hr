@@ -42,7 +42,7 @@ class AccountMove(models.Model):
         if bp_type != 'XF1':
             return res
         else:
-            if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
+            if not self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
                 raise ValidationError(_("Fiscalization is not active for %s!! " % self.journal_id.display_name))
             else:
                 self.fiskaliziraj()

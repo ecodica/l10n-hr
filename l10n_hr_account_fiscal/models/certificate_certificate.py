@@ -3,6 +3,7 @@ from cryptography import x509
 from cryptography.x509 import ObjectIdentifier
 from cryptography.hazmat.primitives.serialization import pkcs12
 import base64
+OIB_ATTR = '2.5.4.97'  # NOTE: Croatian certificates have company OIB in 2.5.4.97 attribute
 
 
 class Certificate(models.Model):
@@ -53,7 +54,7 @@ class Certificate(models.Model):
                         pass
                 if cert:
                     try:
-                        subject_vat = cert.subject.get_attributes_for_oid(ObjectIdentifier('2.5.4.97'))
+                        subject_vat = cert.subject.get_attributes_for_oid(ObjectIdentifier(OIB_ATTR))
                         certificate.l10n_hr_subject_vat = subject_vat[0].value if subject_vat else ""
                     except ValueError:
                         pass

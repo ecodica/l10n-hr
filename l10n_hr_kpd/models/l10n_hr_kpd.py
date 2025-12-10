@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-
+from odoo.osv.expression import NEGATIVE_TERM_OPERATORS
 import re
 
 CODE_PATTERNS = {
@@ -60,3 +60,19 @@ class L10nHrKpd(models.Model):
                 raise UserError(
                     _("The KPD code is not properly formatted!")
                 )
+
+    @api.depends('name', 'code')
+    def _compute_display_name(self):
+        for kpd in self:
+            kpd.display_name = '%s - %s' % (kpd.code, kpd.name)
+
+    @api.model
+    def name_search(self, name, args=None, operator="ilike", limit=100):
+        args = args or []
+        domain = []
+        if name:
+            domain = ["|", ("code", operator, name), ("name", operator, name)]
+            if operator in NEGATIVE_TERM_OPERATORS:
+                domain = ["&", "!"] + domain[1:]
+        kpds = self.search(domain + args, limit=limit)
+        return [(kpd.id, kpd.display_name) for kpd in kpds.sudo()]

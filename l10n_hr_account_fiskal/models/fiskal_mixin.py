@@ -104,13 +104,47 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _l10n_hr_post_fiskal_check(self):
         res = []
-
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
             and not self.company_id.partner_id.company_registry
         ):
             res.append(
                 _("Company OIB is not not entered! It is required for fiscalisation")
+            )
+        if (
+            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+            self.partner_id.is_company and
+            not self.partner_id.company_registry
+        ):
+            res.append(
+                _("To fiscalize an R1 invoice, an OIB must be set on the company %s") % self.partner_id.display_name
+            )
+        if (
+            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+            self.partner_id.is_company and
+            self.l10n_hr_account_payment_type_id.code == 'T'
+        ):
+            res.append(
+                _("R1 invoice cannot be fiscalized with %s payment type") % self.l10n_hr_account_payment_type_id.display_name
+            )
+        if (
+            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+            self.l10n_hr_account_payment_type_id.code == 'G' and
+            float_compare(self.amount_total, 10000, precision_digits=self.currency_id.decimal_places) == 1
+        ):
+            res.append(
+                _("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the %s payment type") %
+                self.l10n_hr_account_payment_type_id.display_name
+            )
+        if (
+            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+            self.l10n_hr_account_payment_type_id.code == 'G' and
+            self.partner_id.is_company and
+            float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
+        ):
+            res.append(
+                _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the %s payment type") %
+                self.l10n_hr_account_payment_type_id.display_name
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
@@ -329,7 +363,11 @@ class FiscalFiscalMixin(models.AbstractModel):
             OstaliPor=None,
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
+            #OibPrimateljaRacuna=self.partner_id.type == 'company' and self.partner_id.company_registry or ''
         )
+        if self.partner_id.is_company:
+            racun.OibPrimateljaRacuna = self.partner_id.company_registry or ''
+
         return racun
 
     def _validate_fisk_racun(self, racun):

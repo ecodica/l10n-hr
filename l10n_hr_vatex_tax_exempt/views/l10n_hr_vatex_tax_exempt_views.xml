@@ -6,8 +6,6 @@
         <field name="model">l10n.hr.vatex.tax.exempt</field>
         <field name="arch" type="xml">
             <list string="VATEX Tax Exempts">
-                <field name="code"/>
-                <field name="name"/>
                 <field name="display_name"/>
                 <field name="description"/>
             </list>

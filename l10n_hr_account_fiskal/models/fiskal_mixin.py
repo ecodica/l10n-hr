@@ -384,7 +384,7 @@ class FiscalFiscalMixin(models.AbstractModel):
 
         # exit if fiscalization is not needed for invoice
         if not self._l10n_hr_fiscalization_needed(msg_type):
-            return
+            return False
 
         # don't fiscalize invoice if invoie alreday has jir
         if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racun':
@@ -453,7 +453,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # NOTE: skip calling FINA fisc service
             if delay_fiscalization:
                 self.company_id.create_fiskal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
-                return
+                return False
             # NOTE: call FINA fisc service
             try:
                 response = fisk._call_service(service_proxy, req_kw)
@@ -471,3 +471,4 @@ class FiscalFiscalMixin(models.AbstractModel):
             error_message = response and hasattr(response, 'error_message') and response['error_message']  or odoo_error.get('error_message')
             if error_message and not self.company_id.l10n_hr_fiskal_silent_error_logging:
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)
+            return True

@@ -33,4 +33,17 @@
             </field>
         </field>
     </record>
+
+    <record id="view_fiskal_uredjaj_form" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_form</field>
+        <field name="model">l10n.hr.fiskal.uredjaj</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_form" />
+        <field name="arch" type="xml">
+            <field name="journal_ids" position="after">
+                <field name="enable_fiskalise_on_confirm"/>
+                <field name="enable_cron_fiskalisation"/>
+                <field name="cron_fiskalisation_delay_hours" invisible="not enable_cron_fiskalisation"/>
+            </field>
+        </field>
+    </record>
 </odoo>

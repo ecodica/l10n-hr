@@ -13,6 +13,13 @@
                 <button string="Provjera fiskalizacije" type="object" name="button_provjera_fiskalizacije" invisible = "not l10n_hr_jir" />
             </xpath>
 
+            <xpath expr="//header" position="after">
+                <div class="alert alert-info d-flex gap-1 align-items-center py-1" role="alert">
+                    Invoice is ready to be fiscalized -
+                    <button name="button_fiskaliziraj" type="object" class="oe_link ps-0 text-decoration-underline" string="Fiscalize"/>
+                </div>
+            </xpath>
+
             <group name="l10n_hr_base_fiskal" position="after">
                 <group name="l10n_hr_fiskal_full" invisible ="l10n_hr_zki == False">
                     <field name="l10n_hr_zki" />
@@ -38,4 +45,14 @@
         </field>
     </record>
 
+    <record id="l10n_hr_account_fiskal_view_account_invoice_tree" model="ir.ui.view">
+        <field name="name">l10n.hr.account.fiskal.account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <button name="action_register_payment" position="after">
+                <button name="action_manual_fiskaliziraj_batch" type="object" string="Fiscalize Batch"/>
+            </button>
+        </field>
+    </record>
 </odoo>

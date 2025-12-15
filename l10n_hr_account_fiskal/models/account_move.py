@@ -1,10 +1,7 @@
-import logging
 from datetime import timedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
-_logger = logging.getLogger(__name__)
 
 class AccountMove(models.Model):
     _name = "account.move"
@@ -60,7 +57,7 @@ class AccountMove(models.Model):
 
         total_found = len(moves_to_process)
         if total_found > 0:
-            moves_to_process._fiskaliziraj_batch(caller='Cron Job')
+            moves_to_process._fiskaliziraj_batch()
 
     def action_manual_fiskaliziraj_batch(self):
         total_selected_count = len(self)
@@ -75,8 +72,7 @@ class AccountMove(models.Model):
                 "info"
             )
 
-        caller = _("Manual - User: %s") % self.env.user.name
-        success, skipped, failed = not_fiscalized_move_ids._fiskaliziraj_batch(caller=caller)
+        success, skipped, failed = not_fiscalized_move_ids._fiskaliziraj_batch()
 
         if success == 0 and failed == 0:
             return self._get_notification_action(
@@ -102,15 +98,11 @@ class AccountMove(models.Model):
                 "warning"
             )
 
-    def _fiskaliziraj_batch(self, caller=None):
+    def _fiskaliziraj_batch(self):
         """
         Attempts fiscalization for records in the current set, handling success (res=True),
         skips (res=False), and errors (exceptions).
         """
-        _logger.info(
-            f"Starting Batch Fiscalization ({caller}). Processing {len(self)} records."
-        )
-
         success_count = 0
         skipped_count = 0
         error_count = 0
@@ -126,11 +118,6 @@ class AccountMove(models.Model):
             except Exception as e:
                 error_count += 1
                 continue
-
-        _logger.info(
-            f"Batch Fiscalization ({caller}) completed. "
-            f"Successes: {success_count}. Skipped: {skipped_count}. Failures: {error_count}."
-        )
 
         return success_count, skipped_count, error_count
 

@@ -469,11 +469,6 @@ msgid "Fiscalize Batch"
 msgstr "Serijska fiskalizacija"
 
 #. module: l10n_hr_account_fiskal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_on_confirm
-msgid "Fiscalize Invoice On Confirmation"
-msgstr "Fiskaliziraj račun kod potvrđianja"
-
-#. module: l10n_hr_account_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.l10n_hr_account_fiskal_view_account_invoice_filter
 msgid "Fiscalized"
 msgstr "Fiskaliziran"
@@ -638,11 +633,6 @@ msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.view_l10n_hr_fiskal_account_move_form
 msgid "Invoice is ready to be fiscalized -"
 msgstr ""
-
-#. module: l10n_hr_account_fiskal
-#: model:ir.model.fields,help:l10n_hr_account_fiskal.field_res_company__l10n_hr_fiskal_on_confirm
-msgid "Invoices will be fiscalized on confirmation"
-msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__message_is_follower

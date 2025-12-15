@@ -58,10 +58,6 @@ class Company(models.Model):
         string="Skip Bank Transfer Fiscalization", default=True, tracking=1,
         help="""Transakcijski računi se ne fiskaliziraju"""
     )
-    l10n_hr_fiskal_on_confirm = fields.Boolean(
-        string="Fiscalize Invoice On Confirmation", default=True, tracking=1,
-        help="""Invoices will be fiscalized on confirmation"""
-    )
     l10n_hr_fiskal_cancel_confirmed_invoice = fields.Boolean(
         string="Cancel Fiscalized Invoices", tracking=1,
         help="""Allow users to cancel fiscalized invoiced"""

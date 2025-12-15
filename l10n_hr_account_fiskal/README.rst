@@ -42,14 +42,8 @@ Configuration
 
 6. Fiscalize Invoice On Confirmation
 
-    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Fiscalize Invoice On Confirmation
     menuitem : Invoicing >> Configuration >> Payment Registers >> Enable Fiskalise On Confirm
-
-    Automatic fiscalization upon invoice confirmation requires **both** of these settings to be checked.
-
-    If you uncheck the Company setting, automatic fiscalization is disabled for **all** invoices.
-    If you uncheck the Payment Register setting, automatic fiscalization is disabled only for invoices
-    using that **specific** Payment Register.
+    When this setting is enabled all invoices on given Payment Register will be automatically fiscalized
 
 7. Cancel Fiscalized Invoices
 

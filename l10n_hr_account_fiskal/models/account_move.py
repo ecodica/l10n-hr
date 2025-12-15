@@ -60,10 +60,7 @@ class AccountMove(models.Model):
 
         total_found = len(moves_to_process)
         if total_found > 0:
-            _logger.info(f"Fiscalization Cron: Starting batch process for {total_found} invoices.")
             moves_to_process._fiskaliziraj_batch(caller='Cron Job')
-        else:
-            _logger.info("Fiscalization Cron: No Outgoing Invoices found for fiskalisation.")
 
     def action_manual_fiskaliziraj_batch(self):
         total_selected_count = len(self)
@@ -127,11 +124,6 @@ class AccountMove(models.Model):
                     skipped_count += 1
 
             except Exception as e:
-                error_msg = str(e.args[0]) if e.args and isinstance(e.args[0], str) else str(e)
-                _logger.error(
-                    f"Fiscalization Failure in batch for invoice {move.display_name} (ID: {move.id}). "
-                    f"Caller: {caller}. Error: {error_msg}"
-                )
                 error_count += 1
                 continue
 
@@ -166,10 +158,7 @@ class AccountMove(models.Model):
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
-        delay_fiscalization = (
-            not self.company_id.l10n_hr_fiskal_on_confirm
-            or not self.l10n_hr_fiskal_uredjaj_id.enable_fiskalise_on_confirm
-        )
+        delay_fiscalization = not self.l10n_hr_fiskal_uredjaj_id.enable_fiskalise_on_confirm
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
             self.fiskaliziraj(delay_fiscalization=delay_fiscalization)
         return res

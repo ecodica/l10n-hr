@@ -341,7 +341,7 @@ msgstr "Nacrt"
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_uredjaj__enable_cron_fiskalisation
 msgid "Enable Cron Fiskalisation"
-msgstr "Omogući fiskalizacija sa Cron Job-om"
+msgstr "Omogući fiskalizaciju sa Cron Job-om"
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_uredjaj__enable_fiskalise_on_confirm
@@ -632,7 +632,7 @@ msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
 #. module: l10n_hr_account_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.view_l10n_hr_fiskal_account_move_form
 msgid "Invoice is ready to be fiscalized -"
-msgstr ""
+msgstr "Račun je spreman za fiskalizaciju - "
 
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_certificate__message_is_follower

@@ -14,7 +14,7 @@
             </xpath>
 
             <xpath expr="//header" position="after">
-                <div class="alert alert-info d-flex gap-1 align-items-center py-1" role="alert">
+                <div class="alert alert-info d-flex gap-1 align-items-center py-1" role="alert" invisible="l10n_hr_fiskalni_broj == False or l10n_hr_jir">
                     Invoice is ready to be fiscalized -
                     <button name="button_fiskaliziraj" type="object" class="oe_link ps-0 text-decoration-underline" string="Fiscalize"/>
                 </div>

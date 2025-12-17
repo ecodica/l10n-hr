@@ -42,6 +42,7 @@ patch(NotFiscalizedInvoicesSystray.prototype, {
             [],
             {company_id}
         );
+        console.log(count);
         if(this.state.counterTips != count){
             this.state.counterTotal = this.state.counterInvoice + count
             this.state.counterTips = count;

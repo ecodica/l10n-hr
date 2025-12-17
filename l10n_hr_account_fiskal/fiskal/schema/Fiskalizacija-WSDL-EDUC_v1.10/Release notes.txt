@@ -1,0 +1,14 @@
+﻿Datum verzije: 05.11.2025.
+verzija: 1.10
+
+Promjene (05.11.2025.):
+	
+	- nova metoda promijeniPodatkeRacuna
+	- nove metode za radno vrijeme:
+		- prijaviRadnoVrijeme
+		- obrisiRadnoVrijeme
+		- dohvatiRadnoVrijeme
+	- nove metode za masovno:
+		- PrijaviRadnoVrijemeZaPoslovnice
+
+----------------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ def migrate(cr, version):
                 UPDATE
                     l10n_hr_fiskal_certificate fc
                 SET
-                    fiskal_schema = split_part(fiskal_schema, '_', 1) || '_v1.9'
+                    fiskal_schema = split_part(fiskal_schema, '_', 1) || '_v1.10'
                 RETURNING
                     fc.id
             )

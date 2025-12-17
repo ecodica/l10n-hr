@@ -1,6 +1,7 @@
+from datetime import timedelta
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
 
 class AccountMove(models.Model):
     _name = "account.move"
@@ -35,6 +36,104 @@ class AccountMove(models.Model):
         invoices._check_zki_on_confirm()
         return invoices
 
+    def action_cron_fiskaliziraj_batch(self):
+        move_ids = self.search([
+            ('l10n_hr_jir', '=', False),
+            ('move_type', 'in', ['out_invoice', 'out_refund']),
+            ('state', 'not in', ['draft']),
+            ('l10n_hr_fiskal_uredjaj_id.fiskalisation_active', '=', True),
+            ('l10n_hr_fiskal_uredjaj_id.enable_cron_fiskalisation', '=', True)
+        ])
+
+        moves_to_process = self.env['account.move']
+        timestamp = fields.Datetime.now()
+        for move in move_ids:
+
+            delay_hours = move.l10n_hr_fiskal_uredjaj_id.cron_fiskalisation_delay_hours or 0
+            required_processing_time = move.l10n_hr_vrijeme_izdavanja + timedelta(hours=delay_hours)
+
+            if required_processing_time < timestamp:
+                moves_to_process += move
+
+        total_found = len(moves_to_process)
+        if total_found > 0:
+            moves_to_process._fiskaliziraj_batch()
+
+    def action_manual_fiskaliziraj_batch(self):
+        total_selected_count = len(self)
+        fiscalized_move_ids = self.filtered(lambda x: x.l10n_hr_jir and x.l10n_hr_zki)
+        already_fiscalized_count = len(fiscalized_move_ids)
+        not_fiscalized_move_ids = self - fiscalized_move_ids
+
+        if not not_fiscalized_move_ids:
+            return self._get_notification_action(
+                _("Already Fiscalized"),
+                _("All selected invoices are already fiscalized"),
+                "info"
+            )
+
+        success, skipped, failed = not_fiscalized_move_ids._fiskaliziraj_batch()
+
+        if success == 0 and failed == 0:
+            return self._get_notification_action(
+                _("Fiscalization Skipped"),
+                _("All selected invoices are fiscalized or do not need fiscalization"),
+                "info"
+            )
+
+        elif failed == 0:
+            return self._get_notification_action(
+                _("Fiscalization Successfull"),
+                _(
+                    "Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s"
+                ) % (total_selected_count, already_fiscalized_count + skipped, success),
+                "success"
+            )
+        else:
+            return self._get_notification_action(
+                _("Fiscalization Finished: Failures Detected"),
+                _(
+                    "Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s | Failed: %s"
+                ) % (total_selected_count, already_fiscalized_count + skipped, success, failed),
+                "warning"
+            )
+
+    def _fiskaliziraj_batch(self):
+        """
+        Attempts fiscalization for records in the current set, handling success (res=True),
+        skips (res=False), and errors (exceptions).
+        """
+        success_count = 0
+        skipped_count = 0
+        error_count = 0
+
+        for move in self:
+            try:
+                res = move.fiskaliziraj()
+                if res:
+                    success_count += 1
+                else:
+                    skipped_count += 1
+
+            except Exception as e:
+                error_count += 1
+                continue
+
+        return success_count, skipped_count, error_count
+
+    def _get_notification_action(self, title, message, type):
+        """ Returns notification action for client """
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': title,
+                'message': message,
+                'type': type,
+                'sticky': True,
+            }
+        }
+
     def button_fiskaliziraj(self):
         self.ensure_one()
         # ako imam JIR pokreće provjeru ili ako nema fiskalizaciju.
@@ -46,7 +145,7 @@ class AccountMove(models.Model):
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
-        delay_fiscalization = not self.company_id.l10n_hr_fiskal_on_confirm
+        delay_fiscalization = not self.l10n_hr_fiskal_uredjaj_id.enable_fiskalise_on_confirm
         if self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active:
             self.fiskaliziraj(delay_fiscalization=delay_fiscalization)
         return res

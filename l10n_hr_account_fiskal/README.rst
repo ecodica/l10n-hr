@@ -42,9 +42,8 @@ Configuration
 
 6. Fiscalize Invoice On Confirmation
 
-    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Fiscalize Invoice On Confirmation
-    If checked, then the fiscalization service is called upon invoice confirmation. Uncheck if fiscalization should
-    be called manually or with some other function/process (with CRON jobs, for example).
+    menuitem : Invoicing >> Configuration >> Payment Registers >> Enable Fiskalise On Confirm
+    When this setting is enabled all invoices on given Payment Register will be automatically fiscalized
 
 7. Cancel Fiscalized Invoices
 
@@ -56,13 +55,22 @@ Configuration
     menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Skip Bank Transfer Fiscalization
     If checked, then invoices with Bank Transfer type are not fiscalized (they won't get ZKI and JIR numbers).
 
-9. Fiscalizaion Error Logging
+9. Fiscalization Error Logging
 
     menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Silent Error Logging
     If checked, then Fiscalization errors are not raised, but they are written in the fiscalization log on the invoice.
     The purpose of this feature is to enable Users to create Invoices even if fiscalization doesn't work for some reason
     (for example, if users have Internet connection issues).
 
+10. Cron Job Fiscalization
+
+    By default, the cron job "Fiscalization: Run Batch Fiscalization" is active and runs every 2 hours.
+    For a confirmed and un-fiscalized invoice to be processed by the cron job, **two conditions** related to its Payment Register must be met:
+    1. **Enablement:** The associated Payment Register must have **Enable Cron Fiskalisation** set to true.
+      menuitem : Invoicing >> Configuration >> Payment Registers >> Enable Cron Fiskalisation
+    2. **Delay:** The invoice's confirmation time (**Time Of Invoicing**) plus the **Cron Fiskalisation Delay Hours**
+    of its Payment Register must be less than the current time when the cron job starts.
+      menuitem : Invoicing >> Configuration >> Payment Registers >> Cron Fiskalisation Delay Hours
 
 Usage
 =====
@@ -72,13 +80,15 @@ However, if for any reason, the fiscalistion mesage is not sent , or is sent and
 Late fiskalisation is possible from Croatia specific page on ivvoice form
 Using the buttin FISKALIZE.
 
-If you created an ivoice on Paragon blok. You may enter all invoice data,
+If you created an invoice on Paragon blok. You may enter all invoice data,
 including the paragon blok number, and set correct dates, then confirm the invoice.
 The check box Late delivery should be marked!
 
 If you want to check the fiskalisation data on already fiskalized invoice, (containing JIR and ZKI data)
 you can press Verify fiskalization button and send a check-invoice type message (visible in message logs)
 
+If you want to Fiscalize multiple invoices at once on Invoices List View you can use **Fiscalize Batch** button.
+After fiscalization is finished, results will be visible in a popup window.
 
 Obtain client certificates from FINA
 ====================================

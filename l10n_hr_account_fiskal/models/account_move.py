@@ -21,7 +21,10 @@ class AccountMove(models.Model):
             if not move.invoice_date or not move.l10n_hr_vrijeme_izdavanja:
                 continue
 
-            fiscal_date = move.l10n_hr_vrijeme_izdavanja.date()
+            local_l10n_hr_vrijeme_izdavanja = fields.Datetime.context_timestamp(
+                move, move.l10n_hr_vrijeme_izdavanja
+            )
+            fiscal_date = local_l10n_hr_vrijeme_izdavanja.date()
             if move.invoice_date > fiscal_date:
                 raise ValidationError(
                     _("The Invoice Date (%s) cannot be later than the Time of Invoicing (%s).")

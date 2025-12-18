@@ -14,18 +14,16 @@
             </xpath>
 
             <button name="action_reverse" position="after">
+            <!--
+                Fiscalize button to be visible and disabled if invoice is already fiscalized
+                as an immediate indicator of "Oh okay this is already fiscalized"
+            -->
+                <div class="button-disabled-renderer" invisible="not l10n_hr_jir"/>
                 <button
-                    invisible="l10n_hr_fiskalni_broj == False or l10n_hr_jir or not l10n_hr_zki"
+                    invisible="l10n_hr_fiskalni_broj == False or not l10n_hr_zki"
                     name="button_fiskaliziraj"
                     type="object"
-                    class="btn btn-primary"
-                    string="Fiscalize"
-                />
-                <button
-                    invisible="l10n_hr_fiskalni_broj == False or not l10n_hr_jir or not l10n_hr_zki"
-                    name="button_fiskaliziraj"
-                    type="object"
-                    class="btn btn-primary disabled"
+                    class="btn btn-primary btn-fiskaliziraj-header"
                     string="Fiscalize"
                 />
             </button>

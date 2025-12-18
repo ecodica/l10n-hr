@@ -13,12 +13,22 @@
                 <button string="Provjera fiskalizacije" type="object" name="button_provjera_fiskalizacije" invisible = "not l10n_hr_jir" />
             </xpath>
 
-            <xpath expr="//header" position="after">
-                <div class="alert alert-info d-flex gap-1 align-items-center py-1" role="alert" invisible="l10n_hr_fiskalni_broj == False or l10n_hr_jir">
-                    Invoice is ready to be fiscalized -
-                    <button name="button_fiskaliziraj" type="object" class="oe_link ps-0 text-decoration-underline" string="Fiscalize"/>
-                </div>
-            </xpath>
+            <button name="action_reverse" position="after">
+                <button
+                    invisible="l10n_hr_fiskalni_broj == False or l10n_hr_jir or not l10n_hr_zki"
+                    name="button_fiskaliziraj"
+                    type="object"
+                    class="btn btn-primary"
+                    string="Fiscalize"
+                />
+                <button
+                    invisible="l10n_hr_fiskalni_broj == False or not l10n_hr_jir or not l10n_hr_zki"
+                    name="button_fiskaliziraj"
+                    type="object"
+                    class="btn btn-primary disabled"
+                    string="Fiscalize"
+                />
+            </button>
 
             <group name="l10n_hr_base_fiskal" position="after">
                 <group name="l10n_hr_fiskal_full" invisible ="l10n_hr_zki == False">

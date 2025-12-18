@@ -18,7 +18,11 @@ class AccountMove(models.Model):
     def _check_invoice_date_fiscal_time(self):
         """ Ensure that Invoice Date is not later than Time of Invoicing """
         for move in self:
-            if not move.invoice_date or not move.l10n_hr_vrijeme_izdavanja:
+            if (
+                not move.invoice_date
+                or not move.l10n_hr_vrijeme_izdavanja
+                or move.company_id.account_fiscal_country_id.code != 'HR'
+            ):
                 continue
 
             local_l10n_hr_vrijeme_izdavanja = fields.Datetime.context_timestamp(

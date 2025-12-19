@@ -66,11 +66,12 @@ Configuration
 
     By default, the cron job "Fiscalization: Run Batch Fiscalization" is active and runs every 2 hours.
     For a confirmed and un-fiscalized invoice to be processed by the cron job, **two conditions** related to its Payment Register must be met:
+
     1. **Enablement:** The associated Payment Register must have **Enable Cron Fiskalisation** set to true.
-      menuitem : Invoicing >> Configuration >> Payment Registers >> Enable Cron Fiskalisation
+       menuitem : Invoicing >> Configuration >> Payment Registers >> Enable Cron Fiskalisation
     2. **Delay:** The invoice's confirmation time (**Time Of Invoicing**) plus the **Cron Fiskalisation Delay Hours**
-    of its Payment Register must be less than the current time when the cron job starts.
-      menuitem : Invoicing >> Configuration >> Payment Registers >> Cron Fiskalisation Delay Hours
+       of its Payment Register must be less than the current time when the cron job starts.
+       menuitem : Invoicing >> Configuration >> Payment Registers >> Cron Fiskalisation Delay Hours
 
 Usage
 =====

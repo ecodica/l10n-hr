@@ -69,6 +69,8 @@ class FiscalFiscalMixin(models.AbstractModel):
     l10n_hr_fiskal_user_id = fields.Many2one(
         comodel_name="res.users",
         string="Fiscal user",
+        readonly=True,
+        states={"draft": [("readonly", False)]},
         help="User who sent the fiscalisation message to FINA."
         " Can be different from responsible person on invoice.",
     )

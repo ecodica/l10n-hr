@@ -67,6 +67,8 @@ class AccountMove(models.Model):
         ondelete='restrict',
         default=lambda self: self.env.user.id,
         copy=False,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
         help="User who sent the fiscalisation message to FINA."
              " Can be different from responsible person on invoice.",
     )

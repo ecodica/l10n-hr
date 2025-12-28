@@ -142,7 +142,7 @@ class FiskalCertificate(models.Model):
 
         self.state = "convert"
         self.cert_type = "demo" if "demo" in self.cert_issuer.lower() else "prod"
-        self.fiskal_schema = self.cert_type == "demo" and "EDUC_v1.6" or "PROD_V1.6"
+        self.fiskal_schema = self.cert_type == "demo" and "EDUC_v1.6" or "PROD_v1.6"
         # fiskal_path = self.company_id._get_fiskal_path()
         # cert_paths = self.cert_type == "demo" and DEMO or PROD
         # sub_cert = subject.get(b"CN", False)

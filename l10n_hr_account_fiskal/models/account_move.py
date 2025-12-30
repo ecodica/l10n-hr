@@ -14,6 +14,27 @@ class AccountMove(models.Model):
         help="Log of all messages sent and received for FINA",
     )
 
+    @api.constrains('invoice_date')
+    def _check_invoice_date_fiscal_time(self):
+        """ Ensure that Invoice Date is not later than Time of Invoicing """
+        for move in self:
+            if (
+                not move.invoice_date
+                or not move.l10n_hr_vrijeme_izdavanja
+                or move.company_id.account_fiscal_country_id.code != 'HR'
+            ):
+                continue
+
+            local_l10n_hr_vrijeme_izdavanja = fields.Datetime.context_timestamp(
+                move, move.l10n_hr_vrijeme_izdavanja
+            )
+            fiscal_date = local_l10n_hr_vrijeme_izdavanja.date()
+            if move.invoice_date > fiscal_date:
+                raise ValidationError(
+                    _("The Invoice Date (%s) cannot be later than the Time of Invoicing (%s).")
+                    % (move.invoice_date, fiscal_date)
+                )
+
     @api.constrains('state')
     def _check_fiscalization_invoice_cancel(self):
         for invoice in self.filtered(lambda i: i.move_type in  ["out_invoice", "out_refund"]):
@@ -35,6 +56,12 @@ class AccountMove(models.Model):
         invoices = super()._post(soft=soft)
         invoices._check_zki_on_confirm()
         return invoices
+
+    def button_draft(self):
+        """ Extend to clear ZKI if not fully fiscalized """
+        if self.l10n_hr_zki and not self.l10n_hr_jir:
+            self.l10n_hr_zki = False
+        super().button_draft()
 
     def action_cron_fiskaliziraj_batch(self):
         move_ids = self.search([

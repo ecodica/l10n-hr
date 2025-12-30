@@ -30,6 +30,7 @@
         "web.assets_backend": [
         "l10n_hr_account_fiskal/static/src/js/not_fiscalized_invoices_systray.js",
         "l10n_hr_account_fiskal/static/src/xml/not_fiscalized_invoices_systray.xml",
+        "l10n_hr_account_fiskal/static/src/scss/fiscalize_button.scss",
         ]
     },
     "qweb": [],

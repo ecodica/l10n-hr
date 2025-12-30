@@ -961,3 +961,8 @@ msgstr "Bit će korišteno kao drugi dio fiskalnog broja računa."
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
 msgid "units"
 msgstr "jedinice"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_vat_on_payment_basis
+msgid "VAT On Payment Basis"
+msgstr "Obračun PDV-a po naplati"

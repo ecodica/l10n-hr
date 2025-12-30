@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <group name="l10n_hr_legal" position="after">
                 <group string="Fiscal Data" name="l10n_hr_fiskal">
+                    <field name="l10n_hr_vat_on_payment_basis" />
                     <field name="l10n_hr_tax_model" />
                     <field name="l10n_hr_fiscal_separator" />
                     <field name="l10n_hr_show_required_fisk_fields_on_header" />

@@ -21,6 +21,7 @@ class Company(models.Model):
         string="Invoice Fiscal Sequences For Company",
         compute="_compute_l10n_hr_fiscal_invoice_sequence_ids",
         context={"active_test": False})  # want to see inactive also!
+    l10n_hr_vat_on_payment_basis = fields.Boolean(string="VAT On Payment Basis")
     l10n_hr_tax_model = fields.Selection(
         selection=[
             ("r1", "R1 - tax based on invoice"),

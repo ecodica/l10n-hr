@@ -10,7 +10,9 @@ class AccountMove(models.Model):
 
     l10n_hr_napojnica_iznos = fields.Monetary(
         string='Tip Amount',
-        currency_field='currency_id')
+        currency_field='currency_id',
+        copy=False
+    )
 
     l10n_hr_account_tip_payment_type_id = fields.Many2one(
         'l10n_hr.account.payment.type',

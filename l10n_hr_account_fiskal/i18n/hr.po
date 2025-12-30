@@ -627,7 +627,18 @@ msgstr "Račun"
 #. module: l10n_hr_account_fiskal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiskal.selection__l10n_hr_fiskal_log__type__racuni
 msgid "Invoice fiscalisation"
-msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
+msgstr "Fiskalizacija računa"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the "
+"%s payment type"
+msgstr ""
+"Nije moguće fiskalizirati račun s iznosom većim od 10.000,00 € s"
+"načinom plaćanja %s"
 
 #. module: l10n_hr_account_fiskal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiskal.view_l10n_hr_fiskal_account_move_form
@@ -970,6 +981,22 @@ msgid "Private key from user P12/PFX cert file"
 msgstr "Privatni ključ iz uveženog certifikata"
 
 #. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "R1 invoice cannot be fiscalized with %s payment type"
+msgstr "R1 račun se ne može fiskalizirati s načinom plaćanja %s"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid ""
+"R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the "
+"%s payment type"
+msgstr "Iznos R1 računa veći od 700,00 € se ne može fiskalizirati s načinom plaćanja %s"
+
+#. module: l10n_hr_account_fiskal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_log__time_obr
 msgid "Process time"
 msgstr "Vrijeme obrade"
@@ -1109,6 +1136,49 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_l10n_hr_fiskal_mixin__l10n_hr_zki
 msgid "ZKI"
 msgstr ""
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiskal.action_pnp_category
+#: model:ir.ui.menu,name:l10n_hr_account_fiskal.action_pnp_category_menu
+msgid "PNP Categories"
+msgstr "PNP Kategorije"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model,name:l10n_hr_account_fiskal.model_l10n_hr_pnp_category
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_product__pnp_categ_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_template__pnp_categ_id
+msgid "PNP Category"
+msgstr "PNP Kategorija"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.constraint,message:l10n_hr_account_fiskal.constraint_l10n_hr_pnp_category_unique_name
+msgid "The name must be unique!"
+msgstr "Naziv kategorije mora biti jedinstven!"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "To fiscalize an R1 invoice, an OIB must be set on the company %s"
+msgstr "Kako bi fiskalizirali R1 račun potrebno je upisati OIB na tvrtki %s"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiskal.action_pnp_category
+#: model:ir.ui.menu,name:l10n_hr_account_fiskal.action_pnp_category_menu
+msgid "PNP Categories"
+msgstr "PNP Kategorije"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model,name:l10n_hr_account_fiskal.model_l10n_hr_pnp_category
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_product__pnp_categ_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiskal.field_product_template__pnp_categ_id
+msgid "PNP Category"
+msgstr "PNP Kategorija"
+
+#. module: l10n_hr_account_fiskal
+#: model:ir.model.constraint,message:l10n_hr_account_fiskal.constraint_l10n_hr_pnp_category_unique_name
+msgid "The name must be unique!"
+msgstr "Naziv kategorije mora biti jedinstven!"
 
 #. module: l10n_hr_account_fiskal
 #. odoo-python

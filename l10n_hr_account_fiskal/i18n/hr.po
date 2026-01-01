@@ -725,7 +725,35 @@ msgstr "Jedinstvena oznaka poruke"
 #. odoo-python
 #: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
 #, python-format
-msgid "User OIB is not not entered! It is required for fiscalisation"
+msgid "To fiscalize an R1 invoice, an OIB must be set on the company %s"
+msgstr "Kako biste fiskalizirali R1 račun, OIB mora biti postavljen na kupcu %s"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "R1 invoice cannot be fiscalized with Transaction payment type"
+msgstr "R1 račun ne može bit fiskaliziran s transakcijskim načinom plaćanja"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the Cash payment type"
+msgstr "Račun iznosa veći od 10.000,00 € ne može biti fiskaliziran s gotovinskim načinom plaćanja"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the Cash payment type"
+msgstr "R1 račun iznosa veći od 700,00 € ne može biti fiskaliziran s gotovinskim načinom plaćanja"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/fiskal_mixin.py:0
+#, python-format
+msgid "User OIB is not not entered! It is required for fiscalization"
 msgstr "OIB korisnika nije unešen! Obavezan podatak za fiskalizaciju računa"
 
 #. module: l10n_hr_account_fiskal

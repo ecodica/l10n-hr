@@ -2,9 +2,8 @@ import base64
 import io
 import logging
 from datetime import datetime
-
 import qrcode
-
+from odoo.tools import float_compare
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -72,7 +71,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         readonly=True,
         states={"draft": [("readonly", False)]},
         help="User who sent the fiscalisation message to FINA."
-        " Can be different from responsible person on invoice.",
+             " Can be different from responsible person on invoice.",
     )
     # l10n_hr_vrijeme_xml = fields.Char(  # probably not needed but heck...
     #     string="XML time",
@@ -88,7 +87,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         states={"draft": [("readonly", False)]},
         # TODO translateME!
         help="If system was down, and invoice is records on 'paragon blok',"
-        ". This needs to be entered BEFORE confirming the invoice.",
+             ". This needs to be entered BEFORE confirming the invoice.",
     )
     l10n_hr_late_delivery = fields.Boolean(
         string="Late delivery",
@@ -104,26 +103,50 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _l10n_hr_post_fiskal_check(self):
         res = []
-
+        # backwards compatibility if not l10n_hr_edi_base installed
+        nacin_placanja = self._fields.get('l10n_hr_account_payment_type_id') \
+                         and self.l10n_hr_account_payment_type_id.code \
+                         or self.l10n_hr_nacin_placanja
         if (
-            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.company_id.partner_id.vat
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
+                and self.partner_id.is_company
+                and not self.company_id.partner_id.vat
         ):
             res.append(
-                _("Company OIB is not not entered! It is required for fiscalization")
+                _("To fiscalize an R1 invoice, an OIB must be set on the company %s") % self.partner_id.display_name
             )
         if (
-            self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-            and not self.l10n_hr_fiskal_user_id.partner_id.vat
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+                self.partner_id.is_company and nacin_placanja == 'T'
+        ):
+            res.append(
+                _("R1 invoice cannot be fiscalized with Transaction payment type")
+            )
+        if (
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and nacin_placanja == 'G' and
+                float_compare(self.amount_total, 10000, precision_digits=self.currency_id.decimal_places) == 1
+        ):
+            res.append(
+                _("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the Cash payment type")
+            )
+        if (
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+                nacin_placanja == 'G' and self.partner_id.is_company and
+                float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
+        ):
+            res.append(
+                _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the Cash payment type")
+            )
+        if (
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
+                and not self.l10n_hr_fiskal_user_id.partner_id.vat
         ):
             res.append(
                 _("User OIB is not not entered! It is required for fiscalization")
             )
         if not self.company_id.l10n_hr_fiskal_cert_id:
             res.append(
-                _(
-                    "No fiscal certificate found, please install one "
-                )
+                _("No fiscal certificate found, please install one!")
             )
         return res
 

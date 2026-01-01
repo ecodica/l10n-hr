@@ -34,4 +34,12 @@ verzija: 1.9 Datum verzije: 24.06.2025.
 - prijaviRadnoVrijeme
 - obrisiRadnoVrijeme
 - dohvatiRadnoVrijeme
+
+verzija: 1.10 Datum verzije: 24.11.2025.
+- nova metoda promijeniPodatkeRacuna
+- nove metode za radno vrijeme:
+- prijaviRadnoVrijeme
+- obrisiRadnoVrijeme
+- dohvatiRadnoVrijeme
+- prijaviRadnoVrijemeZaPoslovnice
 """

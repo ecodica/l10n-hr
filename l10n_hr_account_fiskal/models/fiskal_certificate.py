@@ -53,10 +53,12 @@ class FiskalCertificate(models.Model):
             ("EDUC_v1.7", "DEMO schema v1.7"),
             ("EDUC_v1.8", "DEMO schema v1.8"),
             ("EDUC_v1.9", "DEMO schema v1.9"),
+            ("EDUC_v1.10", "DEMO schema v1.10"),
             ("PROD_v1.6", "PROD Schema v1.6"),
             ("PROD_v1.7", "PROD Schema v1.7"),
             ("PROD_v1.8", "PROD Schema v1.8"),
             ("PROD_v1.9", "PROD Schema v1.9"),
+            ("PROD_v1.10", "PROD Schema v1.10"),
         ],
         string="Fiscalization schema",
         help=SCHEMA_HELP,
@@ -142,11 +144,10 @@ class FiskalCertificate(models.Model):
 
         self.state = "convert"
         self.cert_type = "demo" if "demo" in self.cert_issuer.lower() else "prod"
-        self.fiskal_schema = self.cert_type == "demo" and "EDUC_v1.6" or "PROD_v1.6"
-        # fiskal_path = self.company_id._get_fiskal_path()
-        # cert_paths = self.cert_type == "demo" and DEMO or PROD
-        # sub_cert = subject.get(b"CN", False)
-        # sub_cert = sub_cert == b"FISKAL 2" and "FISKAL 2" or "FISKAL 1"
+        version_prefix = "EDU" if self.cert_type == "demo" else "PROD"
+        # get last element in selection options
+        self.fiskal_schema = list(filter(lambda k: k[0].startswith(version_prefix),
+                                         self._fields['fiskal_schema'].selection))[-1][0]
 
     def action_validate(self):
         for cert in self:

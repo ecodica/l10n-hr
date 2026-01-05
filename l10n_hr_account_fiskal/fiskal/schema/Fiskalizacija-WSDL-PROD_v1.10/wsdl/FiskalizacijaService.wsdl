@@ -203,7 +203,7 @@
 
   <wsdl:service name="FiskalizacijaService">
     <wsdl:port name="FiskalizacijaPortType" binding="uis:FiskalizacijaService">
-      <soap:address location="https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest"/>
+      <soap:address location="https://cis.porezna-uprava.hr:8449/FiskalizacijaService"/>
     </wsdl:port>
   </wsdl:service>
 

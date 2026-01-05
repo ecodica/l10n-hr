@@ -8,7 +8,8 @@
         <field name="arch" type="xml">
             <group name="l10n_hr_base_fiskal" position="inside">
                 <field name="l10n_hr_paragon_br"/>
-                <field name="l10n_hr_fiskal_user_id"/>
+                <!--Already defined in l10n_hr_account_base-->
+                <!--<field name="l10n_hr_fiskal_user_id"/>-->
                 <field name="l10n_hr_late_delivery"/>
                 <button
                         string="Fiskaliziraj"

@@ -99,7 +99,7 @@
         <xpath expr="//tr[hasclass('o_taxes')]/t[@t-else='']/td[2]/span[contains(@t-out, tax_group['tax_amount_currency'])]" position="attributes">
             <attribute name="t-out">tax_group['tax_amount_currency'] * (-1 if tax_totals['l10n_hr_is_storno'] else 1)</attribute>
         </xpath>
-        <xpath expr="//tr[hasclass('o_taxes')]/t[@t-else='']/td[2]/span[contains(@t-out, tax_group['display_base_amount_currency'])]" position="attributes">
+        <xpath expr="//tr[contains(@class, 'o_taxes')]//t[@t-else]//td[1]/span[contains(@t-out, &quot;tax_group['display_base_amount_currency']&quot;)]" position="attributes">
             <attribute name="t-out">tax_group['display_base_amount_currency'] * (-1 if tax_totals['l10n_hr_is_storno'] else 1)</attribute>
         </xpath>
         <xpath expr="//tr[contains(@t-if, 'cash_rounding_base_amount_currency')]/td[2]/span[contains(@t-out, tax_totals['cash_rounding_base_amount_currency'])]" position="attributes">

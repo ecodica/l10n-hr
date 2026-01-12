@@ -137,3 +137,8 @@ msgstr "Ovaj zapis je povrat od %s"
 #: model_terms:ir.ui.view,arch_db:base.view_res_bank_form
 msgid "Bank Address"
 msgstr "Adresa banke"
+
+#. module: account
+#: model_terms:ir.ui.view,arch_db:account.report_invoice_document
+msgid "<strong>Delivery Date:</strong><br/>"
+msgstr "<strong>Datum dostave:</strong><br/>"

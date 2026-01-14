@@ -58,7 +58,7 @@ class ResPartner(models.Model):
     def _validate_company_registry(self):
         """Croatian OIB validation"""
         for partner in self.filtered(lambda p: p.country_id.code == "HR" and p.company_registry):
-            if not self._l10n_hr_is_oib_valid():
+            if not partner._l10n_hr_is_oib_valid():
                 raise ValidationError(_("OIB %s is not valid!", self.company_registry))
 
     @api.model

@@ -29,7 +29,7 @@ class FiskalProstor(models.Model):
         selection=[("N", "On PoS device level"), ("P", "On business premise level")],
         string="Sequence By",
         required=True,
-        default="P",
+        default="N",
         tracking=1,
     )
     mjesto_izdavanja = fields.Char(
@@ -214,6 +214,11 @@ class FiskalUredjaj(models.Model):
         column2="journal_id",
         string="Allowed Journals",
         domain="[('type', 'in', ['sale','sale_refund'])]",
+    )
+    user_ids = fields.Many2many(
+        comodel_name="res.users",
+        string="Allowed Users",
+        domain=lambda self: [('groups_id', 'in', self.env.ref('base.group_user').id)]
     )
     sequence_id = fields.Many2one(
         comodel_name="ir.sequence",

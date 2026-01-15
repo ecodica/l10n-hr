@@ -26,7 +26,7 @@ class Company(models.Model):
         help="Registration number for payments to health insurance",
     )
     l10n_hr_maticni_broj = fields.Char(string="Registration number")
-
+    l10n_hr_mbs = fields.Char(string="MBS", prefetch=False)
     l10n_hr_responsible_fname = fields.Char(
         string='Ime', size=64, help='Ime odgovorne osobe')
     l10n_hr_responsible_lname = fields.Char(

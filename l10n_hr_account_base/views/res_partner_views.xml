@@ -12,6 +12,9 @@
             <group name="purchase" position="inside">
                 <field name="l10n_hr_purchase_journal_id"/>
             </group>
+            <field name="ref" position="before">
+                <field name="l10n_hr_operator_name"/>
+            </field>
         </field>
     </record>
 

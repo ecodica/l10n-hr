@@ -74,13 +74,37 @@ class AccountMove(models.Model):
     )
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         related='company_id.l10n_hr_show_required_fisk_fields_on_header')
-    l10n_hr_is_ref_required = fields.Boolean(compute="_compute_l10n_hr_is_ref_required")
+    l10n_hr_is_ref_required = fields.Boolean(
+        compute="_compute_l10n_hr_is_ref_required"
+    )
+    l10n_hr_allowed_payment_type_ids = fields.Many2many(
+            'l10n_hr.account.payment.type',
+            compute='_compute_l10n_hr_allowed_payment_types'
+        )
 
     _sql_constraints = [(
         'unique_name', "", "Another entry with the same name already exists.",
     ), (
         'unique_name_l10n_hr', "", "Another entry with the same name already exists.",
     )]
+
+    @api.depends('l10n_hr_fiskal_uredjaj_id')
+    def _compute_l10n_hr_allowed_payment_types(self):
+        """ Compute allowed payment types if set on fiskal uredjaj """
+        for move in self:
+            fiskal_uredjaj = move.l10n_hr_fiskal_uredjaj_id
+            if fiskal_uredjaj and fiskal_uredjaj.allowed_payment_type_ids:
+                move.l10n_hr_allowed_payment_type_ids = move.l10n_hr_fiskal_uredjaj_id.allowed_payment_type_ids
+            else:
+                move.l10n_hr_allowed_payment_type_ids = self.env['l10n_hr.account.payment.type'].search([('active', '=', True)])
+
+    @api.onchange('l10n_hr_fiskal_uredjaj_id')
+    def _onchange_l10n_hr_fiskal_uredjaj_id(self):
+        """ Reset payment type only if the device has a restricted list and current is not in it """
+        if self.l10n_hr_fiskal_uredjaj_id and self.l10n_hr_account_payment_type_id:
+            allowed = self.l10n_hr_fiskal_uredjaj_id.allowed_payment_type_ids
+            if allowed and self.l10n_hr_account_payment_type_id not in allowed:
+                self.l10n_hr_account_payment_type_id = False
 
     def _auto_init(self):
         super()._auto_init()

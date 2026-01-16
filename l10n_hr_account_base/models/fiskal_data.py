@@ -221,7 +221,11 @@ class FiskalUredjaj(models.Model):
         domain=[("code", "=", "l10n_hr.fiscal")],
         help="Shoud be defined with no prefix or suffix, used only for this PoS",
     )
-
+    allowed_payment_type_ids = fields.Many2many(
+        'l10n_hr.account.payment.type',
+        string="Allowed Payment Types",
+        domain=[('active', '=', True)]
+    )
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),

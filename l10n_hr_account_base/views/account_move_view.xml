@@ -40,7 +40,14 @@
                             <field name="l10n_hr_fiskal_uredjaj_id" widget="selection" invisible ="not l10n_hr_fiskal_uredjaj_visible or l10n_hr_show_required_fisk_fields_on_header " domain="[('id', 'in', l10n_hr_allowed_fiskal_uredjaj_ids)]" readonly="state != 'draft'"/>
                             <!-- until fiscalisation module for cash payments has only one selectable ooption -->
                             <!-- <field name="l10n_hr_nacin_placanja" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/> -->
-                            <field name="l10n_hr_account_payment_type_id" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'" options="{'no_open': True}"/>
+                            <field name="l10n_hr_allowed_payment_type_ids" invisible="1"/>
+                            <field
+                                name="l10n_hr_account_payment_type_id"
+                                invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header"
+                                readonly="state != 'draft'"
+                                options="{'no_open': True}"
+                                domain="[('id', 'in', l10n_hr_allowed_payment_type_ids)]"
+                            />
                         </group>
                     </group>
                 </page>
@@ -49,7 +56,13 @@
             <field name="invoice_vendor_bill_id" position="after">
                 <field name="l10n_hr_fiskal_uredjaj_id" widget="selection" invisible="not l10n_hr_fiskal_uredjaj_visible or not l10n_hr_show_required_fisk_fields_on_header" domain="[('id', 'in', l10n_hr_allowed_fiskal_uredjaj_ids)]" readonly="state != 'draft'"/>
                 <!-- <field name="l10n_hr_nacin_placanja" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/> -->
-                <field name="l10n_hr_account_payment_type_id" invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'" options="{'no_open': True}"/>
+                <field
+                    name="l10n_hr_account_payment_type_id"
+                    invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fisk_fields_on_header"
+                    readonly="state != 'draft'"
+                    options="{'no_open': True}"
+                    domain="[('id', 'in', l10n_hr_allowed_payment_type_ids)]"
+                />
             </field>
 
             <field name="ref" position="before">

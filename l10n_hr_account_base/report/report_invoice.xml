@@ -68,7 +68,8 @@
                         name="l10n_hr_fiskal_user_id"
                     >
                         <strong>Fiscal User:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_fiskal_user_id.display_name" />
+                        <p class="m-0" t-if="o.l10n_hr_fiskal_user_id.l10n_hr_operator_name" t-field="o.l10n_hr_fiskal_user_id.l10n_hr_operator_name" />
+                        <p class="m-0" t-if="not o.l10n_hr_fiskal_user_id.l10n_hr_operator_name" t-field="o.l10n_hr_fiskal_user_id.display_name" />
                     </div>
                 </div>
             </t>

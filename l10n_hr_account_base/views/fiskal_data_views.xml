@@ -69,6 +69,7 @@
                                         widget="many2many_tags"
                                         domain="['&amp;',('type','=','sale'),'|',('l10n_hr_prostor_id','=',False),('l10n_hr_prostor_id','=', prostor_id)]"
                                     />
+                                    <field name="user_ids" widget="many2many_tags" options="{'create': false, 'create_edit': false, 'm2o_dialog': false}"/>
                                     <field name="sljed_racuna" column_invisible="True" />
                                     <field name="sequence_id" optional="hide" column_invisible = "'sljed_racuna' == 'P'"/>
                                     <field name="state" widget="badge" />
@@ -152,6 +153,7 @@
                     <field name="sequence_id" readonly= "lock==True" invisible ="sljed_racuna == 'P'" />
                     <field name="allowed_payment_type_ids" widget="many2many_tags"/>
                     <field name="journal_ids" widget="many2many_tags" readonly= "lock==True" />
+                    <field name="user_ids" widget="many2many_tags" options="{'create': false, 'create_edit': false, 'm2o_dialog': false}"/>
                 </group>
                 </sheet>
                 <div class="oe_chatter">

@@ -13,3 +13,11 @@ class InvoiceTipsReport(models.AbstractModel):
         Override this method to return a different field name if needed.
         """
         return 'l10n_hr_fiskal_user_id'
+
+    def _get_invoice_user_name(self, invoice_user):
+        """
+        Return the name of the field to group by as a string.
+
+        Override this method to return a different field name if needed.
+        """
+        return invoice_user.l10n_hr_operator_name or invoice_user.display_name

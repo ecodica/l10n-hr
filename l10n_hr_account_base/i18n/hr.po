@@ -119,6 +119,11 @@ msgid "Allowed Journals"
 msgstr "Dozvoljeni dnevnici"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiskal_uredjaj__user_ids
+msgid "Allowed Users"
+msgstr "Dozvoljeni korisnici"
+
+#. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_allowed_fiskal_uredjaj_ids
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_allowed_fiskal_uredjaj_ids
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_payment__l10n_hr_allowed_fiskal_uredjaj_ids
@@ -505,6 +510,14 @@ msgstr ""
 "dio fiskalnog broja računa"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_partner__l10n_hr_operator_name
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_users__l10n_hr_operator_name
+msgid ""
+"It will be printed on reports instead of the full name of the partner when "
+"the operator (Fiscal User) is printed (e.g. on invoices)"
+msgstr "Oznaka operatera će biti ispisana na računu umjesto standardnog naziva osobe koja je izdala račun"
+
+#. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiskal_prostor__mjesto_izdavanja
 msgid ""
 "It will be used as place of invoicing for this premise,  as a legaly "
@@ -697,6 +710,12 @@ msgstr "Samo '/' ili '-' su zakonom dozvoljeni elementi"
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiskal_uredjaj__oznaka_uredjaj
 msgid "Only integer number values allowed, without leading zeroes."
 msgstr "Samo cu cjelobrojne vrijednosti dozvoljene, bez nula na početku."
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_partner__l10n_hr_operator_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__l10n_hr_operator_name
+msgid "Operator Name"
+msgstr "Oznaka operatera"
 
 #. module: l10n_hr_account_base
 #: model:l10n_hr.account.payment.type,name:l10n_hr_account_base.l10n_hr_account_payment_type_O

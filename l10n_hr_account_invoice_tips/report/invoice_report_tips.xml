@@ -54,7 +54,7 @@
                             <tr t-foreach="invoices_with_tips" t-as="invoice">
                                 <td t-esc="invoice.date" t-options="{'widget': 'date'}"/>
                                 <td t-esc="invoice.name"/>
-                                <td t-esc="invoice.invoice_user_id.name"/>
+                                <td t-esc="invoice.l10n_hr_fiskal_user_id.l10n_hr_operator_name or invoice.l10n_hr_fiskal_user_id.display_name or invoice.invoice_user_id.display_name"/>
                                 <td t-esc="invoice.amount_total" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
                                 <td t-esc="invoice.l10n_hr_napojnica_iznos" t-options='{"widget": "monetary", "display_currency": invoice.currency_id}' style="text-align: right"/>
                                 <td t-esc="invoice.l10n_hr_account_payment_type_id.name"/>

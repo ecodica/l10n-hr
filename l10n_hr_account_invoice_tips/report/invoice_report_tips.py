@@ -42,7 +42,7 @@ class InvoiceTipsReport(models.AbstractModel):
         for invoice in invoices:
             user_field = getattr(invoice, user_field_name)
             user_id = user_field.id
-            user_name = user_field.name
+            user_name = self._get_invoice_user_name(user_field)
             user_id = invoice.invoice_user_id.id
             sum_by_user[user_id]['name'] = user_name
             sum_by_user[user_id]['total_amount'] += invoice.amount_total
@@ -63,3 +63,7 @@ class InvoiceTipsReport(models.AbstractModel):
         Override this method to return a different field name if needed.
         """
         return 'invoice_user_id'
+
+    def _get_invoice_user_name(self, invoice_user):
+        """Return operator name."""
+        return invoice_user.partner_id.l10n_hr_operator_name or invoice_user.partner_id.name

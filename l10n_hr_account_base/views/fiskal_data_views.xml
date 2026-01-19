@@ -150,6 +150,7 @@
                     <field name="sljed_racuna" readonly="1" invisible="1" />
                     <field name="oznaka_uredjaj" readonly= "lock==True" />
                     <field name="sequence_id" readonly= "lock==True" invisible ="sljed_racuna == 'P'" />
+                    <field name="allowed_payment_type_ids" widget="many2many_tags"/>
                     <field name="journal_ids" widget="many2many_tags" readonly= "lock==True" />
                 </group>
                 </sheet>

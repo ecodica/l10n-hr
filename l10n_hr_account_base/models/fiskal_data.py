@@ -230,6 +230,9 @@ class FiskalUredjaj(models.Model):
         'l10n_hr.account.payment.type',
         string="Allowed Payment Types",
     )
+    enable_b2b_confirm_only = fields.Boolean(
+        help="If this option is enabled, only invoices with partners that are companies can be confirmed"
+    )
     state = fields.Selection(
         selection=[
             ("draft", "Draft"),

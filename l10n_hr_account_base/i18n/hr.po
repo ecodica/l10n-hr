@@ -1020,3 +1020,29 @@ msgstr "Dnevnik nabave"
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_croatian_payment_means_tree
 msgid "Invoice Payment Means"
 msgstr "Način plaćanja računa"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiskal_uredjaj__allowed_payment_type_ids
+msgid "Allowed Payment Types"
+msgstr "Dozvoljeni načini plaćanja"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiskal_uredjaj__enable_b2b_confirm_only
+msgid "Enable B2B Confirm Only"
+msgstr "Omogući potvrđivanje samo za B2B račune"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiskal_uredjaj__enable_b2b_confirm_only
+msgid ""
+"If this option is enabled, only invoices with partners that are companies "
+"can be confirmed"
+msgstr "Ako je ova opcija odabrana, potvrditi se mogu samo računi sa partnerima koji su tvrtke (B2B)"
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+#, python-format
+msgid ""
+"PoS device has option 'B2B Confirm Only' enabled and current partner is not "
+"company"
+msgstr "Nije moguće potvrđivanje jer partner nije tvrtka (naplatni uređaj ima opciju 'Omogući potvrđivanje samo za B2B račune' uključenu)"

@@ -239,6 +239,8 @@ class AccountMove(models.Model):
             res.append(_("PoS device selected is not active"))
         if not self.l10n_hr_account_payment_type_id:
             res.append(_("Payment method not selected"))
+        if self.l10n_hr_fiskal_uredjaj_id.enable_b2b_confirm_only and not self.partner_id.is_company:
+            res.append(_("PoS device has option 'B2B Confirm Only' enabled and current partner is not company"))
         return res
 
     def _l10n_hr_post_out_invoice(self):

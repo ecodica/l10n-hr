@@ -224,7 +224,6 @@ class FiskalUredjaj(models.Model):
     allowed_payment_type_ids = fields.Many2many(
         'l10n_hr.account.payment.type',
         string="Allowed Payment Types",
-        domain=[('active', '=', True)]
     )
     state = fields.Selection(
         selection=[

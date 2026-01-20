@@ -27,7 +27,7 @@
         "views/l10n_hr_fiscal_device_views.xml",
         "views/l10n_hr_fiscal_log_views.xml",
         "views/account_move_views.xml",
-        # "report/report_invoice.xml",
+        "report/report_invoice.xml",
         "security/ir.model.access.csv",
     ],
     "assets": {

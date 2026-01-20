@@ -32,21 +32,4 @@
         </xpath>
     </template>
 
-    <template id="l10n_hr_report_fiskal.report_invoice_main" inherit_id="report_templates_account.report_invoice_main">
-        <xpath expr="//div[@id='payment']" position="replace">
-            <t t-if="not o.l10n_hr_zki and not o.l10n_hr_jir and print_with_payments">
-                <div id="payment" class="row mt16 ml16 mr16">
-                    <t t-call="report_templates_account.invoice_info_payment"/>
-                </div>
-            </t>
-        </xpath>
-        <xpath expr="//div[@id='qr_code']" position="replace">
-            <t t-if="not o.l10n_hr_zki and not o.l10n_hr_jir and print_with_payments">
-                <div id="qr_code" class="row mt16 ml16" style="page-break-inside:avoid;">
-                    <t t-call="report_templates_account.qr_code"/>
-                </div>
-            </t>
-        </xpath>
-    </template>
-
 </odoo>

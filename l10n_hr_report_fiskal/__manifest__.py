@@ -6,14 +6,13 @@
     """,
     "category": "Accounting",
     "images": [],
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "application": False,
     "author": "Ecodica d.o.o.",
     "license": "AGPL-3",
     "depends": [
         "l10n_hr_account_reference",
         "l10n_hr_account_fiskal",
-        "report_templates_account",
     ],
     "data": [
         "reports/report_invoice.xml",

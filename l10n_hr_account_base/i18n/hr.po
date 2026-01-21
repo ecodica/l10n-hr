@@ -22,11 +22,6 @@ msgstr "<strong>Datum i vrijeme izdavanja:</strong>"
 
 #. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
-msgid "<strong>Date delivery:</strong>"
-msgstr "<strong>Datum isporuke:</strong>"
-
-#. module: l10n_hr_account_base
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
 msgid "<strong>Internal number:</strong>"
 msgstr "<strong>Interni broj:</strong>"
 

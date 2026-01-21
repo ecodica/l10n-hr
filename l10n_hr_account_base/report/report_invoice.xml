@@ -11,18 +11,6 @@
             </t>
         </xpath>
 
-        <!-- add dates in regular information block -->
-        <xpath expr="//div[@name='reference']" position="after">
-            <div
-                class="col-auto col-3 mw-100 mb-2"
-                t-if="o.delivery_date"
-                name="date_delivery"
-            >
-                <strong>Date delivery:</strong>
-                <p class="m-0" t-field="o.delivery_date" />
-            </div>
-        </xpath>
-
         <!-- add croatia fiscal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
@@ -67,19 +55,25 @@
 
         <xpath expr="//div[@id='partner_vat_address_not_same_as_shipping']" position="before">
             <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
-                Company ID: <span t-field="o.partner_id.company_registry"/>
+                <div id="company_registry_nsa">
+                    Company ID: <span t-field="o.partner_id.company_registry"/>
+                </div>
             </div>
         </xpath>
 
         <xpath expr="//div[@id='partner_vat_address_same_as_shipping']" position="before">
             <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
-                Company ID: <span t-field="o.partner_id.company_registry"/>
+                <div id="company_registry_sa">
+                    Company ID: <span t-field="o.partner_id.company_registry"/>
+                </div>
             </div>
         </xpath>
 
         <xpath expr="//div[@id='partner_vat_no_shipping']" position="before">
             <div t-if="o.partner_id.company_registry and o.company_id.country_code == 'HR'">
-                Company ID: <span t-field="o.partner_id.company_registry"/>
+                <div id="company_registry_ns">
+                    Company ID: <span t-field="o.partner_id.company_registry"/>
+                </div>
             </div>
         </xpath>
 

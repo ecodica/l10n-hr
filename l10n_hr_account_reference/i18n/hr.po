@@ -39,28 +39,28 @@ msgstr "4. polje poziva na broj."
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
 msgid ""
 "<br/>\n"
-"                <span>Account Number : </span>"
+"                <span>Account Number: </span>"
 msgstr ""
 "<br/>\n"
-"                <span>Broj računa : </span>"
+"                <span>Broj računa: </span>"
 
 #. module: l10n_hr_account_reference
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
 msgid ""
 "<br/>\n"
-"                <span>Bank : </span>"
+"                <span>Bank: </span>"
 msgstr ""
 "<br/>\n"
-"                <span>Banka : </span>"
+"                <span>Banka: </span>"
 
 #. module: l10n_hr_account_reference
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
 msgid ""
 "<br/>\n"
-"                <span>Payment Reference : </span>"
+"                <span>Payment Reference: </span>"
 msgstr ""
 "<br/>\n"
-"                <span>Poziv na broj : </span>"
+"                <span>Poziv na broj: </span>"
 
 #. module: l10n_hr_account_reference
 #. odoo-python

@@ -6,16 +6,16 @@
         <xpath expr="//p[@name='payment_communication']" position="replace">
             <div id ="l10n_hr_account_reference_payment_communication">
                 <div id="l10n_hr_ref_bank">
-                    <span>Bank : </span>
+                    <span>Bank: </span>
                     <b><span t-field="o.partner_bank_id.bank_id.bic" /></b>-
                     <span t-field="o.partner_bank_id.bank_id.name" />
                 </div>
                 <div id="l10n_hr_ref_acc_num">
-                    <span>Account Number : </span>
+                    <span>Account Number: </span>
                     <b><span t-field="o.partner_bank_id.acc_number" /></b>
                 </div>
                 <div id="l10n_hr_ref_payment_ref">
-                    <span>Payment Reference : </span>
+                    <span>Payment Reference: </span>
                     <b><span t-field="o.payment_reference" /></b>
                 </div>
             </div>

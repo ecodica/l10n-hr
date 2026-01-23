@@ -14,18 +14,20 @@
         <!-- add croatia fiscal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
-                <div id="l10n_hr_info" class="row mt-4 mb-4">
+                <div id="l10n_hr_info" class="mt-4 mb-4 clearfix" style="overflow:hidden; display: block !important; font-size:14px;">
                     <div
-                        class="col-auto col-3 mw-100 mb-2 px-1"
+                        class="col-4 float-left mb-2 px-1"
                         t-if="o.l10n_hr_payment_method"
+                        style="width: 33.3% !important; float: left !important; min-height: 55px;"
                         name="l10n_hr_payment_method"
                     >
                         <strong>Payment means:</strong>
                         <p class="m-0" t-field="o.l10n_hr_payment_method" />
                     </div>
                     <div
-                        class="col-auto col-3 mw-100 mb-2 px-1"
+                        class="col-4 float-left mb-2 px-1"
                         t-if="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''"
+                        style="width: 33.3% !important; float: left !important; min-height: 55px;"
                         name="l10n_hr_invoice_place"
                     >
                         <strong>Place of issue:</strong>
@@ -35,19 +37,22 @@
                         />
                     </div>
                     <div
-                        class="col-auto col-3 mw-100 mb-2 px-1"
-                        t-if="o.l10n_hr_fiscal_time"
-                    >
-                        <strong>Confirmation time:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_fiscal_time" />
-                    </div>
-                    <div
-                        class="col-auto col-3 mw-100 mb-2 px-1"
+                        class="col-4 float-left mb-2 px-1"
                         t-if="o.name and o.name != o.l10n_hr_fiscal_number"
+                        style="width: 33.3% !important; float: left !important; min-height: 55px;"
                         name="l10n_hr_internal_number"
                     >
                         <strong>Internal number:</strong>
                         <p class="m-0" t-field="o.name" />
+                    </div>
+                    <div
+                        class="col-4 float-left mb-2 px-1"
+                        t-if="o.l10n_hr_fiscal_time"
+                        style="width: 33.3% !important; float: left !important; min-height: 55px;"
+                        name="l10n_hr_fiscal_time"
+                    >
+                        <strong>Confirmation time:</strong>
+                        <p class="m-0" t-field="o.l10n_hr_fiscal_time" />
                     </div>
                 </div>
             </t>

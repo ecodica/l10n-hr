@@ -31,8 +31,10 @@ class AccountMove(models.Model):
 
     def _l10n_hr_ar_get(self):
 
-        def getP1_P4data(self, what, defaults):
+        def getP1_P4data(self, what, defaults, model):
             result = ""
+            if not what:
+                return result
             what = what or defaults.get(what._name)
             if what == "move_id":
                 result = str(self.id)
@@ -53,22 +55,27 @@ class AccountMove(models.Model):
                 result = dt.strftime(self.invoice_date, "%Y%m")
             elif what == "delivery_ym":
                 result = dt.strftime(self.delivery_date, "%Y%m")
+            # In case of no control method that just contains HR return raw result
+            if model == 'HR':
+                return result
             return ar.get_only_numeric_chars(result)
 
         model = self.journal_id.invoice_reference_model
         default_properties = self._l10n_hr_get_default_properties()
 
         P1 = getP1_P4data(
-            self, self.journal_id.property_l10n_hr_P1_ar, default_properties)
+            self, self.journal_id.property_l10n_hr_P1_ar, default_properties, model)
         P2 = getP1_P4data(
-            self, self.journal_id.property_l10n_hr_P2_ar, default_properties)
+            self, self.journal_id.property_l10n_hr_P2_ar, default_properties, model)
         P3 = getP1_P4data(
-            self, self.journal_id.property_l10n_hr_P3_ar, default_properties)
+            self, self.journal_id.property_l10n_hr_P3_ar, default_properties, model)
         P4 = getP1_P4data(
-            self, self.journal_id.property_l10n_hr_P4_ar, default_properties)
+            self, self.journal_id.property_l10n_hr_P4_ar, default_properties, model)
 
         res = ar.reference_number_get(model, P1, P2, P3, P4)
         
+        if model == "HR":
+            return res
         return " ".join((model, res))
 
     def _get_invoice_computed_reference(self):

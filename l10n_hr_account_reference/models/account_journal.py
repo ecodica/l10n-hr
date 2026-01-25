@@ -10,6 +10,7 @@ L10N_HR_MODELS = {
     'hr04': ('HR04', 'HR04 - P1-P2-P3  [k(P1), P2, k(P3)]'),
     'hr06': ('HR06', 'HR06 - P1-P2-P3  [k(P2,P3)]'),
     'hr99': ('HR99', 'HR99 - No Control'),
+    'hr': ('HR', 'No Control'),
 }
 
 

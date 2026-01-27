@@ -24,8 +24,9 @@ DEMO = {
 }
 
 
-class FiskalCertificate(models.Model):
+class L10nHrFiskalCertificate(models.Model):
     _name = "l10n.hr.fiskal.certificate"
+    _inherit = 'mail.thread'
     _description = "Fiskal certificate store"
 
     company_id = fields.Many2one(
@@ -94,7 +95,7 @@ class FiskalCertificate(models.Model):
         ],
         readonly=True,
         default="draft",
-        tracking=1,
+        tracking=True,
     )
 
     def button_convert_p12(self):

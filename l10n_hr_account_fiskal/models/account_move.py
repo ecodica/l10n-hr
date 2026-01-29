@@ -59,8 +59,9 @@ class AccountMove(models.Model):
 
     def button_draft(self):
         """ Extend to clear ZKI if not fully fiscalized """
-        if self.l10n_hr_zki and not self.l10n_hr_jir:
-            self.l10n_hr_zki = False
+        for move in self:
+            if move.l10n_hr_zki and not move.l10n_hr_jir:
+                move.l10n_hr_zki = False
         super().button_draft()
 
     def action_cron_fiskaliziraj_batch(self):

@@ -189,7 +189,7 @@
       <wsdl:output>
         <soap:body use="literal"/>
       </wsdl:output>
-    </wsdl:operation>	
+    </wsdl:operation>
     <wsdl:operation name="echo">
       <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/echo"/>
       <wsdl:input>

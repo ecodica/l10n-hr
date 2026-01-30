@@ -72,13 +72,10 @@ class L10nHrBusinessPremise(models.Model):
              "this is number sequence is used as first part of "
              "invoice fiscal number.")
 
-    _sql_constraints = [
-        (
-            "l10n_hr_business_premise_uniq",
-            "unique (l10n_hr_fiscal_code,company_id)",
-            "The code of the business premise must be unique per company!",
-        )
-    ]
+    _l10n_hr_business_premise_uniq = models.Constraint(
+        'unique (l10n_hr_fiscal_code,company_id)',
+        "The code of the business premise must be unique per company!",
+    )
 
     def _get_sequence_fiscal_code(self, pos=None):
         self.ensure_one()

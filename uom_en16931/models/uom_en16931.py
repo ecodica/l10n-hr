@@ -10,9 +10,10 @@ class UomEn16931(models.Model):
     name = fields.Char(string="Name", required=True)
     display_name = fields.Char(string="Display Name", compute='_compute_display_name', store=True)
 
-    _sql_constraints = [
-        ('code_uniq', 'UNIQUE(code)', 'The EN16931 UoM code has to be unique!')
-    ]
+    _code_uniq = models.Constraint(
+        'UNIQUE(code)',
+        "The EN16931 UoM code has to be unique!",
+    )
 
     @api.depends('code', 'name')
     def _compute_display_name(self):

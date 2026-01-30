@@ -119,7 +119,7 @@ class L10nHrFiscalCertificate(models.Model):
     )
 
     def _get_datastore_path(self):
-        return odoo_config.filestore(self._cr.dbname)
+        return odoo_config.filestore(self.env.cr.dbname)
 
     def _get_fiscal_cert_path(self):
         path = os.path.join(self._get_datastore_path(), "l10n_hr")
@@ -128,9 +128,9 @@ class L10nHrFiscalCertificate(models.Model):
         return path
 
     def _get_key_cert_file_name(self):
-        key = "{}-{}-{}_key.pem".format(self.cert_type, self.id, self._cr.dbname)
-        crt = "{}-{}-{}_crt.pem".format(self.cert_type, self.id, self._cr.dbname)
-        # fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self._cr.dbname)
+        key = "{}-{}-{}_key.pem".format(self.cert_type, self.id, self.env.cr.dbname)
+        crt = "{}-{}-{}_crt.pem".format(self.cert_type, self.id, self.env.cr.dbname)
+        # fina = "{}-{}-{}_fina.pem".format(self.cert_type, self.id, self.env.cr.dbname)
         return key, crt
 
     def _disk_check_exist(self, file):

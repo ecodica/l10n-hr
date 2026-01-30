@@ -61,13 +61,10 @@ class L10nHrFiscalDevice(models.Model):
         required=True,
         tracking=1)
 
-    _sql_constraints = [
-        (
-            "l10n_hr_fiscal_device_uniq",
-            "unique (l10n_hr_fiscal_device_code,l10n_hr_business_premise_id)",
-            "The code of the payment register must be unique per business premise!",
-        )
-    ]
+    _l10n_hr_fiscal_device_uniq = models.Constraint(
+        'unique (l10n_hr_fiscal_device_code,l10n_hr_business_premise_id)',
+        "The code of the payment register must be unique per business premise!",
+    )
 
     @api.depends(
         "l10n_hr_business_premise_id",

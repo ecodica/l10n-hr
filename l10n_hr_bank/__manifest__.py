@@ -4,7 +4,7 @@
     "summary": "Croatia Banking localization",
     "category": "Croatia",
     "images": [],
-    "version": "18.0.1.0.0",
+    "version": "19.0.1.0.0",
     "application": False,
     "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",

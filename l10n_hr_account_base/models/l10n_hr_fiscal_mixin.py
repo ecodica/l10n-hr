@@ -23,7 +23,6 @@ class L10nHrFiscalMixin(models.AbstractModel):
     l10n_hr_payment_method = fields.Selection(
         selection=[("G", "Cash"),
                    ("K", "Credit or debit cards"),
-                   # ("C", "Bank Cheque"),
                    ("T", "Bank transfer"),
                    ("O", "Other payment means"),
                    ],

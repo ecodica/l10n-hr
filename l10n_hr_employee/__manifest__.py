@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Odoo, Open Source ERP Solution
@@ -23,7 +22,7 @@
 ##############################################################################
 {
     "name": "L10N HR Employee",
-    "version": "18.0.0.0.1",
+    "version": "19.0.1.0.0",
     "summary": "Adds required fields for croatia localization",
     "author": "Uvid d.o.o.",
     "category": "Human Resources/Employees",

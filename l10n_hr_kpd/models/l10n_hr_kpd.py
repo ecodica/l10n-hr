@@ -36,9 +36,10 @@ class L10nHrKpd(models.Model):
         ], compute="_compute_type", store=True)
     parent_id = fields.Many2one(comodel_name='l10n.hr.kpd', string="Parent")
 
-    _sql_constraints = [
-        ('code_uniq', 'UNIQUE(code)', 'The KPD code has to be unique!')
-    ]
+    _code_uniq = models.Constraint(
+        'UNIQUE(code)',
+        "The KPD code has to be unique!",
+    )
 
     @api.depends('level')
     def _compute_type(self):

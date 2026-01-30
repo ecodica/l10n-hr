@@ -8,7 +8,7 @@ FISCAL_DATETIME_FORMAT = '%d.%m.%YT%H:%M:%S'
 INVOICE_DATETIME_FORMAT = '%d.%m.%Y %H:%M'
 
 
-class Company(models.Model):
+class ResCompany(models.Model):
     _inherit = "res.company"
 
     # Technical field to hide country specific fields in company form view
@@ -69,6 +69,10 @@ class Company(models.Model):
         # odoo16 - date/time) fields are WITH TZ info! diff from previous versions!
         user_tz = self.env.user.tz or self.env.context.get("tz")
         user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
+        # [19] Replace manual timezone context access with 'env.tz'.
+        # This new property provides automatic timezone resolution with proper fallbacks (context -> user -> UTC).
+        # pre v19 timezone = pytz.timezone(self.env.context.get('tz') or self.env.user.tz or 'UTC')
+        user_pytz = self.env.tz
         tstamp = datetime.now().astimezone(user_pytz)
         time_now = tstamp.replace(tzinfo=None)
         return {

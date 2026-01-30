@@ -7,6 +7,7 @@ class L10nHrPnpCategory(models.Model):
 
     name = fields.Char(required=True)
     
-    _sql_constraints = [
-        ('unique_name', 'unique(name)', 'The name must be unique!')
-    ]
+    _unique_name = models.Constraint(
+        'unique(name)',
+        "The name must be unique!",
+    )

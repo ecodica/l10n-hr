@@ -5,7 +5,7 @@
     "category": "Croatia",
     "countries": ['hr'],
     "images": [],
-    "version": "18.0.3.0.0",
+    "version": "19.0.1.0.0",
     "application": False,
     'author': "Ecodica",
     "license": 'LGPL-3',

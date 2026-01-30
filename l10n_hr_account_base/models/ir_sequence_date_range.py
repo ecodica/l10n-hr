@@ -1,7 +1,7 @@
 from odoo import fields, models
 
 
-class IrSequenceDateRange(models.Model):
+class IrSequenceDate_Range(models.Model):
     _inherit = "ir.sequence.date_range"
 
     def name_get(self):

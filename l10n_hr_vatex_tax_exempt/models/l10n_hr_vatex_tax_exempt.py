@@ -11,9 +11,10 @@ class L10nHrVatexTaxExempt(models.Model):
     display_name = fields.Char(string="Display Name", compute='_compute_display_name', store=True)
     description = fields.Text(string="Description")
 
-    _sql_constraints = [
-        ('code_uniq', 'UNIQUE(code)', 'The VATEX tax exempt code has to be unique!')
-    ]
+    _code_uniq = models.Constraint(
+        'UNIQUE(code)',
+        "The VATEX tax exempt code has to be unique!",
+    )
 
     @api.depends('code', 'name')
     def _compute_display_name(self):

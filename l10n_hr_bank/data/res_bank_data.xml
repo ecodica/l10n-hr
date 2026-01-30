@@ -2,7 +2,7 @@
 <!-- List of active banks in Croatia: 
  https://www.hnb.hr/temeljne-funkcije/supervizija/popis-kreditnih-institucija -->
 <odoo>
-    <data noupdate="0">
+    <data>
         
         <!-- Croatian banks -->
         <record id="res_bank_hr_2500009" model="res.bank">

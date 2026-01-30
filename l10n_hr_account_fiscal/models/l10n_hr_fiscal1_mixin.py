@@ -246,6 +246,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
     def _prepare_fiscal_date_time(self):
         """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
+        # TODO: v19 use self.env.tz?
         formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
             pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(FISCAL_DATETIME_FORMAT)
         return formatted_date

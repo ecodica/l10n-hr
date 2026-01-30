@@ -6,6 +6,10 @@ from odoo.tools import float_compare
 
 _logger = logging.getLogger(__name__)
 
+"""
+  Set of Abstract mixins needed for Invoice (account.move & account.move.line) 
+  and POS
+"""
 
 class l10nHrInvoiceMixin(models.AbstractModel):
     """Contains minimum set of fields for ALL Croatian invoices

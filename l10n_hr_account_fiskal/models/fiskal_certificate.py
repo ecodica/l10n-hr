@@ -71,7 +71,7 @@ class L10nHrFiskalCertificate(models.Model):
         readonly=True,
     )
     cert_oib = fields.Char(
-        readonly=True,
+        readonly=False,
     )
     pem_key = fields.Text(
         string="Private key",

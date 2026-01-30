@@ -19,8 +19,16 @@ class AccountMove(models.Model):
     @api.onchange('journal_id')
     def _onchange_journal_id(self):
         res = super()._onchange_journal_id()
-        if self.company_id.account_fiscal_country_id.code != "HR":
+        if self.country_code != 'HR':
             return res
-        if self.journal_id.l10n_hr_business_process_type_id:
-            self.l10n_hr_business_process_type_id = self.journal_id.l10n_hr_business_process_type_id.id
+        self.l10n_hr_business_process_type_id = self.journal_id.l10n_hr_business_process_type_id
         return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        moves = super().create(vals_list)
+        for move in moves:
+            if move.country_code == 'HR' and not move.l10n_hr_business_process_type_id:
+                move.l10n_hr_business_process_type_id = (move.journal_id
+                                                         and move.journal_id.l10n_hr_business_process_type_id)
+        return moves

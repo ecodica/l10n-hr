@@ -70,6 +70,13 @@
     <wsdl:part element="fis:DohvatiRadnoVrijemeOdgovor" name="response"/>
   </wsdl:message>
 
+  <wsdl:message name="PrijaviRadnoVrijemeZaPoslovniceRequest">
+    <wsdl:part element="fis:PrijaviRadnoVrijemeZaPoslovniceZahtjev" name="request"/>
+  </wsdl:message>
+  <wsdl:message name="PrijaviRadnoVrijemeZaPoslovniceResponse">
+    <wsdl:part element="fis:PrijaviRadnoVrijemeZaPoslovniceOdgovor" name="response"/>
+  </wsdl:message>
+
   <wsdl:portType name="FiskalizacijaPortType">
     <wsdl:operation name="racuni">
       <wsdl:input message="uis:RacuniRequest"/>
@@ -99,7 +106,10 @@
       <wsdl:input message="uis:DohvatiRadnoVrijemeRequest"/>
       <wsdl:output message="uis:DohvatiRadnoVrijemeResponse"/>
     </wsdl:operation>
-
+    <wsdl:operation name="prijaviRadnoVrijemeZaPoslovnice">
+      <wsdl:input message="uis:PrijaviRadnoVrijemeZaPoslovniceRequest"/>
+      <wsdl:output message="uis:PrijaviRadnoVrijemeZaPoslovniceResponse"/>
+    </wsdl:operation>
     <wsdl:operation name="echo">
       <wsdl:input message="uis:EchoRequest"/>
       <wsdl:output message="uis:EchoResponse"/>
@@ -160,7 +170,7 @@
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
-      </wsdl:output>prijaviRadnoVrijeme
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="dohvatiRadnoVrijeme">
       <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/dohvatiRadnoVrijeme"/>
@@ -169,8 +179,17 @@
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
-      </wsdl:output>prijaviRadnoVrijeme
+      </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="prijaviRadnoVrijemeZaPoslovnice">
+      <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/prijaviRadnoVrijemeZaPoslovnice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>	
     <wsdl:operation name="echo">
       <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/echo"/>
       <wsdl:input>
@@ -184,7 +203,7 @@
 
   <wsdl:service name="FiskalizacijaService">
     <wsdl:port name="FiskalizacijaPortType" binding="uis:FiskalizacijaService">
-      <soap:address location="https://cis.porezna-uprava.hr:8449/FiskalizacijaService"/>
+      <soap:address location="https://cistest.apis-it.hr:8449/FiskalizacijaServiceTest"/>
     </wsdl:port>
   </wsdl:service>
 

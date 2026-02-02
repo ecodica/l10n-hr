@@ -304,6 +304,10 @@ class FiscalFiscalMixin(models.AbstractModel):
                 NazivN=naziv, IznosN=fiskal.format_decimal(iznos)
             )
             res["Naknade"].append(naknada)
+
+        if tax_data.get("IznosOslobPdv", None):
+            res["IznosOslobPdv"] = tax_data["IznosOslobPdv"]
+
         return res
 
     def _prepare_fisk_racun_invoice_total(self):
@@ -372,7 +376,10 @@ class FiscalFiscalMixin(models.AbstractModel):
 
     def _validate_fisk_racun(self, racun):
         """Provjeri ispravnost generiranog fisk racuna prije slanja"""
-        racun_osnovica = racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0
+        racun_osnovica = (
+            (racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0)
+            + float(racun.IznosOslobPdv or 0.0)
+        )
         pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
         pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
         # NOTE: ako je ukupni iznos računa negativan tada je negativna i osnovica računa

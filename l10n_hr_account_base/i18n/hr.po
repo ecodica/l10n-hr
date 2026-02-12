@@ -128,6 +128,11 @@ msgid "Allowed PoS Devices"
 msgstr "Dozvoljeni naplatni uređaji"
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_user_ids
+msgid "Allowed Users"
+msgstr "Dozvoljeni korisnici"
+
+#. module: l10n_hr_account_base
 #: model:ir.model.constraint,message:l10n_hr_account_base.constraint_account_move_unique_name
 #: model:ir.model.constraint,message:l10n_hr_account_base.constraint_account_move_unique_name_l10n_hr
 msgid "Another entry with the same name already exists."
@@ -496,6 +501,14 @@ msgid ""
 msgstr ""
 "Bazirano na poslovnom prostoru, (P) ovaj brojevni krug se koristi kao prvi "
 "dio fiskalnog broja računa."
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_partner__l10n_hr_operator_name
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_users__l10n_hr_operator_name
+msgid ""
+"It will be printed on reports instead of the full name of the partner when "
+"the operator (Fiscal User) is printed (e.g. on invoices)"
+msgstr "Oznaka operatera će biti ispisana na računu umjesto standardnog naziva osobe koja je izdala račun"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_invoice_place

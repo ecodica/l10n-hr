@@ -36,7 +36,7 @@ class L10nHrBusinessPremise(models.Model):
             ("P", "On business premise level")],
         string="Sequence By",
         required=True,
-        default="P",
+        default="N",
         tracking=1)
     l10n_hr_invoice_place = fields.Char(
         string="Place Of Invoicing",  # required="True",
@@ -216,6 +216,12 @@ class L10nHrFiscalDevice(models.Model):
         column2="l10n_hr_journal_id",
         string="Allowed Journals",
         domain="[('type', 'in', ['sale','sale_refund'])]")
+    l10n_hr_user_ids = fields.Many2many(
+        comodel_name="res.users",
+        string="Allowed Users",
+        domain=lambda self: [('groups_id', 'in', self.env.ref('base.group_user').id)]
+    )
+
     l10n_hr_sequence_id = fields.Many2one(
         comodel_name="ir.sequence",
         name="Sequence",

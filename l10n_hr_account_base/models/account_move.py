@@ -142,7 +142,7 @@ class AccountMove(models.Model):
                 vals = [
                     (4, fd.id)
                     for fd in move.journal_id.l10n_hr_fiscal_device_ids
-                    if fd.l10n_hr_state == "active"
+                    if fd.l10n_hr_state == "active" and (not fd.l10n_hr_user_ids or self.env.user in fd.l10n_hr_user_ids)
                 ]
 
             move.l10n_hr_allowed_fiscal_device_ids = vals

@@ -83,6 +83,7 @@
                                         widget="many2many_tags"
                                         domain="['&amp;',('type','=','sale'),'|',('l10n_hr_business_premise_id','=',False),('l10n_hr_business_premise_id','=', l10n_hr_business_premise_id)]"
                                     />
+                                    <field name="l10n_hr_user_ids" widget="many2many_tags" options="{'create': false, 'create_edit': false, 'm2o_dialog': false}"/>
                                     <field name="l10n_hr_invoice_sequence_by" column_invisible="True" />
                                     <field name="l10n_hr_sequence_id" optional="hide" column_invisible="'l10n_hr_invoice_sequence_by' == 'P'"/>
                                     <field name="l10n_hr_state" widget="badge" />
@@ -193,6 +194,7 @@
                     <field name="l10n_hr_fiscal_device_code" readonly="l10n_hr_lock"/>
                     <field name="l10n_hr_sequence_id" readonly="l10n_hr_lock" invisible="l10n_hr_invoice_sequence_by == 'P'"/>
                     <field name="l10n_hr_journal_ids" widget="many2many_tags" readonly="l10n_hr_lock"/>
+                    <field name="l10n_hr_user_ids" widget="many2many_tags" options="{'create': false, 'create_edit': false, 'm2o_dialog': false}"/>
                 </group>
                 </sheet>
                 <chatter/>

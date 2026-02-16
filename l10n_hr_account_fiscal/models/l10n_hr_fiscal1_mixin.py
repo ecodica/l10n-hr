@@ -108,7 +108,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
                     _("Company OIB is not not entered! It is required for fiscalization")
                 )
             if (
-                    self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
                     self.partner_id.is_company and
                     not self.partner_id.company_registry
             ):
@@ -116,31 +116,31 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
                     _("To fiscalize an R1 invoice, an OIB must be set on the company %s") % self.partner_id.display_name
                 )
             if (
-                    self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
                     self.partner_id.is_company and
-                    self.l10n_hr_account_payment_type_id.code == 'T'
+                    self.l10n_hr_payment_method == 'T'
             ):
                 res.append(
-                    _("R1 invoice cannot be fiscalized with %s payment type") % self.l10n_hr_account_payment_type_id.display_name
+                    _("R1 invoice cannot be fiscalized with %s payment type") % self.l10n_hr_payment_method
                 )
             if (
-                    self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
-                    self.l10n_hr_account_payment_type_id.code == 'G' and
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.l10n_hr_payment_method == 'G' and
                     float_compare(self.amount_total, 10000, precision_digits=self.currency_id.decimal_places) == 1
             ):
                 res.append(
                     _("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the %s payment type") %
-                    self.l10n_hr_account_payment_type_id.display_name
+                    self.l10n_hr_payment_method
                 )
             if (
-                    self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
-                    self.l10n_hr_account_payment_type_id.code == 'G' and
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.l10n_hr_payment_method == 'G' and
                     self.partner_id.is_company and
                     float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
             ):
                 res.append(
                     _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the %s payment type") %
-                    self.l10n_hr_account_payment_type_id.display_name
+                    self.l10n_hr_payment_method
                 )
 
             if not self.l10n_hr_fiscal_user_id.company_registry:

@@ -333,8 +333,13 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
             # this is valid OIB, for B2C and B2B customers, without a country prefix
-            OibPrimateljaRacuna=self.partner_id.company_registry or ''
         )
+        if self.partner_id.is_company:
+            if self.partner_id.company_registry:
+                # this is valid OIB, for B2C and B2B customers, without a country prefix
+                racun.OibPrimateljaRacuna = self.partner_id.company_registry
+            else:
+                raise ValidationError(_("Partner {} is defined as R1 but missing VAT").format(self.partner_id.display_name))
         return racun
 
     def _validate_fiscal_invoice(self, racun):

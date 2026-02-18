@@ -158,7 +158,8 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
     def _l10n_hr_fiscalization_needed(self):
         """"Check if invoice should be fiscalized"""
-        if self.l10n_hr_fiscal_device_id.fiscalization_active and (
+        if self.l10n_hr_fiscal_device_id.fiscalization_active and self.l10n_hr_business_process_type_id.code == 'XF1' \
+                and (
                 not self.company_id.l10n_hr_fiscal_transaction_type_skip or
                 self.l10n_hr_payment_method != "T"
         ):

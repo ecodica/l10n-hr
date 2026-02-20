@@ -3,7 +3,7 @@ import io
 import logging
 from datetime import datetime
 import qrcode
-from odoo.tools import float_compare
+from odoo.tools import float_compare, float_round
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -151,6 +151,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         return res
 
     def _get_fisk_tax_values(self):
+        precision = self.env['decimal.precision'].precision_get('Account')
         tax_data = {
             "Pdv": {},
             "Pnp": {},
@@ -172,13 +173,15 @@ class FiscalFiscalMixin(models.AbstractModel):
                 # for now, let's assume we have tax lines with amount zero!
                 if not tax.l10n_hr_fiskal_type:
                     raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
+                if tax.amount_type != 'percent':
+                    raise ValidationError(_("Tax '%s' must be percent type!") % tax.name)
                 fiskal_type = tax.l10n_hr_fiskal_type
                 naziv = tax.name
                 stopa = tax.amount  # if amount type == percent??
                 osnovica = line["price_subtotal"]
                 iznos = 0.0
                 if stopa != 0.0:
-                    iznos = osnovica * 100 / stopa
+                    iznos = float_round(osnovica * (stopa / 100.0), precision_digits=precision)
 
                 if fiskal_type == "Pdv":
                     if tax_data["Pdv"].get(stopa):

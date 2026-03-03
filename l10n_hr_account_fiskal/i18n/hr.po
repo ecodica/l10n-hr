@@ -1115,3 +1115,15 @@ msgid ""
 msgstr ""
 "ZKI broj nije postavljen na računu koji se fiskalizira. Provjerite da li je "
 "fiskalizacija ispravno postavljena."
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/account_move.py:0
+msgid "The following invoice line(s) must have a tax assigned: %s"
+msgstr "Sljedeće stavke računa moraju imati porez: %s"
+
+#. module: l10n_hr_account_fiskal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiskal/models/account_move.py:0
+msgid " ... (%s more)"
+msgstr " ... (%s više)"

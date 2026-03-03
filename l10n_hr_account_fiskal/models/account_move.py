@@ -204,6 +204,23 @@ class AccountMove(models.Model):
                     self.reversed_entry_id.l10n_hr_fiscal_device_id.l10n_hr_name,
                 )
             )
+        if self.l10n_hr_fiscal_device_id.fiskalisation_active:
+            product_lines_without_tax = self.line_ids.filtered(
+                lambda l: l.display_type == 'product' and not l.tax_ids
+            )
+            if product_lines_without_tax:
+                lines_info = ', '.join(
+                    product_lines_without_tax[:5].mapped('name')
+                )
+                if len(product_lines_without_tax) > 5:
+                    lines_info += _(' ... (%s more)') % (
+                        len(product_lines_without_tax) - 5
+                    )
+                res.append(
+                    _(
+                        "The following invoice line(s) must have a tax assigned: %s"
+                    ) % lines_info
+                )
         return res
 
     def _l10n_hr_fiscalization_needed(self, message_type):

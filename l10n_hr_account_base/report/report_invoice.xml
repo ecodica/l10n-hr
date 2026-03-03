@@ -93,6 +93,12 @@
             </div>
         </xpath>
 
+        <xpath expr="//div[@t-field='o.partner_shipping_id']" position="after">
+            <div t-if="o.partner_shipping_id.company_registry and o.company_id.country_code == 'HR'">
+                Company ID: <span t-field="o.partner_shipping_id.company_registry"/>
+            </div>
+        </xpath>
+
         <!-- on croatian invoices, unit of meassue must be always visible -->
         <xpath expr="//span[@t-field='line.product_uom_id']" position="replace">
             <t t-if="o.company_id.account_fiscal_country_id.code == 'HR'">

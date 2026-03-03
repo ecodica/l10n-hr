@@ -1,0 +1,39 @@
+{
+    "name": "Croatia - Fiskalizacija",
+    "summary": "Croatia Fiscalizacija računa",
+    "category": "Croatia",
+    "images": [],
+    "version": "18.0.1.0.0",
+    "application": False,
+    "author": "Daj mi 5, Odoo Community Association (OCA), info3 d.o.o.",
+    "website": "https://github.com/OCA/l10n-croatia",
+    "support": "",
+    "license": "AGPL-3",
+    "depends": [
+        "l10n_hr_account_base",
+    ],
+    "external_dependencies": {"python": ["zeep", "xmlsec"], "bin": []},
+    "data": [
+        "data/account_move_fiskalisation_cron.xml",
+        "views/fiskal_certificate_views.xml",
+        "views/account_tax.xml",
+        "views/fiskal_data_view.xml",
+        "views/fiskal_log_views.xml",
+        "views/res_company.xml",
+        "views/account_move_views.xml",
+        "views/pnp_category_views.xml",
+        "views/product_views.xml",
+        "report/report_invoice.xml",
+        "security/ir.model.access.csv",
+    ],
+    "assets": {
+        "web.assets_backend": [
+        "l10n_hr_account_fiskal/static/src/js/not_fiscalized_invoices_systray.js",
+        "l10n_hr_account_fiskal/static/src/xml/not_fiscalized_invoices_systray.xml",
+        "l10n_hr_account_fiskal/static/src/scss/fiscalize_button.scss",
+        ]
+    },
+    "demo": [],
+    "auto_install": False,
+    "installable": True,
+}

@@ -1,5 +1,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from datetime import datetime
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_TIME_FORMAT
 
 
 class AccountMove(models.Model):
@@ -83,6 +85,10 @@ class AccountMove(models.Model):
              " only if there is something to select"
              " like 2 or more devices for this journal",
     )
+    l10n_hr_issue_date = fields.Date(compute="_compute_l10n_hr_issue_date",
+                                     string="Datum izdavanja",
+                                     store=True,
+                                     readonly=True)
 
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""
@@ -158,6 +164,14 @@ class AccountMove(models.Model):
             move.l10n_hr_fiskal_uredjaj_id = vals and vals[0][1]
             move.l10n_hr_allowed_fiskal_uredjaj_ids = vals
             move.l10n_hr_fiskal_uredjaj_visible = len(vals) > 1
+
+    @api.depends('l10n_hr_vrijeme_izdavanja')
+    def _compute_l10n_hr_issue_date(self):
+        for move in self:
+            move.l10n_hr_issue_date = False
+            if move.l10n_hr_vrijeme_izdavanja:
+                move.l10n_hr_issue_date = (datetime.strptime(move.l10n_hr_vrijeme_izdavanja, "%d.%m.%Y %H:%M").
+                                           strftime(DEFAULT_SERVER_DATE_FORMAT))
 
     def _gen_fiskal_number(self):
         self.ensure_one()  # one at a time only!

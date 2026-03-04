@@ -106,6 +106,16 @@
                         optional="hide"
                         attrs="{'invisible':[('country_code','!=', 'HR')]}"
                 />
+                <field
+                        name="l10n_hr_vrijeme_izdavanja"
+                        optional="hide"
+                        attrs="{'invisible':[('country_code','!=', 'HR')]}"
+                />
+                <field
+                        name="l10n_hr_issue_date"
+                        optional="hide"
+                        attrs="{'invisible':[('country_code','!=', 'HR')]}"
+                />
             </field>
         </field>
     </record>

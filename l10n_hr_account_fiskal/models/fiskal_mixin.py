@@ -297,7 +297,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             # Naknade=ws_naknade,
             IznosUkupno=fiskal.format_decimal(self.amount_total),
             NacinPlac=self.l10n_hr_nacin_placanja,
-            OibOper=self.l10n_hr_fiskal_user_id.partner_id.vat[2:],
+            OibOper=self.l10n_hr_fiskal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,
             ParagonBrRac=self.l10n_hr_paragon_br or None,

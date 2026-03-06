@@ -43,6 +43,12 @@ Company settings (menuitem: Settings -> Users and Companies -> Companies ):
 
    - only "/" and "-" are allowed, "/" is default
 
+  PDF417 2D Barcode
+
+    menuitem : Settings >> Users & Companies >> Companies >> Croatia Settings >> Generate Barcode for Bank Transfer Outgoing Invoices
+    If checked, a Barcode for scanning in mBanking app is generated if following conditions are also met:
+    - it is an ougoing invoice
+    - the payment method is Bank Transfer ('T' code)
 
 Accounting settings (menuitem : Invoicing >> Configuration >> Croatia specific settings >> Business premises):
 

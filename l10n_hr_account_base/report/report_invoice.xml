@@ -112,6 +112,16 @@
             <attribute name="t-if" add=" or (o.invoice_date_due and o.move_type == 'out_refund' and o.state == 'posted')" separator=" "/>
         </xpath>
 
+        <xpath expr="//div[@id='qrcode']" position="after">
+            <t t-if="o.company_id.l10n_hr_generate_barcode_transaction_payment_type and
+             o.move_type == 'out_invoice' and
+             o.l10n_hr_account_payment_type_id.code == 'T'">
+                <div id="l10n_qr_barcode" class="ms-auto float-end">
+                    <img t-att-src="o._get_barcode_src()" style="max-height: 100px; width: auto; image-rendering: pixelated;"/>
+                </div>
+            </t>
+        </xpath>
+
     </template>
     <template
         id="l10n_hr_report_storno_invoice_document"

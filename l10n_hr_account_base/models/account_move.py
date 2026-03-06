@@ -1,3 +1,7 @@
+import base64
+import io
+from pdf417gen import encode, render_image
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.sql import drop_index, index_exists
@@ -300,3 +304,47 @@ class AccountMove(models.Model):
         if self.journal_id.l10n_hr_default_account_payment_type_id:
             self.l10n_hr_account_payment_type_id = self.journal_id.l10n_hr_default_account_payment_type_id
         return res
+
+    def _get_barcode_src(self):
+        """ Generates the base64 SRC for the HRVHUB30 barcode """
+        self.ensure_one()
+        barcode_text = self._create_barcode_text()
+
+        # Encoding using PDF417 standard
+        codes = encode(barcode_text, columns=9, security_level=4)
+        image = render_image(codes, scale=2, ratio=3, padding=5)
+
+        buffered = io.BytesIO()
+        image.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue()).decode('utf-8')
+
+        return f"data:image/jpeg;base64,{img_str}"
+
+    def _create_barcode_text(self):
+        """ Formats the text according to the HRVHUB30 standard """
+        self.ensure_one()
+
+        def limit(val, length):
+            return (val or '')[:length]
+
+        text_lines = [
+            'HRVHUB30',                                                             # 0: Header
+            limit(self.currency_id.name, 3),                                        # 1: Currency
+            "{:0>15}".format(int(round(self.amount_total * 100))),                  # 2: Amount in cents
+            limit(self.partner_id.name, 30),                                        # 3: Payer Name
+            limit(self.partner_id.street, 27),                                      # 4: Payer Street
+            limit(f"{self.partner_id.zip or ''} {self.partner_id.city or ''}", 27), # 5: Payer City
+            limit(self.company_id.name, 25),                                        # 6: Receiver Name
+            limit(self.company_id.street, 25),                                      # 7: Receiver Street
+            limit(f"{self.company_id.zip or ''} {self.company_id.city or ''}", 27), # 8: Receiver City
+            limit((self.partner_bank_id.acc_number or '').replace(" ", ""), 21),    # 9: IBAN
+            'HR00',                                                                 # 10: Model
+            limit(self.payment_reference, 22),                                      # 11: Reference
+            'OTHR',                                                                 # 12: Purpose Code
+            limit(self.name, 35),                                                   # 13: Description (Invoice Number)
+        ]
+
+        if text_lines[11].startswith('HR'):                                         #Strip HR00 prefix from payment reference
+             text_lines[11] = text_lines[11][4:].strip()
+
+        return '\n'.join(text_lines)

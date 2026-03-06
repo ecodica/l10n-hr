@@ -40,6 +40,11 @@ class Company(models.Model):
     l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
         string="Show Base Fiskalization Fields On Invoice", default=True)
 
+    l10n_hr_generate_barcode_transaction_payment_type = fields.Boolean(
+        string="Generate Barcode for Bank Transfer Outgoing Invoices", tracking=1,
+        help="If this is enabled, outgoing invoices with 'Bank Transfer' payment type will generate a Barcode and print it on invoice."
+    )
+
     def _compute_l10n_hr_sequences(self):
         for company in self:
             sequences = (

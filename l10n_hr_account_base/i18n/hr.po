@@ -426,6 +426,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_generate_barcode_transaction_payment_type
+msgid "Generate Barcode for Bank Transfer Outgoing Invoices"
+msgstr "Generiraj 2D Barkod na izlaznim transakcijskim računima"
+
+#. module: l10n_hr_account_base
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_move_form
 msgid "HR - Fiskal Number"
 msgstr "HR - Fiskalni broj"
@@ -476,6 +481,13 @@ msgid ""
 msgstr ""
 "Ako nije unešeno uzima se sa poslovnog prostora, kao zakonski obavezan "
 "element"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_company__l10n_hr_generate_barcode_transaction_payment_type
+msgid ""
+"If this is enabled, outgoing invoices with 'Bank Transfer' payment type will"
+" generate a Barcode and print it on invoice."
+msgstr "Ako je ova opcija omogućena, izlazni računi sa načinom plaćanja 'Transakcijski račun će generirati barkod za plaćanje na računu"
 
 #. module: l10n_hr_account_base
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_fiskal_invoice_sequences

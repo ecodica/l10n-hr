@@ -11,6 +11,7 @@
                     <field name="l10n_hr_vat_on_payment_basis" />
                     <field name="l10n_hr_fiskal_separator" />
                     <field name="l10n_hr_show_required_fisk_fields_on_header" />
+                    <field name="l10n_hr_generate_barcode_transaction_payment_type"/>
                 </group>
             </group>
             <group name="l10n_hr_main" position="after">

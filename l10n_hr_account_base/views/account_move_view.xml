@@ -116,6 +116,11 @@
                         optional="hide"
                         attrs="{'invisible':[('country_code','!=', 'HR')]}"
                 />
+                <field
+                        name="l10n_hr_last_payment_date"
+                        optional="hide"
+                        attrs="{'invisible':[('country_code','!=', 'HR')]}"
+                />
             </field>
         </field>
     </record>

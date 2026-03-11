@@ -89,6 +89,19 @@ class AccountMove(models.Model):
                                      string="Datum izdavanja",
                                      store=True,
                                      readonly=True)
+    l10n_hr_last_payment_date = fields.Date(string='Last Payment Date',
+                                            compute='_compute_l10n_hr_last_payment_date',
+                                            readonly=True, store=True)
+
+    @api.depends('line_ids')
+    def _compute_l10n_hr_last_payment_date(self):
+        for move in self:
+            move.l10n_hr_last_payment_date = False
+            if move.state == 'posted' and move.is_invoice(include_receipts=True):
+                reconciled_partials = move._get_all_reconciled_invoice_partials()
+                if reconciled_partials:
+                    reconcile_dates = map(lambda r: r['aml'].date, reconciled_partials)
+                    move.l10n_hr_last_payment_date = max(reconcile_dates)
 
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""

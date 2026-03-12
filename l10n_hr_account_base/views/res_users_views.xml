@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_simple_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.l10n_hr_edi.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <label for="company_registry" groups="account.group_account_invoice" string="OIB"/>
+                <field name="company_registry" class="oe_inline"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

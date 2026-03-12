@@ -138,8 +138,7 @@ class FiscalFiscalMixin(models.AbstractModel):
                 _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the Cash payment type")
             )
         if (
-                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active
-                and not self.l10n_hr_fiskal_user_id.partner_id.vat
+                self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and not self.l10n_hr_fiskal_user_id.company_registry
         ):
             res.append(
                 _("User OIB is not not entered! It is required for fiscalization")

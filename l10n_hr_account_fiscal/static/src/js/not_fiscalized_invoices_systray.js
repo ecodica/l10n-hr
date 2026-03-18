@@ -15,10 +15,12 @@ export class NotFiscalizedInvoicesSystray extends Component {
             counterTotal: 0
         });
         this.orm = useService("orm");
+        this.isAlive = true;
         this.intervalInvoice = setInterval(() => {
             this.fetchCounter();
         }, 5000);
         onWillUnmount(() => {
+            this.isAlive = false;
             clearInterval(this.intervalInvoice);
         });
    }
@@ -48,6 +50,7 @@ export class NotFiscalizedInvoicesSystray extends Component {
             [],
             {company_id}
         );
+        if (!this.isAlive) return;
         if(this.state.counterInvoice != count){
             this.state.counterTotal -= (this.state.counterInvoice-count)
             this.state.counterInvoice = count;

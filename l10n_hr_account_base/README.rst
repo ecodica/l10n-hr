@@ -82,3 +82,9 @@ Migration notes:
 * FIX: new translation file generated
 * TODO: write migration scripts
 
+Rounding error on Invoices fix on v18 (18.03.2026.):
+- a new ir.config_parameter was added called 'skip_distribute_delta_amount_smoothly'
+- by default, it is set to 'True'
+- go to "Settings/Technical/System Parameters" to disable it (set to 'False')
+- if it is enabled, the method that distributes delta amounts as a "fix" for rounding errors on invoices is skipped
+- follow Odoo official fixes for this, then it can be disabled/removed

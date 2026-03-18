@@ -4,3 +4,5 @@ from . import account_journal
 from . import account_move
 from . import fiscal_data
 from . import res_partner
+from . import account_tax
+from . import ir_http

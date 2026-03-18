@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_fiskal_prostor_form" model="ir.ui.view">
+        <field name="name">view_fiskal_prostor_form</field>
+        <field name="model">l10n_hr.business.premise</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_prostor_form" />
+        <field name="arch" type="xml">
+            <field name="l10n_hr_state" position="before">
+                <button string="TEST ECHO" type="object" name="button_l10n_hr_fiskal_echo" />
+            </field>
+            <button name="button_close_device" position="after">
+                <button string="TEST ECHO" type="object" icon="fa-smile" class="btn-success" invisible="not fiskalisation_active" name="button_l10n_hr_fiskal_echo" />
+            </button>
+            <notebook position="inside">
+                <page string="Fiskalizacija - Komunikacija">
+                    <field name="fiskal_log_ids" nolabel="1" colspan="4" />
+                </page>
+            </notebook>
+            <xpath expr="//list/field[@name='l10n_hr_state']" position="before">
+                <field name="fiskalisation_active" widget="boolean_toggle" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_fiskal_uredjaj_tree" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_tree</field>
+        <field name="model">l10n_hr.fiscal.device</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_list" />
+        <field name="arch" type="xml">
+            <field name="l10n_hr_lock" position="before">
+                <field name="fiskalisation_active" widget="boolean_toggle" />
+                <button string="TEST ECHO" type="object" name="button_l10n_hr_fiskal_echo" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_fiskal_uredjaj_form" model="ir.ui.view">
+        <field name="name">view_fiskal_uredjaj_form</field>
+        <field name="model">l10n_hr.fiscal.device</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiskal_uredjaj_form" />
+        <field name="arch" type="xml">
+            <field name="l10n_hr_journal_ids" position="after">
+                <field name="enable_fiskalise_on_confirm"/>
+                <field name="enable_cron_fiskalisation"/>
+                <field name="cron_fiskalisation_delay_hours" invisible="not enable_cron_fiskalisation"/>
+            </field>
+        </field>
+    </record>
+</odoo>

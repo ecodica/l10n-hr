@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_l10n_hr_fiskal_account_move_form" model="ir.ui.view">
+        <field name="name">l10n.hr.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_move_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='croatia']//field[@name='l10n_hr_account_payment_type_id']" position="after">
+                <field name="l10n_hr_paragon_br" readonly ="state != 'draft'" />
+                <field name="l10n_hr_late_delivery" readonly="l10n_hr_jir"/>
+                <button string="Fiskaliziraj" type="object" name="button_fiskaliziraj" invisible = "l10n_hr_fiscal_number == False or l10n_hr_jir" />
+                <button string="Provjera fiskalizacije" type="object" name="button_provjera_fiskalizacije" invisible = "not l10n_hr_jir" />
+            </xpath>
+
+            <button name="action_reverse" position="after">
+            <!--
+                Fiscalize button to be visible and disabled if invoice is already fiscalized
+                as an immediate indicator of "Oh okay this is already fiscalized"
+            -->
+                <div class="button-disabled-renderer" invisible="not l10n_hr_jir"/>
+                <button
+                    invisible="l10n_hr_fiscal_number == False or not l10n_hr_zki"
+                    name="button_fiskaliziraj"
+                    type="object"
+                    class="btn btn-primary btn-fiskaliziraj-header"
+                    string="Fiscalize"
+                />
+            </button>
+
+            <group name="l10n_hr_base_fiskal" position="after">
+                <group name="l10n_hr_fiskal_full" invisible ="l10n_hr_zki == False">
+                    <field name="l10n_hr_zki" />
+                    <field name="l10n_hr_jir" />
+                    <field name="l10n_hr_fiskal_qr" widget="image" />
+                </group>
+                <field name="l10n_hr_fiskal_log_ids" />
+            </group>
+
+        </field>
+    </record>
+
+    <record id="l10n_hr_account_fiskal_view_account_invoice_filter" model="ir.ui.view">
+        <field name="name">l10n.hr.account.fiskal.account.invoice.select</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="to_check" position="before">
+                <filter name="fiscalized" string="Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '!=', False)]"/>
+                <filter name="not_fiscalized" string="Not Fiscalized" domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '=', False)]"/>
+                <separator/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="l10n_hr_account_fiskal_view_account_invoice_tree" model="ir.ui.view">
+        <field name="name">l10n.hr.account.fiskal.account.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <button name="action_force_register_payment" position="after">
+                <button name="action_manual_fiskaliziraj_batch" type="object" string="Fiscalize Batch"/>
+            </button>
+        </field>
+    </record>
+</odoo>

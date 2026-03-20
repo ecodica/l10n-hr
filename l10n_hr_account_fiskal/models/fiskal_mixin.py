@@ -178,6 +178,8 @@ class FiscalFiscalMixin(models.AbstractModel):
                 naziv = tax.name
                 stopa = tax.amount  # if amount type == percent??
                 osnovica = line["price_subtotal"]
+                if line.get('is_refund'):
+                    osnovica *= -1.00
                 iznos = 0.0
                 if stopa != 0.0:
                     iznos = float_round(osnovica * (stopa / 100.0), precision_digits=precision)
@@ -294,7 +296,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
             # Naknade=ws_naknade,
-            IznosUkupno=fiskal.format_decimal(self.amount_total),
+            IznosUkupno=fiskal.format_decimal(self.amount_total_signed),
             NacinPlac=self.l10n_hr_nacin_placanja,
             OibOper=self.l10n_hr_fiskal_user_id.partner_id.company_registry,
             ZastKod=self.l10n_hr_zki,

@@ -5,7 +5,7 @@
     "summary": """joppd obrazac osnova""",
     "category": "Croatia",
     "images": [],
-    "version": "16.0.1.0.1",
+    "version": "16.0.2.0.1",
     "application": False,
     'author': "Ecodica",
     "license": 'LGPL-3',
@@ -27,7 +27,6 @@
         "bin": []
     },
     "data": [
-        "security/joppd_security.xml",
         "security/ir.model.access.csv",
         "views/joppd_views.xml",
         "views/joppd_menuitems.xml",

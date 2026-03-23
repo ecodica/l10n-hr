@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
 
-    <!--
-        Link standard UoMs with new EN16931 codebook
-    -->
-
     <record id="uom.product_uom_unit" model="uom.uom">
         <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_H87"/>
     </record>
@@ -49,7 +45,7 @@
         <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_CMT"/>
     </record>
 
-    <record id="uom.uom_square_meter" model="uom.uom">
+    <record id="uom.product_uom_square_meter" model="uom.uom">
         <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_MTK"/>
     </record>
 
@@ -85,7 +81,7 @@
         <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_SMI"/>
     </record>
 
-    <record id="uom.uom_square_foot" model="uom.uom">
+    <record id="uom.product_uom_square_foot" model="uom.uom">
         <field name="uom_en16931_id" ref="uom_en16931.en16931_uom_FTK"/>
     </record>
 

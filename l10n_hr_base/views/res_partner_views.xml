@@ -11,7 +11,7 @@
                     <attribute name="invisible" add="country_code == 'HR'" separator="or"/>
                 </xpath>
                 <!-- show warning if OIB was not set for Croatian company -->
-                <div name="warning_company" position="after">
+                <div name="warning_tax" position="after">
                     <field name="l10_hr_eu_country_vat_is_not_set" invisible="1"/>
                     <div class="alert alert-warning oe_edit_only" role="alert" name="warning_company_registry" invisible="not l10_hr_company_registry_is_not_set">
                         Company Registry field should be set on the Croatian companies.

@@ -52,7 +52,7 @@ class L10nHrFiscalMixin(models.AbstractModel):
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""
         internal_users = self.env.ref('base.group_user')
-        domain = [('user_ids', 'in', internal_users.users.ids)]
+        domain = [('user_ids', 'in', internal_users.user_ids.ids)]
         return domain
 
     @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')

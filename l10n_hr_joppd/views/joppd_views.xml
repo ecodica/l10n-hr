@@ -128,7 +128,18 @@
 
                             </group>
                             -->
-                            <field name="sideB_ids" nolabel="1" colspan="4"/>
+                            <field name="sideB_ids" nolabel="1" colspan="4">
+                                <tree string="B">
+                                    <field name="b1"/>
+                                    <field name="b4"/>
+                                    <field name="b5"/>
+                                    <field name="b62"/>
+                                    <field name="b151"/>
+                                    <field name="b161"/>
+                                    <field name="b152"/>
+                                    <field name="b162"/>
+                                </tree>
+                            </field>
                         </page>
                         <page string="Related reports"
                               attrs="{'invisible':['|',('parent_id','=',False), ('child_ids','=', False)]}">

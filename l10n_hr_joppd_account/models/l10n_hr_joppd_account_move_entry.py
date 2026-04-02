@@ -63,5 +63,5 @@ class L10nHrJOPPDAccountMoveEntry(models.Model):
             if entry.state == 'done':
                 raise UserError(_('Entry %s/%s is in state "Done" and can not be deleted!')
                                 % (entry.name, format_date(self.env, entry.date)))
-        self.mapped('move_id').write({'joppd_posted': False})
+        self.mapped('move_id').write({'l10n_hr_joppd_posted': False})
         return super().unlink()

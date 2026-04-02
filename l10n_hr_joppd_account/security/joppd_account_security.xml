@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Multi - Company Rules -->
+        <record id="l10n_hr_joppd_account_move_entry_multi_company_rule" model="ir.rule">
+            <field name="name">JOPPD General Ledger Entry multi-company</field>
+            <field name="model_id" ref="model_l10n_hr_joppd_account_move_entry"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+    </data>
+</odoo>

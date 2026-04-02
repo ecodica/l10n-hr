@@ -14,7 +14,7 @@ class L10nHrJOPPD(models.Model):
             entries_domain = [('date', '>=', joppd_report.period_date_from_joppd),
                               ('date', '<=', joppd_report.period_date_to_joppd),
                               ('state', 'not in', ['done', 'cancel']),
-                              # ('company_id', '=', self.company_id.id),
+                              ('company_id', '=', self.company_id.id),
                               ]
             entries = joppd_entry_obj.sudo().search(entries_domain)
             employees_missing_data = entries.employee_id.filtered(

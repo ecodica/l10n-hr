@@ -3,7 +3,7 @@
     "summary": """JOPPD Croatia - Accounting setup""",
     "category": "Croatia",
     "images": [],
-    "version": "16.0.1.0.1",
+    "version": "16.0.2.0.1",
     "application": False,
     "author": "Ecodica d.o.o",
     "website": "https:www.ecodica.eu",

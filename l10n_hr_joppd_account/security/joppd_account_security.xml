@@ -4,9 +4,16 @@
 
         <!-- Multi - Company Rules -->
         <record id="l10n_hr_joppd_account_move_entry_multi_company_rule" model="ir.rule">
-            <field name="name">JOPPD General Ledger Entry multi-company</field>
+            <field name="name">JOPPD General Ledger Entry Multi-Company</field>
             <field name="model_id" ref="model_l10n_hr_joppd_account_move_entry"/>
             <field name="global" eval="True"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="l10n_hr_joppd_multi_company_rule" model="ir.rule">
+            <field name="name">JOPPD Obrazac Multi-Company</field>
+            <field name="model_id" ref="model_l10n_hr_joppd"/>
+             <field name="global" eval="True"/>
             <field name="domain_force">[('company_id', 'in', company_ids)]</field>
         </record>
 

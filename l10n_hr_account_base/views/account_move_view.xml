@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+
     <record id="view_l10n_hr_move_form" model="ir.ui.view">
         <field name="name">view_l10n_hr_move_form</field>
         <field name="model">account.move</field>
@@ -121,6 +122,24 @@
                         optional="hide"
                         attrs="{'invisible':[('country_code','!=', 'HR')]}"
                 />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_l10n_hr_account_invoice_filter" model="ir.ui.view">
+        <field name="name">view_l10n_hr_account_invoice_filter</field>
+        <field name="model">account.move</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="name" position="attributes">
+                <attribute name="filter_domain">[
+                    '|', '|' , '|', '|', '|',
+                    ('name', 'ilike', self), ('invoice_origin', 'ilike', self),
+                    ('ref', 'ilike', self), ('payment_reference', 'ilike', self),
+                    ('partner_id', 'child_of', self), ('l10n_hr_fiskalni_broj', 'ilike', self)
+                    ]
+                </attribute>
             </field>
         </field>
     </record>

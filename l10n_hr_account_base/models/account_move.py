@@ -15,15 +15,14 @@ class AccountMove(models.Model):
         help="Date when the document was actually created. "
              "Leave blank for current date",
     )
-    l10n_hr_date_delivery = (
-        fields.Date(  # to avoid possible name conflict in delivery module!
-            string="Delivery Date",
-            copy=False,
-            readonly=True,
-            states={"draft": [("readonly", False)]},
-            help="Date of delivery of goods or service. "
-                 "Leave blank for current date",
-        )
+    l10n_hr_date_delivery = fields.Date(
+        # to avoid possible name conflict in delivery module!
+        string="Delivery Date",
+        copy=False,
+        readonly=True,
+        states={"draft": [("readonly", False)]},
+        help="Date of delivery of goods or service. "
+             "Leave blank for current date",
     )
     l10n_hr_vrijeme_izdavanja = fields.Char(
         # DB: namjerno kao char da izbjegnem timezone problem!

@@ -92,7 +92,7 @@ class AccountMove(models.Model):
                                             compute='_compute_l10n_hr_last_payment_date',
                                             readonly=True, store=True)
 
-    @api.depends('line_ids')
+    @api.depends('move_type', 'line_ids.amount_residual')
     def _compute_l10n_hr_last_payment_date(self):
         for move in self:
             move.l10n_hr_last_payment_date = False

@@ -2,7 +2,7 @@
     <data noupdate="1">
         <record id="param_skip_distribute_delta_smoothly" model="ir.config_parameter">
             <field name="key">skip_distribute_delta_amount_smoothly</field>
-            <field name="value">True</field>
+            <field name="value">False</field>
         </record>
     </data>
 </odoo>

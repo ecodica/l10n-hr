@@ -1,4 +1,5 @@
 from odoo import models, api
+from odoo.tools.misc import str2bool
 
 
 class AccountTax(models.Model):
@@ -9,7 +10,7 @@ class AccountTax(models.Model):
         ''' We have added this config paramater to temporarily fix rounding errors on invoices,
         causing differences on printing and failing FINA checks.
         https://github.com/odoo/odoo/issues/250035 - Follow this issue for possible fixes. '''
-        skip_delta_distribution = bool(self.env['ir.config_parameter'].sudo().get_param('skip_distribute_delta_amount_smoothly'))
+        skip_delta_distribution = str2bool(self.env['ir.config_parameter'].sudo().get_param('skip_distribute_delta_amount_smoothly'))
 
         if skip_delta_distribution:
             return [0.0] * len(target_factors)

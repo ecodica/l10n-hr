@@ -6,15 +6,26 @@
     >
 
         <!-- fiscal user must be shown on croatian invoices -->
-        <xpath expr="//div[@name='l10n_hr_fiscal_time']" position="after">
+        <xpath expr="//div[@name='l10n_hr_invoice_user']" position="after">
             <div
                 class="col-4 float-left mb-2 px-1"
-                t-if="o.l10n_hr_fiscal_user_id"
+                t-if="o.country_code == 'HR' and o.l10n_hr_fiscal_user_id"
                 style="width: 33.3% !important; float: left !important; min-height: 55px;"
                 name="l10n_hr_fiscal_user_id"
             >
                 <strong>Fiscal User:</strong>
                 <p class="m-0" t-field="o.l10n_hr_fiscal_user_id.display_name" />
+            </div>
+        </xpath>
+        <!-- invoice user must not be shown on croatian invoices where fiscal user is written-->
+        <xpath expr="//div[@name='l10n_hr_invoice_user']" position="replace">
+            <div class="col-4 float-left mb-2 px-1"
+                 style="width: 33.3% !important; float: left !important; min-height: 55px;"
+                 t-if="o.country_code == 'HR' and o.invoice_user_id and not o.l10n_hr_fiscal_user_id"
+                 name="l10n_hr_invoice_user"
+            >
+                <strong>Responsible person:</strong>
+                <p class="m-0" t-field="o.invoice_user_id.display_name" />
             </div>
         </xpath>
 

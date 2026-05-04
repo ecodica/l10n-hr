@@ -54,6 +54,14 @@
                         <strong>Confirmation time:</strong>
                         <p class="m-0" t-field="o.l10n_hr_fiscal_time" />
                     </div>
+                    <div class="col-4 float-left mb-2 px-1"
+                         style="width: 33.3% !important; float: left !important; min-height: 55px;"
+                         t-if="o.invoice_user_id"
+                         name="l10n_hr_invoice_user"
+                    >
+                        <strong>Responsible person:</strong>
+                        <p class="m-0" t-field="o.invoice_user_id.display_name" />
+                    </div>
                 </div>
             </t>
         </xpath>

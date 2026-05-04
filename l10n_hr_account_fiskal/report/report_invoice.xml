@@ -9,11 +9,22 @@
         <xpath expr="//div[@id='l10n_hr_info']/div[@name='interni_broj']" position="after">
             <div
                 class="col-auto col-3 mw-100 mb-2"
-                t-if="o.l10n_hr_fiskal_user_id"
+                t-if="o.country_code == 'HR' and o.l10n_hr_fiskal_user_id"
                 name="l10n_hr_fiskal_user_id"
             >
                 <strong>Fiscal User:</strong>
                 <p class="m-0" t-field="o.l10n_hr_fiskal_user_id.display_name" />
+            </div>
+        </xpath>
+        <!-- invoice user must not be shown on croatian invoices where fiscal user is written-->
+        <xpath expr="//div[@name='l10n_hr_invoice_user']" position="replace">
+            <div class="col-4 float-left mb-2 px-1"
+                 style="width: 33.3% !important; float: left !important; min-height: 55px;"
+                 t-if="o.country_code == 'HR' and o.invoice_user_id and not o.l10n_hr_fiscal_user_id"
+                 name="l10n_hr_invoice_user"
+            >
+                <strong>Responsible person:</strong>
+                <p class="m-0" t-field="o.invoice_user_id.display_name" />
             </div>
         </xpath>
         <!-- hide taxes if company is not in tax system -->

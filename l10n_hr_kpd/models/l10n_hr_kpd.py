@@ -17,6 +17,7 @@ class L10nHrKpd(models.Model):
     _name = 'l10n.hr.kpd'
     _description = 'Defines KPD classification.'
     _order = 'code ASC'
+    _rec_names_search = ['name', 'code']
     _inherit = ['mail.thread']
 
     code = fields.Char(string="Code", required=True, copy=False)

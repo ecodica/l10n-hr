@@ -19,6 +19,7 @@ class L10nHrKpd(models.Model):
     _order = 'code ASC'
     _rec_names_search = ['name', 'code']
     _inherit = ['mail.thread']
+    _rec_names_search = ['name', 'code']
 
     code = fields.Char(string="Code", required=True, copy=False)
     date_start = fields.Date(string="Start Date", required=True)

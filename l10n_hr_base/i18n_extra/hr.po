@@ -60,3 +60,10 @@ msgstr "Kreiraj i uredi..."
 #, python-format
 msgid "Save manually"
 msgstr "Spremi"
+
+#. module: base
+#: model:ir.model.fields,field_description:base.field_res_partner__title
+#: model:ir.model.fields,field_description:base.field_res_partner_title__name
+#: model:ir.model.fields,field_description:base.field_res_users__title
+msgid "Title"
+msgstr "Titula"

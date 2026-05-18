@@ -6,21 +6,18 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_move_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='croatia']//field[@name='l10n_hr_payment_method']" position="after">
-                <field name="l10n_hr_paragon_br" readonly="state != 'draft'"/>
-                <field name="l10n_hr_fiscal_user_id" readonly="state != 'draft'"/>
-                <field name="l10n_hr_late_delivery" readonly="l10n_hr_jir"/>
-                <button string="Fiscalize" type="object" name="button_fiscalize" class="btn-primary"
-                        invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
-                <button string="Fiscal Check" type="object" name="button_fiscalize_check"
-                        invisible="not l10n_hr_jir"/>
-            </xpath>
-            <group name="l10n_hr_base_fiscal" position="after">
-                <group name="l10n_hr_fiscal_full" invisible="not l10n_hr_zki">
-                    <field name="l10n_hr_zki"/>
-                    <field name="l10n_hr_jir"/>
+            <group name="l10n_hr_fiscal1_placeholder" position="inside">
+                <group name="l10n_hr_fiscal1_fields" string="Fiscalization 1.0">
+                    <field name="l10n_hr_paragon_br" readonly="state != 'draft'"/>
+                    <field name="l10n_hr_late_delivery" readonly="l10n_hr_jir"/>
+                    <button string="Fiscalize" type="object" name="button_fiscalize" class="btn-primary"
+                            invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
+                    <button string="Fiscal Check" type="object" name="button_fiscalize_check"
+                            invisible="not l10n_hr_jir"/>
+                    <field name="l10n_hr_zki" invisible="not l10n_hr_zki"/>
+                    <field name="l10n_hr_jir" invisible="not l10n_hr_zki"/>
                     <field name="l10n_hr_fiscal_qr" widget="image"
-                           ooptions="{'size': [90, 90]}"/>
+                           ooptions="{'size': [90, 90]}" invisible="not l10n_hr_zki"/>
                 </group>
                 <field name="l10n_hr_fiscal_log_ids"/>
             </group>

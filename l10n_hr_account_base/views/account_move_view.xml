@@ -27,7 +27,7 @@
                 <page string="Croatia Fiscal Data" name="croatia" invisible="(country_code != 'HR') or (move_type and move_type not in ['out_invoice', 'out_refund'])">
                     <!-- invisible fields -->
                     <group>
-                        <group name="l10n_hr_base_fiscal">
+                    <group name="l10n_hr_base_fiscal" >
                             <field name="l10n_hr_show_required_fisk_fields_on_header" invisible="1"/>
                             <field name="l10n_hr_date_document" readonly ="state != 'draft'"/>
                             <field name="l10n_hr_fiscal_time" readonly="1"/>
@@ -38,6 +38,8 @@
                             <!-- without fiscalisation module for cash payments there is  only one selectable option -->
                             <field name="l10n_hr_payment_method" invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fisk_fields_on_header" readonly="state != 'draft'"/>
                         </group>
+                        <group name="l10n_hr_fiscal2_placeholder"/>
+                        <group name="l10n_hr_fiscal1_placeholder"/>
                     </group>
                 </page>
             </notebook>

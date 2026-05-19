@@ -8,11 +8,16 @@
             <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_move_form"/>
             <field name="arch" type="xml">
                 <field name="l10n_hr_payment_method" position="after">
-                    <field name="l10n_hr_business_process_type_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                    <field name="l10n_hr_business_process_type_id"
+                           options="{'no_create_edit': True, 'no_open': True}"
+                           readonly="state != 'draft'"
+                    />
                     <field name="l10n_hr_business_process_type_code" invisible="1"/>
                     <field name="l10n_hr_business_process_name"
                            invisible="l10n_hr_business_process_type_code != 'P99'"
-                           required="l10n_hr_business_process_type_code == 'P99'"/>
+                           required="l10n_hr_business_process_type_code == 'P99'"
+                           readonly="state != 'draft'"
+                    />
                 </field>
             </field>
         </record>

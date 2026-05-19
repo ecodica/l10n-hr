@@ -5,7 +5,7 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     l10n_hr_kpd_id = fields.Many2one(comodel_name='l10n.hr.kpd', string="KPD Code", compute='_compute_l10n_hr_kpd_id',
-                                     store=True, readonly=False, precompute=True,
+                                     store=True, readonly=True, precompute=True,
                                      domain=[('type', '=', '6')])
 
     def _compute_l10n_hr_kpd_id(self):

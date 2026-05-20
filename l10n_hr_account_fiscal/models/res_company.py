@@ -97,9 +97,9 @@ class ResCompany(models.Model):
             if company.country_code == 'HR':
                 available_certs = company.l10n_hr_fiscal_cert_ids.filtered("is_valid")
                 if company.l10n_hr_fiscal_test_env:
-                    cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo'))
+                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo')))
                 else:
-                    cert_id = fields.first(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod'))
+                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod')))
             company.l10n_hr_fiscal_cert_id = cert_id
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):

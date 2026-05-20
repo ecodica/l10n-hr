@@ -19,7 +19,7 @@ class AccountMoveLine(models.Model):
                          ('l10n_hr_kpd_id', '!=', False)],
                         order='parent_id ASC'
                     )
-                    kpd = fields.first(parent_categories).l10n_hr_kpd_id
+                    kpd = next(iter(parent_categories)).l10n_hr_kpd_id
             line.l10n_hr_kpd_id = kpd.id
 
     @api.onchange('product_id')

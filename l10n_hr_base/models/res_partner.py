@@ -14,6 +14,9 @@ class ResPartner(models.Model):
         compute='_compute_l10_hr_eu_country_vat_is_not_set', 
         store=False)
 
+    l10n_hr_personal_oib = fields.Char(string="Personal OIB")  # istražiti koja su se sve polja koristila za ovo
+    l10n_hr_business_unit_code = fields.Char("Business Unit Code", default=None)   # mig.skripta l10n_hr_business_unit
+
     @api.depends('company_registry', 'country_id', 'company_type')
     def _compute_l10_hr_company_registry_is_not_set(self):
         """
@@ -42,7 +45,7 @@ class ResPartner(models.Model):
                False
             )
 
-    @api.depends("vat", "country_id")
+    @api.depends("vat", "country_id", "l10n_hr_business_unit_code")
     def _compute_company_registry(self):
         """ 
             Overriding original method.
@@ -50,12 +53,13 @@ class ResPartner(models.Model):
             is its VAT Number (without country code).
             The logic is inherited from the l10n_be.
         """
-        res = super()._compute_company_registry()
-        for partner in self.filtered(lambda p: p.country_id.code == "HR" and p.vat):
+        super()._compute_company_registry()
+        for partner in self:
+            if partner._deduce_country_code() != 'HR' or not partner.vat:
+                continue
             vat_country, vat_number = self._split_vat(partner.vat)
-            if vat_country == "hr" and self.simple_vat_check(vat_country, vat_number):
-                partner.company_registry = vat_number
-        return res
+            if vat_country in ('HR', '') and self._check_vat_number('HR', vat_number):
+                partner.company_registry = vat_number # + self.l10n_hr_business_unit_code
 
     def _l10n_hr_is_oib_valid(self):
         if not self.company_registry or not self.company_registry.isdigit() or len(self.company_registry) != 11:

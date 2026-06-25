@@ -17,6 +17,19 @@ class ResPartner(models.Model):
     l10n_hr_personal_oib = fields.Char(string="Personal OIB")  # istražiti koja su se sve polja koristila za ovo
     l10n_hr_business_unit_code = fields.Char("Business Unit Code", default=None)   # mig.skripta l10n_hr_business_unit
 
+    def _register_hook(self):
+        """Create the new columns on every registry build so a plain server
+        restart (no -i / -u) doesn't crash with UndefinedColumn when the ORM
+        SELECTs res_partner. Schema sync only fires on install/upgrade, so
+        without this hook the columns stay missing until the user runs `-u`.
+        """
+        super()._register_hook()
+        self.env.cr.execute("""
+            ALTER TABLE res_partner
+            ADD COLUMN IF NOT EXISTS l10n_hr_personal_oib VARCHAR,
+            ADD COLUMN IF NOT EXISTS l10n_hr_business_unit_code VARCHAR
+        """)
+
     @api.depends('company_registry', 'country_id', 'company_type')
     def _compute_l10_hr_company_registry_is_not_set(self):
         """

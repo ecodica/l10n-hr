@@ -19,8 +19,8 @@ class AccountMoveLine(models.Model):
                          ('l10n_hr_kpd_id', '!=', False)],
                         order='parent_id ASC'
                     )
-                    kpd = next(iter(parent_categories)).l10n_hr_kpd_id
-            line.l10n_hr_kpd_id = kpd.id
+                    kpd = parent_categories and next(iter(parent_categories)).l10n_hr_kpd_id
+            line.l10n_hr_kpd_id = kpd and kpd.id or False
 
     @api.onchange('product_id')
     def _inverse_product_id(self):

@@ -2,11 +2,9 @@ from . import l10n_hr_fiscal1_mixin
 from . import certificate_certificate
 from . import l10n_hr_fiscal_log
 from . import l10n_hr_fiscal_device
-from . import l10n_hr_fiscal_certificate
 from . import l10n_hr_business_premise
 from . import l10n_hr_pnp_category
 from . import product_template
 from . import res_company
 from . import account_tax
 from . import account_move
-

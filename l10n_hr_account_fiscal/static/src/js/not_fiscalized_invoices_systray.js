@@ -1,13 +1,14 @@
 /** @odoo-module **/
-import { registry } from "@web/core/registry";
-import { useService } from "@web/core/utils/hooks";
-import { Component, useState, onWillUnmount} from "@odoo/owl";
-import { Dropdown } from '@web/core/dropdown/dropdown';
-import { DropdownItem } from '@web/core/dropdown/dropdown_item';
-import { _t } from "@web/core/l10n/translation";
+import {registry} from "@web/core/registry";
+import {useService} from "@web/core/utils/hooks";
+import {Component, useState, onWillUnmount} from "@odoo/owl";
+import {Dropdown} from '@web/core/dropdown/dropdown';
+import {DropdownItem} from '@web/core/dropdown/dropdown_item';
+import {_t} from "@web/core/l10n/translation";
+import {user} from "@web/core/user";
 
 export class NotFiscalizedInvoicesSystray extends Component {
-   setup() {
+    setup() {
         super.setup(...arguments);
         this.action = useService("action");
         this.state = useState({
@@ -21,9 +22,9 @@ export class NotFiscalizedInvoicesSystray extends Component {
         onWillUnmount(() => {
             clearInterval(this.intervalInvoice);
         });
-   }
+    }
 
-   _openNotFiscalizedInvoices() {
+    _openNotFiscalizedInvoices() {
         const domain = [
             ['l10n_hr_zki', '!=', false],
             ['l10n_hr_jir', '=', false],
@@ -41,21 +42,22 @@ export class NotFiscalizedInvoicesSystray extends Component {
     }
 
     async fetchCounter() {
-        const company_id = this.env.services.company.currentCompany.id
-        const { count } = await this.orm.call(
+        const company_id = user.activeCompany.id
+        const {count} = await this.orm.call(
             "account.move",
             "search_not_fiscalized_invoice_count",
             [],
             {company_id}
         );
-        if(this.state.counterInvoice != count){
-            this.state.counterTotal -= (this.state.counterInvoice-count)
+        if (this.state.counterInvoice != count) {
+            this.state.counterTotal -= (this.state.counterInvoice - count)
             this.state.counterInvoice = count;
         }
     }
 
 }
-   NotFiscalizedInvoicesSystray.template = "not_fiscalized_invoices_systray";
-   NotFiscalizedInvoicesSystray.components = {Dropdown, DropdownItem };
-   export const systrayItem = { Component: NotFiscalizedInvoicesSystray,};
-   registry.category("systray").add("NotFiscalizedInvoicesSystray", systrayItem, { sequence: 200 });
+
+NotFiscalizedInvoicesSystray.template = "not_fiscalized_invoices_systray";
+NotFiscalizedInvoicesSystray.components = {Dropdown, DropdownItem};
+export const systrayItem = {Component: NotFiscalizedInvoicesSystray,};
+registry.category("systray").add("NotFiscalizedInvoicesSystray", systrayItem, {sequence: 200});

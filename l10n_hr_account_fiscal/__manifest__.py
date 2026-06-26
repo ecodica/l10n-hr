@@ -20,7 +20,6 @@
         "views/certificate_certificate_views.xml",
         "views/res_company_views.xml",
         "views/account_tax_views.xml",
-        "views/l10n_hr_fiscal_certificate_views.xml",
         "views/l10n_hr_business_premise_views.xml",
         "views/l10n_hr_fiscal_device_views.xml",
         "views/l10n_hr_fiscal_log_views.xml",

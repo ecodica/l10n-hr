@@ -9,8 +9,8 @@ class L10nHrBusinessPremise(models.Model):
         inverse_name="business_premise_id",
         string="Fiscal message logs",
         help="Log of all messages sent and received for FINA",
+        readonly=True,
     )
 
     def button_l10n_hr_test_fiscal_echo(self):
         self.company_id.button_l10n_hr_test_fiscal_echo(self)
-

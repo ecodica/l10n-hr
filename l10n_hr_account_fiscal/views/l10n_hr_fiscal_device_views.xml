@@ -6,9 +6,12 @@
         <field name="model">l10n_hr.fiscal.device</field>
         <field name="inherit_id" ref="l10n_hr_account_base.view_fiscal_device_form"/>
         <field name="arch" type="xml">
-            <field name="l10n_hr_lock" position="before">
-                <field name="fiscalization_active" widget="boolean_toggle"/>
-                <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo"/>
+            <field name="l10n_hr_journal_ids" position="after">
+                <label for="fiscalization_active"/>
+                <div class="o_row">
+                    <field name="fiscalization_active" widget="boolean_toggle"/>
+                    <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo" colspan="2"/>
+                </div>
             </field>
         </field>
     </record>

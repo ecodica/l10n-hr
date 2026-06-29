@@ -16,15 +16,16 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "views/menuitems.xml",
         "views/res_company_view.xml",
-        "views/fiscal_data_views.xml",
+        "views/l10n_hr_bussiness_premise_views.xml",
+        "views/l10n_hr_fiscal_device_views.xml",
         "views/account_move_view.xml",
         "views/account_journal_view.xml",
         "views/res_partner_views.xml",
-        "views/menuitems.xml",
         "report/report_invoice.xml",
     ],
-    "assets":{
+    "assets": {
         'web.assets_backend': [
             'l10n_hr_account_base/static/src/tax_totals/tax_totals.xml',
         ]

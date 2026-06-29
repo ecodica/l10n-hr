@@ -2,11 +2,18 @@
 <odoo>
 
     <menuitem
-        id="menu_l10n_hr_reports"
-        name="Croatia"
-        parent="account.menu_finance_reports"
-        sequence="3"
-        groups="account.group_account_user"
+            id="menu_l10n_hr_reports"
+            name="Croatia"
+            parent="account.menu_finance_reports"
+            sequence="3"
+            groups="account.group_account_user"
+    />
+
+    <menuitem
+            id="menu_finance_config_croatia"
+            name="Croatia settings"
+            sequence="2"
+            parent="account.menu_finance_configuration"
     />
 
 </odoo>

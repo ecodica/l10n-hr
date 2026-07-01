@@ -17,7 +17,7 @@ export class NotFiscalizedInvoicesSystray extends Component {
         this.orm = useService("orm");
         this.intervalInvoice = setInterval(() => {
             this.fetchCounter();
-        }, 5000);
+        }, 5 * 60 * 1000); //check fisc status every 5 minutes
         onWillUnmount(() => {
             clearInterval(this.intervalInvoice);
         });

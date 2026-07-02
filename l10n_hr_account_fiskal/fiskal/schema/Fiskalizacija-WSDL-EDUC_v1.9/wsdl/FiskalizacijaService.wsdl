@@ -180,7 +180,7 @@
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
-      </wsdl:output>prijaviRadnoVrijeme
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="dohvatiRadnoVrijeme">
       <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/dohvatiRadnoVrijeme"/>
@@ -189,7 +189,7 @@
       </wsdl:input>
       <wsdl:output>
         <soap:body use="literal"/>
-      </wsdl:output>prijaviRadnoVrijeme
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="echo">
       <soap:operation soapAction="http://e-porezna.porezna-uprava.hr/fiskalizacija/2012/services/FiskalizacijaService/echo"/>

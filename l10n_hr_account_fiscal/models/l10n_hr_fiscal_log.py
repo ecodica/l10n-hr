@@ -25,6 +25,7 @@ class L10nHrFiscalLog(models.Model):
             ("provjera", "Check/Verify fiscalization data"),  # NOVO!
             ("pd", "Fiscalization of attached document"),
             ("pd_rac", "Fiscalization of invoice for attached doc"),
+            ("prijaviRadnoVrijeme", "Fiscalization of working hours for business premises"),
             ("echo", "Test service message"),
             ("other", "Other / Not recognized"),
         ],

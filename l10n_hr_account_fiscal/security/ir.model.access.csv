@@ -1,3 +1,4 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 access_l10n_hr_pnp_category_user,access_l10n_hr_pnp_category_user,model_l10n_hr_pnp_category,base.group_user,1,1,1,1
 access_l10n_hr_fiscal_log_user,access_l10n_hr_fiscal_log_user,model_l10n_hr_fiscal_log,base.group_user,1,0,1,0
+access_l10n_hr_business_premise_working_hours,access_l10n_hr_business_premise_working_hours,model_l10n_hr_business_working_hours,base.group_user,1,1,1,1

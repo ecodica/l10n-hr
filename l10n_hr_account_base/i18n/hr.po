@@ -153,9 +153,9 @@ msgid "Business Premise"
 msgstr "Poslovni prostor"
 
 #. module: l10n_hr_account_base
-#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiskal_prostor
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiscal_premise
 #: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_business_premise_ids
-#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiskal_prostor
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiscal_premise
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_account_company_form
 msgid "Business Premises"
 msgstr "Poslovni prostori"
@@ -670,8 +670,8 @@ msgid "Payment Devices In This Premise"
 msgstr "Naplatni uređaji za ovaj prostor"
 
 #. module: l10n_hr_account_base
-#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiskal_uredjaj
-#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiskal_uredjaj
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiscal_device
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiscal_device
 msgid "Payment Registers"
 msgstr "Naplatni uređaji"
 

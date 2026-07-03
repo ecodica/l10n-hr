@@ -80,10 +80,12 @@ class ResCompany(models.Model):
             ("EDUC_v1.7", "DEMO schema v1.7"),
             ("EDUC_v1.8", "DEMO schema v1.8"),
             ("EDUC_v1.9", "DEMO schema v1.9"),
+            ("EDUC_v1.10", "DEMO schema v1.10"),
             ("PROD_v1.6", "PROD Schema v1.6"),
             ("PROD_v1.7", "PROD Schema v1.7"),
             ("PROD_v1.8", "PROD Schema v1.8"),
             ("PROD_v1.9", "PROD Schema v1.9"),
+            ("PROD_v1.10", "PROD Schema v1.10"),
         ],
         string="Fiscalization schema",
         prefetch=False,
@@ -153,7 +155,7 @@ class ResCompany(models.Model):
                 "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
                 "reply_timestamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
                 "content": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
-                "reply_msg": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
+                "reply_msg": etree.tostring(msg_obj.history.last_received["envelope"]).decode("utf-8"),
             })
 
         if origin._name == "account.move":

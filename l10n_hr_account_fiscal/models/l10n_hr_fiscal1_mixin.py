@@ -357,7 +357,6 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             raise ValidationError(msg)
         # don't fiscalize invoice if invoice already has jir
         if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racun':
-            # existing in shema 1.4 not in 1.5!
             msg_type = 'provjera'
         if self.l10n_hr_zki and not self.l10n_hr_jir and not self.l10n_hr_late_delivery:
             self.l10n_hr_late_delivery = True

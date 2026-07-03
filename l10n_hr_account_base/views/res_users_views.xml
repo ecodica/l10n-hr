@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_simple_form_inherit" model="ir.ui.view">
+        <field name="name">view_users_simple_form_inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']/." position="after">
+                <div class="d-flex align-items-baseline w-100">
+                    <i class="fa fa-fw me-1 fa-building text-primary" title="OIB"/>
+                    <field name="company_registry" class="w-100" context="{'user_preference': 0}" placeholder="OIB"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

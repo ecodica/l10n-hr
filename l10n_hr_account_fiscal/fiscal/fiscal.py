@@ -69,9 +69,7 @@ class Fiscalization:
         history = HistoryPlugin()
         fiscal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
         settings = Settings(raw_response=False)
-        self.client = Client(
-            data["wsdl"], transport=transport, plugins=[fiscal_plugin, history], settings=settings
-        )
+        self.client = Client(data["wsdl"], transport=transport, plugins=[fiscal_plugin, history], settings=settings)
         self.signer = signer
         self.verifier = verifier
         self.history = history

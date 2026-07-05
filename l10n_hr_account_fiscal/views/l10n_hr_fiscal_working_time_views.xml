@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_hr_fiscal_working_time_form" model="ir.ui.view">
+        <field name="name">l10n_hr.fiscal.working.time.form</field>
+        <field name="model">l10n_hr.fiscal.working.time</field>
+        <field name="arch" type="xml">
+            <form string="Working Time Registration">
+                <header>
+                    <button name="action_send" type="object" string="Send"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,sent"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="business_premise_id" readonly="state != 'draft'"/>
+                            <field name="action_type" readonly="state != 'draft'"/>
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Regular Schedule" invisible="action_type != 'prijavi'">
+                            <group>
+                                <group>
+                                    <field name="date_from" readonly="state != 'draft'"/>
+                                    <field name="date_to" readonly="state != 'draft'"/>
+                                </group>
+                                <group>
+                                    <field name="redovno_type" readonly="state != 'draft'"/>
+                                    <field name="note" readonly="state != 'draft'"/>
+                                </group>
+                            </group>
+                            <field name="redovno_line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="day_of_week"/>
+                                    <field name="time_from"/>
+                                    <field name="time_to"/>
+                                    <field name="dio_dvokratnog"
+                                           invisible="redovno_type != 'dvokratno'"
+                                           required="redovno_type == 'dvokratno'"/>
+                                    <field name="par_nepar"
+                                           invisible="redovno_type != 'parni_neparni'"
+                                           required="redovno_type == 'parni_neparni'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Exceptions" invisible="action_type != 'prijavi'">
+                            <field name="iznimka_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="shift_type"/>
+                                    <field name="time_from"/>
+                                    <field name="time_to"/>
+                                    <field name="dio_dvokratnog"
+                                           invisible="shift_type != 'dvokratno'"
+                                           required="shift_type == 'dvokratno'"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Deletion" invisible="action_type != 'obrisi'">
+                            <field name="brisanje_redovno_date_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="date_from"/>
+                                </list>
+                            </field>
+                            <group>
+                                <field name="brisanje_iznimka_date_ids" readonly="state != 'draft'"/>
+                            </group>
+                        </page>
+                        <page string="Fiscal Logs">
+                            <field name="l10n_hr_fiscal_log_ids" nolabel="1" colspan="4"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_hr_fiscal_working_time_list" model="ir.ui.view">
+        <field name="name">l10n_hr.fiscal.working.time.list</field>
+        <field name="model">l10n_hr.fiscal.working.time</field>
+        <field name="arch" type="xml">
+            <list string="Working Time Registrations">
+                <field name="business_premise_id"/>
+                <field name="action_type"/>
+                <field name="date_from"/>
+                <field name="date_to"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

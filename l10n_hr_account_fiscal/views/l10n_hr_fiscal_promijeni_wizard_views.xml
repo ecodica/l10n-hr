@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_l10n_hr_fiscal_promijeni_wizard_form" model="ir.ui.view">
+        <field name="name">l10n_hr.fiscal.promijeni.podatke.wizard.form</field>
+        <field name="model">l10n_hr.fiscal.promijeni.podatke.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Change Invoice Data">
+                <group>
+                    <field name="move_id" invisible="1"/>
+                    <field name="new_payment_method"/>
+                    <field name="new_recipient_oib"
+                           invisible="clear_recipient_oib"/>
+                    <field name="clear_recipient_oib"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object"
+                            string="Confirm" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

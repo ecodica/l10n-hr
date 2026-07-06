@@ -15,9 +15,10 @@ class L10nHrBusinessWorkingHours(models.Model):
         ('regular', 'Regular'),
         ('exception', 'Exception'),
     ], string='Type', required=True, default='regular')
+    description = fields.Char(string='Description', required=False)
     dow = fields.Selection(DAYS_OF_WEEK, string='Day of Week', required=True, default='1')
-    valid_from = fields.Date(string='Valid from', required=True)
-    valid_to = fields.Date(string='Valid to')
+    valid_from = fields.Date(string='Valid from', required=False)
+    valid_on = fields.Date(string='Valid on')
     time_from = fields.Char(string='Time from', required=True)
     time_to = fields.Char(string='Time to', required=True)
     split_shift = fields.Selection([('1', 'First shift'), ('2', 'Second shift')], string='Split shift')

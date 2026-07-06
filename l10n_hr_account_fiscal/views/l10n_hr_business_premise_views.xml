@@ -31,46 +31,32 @@
                                 <field name="regular_working_hours_valid_from" string="Valid From"/>
                             </group>
                             <group>
-                                <field name="regular_working_hours_valid_to" string="Valid To"/>
-                            </group>
-                            <group colspan="4">
                                 <field name="regular_working_hours_note" string="Note"/>
                             </group>
                         </group>
                         <field name="regular_working_hours_ids" nolabel="1" colspan="4"
-                               context="{'default_type': 'regular', 'default_valid_from': regular_working_hours_valid_from,
-                            'default_valid_to': regular_working_hours_valid_to}">
+                               context="{'default_type': 'regular', 'default_description': regular_working_hours_note,
+                               'default_valid_from': regular_working_hours_valid_from}">
                             <list editable="bottom" delete="0">
                                 <field name="dow"/>
+                                <field name="description"/>
                                 <field name="time_from" placeholder="08:00"/>
                                 <field name="time_to" placeholder="16:00"/>
-                                <field name="valid_from"/>
-                                <field name="valid_to"/>
+                                <field name="valid_from" required="1"/>
                                 <field name="split_shift"/>
                                 <field name="type" column_invisible="1"/>
                             </list>
                         </field>
                         <separator string="Exceptions"/>
                         <group>
-                            <group>
-                                <field name="exception_working_hours_valid_from" string="Valid From"/>
-                            </group>
-                            <group>
-                                <field name="exception_working_hours_valid_to" string="Valid To"/>
-                            </group>
-                            <group colspan="4">
-                                <field name="exception_working_hours_note" string="Note"/>
-                            </group>
                         </group>
                         <field name="exception_working_hours_ids" nolabel="1" colspan="4"
-                               context="{'default_type': 'exception', 'default_valid_from': exception_working_hours_valid_from,
-                            'default_valid_to': exception_working_hours_valid_to}">
+                               context="{'default_type': 'exception'}">
                             <list editable="bottom" delete="0">
                                 <field name="dow"/>
                                 <field name="time_from" placeholder="08:00"/>
                                 <field name="time_to" placeholder="16:00"/>
-                                <field name="valid_from"/>
-                                <field name="valid_to"/>
+                                <field name="valid_on" required="1"/>
                                 <field name="split_shift"/>
                                 <field name="type" column_invisible="1"/>
                             </list>

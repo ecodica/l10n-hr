@@ -34,10 +34,15 @@ class L10nHrBusinessPremise(models.Model):
         domain=[('type', '=', 'exception')],
     )
     regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From', required=True)
+    regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To', required=True)
     regular_working_hours_note = fields.Text('Regular Working Hours Note', required=True)
 
     def _handle_fisc_response(self, response, msg_type):
-        return None
+        if msg_type == 'dohvatiRadnoVrijeme':
+            pass
+
+    def _prepare_get_fiscal_working_hours(self, factory):
+        pass
 
     def _prepare_set_fiscal_working_hours(self, factory):
         grouped_regular_hours, grouped_exception_hours = [], []
@@ -89,11 +94,18 @@ class L10nHrBusinessPremise(models.Model):
         )
         return poslovni_prostor
 
-    def _prepare_get_fiscal_working_hours(self, factory, fiscal_data, msg_type):
-        pass
-
     def button_l10n_hr_test_fiscal_echo(self):
         self.company_id.button_l10n_hr_test_fiscal_echo(self)
+
+    @fisc_handler(msg_type='dohvatiRadnoVrijeme')
+    def button_l10n_hr_get_working_hours(self):
+        fiscal_data = self.company_id.get_fiscal_data()
+        fisk = fiscal.Fiscalization(fiscal_data)
+        zaglavlje = fisk.create_request_header()
+        fisc_data = dict(Zaglavlje=zaglavlje, Oib=self.company_id.company_registry,
+                         OznPosPr=self.l10n_hr_fiscal_code, OibOper=self.env.user.company_registry,
+                         VrstaRadnogVremena='SVE')
+        return fisc_data
 
     @fisc_handler(msg_type='prijaviRadnoVrijeme')
     def button_l10n_hr_register_working_hours(self):

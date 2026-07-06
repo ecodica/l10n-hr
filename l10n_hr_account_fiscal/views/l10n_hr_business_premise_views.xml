@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <field name="l10n_hr_state" position="before">
                 <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo"/>
+                <button string="Get Working Hours" type="object" class="btn-secondary"
+                        name="button_l10n_hr_get_working_hours"/>
                 <button string="Register Working Hours" type="object" class="btn-primary"
                         name="button_l10n_hr_register_working_hours"/>
             </field>

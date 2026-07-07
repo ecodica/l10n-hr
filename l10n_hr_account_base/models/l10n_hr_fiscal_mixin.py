@@ -28,12 +28,13 @@ class L10nHrFiscalMixin(models.AbstractModel):
                    ],
         string="Croatia - Payment Method",
         default="T",
+        tracking=True,
         help="According to Fiscalization Law and regulative "
              "there are 4 possible options: \n"
              "G - Cash (coins or bills), fiscalization required\n"
              "K - Bank cards, fiscalization required\n"
              "T - Transaction bank account\n"
-             "O - Other payment, fiscalization required\n", )
+             "O - Other payment, fiscalization required\n")
     l10n_hr_fiscal_device_id = fields.Many2one(
         comodel_name="l10n_hr.fiscal.device",
         string="Fiscal Device",

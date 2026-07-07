@@ -15,6 +15,8 @@
     ],
     "external_dependencies": {"python": ["zeep", "xmlsec==1.3.13"], "bin": []},
     "data": [
+        "security/ir.model.access.csv",
+        "wizard/l10n_hr_change_fiscal_data_views.xml",
         "views/l10n_hr_pnp_category_views.xml",
         "views/product_template_views.xml",
         "views/certificate_certificate_views.xml",
@@ -25,7 +27,7 @@
         "views/l10n_hr_fiscal_log_views.xml",
         "views/account_move_views.xml",
         # "report/report_invoice.xml",
-        "security/ir.model.access.csv",
+
     ],
     "assets": {
         "web.assets_backend": [

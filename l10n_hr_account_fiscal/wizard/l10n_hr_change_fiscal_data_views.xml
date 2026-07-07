@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="l10n_hr_change_fiscal_data_form_view" model="ir.ui.view">
+            <field name="name">l10n_hr_change_fiscal_data_form_view</field>
+            <field name="model">l10n_hr.change.fiscal.data</field>
+            <field name="arch" type="xml">
+                <form string="Change Fiscal Data">
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_open': True, 'no_create_edit': True}"/>
+                        </group>
+                        <group>
+                            <field name="l10n_hr_payment_method"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="change" string="Change" type="object" class="btn-primary"/>
+                        <button special="cancel" string="Cancel" class="btn-default"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

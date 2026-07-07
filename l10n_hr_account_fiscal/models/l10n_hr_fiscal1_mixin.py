@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 from odoo.addons.l10n_hr_base.models.res_company import FISCAL_DATETIME_FORMAT, INVOICE_DATETIME_FORMAT
 from ..fiscal import fiscal
+from .fiscal_wrapper import fisc_handler
 
 _logger = logging.getLogger(__name__)
 
@@ -253,7 +254,10 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
     @api.model
     def _get_fiscal_invoice_type(self, factory, msg_type):
-        return factory.type_factory.RacunType
+        if msg_type == 'promijeniPodatkeRacuna':
+            return factory.type_factory.RacunPPType
+        else:
+            return factory.type_factory.RacunType
 
     def _prepare_fiscal_invoice(self, factory, fiscal_data, msg_type):
         porezi = self._prepare_fisc_taxes(factory)
@@ -423,3 +427,20 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
                 'error_message'] or odoo_error.get('error_message')
             if error_message and not self.company_id.l10n_hr_fiscal_silent_error_logging:
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)
+
+    @fisc_handler(msg_type='promijeniPodatkeRacuna')
+    def fiscalize_data_change(self, partner, payment_method):
+        if not self._l10n_hr_fiscalization_needed():
+            return
+        time_start = self.company_id.get_l10n_hr_time_formatted()
+        fiscal_data = self.company_id.get_fiscal_data()
+        fiscal_data["time"] = time_start
+        fis_racun = self.l10n_hr_fiscal_number.split(self.company_id.l10n_hr_fiscal_separator)
+        assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
+        fiscal_data["racun"] = fis_racun
+        fisk = fiscal.Fiscalization(data=fiscal_data)
+        invoice_data = self._prepare_fiscal_invoice(fisk, fiscal_data, 'promijeniPodatkeRacuna')
+        invoice_data.PromijenjeniNacinPlac = payment_method
+        invoice_data.PromijenjeniOibPrimateljaRacuna = partner and partner.company_registry or None
+        zaglavlje = fisk.create_request_header()
+        return dict(Zaglavlje=zaglavlje, Racun=invoice_data)

@@ -14,7 +14,7 @@
                         invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
                 <button string="Fiscal Check" type="object" name="button_fiscalize_check"
                         invisible="not l10n_hr_jir"/>
-                <button string="Fiscal Change Data" type="object" name="button_fiscalize_change"
+                <button string="Change Fiscal Data" type="object" name="button_fiscalize_change"
                         invisible="not l10n_hr_jir"/>
             </xpath>
             <group name="l10n_hr_base_fiscal" position="after">

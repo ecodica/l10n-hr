@@ -42,6 +42,6 @@ class L10nHrChangeFiscalData(models.TransientModel):
             raise UserError(_('Nothing to change!'))
         response = current_move.fiscalize_data_change(self.partner_id, self.l10n_hr_payment_method)
         # if response contains errors from FINA, do not commit changes
-        if not response.Greske:
+        if response and not response.Greske:
             current_move.with_context(skip_readonly_check=True).write(new_vals)
         return True

@@ -104,10 +104,6 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
     def _l10n_hr_post_fiscal_check(self):
         res = []
         if self.l10n_hr_fiscal_device_id and self.l10n_hr_fiscal_device_id.fiscalization_active:
-            if not self.company_id.company_registry:
-                res.append(
-                    _("Company OIB is not not entered! It is required for fiscalization")
-                )
             if not self.l10n_hr_fiscal_user_id.company_registry:
                 res.append(
                     _("User OIB is not not entered! It is required for fiscalization")
@@ -118,6 +114,45 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
                         "No Fiscal certificate found, please install one "
                         "activate and select it on company setup!"
                     )
+                )
+            if not self.company_id.company_registry:
+                res.append(
+                    _("Company OIB is not not entered! It is required for fiscalization")
+                )
+            if (
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.partner_id.is_company and
+                    not self.partner_id.company_registry
+            ):
+                res.append(
+                    _("To fiscalize an R1 invoice, an OIB must be set on the company %s") % self.partner_id.display_name
+                )
+            if (
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.partner_id.is_company and
+                    self.l10n_hr_payment_method == 'T'
+            ):
+                res.append(
+                    _("R1 invoice cannot be fiscalized with %s payment type") % self.l10n_hr_payment_method
+                )
+            if (
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.l10n_hr_payment_method == 'G' and
+                    float_compare(self.amount_total, 10000, precision_digits=self.currency_id.decimal_places) == 1
+            ):
+                res.append(
+                    _("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the %s payment type") %
+                    self.l10n_hr_payment_method
+                )
+            if (
+                    self.l10n_hr_fiscal_device_id.fiscalization_active and
+                    self.l10n_hr_payment_method == 'G' and
+                    self.partner_id.is_company and
+                    float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
+            ):
+                res.append(
+                    _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the %s payment type") %
+                    self.l10n_hr_payment_method
                 )
         return res
 
@@ -302,6 +337,13 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
         )
+        if self.partner_id.is_company:
+            if self.partner_id.company_registry:
+                # this is valid OIB, for B2C and B2B customers, without a country prefix
+                racun.OibPrimateljaRacuna = self.partner_id.company_registry
+            else:
+                raise ValidationError(
+                    _("Partner {} is defined as R1 but missing VAT").format(self.partner_id.display_name))
         return racun
 
     def _validate_fiscal_invoice(self, racun):

@@ -42,16 +42,22 @@ export class NotFiscalizedInvoicesSystray extends Component {
     }
 
     async fetchCounter() {
-        const company_id = user.activeCompany.id
-        const {count} = await this.orm.call(
-            "account.move",
-            "search_not_fiscalized_invoice_count",
-            [],
-            {company_id}
-        );
-        if (this.state.counterInvoice != count) {
-            this.state.counterTotal -= (this.state.counterInvoice - count)
-            this.state.counterInvoice = count;
+        if (!this.isAlive) return;
+        try {
+            const company_id = user.activeCompany.id
+            const {count} = await this.orm.call(
+                "account.move",
+                "search_not_fiscalized_invoice_count",
+                [],
+                {company_id}
+            );
+            if (!this.isAlive) return;
+            if (this.state.counterInvoice != count) {
+                this.state.counterTotal -= (this.state.counterInvoice - count)
+                this.state.counterInvoice = count;
+            }
+        } catch {
+            // Component may have been destroyed while awaiting the ORM call
         }
     }
 

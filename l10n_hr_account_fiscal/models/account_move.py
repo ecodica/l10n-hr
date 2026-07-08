@@ -83,6 +83,16 @@ class AccountMove(models.Model):
     def button_fiscalize_check(self):
         self.fiscalize(msg_type='provjera')
 
+    def button_fiscalize_change(self):
+        return {
+            "name": self.env._("Change Fiscal Data"),
+            "type": "ir.actions.act_window",
+            "res_model": "l10n_hr.change.fiscal.data",
+            "view_mode": "form",
+            "target": "new",
+            "context": self.env.context,
+        }
+
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()

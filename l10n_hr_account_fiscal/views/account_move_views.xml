@@ -14,6 +14,8 @@
                         invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
                 <button string="Fiscal Check" type="object" name="button_fiscalize_check"
                         invisible="not l10n_hr_jir"/>
+                <button string="Fiscal Change Data" type="object" name="button_fiscalize_change"
+                        invisible="not l10n_hr_jir"/>
             </xpath>
             <group name="l10n_hr_base_fiscal" position="after">
                 <group name="l10n_hr_fiscal_full" invisible="not l10n_hr_zki">
@@ -40,15 +42,6 @@
                 <separator/>
             </filter>
         </field>
-    </record>
-
-    <record id="action_l10n_hr_change_fiscal_data" model="ir.actions.act_window">
-        <field name="name">Change Fiscal Data</field>
-        <field name="res_model">l10n_hr.change.fiscal.data</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="binding_model_id" ref="account.model_account_move"/>
-        <field name="binding_view_types">form</field>
     </record>
 
 </odoo>

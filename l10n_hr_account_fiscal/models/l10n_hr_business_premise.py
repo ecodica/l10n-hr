@@ -1,5 +1,4 @@
 from odoo import fields, models, api, _
-from odoo.exceptions import UserError
 from ..fiscal import fiscal
 from datetime import date
 from .fiscal_wrapper import fisc_handler
@@ -38,11 +37,31 @@ class L10nHrBusinessPremise(models.Model):
     regular_working_hours_note = fields.Text('Regular Working Hours Note', required=True)
 
     def _handle_fisc_response(self, response, msg_type):
+        self.ensure_one()
         if msg_type == 'dohvatiRadnoVrijeme':
             pass
+        if msg_type == 'obrisiRadnoVrijeme':
+            # Remove working hours flagged to be removed
+            self.regular_working_hours_ids.filtered('to_remove').unlink()
+            self.exception_working_hours_ids.filtered('to_remove').unlink()
 
-    def _prepare_get_fiscal_working_hours(self, factory):
-        pass
+    def _prepare_remove_fiscal_working_hours(self, factory):
+        regulars = self.regular_working_hours_ids.filtered('to_remove')
+        exceptions = self.exception_working_hours_ids.filtered('to_remove')
+        regulars_to_remove, exceptions_to_remove = [], []
+        for distinct_valid_from in set(regulars.mapped('valid_from')):
+            if distinct_valid_from:
+                regulars_to_remove.append(dict(DatumOd=_fina_date_format(distinct_valid_from)))
+        for distinct_valid_on in set(exceptions.mapped('valid_on')):
+            if distinct_valid_on:
+                exceptions_to_remove.append(dict(Datum=_fina_date_format(distinct_valid_on)))
+        poslovni_prostor = factory.type_factory.PoslovniProstorType(
+            Oib=self.company_id.company_registry,
+            OznPosPr=self.l10n_hr_fiscal_code,
+            BrisanjeRadnogVremena=factory.type_factory.RadnoVrijemeBrisanjeType(Redovno=regulars_to_remove,
+                                                                                Iznimke=exceptions_to_remove)
+        )
+        return poslovni_prostor
 
     def _prepare_set_fiscal_working_hours(self, factory):
         grouped_regular_hours, grouped_exception_hours = [], []
@@ -98,7 +117,7 @@ class L10nHrBusinessPremise(models.Model):
         self.company_id.button_l10n_hr_test_fiscal_echo(self)
 
     @fisc_handler(msg_type='dohvatiRadnoVrijeme')
-    def button_l10n_hr_get_working_hours(self):
+    def _get_working_hours(self):
         fiscal_data = self.company_id.get_fiscal_data()
         fisk = fiscal.Fiscalization(fiscal_data)
         zaglavlje = fisk.create_request_header()
@@ -108,7 +127,7 @@ class L10nHrBusinessPremise(models.Model):
         return fisc_data
 
     @fisc_handler(msg_type='prijaviRadnoVrijeme')
-    def button_l10n_hr_register_working_hours(self):
+    def _register_working_hours(self):
         fiscal_data = self.company_id.get_fiscal_data()
         fisk = fiscal.Fiscalization(fiscal_data)
         zaglavlje = fisk.create_request_header()
@@ -116,3 +135,29 @@ class L10nHrBusinessPremise(models.Model):
         fisc_data = dict(Zaglavlje=zaglavlje, PoslovniProstor=working_hours,
                          OibOper=self.env.user.company_registry)
         return fisc_data
+
+    @fisc_handler(msg_type='obrisiRadnoVrijeme')
+    def _remove_working_hours(self):
+        fiscal_data = self.company_id.get_fiscal_data()
+        fisk = fiscal.Fiscalization(fiscal_data)
+        zaglavlje = fisk.create_request_header()
+        working_hours_to_remove = self._prepare_remove_fiscal_working_hours(fisk)
+        fisc_data = dict(Zaglavlje=zaglavlje, PoslovniProstor=working_hours_to_remove,
+                         OibOper=self.env.user.company_registry,
+                         )
+        return fisc_data
+
+    def button_get_working_hours(self):
+        response = self._get_working_hours()
+        return True
+
+    def button_register_working_hours(self):
+        response = self._register_working_hours()
+        return True
+
+    def button_remove_working_hours(self):
+        response = self._remove_working_hours()
+        if response and response.Greske:
+            # Reset flag "to be removed"
+            self.regular_working_hours_ids.write({'to_remove': False})
+            self.exception_working_hours_ids.write({'to_remove': False})

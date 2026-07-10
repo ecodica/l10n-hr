@@ -22,3 +22,4 @@ class L10nHrBusinessWorkingHours(models.Model):
     time_from = fields.Char(string='Time from', required=True)
     time_to = fields.Char(string='Time to', required=True)
     split_shift = fields.Selection([('1', 'First shift'), ('2', 'Second shift')], string='Split shift')
+    to_remove = fields.Boolean('To Remove', required=False)

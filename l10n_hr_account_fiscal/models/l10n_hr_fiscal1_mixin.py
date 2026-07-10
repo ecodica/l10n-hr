@@ -383,6 +383,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
 
     def _handle_fisc_response(self, response, msg_type):
         """Update invoice with received data"""
+        self.ensure_one()
         # NOTE: write JIR number if it is received in response
         if hasattr(response, "Jir") and not self.l10n_hr_jir:
             self.l10n_hr_jir = response.Jir
@@ -392,6 +393,7 @@ class L10nHrFiscal1Mixin(models.AbstractModel):
         Fiskalizira jedan izlazni racun ili point of sale račun
         msg_type : Racun,
         """
+        self.ensure_one()
         # exit if fiscalization is not needed for invoice
         if not self._l10n_hr_fiscalization_needed():
             return

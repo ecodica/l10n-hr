@@ -125,8 +125,8 @@ class L10nHrBusinessPremise(models.Model):
         if not sequence:
             self.l10n_hr_sequence_id = self._create_sequence()
             return
-        if sequence.prefix or sequence.suffix:
-            raise UserError(_("Fiscal sequence should not contain prefix nor suffix."))
+        # if sequence.prefix or sequence.suffix:
+        #     raise UserError(_("Fiscal sequence should not contain prefix nor suffix."))
         # TODO: is it used in another premise?
 
     def button_activate_premise(self):

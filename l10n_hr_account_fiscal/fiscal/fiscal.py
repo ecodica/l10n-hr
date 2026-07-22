@@ -6,7 +6,7 @@ from uuid import uuid4
 from lxml import etree
 from requests import Session
 from requests.exceptions import SSLError, ConnectionError
-from zeep import Client, Settings, exceptions as zeep_exceptions
+from zeep import Client, Settings
 from zeep.plugins import HistoryPlugin
 from zeep.transports import Transport
 
@@ -120,11 +120,9 @@ class Fiscalization:
         except Exception as E:
             if isinstance(E, SSLError):
                 raise E
-            if isinstance(E, zeep_exceptions.ValidationError):
-                raise E
             try:
                 doc = etree.fromstring(E.detail)
-            except zeep_exceptions.Fault:
+            except etree.XMLSyntaxError:
                 # should not happen!!
                 raise
             root = doc.find("{*}Body/*")

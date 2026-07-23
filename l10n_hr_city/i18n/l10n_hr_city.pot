@@ -640,7 +640,7 @@ msgstr ""
 
 #. module: l10n_hr_city
 #: model:res.city,name:l10n_hr_city.city_hr_47201
-msgid "Draganići"
+msgid "Draganić"
 msgstr ""
 
 #. module: l10n_hr_city

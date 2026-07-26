@@ -1,4 +1,4 @@
-from . import l10n_hr_fiscal_mixin
+from . import l10n_hr_fiscal_base_mixin
 from . import l10n_hr_business_premise
 from . import l10n_hr_fiscal_device
 from . import res_company

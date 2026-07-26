@@ -1,8 +1,11 @@
 from odoo import fields, models, api
+from odoo.addons.l10n_hr_base.models.res_company import FISCAL_DATETIME_FORMAT
+from datetime import datetime
+from pytz import timezone, UTC
 
 
-class L10nHrFiscalMixin(models.AbstractModel):
-    _name = 'l10n_hr.fiscal.mixin'
+class L10nHrFiscalBaseMixin(models.AbstractModel):
+    _name = 'l10n_hr.fiscal.base.mixin'
     _description = 'Fiscal Mixin class for joint fields'
 
     l10n_hr_date_document = fields.Date(
@@ -14,6 +17,13 @@ class L10nHrFiscalMixin(models.AbstractModel):
         string="Time Of Fiscalization",
         copy=False,
         help="Croatia Fiscal datetime value as string, should respect format: hh:mm")
+    l10n_hr_fiscal_time_calc = fields.Datetime(
+        string="Time Of Fiscalization(Datetime)",
+        compute='_compute_fiscal_time',
+        store=True,
+        readonly=True,
+        help="Croatia Fiscal datetime"
+    )
     l10n_hr_fiscal_number = fields.Char(
         string="Fiscal Number",
         copy=False,
@@ -49,6 +59,15 @@ class L10nHrFiscalMixin(models.AbstractModel):
         help="User who sent the fiscalization message."
              " Can be different from responsible person on invoice.",
     )
+
+    @api.depends('l10n_hr_fiscal_time')
+    def _compute_fiscal_time(self):
+        for record in self:
+            record.l10n_hr_fiscal_time_calc = False
+            if record.l10n_hr_fiscal_time:
+                tz_fiscal_time = datetime.strptime(record.l10n_hr_fiscal_time, FISCAL_DATETIME_FORMAT)
+                record.l10n_hr_fiscal_time_calc = timezone('Europe/Zagreb').localize(tz_fiscal_time). \
+                    astimezone(UTC).replace(tzinfo=None)
 
     def _get_l10n_hr_fiscal_user_id_domain(self):
         """"Build domain to filter only internal partners."""

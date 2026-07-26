@@ -1,4 +1,4 @@
-from . import l10n_hr_fiscal1_mixin
+from . import l10n_hr_fiscal_v1_mixin
 from . import certificate_certificate
 from . import l10n_hr_fiscal_log
 from . import l10n_hr_fiscal_device

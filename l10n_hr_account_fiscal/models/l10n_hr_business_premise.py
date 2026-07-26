@@ -1,7 +1,7 @@
 from odoo import fields, models, api, _
 from ..fiscal import fiscal
 from datetime import date
-from .fiscal_wrapper import fisc_handler
+from ..helpers.fiscal_wrapper import fisc_handler
 
 DATE_FORMAT = '%d.%m.%Y'
 
@@ -32,9 +32,9 @@ class L10nHrBusinessPremise(models.Model):
         string='Exception Working Hours',
         domain=[('type', '=', 'exception')],
     )
-    regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From', required=True)
-    regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To', required=True)
-    regular_working_hours_note = fields.Text('Regular Working Hours Note', required=True)
+    regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From', required=False)
+    regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To', required=False)
+    regular_working_hours_note = fields.Text('Regular Working Hours Note', required=False)
 
     def _handle_fisc_response(self, response, msg_type):
         self.ensure_one()

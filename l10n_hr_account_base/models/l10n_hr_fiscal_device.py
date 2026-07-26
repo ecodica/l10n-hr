@@ -96,9 +96,7 @@ class L10nHrFiscalDevice(models.Model):
         return super().unlink()
 
     def _get_new_journal_vals(self):
-        account = self.env["account.account"].search(
-            [("code", "like", "750000")])
-        account = account and account[0]
+        account = self.env["account.account"].search([("code", "like", "750000")])
         journal_vals = {
             "sequence": 1,
             "type": "sale",
@@ -107,12 +105,12 @@ class L10nHrFiscalDevice(models.Model):
                        self.l10n_hr_name or str(self.l10n_hr_fiscal_device_code)),
             "refund_sequence": False,
             "code": "INV-%s-%s" % (
-            self.l10n_hr_business_premise_id.l10n_hr_fiscal_code, self.l10n_hr_fiscal_device_code),
+                self.l10n_hr_business_premise_id.l10n_hr_fiscal_code, self.l10n_hr_fiscal_device_code),
             "restrict_mode_hash_table": False,
             "l10n_hr_business_premise_id": self.l10n_hr_business_premise_id.id,
             "l10n_hr_fiscal_device_ids": [(4, self.id)],
             "show_on_dashboard": False,
-            "default_account_id": account and account.id,
+            "default_account_id": account and account[0].id,
         }
         return journal_vals
 

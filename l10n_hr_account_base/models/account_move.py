@@ -3,7 +3,7 @@ from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
-    _inherit = ["account.move", "l10n_hr.fiscal.mixin"]
+    _inherit = ["account.move", "l10n_hr.fiscal.base.mixin"]
     _name = 'account.move'
 
     l10n_hr_allowed_fiscal_device_ids = fields.Many2many(

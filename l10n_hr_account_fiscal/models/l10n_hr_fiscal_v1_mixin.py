@@ -9,18 +9,17 @@ from odoo.exceptions import ValidationError
 from odoo.tools import float_compare
 from odoo.addons.l10n_hr_base.models.res_company import FISCAL_DATETIME_FORMAT, INVOICE_DATETIME_FORMAT
 from ..fiscal import fiscal
-from .fiscal_wrapper import fisc_handler
+from ..helpers.fiscal_wrapper import fisc_handler
 
 _logger = logging.getLogger(__name__)
 
 
-class L10nHrFiscal1Mixin(models.AbstractModel):
+class L10nHrFiscalV1Mixin(models.AbstractModel):
     """
     Basic fields and methods for all fiscal classes
     - inherit for invoice, POS, etc...
     """
-    # _inherit = 'l10n_hr.fiscal.mixin'
-    _name = "l10n_hr.fiscal1.mixin"
+    _name = "l10n_hr.fiscal.v1.mixin"
     _description = "Croatia Fiscalization 1.0 base mixin"
 
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)

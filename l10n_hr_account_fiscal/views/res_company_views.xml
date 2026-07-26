@@ -6,7 +6,7 @@
         <field name="model">res.company</field>
         <field name="inherit_id" ref="l10n_hr_account_base.view_l10n_hr_account_company_form"/>
         <field name="arch" type="xml">
-            <field name="l10n_hr_fiscal_separator" position="after">
+            <xpath expr="//group[@name='l10n_hr_fiscal']//field[last()]" position="after">
                 <field name="l10n_hr_fiscal_spec"/>
                 <field name="l10n_hr_fiscal_transaction_type_skip"/>
                 <field name="l10n_hr_fiscal_cancel_confirmed_invoice"/>
@@ -27,7 +27,7 @@
                         <field name="is_valid"/>
                     </list>
                 </field>
-            </field>
+            </xpath>
         </field>
     </record>
 

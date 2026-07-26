@@ -2,14 +2,11 @@ import os
 import uuid
 from copy import deepcopy
 from hashlib import md5
-import io
 import base64
 import xmlsec
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.backends import default_backend
 from lxml import etree
-from cryptography import x509
 
 SIGNATURE_FRAGMENT = """
 <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">

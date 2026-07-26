@@ -19,7 +19,7 @@ Buisines premise code must be second part of the invoice number separated by '/'
 
 
 class AccountMove(models.Model):
-    _inherit = ["account.move", "l10n_hr.fiscal1.mixin"]
+    _inherit = ["account.move", "l10n_hr.fiscal.v1.mixin"]
     _name = "account.move"
 
     @api.model

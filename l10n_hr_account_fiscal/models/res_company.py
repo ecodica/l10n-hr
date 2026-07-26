@@ -9,7 +9,7 @@ from odoo import _, fields, models, api
 from odoo.exceptions import MissingError
 
 from ..fiscal import fiscal
-from ..helper import SCHEMA_HELP
+from ..helpers.docs_helper import SCHEMA_HELP
 
 
 class ResCompany(models.Model):

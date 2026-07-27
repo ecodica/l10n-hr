@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
 
 """
 Invoice/POS Issue timestamp should be readonly on form views.   
@@ -76,6 +77,58 @@ class AccountMove(models.Model):
                 )
         return res
 
+    def _l10n_hr_post_out_invoice(self):
+        # singleton record! checked in super()
+        res = super()._l10n_hr_post_out_invoice()
+        delay_fiscalization = not self.l10n_hr_fiscal_device_id.enable_fiscalize_on_confirm
+        if self.l10n_hr_fiscal_device_id.fiscalization_active and not self.l10n_hr_jir:
+            self.fiscalize(delay_fiscalization=delay_fiscalization)
+        return res
+
+    def _get_notification_action(self, title, message, type):
+        """Returns notification action for client"""
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': title,
+                'message': message,
+                'type': type,
+                'sticky': True,
+            },
+        }
+
+    def _batch_fiscalize(self):
+        """Attempts fiscalization for records in the current set."""
+        success_count = 0
+        skipped_count = 0
+        error_count = 0
+
+        for move in self:
+            try:
+                res = move.fiscalize()
+                if res:
+                    success_count += 1
+                else:
+                    skipped_count += 1
+            except Exception as e:
+                error_count += 1
+                continue
+
+        return success_count, skipped_count, error_count
+
+    @api.model
+    def search_not_fiscalized_invoice_count(self, company_id):
+        """Search for count of Account Moves that are not fiscalized"""
+        domain = [
+            ('state', '=', 'posted'),
+            ('company_id', '=', company_id),
+            ('l10n_hr_zki', '!=', False),
+            ('l10n_hr_jir', '=', False)
+        ]
+        count = self.env['account.move'].sudo().search_count(domain)
+        return {'count': count}
+
     def button_fiscalize(self):
         self.ensure_one()
         self.fiscalize()
@@ -93,21 +146,68 @@ class AccountMove(models.Model):
             "context": self.env.context,
         }
 
-    def _l10n_hr_post_out_invoice(self):
-        # singleton record! checked in super()
-        res = super()._l10n_hr_post_out_invoice()
-        if self.l10n_hr_fiscal_device_id.fiscalization_active:
-            self.fiscalize()
-        return res
+    def action_cron_batch_fiscalize(self):
+        moves = self.search([
+            ('l10n_hr_jir', '=', False),
+            ('move_type', 'in', ['out_invoice', 'out_refund']),
+            ('state', 'not in', ['draft']),
+            ('l10n_hr_fiscal_device_id.fiscalization_active', '=', True),
+            ('l10n_hr_fiscal_device_id.enable_cron_fiscalization', '=', True),
+        ])
+        moves_to_process = self.env['account.move']
+        now = fields.Datetime.now()
+        for move in moves:
+            delay_hours = move.l10n_hr_fiscal_device_id.cron_fiscalization_delay_hours or 0
+            required_processing_time = move.l10n_hr_fiscal_time_calc + relativedelta(hours=delay_hours)
+            if required_processing_time < now:
+                moves_to_process += move
+        if len(moves_to_process) > 0:
+            moves_to_process._batch_fiscalize()
 
-    @api.model
-    def search_not_fiscalized_invoice_count(self, company_id):
-        """Search for count of Account Moves that are not fiscalized"""
-        domain = [
-            ('state', '=', 'posted'),
-            ('company_id', '=', company_id),
-            ('l10n_hr_zki', '!=', False),
-            ('l10n_hr_jir', '=', False)
-        ]
-        count = self.env['account.move'].sudo().search_count(domain)
-        return {'count': count}
+    def action_manual_batch_fiscalize(self):
+        total_selected_count = len(self)
+        fiscalized_moves = self.filtered(lambda x: x.l10n_hr_jir and x.l10n_hr_zki)
+        already_fiscalized_count = len(fiscalized_moves)
+        not_fiscalized_moves = self - fiscalized_moves
+
+        if not not_fiscalized_moves:
+            return self._get_notification_action(
+                _("Already Fiscalized"),
+                _("All selected invoices are already fiscalized"),
+                "info",
+            )
+
+        success, skipped, failed = not_fiscalized_moves._batch_fiscalize()
+
+        if success == 0 and failed == 0:
+            return self._get_notification_action(
+                _("Fiscalization Skipped"),
+                _(
+                    "All selected invoices are fiscalized or do not need fiscalization"
+                ),
+                "info",
+            )
+
+        elif failed == 0:
+            return self._get_notification_action(
+                _("Fiscalization Successfull"),
+                _(
+                    "Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s"
+                )
+                % (total_selected_count, already_fiscalized_count + skipped, success),
+                "success",
+            )
+        else:
+            return self._get_notification_action(
+                _("Fiscalization Finished: Failures Detected"),
+                _(
+                    "Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s | Failed: %s"
+                )
+                % (
+                    total_selected_count,
+                    already_fiscalized_count + skipped,
+                    success,
+                    failed,
+                ),
+                "warning",
+            )

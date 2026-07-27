@@ -387,10 +387,11 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         if hasattr(response, "Jir") and not self.l10n_hr_jir:
             self.l10n_hr_jir = response.Jir
 
-    def fiscalize(self, msg_type="racuni"):
+    def fiscalize(self, msg_type="racuni", delay_fiscalization=False):
         """
         Fiskalizira jedan izlazni racun ili point of sale račun
         msg_type : Racun,
+        delay_fiscalization : odgodi poziv servisa za fiskalizaciju (generira se samo ZKI broj),
         """
         self.ensure_one()
         # exit if fiscalization is not needed for invoice
@@ -449,9 +450,9 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             response = None
             odoo_error = {}
             # NOTE: skip calling FINA fiscal service
-            # if delay_fiscalization:
-            #     self.company_id.create_fiscal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
-            #     return
+            if delay_fiscalization:
+                self.company_id.create_fiscal_log(msg_type, fisk, {'delay_message': True}, time_start, self)
+                return False
             # NOTE: call FINA fisc service
             try:
                 response = fisk._call_service(service_proxy, req_kw)

@@ -16,6 +16,7 @@
     "external_dependencies": {"python": ["zeep", "xmlsec==1.3.13"], "bin": []},
     "data": [
         "security/ir.model.access.csv",
+        "data/ir_cron_data.xml",
         "wizard/l10n_hr_change_fiscal_data_views.xml",
         "views/l10n_hr_pnp_category_views.xml",
         "views/product_template_views.xml",

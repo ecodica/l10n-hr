@@ -15,9 +15,9 @@ class AccountMove(models.Model):
         help="Technical field to show device selection"
              " only if there is something to select"
              " like 2 or more devices for this journal.")
-    l10n_hr_show_required_fisk_fields_on_header = fields.Boolean(
+    l10n_hr_show_required_fiscal_fields_on_header = fields.Boolean(
         string="Show Required Fiscal Fields on Header?",
-        related='company_id.l10n_hr_show_required_fisk_fields_on_header')
+        related='company_id.l10n_hr_show_required_fiscal_fields_on_header')
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
@@ -183,7 +183,7 @@ class AccountMove(models.Model):
         posted = super()._post(soft=soft)
         for move in posted:
             if move.company_id.account_fiscal_country_id.code != "HR":
-                continue  # only for croatia
+                continue  # only for Croatia
             if not move.is_invoice(include_receipts=False):
                 continue  # only invoices
             if move.move_type in ("out_invoice", "out_refund"):

@@ -44,4 +44,15 @@
         </field>
     </record>
 
+    <record id="view_l10n_hr_fiscal_move_tree" model="ir.ui.view">
+        <field name="name">view_l10n_hr_fiscal_move_tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree"/>
+        <field name="arch" type="xml">
+            <button name="action_force_register_payment" position="after">
+                <button name="action_manual_batch_fiscalize" type="object" string="Fiscalize Batch"/>
+            </button>
+        </field>
+    </record>
+
 </odoo>

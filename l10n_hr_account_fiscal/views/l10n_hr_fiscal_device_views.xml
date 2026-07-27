@@ -16,4 +16,17 @@
         </field>
     </record>
 
+    <record id="l10n_hr_fiscal_device_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_device_form_view</field>
+        <field name="model">l10n_hr.fiscal.device</field>
+        <field name="inherit_id" ref="l10n_hr_account_base.view_fiscal_device_form"/>
+        <field name="arch" type="xml">
+            <field name="l10n_hr_journal_ids" position="after">
+                <field name="enable_fiscalize_on_confirm"/>
+                <field name="enable_cron_fiscalization"/>
+                <field name="cron_fiscalization_delay_hours" invisible="not enable_cron_fiscalization"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>

@@ -40,7 +40,7 @@
                         </group>
                         <field name="regular_working_hours_ids" nolabel="1" colspan="4"
                                context="{'default_type': 'regular', 'default_description': regular_working_hours_note,
-                               'default_valid_from': regular_working_hours_valid_from}">
+                               'default_valid_from': regular_working_hours_valid_from, 'default_to_register': True}">
                             <list editable="bottom" delete="0">
                                 <field name="dow"/>
                                 <field name="description"/>
@@ -48,6 +48,7 @@
                                 <field name="time_to" placeholder="16:00"/>
                                 <field name="valid_from" required="1"/>
                                 <field name="split_shift"/>
+                                <field name="to_register"/>
                                 <field name="to_remove"/>
                                 <field name="type" column_invisible="1"/>
                             </list>
@@ -56,21 +57,33 @@
                         <group>
                         </group>
                         <field name="exception_working_hours_ids" nolabel="1" colspan="4"
-                               context="{'default_type': 'exception'}">
+                               context="{'default_type': 'exception', 'default_to_register': True}">
                             <list editable="bottom" delete="0">
                                 <field name="dow"/>
                                 <field name="time_from" placeholder="08:00"/>
                                 <field name="time_to" placeholder="16:00"/>
                                 <field name="valid_on" required="1"/>
                                 <field name="split_shift"/>
+                                <field name="to_register"/>
                                 <field name="to_remove"/>
                                 <field name="type" column_invisible="1"/>
                             </list>
                         </field>
                     </group>
-
                 </page>
             </notebook>
+        </field>
+    </record>
+
+    <record id="action_get_working_hours" model="ir.actions.server">
+        <field name="name">Get Working Hours</field>
+        <field name="model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
+        <field name="binding_model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+            record.button_get_working_hours()
         </field>
     </record>
 

@@ -20,9 +20,9 @@ _logger = logging.getLogger(__name__)
 QR_DATETIME_FORMAT = "%Y%m%d_%H%M"
 
 # Timezone used to reconstruct the fiscal datetime of an invoice that was
-# fiscalized before it was stored on the move and whose request envelope the
-# 17.0.1.1.2 migration could not recover. Every fiscal message this module ever
-# built from a correctly configured Croatian database used local time.
+# fiscalized before the value was stored on the move - the same assumption the
+# 17.0.1.1.2 migration makes. Every fiscal message this module ever built from a
+# correctly configured Croatian database used local time.
 FISKAL_LEGACY_TZ = "Europe/Zagreb"
 
 
@@ -38,10 +38,10 @@ class FiscalFiscalMixin(models.AbstractModel):
     def generate_fiskal_url(self):
         """ Generate URL for fiscalisation """
         self.ensure_one()
-        if not self.l10n_hr_fiskal_dat_vrijeme or not self.l10n_hr_fiskal_iznos_ukupno:
-            # Nothing was frozen, so there is no way to know what FINA holds. An
-            # empty URL means "no QR code"; a URL built from live values would be
-            # a receipt that cannot be verified.
+        if not self.l10n_hr_fiskal_dat_vrijeme:
+            # The datetime FINA holds is unknown, so the receipt cannot be looked
+            # up. An empty URL means "no QR code"; a URL built from a re-rendered
+            # datetime would be a QR that does not resolve.
             return ""
         url = "https://porezna.gov.hr/rn?"
         if self.l10n_hr_jir:
@@ -52,7 +52,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             url += "zki=" + self.l10n_hr_zki
         url += "&datv=" + self._l10n_hr_fiskal_qr_datetime()
         # bez decimalne tocke u linku!
-        url += "&izn=" + self.l10n_hr_fiskal_iznos_ukupno.replace(".", "")
+        url += "&izn=" + self._l10n_hr_fiskal_iznos_ukupno().replace(".", "")
         return url
 
     def _generate_fiskal_qr_code(self):
@@ -80,19 +80,17 @@ class FiscalFiscalMixin(models.AbstractModel):
     @api.depends(
         "l10n_hr_jir",
         "l10n_hr_zki",
-        "l10n_hr_vrijeme_izdavanja",
         "l10n_hr_fiskal_dat_vrijeme",
-        "l10n_hr_fiskal_iznos_ukupno",
+        "amount_total_signed",
     )
     def _compute_l10n_hr_fiskal_qr(self):
         for inv in self:
             if (
                 (not inv.l10n_hr_jir and not inv.l10n_hr_zki)
                 or not inv.l10n_hr_fiskal_dat_vrijeme
-                or not inv.l10n_hr_fiskal_iznos_ukupno
             ):
-                # No QR at all rather than one built from values that were not
-                # the ones registered with FINA.
+                # No QR at all rather than one whose datetime was not the one
+                # registered with FINA.
                 inv.l10n_hr_fiskal_qr = False
                 continue
             inv.l10n_hr_fiskal_qr = inv._generate_fiskal_qr_code()
@@ -106,15 +104,6 @@ class FiscalFiscalMixin(models.AbstractModel):
         copy=False,
         help="Invoice date and time exactly as signed into the ZKI and sent to "
         "FINA as Racun/DatVrijeme (dd.mm.yyyyThh:mm:ss). Frozen at "
-        "fiscalisation; the verification QR code is built from it.",
-    )
-    l10n_hr_fiskal_iznos_ukupno = fields.Char(
-        string="Fiskal IznosUkupno",
-        size=19,
-        readonly=True,
-        copy=False,
-        help="Invoice total exactly as signed into the ZKI and sent to FINA as "
-        "Racun/IznosUkupno - signed, in company currency. Frozen at "
         "fiscalisation; the verification QR code is built from it.",
     )
     # l10n_hr_vrijeme_xml = fields.Char(  # probably not needed but heck...
@@ -156,27 +145,21 @@ class FiscalFiscalMixin(models.AbstractModel):
             pytz.timezone(tz_name)
         )
 
-    def _l10n_hr_fiskal_freeze_values(self):
-        """Freeze the values that identify this invoice towards FINA.
+    def _l10n_hr_fiskal_freeze_dat_vrijeme(self):
+        """Freeze the datetime that identifies this invoice towards FINA.
 
-        ``Racun/DatVrijeme`` and ``Racun/IznosUkupno`` are signed into the ZKI,
-        sent to FINA and printed inside the verification QR code, so all three
-        consumers have to read one and the same string. Recomputing them per
-        read is what made the printed QR unusable: the QR was built from the raw
-        UTC column and from ``amount_total``, neither of which matches the
-        message, and the timezone/user of whoever prints the invoice is not the
-        one that fiscalised it.
+        ``Racun/DatVrijeme`` is signed into the ZKI, sent to FINA and printed
+        inside the verification QR code, so all three consumers have to read one
+        and the same string. It cannot be re-rendered on demand: the result
+        depends on the timezone of whoever reads it, and that is not the user who
+        fiscalised the invoice. Rendering it per read is what put every printed
+        QR code 1-2 hours off the registered record.
 
-        The ZKI is what pins the two values, so as long as there is no ZKI they
-        are (re)captured on every attempt - an invoice reset to draft and
-        corrected must be signed over its new amount, not the one a previous
-        attempt happened to freeze. Once a ZKI exists the stored values are the
-        only truth and are never touched again.
-
-        ``amount_total_signed`` is the invoice total in company currency, signed
-        (negative for a credit note) - identical to the sum of the payment term
-        line balances ``IznosUkupno`` used to be derived from, but also defined
-        when the move happens to carry no payment term line.
+        The ZKI is what pins the value, so as long as there is no ZKI it is
+        (re)captured on every attempt - an invoice reset to draft and corrected
+        gets a fresh ZKI and must be pinned to the datetime that ZKI covers.
+        Once a ZKI exists the stored string is the only truth and is never
+        touched again.
         """
         self.ensure_one()
         if not self.l10n_hr_vrijeme_izdavanja:
@@ -187,19 +170,29 @@ class FiscalFiscalMixin(models.AbstractModel):
         if self.l10n_hr_zki and self.l10n_hr_fiskal_dat_vrijeme:
             return
         if self.l10n_hr_zki:
-            # Signed by a version that did not store these values, and the
-            # 17.0.1.1.2 migration found no request envelope to recover them
-            # from. Reconstruct in Croatian local time and store the result, so
-            # it stops being a guess remade on every read.
+            # Signed by a version that did not store the value. Reconstruct in
+            # Croatian local time - the only timezone this module ever built a
+            # fiscal message in - and store the result so it stops being a guess
+            # remade on every read.
             tz_name = FISKAL_LEGACY_TZ
         else:
             tz_name = self._l10n_hr_fiskal_message_tz()
         self.l10n_hr_fiskal_dat_vrijeme = self._l10n_hr_fiskal_local_datetime(
             tz_name
         ).strftime(FISKAL_DATETIME_FORMAT)
-        self.l10n_hr_fiskal_iznos_ukupno = fiskal.format_decimal(
-            self.amount_total_signed
-        )
+
+    def _l10n_hr_fiskal_iznos_ukupno(self):
+        """``Racun/IznosUkupno`` - the invoice total as FINA receives it.
+
+        ``amount_total_signed`` is the total in company currency and signed
+        (negative for a credit note): identical to the sum of the payment term
+        line balances this used to be derived from, but also defined when the
+        move happens to carry no payment term line, and - unlike the plain
+        ``amount_total`` the QR code used to be built from - the very value that
+        goes into the message and into the ZKI.
+        """
+        self.ensure_one()
+        return fiskal.format_decimal(self.amount_total_signed)
 
     def _l10n_hr_fiskal_racun_datetime(self):
         """The fiscal datetime in the form printed on the invoice/receipt.
@@ -465,7 +458,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
             # Naknade=ws_naknade,
-            IznosUkupno=self.l10n_hr_fiskal_iznos_ukupno,
+            IznosUkupno=self._l10n_hr_fiskal_iznos_ukupno(),
             NacinPlac=self.l10n_hr_account_payment_type_id and self.l10n_hr_account_payment_type_id.code or 'O', # TODO: reviewers, say if OK
             OibOper=self.l10n_hr_fiskal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
@@ -570,7 +563,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         # Freeze DatVrijeme / IznosUkupno before anything is signed or sent: the
         # ZKI payload, the message and the printed QR code all read them back
         # from here, so they can never describe different values.
-        self._l10n_hr_fiskal_freeze_values()
+        self._l10n_hr_fiskal_freeze_dat_vrijeme()
         if not self.l10n_hr_zki:
             if fiskal_data["demo"]:
                 # uzimam oib iz certifikata, bez obzira na company oib
@@ -584,7 +577,7 @@ class FiscalFiscalMixin(models.AbstractModel):
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],
-                self.l10n_hr_fiskal_iznos_ukupno,
+                self._l10n_hr_fiskal_iznos_ukupno(),
             ]
             fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
             self.l10n_hr_zki = fiskal.generate_zki(

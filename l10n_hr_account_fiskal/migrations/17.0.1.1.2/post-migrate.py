@@ -4,68 +4,39 @@ _logger = logging.getLogger(__name__)
 
 
 def migrate(cr, version):
-    """Backfill Racun/DatVrijeme and Racun/IznosUkupno from the sent envelopes.
+    """Backfill Racun/DatVrijeme for invoices fiscalized before it was stored.
 
-    Both values used to be recomputed on every read, which is why the QR code
-    printed on an already fiscalised invoice did not match the record registered
-    with CIS: ``datv`` was rendered from the naive-UTC ``l10n_hr_vrijeme_izdavanja``
-    instead of the local time the message carried, and ``izn`` came from the
-    unsigned invoice-currency ``amount_total`` instead of the signed
-    company-currency ``IznosUkupno``.
+    The datetime sent to FINA used to be re-rendered on every read, from the
+    naive-UTC ``l10n_hr_vrijeme_izdavanja`` and the timezone of whoever happened
+    to be reading. That is why the QR code printed on a fiscalized invoice was
+    1-2 hours off the record registered with FINA. It is now frozen on the move
+    at fiscalisation time, and this fills it in for everything already issued.
 
-    They are now frozen on the move. For invoices fiscalised before this version
-    the only authoritative record of what CIS actually received is the request
-    envelope kept in ``l10n_hr_fiskal_log.sadrzaj``, so read it back from there.
+    The value is reconstructed as Croatian local time, deliberately *not* read
+    back out of ``l10n_hr_fiskal_log``. An invoice can have several request
+    envelopes - retries and business rejections both leave one behind - and
+    nothing in the log identifies which attempt FINA actually accepted, because
+    the response envelopes were never stored. A log-derived value can therefore
+    silently come from a message that was rejected. Recomputing from the
+    timestamp column is deterministic and matches what was sent, to the minute
+    that the QR code and the ZKI both truncate to.
 
-    Everything runs inside the database on purpose: the log table holds hundreds
-    of MB of SOAP envelopes and must not be pulled through Python. The local name
-    ``DatVrijeme`` cannot collide with the header's ``DatumVrijeme`` because the
-    character preceding ">" differs, and the namespace prefix is ignored.
+    Limitation: this assumes the fiscal message was built in Europe/Zagreb, which
+    holds for any user with a Croatian timezone. An invoice fiscalized by a
+    user with no timezone set went out in UTC and will be reconstructed 1-2 hours
+    off - that invoice's QR code was equally wrong before this migration, so
+    nothing regresses, but nothing is repaired either. Compare
+    ``l10n_hr_fiskal_dat_vrijeme`` against the ``DatVrijeme`` in the invoice's
+    fiscal log if you need to audit a specific document.
 
-    Whatever no log can account for is reconstructed in Europe/Zagreb - the only
-    timezone this module ever built a fiscal message in - so that the columns are
-    never NULL on a fiscalized move and no reader has to guess. Those rows are
-    counted separately and reported below so they can be spot-checked.
+    to_char() here must produce byte-identical output to FISKAL_DATETIME_FORMAT
+    ('%d.%m.%YT%H:%M:%S'), because that is what the QR code is built from.
     """
-    _logger.info("--- MIGRATION SCRIPT STARTED: l10n_hr_account_fiskal 17.0.1.1.2 "
-                 "backfilling l10n_hr_fiskal_dat_vrijeme / l10n_hr_fiskal_iznos_ukupno ---")
-
-    cr.execute(
-        """
-        WITH src AS (
-            SELECT DISTINCT ON (l.invoice_id)
-                   l.invoice_id,
-                   btrim(substring(l.sadrzaj from 'DatVrijeme>([^<]+)<')) AS dat_vrijeme,
-                   btrim(substring(l.sadrzaj from 'IznosUkupno>([^<]+)<')) AS iznos_ukupno
-              FROM l10n_hr_fiskal_log l
-              JOIN account_move m ON m.id = l.invoice_id
-             WHERE l.sadrzaj IS NOT NULL
-               AND l.type IN ('racuni', 'rac_pon')
-               AND m.l10n_hr_zki IS NOT NULL
-               AND m.l10n_hr_fiskal_dat_vrijeme IS NULL
-             ORDER BY l.invoice_id,
-                      -- the message that was accepted describes what CIS stored
-                      CASE WHEN l.greska = 'OK' THEN 0 ELSE 1 END,
-                      l.id
-        ),
-        updated AS (
-            UPDATE account_move m
-               SET l10n_hr_fiskal_dat_vrijeme = src.dat_vrijeme,
-                   l10n_hr_fiskal_iznos_ukupno = src.iznos_ukupno
-              FROM src
-             WHERE m.id = src.invoice_id
-               AND src.iznos_ukupno IS NOT NULL
-               AND length(src.dat_vrijeme) = 19  -- dd.mm.yyyyThh:mm:ss
-            RETURNING m.id
-        )
-        SELECT count(*) FROM updated;
-        """
+    _logger.info(
+        "--- MIGRATION SCRIPT STARTED: l10n_hr_account_fiskal 17.0.1.1.2 "
+        "backfilling l10n_hr_fiskal_dat_vrijeme ---"
     )
-    updated_count = cr.fetchone()[0]
 
-    # No log to read the values back from: reconstruct them. to_char() here must
-    # produce byte-identical output to FISKAL_DATETIME_FORMAT and
-    # fiskal.format_decimal(), because that is what the QR code is built from.
     cr.execute(
         """
         WITH updated AS (
@@ -73,9 +44,7 @@ def migrate(cr, version):
                SET l10n_hr_fiskal_dat_vrijeme = to_char(
                        l10n_hr_vrijeme_izdavanja AT TIME ZONE 'UTC'
                                                  AT TIME ZONE 'Europe/Zagreb',
-                       'DD.MM.YYYY"T"HH24:MI:SS'),
-                   l10n_hr_fiskal_iznos_ukupno = to_char(
-                       amount_total_signed, 'FM9999999999990.00')
+                       'DD.MM.YYYY"T"HH24:MI:SS')
              WHERE l10n_hr_zki IS NOT NULL
                AND l10n_hr_vrijeme_izdavanja IS NOT NULL
                AND l10n_hr_fiskal_dat_vrijeme IS NULL
@@ -84,7 +53,7 @@ def migrate(cr, version):
         SELECT count(*) FROM updated;
         """
     )
-    reconstructed_count = cr.fetchone()[0]
+    updated_count = cr.fetchone()[0]
 
     cr.execute(
         """
@@ -97,11 +66,9 @@ def migrate(cr, version):
     left_null = cr.fetchone()[0]
 
     _logger.info(
-        "--- MIGRATION SCRIPT COMPLETED: %s account.move records updated fields "
-        "l10n_hr_fiskal_dat_vrijeme / l10n_hr_fiskal_iznos_ukupno from their fiscal "
-        "log, %s reconstructed in Europe/Zagreb for lack of a log envelope, %s left "
-        "without a value (no time of invoicing - these print no QR code) ---",
+        "--- MIGRATION SCRIPT COMPLETED: %s account.move records updated field "
+        "l10n_hr_fiskal_dat_vrijeme, %s fiscalized invoices left without a value "
+        "(no time of invoicing - these print no QR code) ---",
         updated_count,
-        reconstructed_count,
         left_null,
     )

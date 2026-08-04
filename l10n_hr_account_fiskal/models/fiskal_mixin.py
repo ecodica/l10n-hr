@@ -154,12 +154,6 @@ class FiscalFiscalMixin(models.AbstractModel):
         depends on the timezone of whoever reads it, and that is not the user who
         fiscalised the invoice. Rendering it per read is what put every printed
         QR code 1-2 hours off the registered record.
-
-        The ZKI is what pins the value, so as long as there is no ZKI it is
-        (re)captured on every attempt - an invoice reset to draft and corrected
-        gets a fresh ZKI and must be pinned to the datetime that ZKI covers.
-        Once a ZKI exists the stored string is the only truth and is never
-        touched again.
         """
         self.ensure_one()
         if not self.l10n_hr_vrijeme_izdavanja:
@@ -560,9 +554,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         )
         assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
         fiskal_data["racun"] = fis_racun
-        # Freeze DatVrijeme / IznosUkupno before anything is signed or sent: the
-        # ZKI payload, the message and the printed QR code all read them back
-        # from here, so they can never describe different values.
+        # Freeze DatVrijeme / IznosUkupno before anything is signed or sent
         self._l10n_hr_fiskal_freeze_dat_vrijeme()
         if not self.l10n_hr_zki:
             if fiskal_data["demo"]:

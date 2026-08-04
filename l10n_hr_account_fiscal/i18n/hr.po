@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-14 12:59+0000\n"
-"PO-Revision-Date: 2023-01-14 12:59+0000\n"
+"POT-Creation-Date: 2026-08-04 10:09+0000\n"
+"PO-Revision-Date: 2026-08-04 10:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,37 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__fiskal_schema
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__enable_fiscalize_on_confirm
+msgid ""
+"\n"
+"            If enabled, account moves on this fiscal device will be\n"
+"            automatically fiscalized in account moves posting process\n"
+"            "
+msgstr ""
+"\n"
+"            Ako je omogućeno, računi/temeljenice na ovom naplatnom uređaju bit će\n"
+"            automatski fiskalizirani prilikom potvrđivanja\n"
+"            "
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__cron_fiscalization_delay_hours
+msgid ""
+"\n"
+"            Number of hours an invoice on this fiscal device can remain in unfiscalized state\n"
+"            after its posting time before the automated job will check it and attempt to fiscalize it again.\n"
+"            The automated job will select a record to process only if:\n"
+"            - Posting Time + Delay < Current Time\n"
+"            "
+msgstr ""
+"\n"
+"            Broj sati u kojima račun na ovom naplatnom uređaju može ostati u nefiskaliziranom stanju\n"
+"            nakon potvrđivanja prije nego što ga automatski zadatak provjeri i pokuša ponovno fiskalizirati.\n"
+"            Automatski zadatak odabire zapis samo ako je:\n"
+"            - Vrijeme potvrđivanja + Odgoda < Trenutno vrijeme\n"
+"            "
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_schema
 msgid ""
 "\n"
 "verzija: 1.3 Datum verzije: 04.07.2016.\n"
@@ -34,163 +64,199 @@ msgid ""
 "   \"PrateciDokumentiOdgovor\", \"RacunPDZahtjev\",\n"
 "   \"RacunPDOdgovor\" i ostalo vezano za nove elemente.\n"
 "\n"
+"verzija: 1.7 Datum verzije: 11.10.2023.\n"
+"- u WSDL-u dodana nova metoda 'napojnica'\n"
+"- u schemi dodani elementi \"NapojnicaZahtjev\",\n"
+"  \"NapojnicaOdgovor\" i ostalo vezano za nove elemente.\n"
+"\n"
+"verzija: 1.8 Datum verzije: 18.06.2025.\n"
+"- izbačena metoda i sve pripadne elemente za prateće dokumente (PrateciDokumentiZahtjev, PrateciDokumentiOdgovor)\n"
+"- izbačena metoda i sve pripadne elemente za račune koji se odnose na prateće dokumente (RacunPDZahtjev, RacunPDOdgovor)\n"
+"- izbačeni elementi koji se odnose na prateće dokumente iz metode za promjenu načina plaćanja (PromijeniNacPlacZahtjev)\n"
+"                JirPD, ZastKodPD\n"
+"- izbačeni elementi koji se odnose na prateće dokumente iz metode za prijavu napojnice (NapojnicaZahtjev)\n"
+"                JirPD, ZastKodPD\n"
+"- izbačeni elementi za provjeru računa (ProvjeraZahtjev, ProvjeraOdgovor) dio vezan za provjeru računa koji se odnosi na prateće dokumente\n"
+"\n"
+"verzija: 1.9 Datum verzije: 24.06.2025.\n"
+"- nova metoda promijeniPodatkeRacuna\n"
+"- nove metode za radno vrijeme:\n"
+"- prijaviRadnoVrijeme\n"
+"- obrisiRadnoVrijeme\n"
+"- dohvatiRadnoVrijeme\n"
+"\n"
+"verzija: 1.10 Datum verzije: 24.11.2025.\n"
+"- nove metode za radno vrijeme:\n"
+"- prijaviRadnoVrijemeZaPoslovnice\n"
 msgstr ""
+"\n"
+"verzija: 1.3 Datum verzije: 04.07.2016.\n"
+"- u WSDL-u dodana nova metoda \"provjera\"\n"
+"- u schemi dodani novi elementi \"ProvjeraZahtjev\" i \"ProvjeraOdgovor\"\n"
+"\n"
+"verzija: 1.4 Datum verzije: 27.04.2017.\n"
+"- u WSDL-u izbačena metoda \"poslovniProstor\"\n"
+"-u schemi izbačeni elementi \"PoslovniProstorZahtjev\",\n"
+"   \"PoslovniProstorOdgovor\"i ostalo vezano za prijavu poslovnih prostora\n"
+"\n"
+"verzija: 1.5 Datum verzije: 20.12.2019.\n"
+"- u WSDL-u dodane dvije metode \"prateciDokumenti\" i \"racuniPD\"\n"
+"- u schemi dodani elementi \"PrateciDokumentiZahtjev\",\n"
+"   \"PrateciDokumentiOdgovor\", \"RacunPDZahtjev\",\n"
+"   \"RacunPDOdgovor\" i ostalo vezano za nove elemente.\n"
+"\n"
+"verzija: 1.7 Datum verzije: 11.10.2023.\n"
+"- u WSDL-u dodana nova metoda 'napojnica'\n"
+"- u schemi dodani elementi \"NapojnicaZahtjev\",\n"
+"  \"NapojnicaOdgovor\" i ostalo vezano za nove elemente.\n"
+"\n"
+"verzija: 1.8 Datum verzije: 18.06.2025.\n"
+"- izbačena metoda i sve pripadne elemente za prateće dokumente (PrateciDokumentiZahtjev, PrateciDokumentiOdgovor)\n"
+"- izbačena metoda i sve pripadne elemente za račune koji se odnose na prateće dokumente (RacunPDZahtjev, RacunPDOdgovor)\n"
+"- izbačeni elementi koji se odnose na prateće dokumente iz metode za promjenu načina plaćanja (PromijeniNacPlacZahtjev)\n"
+"                JirPD, ZastKodPD\n"
+"- izbačeni elementi koji se odnose na prateće dokumente iz metode za prijavu napojnice (NapojnicaZahtjev)\n"
+"                JirPD, ZastKodPD\n"
+"- izbačeni elementi za provjeru računa (ProvjeraZahtjev, ProvjeraOdgovor) dio vezan za provjeru računa koji se odnosi na prateće dokumente\n"
+"\n"
+"verzija: 1.9 Datum verzije: 24.06.2025.\n"
+"- nova metoda promijeniPodatkeRacuna\n"
+"- nove metode za radno vrijeme:\n"
+"- prijaviRadnoVrijeme\n"
+"- obrisiRadnoVrijeme\n"
+"- dohvatiRadnoVrijeme\n"
+"\n"
+"verzija: 1.10 Datum verzije: 24.11.2025.\n"
+"- nove metode za radno vrijeme:\n"
+"- prijaviRadnoVrijemeZaPoslovnice\n"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiskal_report_invoice_document
-msgid "<strong>Fiscal User:</strong>"
-msgstr "<strong>Djelatnik:</strong>"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiskal_report_invoice_document
-msgid "<strong>JIR:</strong>"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiskal_report_invoice_document
-msgid "<strong>Scan me to validate -&gt;</strong>"
-msgstr "<strong>Skeniraj za provjeru -&gt;</strong>"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiskal_report_invoice_document
-msgid "<strong>ZKI:</strong>"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_nacin_placanja
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_nacin_placanja
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_nacin_placanja
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__l10n_hr_payment_method
 msgid ""
-"According to Fiscalization Law and regulative there is 5 possible options: \n"
+"According to Fiscalization Law and regulative there are 4 possible options: \n"
+"G - Cash (coins or bills), fiscalization required\n"
+"K - Bank cards, fiscalization required\n"
 "T - Transaction bank account\n"
-"G - Cash (coins or bills), fiskalisation required\n"
-"K - Bank cards, fiskalisation required\n"
-"C - Cheque payment, fiskalisation required\n"
-"O - Other payment, fiskalisation required\n"
+"O - Other payment, fiscalization required\n"
 msgstr ""
-"Prema zakonu o fiskalizaciji 5 je mogućih načina plaćanja: \n"
-"T - Transakcijski bankovni račun\n"
-"G - Gotovina (novčanice i kovanice), fiskalizacija računa obavezna\n"
-"K - Kreditne kartice, fiskalizacija računa obavezna\n"
-"C - Čekovi, fiskalizacija računa obavezna\n"
-"O - Ostali načini plaćanja, fiskalizacija računa obavezna\n"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__state__active
-msgid "Active"
-msgstr "Aktivan"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_cancel_confirmed_invoice
-msgid "Allow users to cancel fiscalized invoiced"
-msgstr "Omogući korisnicima otkazivanje i vraćanje u nacrt već fiskaliziranih računa"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiskal_certificate_form
-msgid "Approve"
-msgstr "Odobri"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_journal__l10n_hr_default_nacin_placanja__c
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_move__l10n_hr_nacin_placanja__c
-msgid "Bank Cheque"
-msgstr "Bankovni ček"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_qr
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_qr
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_qr
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_qr
-msgid "Binary field visible in the interface"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiskal_certificate_form
-msgid "Cancel"
-msgstr "Otkaži"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_cancel_confirmed_invoice
-msgid "Cancel Fiscalized Invoices"
-msgstr "Otkaži fiskaliziran račun"
+"Prema Zakonu o fiskalizaciji postoje 4 mogućnosti: \n"
+"G - Gotovina (novčanice i kovanice), obavezna fiskalizacija\n"
+"K - Bankovne kartice, obavezna fiskalizacija\n"
+"T - Transakcijski račun\n"
+"O - Ostali načini plaćanja, obavezna fiskalizacija\n"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
-#, python-format
+msgid "All selected invoices are already fiscalized"
+msgstr "Svi odabrani računi su već fiskalizirani"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "All selected invoices are fiscalized or do not need fiscalization"
+msgstr "Svi odabrani računi su fiskalizirani ili ne zahtijevaju fiskalizaciju"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cancel_confirmed_invoice
+msgid "Allow users to cancel fiscalized invoiced"
+msgstr "Omogući korisnicima otkazivanje fiskaliziranih računa"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "Already Fiscalized"
+msgstr "Već fiskalizirano"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__t
+msgid "Bank transfer"
+msgstr "Bankovni prijenos"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_qr
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_qr
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_qr
+msgid "Binary field visible in the interface"
+msgstr "Binarno polje vidljivo u sučelju"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__business_premise_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__business_premise_id
+msgid "Business Premise"
+msgstr "Poslovni prostor"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "Cancel"
+msgstr "Otkaži"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cancel_confirmed_invoice
+msgid "Cancel Fiscalized Invoices"
+msgstr "Otkaži fiskalizirane račune"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
 msgid ""
 "Canceling or returning fiscalized invoiced in draft is disabled.\n"
 "                    If necessary, enable this feature on company."
-msgstr "Otkazivanje i vraćanje fiskaliziran računa je onemogućeno.\n"
+msgstr ""
+"Otkazivanje i vraćanje fiskaliziran računa je onemogućeno.\n"
 "                    Ako je potrebno, može se omogućiti na postavkama tvrtke."
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__state__cancel
-msgid "Cancelled"
-msgstr "Otkazan"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_journal__l10n_hr_default_nacin_placanja__g
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_move__l10n_hr_nacin_placanja__g
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__g
 msgid "Cash"
 msgstr "Gotovina"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_file_name
-msgid "Cert File Name"
-msgstr "Naziv datoteke cetifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_issuer
-msgid "Cert Issuer"
-msgstr "Izdavatelj cetifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_oib
-msgid "Cert Oib"
-msgstr "OIB iz cetifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_subject
-msgid "Cert Subject"
-msgstr "Nositelj certifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_type
-msgid "Cert Type"
-msgstr "Vrsta certifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__pem_crt
+#: model:ir.model,name:l10n_hr_account_fiscal.model_certificate_certificate
 msgid "Certificate"
 msgstr "Certifikat"
 
 #. module: l10n_hr_account_fiscal
-#. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_certificate.py:0
-#, python-format
-msgid "Certificate access error, check password or uploaded file type!"
-msgstr "Greška pristupa certifikatu, provjerite lozinku i vrstu datoteke!"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__scope
+msgid "Certificate scope"
+msgstr "Doseg certifikata"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__provjera
-msgid "Check/Verify fiscalisation data"
-msgstr "Provjeri/Potvrdi podatke fiskalizacije"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_company_form_l10n_hr_account_fiscal
+msgid "Certificates"
+msgstr "Certifikati"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "Change"
+msgstr "Promijeni"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiscal_move_form
+msgid "Change Fiscal Data"
+msgstr "Promijeni fiskalne podatke"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_change_fiscal_data
+msgid "Change Fiscal Data Wizard"
+msgstr "Čarobnjak za promjenu fiskalnih podataka"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__provjera
+msgid "Check/Verify fiscalization data"
+msgstr "Provjeri podatke fiskalizacije"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_late_delivery
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_late_delivery
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_late_delivery
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_late_delivery
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_late_delivery
 msgid "Checked if message could not be sent at time of invoicing"
-msgstr "Oznečeno ako poruku fiskalizacije nije bilo moguće poslati u vrijeme izdavanja računa"
-
-#. module: l10n_hr_account_fiscal
-#. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
-msgid "Comapny OIB is not not entered! It is required for fiscalisation"
-msgstr "OIB Tvrtke nije unešen! To je obavezan podatak za fiskalizaciju"
+msgstr ""
+"Oznečeno ako poruku fiskalizacije nije bilo moguće poslati u vrijeme "
+"izdavanja računa"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model,name:l10n_hr_account_fiscal.model_res_company
@@ -198,157 +264,273 @@ msgid "Companies"
 msgstr "Tvrtke"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__company_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__company_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__company_id
 msgid "Company"
 msgstr "Tvrtka"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiskal_certificate_form
-msgid "Convert certificate"
-msgstr "Konvertiraj certifikat"
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Company OIB is not not entered! It is required for fiscalization"
+msgstr "OIB tvrtke nije unešen! Obavezan je za fiskalizaciju"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__state__convert
-msgid "Converted"
-msgstr "Konvertiran"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__create_uid
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__create_uid
 msgid "Created by"
 msgstr "Kreirao"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__create_date
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__create_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__create_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__create_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__create_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__create_date
 msgid "Created on"
 msgstr "Kreirano"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_journal__l10n_hr_default_nacin_placanja__k
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_move__l10n_hr_nacin_placanja__k
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__k
 msgid "Credit or debit cards"
 msgstr "Kreditne ili debitne kartice"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiskal_mixin
-msgid "Croatia Fiscalisation base mixin"
-msgstr "Mixin za fiskalizaciju u Hrvatskoj"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__l10n_hr_payment_method
+msgid "Croatia - Payment Method"
+msgstr "Hrvatska - Način plaćanja"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiskal_prostor
-msgid "Croatia business premisses"
-msgstr "Poslovni prostori"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_nacin_placanja
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_nacin_placanja
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_nacin_placanja
-msgid "Croatia payment means"
-msgstr "Način plaćanja"
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiscal_v1_mixin
+msgid "Croatia Fiscalization 1.0 base mixin"
+msgstr "Hrvatska fiskalizacija 1.0 osnovni mixin"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
 msgid ""
 "Croatia Payment Means on origin invoice %s is different from the Croatia "
 "Payment Means on this invoice. Please change Croatia Payment Means to the %s"
 msgstr ""
-"Način plaćanja na izvornom dokumentu %s je različit od načina plaćanja "
-"koji je odabran na ovom računu. Promijenite način plaćanja na %s kako bi fiskalizirali račun."
+"Način plaćanja na izvornom dokumentu %s je različit od načina plaćanja koji "
+"je odabran na ovom računu. Promijenite način plaćanja na %s kako bi "
+"fiskalizirali račun."
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__fiskal_schema__educ_v1_6
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_business_premise
+msgid "Croatia business premises"
+msgstr "Poslovni prostori (HR lokalizacija)"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__cron_fiscalization_delay_hours
+msgid "Cron Fiscalization Delay Hours"
+msgstr "Sati odgode automatske fiskalizacije (Cron)"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__partner_id
+msgid "Customer"
+msgstr "Kupac"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_10
+msgid "DEMO schema v1.10"
+msgstr "DEMO shema v1.10"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_6
 msgid "DEMO schema v1.6"
-msgstr ""
+msgstr "DEMO shema v1.6"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_journal__l10n_hr_default_nacin_placanja
-msgid "Default fiskal payment method for this journal"
-msgstr "Zadani način plaćanja za ovaj dnevnik"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_7
+msgid "DEMO schema v1.7"
+msgstr "DEMO shema v1.7"
 
 #. module: l10n_hr_account_fiscal
-#. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_certificate.py:0
-#, python-format
-msgid "Deleting active certificate is not allowed!"
-msgstr "Brisanje aktivnog certifikata noje dozvoljeno!"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_8
+msgid "DEMO schema v1.8"
+msgstr "DEMO shema v1.8"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__display_name
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__display_name
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_9
+msgid "DEMO schema v1.9"
+msgstr "DEMO shema v1.9"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__dow
+msgid "Day of Week"
+msgstr "Dan u tjednu"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__certificate_certificate__l10n_hr_type__demo
+msgid "Demo"
+msgstr "Demo"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__description
+msgid "Description"
+msgstr "Opis"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_tax__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_template__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__display_name
 msgid "Display Name"
-msgstr "Naziv"
+msgstr "Naziv za prikaz"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__state__draft
-msgid "Draft"
-msgstr "Nacrt"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__enable_cron_fiscalization
+msgid "Enable Cron Fiscalization"
+msgstr "Omogući automatsku fiskalizaciju (Cron)"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__greska
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__enable_fiscalize_on_confirm
+msgid "Enable Fiscalize On Confirm"
+msgstr "Omogući fiskalizaciju prilikom potvrđivanja"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__error_msg
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiscal_log_form_view
 msgid "Error"
 msgstr "Greška"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__state__expired
-msgid "Expired"
-msgstr "Istekao"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__type__exception
+msgid "Exception"
+msgstr "Iznimka"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__fina_certs_data
-msgid "Fina Certs Data"
-msgstr "Podaci certifikata FINA-e"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__exception_working_hours_ids
+msgid "Exception Working Hours"
+msgstr "Iznimno radno vrijeme"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__fina_cert_bundle
-msgid "Fina certificates"
-msgstr "FINA certifikati"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Exceptions"
+msgstr "Iznimke"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_cert_id
-msgid "Fiscal certificate"
-msgstr "Certifikat za fiskalizaciju"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_ids
+msgid "FINA Fiscal certificates"
+msgstr "FINA certifikati za fiskalizaciju"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_user_id
-msgid "Fiscal User"
-msgstr "Potvrdio račun"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.certificate_certificate_view_form_l10n_hr
+msgid "FINA Type"
+msgstr "FINA vrsta"
 
 #. module: l10n_hr_account_fiscal
-#. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
-msgid "Fiscalisation not possible: \n"
-msgstr "Fiskalizacija nije moguća: \n"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__l10n_hr_type
+msgid "FINA type"
+msgstr "FINA vrsta"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__pd
-msgid "Fiscalisation of attached document"
-msgstr "Fiskalizacija pratećeg dokumenta"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__certificate_certificate__scope__fina
+msgid "Fina"
+msgstr "Fina"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__pd_rac
-msgid "Fiscalisation of invoice for attached doc"
-msgstr "Fiskalizacija računa za prateći dokument"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__split_shift__1
+msgid "First shift"
+msgstr "Prva smjena"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_subject_vat
+msgid "Fiscal Cert Subject VAT"
+msgstr "OIB nositelja fiskalnog certifikata"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/res_company.py:0
+msgid "Fiscal Certificate not found! Check company setup!"
+msgstr "Certifikat za fiskalizaciju nije pronađen! Provjerite postavke tvrtke!"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_fiscal_certificate
+#: model:ir.ui.menu,name:l10n_hr_account_fiscal.menu_action_fiscal_certificate
+msgid "Fiscal Certificates"
+msgstr "Certifikati za fiskalizaciju"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiscal_move_form
+msgid "Fiscal Check"
+msgstr "Fiskalna provjera"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid ""
+"Fiscal Device on origin invoice %s is different from the Fiscal Device on "
+"this invoice. Please change Fiscal Device to the %s"
+msgstr "Naplatni uređaj na izvornom računu %s razlikuje se od naplatnog uređaja na ovom računu. Molimo promijenite naplatni uređaj na %s"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Fiscal Logs"
+msgstr "Fiskalni zapisi"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_qr
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_qr
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_qr
+msgid "Fiscal QR code"
+msgstr "Fiskalni QR kod"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_test_env
+msgid "Fiscal Test Mode"
+msgstr "Fiskalni testni način"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_l10n_hr_fiscal_log
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_log_ids
+#: model:ir.ui.menu,name:l10n_hr_account_fiscal.menu_action_check_l10n_hr_fiscal_log
+msgid "Fiscal message logs"
+msgstr "Zapisi fiskalnih poruka"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiscal_log
+msgid "Fiscal messages log"
+msgstr "Zapis fiskalnih poruka"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/res_company.py:0
-#, python-format
+msgid "Fiscal schema not found! Check company setup!"
+msgstr "Fiskalna shema nije pronađena! Provjerite postavke tvrtke!"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_tax__l10n_hr_fiscal_type
+msgid "Fiscal type"
+msgstr "Fiskalni tip"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__fiscalization_active
+msgid "Fiscalization Active"
+msgstr "Fiskalizacija aktivna"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/res_company.py:0
 msgid "Fiscalization Delayed"
 msgstr "Odgoda fiskalizacije"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
+#: code:addons/l10n_hr_account_fiscal/helpers/fiscal_wrapper.py:0
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
 msgid ""
 "Fiscalization Error:\n"
 " %s"
@@ -359,173 +541,175 @@ msgstr ""
 #. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/res_company.py:0
-#, python-format
 msgid "Fiscalization Failed"
 msgstr "Neuspješna fiskalizacija"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_on_confirm
-msgid "Fiscalize Invoice On Confirmation"
-msgstr "Fiskaliziraj račun kod potvrđianja"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_account_fiscal_view_account_invoice_filter
-msgid "Fiscalized"
-msgstr "Fiskaliziran"
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "Fiscalization Finished: Failures Detected"
+msgstr "Fiskalizacija završena: Uočene su greške"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
-#, python-format
-msgid ""
-"Fiscalization is not active for %s!! Only Transaction account payment is "
-"allowed!"
-msgstr ""
-"Fiscalizacija nije aktivna za %s!! Samo plaćanje na bankovni račun je dozvoljeno!"
-
+msgid "Fiscalization Skipped"
+msgstr "Fiskalizacija preskočena"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/res_company.py:0
-#, python-format
-msgid "Fiskal Cerificate not found! Check company setup!"
-msgstr "Certifikat za fiskalizaciju nije pronađen! Provjerite postavke tvrtke!!"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_l10n_hr_fiskal_certificate_tree
-#: model:ir.ui.menu,name:l10n_hr_account_fiscal.menu_action_certificate_tree
-msgid "Fiskal Certificates"
-msgstr "Certifikati za fiskalizaciju"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__cert_type__demo
-msgid "Fiskal Demo"
-msgstr ""
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "Fiscalization Successfull"
+msgstr "Fiskalizacija uspješna"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_device.py:0
+msgid "Fiscalization delay must be between 1 and 24 hours."
+msgstr "Odgoda fiskalizacije mora biti između 1 i 24 sata."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Fiscalization not possible: \n"
+msgstr "Fiskalizacija nije moguća: \n"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__promijenipodatkeracuna
+msgid "Fiscalization of Invoice changes"
+msgstr "Fiskalizacija promjena na računu"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__prijaviradnovrijeme
+msgid "Fiscalization of Working Hours for business premises"
+msgstr "Fiskalizacija radnog vremena za poslovne prostore"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__pd
+msgid "Fiscalization of attached document"
+msgstr "Fiskalizacija pratećeg dokumenta"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__pd_rac
+msgid "Fiscalization of invoice for attached doc"
+msgstr "Fiskalizacija računa za prateći dokument"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s"
+msgstr "Rezultat fiskalizacije: Pokrenuto: %s | Preskočeno: %s | Fiskalizirano: %s"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
 msgid ""
-"Fiskal Device on origin invoice %s is different from the Fiskal Device on "
-"this invoice. Please change Fiskal Device to the %s"
-msgstr "Naplatni uređaj na izvornom računu %s je različit od naplatnog uređaja "
-"koji je odabran na ovom računu. Promijenite naplatni uređaj na %s kako bi fiskalizirali račun."
+"Fiscalization result: Started: %s | Skipped: %s | Fiscalized: %s | Failed: "
+"%s"
+msgstr "Rezultat fiskalizacije: Pokrenuto: %s | Preskočeno: %s | Fiskalizirano: %s | Neuspješno: %s"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__cert_type__prod
-msgid "Fiskal Prod"
-msgstr ""
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_schema
+msgid "Fiscalization schema"
+msgstr "Fiskalna shema"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__pem_crt
-msgid "Fiskal certificate from user P12/PFX cert file"
-msgstr "Podaci certifikata iz učitane P12/PFX datoteke"
+#: model:ir.actions.server,name:l10n_hr_account_fiscal.ir_cron_fiscalization_batch_ir_actions_server
+msgid "Fiscalization: Run Batch Fiscalization"
+msgstr "Fiskalizacija: Pokreni skupnu fiskalizaciju"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiskal_certificate
-msgid "Fiskal certificate store"
-msgstr "Pohrana certifikata za fiskalizaciju"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiscal_move_form
+msgid "Fiscalize"
+msgstr "Fiskaliziraj"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_fiskal_log
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_log_ids
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_log_ids
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_log_ids
-#: model:ir.ui.menu,name:l10n_hr_account_fiscal.menu_action_check_fiskal_log
-msgid "Fiskal message logs"
-msgstr "Logovi fiskalnih poruka"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiscal_move_tree
+msgid "Fiscalize Batch"
+msgstr "Skupna fiskalizacija"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiskal_log
-msgid "Fiskal messages log"
-msgstr "Log fiskalne poruke"
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_account_invoice_filter_l10n_hr_account_fiscal
+msgid "Fiscalized"
+msgstr "Fiskalizirano"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_tax__l10n_hr_fiskal_type
-msgid "Fiskal tax type"
-msgstr "Fiskalna vrsta poreza"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__5
+msgid "Friday"
+msgstr "Petak"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_uredjaj__fiskalisation_active
-msgid "Fiskalisation Active"
-msgstr "Fiskalizacija aktivna"
+#: model:ir.actions.server,name:l10n_hr_account_fiscal.action_get_working_hours
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Get Working Hours"
+msgstr "Dohvati radno vrijeme"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_fiskal_prostor_form
-msgid "Fiskalizacija - Komunikacija"
-msgstr ""
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__dohvatiradnovrijeme
+msgid "Get Working Hours for business premises"
+msgstr "Dohvat radnog vremena za poslovne prostore"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__fiskal_schema
-msgid "Fiskalizaction schema"
-msgstr "Schema za fiskalne pruke"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiskal_account_move_form
-msgid "Fiskaliziraj"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_tax__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_template__id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_paragon_br
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_paragon_br
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_paragon_br
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_paragon_br
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_paragon_br
 msgid ""
 "If system was down, and invoice is records on 'paragon blok',. This needs to"
 " be entered BEFORE confirming the invoice."
 msgstr ""
-"Ukoliko sustav nije bio dostupan, a račun je izdan na 'paragon blok',. Ovo treba"
-" biti unešeno PRIJE potvrđivanja računa."
+"Ukoliko sustav nije bio dostupan, a račun je izdan na 'paragon blok',. Ovo "
+"treba biti unešeno PRIJE potvrđivanja računa."
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_silent_error_logging
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_silent_error_logging
 msgid ""
 "If true and if the fiscalization process has failed, then users won't get a "
-"warning about it,            but the issue will be logged in fiscalitation "
+"warning about it,            but the issue will be logged in fiscalization "
 "logs."
-msgstr ""
-"Ako je označeno, tada u slučaju neuspješne fiskalizacije korisniku neće biti javljena greška "
-"o greški fiskalizacije već će greška biti zapisana u logu "
-"fiskalizacije."
+msgstr "Ako je označeno, u slučaju neuspješne fiskalizacije korisnik neće dobiti upozorenje, već će greška biti zabilježena u fiskalnim zapisima."
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_taxative
-msgid "In taxation system"
-msgstr "U sustavu PDVa"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__racuni
+msgid "Invoice fiscalization"
+msgstr "Fiskalizacija računa"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__invoice_id
-msgid "Invoice"
-msgstr "Račun"
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the "
+"%s payment type"
+msgstr "Ukupni iznos računa veći od 10.000,00 € ne može se fiskalizirati s načinom plaćanja %s"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__racuni
-msgid "Invoice fiscalisation"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_on_confirm
-msgid "Invoices will be fiscalized on confirmation"
-msgstr "Računi će biti fiskalizirani kod potvrđiavanja računa"
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu"
+msgstr "Iznos poreza na fiskalnom računu razlikuje se od iznosa poreza na Odoo računu"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_jir
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_jir
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_jir
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_jir
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_jir
 msgid "JIR"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_account_journal
-msgid "Journal"
-msgstr "Dnevnik"
+msgstr "JIR"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model,name:l10n_hr_account_fiscal.model_account_move
@@ -533,288 +717,410 @@ msgid "Journal Entry"
 msgstr "Temeljnica"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_qr
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_qr
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_qr
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_qr
-msgid "L10N Hr Fiskal Qr"
-msgstr "QR kod za provjeru"
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_business_working_hours
+msgid "L10n HR business working hours"
+msgstr "Radno vrijeme poslovnog prostora (HR)"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate____last_update
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__write_uid
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Zadnji ažurirao"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__write_date
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__write_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__write_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__write_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__write_date
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Zadnje ažurirano"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_late_delivery
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_late_delivery
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_late_delivery
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_late_delivery
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_late_delivery
 msgid "Late delivery"
 msgstr "Naknadna dostava"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__rac_pon
-msgid "Late delivery for fiscalisation"
-msgstr "Naknadna dostava/fiskalizacija računa u sustav FINE"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__rac_pon
+msgid "Late delivery for fiscalization"
+msgstr "Naknadna dostava za fiskalizaciju"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_log_ids
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_log_ids
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_business_premise__l10n_hr_fiscal_log_ids
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_log_ids
 msgid "Log of all messages sent and received for FINA"
-msgstr "Zapisi svih poruka poslanih i primljenih za Fiskalizaciju"
+msgstr "Zapis svih poruka poslanih i primljenih prema FINA-i"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_prostor__fiskal_log_ids
-msgid "Logovi poruka"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_prostor__fiskal_log_ids
-msgid "Logovi poslanih poruka prema poreznoj upravi"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__type
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__type
 msgid "Message type"
 msgstr "Vrsta poruke"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__naknade
-msgid "Naknade (npr. ambalaza)"
-msgstr ""
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__1
+msgid "Monday"
+msgstr "Ponedjeljak"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__name
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__name
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__naknade
+msgid "Naknade (npr. ambalaza)"
+msgstr "Naknade (npr. ambalaža)"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__name
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_pnp_category__name
 msgid "Name"
 msgstr "Naziv"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__ne_podlijeze
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__ne_podlijeze
 msgid "Ne podlijeze oporezivanju"
-msgstr ""
+msgstr "Ne podliježe oporezivanju"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
 msgid ""
-"No fiscal certificate found, please install one activate and select it on "
+"No Fiscal certificate found, please install one activate and select it on "
 "company setup!"
-msgstr ""
-"Certifikat za fiskalizaciju nije pronađen, Molimo da ga instalirate i aktivirate u postakama!"
-
+msgstr "Certifikat za fiskalizaciju nije pronađen, molimo da ga instalirate, aktivirate i odaberete u postavkama tvrtke!"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__not_after
-msgid "Not After"
-msgstr "Ne nakon"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__not_before
-msgid "Not Before"
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_account_fiscal_view_account_invoice_filter
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_account_invoice_filter_l10n_hr_account_fiscal
 msgid "Not Fiscalized"
-msgstr "Nije fiskaliziran"
+msgstr "Nije fiskalizirano"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-javascript
 #: code:addons/l10n_hr_account_fiscal/static/src/js/not_fiscalized_invoices_systray.js:0
-#, python-format
 msgid "Not Fiscalized Invoces"
 msgstr "Nefiskalizirani računi"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-javascript
 #: code:addons/l10n_hr_account_fiscal/static/src/xml/not_fiscalized_invoices_systray.xml:0
-#: code:addons/l10n_hr_account_fiscal/static/src/xml/not_fiscalized_invoices_systray.xml:0
-#, python-format
 msgid "Not Fiscalized Invoices"
 msgstr "Nefiskalizirani računi"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_spec
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Note"
+msgstr "Napomena"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
+msgid "Nothing to change!"
+msgstr "Nema promjena!"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_spec
 msgid ""
 "OIB informatičke tvrtke koja održava software, za demo cert mora odgovarati "
 "OIBu sa demo certifikata"
-msgstr ""
+msgstr "OIB informatičke tvrtke koja održava softver, za demo certifikat mora odgovarati OIB-u s demo certifikata"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_fiskal_log_form
-msgid "Odgovor na poruku"
-msgstr ""
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_id
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_ids
+msgid "Officially issued by Croatian FINA Agency, imported and activated"
+msgstr "Službeno izdan od FINA-e, uvezen i aktiviran"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_cert_id
-msgid "Officialy issued by Croatian FINA Agency, imported and activated"
-msgstr "Služneo izdan od strane FINA-e, uvežen i aktiviran."
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__marza
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__marza
 msgid "Oporezivanje marze"
-msgstr ""
+msgstr "Oporezivanje marže"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__oslobodenje
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__oslobodenje
 msgid "Oslobodjenje"
-msgstr ""
+msgstr "Oslobođenje"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__ostalipor
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu"
+msgstr "Osnovica + iznosi poreza ne odgovaraju ukupnom iznosu na fiskalnom računu"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Osnovica na fisk računu se razlikuje od osnovice na Odoo računu"
+msgstr "Osnovica na fiskalnom računu razlikuje se od osnovice na Odoo računu"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__ostalipor
 msgid "Ostali porezi"
-msgstr ""
+msgstr "Ostali porezi"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__other
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__other
 msgid "Other / Not recognized"
 msgstr "Ostalo / Nepoznato"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_journal__l10n_hr_default_nacin_placanja__o
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_move__l10n_hr_nacin_placanja__o
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__o
 msgid "Other payment means"
 msgstr "Ostali načini plaćanja"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__cert_type__other
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__certificate_certificate__l10n_hr_type__other
 msgid "Other/Unknown"
 msgstr "Ostalo/Nepoznato"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__pdv
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__pdv
 msgid "PDV"
-msgstr ""
+msgstr "PDV"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__fiskal_uredjaj_id
+#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_l10n_hr_pnp_category
+#: model:ir.ui.menu,name:l10n_hr_account_fiscal.action_pnp_category_menu
+msgid "PNP Categories"
+msgstr "PNP Kategorije"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_pnp_category
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_product__l10n_hr_pnp_categ_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_template__l10n_hr_pnp_categ_id
+msgid "PNP Category"
+msgstr "PNP Kategorija"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__fiscal_device_id
 msgid "POS Device"
 msgstr "Naplatni uređaj"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_certificate__fiskal_schema__prod_v1_6
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__prod_v1_10
+msgid "PROD Schema v1.10"
+msgstr "PROD shema v1.10"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__prod_v1_6
 msgid "PROD Schema v1.6"
-msgstr ""
+msgstr "PROD shema v1.6"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__prod_v1_7
+msgid "PROD Schema v1.7"
+msgstr "PROD shema v1.7"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__prod_v1_8
+msgid "PROD Schema v1.8"
+msgstr "PROD shema v1.8"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__prod_v1_9
+msgid "PROD Schema v1.9"
+msgstr "PROD shema v1.9"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_paragon_br
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_paragon_br
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_paragon_br
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_paragon_br
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_paragon_br
 msgid "Paragon nr."
 msgstr "Paragon blok broj"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_password
-msgid "Password for certificate"
-msgstr "Lozinka za certifikat"
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Partner {} is defined as R1 but missing VAT"
+msgstr "Partner {} je definiran kao R1, ali nedostaje OIB/PDV ID"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__user_id
 msgid "Person"
 msgstr "Osoba"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__user_id
-msgid "Person which sent fiscalisation message"
-msgstr "Osoba koja je poslala poruku"
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__user_id
+msgid "Person which sent fiscalization message"
+msgstr "Osoba koja je poslala fiskalnu poruku"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiskal_uredjaj
-msgid "PoS device details"
+#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiscal_device
+msgid "PoS device (fiscal device) details"
 msgstr "Detalji naplatnog uređaja"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiskal_type__pnp
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__pnp
 msgid "Porez na potrosnju"
-msgstr ""
+msgstr "Porez na potrošnju"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_fiskal_log_form
-msgid "Poruka"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_fiskal_log_form
-msgid "Poslana poruka"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__fiskal_prostor_id
-msgid "Premisse"
-msgstr "Prostor"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__pem_key
-msgid "Private key"
-msgstr "Privatni ključ"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__pem_key
-msgid "Private key from user P12/PFX cert file"
-msgstr "Privatni ključ iz uveženog certifikata"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__time_obr
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__process_time
 msgid "Process time"
 msgstr "Vrijeme obrade"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__cert_file
-msgid "Received cert file"
-msgstr "Uveženi certifikat"
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__certificate_certificate__l10n_hr_type__prod
+msgid "Prod"
+msgstr "Produkcijski"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__odgovor
+#: model:ir.model,name:l10n_hr_account_fiscal.model_product_template
+msgid "Product"
+msgstr "Proizvod"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__8
+msgid "Public holiday"
+msgstr "Državni blagdan"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "R1 invoice cannot be fiscalized with %s payment type"
+msgstr "R1 račun ne može se fiskalizirati s načinom plaćanja %s"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the "
+"%s payment type"
+msgstr "Ukupni iznos R1 računa veći od 700,00 € ne može se fiskalizirati s načinom plaćanja %s"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Register Working Hours"
+msgstr "Prijavi radno vrijeme"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__type__regular
+msgid "Regular"
+msgstr "Redovno"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__regular_working_hours_ids
+msgid "Regular Working Hours"
+msgstr "Redovno radno vrijeme"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__regular_working_hours_note
+msgid "Regular Working Hours Note"
+msgstr "Napomena za redovno radno vrijeme"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__regular_working_hours_valid_from
+msgid "Regular Working Hours Valid From"
+msgstr "Redovno radno vrijeme vrijedi od"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_premise__regular_working_hours_valid_to
+msgid "Regular Working Hours Valid To"
+msgstr "Redovno radno vrijeme vrijedi do"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Regulars"
+msgstr "Redovna radna vremena"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__res_id
+msgid "Related Document ID"
+msgstr "ID povezanog dokumenta"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__res_model
+msgid "Related Document Model"
+msgstr "Model povezanog dokumenta"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__obrisiradnovrijeme
+msgid "Removal of Working Hours for business premises"
+msgstr "Brisanje radnog vremena za poslovne prostore"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Remove Working Hours"
+msgstr "Obriši radno vrijeme"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiscal_log_form_view
+msgid "Replied"
+msgstr "Odgovoreno"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__reply_msg
 msgid "Reply"
 msgstr "Odgovor"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__time_stamp
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__reply_timestamp
 msgid "Reply TimeStamp"
 msgstr "Vremenska oznaka odgovora"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__sadrzaj
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__6
+msgid "Saturday"
+msgstr "Subota"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__split_shift__2
+msgid "Second shift"
+msgstr "Druga smjena"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiscal_log_form_view
+msgid "Sent"
+msgstr "Poslano"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__content
 msgid "Sent message"
 msgstr "Poslana poruka"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_silent_error_logging
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/helpers/fiscal_wrapper.py:0
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Service proxy %s not found"
+msgstr "Servisni proxy %s nije pronađen"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_silent_error_logging
 msgid "Silent Error Logging"
-msgstr "Tiho logiranje greški"
+msgstr "Tiho bilježenje grešaka"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_transaction_type_skip
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_transaction_type_skip
 msgid "Skip Bank Transfer Fiscalization"
-msgstr "Ne fiskaliziraj transakcijske račune"
+msgstr "Preskoči fiskalizaciju transakcijskih računa"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiskal_spec
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_spec
 msgid "Special"
-msgstr "Specijalno"
+msgstr "Posebno"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_certificate__state
-msgid "State"
-msgstr "Status"
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__split_shift
+msgid "Split shift"
+msgstr "Dvokratno radno vrijeme"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__l10n_hr_subject_vat
+msgid "Subject VAT"
+msgstr "OIB nositelja"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__7
+msgid "Sunday"
+msgstr "Nedjelja"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_fiscal_device_list_view
+msgid "TEST ECHO"
+msgstr "TEST ECHO"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model,name:l10n_hr_account_fiscal.model_account_tax
@@ -823,100 +1129,136 @@ msgstr "Porez"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Tax %s missing fiscal type!"
+msgstr "Na porezu %s nedostaje fiskalni tip!"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
 msgid "Tax '%s' missing fiskal type!"
 msgstr "Na porezu '%s' nedostaje fiskalni tip!"
 
 #. module: l10n_hr_account_fiscal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_company_form_l10n_hr_account_fiscal
-msgid "Test Fiscalisation connection"
-msgstr "Test poruka za provjeru veze"
+msgid "Test Fiscal connection"
+msgstr "Testiraj fiskalnu vezu"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiskal_log__type__echo
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__echo
 msgid "Test service message"
-msgstr "Test poruka provjere"
+msgstr "Testna poruka servisa"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_fiskal_log_form
-msgid "UUID poruke"
-msgstr ""
+#: model:ir.model.constraint,message:l10n_hr_account_fiscal.constraint_l10n_hr_pnp_category_unique_name
+msgid "The name must be unique!"
+msgstr "Naziv kategorije mora biti jedinstven!"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_log__name
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__4
+msgid "Thursday"
+msgstr "Četvrtak"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__time_from
+msgid "Time from"
+msgstr "Vrijeme od"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__time_to
+msgid "Time to"
+msgstr "Vrijeme do"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__to_register
+msgid "To Register"
+msgstr "Za prijavu"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__to_remove
+msgid "To Remove"
+msgstr "Za brisanje"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "To fiscalize an R1 invoice, an OIB must be set on the company %s"
+msgstr "Za fiskalizaciju R1 računa, OIB mora biti postavljen na tvrtki %s"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_transaction_type_skip
+msgid "Transakcijski računi se ne fiskaliziraju"
+msgstr "Transakcijski računi se ne fiskaliziraju"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__2
+msgid "Tuesday"
+msgstr "Utorak"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__type
+msgid "Type"
+msgstr "Vrsta"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__name
 msgid "Unique communication mark"
 msgstr "Jedinstvena oznaka poruke"
 
 #. module: l10n_hr_account_fiscal
-#. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/fiskal_mixin.py:0
-#, python-format
-msgid "User OIB is not not entered! It is required for fiscalisation"
-msgstr "OIB korisnika nije unešen! Obavezan podatak za fiskalizaciju računa"
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_test_env
+msgid "Use the test environment for Fiscalization"
+msgstr "Koristi testno okruženje za fiskalizaciju"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_payment__l10n_hr_fiskal_user_id
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_fiskal_user_id
-msgid ""
-"User who sent the fiscalisation message to FINA. Can be different from "
-"responsible person on invoice."
-msgstr ""
-"Korisnik koji je poslao poruku fiskalizacije, moguće različit od odgovorne osobe"
-"na računu."
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "User OIB is not not entered! It is required for fiscalization"
+msgstr "OIB korisnika nije unešen! Obavezan je za fiskalizaciju"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_id
+msgid "Valid FINA Fiscal certificate"
+msgstr "Valjani FINA fiskalni certifikat"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Valid From"
+msgstr "Vrijedi od"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__valid_from
+msgid "Valid from"
+msgstr "Vrijedi od"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_business_working_hours__valid_on
+msgid "Valid on"
+msgstr "Vrijedi na dan"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__3
+msgid "Wednesday"
+msgstr "Srijeda"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
+msgid "Working Hours"
+msgstr "Radno vrijeme"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_zki
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_zki
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_payment__l10n_hr_zki
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiskal_mixin__l10n_hr_zki
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_zki
 msgid "ZKI"
-msgstr ""
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_pnp_category
-#: model:ir.ui.menu,name:l10n_hr_account_fiscal.action_pnp_category_menu
-msgid "PNP Categories"
-msgstr "PNP Kategorije"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_pnp_category
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_product__pnp_categ_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_template__pnp_categ_id
-msgid "PNP Category"
-msgstr "PNP Kategorija"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.constraint,message:l10n_hr_account_fiscal.constraint_l10n_hr_pnp_category_unique_name
-msgid "The name must be unique!"
-msgstr "Naziv kategorije mora biti jedinstven!"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_pnp_category
-#: model:ir.ui.menu,name:l10n_hr_account_fiscal.action_pnp_category_menu
-msgid "PNP Categories"
-msgstr "PNP Kategorije"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_pnp_category
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_product__pnp_categ_id
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_product_template__pnp_categ_id
-msgid "PNP Category"
-msgstr "PNP Kategorija"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.constraint,message:l10n_hr_account_fiscal.constraint_l10n_hr_pnp_category_unique_name
-msgid "The name must be unique!"
-msgstr "Naziv kategorije mora biti jedinstven!"
+msgstr "ZKI"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
-#, python-format
 msgid ""
 "ZKI number is not set on invoice that should be fiscalized.\n"
 "                    Check if fiscalization is properly configured."
-msgstr "ZKI broj nije postavljen na računu koji se fiskalizira.\n"
+msgstr ""
+"ZKI broj nije postavljen na računu koji se fiskalizira.\n"
 "                    Provjerite da li je fiskalizacija ispravno postavljena."

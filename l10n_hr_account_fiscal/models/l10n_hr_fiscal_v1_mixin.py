@@ -55,6 +55,21 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
     def _get_fiscal_amount_field_name(self):
         return NotImplementedError('Must be defined in subclass!')
 
+    def _get_fiscal_amount(self):
+        """The one canonical total for this document.
+
+        Everything that must agree derives from here: the ZKI
+        payload, ``IznosUkupno`` and the QR ``izn`` parameter. It has to be in
+        **company currency** and **signed** like ``IznosUkupno``: positive
+        for an invoice, negative for a storno.
+        """
+        self.ensure_one()
+        return self[self._get_fiscal_amount_field_name()]
+
+    def _get_fiscal_amount_formatted(self):
+        """The canonical total as the exact string that goes to FINA."""
+        return fiscal.format_decimal(self._get_fiscal_amount())
+
     def generate_fiscal_url(self):
         """ Generate URL for fiscalization """
         self.ensure_one()
@@ -62,12 +77,12 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         # Fiscalized invoice
         if self.l10n_hr_jir:
             url += "jir=" + self.l10n_hr_jir
-        # If not fiscalized, for any reason whatsoever 
+        # If not fiscalized, for any reason whatsoever
         else:
             url += "zki=" + self.l10n_hr_zki
         fiscal_time = datetime.strptime(self.l10n_hr_fiscal_time, FISCAL_DATETIME_FORMAT).strftime("%Y%m%d_%H%M")
         url += "&datv=" + fiscal_time
-        amount = "&izn=%.2f" % self[self._get_fiscal_amount_field_name()]
+        amount = f"&izn={self._get_fiscal_amount_formatted()}"
         url += amount.replace(".", "")  # no decimal point in a link!
         return url
 
@@ -178,12 +193,14 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 raise ValidationError(_("Tax %s missing fiscal type!") % tax_line.tax_line_id.name)
             fiscal_type = tax_line.tax_line_id.l10n_hr_fiscal_type
             rate = tax_line.tax_line_id.amount
-            # NOTE: base_amount and amount should be on credit side so balance will be negative
-            base_amount = tax_line.tax_base_amount
+            # NOTE: tax_base_amount is already signed by move.direction_sign
+            # (account_tax.py: tax_line['tax_base_amount'] += sign * base_amount),
+            # so it is negative for out_invoice and positive for out_refund - the
+            # mirror image of what we must send. Negating it, exactly like balance,
+            # puts Osnovica and Iznos on the same sign convention as IznosUkupno:
+            # positive for invoices, negative for storno.
+            base_amount = tax_line.tax_base_amount * (-1)
             amount = tax_line.balance * (-1)
-            # if the move is a refund, reverse the base_amount
-            if self.move_type in ['in_refund', 'out_refund']:
-                base_amount = base_amount * (-1)
 
             if fiscal_type in ['Pdv', 'Pnp']:
                 if not tax_data[fiscal_type].get(rate):
@@ -274,10 +291,14 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         return res
 
     def _prepare_fiscal_invoice_total(self):
-        """"Get total invoice amount"""
-        inv_payment_term_lines = self.line_ids.filtered(lambda l: l.display_type == "payment_term")
-        amount_total = inv_payment_term_lines and sum(il.balance for il in inv_payment_term_lines) or 0.0
-        return fiscal.format_decimal(amount_total)
+        """"Get total invoice amount
+
+        NOTE: this used to sum the payment_term lines' balance. That is the same
+        number as the canonical amount, but it silently returned "0.00" for a
+        document without a payment_term line, while the ZKI was signed over the
+        real total. Both now come from the same place.
+        """
+        return self._get_fiscal_amount_formatted()
 
     def _prepare_fiscal_date_time(self):
         """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
@@ -350,14 +371,17 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         racun_osnovica = racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0
         pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
         pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
-        # NOTE: ako je ukupni iznos računa negativan tada je negativna i osnovica računa
+        # NOTE: osnovice koje se ne salju kroz Pdv/Pnp, ali su dio ukupnog iznosa racuna.
+        # Bez njih bi svaki racun sa oslobodenjem / marzom / neoporezivim stavkama
+        # pao na provjeri osnovice, iako je poruka ispravna.
+        # NOTE: Pnp dijeli osnovicu sa Pdv-om pa se njegova
+        # osnovica namjerno NE dodaje - inace bi bila dvostruko zbrojena.
+        for field_name in ("IznosOslobPdv", "IznosNePodlOpor", "IznosMarza"):
+            racun_osnovica += float(getattr(racun, field_name, None) or 0.0)
         # NOTE: ako tvrtka nije u sustava PDV_a, tada j iznos racuna jednak ukupnom iznosu racuna
         if not racun.USustPdv:
             racun_osnovica = float(racun.IznosUkupno)
-        amount_untaxed = (
-                round(float(racun.IznosUkupno), self.currency_id.decimal_places) < 0 and
-                self.amount_untaxed * (-1) or
-                self.amount_untaxed)
+        amount_untaxed = self.amount_untaxed_signed
         # NOTE: provjera da li iznos poreza na fisk racunu odgovora iznosu odoo poreza
         tax_amount = sum(self.line_ids.filtered(
             lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiscal_type == 'Pdv').mapped('balance')) * (-1)
@@ -427,7 +451,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],
-                fiscal.format_decimal(self[self._get_fiscal_amount_field_name()]),
+                self._get_fiscal_amount_formatted(),
             ]
             fisk = fiscal.Fiscalization(data=fiscal_data)
             self.l10n_hr_zki = fiscal.generate_zki(
@@ -444,7 +468,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
 
         if msg_type in self._fisc_msg_type():
             racun = self._prepare_fiscal_invoice(fisk, fiscal_data, msg_type)
-            # self._validate_fiscal_invoice(racun)
+            self._validate_fiscal_invoice(racun)
             zaglavlje = fisk.create_request_header()  # self._create_fiskal_header(fisk)
             req_kw = dict(Zaglavlje=zaglavlje, Racun=racun)
             response = None
@@ -471,6 +495,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 'error_message'] or odoo_error.get('error_message')
             if error_message and not self.company_id.l10n_hr_fiscal_silent_error_logging:
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)
+        return bool(self.l10n_hr_jir)
 
     @fisc_handler(msg_type='promijeniPodatkeRacuna')
     def fiscalize_data_change(self, partner, payment_method):

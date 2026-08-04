@@ -138,3 +138,126 @@ Fina PROD certifikati: https://www.fina.hr/ca-fina-root-certifikati
 - PU-2022-09-23 - https://www.porezna-uprava.hr/HR_Fiskalizacija/Aktualnosti%20dokumenti/Certifikati/fiskalcis_23_09_2022.zip
 - PU-2022-04-07 -  https://www.porezna-uprava.hr/HR_Fiskalizacija/Aktualnosti%20dokumenti/Certifikati/cis.porezna-uprava.hr_2022.zip
 - PU-2020-10-01 - https://www.porezna-uprava.hr/HR_Fiskalizacija/Documents/Fiskalcis2020_10_1.zip
+
+
+Unit Tests
+==========
+
+Run the whole suite with::
+
+    odoo-bin -d <database> --test-enable --test-tags /l10n_hr_account_fiscal --stop-after-init
+
+The tests are tagged ``post_install`` and ``-at_install``, so they need the
+module installed first. ``test_systray.py`` is an ``HttpCase`` and needs a
+running browser (Chromium); if the server config pins a ``dbfilter``, pass
+``--db-filter=<database>`` as well or the browser lands on the database
+selector instead of the web client.
+
+tests/test_fiscal_tax_values.py
+-------------------------------
+
+Sign, currency and consistency of the amounts in the Fiskalizacija 1.0
+message. The single invariant behind most of them is::
+
+    ZKI payload amount == IznosUkupno == QR 'izn'
+    sum(Pdv.Osnovica) + sum(Pdv.Iznos) + sum(Pnp.Iznos) == IznosUkupno
+
+Sign of the taxable base (``Osnovica``)
+
+- ``test_osnovica_positive_on_out_invoice`` - an ordinary customer invoice
+  reports a positive base and tax. ``tax_base_amount`` is already signed by
+  ``direction_sign``, so the base used to go out negative on every invoice.
+- ``test_osnovica_negative_on_out_refund`` - a credit note keeps base, tax and
+  total all negative.
+- ``test_osnovica_plus_iznos_equals_iznos_ukupno`` - the breakdown adds up to
+  the total, for an invoice and for a credit note.
+- ``test_exempt_base_is_reported_separately`` - a 0% exempt line lands in
+  ``IznosOslobPdv`` and stays out of the ``Pdv`` breakdown, while still
+  counting towards the total.
+
+One canonical amount for ZKI, ``IznosUkupno`` and the QR
+
+- ``test_zki_amount_equals_iznos_ukupno`` - the ZKI is signed over exactly the
+  amount that is submitted.
+- ``test_zki_amount_is_negative_on_a_credit_note`` - the ZKI used to sign
+  ``+1250.00`` while ``IznosUkupno`` went out as ``-1250.00``.
+- ``test_zki_amount_is_in_company_currency`` - a foreign-currency invoice signed
+  its *invoice* currency total; the amount must be the company-currency one
+  that ``IznosUkupno`` has always carried.
+- ``test_iznos_ukupno_matches_the_payment_term_lines`` - regression guard
+  for the switch to ``amount_total_signed``: the value must not change for an
+  ordinary document, in company or foreign currency.
+- ``test_qr_url_carries_the_company_currency_amount`` - the verification URL's
+  ``izn`` is the company-currency amount, not the invoice-currency one.
+- ``test_qr_url_amount_is_signed_for_a_credit_note`` - a storno must advertise
+  the negative amount it actually fiscalized. Seen in production on POS refund
+  ``pos.order`` 345 / ``account.move`` 528: ZKI and ``IznosUkupno`` were both
+  ``-10.13``, but the QR carried ``izn=1013``.
+- ``test_qr_url_amount_matches_the_zki_and_iznos_ukupno`` - asserts all three
+  amounts against each other, on the URL rather than the field, so a future
+  formatting change to ``izn`` has to keep them in step.
+
+Pre-send validation guard
+
+- ``test_validator_accepts_consistent_invoice`` / ``..._consistent_refund`` -
+  a correct payload passes in both directions.
+- ``test_validator_rejects_inverted_osnovica`` - the exact payload the old sign
+  bug produced must not leave the system. It matched the XSD pattern, so CIS
+  accepted it silently.
+- ``test_validator_rejects_understated_osnovica`` - a base that does not match
+  Odoo's untaxed amount is caught. This is the shape produced when two tax
+  lines share a rate and only the first base is kept.
+- ``test_validator_rejects_mismatched_tax_amount`` - a tax amount that does not
+  follow from the base is caught.
+- ``test_validator_accepts_a_foreign_currency_invoice`` - the validator
+  compared company-currency figures against invoice-currency
+  ``amount_untaxed``, so it raised on every foreign-currency invoice even
+  though the message was correct.
+- ``test_validator_accepts_exempt_base`` - ``IznosOslobPdv`` counts towards the
+  base and must not false-trigger the guard.
+
+Endpoint configuration
+
+- ``test_every_prod_wsdl_points_at_the_production_endpoint`` - walks every
+  bundled WSDL and asserts that a ``PROD_*`` schema carries the production
+  address and a test schema the test address. FINA shipped ``PROD_v1.8`` with
+  the ``cistest.apis-it.hr`` address, which silently sent production traffic
+  to the test service.
+
+Fiscalization outcome and batching
+
+- ``test_fiscalize_returns_falsy_when_not_needed`` - ``fiscalize()`` reports its
+  outcome, so callers can tell "done" from "nothing to do".
+- ``test_batch_fiscalize_counts_untouched_moves_as_skipped`` - the batch
+  counters reflect that return value instead of swallowing it.
+- ``test_batch_fiscalize_isolates_a_failing_record`` - a DB error on one record
+  must not poison the rest of the batch. Without the per-record savepoint the
+  aborted cursor makes every following record fail with "current transaction is
+  aborted", giving counters of ``(1, 0, 2)`` instead of ``(2, 0, 1)``. Also
+  asserts the swallowed exception is logged with its traceback.
+
+Systray counter endpoint
+
+- ``test_counter_is_scoped_to_the_enabled_companies`` -
+  ``search_not_fiscalized_invoice_count`` is publicly callable via ``call_kw``,
+  so it must not trust the client. It used to ``sudo()`` and filter on whatever
+  ``company_id`` the browser sent, letting any user read another company's
+  unfiscalized-invoice count; it now takes no arguments and derives the scope
+  from ``env.companies``.
+
+tests/test_systray.py
+---------------------
+
+Browser test for the not-fiscalized-invoices systray. These failures are all
+client-side and none of them can be caught by a Python test, so the test
+renders the actual web client.
+
+- ``test_systray_badge_renders_and_menu_opens`` - creates one posted invoice
+  with a ZKI and no JIR, then asserts the systray icon renders, the red badge
+  next to it reads ``1``, and clicking it opens a dropdown containing the
+  "Not Fiscalized Invoices" item. This covers the component guarding on
+  ``this.isAlive`` (which does not exist in OWL 2, so the counter fetch always
+  returned early and the badge stayed at 0) and the template using the Odoo
+  <=16 ``toggler`` slot (Odoo 19's ``Dropdown`` has ``{default, content}``
+  only, so the icon never rendered and ``Dropdown`` raised "Could not find a
+  valid dropdown toggler").

@@ -1,6 +1,10 @@
+import logging
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
+
+_logger = logging.getLogger(__name__)
 
 """
 Invoice/POS Issue timestamp should be readonly on form views.   
@@ -25,7 +29,7 @@ class AccountMove(models.Model):
 
     @api.model
     def _get_fiscal_amount_field_name(self):
-        return 'amount_total'
+        return 'amount_total_signed'
 
     @api.constrains('state')
     def _check_fiscalization_invoice_cancel(self):
@@ -106,28 +110,31 @@ class AccountMove(models.Model):
 
         for move in self:
             try:
-                res = move.fiscalize()
-                if res:
-                    success_count += 1
-                else:
-                    skipped_count += 1
-            except Exception as e:
+                with self.env.cr.savepoint():
+                    fiscalized = move.fiscalize()
+            except Exception:
                 error_count += 1
+                _logger.exception(
+                    "Fiscalization failed for %s (id=%s)", move.display_name, move.id)
                 continue
+            if fiscalized:
+                success_count += 1
+            else:
+                skipped_count += 1
 
         return success_count, skipped_count, error_count
 
     @api.model
-    def search_not_fiscalized_invoice_count(self, company_id):
-        """Search for count of Account Moves that are not fiscalized"""
+    @api.readonly
+    def search_not_fiscalized_invoice_count(self):
+        """Count posted invoices that have a ZKI but no JIR (for systray badge) """
         domain = [
             ('state', '=', 'posted'),
-            ('company_id', '=', company_id),
+            ('company_id', 'in', self.env.companies.ids),
             ('l10n_hr_zki', '!=', False),
             ('l10n_hr_jir', '=', False)
         ]
-        count = self.env['account.move'].sudo().search_count(domain)
-        return {'count': count}
+        return {'count': self.env['account.move'].search_count(domain)}
 
     def button_fiscalize(self):
         self.ensure_one()

@@ -111,7 +111,8 @@ class AccountMove(models.Model):
             move.l10n_hr_allowed_fiscal_device_ids = vals
             move.l10n_hr_fiscal_device_visible = len(vals) > 1
             # NOTE: automatically set l10n_hr_fiscal_device_id if only one active records exists
-            if len(vals) == 1:
+            # Dirty hack, not recommended...
+            if not move.l10n_hr_fiscal_device_id and len(vals) == 1:
                 move.l10n_hr_fiscal_device_id = vals and vals[0][1]
 
     def l10n_hr_gen_fiscal_number(self):

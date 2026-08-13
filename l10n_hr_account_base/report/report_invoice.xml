@@ -27,7 +27,7 @@
         <!-- add croatia fiskal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
-                <div id="l10n_hr_info" class="row mt-4 mb-4" style="clear: both;">
+                <div id="l10n_hr_info" class="row mt-4 mb-4">
                     <div
                         class="col-auto col-3 mw-100 mb-2"
                         style="margin-right: 24px;"

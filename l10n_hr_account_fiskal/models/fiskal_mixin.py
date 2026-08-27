@@ -16,6 +16,15 @@ from ..fiskal import fiskal
 
 _logger = logging.getLogger(__name__)
 
+# Format of the "datv" parameter of the receipt verification URL
+QR_DATETIME_FORMAT = "%Y%m%d_%H%M"
+
+# Timezone used to reconstruct the fiscal datetime of an invoice that was
+# fiscalized before the value was stored on the move - the same assumption the
+# 17.0.1.1.2 migration makes. Every fiscal message this module ever built from a
+# correctly configured Croatian database used local time.
+FISKAL_LEGACY_TZ = "Europe/Zagreb"
+
 
 class FiscalFiscalMixin(models.AbstractModel):
     """
@@ -29,6 +38,11 @@ class FiscalFiscalMixin(models.AbstractModel):
     def generate_fiskal_url(self):
         """ Generate URL for fiscalisation """
         self.ensure_one()
+        if not self.l10n_hr_fiskal_dat_vrijeme:
+            # The datetime FINA holds is unknown, so the receipt cannot be looked
+            # up. An empty URL means "no QR code"; a URL built from a re-rendered
+            # datetime would be a QR that does not resolve.
+            return ""
         url = "https://porezna.gov.hr/rn?"
         if self.l10n_hr_jir:
             url += "jir=" + self.l10n_hr_jir  # fiskalizirani racun
@@ -36,10 +50,9 @@ class FiscalFiscalMixin(models.AbstractModel):
             # ispis prije poslane fiskalne poruke ili je poslana poruka
             # imala neku gresku pa JIR nije dodjeljen
             url += "zki=" + self.l10n_hr_zki
-        datum = self.l10n_hr_vrijeme_izdavanja.strftime("%Y%m%d_%H%M")
-        url += "&datv=" + datum
-        iznos = "&izn=%.2f" % self.amount_total
-        url += iznos.replace(".", "")  # bez decimalne tocke u linku!
+        url += "&datv=" + self._l10n_hr_fiskal_qr_datetime()
+        # bez decimalne tocke u linku!
+        url += "&izn=" + self._l10n_hr_fiskal_iznos_ukupno().replace(".", "")
         return url
 
     def _generate_fiskal_qr_code(self):
@@ -64,16 +77,35 @@ class FiscalFiscalMixin(models.AbstractModel):
             res = False
         return res
 
-    @api.depends("l10n_hr_jir", "l10n_hr_zki")
+    @api.depends(
+        "l10n_hr_jir",
+        "l10n_hr_zki",
+        "l10n_hr_fiskal_dat_vrijeme",
+        "amount_total_signed",
+    )
     def _compute_l10n_hr_fiskal_qr(self):
         for inv in self:
-            if not inv.l10n_hr_jir and not inv.l10n_hr_zki:
-                inv.l10n_hr_fiskal_qr
+            if (
+                (not inv.l10n_hr_jir and not inv.l10n_hr_zki)
+                or not inv.l10n_hr_fiskal_dat_vrijeme
+            ):
+                # No QR at all rather than one whose datetime was not the one
+                # registered with FINA.
+                inv.l10n_hr_fiskal_qr = False
                 continue
             inv.l10n_hr_fiskal_qr = inv._generate_fiskal_qr_code()
 
     l10n_hr_zki = fields.Char(string="ZKI", readonly=True, copy=False)
     l10n_hr_jir = fields.Char(string="JIR", readonly=True, copy=False)
+    l10n_hr_fiskal_dat_vrijeme = fields.Char(
+        string="Fiskal DatVrijeme",
+        size=19,
+        readonly=True,
+        copy=False,
+        help="Invoice date and time exactly as signed into the ZKI and sent to "
+        "FINA as Racun/DatVrijeme (dd.mm.yyyyThh:mm:ss). Frozen at "
+        "fiscalisation; the verification QR code is built from it.",
+    )
     # l10n_hr_vrijeme_xml = fields.Char(  # probably not needed but heck...
     #     string="XML time",
     #     help="Value for fiscalization msg stored as string",
@@ -101,6 +133,82 @@ class FiscalFiscalMixin(models.AbstractModel):
         compute="_compute_l10n_hr_fiskal_qr",
         help="Binary field visible in the interface",
     )
+
+    def _l10n_hr_fiskal_message_tz(self):
+        """Timezone the fiscal timestamps of a new message are rendered in."""
+        return self.env.context.get("tz") or self.env.user.tz or "UTC"
+
+    def _l10n_hr_fiskal_local_datetime(self, tz_name):
+        """``l10n_hr_vrijeme_izdavanja`` (naive UTC) rendered in ``tz_name``."""
+        self.ensure_one()
+        return self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
+            pytz.timezone(tz_name)
+        )
+
+    def _l10n_hr_fiskal_freeze_dat_vrijeme(self):
+        """Freeze the datetime that identifies this invoice towards FINA.
+
+        ``Racun/DatVrijeme`` is signed into the ZKI, sent to FINA and printed
+        inside the verification QR code, so all three consumers have to read one
+        and the same string. It cannot be re-rendered on demand: the result
+        depends on the timezone of whoever reads it, and that is not the user who
+        fiscalised the invoice. Rendering it per read is what put every printed
+        QR code 1-2 hours off the registered record.
+        """
+        self.ensure_one()
+        if not self.l10n_hr_vrijeme_izdavanja:
+            raise ValidationError(
+                _("Time of invoicing is not set on %s, it cannot be fiscalized.")
+                % self.display_name
+            )
+        if self.l10n_hr_zki and self.l10n_hr_fiskal_dat_vrijeme:
+            return
+        if self.l10n_hr_zki:
+            # Signed by a version that did not store the value. Reconstruct in
+            # Croatian local time - the only timezone this module ever built a
+            # fiscal message in - and store the result so it stops being a guess
+            # remade on every read.
+            tz_name = FISKAL_LEGACY_TZ
+        else:
+            tz_name = self._l10n_hr_fiskal_message_tz()
+        self.l10n_hr_fiskal_dat_vrijeme = self._l10n_hr_fiskal_local_datetime(
+            tz_name
+        ).strftime(FISKAL_DATETIME_FORMAT)
+
+    def _l10n_hr_fiskal_iznos_ukupno(self):
+        """``Racun/IznosUkupno`` - the invoice total as FINA receives it.
+
+        ``amount_total_signed`` is the total in company currency and signed
+        (negative for a credit note): identical to the sum of the payment term
+        line balances this used to be derived from, but also defined when the
+        move happens to carry no payment term line, and - unlike the plain
+        ``amount_total`` the QR code used to be built from - the very value that
+        goes into the message and into the ZKI.
+        """
+        self.ensure_one()
+        return fiskal.format_decimal(self.amount_total_signed)
+
+    def _l10n_hr_fiskal_racun_datetime(self):
+        """The fiscal datetime in the form printed on the invoice/receipt.
+
+        Also the ZKI's second element: the same instant as ``Racun/DatVrijeme``,
+        rendered without seconds, which is what this module has always signed.
+        """
+        self.ensure_one()
+        if not self.l10n_hr_fiskal_dat_vrijeme:
+            return ""
+        return datetime.strptime(
+            self.l10n_hr_fiskal_dat_vrijeme, FISKAL_DATETIME_FORMAT
+        ).strftime(RACUN_DATETIME_FORMAT)
+
+    def _l10n_hr_fiskal_qr_datetime(self):
+        """The ``datv`` parameter of the FINA verification URL."""
+        self.ensure_one()
+        if not self.l10n_hr_fiskal_dat_vrijeme:
+            return ""
+        return datetime.strptime(
+            self.l10n_hr_fiskal_dat_vrijeme, FISKAL_DATETIME_FORMAT
+        ).strftime(QR_DATETIME_FORMAT)
 
     def _l10n_hr_post_fiskal_check(self):
         res = []
@@ -310,18 +418,6 @@ class FiscalFiscalMixin(models.AbstractModel):
 
         return res
 
-    def _prepare_fisk_racun_invoice_total(self):
-        """"Get total invoice amount"""
-        inv_payment_term_lines = self.line_ids.filtered(lambda l: l.display_type == "payment_term")
-        amount_total = inv_payment_term_lines and sum(il.balance for il in inv_payment_term_lines) or 0.0
-        return fiskal.format_decimal(amount_total)
-
-    def _prepare_fisk_racun_dat_vrijeme(self):
-        """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
-        formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
-            pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(FISKAL_DATETIME_FORMAT)
-        return formatted_date
-
     def _get_fisk_racun_type(self, factory, msg_type):
         return factory.type_factory.RacunType
 
@@ -347,7 +443,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         racun = RacunType(
             Oib=oib_company,
             USustPdv=self.company_id.l10n_hr_fiskal_taxative,
-            DatVrijeme=self._prepare_fisk_racun_dat_vrijeme(),
+            DatVrijeme=self.l10n_hr_fiskal_dat_vrijeme,
             OznSlijed=self.l10n_hr_fiskal_uredjaj_id.prostor_id.sljed_racuna,
             BrRac=BrRac,
             Pdv=pdv,
@@ -356,7 +452,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
             # Naknade=ws_naknade,
-            IznosUkupno=self._prepare_fisk_racun_invoice_total(),
+            IznosUkupno=self._l10n_hr_fiskal_iznos_ukupno(),
             NacinPlac=self.l10n_hr_account_payment_type_id and self.l10n_hr_account_payment_type_id.code or 'O', # TODO: reviewers, say if OK
             OibOper=self.l10n_hr_fiskal_user_id.company_registry,
             ZastKod=self.l10n_hr_zki,
@@ -458,6 +554,8 @@ class FiscalFiscalMixin(models.AbstractModel):
         )
         assert len(fis_racun) == 3, "Invoice must be assembled using 3 values!"
         fiskal_data["racun"] = fis_racun
+        # Freeze DatVrijeme / IznosUkupno before anything is signed or sent
+        self._l10n_hr_fiskal_freeze_dat_vrijeme()
         if not self.l10n_hr_zki:
             if fiskal_data["demo"]:
                 # uzimam oib iz certifikata, bez obzira na company oib
@@ -465,15 +563,13 @@ class FiscalFiscalMixin(models.AbstractModel):
             else:
                 oib = fiskal_data["company_oib"]
 
-            formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
-                pytz.timezone(self.env.context.get("tz")or self.env.user.tz or "UTC")).strftime(RACUN_DATETIME_FORMAT) or time_start["datum_racun"]
             zki_datalist = [
                 oib,
-                formatted_date,
+                self._l10n_hr_fiskal_racun_datetime(),
                 fis_racun[0],
                 fis_racun[1],
                 fis_racun[2],
-                fiskal.format_decimal(self.amount_total),
+                self._l10n_hr_fiskal_iznos_ukupno(),
             ]
             fisk = fiskal.Fiskalizacija(fiskal_data=fiskal_data)
             self.l10n_hr_zki = fiskal.generate_zki(

@@ -61,7 +61,13 @@ class AccountMove(models.Model):
         """ Extend to clear ZKI if not fully fiscalized """
         for move in self:
             if move.l10n_hr_zki and not move.l10n_hr_jir:
-                move.l10n_hr_zki = False
+                # Drop the datetime the cleared ZKI was signed over as well: the
+                # invoice may be corrected before it is fiscalized again, and a
+                # stale DatVrijeme must not be shown or reused.
+                move.write({
+                    "l10n_hr_zki": False,
+                    "l10n_hr_fiskal_dat_vrijeme": False,
+                })
         super().button_draft()
 
     def action_cron_fiskaliziraj_batch(self):

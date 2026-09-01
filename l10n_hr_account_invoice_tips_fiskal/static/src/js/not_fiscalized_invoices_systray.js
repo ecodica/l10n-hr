@@ -13,7 +13,7 @@ patch(NotFiscalizedInvoicesSystray.prototype, {
         this.state.counterTips = 0;
         this.intervalTips = setInterval(() => {
             this.fetchTipsCounter();
-        }, 5000);
+        }, 5 * 60 * 1000); //check fisc status every 5 minutes
     },
 
     _openNotFiscalizedTips() {

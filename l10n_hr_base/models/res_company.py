@@ -5,6 +5,9 @@ from odoo import fields, models
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
 FISCAL_DATETIME_FORMAT = '%d.%m.%YT%H:%M:%S'
+# DatVrijeme is signed into the ZKI and printed on the receipt, so the timestamp
+# belongs to the business premise and must not shift with the logged-in user's tz.
+FISCAL_TIMEZONE = 'Europe/Zagreb'
 INVOICE_DATETIME_FORMAT = '%d.%m.%Y %H:%M'
 
 
@@ -67,13 +70,9 @@ class ResCompany(models.Model):
 
     def get_l10n_hr_time_formatted(self):
         # odoo16 - date/time) fields are WITH TZ info! diff from previous versions!
-        user_tz = self.env.user.tz or self.env.context.get("tz")
-        user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
-        # [19] Replace manual timezone context access with 'env.tz'.
-        # This new property provides automatic timezone resolution with proper fallbacks (context -> user -> UTC).
-        # pre v19 timezone = pytz.timezone(self.env.context.get('tz') or self.env.user.tz or 'UTC')
-        user_pytz = self.env.tz
-        tstamp = datetime.now().astimezone(user_pytz)
+        # Was self.env.tz, which made DatVrijeme - and the ZKI signed over it -
+        # depend on who was logged in. See FISCAL_TIMEZONE above.
+        tstamp = datetime.now().astimezone(pytz.timezone(FISCAL_TIMEZONE))
         time_now = tstamp.replace(tzinfo=None)
         return {
             "datum": tstamp.strftime("%d.%m.%Y"),

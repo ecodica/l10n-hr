@@ -110,7 +110,9 @@ class ResCompany(models.Model):
         """
         time_stop = self.get_l10n_hr_time_formatted()
         p_time = time_stop["time_stamp"] - time_start["time_stamp"]
-        process_time = "%s.%s s" % (p_time.seconds, p_time.microseconds)
+        # total_seconds(): .seconds drops .days so negative intervals wrapped, and
+        # .microseconds is not zero-padded so 112 us read as 112 ms.
+        process_time = "%.6f s" % p_time.total_seconds()
         error_log = ""
         if hasattr(response, "Greske") and response.Greske is not None:
             error_log = "\n".join(
@@ -158,7 +160,24 @@ class ResCompany(models.Model):
                 "reply_msg": etree.tostring(msg_obj.history.last_received["envelope"]).decode("utf-8"),
             })
 
-        if origin._name == "account.move":
+        # Appended after the branching above, not before it: the error and delay
+        # branches overwrite error_msg wholesale, and an unverified signature
+        # matters most precisely when the response was also an error. Verification
+        # never raises (see zeep_signer), so recording it beside the message is the
+        # only way a failure reaches a human.
+        verification_ok = getattr(
+            getattr(msg_obj, "fiscal_plugin", None), "last_verification_ok", None
+        )
+        if verification_ok is False:
+            current = values.get("error_msg") or ""
+            values["error_msg"] = "\n".join(filter(None, [
+                current if current != "OK" else "",
+                _("WARNING: the FINA response signature could not be verified."),
+            ]))
+
+        # Keyed on the field, not the model name, so any document carrying
+        # l10n_hr.fiscal.base.mixin logs its premise and device without a new branch.
+        if "l10n_hr_fiscal_device_id" in origin._fields:
             values.update(
                 {
                     "business_premise_id": origin.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.id,

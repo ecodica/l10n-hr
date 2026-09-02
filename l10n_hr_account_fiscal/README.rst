@@ -216,6 +216,14 @@ Pre-send validation guard
 - ``test_validator_accepts_exempt_base`` - ``IznosOslobPdv`` counts towards the
   base and must not false-trigger the guard.
 
+Naknade (fees reported alongside the taxes)
+
+- ``test_naknada_carries_its_values`` - a tax of fiscal type ``Naknade`` reports
+  its own name and amount. ``_prepare_fisc_taxes`` unpacked the dict as a
+  2-tuple (``naziv, iznos = nak``), which yields its *keys*, so every such fee
+  went out as the literal strings ``NazivN``/``IznosN``. Only bites where a fee
+  tax is configured - a packaging fee, say - which is plausible in retail.
+
 Endpoint configuration
 
 - ``test_every_prod_wsdl_points_at_the_production_endpoint`` - walks every
@@ -244,6 +252,115 @@ Systray counter endpoint
   ``company_id`` the browser sent, letting any user read another company's
   unfiscalized-invoice count; it now takes no arguments and derives the scope
   from ``env.companies``.
+
+tests/test_fiscal_mixin_hooks.py
+--------------------------------
+
+The seams that let a second model inherit ``l10n_hr.fiscal.v1.mixin``.
+
+The mixin had exactly one consumer, ``account.move``, and about half of it read
+``account.move`` fields directly - ``line_ids``, ``display_type``,
+``amount_untaxed_signed``, ``invoice_user_id``. Those bodies moved down onto
+``account.move`` so ``pos.order`` can become the second consumer; the mixin kept
+hooks in their place. These tests pin the seams, not the message - what the
+message contains is ``test_fiscal_tax_values.py``, which did not change.
+
+- ``test_tax_values_hook_is_required`` - ``_get_fisc_tax_values()`` raises
+  ``NotImplementedError`` on the bare mixin. There is no sane default: an
+  invoice reads its ``display_type == 'tax'`` journal items, a POS order
+  computes the breakdown from its lines. Returning an empty breakdown instead
+  would produce a message FINA accepts and an inspection rejects.
+- ``test_account_move_still_answers_the_tax_hook`` - the moved body is reachable
+  on ``account.move`` and is not the mixin's raising stub.
+- ``test_validate_hook_defaults_to_a_no_op`` - unlike the tax hook,
+  ``_validate_fiscal_invoice()`` has a safe default. Its checks compare the
+  message against the document's own tax lines, which not every model has; a
+  model without them is unchecked, not wrong.
+- ``test_default_fiscal_user_prefers_the_salesperson`` /
+  ``..._falls_back_to_the_acting_user`` - ``OibOper`` must identify the natural
+  person who issued the document. ``account.move`` answers ``invoice_user_id``,
+  falling back to the acting user, which is what ``fiscalize()`` hard-coded
+  before the hook existed.
+- ``test_dead_date_time_helper_is_gone`` - ``_prepare_fiscal_date_time()`` read
+  ``l10n_hr_vrijeme_izdavanja``, a field that no longer exists anywhere. It was
+  never called, so it could not fail loudly; the guard stops it coming back.
+
+tests/test_fiscal_timezone.py
+-----------------------------
+
+Fiscal timestamps belong to the business premise, not to the logged-in user.
+
+- ``test_fiscal_time_ignores_the_user_timezone`` - two users in different
+  timezones must stamp the same instant identically.
+  ``get_l10n_hr_time_formatted()`` followed ``self.env.tz``, so ``DatVrijeme``
+  - and therefore the ZKI signed over it - moved with whoever was logged in. An
+  inspection recomputes the ZKI from the printed document, so a shifted
+  timestamp can never be reproduced. Now pinned to ``Europe/Zagreb``, which is
+  what the note at the top of ``account_move.py`` always said it should be.
+
+tests/test_fiscal_response_verification.py
+------------------------------------------
+
+The FINA response verifier reports its verdict, and never raises.
+
+Verification was a no-op in three separate places: ``Verifier.verify_document``
+swallowed every exception, ``BinaryVerifier.verify_document`` returned a verdict
+nobody read, and the zeep plugin's ``ingress`` caught what was left and printed
+it. Nothing could fail - which is why both bundled service certificates expired
+in 2024 without anyone noticing. Until this was fixed, TLS was the only
+integrity control on an inbound JIR.
+
+- ``test_expired_pin_is_reported`` - an expired pinned service certificate is
+  logged as an error. xmlsec verifies against the key it is handed and will not
+  mention that the certificate behind it lapsed, so a stale pin quietly stops
+  meaning anything. The certificate is generated in the test rather than read
+  from ``fina_cert/``: the bundled ones are meant to be refreshed, and a test
+  that fails when somebody does the right thing trains people to ignore it.
+- ``test_a_current_pin_is_not_reported`` - the other half, and the one that
+  keeps the check honest: a valid pin must stay silent, or the warning becomes
+  noise nobody reads. Runs against the bundled demo certificate.
+- ``test_unparseable_pin_is_reported_but_tolerated`` - a certificate that will
+  not parse is a warning, not a crash.
+- ``test_missing_signature_returns_false_instead_of_raising`` - an unsigned or
+  malformed response is a failed verification, not an exception. Raising would
+  abort a transaction in which FINA has already issued a JIR, losing a document
+  the tax authority considers issued. This caught a real defect in the fix:
+  ``register_id()`` raises "missing attribute" on a payload without an ``Id``,
+  before the signature check was reached, so the method could still throw.
+- ``test_plugin_records_the_verdict`` - the outcome survives the call on
+  ``EnvelopedSignaturePlugin.last_verification_ok``, where
+  ``res.company._get_log_vals`` picks it up. Without this the verdict reaches
+  only the server log, and a failed verification never appears next to the
+  message it belongs to in ``l10n_hr.fiscal.log``.
+- ``test_plugin_survives_a_verifier_that_raises`` - defence in depth: if
+  ``verify_document`` ever does raise, the response is still unverified and the
+  transaction must still survive.
+
+``TestFiscalLogProcessTime`` - the duration recorded next to each message has to
+be a real duration. It is the only continuous measurement of the FINA
+round-trip, so it decides whether a synchronous call is viable at POS volumes.
+
+- ``test_sub_millisecond_is_not_overstated`` - ``timedelta.microseconds`` is not
+  zero-padded, so 112 us was stored as ``"0.112 s"`` and read as 112 ms, a
+  thousandfold overstatement.
+- ``test_a_normal_call_round_trips`` - 2.5 s in, 2.5 s out.
+- ``test_a_negative_interval_does_not_wrap`` - ``timedelta.seconds`` excludes
+  ``.days``, so -2.237 s was stored as ``"86397.763 s"``. ``total_seconds()``
+  has neither problem.
+
+``TestFiscalLogVerificationWarning`` - a failed verification has to reach
+``l10n_hr.fiscal.log``, not only the server log.
+
+- ``test_warning_survives_a_failed_response`` /
+  ``..._a_delayed_response`` - the warning used to be written into
+  ``error_msg`` *before* the response branching, and the error and delay
+  branches overwrote it wholesale, so it survived only when the response was
+  otherwise a success. That is backwards: an unverified signature matters most
+  when the response was also an error, which is exactly when a forged or
+  corrupted reply is most plausible. Both assert the original message and the
+  warning end up in ``error_msg``.
+- ``test_no_warning_when_verification_passed`` - counter-test; a passing
+  verification must add nothing.
 
 tests/test_systray.py
 ---------------------

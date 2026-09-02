@@ -73,6 +73,9 @@ class Fiscalization:
         self.signer = signer
         self.verifier = verifier
         self.history = history
+        # Per-call mutable state, like `history`: carries last_verification_ok, which
+        # res.company._get_log_vals reads afterwards. Not safe to share between threads.
+        self.fiscal_plugin = fiscal_plugin
         try:
             tns = [
                 ns

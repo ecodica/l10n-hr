@@ -1,8 +1,12 @@
 import logging
 
-from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
+from odoo.exceptions import ValidationError
+from odoo.tools import float_compare
+
+from odoo import _, api, fields, models
+
+from ..fiscal import fiscal
 
 _logger = logging.getLogger(__name__)
 
@@ -30,6 +34,105 @@ class AccountMove(models.Model):
     @api.model
     def _get_fiscal_amount_field_name(self):
         return 'amount_total_signed'
+
+    def _l10n_hr_default_fiscal_user(self):
+        """The salesperson on the invoice, falling back to the acting user."""
+        return self.invoice_user_id.id or super()._l10n_hr_default_fiscal_user()
+
+    def _get_fisc_tax_values(self):
+        tax_data = {
+            "Pdv": {},
+            "Pnp": {},
+            "OstaliPor": [],
+            "Naknade": [],
+        }
+        iznos_oslob_pdv, iznos_ne_podl_opor, iznos_marza = 0.00, 0.00, 0.00
+
+        for tax_line in self.line_ids.filtered(lambda l: l.display_type == 'tax'):
+            if not tax_line.tax_line_id.l10n_hr_fiscal_type:
+                raise ValidationError(_("Tax %s missing fiscal type!") % tax_line.tax_line_id.name)
+            fiscal_type = tax_line.tax_line_id.l10n_hr_fiscal_type
+            rate = tax_line.tax_line_id.amount
+            # tax_base_amount is already signed by move.direction_sign - negative for
+            # out_invoice, the mirror of what we send. Negating it, like balance, puts
+            # Osnovica and Iznos on IznosUkupno's convention: + invoice, - storno.
+            base_amount = tax_line.tax_base_amount * (-1)
+            amount = tax_line.balance * (-1)
+
+            if fiscal_type in ['Pdv', 'Pnp']:
+                if not tax_data[fiscal_type].get(rate):
+                    tax_data[fiscal_type][rate] = {'Osnovica': base_amount, 'Iznos': 0.0}
+                tax_data[fiscal_type][rate]['Iznos'] += amount
+            elif fiscal_type == "OstaliPor":
+                tax_data["OstaliPor"].append({
+                    "Naziv": tax_line.tax_line_id.name,
+                    "Stopa": rate,
+                    "Osnovica": base_amount,
+                    "Iznos": amount,
+                })
+
+            elif fiscal_type == "Naknade":
+                tax_data["Naknade"].append({"NazivN": tax_line.tax_line_id.name, "IznosN": amount})
+
+        # NOTE: Stavke oslobodjene od poreza, Odoo ne kreira stavke temeljnice ako je stop 0.0
+        # TODO: provjeriti kako slati stavke sa stopom 0 i da li ima takvih slucajeva u praksi
+        for line in self.line_ids.filtered(lambda line: line.display_type == "product"):
+            for tax in line.tax_ids:
+                if not tax.l10n_hr_fiscal_type:
+                    raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
+                fiscal_type = tax.l10n_hr_fiscal_type
+                # TODO verify if this logic is valid to get invoice and refund amounts
+                base_amount = line.balance * (-1)
+                if fiscal_type not in ['oslobodenje', 'ne_podlijeze', 'marza']:
+                    continue
+                if fiscal_type == "oslobodenje":
+                    iznos_oslob_pdv += base_amount
+                elif fiscal_type == "ne_podlijeze":
+                    iznos_ne_podl_opor += base_amount
+                elif fiscal_type == "marza":
+                    iznos_marza += base_amount
+
+        # TODO: ovi porezi se ne salju, potrebno ih je ukljuciti ako ih ima
+        if iznos_oslob_pdv:
+            tax_data["IznosOslobPdv"] = fiscal.format_decimal(iznos_oslob_pdv)
+        if iznos_ne_podl_opor:
+            tax_data["IznosNePodlOpor"] = fiscal.format_decimal(iznos_ne_podl_opor)
+        if iznos_marza:
+            tax_data["IznosMarza"] = fiscal.format_decimal(iznos_marza)
+        return tax_data
+
+    def _validate_fiscal_invoice(self, racun):
+        """Provjeri ispravnost generiranog fisk racuna prije slanja"""
+        racun_osnovica = racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0
+        pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
+        pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
+        # NOTE: osnovice koje se ne salju kroz Pdv/Pnp, ali su dio ukupnog iznosa racuna.
+        # Bez njih bi svaki racun sa oslobodenjem / marzom / neoporezivim stavkama
+        # pao na provjeri osnovice, iako je poruka ispravna.
+        # NOTE: Pnp dijeli osnovicu sa Pdv-om pa se njegova
+        # osnovica namjerno NE dodaje - inace bi bila dvostruko zbrojena.
+        for field_name in ("IznosOslobPdv", "IznosNePodlOpor", "IznosMarza"):
+            racun_osnovica += float(getattr(racun, field_name, None) or 0.0)
+        # NOTE: ako tvrtka nije u sustava PDV_a, tada j iznos racuna jednak ukupnom iznosu racuna
+        if not racun.USustPdv:
+            racun_osnovica = float(racun.IznosUkupno)
+        amount_untaxed = self.amount_untaxed_signed
+        # NOTE: provjera da li iznos poreza na fisk racunu odgovora iznosu odoo poreza
+        tax_amount = sum(self.line_ids.filtered(
+            lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiscal_type == 'Pdv').mapped('balance')) * (-1)
+        if float_compare(pdv_iznos, tax_amount, precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu'))
+        # NOTE: provjera da li je osnovica na Odoo računu isto osnovici koju fiskaliziramo
+        # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
+        # TODO: za sada nisu podržani dodani porezi, naknade, ...
+        if float_compare(racun_osnovica, amount_untaxed, precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Osnovica na fisk računu se razlikuje od osnovice na Odoo računu'))
+        # NOTE: provjera da li suma osnovice i poreza sa fisk računa odgovara ukupno iznosu odoo računa
+        if float_compare(
+                (racun_osnovica + pdv_iznos + pnp_iznos),
+                float(racun.IznosUkupno),
+                precision_digits=self.currency_id.decimal_places):
+            raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
     @api.constrains('state')
     def _check_fiscalization_invoice_cancel(self):

@@ -12,9 +12,21 @@ class AccountMove(models.Model):
         string="Allowed Fiscal Devices")
     l10n_hr_fiscal_device_visible = fields.Boolean(
         string="Fiscal Device Visible?",
+        compute="_compute_l10n_hr_fiscal_device_visible",
         help="Technical field to show device selection"
              " only if there is something to select"
              " like 2 or more devices for this journal.")
+    # Redefined from l10n_hr.fiscal.base.mixin, which declares it as a plain
+    # Many2one, only to attach a compute. The value used to be assigned as a side
+    # effect of _compute_l10n_hr_allowed_fiscal_device_ids, which is not stored and
+    # so only ran when something read it - the form view does, a Python-built
+    # invoice (EDI, API, cron, import) does not, and posting it was refused for
+    # having no device. store=True re-derives it whenever the journal or its
+    # devices change; readonly=False keeps it selectable when a journal has several.
+    l10n_hr_fiscal_device_id = fields.Many2one(
+        compute="_compute_l10n_hr_fiscal_device_id",
+        store=True,
+        readonly=False)
     l10n_hr_show_required_fiscal_fields_on_header = fields.Boolean(
         string="Show Required Fiscal Fields on Header?",
         related='company_id.l10n_hr_show_required_fiscal_fields_on_header')
@@ -109,10 +121,30 @@ class AccountMove(models.Model):
                 ]
 
             move.l10n_hr_allowed_fiscal_device_ids = vals
-            move.l10n_hr_fiscal_device_visible = len(vals) > 1
-            # NOTE: automatically set l10n_hr_fiscal_device_id if only one active records exists
-            if len(vals) == 1:
-                move.l10n_hr_fiscal_device_id = vals and vals[0][1]
+
+    @api.depends("l10n_hr_allowed_fiscal_device_ids")
+    def _compute_l10n_hr_fiscal_device_visible(self):
+        """Offer the device selector only when there is a choice to make."""
+        for move in self:
+            move.l10n_hr_fiscal_device_visible = len(move.l10n_hr_allowed_fiscal_device_ids) > 1
+
+    @api.depends(
+        "company_id",
+        "journal_id",
+        "journal_id.l10n_hr_business_premise_id",
+        "journal_id.l10n_hr_business_premise_id.l10n_hr_state",
+        "journal_id.l10n_hr_fiscal_device_ids",
+        "journal_id.l10n_hr_fiscal_device_ids.l10n_hr_state",
+    )
+    def _compute_l10n_hr_fiscal_device_id(self):
+        """Select the journal's device when it has exactly one active device.
+
+        Left empty when the journal offers none or several - with several, the
+        cashier picks one. See the note on the field for why this is a compute.
+        """
+        for move in self:
+            allowed = move.l10n_hr_allowed_fiscal_device_ids
+            move.l10n_hr_fiscal_device_id = allowed if len(allowed) == 1 else allowed[:0]
 
     def l10n_hr_gen_fiscal_number(self):
         self.ensure_one()  # one at a time only!

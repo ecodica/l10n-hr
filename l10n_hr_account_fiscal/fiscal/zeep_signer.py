@@ -1,12 +1,17 @@
+import logging
 import os
 import uuid
+from datetime import datetime, timezone
 from copy import deepcopy
 from hashlib import md5
 import base64
 import xmlsec
+from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 from lxml import etree
+
+_logger = logging.getLogger(__name__)
 
 SIGNATURE_FRAGMENT = """
 <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
@@ -126,6 +131,33 @@ class Signer:
         return md5(signature).hexdigest()
 
 
+def _warn_if_expired(cert_bytes, source):
+    """Report a pinned service certificate that is past its validity window.
+
+    xmlsec verifies the signature against the key we hand it and will not tell us
+    the certificate behind that key expired, so a stale pin fails silently in the
+    one direction that matters. Checking it here turns "verification quietly stops
+    being meaningful" into a log line somebody can act on.
+    """
+    try:
+        cert = x509.load_pem_x509_certificate(cert_bytes)
+    except Exception:
+        _logger.warning("[Fiskal] Could not parse the pinned service certificate: %s", source)
+        return
+    now = datetime.now(timezone.utc)
+    if cert.not_valid_after_utc < now:
+        _logger.error(
+            "[Fiskal] The pinned fiscalization service certificate EXPIRED on %s (%s). "
+            "Response signatures cannot be meaningfully verified until it is refreshed.",
+            cert.not_valid_after_utc.date(), source,
+        )
+    elif cert.not_valid_before_utc > now:
+        _logger.error(
+            "[Fiskal] The pinned fiscalization service certificate is not valid until %s (%s).",
+            cert.not_valid_before_utc.date(), source,
+        )
+
+
 class Verifier:
     """ """
 
@@ -138,6 +170,8 @@ class Verifier:
             self.key = xmlsec.Key.from_file(cert_path, xmlsec.KeyFormat.CERT_PEM, None)
         except xmlsec.Error:
             raise ValueError("Cannot load Fiscal service certificate")
+        with open(cert_path, "rb") as fh:
+            _warn_if_expired(fh.read(), cert_path)
         self.manager = xmlsec.KeysManager()
         try:
             self.manager.load_cert(
@@ -150,16 +184,37 @@ class Verifier:
             # raise ValueError(f"Cannot load CA cert {ca_cert}")
 
     def verify_document(self, root):
-        ctx = xmlsec.SignatureContext(manager=self.manager)
-        ctx.key = self.key
-        req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-        ctx.register_id(req_node, "Id")
-        sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
+        """Verify the FINA response signature. Returns True/False, never raises.
+
+        A failure must not abort the caller: by the time we are here FINA has
+        already accepted the invoice and issued a JIR, so raising would roll back
+        a document the tax authority considers issued. Report it instead - loudly
+        enough to be noticed, quietly enough not to lose a receipt.
+        """
+        # Everything touching xmlsec stays inside the try: register_id() raises
+        # "missing attribute" on a payload without an Id, which is exactly the
+        # malformed-response case this method exists to report calmly.
         try:
+            ctx = xmlsec.SignatureContext(manager=self.manager)
+            ctx.key = self.key
+            req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
+            if req_node is None:
+                _logger.error("[Fiskal] Response has no SOAP Body payload; cannot verify signature.")
+                return False
+            sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
+            if sig_node is None:
+                _logger.error("[Fiskal] Response carries no XML signature; nothing to verify.")
+                return False
+            ctx.register_id(req_node, "Id")
             ctx.verify(sig_node)
+            return True
         except Exception as E:
-            # print(repr(E))
-            pass
+            _logger.error(
+                "[Fiskal] Response signature verification FAILED: %s. "
+                "The response may not be genuine, or the pinned service certificate is stale.",
+                E,
+            )
+            return False
 
 
 class BinarySigner:
@@ -295,6 +350,7 @@ class BinaryVerifier:
             self.key = xmlsec.Key.from_buffer(cert_data, xmlsec.KeyFormat.CERT_PEM, None)
         except xmlsec.Error as e:
             raise ValueError(f"Cannot load Fiscalization service certificate from buffer: {e}")
+        _warn_if_expired(cert_data, "service certificate (in-memory)")
 
         self.manager = xmlsec.KeysManager()
 
@@ -307,9 +363,8 @@ class BinaryVerifier:
                     xmlsec.constants.KeyDataFormatPem,
                     xmlsec.constants.KeyDataTypeTrusted,
                 )
-            except Exception:
-                # Keep the original behavior of silently passing on CA loading failure
-                pass
+            except Exception as E:
+                _logger.warning("[Fiskal] Could not load a trusted CA certificate: %s", E)
 
     def verify_document(self, root):
         """
@@ -317,26 +372,27 @@ class BinaryVerifier:
 
         :param root: The root element of the XML document (lxml.etree._Element).
         """
-        ctx = xmlsec.SignatureContext(manager=self.manager)
-        ctx.key = self.key
-
-        # Find the node to register the ID for (e.g., the payload node)
-        req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-        if req_node is not None:
-            ctx.register_id(req_node, "Id")
-
-        # Find the signature node
-        sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
-
-        if sig_node is None:
-            # Handle a case where signature node isn't found
-            return False  # Or raise an appropriate error
-
         try:
+            ctx = xmlsec.SignatureContext(manager=self.manager)
+            ctx.key = self.key
+
+            sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
+            if sig_node is None:
+                _logger.error("[Fiskal] Response carries no XML signature; nothing to verify.")
+                return False
+
+            req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
+            if req_node is not None:
+                ctx.register_id(req_node, "Id")
+
             ctx.verify(sig_node)
             return True
-        except Exception:
-            # Handle verification failure (e.g., log the error)
+        except Exception as E:
+            _logger.error(
+                "[Fiskal] Response signature verification FAILED: %s. "
+                "The response may not be genuine, or the pinned service certificate is stale.",
+                E,
+            )
             return False
 
 
@@ -345,6 +401,8 @@ class EnvelopedSignaturePlugin:
         self.fiscal_client = client
         self.signer = signer
         self.verifier = verifier
+        # None = not attempted yet; read by res.company._get_log_vals.
+        self.last_verification_ok = None
 
     def egress(self, envelope, http_headers, operation, binding_options):
         if self.fiscal_client.requires_signature(operation):
@@ -354,7 +412,10 @@ class EnvelopedSignaturePlugin:
     def ingress(self, envelope, http_headers, operation):
         if self.fiscal_client.requires_signature(operation):
             try:
-                self.verifier.verify_document(envelope)
+                self.last_verification_ok = bool(self.verifier.verify_document(envelope))
             except Exception as E:
-                print(E)
+                # verify_document is not supposed to raise; if it does, the response
+                # is still not verified and must not take the transaction down.
+                self.last_verification_ok = False
+                _logger.exception("[Fiskal] Unexpected error verifying the response signature: %s", E)
         return envelope, http_headers

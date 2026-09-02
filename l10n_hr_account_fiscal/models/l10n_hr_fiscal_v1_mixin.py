@@ -180,69 +180,24 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         return False
 
     def _get_fisc_tax_values(self):
-        tax_data = {
-            "Pdv": {},
-            "Pnp": {},
-            "OstaliPor": [],
-            "Naknade": [],
-        }
-        iznos_oslob_pdv, iznos_ne_podl_opor, iznos_marza = 0.00, 0.00, 0.00
+        """Tax breakdown for the Fiskalizacija message, per fiscal type and rate.
 
-        for tax_line in self.line_ids.filtered(lambda l: l.display_type == 'tax'):
-            if not tax_line.tax_line_id.l10n_hr_fiscal_type:
-                raise ValidationError(_("Tax %s missing fiscal type!") % tax_line.tax_line_id.name)
-            fiscal_type = tax_line.tax_line_id.l10n_hr_fiscal_type
-            rate = tax_line.tax_line_id.amount
-            # NOTE: tax_base_amount is already signed by move.direction_sign
-            # (account_tax.py: tax_line['tax_base_amount'] += sign * base_amount),
-            # so it is negative for out_invoice and positive for out_refund - the
-            # mirror image of what we must send. Negating it, exactly like balance,
-            # puts Osnovica and Iznos on the same sign convention as IznosUkupno:
-            # positive for invoices, negative for storno.
-            base_amount = tax_line.tax_base_amount * (-1)
-            amount = tax_line.balance * (-1)
+        Must return the shape ``_prepare_fisc_taxes()`` consumes::
 
-            if fiscal_type in ['Pdv', 'Pnp']:
-                if not tax_data[fiscal_type].get(rate):
-                    tax_data[fiscal_type][rate] = {'Osnovica': base_amount, 'Iznos': 0.0}
-                tax_data[fiscal_type][rate]['Iznos'] += amount
-            elif fiscal_type == "OstaliPor":
-                tax_data["OstaliPor"].append({
-                    "Naziv": tax_line.tax_line_id.name,
-                    "Stopa": rate,
-                    "Osnovica": base_amount,
-                    "Iznos": amount,
-                })
+            {"Pdv": {rate: {"Osnovica": .., "Iznos": ..}}, "Pnp": {...},
+             "OstaliPor": [...], "Naknade": [...],
+             "IznosOslobPdv"/"IznosNePodlOpor"/"IznosMarza": "0.00"}
 
-            elif fiscal_type == "Naknade":
-                tax_data["Naknade"].append({"NazivN": tax_line.tax_line_id.name, "IznosN": amount})
+        Amounts are signed by document direction - positive on an invoice,
+        negative on a storno - so that they sum to ``IznosUkupno``.
 
-        # NOTE: Stavke oslobodjene od poreza, Odoo ne kreira stavke temeljnice ako je stop 0.0
-        # TODO: provjeriti kako slati stavke sa stopom 0 i da li ima takvih slucajeva u praksi
-        for line in self.line_ids.filtered(lambda line: line.display_type == "product"):
-            for tax in line.tax_ids:
-                if not tax.l10n_hr_fiscal_type:
-                    raise ValidationError(_("Tax '%s' missing fiskal type!") % tax.name)
-                fiscal_type = tax.l10n_hr_fiscal_type
-                # TODO verify if this logic is valid to get invoice and refund amounts
-                base_amount = line.balance * (-1)
-                if fiscal_type not in ['oslobodenje', 'ne_podlijeze', 'marza']:
-                    continue
-                if fiscal_type == "oslobodenje":
-                    iznos_oslob_pdv += base_amount
-                elif fiscal_type == "ne_podlijeze":
-                    iznos_ne_podl_opor += base_amount
-                elif fiscal_type == "marza":
-                    iznos_marza += base_amount
-
-        # TODO: ovi porezi se ne salju, potrebno ih je ukljuciti ako ih ima
-        if iznos_oslob_pdv:
-            tax_data["IznosOslobPdv"] = fiscal.format_decimal(iznos_oslob_pdv)
-        if iznos_ne_podl_opor:
-            tax_data["IznosNePodlOpor"] = fiscal.format_decimal(iznos_ne_podl_opor)
-        if iznos_marza:
-            tax_data["IznosMarza"] = fiscal.format_decimal(iznos_marza)
-        return tax_data
+        Implemented per model: the source of tax amounts differs (``account.move``
+        reads its ``display_type == 'tax'`` journal items; ``pos.order`` computes
+        them from its lines).
+        """
+        raise NotImplementedError(
+            "%s must implement _get_fisc_tax_values()" % self._name
+        )
 
     def _prepare_fisc_taxes(self, factory):
         res = {}
@@ -283,9 +238,10 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         for nak in tax_data["Naknade"]:
             if not res.get("Naknade"):
                 res["Naknade"] = []
-            naziv, iznos = nak
+            # `nak` is a dict; unpacking it as a 2-tuple yielded its keys, so every
+            # Naknade tax went out as the literal strings "NazivN"/"IznosN".
             naknada = factory.type_factory.Naknada(
-                NazivN=naziv, IznosN=fiscal.format_decimal(iznos)
+                NazivN=nak["NazivN"], IznosN=fiscal.format_decimal(nak["IznosN"])
             )
             res["Naknade"].append(naknada)
         return res
@@ -299,13 +255,6 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         real total. Both now come from the same place.
         """
         return self._get_fiscal_amount_formatted()
-
-    def _prepare_fiscal_date_time(self):
-        """Convert l10n_hr_vrijeme_izdavanja to fiskalization date format.s"""
-        # TODO: v19 use self.env.tz?
-        formatted_date = self.l10n_hr_vrijeme_izdavanja.replace(tzinfo=pytz.utc).astimezone(
-            pytz.timezone(self.env.context.get("tz") or self.env.user.tz or "UTC")).strftime(FISCAL_DATETIME_FORMAT)
-        return formatted_date
 
     @api.model
     def _get_fiscal_invoice_type(self, factory, msg_type):
@@ -367,37 +316,22 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         return racun
 
     def _validate_fiscal_invoice(self, racun):
-        """Provjeri ispravnost generiranog fisk racuna prije slanja"""
-        racun_osnovica = racun.Pdv and sum([float(porez.Osnovica) for porez in racun.Pdv.Porez]) or 0.0
-        pdv_iznos = racun.Pdv and sum([float(porez.Iznos) for porez in racun.Pdv.Porez]) or 0.0
-        pnp_iznos = racun.Pnp and sum([float(porez.Iznos) for porez in racun.Pnp.Porez]) or 0.0
-        # NOTE: osnovice koje se ne salju kroz Pdv/Pnp, ali su dio ukupnog iznosa racuna.
-        # Bez njih bi svaki racun sa oslobodenjem / marzom / neoporezivim stavkama
-        # pao na provjeri osnovice, iako je poruka ispravna.
-        # NOTE: Pnp dijeli osnovicu sa Pdv-om pa se njegova
-        # osnovica namjerno NE dodaje - inace bi bila dvostruko zbrojena.
-        for field_name in ("IznosOslobPdv", "IznosNePodlOpor", "IznosMarza"):
-            racun_osnovica += float(getattr(racun, field_name, None) or 0.0)
-        # NOTE: ako tvrtka nije u sustava PDV_a, tada j iznos racuna jednak ukupnom iznosu racuna
-        if not racun.USustPdv:
-            racun_osnovica = float(racun.IznosUkupno)
-        amount_untaxed = self.amount_untaxed_signed
-        # NOTE: provjera da li iznos poreza na fisk racunu odgovora iznosu odoo poreza
-        tax_amount = sum(self.line_ids.filtered(
-            lambda l: l.display_type == 'tax' and l.tax_line_id.l10n_hr_fiscal_type == 'Pdv').mapped('balance')) * (-1)
-        if float_compare(pdv_iznos, tax_amount, precision_digits=self.currency_id.decimal_places):
-            raise ValidationError(_('Iznos poreza na fisk računu se razlikuje od iznosa poreza na Odoo računu'))
-        # NOTE: provjera da li je osnovica na Odoo računu isto osnovici koju fiskaliziramo
-        # kao iznos osnovice koji fiskaliziramo dovoljno dobro je uzeti osnovice Pdv-a koje fiskaliziramo
-        # TODO: za sada nisu podržani dodani porezi, naknade, ...
-        if float_compare(racun_osnovica, amount_untaxed, precision_digits=self.currency_id.decimal_places):
-            raise ValidationError(_('Osnovica na fisk računu se razlikuje od osnovice na Odoo računu'))
-        # NOTE: provjera da li suma osnovice i poreza sa fisk računa odgovara ukupno iznosu odoo računa
-        if float_compare(
-                (racun_osnovica + pdv_iznos + pnp_iznos),
-                float(racun.IznosUkupno),
-                precision_digits=self.currency_id.decimal_places):
-            raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
+        """Sanity-check the assembled message against the source document.
+
+        Default is a no-op: the checks that matter compare the message with the
+        document's own tax lines, which only some models have. Override where a
+        meaningful comparison exists.
+        """
+        return
+
+    def _l10n_hr_default_fiscal_user(self):
+        """User whose OIB goes into ``OibOper`` when none was set explicitly.
+
+        ``OibOper`` must identify the natural person who issued the document, so
+        every model has to say who that is. The base answer - the user doing the
+        fiscalizing - is right for a document raised from the back office.
+        """
+        return self.env.user.id
 
     @api.model
     def _fisc_msg_type(self):
@@ -428,7 +362,9 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             msg += "\n".join(errors)
             raise ValidationError(msg)
         # don't fiscalize invoice if invoice already has jir
-        if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racun':
+        # Was compared against 'racun' while the default is 'racuni', so a document
+        # that already had a JIR was re-sent instead of switched to 'provjera'.
+        if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racuni':
             msg_type = 'provjera'
         if self.l10n_hr_zki and not self.l10n_hr_jir and not self.l10n_hr_late_delivery:
             self.l10n_hr_late_delivery = True
@@ -437,7 +373,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             # MUST USE CURRENT user for fiscalization!
             # Except in case of paragon račun? or naknadna dostava?
             # but then it should be manually entered already!
-            self.l10n_hr_fiscal_user_id = self.invoice_user_id.id
+            self.l10n_hr_fiscal_user_id = self._l10n_hr_default_fiscal_user()
         fiscal_data = self.company_id.get_fiscal_data()
         fiscal_data["time"] = time_start
         fis_racun = self.l10n_hr_fiscal_number.split(self.company_id.l10n_hr_fiscal_separator)

@@ -46,6 +46,9 @@ Batching     ``fiscalize()`` reports whether it fiscalized anything, the batch
 
 Counter      The systray count is scoped to the session's enabled companies and
              takes no arguments, since it is callable from the browser.
+
+Naknade      A tax of fiscal type ``Naknade`` reports its own name and amount
+             rather than the literal strings ``NazivN``/``IznosN``.
 """
 import re
 from types import SimpleNamespace
@@ -134,8 +137,18 @@ class TestFiscalTaxValues(AccountTestInvoicingCommon):
         })
 
     def _refund_of(self, invoice):
+        """Post an invoice and return its credit note.
+
+        The reversal runs as superuser. Building it deletes and recreates tax
+        journal items, and unlink on account.move.line is gated by record rules
+        that depend on which modules are installed: with `purchase` present the
+        accounting test user inherits Purchase / Administrator, whose rule
+        narrows account.move.line to vendor bills, so removing a customer
+        invoice tax line is denied. These tests are about fiscal amounts, not
+        about access rights.
+        """
         invoice.action_post()
-        return invoice._reverse_moves()
+        return invoice.sudo()._reverse_moves()
 
     # -- sign of the taxable base ---------------------------------------------
 
@@ -487,3 +500,32 @@ class TestFiscalTaxValues(AccountTestInvoicingCommon):
         invoice._validate_fiscal_invoice(
             _racun_stub(1000.0, 250.0, 1450.0, IznosOslobPdv="200.00")
         )
+
+
+@tagged("post_install", "-at_install")
+class TestNaknade(AccountTestInvoicingCommon):
+    """A 'Naknade' tax reports a name and an amount, not two dictionary keys."""
+
+    def test_naknada_carries_its_values(self):
+        captured = {}
+
+        class _Factory:
+            type_factory = SimpleNamespace(
+                Naknada=lambda NazivN, IznosN: captured.update(naziv=NazivN, iznos=IznosN)
+            )
+
+        move = self.env["account.move"].create({
+            "move_type": "out_invoice", "partner_id": self.partner_a.id,
+        })
+        move.company_id.l10n_hr_tax_model = "r1"
+        with patch.object(
+            type(move), "_get_fisc_tax_values",
+            return_value={
+                "Pdv": {}, "Pnp": {}, "OstaliPor": [],
+                "Naknade": [{"NazivN": "Naknada za ambalazu", "IznosN": 1.5}],
+            },
+        ):
+            move._prepare_fisc_taxes(_Factory())
+
+        self.assertEqual(captured.get("naziv"), "Naknada za ambalazu")
+        self.assertEqual(captured.get("iznos"), "1.50")

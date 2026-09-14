@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="l10n_hr_fiscal_operation_list_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_operation_list_view</field>
+        <field name="model">l10n_hr.fiscal.operation</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0"
+                  decoration-danger="state == 'error'"
+                  decoration-muted="state == 'draft'">
+                <field name="execution_date"/>
+                <field name="business_premise_id"/>
+                <field name="operation"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="added_count" string="+" sum="Added"/>
+                <field name="removed_count" string="−" sum="Removed"/>
+                <field name="changed_count" string="~" sum="Changed"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-danger="state == 'error'"
+                       decoration-info="state == 'draft'"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_hr_fiscal_operation_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_operation_search_view</field>
+        <field name="model">l10n_hr.fiscal.operation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="business_premise_id"/>
+                <field name="user_id"/>
+                <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
+                <filter name="error" string="Error" domain="[('state', '=', 'error')]"/>
+                <separator/>
+                <filter name="with_changes" string="With Changes"
+                        domain="['|', '|', ('added_count', '>', 0), ('removed_count', '>', 0), ('changed_count', '>', 0)]"/>
+                <group>
+                    <filter name="group_premise" string="Business Premise"
+                            context="{'group_by': 'business_premise_id'}"/>
+                    <filter name="group_operation" string="Operation" context="{'group_by': 'operation'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_date" string="Executed On" context="{'group_by': 'execution_date:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="l10n_hr_fiscal_operation_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_fiscal_operation_form_view</field>
+        <field name="model">l10n_hr.fiscal.operation</field>
+        <field name="arch" type="xml">
+            <form string="Fiscal Operation" duplicate="0">
+                <header>
+                    <button name="action_execute" string="Execute" type="object" class="btn-primary"
+                            invisible="state != 'draft'"
+                            confirm="This will send the selected message to FINA. Continue?"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="not error_msg">
+                        <field name="error_msg" nolabel="1" readonly="1"/>
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                         invisible="state != 'draft' or operation != 'register'">
+                        <field name="to_register_count" class="fw-bold" readonly="1"/>
+                        working hours flagged
+                        <i>To Register</i>
+                        will be sent.
+                    </div>
+                    <div class="alert alert-info" role="alert"
+                         invisible="state != 'draft' or operation != 'remove'">
+                        <field name="to_remove_count" class="fw-bold" readonly="1"/>
+                        working hours flagged
+                        <i>To Remove</i>
+                        will be sent.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="state != 'draft' or operation != 'get'">
+                        Local working hours will be <b>replaced</b> with the ones registered at FINA.
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="business_premise_id" readonly="state != 'draft'"
+                                   invisible="business_premise_ids"
+                                   options="{'no_create': True}"/>
+                            <field name="business_premise_ids" widget="many2many_tags"
+                                   readonly="state != 'draft'"
+                                   invisible="business_premise_id"
+                                   options="{'no_create': True}"/>
+                            <field name="operation" widget="radio" readonly="state != 'draft'"/>
+                            <field name="msg_type"/>
+                        </group>
+                        <group>
+                            <field name="execution_date"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="fiscal_log_id" invisible="not fiscal_log_id"/>
+                        </group>
+                    </group>
+                    <notebook invisible="state == 'draft'">
+                        <page string="Changes" name="diff">
+                            <group col="6">
+                                <field name="added_count" readonly="1"/>
+                                <field name="removed_count" readonly="1"/>
+                                <field name="changed_count" readonly="1"/>
+                            </group>
+                            <field name="diff_html" nolabel="1" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Before" name="before">
+                            <field name="snapshot_before_html" nolabel="1" readonly="1" widget="html"/>
+                        </page>
+                        <page string="After" name="after">
+                            <field name="snapshot_after_html" nolabel="1" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Request / Response" name="xml">
+                            <group>
+                                <field name="request_msg" widget="code" options="{'mode': 'xml'}"/>
+                                <field name="response_msg" widget="code" options="{'mode': 'xml'}"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hr_fiscal_operation" model="ir.actions.act_window">
+        <field name="name">Fiscal Operations</field>
+        <field name="res_model">l10n_hr.fiscal.operation</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('state', '!=', 'draft')]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No fiscal operations yet</p>
+            <p>Every working hours message exchanged with FINA (get / register / remove) is
+                recorded here with the business premise state before and after, and the diff.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_action_l10n_hr_fiscal_operation"
+            action="action_l10n_hr_fiscal_operation"
+            parent="l10n_hr_account_base.menu_finance_config_croatia"
+            sequence="98"
+    />
+
+</odoo>

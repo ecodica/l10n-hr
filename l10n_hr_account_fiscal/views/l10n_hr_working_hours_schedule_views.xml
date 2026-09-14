@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="l10n_hr_working_hours_schedule_line_list_view" model="ir.ui.view">
+        <field name="name">l10n_hr_working_hours_schedule_line_list_view</field>
+        <field name="model">l10n_hr.working.hours.schedule.line</field>
+        <field name="arch" type="xml">
+            <list create="0" edit="0" delete="0" decoration-muted="closed">
+                <field name="business_premise_id"/>
+                <field name="date"/>
+                <field name="dow"/>
+                <field name="shift_type"/>
+                <field name="split_shift"/>
+                <field name="time_from"/>
+                <field name="time_to"/>
+                <field name="closed"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_hr_working_hours_schedule_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_working_hours_schedule_form_view</field>
+        <field name="model">l10n_hr.working.hours.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Working Hours Schedule">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                        <group>
+                            <field name="business_premise_ids" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                                   placeholder="All premises of the current company"/>
+                        </group>
+                    </group>
+                    <button name="action_compute" type="object" string="Compute Schedule"
+                            class="btn-primary"/>
+                    <field name="line_ids" nolabel="1" colspan="4" readonly="1">
+                        <list create="0" edit="0" delete="0" decoration-muted="closed">
+                            <field name="business_premise_id"/>
+                            <field name="date"/>
+                            <field name="dow"/>
+                            <field name="shift_type"/>
+                            <field name="split_shift"/>
+                            <field name="time_from"/>
+                            <field name="time_to"/>
+                            <field name="closed"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_hr_working_hours_schedule" model="ir.actions.act_window">
+        <field name="name">Working Hours Schedule</field>
+        <field name="res_model">l10n_hr.working.hours.schedule</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+            id="menu_action_l10n_hr_working_hours_schedule"
+            action="action_l10n_hr_working_hours_schedule"
+            parent="l10n_hr_account_base.menu_finance_config_croatia"
+            sequence="97"
+    />
+
+</odoo>

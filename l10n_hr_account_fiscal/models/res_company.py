@@ -197,11 +197,18 @@ class ResCompany(models.Model):
                     "business_premise_id": origin.id,
                 }
             )
+        elif "business_premise_id" in origin._fields:
+            # e.g. l10n_hr.fiscal.operation - any document attached to a premise
+            values.update(
+                {
+                    "business_premise_id": origin.business_premise_id.id,
+                }
+            )
         return values
 
     def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin):
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
-        self.env["l10n_hr.fiscal.log"].create(log_vals)
+        return self.env["l10n_hr.fiscal.log"].create(log_vals)
 
     def button_l10n_hr_test_fiscal_echo(self, origin=None):
         # if called from Company default origin to itself

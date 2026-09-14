@@ -8,13 +8,17 @@
         <field name="arch" type="xml">
             <field name="l10n_hr_state" position="before">
                 <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo"/>
-                <button string="Get Working Hours" type="object" class="btn-secondary"
-                        name="button_get_working_hours"/>
-                <button string="Register Working Hours" type="object" class="btn-primary"
-                        name="button_register_working_hours"/>
-                <button string="Remove Working Hours" type="object" class="btn-primary"
-                        name="button_remove_working_hours"/>
+                <button string="Working Hours Fiscalization" type="object" class="btn-primary"
+                        name="action_new_fiscal_operation"/>
             </field>
+            <xpath expr="//sheet/group[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_open_fiscal_operations" type="object" class="oe_stat_button"
+                            icon="fa-exchange" invisible="not fiscal_operation_count">
+                        <field name="fiscal_operation_count" widget="statinfo" string="Fiscal Operations"/>
+                    </button>
+                </div>
+            </xpath>
             <xpath expr="//field[@name='l10n_hr_fiscal_device_ids']//list/field[@name='l10n_hr_state']"
                    position="before">
                 <field name="fiscalization_active" widget="boolean_toggle"/>
@@ -71,20 +75,36 @@
                         </field>
                     </group>
                 </page>
+                <page string="Fiscal Operations">
+                    <group>
+                        <field name="last_fiscal_operation_id"/>
+                    </group>
+                    <field name="fiscal_operation_ids" nolabel="1" colspan="4" readonly="1"
+                           domain="[('state', '!=', 'draft')]">
+                        <list create="0" edit="0" delete="0" decoration-danger="state == 'error'">
+                            <field name="execution_date"/>
+                            <field name="operation"/>
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="added_count" string="+"/>
+                            <field name="removed_count" string="−"/>
+                            <field name="changed_count" string="~"/>
+                            <field name="state" widget="badge"
+                                   decoration-success="state == 'done'"
+                                   decoration-danger="state == 'error'"/>
+                        </list>
+                    </field>
+                </page>
             </notebook>
         </field>
     </record>
 
-    <record id="action_get_working_hours" model="ir.actions.server">
-        <field name="name">Get Working Hours</field>
+    <record id="action_working_hours_fiscalization" model="ir.actions.server">
+        <field name="name">Working Hours Fiscalization</field>
         <field name="model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
         <field name="binding_model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
-        <field name="code">
-            for record in records:
-            record.button_get_working_hours()
-        </field>
+        <field name="code">action = records.action_new_fiscal_operation()</field>
     </record>
 
 </odoo>

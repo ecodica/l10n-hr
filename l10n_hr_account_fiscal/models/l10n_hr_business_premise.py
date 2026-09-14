@@ -1,33 +1,8 @@
-from odoo import fields, models, api, _
-from ..fiscal import fiscal
-from datetime import date, datetime
-from ..helpers.fiscal_wrapper import fisc_handler
-import logging
+from datetime import date
 
-DATE_FORMAT = '%d.%m.%Y'
-_logger = logging.getLogger(__name__)
+from odoo import _, api, fields, models
 
-
-def _fina_date_format(date: date):
-    return date and date.strftime(DATE_FORMAT) or None
-
-
-def _fina_date_parse(date_str):
-    if not date_str:
-        return None
-    try:
-        return datetime.strptime(date_str, DATE_FORMAT).date()
-    except (ValueError, TypeError):
-        return None
-
-
-def _as_list(value):
-    """Normalize a zeep response attribute to a list."""
-    if value is None:
-        return []
-    if isinstance(value, list):
-        return value
-    return [value]
+from .l10n_hr_fiscal_operation import SNAPSHOT_FIELDS
 
 
 class L10nHrBusinessPremise(models.Model):
@@ -52,232 +27,128 @@ class L10nHrBusinessPremise(models.Model):
         string='Exception Working Hours',
         domain=[('type', '=', 'exception')],
     )
-    regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From', required=False)
-    regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To', required=False)
-    regular_working_hours_note = fields.Text('Regular Working Hours Note', required=False)
+    regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From')
+    regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To')
+    regular_working_hours_note = fields.Text('Regular Working Hours Note')
+    fiscal_operation_ids = fields.One2many(
+        comodel_name='l10n_hr.fiscal.operation',
+        inverse_name='business_premise_id',
+        string='Fiscal Operations',
+        readonly=True,
+    )
+    fiscal_operation_count = fields.Integer(compute='_compute_fiscal_operation_count')
+    last_fiscal_operation_id = fields.Many2one(
+        comodel_name='l10n_hr.fiscal.operation',
+        string='Last Fiscal Operation',
+        compute='_compute_fiscal_operation_count',
+    )
 
-    def _handle_fisc_response(self, response, msg_type):
+    @api.depends('fiscal_operation_ids.state')
+    def _compute_fiscal_operation_count(self):
+        for premise in self:
+            # fiscal_operation_ids is ordered id DESC, so the first executed one is the latest
+            executed = premise.fiscal_operation_ids.filtered(lambda op: op.state != 'draft')
+            premise.fiscal_operation_count = len(executed)
+            premise.last_fiscal_operation_id = executed[:1]
+
+    # ------------------------------------------------------------------------
+    # Working hours helpers used by l10n_hr.fiscal.operation
+    # ------------------------------------------------------------------------
+    def _get_all_working_hours(self):
+        return self.regular_working_hours_ids + self.exception_working_hours_ids
+
+    def get_working_hours_for_date(self, day):
+        """Return the working hours effective on ``day`` for this premise.
+
+        Resolution rules (single source of truth for the schedule master model):
+
+        * an exception registered for that exact date wins over everything else;
+        * otherwise the regular shifts for that day of week whose ``valid_from`` is
+          the most recent one still in effect (``valid_from <= day``) apply;
+        * an empty recordset means the premise is closed that day.
+        """
         self.ensure_one()
-        if msg_type == 'dohvatiRadnoVrijeme':
-            self._import_fiscal_working_hours(response)
-        if msg_type == 'prijaviRadnoVrijeme':
-            # Uncheck, prevent double jeopardy
-            (self.regular_working_hours_ids + self.exception_working_hours_ids). \
-                filtered('to_register').to_register = False
-        if msg_type == 'obrisiRadnoVrijeme':
-            # Remove working hours flagged to be removed
-            self.regular_working_hours_ids.filtered('to_remove').unlink()
-            self.exception_working_hours_ids.filtered('to_remove').unlink()
-
-    def _import_fiscal_working_hours(self, response):
-        """Parse DohvatiRadnoVrijemeOdgovor and store working hours locally."""
-        self.ensure_one()
-        poslovni_prostor = getattr(response, 'PoslovniProstor', None)
-        if not poslovni_prostor:
-            return
-        radno_vrijeme = getattr(poslovni_prostor, 'RadnoVrijeme', None)
-        if not radno_vrijeme:
-            return
-
-        # Replace local working hours with data received from FINA
-        self.regular_working_hours_ids.unlink()
-        self.exception_working_hours_ids.unlink()
-
-        vals_list = []
-        for regular in _as_list(getattr(radno_vrijeme, 'Redovno', None)):
-            vals_list.extend(self._parse_regular_working_hours(regular))
-        for exception in _as_list(getattr(radno_vrijeme, 'Iznimke', None)):
-            vals_list.extend(self._parse_exception_working_hours(exception))
-
-        if vals_list:
-            self.env['l10n_hr.business.working.hours'].create(vals_list)
-
-    def _parse_regular_working_hours(self, regular):
-        """Parse a RedovnoType object and return a list of create vals."""
-        self.ensure_one()
-        valid_from = _fina_date_parse(getattr(regular, 'DatumOd', None))
-        description = getattr(regular, 'Napomena', None)
-        base_vals = {
-            'business_premise_id': self.id,
-            'type': 'regular',
-            'valid_from': valid_from,
-            'description': description,
-        }
-        vals_list = []
-        for shift in _as_list(getattr(regular, 'Jednokratno', None)):
-            vals_list.append(dict(base_vals, **{
-                'dow': getattr(shift, 'DanUTjednu', None),
-                'time_from': getattr(shift, 'RadnoVrijemeOd', None),
-                'time_to': getattr(shift, 'RadnoVrijemeDo', None),
-                'split_shift': False,
-            }))
-        for shift in _as_list(getattr(regular, 'Dvokratno', None)):
-            vals_list.append(dict(base_vals, **{
-                'dow': getattr(shift, 'DanUTjednu', None),
-                'time_from': getattr(shift, 'RadnoVrijemeOd', None),
-                'time_to': getattr(shift, 'RadnoVrijemeDo', None),
-                'split_shift': getattr(shift, 'DioDvokratnog', None),
-            }))
-        if getattr(regular, 'PoDogovoru', None):
-            _logger.warning("Regular working hours 'PoDogovoru' received from FINA but not supported.")
-        if getattr(regular, 'ParniNeparni', None):
-            _logger.warning("Regular working hours 'ParniNeparni' received from FINA but not supported.")
-        return vals_list
-
-    def _parse_exception_working_hours(self, exception):
-        """Parse an IznimkeType object and return a list of create vals."""
-        self.ensure_one()
-        valid_on = _fina_date_parse(getattr(exception, 'Datum', None))
-        base_vals = {
-            'business_premise_id': self.id,
-            'type': 'exception',
-            'valid_on': valid_on,
-        }
-        vals_list = []
-        for shift in _as_list(getattr(exception, 'Jednokratno', None)):
-            vals_list.append(dict(base_vals, **{
-                'dow': valid_on and str(valid_on.isoweekday()) or None,
-                'time_from': getattr(shift, 'RadnoVrijemeOd', None),
-                'time_to': getattr(shift, 'RadnoVrijemeDo', None),
-                'split_shift': False,
-            }))
-        for shift in _as_list(getattr(exception, 'Dvokratno', None)):
-            vals_list.append(dict(base_vals, **{
-                'dow': valid_on and str(valid_on.isoweekday()) or None,
-                'time_from': getattr(shift, 'RadnoVrijemeOd', None),
-                'time_to': getattr(shift, 'RadnoVrijemeDo', None),
-                'split_shift': getattr(shift, 'DioDvokratnog', None),
-            }))
-        return vals_list
-
-    def _prepare_remove_fiscal_working_hours(self, factory):
-        regulars = self.regular_working_hours_ids.filtered('to_remove')
-        exceptions = self.exception_working_hours_ids.filtered('to_remove')
-        regulars_to_remove, exceptions_to_remove = [], []
-        for distinct_valid_from in set(regulars.mapped('valid_from')):
-            if distinct_valid_from:
-                regulars_to_remove.append(dict(DatumOd=_fina_date_format(distinct_valid_from)))
-        for distinct_valid_on in set(exceptions.mapped('valid_on')):
-            if distinct_valid_on:
-                exceptions_to_remove.append(dict(Datum=_fina_date_format(distinct_valid_on)))
-        poslovni_prostor = factory.type_factory.PoslovniProstorType(
-            Oib=self.company_id.company_registry,
-            OznPosPr=self.l10n_hr_fiscal_code,
-            BrisanjeRadnogVremena=factory.type_factory.RadnoVrijemeBrisanjeType(Redovno=regulars_to_remove,
-                                                                                Iznimke=exceptions_to_remove)
-        )
-        return poslovni_prostor
-
-    def _prepare_set_fiscal_working_hours(self, factory):
-        grouped_regular_hours, grouped_exception_hours = [], []
-        regulars = self.regular_working_hours_ids.filtered('to_register')
-        exceptions = self.exception_working_hours_ids.filtered('to_register')
-        if regulars:
-            for valid_from, regulars in regulars.grouped('valid_from').items():
-                # Get distinct descriptions by records, ought to be unique
-                desc = ', '.join(set(regulars.mapped(lambda r: r.description or '')))
-                regular_hours = factory.type_factory.RedovnoType(
-                    DatumOd=_fina_date_format(valid_from),
-                    Napomena=desc or None,
-                )
-                # zeep does not always pre-initialize these lists
-                if regular_hours.Jednokratno is None:
-                    regular_hours.Jednokratno = []
-                if regular_hours.Dvokratno is None:
-                    regular_hours.Dvokratno = []
-                for regular in regulars:
-                    flavor = factory.type_factory.DvokratnoType if regular.split_shift else factory.type_factory.JednokratnoType
-                    shift = flavor(
-                        DanUTjednu=regular.dow,
-                        RadnoVrijemeOd=regular.time_from,
-                        RadnoVrijemeDo=regular.time_to,
-                    )
-                    if regular.split_shift:
-                        regular_hours.Dvokratno.append(shift)
-                    else:
-                        regular_hours.Jednokratno.append(shift)
-                grouped_regular_hours.append(regular_hours)
+        if isinstance(day, str):
+            day = fields.Date.to_date(day)
+        exceptions = self.exception_working_hours_ids.filtered(lambda line: line.valid_on == day)
         if exceptions:
-            for valid_on, exceptions in exceptions.grouped('valid_on').items():
-                exception_hours = factory.type_factory.IznimkeType(
-                    Datum=_fina_date_format(valid_on),
-                )
-                # zeep does not always pre-initialize these lists
-                if exception_hours.Jednokratno is None:
-                    exception_hours.Jednokratno = []
-                if exception_hours.Dvokratno is None:
-                    exception_hours.Dvokratno = []
-                for exception in exceptions:
-                    if exception.split_shift:
-                        shift = factory.type_factory.DvokratnoIznimkeType(
-                            DioDvokratnog=exception.split_shift,
-                            RadnoVrijemeOd=exception.time_from,
-                            RadnoVrijemeDo=exception.time_to,
-                        )
-                        exception_hours.Dvokratno.append(shift)
-                    else:
-                        shift = factory.type_factory.JednokratnoIznimkeType(
-                            RadnoVrijemeOd=exception.time_from,
-                            RadnoVrijemeDo=exception.time_to,
-                        )
-                        exception_hours.Jednokratno.append(shift)
-                grouped_exception_hours.append(exception_hours)
-        poslovni_prostor = factory.type_factory.PoslovniProstorType(
-            Oib=self.company_id.company_registry,
-            OznPosPr=self.l10n_hr_fiscal_code,
-            RadnoVrijeme=factory.type_factory.RadnoVrijemeType(Redovno=grouped_regular_hours,
-                                                               Iznimke=grouped_exception_hours)
-        )
-        return poslovni_prostor
+            return exceptions.sorted(lambda line: (line.split_shift or '', line.time_from or ''))
+        dow = str(day.isoweekday())
+        regular = self.regular_working_hours_ids.filtered(
+            lambda line: line.dow == dow and (not line.valid_from or line.valid_from <= day))
+        valid_dates = [line.valid_from for line in regular if line.valid_from]
+        latest = max(valid_dates) if valid_dates else False
+        regular = regular.filtered(lambda line: (line.valid_from or False) == latest)
+        return regular.sorted(lambda line: (line.split_shift or '', line.time_from or ''))
 
+    def _get_working_hours_snapshot(self):
+        """JSON-serializable frozen copy of the current working hours."""
+        self.ensure_one()
+        snapshot = []
+        for line in self._get_all_working_hours():
+            vals = {}
+            for field_name in SNAPSHOT_FIELDS:
+                value = line[field_name]
+                vals[field_name] = fields.Date.to_string(value) if isinstance(value, date) else (value or None)
+            snapshot.append(vals)
+        return snapshot
+
+    def _replace_working_hours(self, vals_list):
+        """Replace local working hours with the ones received from FINA."""
+        self.ensure_one()
+        self._get_all_working_hours().unlink()
+        if vals_list:
+            self.env['l10n_hr.business.working.hours'].create(
+                [dict(vals, business_premise_id=self.id) for vals in vals_list])
+
+    # ------------------------------------------------------------------------
+    # Actions
+    # ------------------------------------------------------------------------
     def button_l10n_hr_test_fiscal_echo(self):
         self.company_id.button_l10n_hr_test_fiscal_echo(self)
 
-    @fisc_handler(msg_type='dohvatiRadnoVrijeme')
-    def _get_working_hours(self):
-        fiscal_data = self.company_id.get_fiscal_data()
-        fisk = fiscal.Fiscalization(fiscal_data)
-        zaglavlje = fisk.create_request_header()
-        fisc_data = dict(Zaglavlje=zaglavlje, Oib=self.company_id.company_registry,
-                         OznPosPr=self.l10n_hr_fiscal_code, OibOper=self.env.user.company_registry,
-                         VrstaRadnogVremena='SVE')
-        return fisc_data
+    def _run_fiscal_operation(self, operation):
+        """Create and immediately execute a fiscal operation for every premise."""
+        operations = self.env['l10n_hr.fiscal.operation'].create(
+            [{'business_premise_id': premise.id, 'operation': operation} for premise in self])
+        for op in operations:
+            op._execute()
+        return operations
 
-    @fisc_handler(msg_type='prijaviRadnoVrijeme')
-    def _register_working_hours(self):
-        fiscal_data = self.company_id.get_fiscal_data()
-        fisk = fiscal.Fiscalization(fiscal_data)
-        zaglavlje = fisk.create_request_header()
-        working_hours = self._prepare_set_fiscal_working_hours(fisk)
-        fisc_data = dict(Zaglavlje=zaglavlje, PoslovniProstor=working_hours,
-                         OibOper=self.env.user.company_registry)
-        return fisc_data
+    def action_get_working_hours(self):
+        return self._run_fiscal_operation('get')._action_result()
 
-    @fisc_handler(msg_type='obrisiRadnoVrijeme')
-    def _remove_working_hours(self):
-        fiscal_data = self.company_id.get_fiscal_data()
-        fisk = fiscal.Fiscalization(fiscal_data)
-        zaglavlje = fisk.create_request_header()
-        working_hours_to_remove = self._prepare_remove_fiscal_working_hours(fisk)
-        fisc_data = dict(Zaglavlje=zaglavlje, PoslovniProstor=working_hours_to_remove,
-                         OibOper=self.env.user.company_registry,
-                         )
-        return fisc_data
+    def action_register_working_hours(self):
+        return self._run_fiscal_operation('register')._action_result()
 
-    def button_get_working_hours(self):
+    def action_remove_working_hours(self):
+        return self._run_fiscal_operation('remove')._action_result()
+
+    def action_new_fiscal_operation(self):
+        """Open a draft operation covering the selected premise(s): the user picks
+        get/register/remove and executes it. Several premises are fanned out into
+        one operation each."""
+        context = {}
+        if len(self) == 1:
+            context['default_business_premise_id'] = self.id
+        else:
+            context['default_business_premise_ids'] = self.ids
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Working Hours Fiscalization'),
+            'res_model': 'l10n_hr.fiscal.operation',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': context,
+        }
+
+    def action_open_fiscal_operations(self):
         self.ensure_one()
-        response = self._get_working_hours()
-        return True
-
-    def button_register_working_hours(self):
-        self.ensure_one()
-        response = self._register_working_hours()
-        return True
-
-    def button_remove_working_hours(self):
-        self.ensure_one()
-        response = self._remove_working_hours()
-        if response and response.Greske:
-            # Reset flag "to be removed"
-            self.regular_working_hours_ids.write({'to_remove': False})
-            self.exception_working_hours_ids.write({'to_remove': False})
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Fiscal Operations'),
+            'res_model': 'l10n_hr.fiscal.operation',
+            'view_mode': 'list,form',
+            'domain': [('business_premise_id', '=', self.id), ('state', '!=', 'draft')],
+            'context': {'default_business_premise_id': self.id},
+        }

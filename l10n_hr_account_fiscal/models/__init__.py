@@ -4,6 +4,7 @@ from . import l10n_hr_fiscal_log
 from . import l10n_hr_fiscal_device
 from . import l10n_hr_business_working_hours
 from . import l10n_hr_working_hours_schedule
+from . import l10n_hr_fiscal_operation_line
 from . import l10n_hr_fiscal_operation
 from . import l10n_hr_business_premise
 from . import l10n_hr_pnp_category

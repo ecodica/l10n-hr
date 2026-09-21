@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="l10n_hr_business_working_hours_list_view" model="ir.ui.view">
+        <field name="name">l10n_hr_business_working_hours_list_view</field>
+        <field name="model">l10n_hr.business.working.hours</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="display_name" string="Reference" optional="show"/>
+                <field name="business_premise_id" optional="show"/>
+                <field name="type" optional="show"/>
+                <field name="dow" optional="show"/>
+                <field name="description" optional="hide"/>
+                <field name="valid_from" optional="show"/>
+                <field name="valid_on" optional="show"/>
+                <field name="time_from" optional="show"/>
+                <field name="time_to" optional="show"/>
+                <field name="split_shift" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="l10n_hr_business_working_hours_form_view" model="ir.ui.view">
+        <field name="name">l10n_hr_business_working_hours_form_view</field>
+        <field name="model">l10n_hr.business.working.hours</field>
+        <field name="arch" type="xml">
+            <form string="Business Working Hours">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="business_premise_id"/>
+                            <field name="type"/>
+                            <field name="dow"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="valid_from" invisible="type == 'exception'"/>
+                            <field name="valid_on" invisible="type == 'regular'"/>
+                            <field name="time_from"/>
+                            <field name="time_to"/>
+                            <field name="split_shift"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_hr_business_working_hours_search_view" model="ir.ui.view">
+        <field name="name">l10n_hr_business_working_hours_search_view</field>
+        <field name="model">l10n_hr.business.working.hours</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="business_premise_id"/>
+                <field name="type"/>
+                <field name="dow"/>
+                <field name="description"/>
+                <filter name="regular" string="Regular" domain="[('type', '=', 'regular')]"/>
+                <filter name="exception" string="Exception" domain="[('type', '=', 'exception')]"/>
+                <group>
+                    <filter name="group_premise" string="Business Premise"
+                            context="{'group_by': 'business_premise_id'}"/>
+                    <filter name="group_type" string="Type" context="{'group_by': 'type'}"/>
+                    <filter name="group_dow" string="Day of Week" context="{'group_by': 'dow'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_l10n_hr_business_working_hours" model="ir.actions.act_window">
+        <field name="name">Business Working Hours</field>
+        <field name="res_model">l10n_hr.business.working.hours</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="l10n_hr_business_working_hours_search_view"/>
+    </record>
+
+    <menuitem
+            id="menu_action_l10n_hr_business_working_hours"
+            action="action_l10n_hr_business_working_hours"
+            parent="l10n_hr_account_base.menu_finance_config_croatia"
+            sequence="96"
+    />
+
+</odoo>

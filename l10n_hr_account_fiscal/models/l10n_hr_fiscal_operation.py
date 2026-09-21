@@ -1,5 +1,6 @@
 import logging
-from datetime import date, datetime
+from collections import defaultdict
+from datetime import date, datetime, timedelta
 
 from markupsafe import Markup, escape
 
@@ -132,8 +133,29 @@ class L10nHrFiscalOperation(models.Model):
     error_msg = fields.Text(string='Error', readonly=True)
 
     # -- pending work (draft) ------------------------------------------------
-    to_register_count = fields.Integer(compute='_compute_pending_counts')
-    to_remove_count = fields.Integer(compute='_compute_pending_counts')
+    line_ids = fields.One2many(
+        comodel_name='l10n_hr.fiscal.operation.line',
+        inverse_name='operation_id',
+        string='Working Hours Changes',
+        states={'done': [('readonly', True)]},
+    )
+    register_line_ids = fields.One2many(
+        comodel_name='l10n_hr.fiscal.operation.line',
+        inverse_name='operation_id',
+        string='Working Hours to Register',
+        domain=[('action', '=', 'register')],
+        states={'done': [('readonly', True)]},
+    )
+    remove_line_ids = fields.One2many(
+        comodel_name='l10n_hr.fiscal.operation.line',
+        inverse_name='operation_id',
+        string='Working Hours to Remove',
+        domain=[('action', '=', 'remove')],
+        states={'done': [('readonly', True)]},
+    )
+    remove_all = fields.Boolean('Remove All?')
+    register_count = fields.Integer(compute='_compute_change_counts')
+    remove_count = fields.Integer(compute='_compute_change_counts')
 
     # -- history -------------------------------------------------------------
     snapshot_before = fields.Json(string='Working Hours Before', readonly=True)
@@ -146,6 +168,18 @@ class L10nHrFiscalOperation(models.Model):
     snapshot_before_html = fields.Html(compute='_compute_snapshot_html', sanitize=False)
     snapshot_after_html = fields.Html(compute='_compute_snapshot_html', sanitize=False)
     diff_html = fields.Html(compute='_compute_diff_html', sanitize=False)
+
+    # -- persistent schedule snapshots ---------------------------------------
+    schedule_before_id = fields.Many2one(
+        comodel_name='l10n_hr.working.hours.schedule',
+        string='Schedule Before',
+        readonly=True,
+    )
+    schedule_after_id = fields.Many2one(
+        comodel_name='l10n_hr.working.hours.schedule',
+        string='Schedule After',
+        readonly=True,
+    )
 
     # ------------------------------------------------------------------------
     # Computes
@@ -164,15 +198,11 @@ class L10nHrFiscalOperation(models.Model):
         for op in self:
             op.msg_type = MSG_TYPES.get(op.operation)
 
-    @api.depends('business_premise_id.regular_working_hours_ids.to_register',
-                 'business_premise_id.regular_working_hours_ids.to_remove',
-                 'business_premise_id.exception_working_hours_ids.to_register',
-                 'business_premise_id.exception_working_hours_ids.to_remove')
-    def _compute_pending_counts(self):
+    @api.depends('line_ids.action')
+    def _compute_change_counts(self):
         for op in self:
-            hours = op.business_premise_id._get_all_working_hours()
-            op.to_register_count = len(hours.filtered('to_register'))
-            op.to_remove_count = len(hours.filtered('to_remove'))
+            op.register_count = len(op.line_ids.filtered(lambda l: l.action == 'register'))
+            op.remove_count = len(op.line_ids.filtered(lambda l: l.action == 'remove'))
 
     @api.depends('added_count', 'removed_count', 'changed_count')
     def _compute_has_changes(self):
@@ -233,7 +263,8 @@ class L10nHrFiscalOperation(models.Model):
         if not premises:
             raise UserError(_('Select at least one business premise.'))
         children = self.create([
-            {'business_premise_id': premise.id, 'operation': self.operation}
+            {'business_premise_id': premise.id, 'operation': self.operation,
+             'remove_all': self.remove_all}
             for premise in premises])
         for child in children:
             child._execute()
@@ -269,10 +300,54 @@ class L10nHrFiscalOperation(models.Model):
             raise UserError(_('Only draft fiscal operations can be executed.'))
         if not self.business_premise_id:
             raise UserError(_('A fiscal operation needs a business premise.'))
-        if self.operation == 'register' and not self.to_register_count:
-            raise UserError(_('There are no working hours flagged to be registered!'))
-        if self.operation == 'remove' and not self.to_remove_count:
-            raise UserError(_('There are no working hours flagged to be removed!'))
+        if self.operation == 'register' and not self.register_count:
+            raise UserError(_('There are no working hours selected to be registered!'))
+        if self.operation == 'remove' and not self.remove_count and not self.remove_all:
+            raise UserError(_('There are no working hours selected to be removed!'))
+
+    def _create_schedule_snapshot(self):
+        """Create a persistent schedule snapshot for the premise and return it."""
+        self.ensure_one()
+        # Use a fixed 30-day window around today so the snapshot is useful without
+        # being huge. The operation itself records the exact date of the change.
+        today = fields.Date.context_today(self)
+        schedule = self.env['l10n_hr.working.hours.schedule'].create({
+            'date_from': today,
+            'date_to': today + timedelta(days=30),
+            'business_premise_ids': [(6, 0, self.business_premise_id.ids)],
+            'company_id': self.company_id.id,
+            'fiscal_operation_id': self.id,
+        })
+        schedule.action_compute()
+        return schedule
+
+    def _prepare_remove_all_lines(self):
+        """Auto-populate remove lines when the operation should delete every working
+        hour of the selected business premise.
+        """
+        self.ensure_one()
+        if self.operation != 'remove' or not self.remove_all or self.state != 'draft':
+            return
+        self.line_ids.unlink()
+        working_hours = self.business_premise_id._get_all_working_hours()
+        if not working_hours:
+            return
+        self.env['l10n_hr.fiscal.operation.line'].create([
+            {
+                'operation_id': self.id,
+                'action': 'remove',
+                'working_hours_id': wh.id,
+                'type': wh.type,
+                'description': wh.description,
+                'dow': wh.dow,
+                'valid_from': wh.valid_from,
+                'valid_on': wh.valid_on,
+                'time_from': wh.time_from,
+                'time_to': wh.time_to,
+                'split_shift': wh.split_shift,
+            }
+            for wh in working_hours
+        ])
 
     def _execute(self):
         """Run the API call and freeze before/after state.
@@ -280,21 +355,28 @@ class L10nHrFiscalOperation(models.Model):
         Communication errors are caught and stored on the record instead of raised, so
         the operation (and its fiscal log) survive as history even when FINA rejects it.
         """
+        self._prepare_remove_all_lines()
         self._check_executable()
         premise = self.business_premise_id
         before = premise._get_working_hours_snapshot()
+        schedule_before = self._create_schedule_snapshot()
         vals = {
             'execution_date': fields.Datetime.now(),
             'user_id': self.env.user.id,
             'snapshot_before': before,
+            'schedule_before_id': schedule_before.id,
             'error_msg': False,
         }
         handler = getattr(self, '_call_%s' % self.operation)
-        try:
-            handler()
+        if self.operation == 'remove' and self.remove_all and not self.line_ids:
+            # Nothing to remove on this premise; mark as done without calling FINA.
             vals['state'] = 'done'
-        except UserError as error:
-            vals.update(state='error', error_msg=str(error))
+        else:
+            try:
+                handler()
+                vals['state'] = 'done'
+            except UserError as error:
+                vals.update(state='error', error_msg=str(error))
         # The log was created with this operation as origin (res_model/res_id): no guessing.
         # Even when nothing was raised, silent error logging on the company
         # may have swallowed a FINA error - the log is the authority.
@@ -304,8 +386,10 @@ class L10nHrFiscalOperation(models.Model):
             vals.update(state='error', error_msg=log.error_msg)
         after = premise._get_working_hours_snapshot()
         diff = self._compute_diff(before, after)
+        schedule_after = self._create_schedule_snapshot()
         vals.update({
             'snapshot_after': after,
+            'schedule_after_id': schedule_after.id,
             'diff': diff,
             'added_count': sum(1 for line in diff if line['status'] == 'added'),
             'removed_count': sum(1 for line in diff if line['status'] == 'removed'),
@@ -364,47 +448,88 @@ class L10nHrFiscalOperation(models.Model):
         if msg_type == 'dohvatiRadnoVrijeme':
             premise._replace_working_hours(self._parse_get_response(response))
         elif msg_type == 'prijaviRadnoVrijeme':
-            # registered - unflag, prevent double registration
-            premise._get_all_working_hours().filtered('to_register').write({'to_register': False})
+            # Create real working hours records for register lines that do not
+            # already reference an existing record.
+            for line in self.line_ids.filtered(
+                    lambda l: l.action == 'register' and not l.working_hours_id
+            ):
+                self.env['l10n_hr.business.working.hours'].create(
+                    line._to_working_hours_vals(premise.id)
+                )
         elif msg_type == 'obrisiRadnoVrijeme':
-            premise._get_all_working_hours().filtered('to_remove').unlink()
+            # Delete the working hours records referenced by remove lines.
+            self.line_ids.filtered(lambda l: l.action == 'remove').mapped('working_hours_id').unlink()
 
     # -- request payloads ----------------------------------------------------
     def _prepare_register_payload(self, fisk):
         tf = fisk.type_factory
         premise = self.business_premise_id
-        regulars = premise.regular_working_hours_ids.filtered('to_register')
-        exceptions = premise.exception_working_hours_ids.filtered('to_register')
+        register_lines = self.line_ids.filtered(lambda l: l.action == 'register')
+
+        def _effective_values(line):
+            """Return the values to send, whether inline or from a referenced record."""
+            if line.working_hours_id:
+                wh = line.working_hours_id
+                return {
+                    'type': wh.type,
+                    'valid_from': wh.valid_from,
+                    'valid_on': wh.valid_on,
+                    'description': wh.description,
+                    'dow': wh.dow,
+                    'time_from': wh.time_from,
+                    'time_to': wh.time_to,
+                    'split_shift': wh.split_shift,
+                }
+            return {
+                'type': line.type,
+                'valid_from': line.valid_from,
+                'valid_on': line.valid_on,
+                'description': line.description,
+                'dow': line.dow,
+                'time_from': line.time_from,
+                'time_to': line.time_to,
+                'split_shift': line.split_shift,
+            }
+
+        regulars = [_effective_values(line) for line in register_lines if _effective_values(line)['type'] == 'regular']
+        exceptions = [_effective_values(line) for line in register_lines if
+                      _effective_values(line)['type'] == 'exception']
 
         redovno = []
-        for valid_from, group in regulars.grouped('valid_from').items():
-            # descriptions ought to be identical within one DatumOd group
-            desc = ', '.join(sorted({d for d in group.mapped('description') if d}))
+        regular_groups = defaultdict(list)
+        for values in regulars:
+            regular_groups[values['valid_from']].append(values)
+        for valid_from, group in sorted(regular_groups.items()):
+            desc = ', '.join(sorted({d for d in [v['description'] for v in group] if d}))
             regular = tf.RedovnoType(DatumOd=_fina_date_format(valid_from), Napomena=desc or None)
             # zeep does not always pre-initialize these lists
             regular.Jednokratno = regular.Jednokratno or []
             regular.Dvokratno = regular.Dvokratno or []
-            for line in group:
-                if line.split_shift:
+            for values in group:
+                if values['split_shift']:
                     regular.Dvokratno.append(tf.DvokratnoType(
-                        DanUTjednu=line.dow, RadnoVrijemeOd=line.time_from, RadnoVrijemeDo=line.time_to))
+                        DanUTjednu=values['dow'], RadnoVrijemeOd=values['time_from'], RadnoVrijemeDo=values['time_to']))
                 else:
                     regular.Jednokratno.append(tf.JednokratnoType(
-                        DanUTjednu=line.dow, RadnoVrijemeOd=line.time_from, RadnoVrijemeDo=line.time_to))
+                        DanUTjednu=values['dow'], RadnoVrijemeOd=values['time_from'], RadnoVrijemeDo=values['time_to']))
             redovno.append(regular)
 
         iznimke = []
-        for valid_on, group in exceptions.grouped('valid_on').items():
+        exception_groups = defaultdict(list)
+        for values in exceptions:
+            exception_groups[values['valid_on']].append(values)
+        for valid_on, group in sorted(exception_groups.items()):
             exception = tf.IznimkeType(Datum=_fina_date_format(valid_on))
             exception.Jednokratno = exception.Jednokratno or []
             exception.Dvokratno = exception.Dvokratno or []
-            for line in group:
-                if line.split_shift:
+            for values in group:
+                if values['split_shift']:
                     exception.Dvokratno.append(tf.DvokratnoIznimkeType(
-                        DioDvokratnog=line.split_shift, RadnoVrijemeOd=line.time_from, RadnoVrijemeDo=line.time_to))
+                        DioDvokratnog=values['split_shift'], RadnoVrijemeOd=values['time_from'],
+                        RadnoVrijemeDo=values['time_to']))
                 else:
                     exception.Jednokratno.append(tf.JednokratnoIznimkeType(
-                        RadnoVrijemeOd=line.time_from, RadnoVrijemeDo=line.time_to))
+                        RadnoVrijemeOd=values['time_from'], RadnoVrijemeDo=values['time_to']))
             iznimke.append(exception)
 
         return tf.PoslovniProstorType(
@@ -415,16 +540,16 @@ class L10nHrFiscalOperation(models.Model):
 
     def _prepare_remove_payload(self, fisk):
         tf = fisk.type_factory
-        premise = self.business_premise_id
-        regulars = premise.regular_working_hours_ids.filtered('to_remove')
-        exceptions = premise.exception_working_hours_ids.filtered('to_remove')
+        remove_lines = self.line_ids.filtered(lambda l: l.action == 'remove')
+        regulars = remove_lines.filtered(lambda l: l.working_hours_id.type == 'regular')
+        exceptions = remove_lines.filtered(lambda l: l.working_hours_id.type == 'exception')
         redovno = [dict(DatumOd=_fina_date_format(d))
-                   for d in sorted(set(regulars.mapped('valid_from'))) if d]
+                   for d in sorted(set(regulars.mapped('working_hours_id.valid_from'))) if d]
         iznimke = [dict(Datum=_fina_date_format(d))
-                   for d in sorted(set(exceptions.mapped('valid_on'))) if d]
+                   for d in sorted(set(exceptions.mapped('working_hours_id.valid_on'))) if d]
         return tf.PoslovniProstorType(
             Oib=self.company_id.company_registry,
-            OznPosPr=premise.l10n_hr_fiscal_code,
+            OznPosPr=self.business_premise_id.l10n_hr_fiscal_code,
             BrisanjeRadnogVremena=tf.RadnoVrijemeBrisanjeType(Redovno=redovno, Iznimke=iznimke),
         )
 

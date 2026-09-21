@@ -131,6 +131,7 @@ class L10nHrBusinessPremise(models.Model):
         context = {}
         if len(self) == 1:
             context['default_business_premise_id'] = self.id
+            context['default_business_premise_ids'] = self.ids
         else:
             context['default_business_premise_ids'] = self.ids
         return {

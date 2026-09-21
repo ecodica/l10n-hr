@@ -1,10 +1,11 @@
-"""The ``l10n_hr.working.hours.schedule`` master model answers a single question:
+"""The ``l10n_hr.working.hours.schedule`` model answers a single question:
 what are the working hours on a given date for a given business premise?
 
-It stores nothing of its own - it resolves the working hours living on each premise
-(regulars by day of week + validity window, exceptions overriding a single date)
-into one materialized line per premise/date/shift. These tests drive the resolver
-(``premise.get_working_hours_for_date``) and the schedule materialization.
+It resolves the working hours living on each premise (regulars by day of week +
+validity window, exceptions overriding a single date) into one materialized line
+per premise/date/shift and persists the result as a point-in-time snapshot.
+These tests drive the resolver (``premise.get_working_hours_for_date``) and the
+schedule materialization.
 """
 from datetime import date
 

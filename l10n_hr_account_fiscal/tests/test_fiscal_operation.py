@@ -1,11 +1,11 @@
 """``l10n_hr.fiscal.operation`` is the single record of every working hours exchange
 with the Porezna uprava (FINA) for a business premise.
 
-Buttons used to call the API straight from the premise and the only trace left was a
-``l10n_hr.fiscal.log`` found afterwards by guessing (latest log of that premise and
-type). Now the operation *is* the origin of the call: the log points back at it via
-``res_model``/``res_id``, and the premise working hours are frozen before and after
-the call so the effect of each message is a stored, diffable fact.
+The ``to_register`` / ``to_remove`` flags on ``l10n_hr.business.working.hours`` were
+removed; the operation itself now carries the intended changes as
+``l10n_hr.fiscal.operation.line`` records. Each executed operation also creates
+persistent ``l10n_hr.working.hours.schedule`` snapshots before and after the call,
+so the history of working hours can be reviewed over time.
 
 These tests drive the three operations against a fake FINA client. No network, no
 certificate: the fake returns canned zeep-like responses and records what it was
@@ -100,6 +100,8 @@ class TestFiscalOperation(TransactionCase):
         })
         cls.WorkingHours = cls.env["l10n_hr.business.working.hours"]
         cls.Operation = cls.env["l10n_hr.fiscal.operation"]
+        cls.OperationLine = cls.env["l10n_hr.fiscal.operation.line"]
+        cls.Schedule = cls.env["l10n_hr.working.hours.schedule"]
 
     def setUp(self):
         super().setUp()
@@ -123,8 +125,13 @@ class TestFiscalOperation(TransactionCase):
             "time_to": "16:00",
         }, **vals))
 
-    def _run(self, operation):
-        op = self.Operation.create({"business_premise_id": self.premise.id, "operation": operation})
+    def _run(self, operation, lines=None):
+        vals = {"business_premise_id": self.premise.id, "operation": operation}
+        op = self.Operation.create(vals)
+        if lines:
+            for line in lines:
+                line.setdefault("operation_id", op.id)
+                self.OperationLine.create(line)
         op.action_execute()
         return op
 
@@ -182,16 +189,39 @@ class TestFiscalOperation(TransactionCase):
         self.assertIn("table-danger", op.diff_html)
         self.assertIn("Thursday", op.snapshot_after_html)
 
+    def test_get_creates_persistent_schedule_snapshots(self):
+        """Each executed operation stores before/after schedule snapshots."""
+        self._hours(dow="1", time_from="08:00", time_to="16:00")
+        FakeFiscalization.responses["dohvatiRadnoVrijeme"] = _get_response(
+            regular=[_ns(DatumOd="01.01.2026",
+                         Jednokratno=[_ns(DanUTjednu="1", RadnoVrijemeOd="08:00", RadnoVrijemeDo="16:00")],
+                         Dvokratno=[], PoDogovoru=None, ParniNeparni=None)],
+        )
+
+        op = self._run("get")
+
+        self.assertTrue(op.schedule_before_id)
+        self.assertTrue(op.schedule_after_id)
+        self.assertNotEqual(op.schedule_before_id, op.schedule_after_id)
+        self.assertEqual(op.schedule_before_id.fiscal_operation_id, op)
+        self.assertEqual(op.schedule_after_id.fiscal_operation_id, op)
+        self.assertIn(self.premise, op.schedule_before_id.business_premise_ids)
+        self.assertTrue(op.schedule_before_id.line_ids)
+
     # -- register ------------------------------------------------------------
-    def test_register_sends_only_flagged_hours_and_unflags_them(self):
-        flagged = self._hours(dow="1", to_register=True, description="Open")
-        self._hours(dow="2", to_register=False)
-        split = self._hours(dow="3", to_register=True, split_shift="2", time_from="14:00", time_to="20:00")
-        self._hours(type="exception", valid_from=False, valid_on="2026-05-01", dow="5",
-                    time_from="10:00", time_to="12:00", to_register=True)
+    def test_register_sends_inline_lines_and_creates_them(self):
+        """Register lines without a referenced record create new working hours."""
+        lines = [
+            {"action": "register", "type": "regular", "dow": "1", "valid_from": "2026-01-01",
+             "time_from": "08:00", "time_to": "16:00", "description": "Open"},
+            {"action": "register", "type": "regular", "dow": "3", "valid_from": "2026-01-01",
+             "time_from": "14:00", "time_to": "20:00", "split_shift": "2"},
+            {"action": "register", "type": "exception", "valid_on": "2026-05-01",
+             "time_from": "10:00", "time_to": "12:00"},
+        ]
         FakeFiscalization.responses["prijaviRadnoVrijeme"] = _ok_response()
 
-        op = self._run("register")
+        op = self._run("register", lines=lines)
 
         self.assertEqual(op.state, "done")
         method, payload = FakeFiscalization.calls[-1]
@@ -202,21 +232,33 @@ class TestFiscalOperation(TransactionCase):
         (regular,) = premise_payload.RadnoVrijeme.Redovno
         self.assertEqual(regular.DatumOd, "01.01.2026")
         self.assertEqual(regular.Napomena, "Open")
-        self.assertEqual([s.DanUTjednu for s in regular.Jednokratno], ["1"], "only flagged single shifts")
+        self.assertEqual([s.DanUTjednu for s in regular.Jednokratno], ["1"])
         self.assertEqual([s.DanUTjednu for s in regular.Dvokratno], ["3"])
         (exception,) = premise_payload.RadnoVrijeme.Iznimke
         self.assertEqual(exception.Datum, "01.05.2026")
         self.assertEqual(exception.Jednokratno[0].RadnoVrijemeOd, "10:00")
 
-        self.assertFalse(flagged.to_register)
-        self.assertFalse(split.to_register)
-        self.assertFalse(self.premise._get_all_working_hours().filtered("to_register"))
-        # flags are not part of the snapshot: registering changes nothing in the diff
-        self.assertFalse(op.has_changes)
-        self.assertIn("No changes", op.diff_html)
+        hours = self.premise._get_all_working_hours()
+        self.assertEqual(len(hours), 3)
+        self.assertTrue(op.has_changes)
+        self.assertEqual(op.added_count, 3)
 
-    def test_register_refuses_when_nothing_is_flagged(self):
-        self._hours(to_register=False)
+    def test_register_can_re_register_existing_record(self):
+        """A register line can reference an existing local record to avoid duplicates."""
+        existing = self._hours(dow="1", time_from="08:00", time_to="16:00", description="Existing")
+        lines = [
+            {"action": "register", "working_hours_id": existing.id},
+        ]
+        FakeFiscalization.responses["prijaviRadnoVrijeme"] = _ok_response()
+
+        op = self._run("register", lines=lines)
+
+        self.assertEqual(len(self.premise._get_all_working_hours()), 1)
+        method, payload = FakeFiscalization.calls[-1]
+        regular = payload["PoslovniProstor"].RadnoVrijeme.Redovno[0]
+        self.assertEqual(regular.Jednokratno[0].DanUTjednu, "1")
+
+    def test_register_refuses_when_no_lines_are_selected(self):
         op = self.Operation.create({"business_premise_id": self.premise.id, "operation": "register"})
         with self.assertRaises(UserError):
             op.action_execute()
@@ -224,13 +266,17 @@ class TestFiscalOperation(TransactionCase):
         self.assertFalse(FakeFiscalization.calls, "nothing must reach FINA")
 
     # -- remove --------------------------------------------------------------
-    def test_remove_sends_distinct_dates_and_deletes_flagged_hours(self):
-        self._hours(dow="1", valid_from="2026-01-01", to_remove=True)
-        self._hours(dow="2", valid_from="2026-01-01", to_remove=True)
-        kept = self._hours(dow="3", valid_from="2026-02-01", to_remove=False)
+    def test_remove_sends_distinct_dates_and_deletes_referenced_hours(self):
+        to_remove_1 = self._hours(dow="1", valid_from="2026-01-01")
+        to_remove_2 = self._hours(dow="2", valid_from="2026-01-01")
+        kept = self._hours(dow="3", valid_from="2026-02-01")
+        lines = [
+            {"action": "remove", "working_hours_id": to_remove_1.id},
+            {"action": "remove", "working_hours_id": to_remove_2.id},
+        ]
         FakeFiscalization.responses["obrisiRadnoVrijeme"] = _ok_response()
 
-        op = self._run("remove")
+        op = self._run("remove", lines=lines)
 
         self.assertEqual(op.state, "done")
         _, payload = FakeFiscalization.calls[-1]
@@ -241,26 +287,103 @@ class TestFiscalOperation(TransactionCase):
         self.assertEqual(op.removed_count, 2)
         self.assertEqual((op.added_count, op.changed_count), (0, 0))
 
+    def test_remove_all_sends_every_date_and_deletes_all_hours(self):
+        self._hours(dow="1", valid_from="2026-01-01")
+        self._hours(dow="2", valid_from="2026-01-01")
+        self._hours(dow="3", valid_from="2026-02-01")
+        self._hours(type="exception", valid_on="2026-01-01", dow="1", time_from="10:00", time_to="12:00")
+        FakeFiscalization.responses["obrisiRadnoVrijeme"] = _ok_response()
+
+        op = self.Operation.create({
+            "business_premise_id": self.premise.id,
+            "operation": "remove",
+            "remove_all": True,
+        })
+        op.action_execute()
+
+        self.assertEqual(op.state, "done")
+        self.assertFalse(self.premise._get_all_working_hours())
+        _, payload = FakeFiscalization.calls[-1]
+        brisanje = payload["PoslovniProstor"].BrisanjeRadnogVremena
+        self.assertEqual(
+            brisanje.Redovno,
+            [{"DatumOd": "01.01.2026"}, {"DatumOd": "01.02.2026"}],
+        )
+        self.assertEqual(brisanje.Iznimke, [{"Datum": "01.01.2026"}])
+
+    def test_remove_all_with_no_hours_skips_fina_call(self):
+        FakeFiscalization.responses["obrisiRadnoVrijeme"] = _ok_response()
+
+        op = self.Operation.create({
+            "business_premise_id": self.premise.id,
+            "operation": "remove",
+            "remove_all": True,
+        })
+        op.action_execute()
+
+        self.assertEqual(op.state, "done")
+        self.assertFalse(FakeFiscalization.calls, "no FINA call when there is nothing to remove")
+
+    def test_remove_all_fans_out_to_all_selected_premises(self):
+        other = self.env["l10n_hr.business.premise"].create({
+            "l10n_hr_name": "Second premise",
+            "l10n_hr_fiscal_code": "TESTPP2",
+            "company_id": self.company.id,
+        })
+        self._hours()
+        self.WorkingHours.create({
+            "business_premise_id": other.id,
+            "type": "regular",
+            "dow": "2",
+            "valid_from": "2026-01-01",
+            "time_from": "08:00",
+            "time_to": "16:00",
+        })
+        FakeFiscalization.responses["obrisiRadnoVrijeme"] = _ok_response()
+
+        launcher = self.Operation.create({
+            "operation": "remove",
+            "remove_all": True,
+            "business_premise_ids": [(6, 0, (self.premise + other).ids)],
+        })
+        launcher.action_execute()
+
+        self.assertFalse(launcher.exists())
+        children = self.Operation.search([
+            ("business_premise_id", "in", (self.premise + other).ids),
+            ("operation", "=", "remove"),
+        ])
+        self.assertEqual(len(children), 2)
+        self.assertEqual(set(children.mapped("state")), {"done"})
+        self.assertFalse(self.premise._get_all_working_hours())
+        self.assertFalse(other._get_all_working_hours())
+
     # -- errors --------------------------------------------------------------
     def test_fina_error_is_kept_as_history_not_raised(self):
         """A rejected message must not roll back the record that documents it."""
-        self._hours(to_register=True)
+        lines = [
+            {"action": "register", "type": "regular", "dow": "1", "valid_from": "2026-01-01",
+             "time_from": "08:00", "time_to": "16:00"},
+        ]
         FakeFiscalization.responses["prijaviRadnoVrijeme"] = _error_response("s002", "Certifikat nije valjan")
 
-        op = self._run("register")
+        op = self._run("register", lines=lines)
 
         self.assertEqual(op.state, "error")
         self.assertIn("Certifikat nije valjan", op.error_msg)
-        self.assertTrue(self.premise._get_all_working_hours().to_register, "still flagged: nothing was registered")
+        self.assertFalse(self.premise._get_all_working_hours(), "no record created on error")
         self.assertFalse(op.has_changes)
         self.assertTrue(op.fiscal_log_id, "the failed exchange is still logged")
 
     def test_fina_error_with_silent_logging_is_still_an_error(self):
         self.company.l10n_hr_fiscal_silent_error_logging = True
-        self._hours(to_register=True)
+        lines = [
+            {"action": "register", "type": "regular", "dow": "1", "valid_from": "2026-01-01",
+             "time_from": "08:00", "time_to": "16:00"},
+        ]
         FakeFiscalization.responses["prijaviRadnoVrijeme"] = _error_response("s002", "Certifikat nije valjan")
 
-        op = self._run("register")
+        op = self._run("register", lines=lines)
 
         self.assertEqual(op.state, "error", "the log is the authority even when nothing was raised")
         self.assertIn("Certifikat nije valjan", op.error_msg)

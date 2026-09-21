@@ -64,17 +64,21 @@
                     </div>
                     <div class="alert alert-info" role="alert"
                          invisible="state != 'draft' or operation != 'register'">
-                        <field name="to_register_count" class="fw-bold" readonly="1"/>
-                        working hours flagged
-                        <i>To Register</i>
+                        <field name="register_count" class="fw-bold" readonly="1"/>
+                        working hours selected to
+                        <i>Register</i>
                         will be sent.
                     </div>
                     <div class="alert alert-info" role="alert"
-                         invisible="state != 'draft' or operation != 'remove'">
-                        <field name="to_remove_count" class="fw-bold" readonly="1"/>
-                        working hours flagged
-                        <i>To Remove</i>
+                         invisible="state != 'draft' or operation != 'remove' or remove_all">
+                        <field name="remove_count" class="fw-bold" readonly="1"/>
+                        working hours selected to
+                        <i>Remove</i>
                         will be sent.
+                    </div>
+                    <div class="alert alert-warning" role="alert"
+                         invisible="state != 'draft' or operation != 'remove' or not remove_all">
+                        All working hours for the selected business premise(s) will be removed.
                     </div>
                     <div class="alert alert-warning" role="alert"
                          invisible="state != 'draft' or operation != 'get'">
@@ -95,6 +99,7 @@
                                    invisible="business_premise_id"
                                    options="{'no_create': True}"/>
                             <field name="operation" widget="radio" readonly="state != 'draft'"/>
+                            <field name="remove_all" invisible="state != 'draft' or operation != 'remove'"/>
                             <field name="msg_type"/>
                         </group>
                         <group>
@@ -104,8 +109,39 @@
                             <field name="fiscal_log_id" invisible="not fiscal_log_id"/>
                         </group>
                     </group>
-                    <notebook invisible="state == 'draft'">
-                        <page string="Changes" name="diff">
+                    <notebook>
+                        <page string="Register" name="register_lines"
+                              invisible="state != 'draft' or operation != 'register'">
+                            <field name="register_line_ids" nolabel="1" colspan="4"
+                                   context="{'default_operation_id': id, 'default_action': 'register',
+                                   'default_time_from': '08:00', 'default_time_to': '16:00'}">
+                                <list editable="bottom">
+                                    <field name="action" column_invisible="1"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="type" required="1"/>
+                                    <field name="dow" required="1"/>
+                                    <field name="valid_from" attrs="{'required': [('type', '=', 'regular')]}"/>
+                                    <field name="valid_on" attrs="{'required': [('type', '=', 'exception')]}"/>
+                                    <field name="time_from" required="1"/>
+                                    <field name="time_to" required="1"/>
+                                    <field name="split_shift"/>
+                                    <field name="description"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Remove" name="remove_lines"
+                              invisible="state != 'draft' or operation != 'remove'">
+                            <field name="remove_line_ids" nolabel="1" colspan="4"
+                                   context="{'default_operation_id': id, 'default_action': 'remove'}">
+                                <list editable="bottom">
+                                    <field name="action" column_invisible="1"/>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="working_hours_id" required="1"
+                                           domain="[('business_premise_id', 'in', parent.business_premise_ids)]"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Changes" name="diff" invisible="state == 'draft'">
                             <group col="6">
                                 <field name="added_count" readonly="1"/>
                                 <field name="removed_count" readonly="1"/>
@@ -118,6 +154,12 @@
                         </page>
                         <page string="After" name="after">
                             <field name="snapshot_after_html" nolabel="1" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Schedule Before" name="schedule_before" invisible="not schedule_before_id">
+                            <field name="schedule_before_id" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Schedule After" name="schedule_after" invisible="not schedule_after_id">
+                            <field name="schedule_after_id" nolabel="1" readonly="1"/>
                         </page>
                         <page string="Request / Response" name="xml">
                             <group>

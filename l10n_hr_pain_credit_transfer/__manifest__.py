@@ -3,7 +3,7 @@
 {
     "name": "Croatia - PAIN Credit Transfer",
     "summary": "Generate ISO 20022 credit transfer (SEPA and not SEPA)",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "category": "Accounting/Localizations/SEPA",
     "author": "Ecodica",
     "license": "AGPL-3",

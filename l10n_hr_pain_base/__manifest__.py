@@ -9,6 +9,8 @@
     "license": "AGPL-3",
     "depends": [
         "account_banking_pain_base",
+        "base_address_extended",
+        "l10n_hr_address_split",
     ],
     "data": [
     ],

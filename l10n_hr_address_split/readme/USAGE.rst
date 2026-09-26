@@ -1,0 +1,1 @@
+Check usage of ``base_address_extended`` module.

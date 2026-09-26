@@ -3,6 +3,12 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from lxml import etree
 
+from odoo.addons.l10n_hr_pain_base.models.account_payment_order import (
+    HR_PAIN_09_FLAVORS,
+    HR_SCT_03,
+    HR_SCT_INST_09,
+)
+
 try:
     from unidecode import unidecode
 except ImportError:
@@ -37,7 +43,7 @@ class AccountPaymentOrder(models.Model):
         # pain.001.001.03.ch.02 (cf l10n_ch_sepa)
         if not pain_flavor:
             raise UserError(_("PAIN version '%s' is not supported.") % pain_flavor)
-        if pain_flavor == "scthr:pain.001.001.03":
+        if pain_flavor == HR_SCT_03:
             bic_xml_tag = "BIC"
             # size 70 -> 140 for <Nm> with pain.001.001.03
             # BUT the European Payment Council, in the document
@@ -49,7 +55,7 @@ class AccountPaymentOrder(models.Model):
             # and we put 70 and not 140
             name_maxsize = 70
             root_xml_tag = "CstmrCdtTrfInitn"
-        elif pain_flavor == 'scthr:pain.001.001.09':
+        elif pain_flavor in HR_PAIN_09_FLAVORS:
             bic_xml_tag = 'BICFI'
             # size 70 -> 140 for <Nm> with pain.001.001.03
             # BUT the European Payment Council, in the document
@@ -92,7 +98,13 @@ class AccountPaymentOrder(models.Model):
         for line in self.payment_ids:
             payment_line = line.payment_line_ids[:1]
             priority = payment_line.priority
-            local_instrument = payment_line.local_instrument
+            # namespace and XSD are per file, so the whole order is instant or
+            # none of it is; forcing it here keeps the group key, the PmtInfId
+            # eval context and LclInstrm/Cd in agreement
+            local_instrument = (
+                'INST' if pain_flavor == HR_SCT_INST_09
+                else payment_line.local_instrument
+            )
             categ_purpose = payment_line.category_purpose
             # The field line.date is the requested payment date
             # taking into account the 'date_prefered' setting

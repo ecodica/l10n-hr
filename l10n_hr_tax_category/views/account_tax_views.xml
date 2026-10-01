@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='croatian_fiscal_2_codebooks']//group[@name='codebook_data']//group[@name='left']" position="inside">
                 <field name="l10n_hr_tax_category_id"/>
+                <field name="l10n_hr_pass_through_reason_text"
+                       placeholder="Defaults to the category, then the tax name"/>
             </xpath>
         </field>
     </record>

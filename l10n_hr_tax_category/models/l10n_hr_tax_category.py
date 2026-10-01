@@ -16,6 +16,12 @@ class L10nHrTaxCategory(models.Model):
     name = fields.Char(string="Name", required=True)
     display_name = fields.Char(string="Display Name", compute='_compute_display_name', store=True)
     description = fields.Text(string="Description")
+    pass_through_reason_text = fields.Char(
+        string="Default Exemption Reason", translate=True,
+        help="Reason text an eRačun states for a pass-through charge in this category (BT-118 "
+             "E with HR-BT-18 O), unless the tax itself names another. Empty where the category "
+             "name cannot serve as the reason: HR:N shares its name verbatim with HR:O, so only "
+             "the tax knows which charge it carries.")
 
     _sql_constraints = [
         ('code_uniq', 'UNIQUE(code)', 'The tax category code has to be unique!')

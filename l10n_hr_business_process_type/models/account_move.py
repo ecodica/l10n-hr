@@ -24,3 +24,19 @@ class AccountMove(models.Model):
         if self.journal_id.l10n_hr_business_process_type_id:
             self.l10n_hr_business_process_type_id = self.journal_id.l10n_hr_business_process_type_id.id
         return res
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Back-fill the business process type from the journal.
+
+        The onchange above only runs in the form view, so invoices built in
+        Python (EDI import, API, cron) would otherwise have none, while it is
+        required in the fiscalized XML. Only fills it in when still empty, so a
+        value passed explicitly by the caller is kept.
+        """
+        moves = super().create(vals_list)
+        for move in moves:
+            if move.country_code == 'HR' and not move.l10n_hr_business_process_type_id:
+                move.l10n_hr_business_process_type_id = (move.journal_id
+                                                         and move.journal_id.l10n_hr_business_process_type_id)
+        return moves

@@ -6,7 +6,7 @@
         <field name="model">uom.uom</field>
         <field name="inherit_id" ref="uom.product_uom_form_view"/>
         <field name="arch" type="xml">
-            <field name="category_id" position="after">
+            <field name="name" position="after">
                 <field name="uom_en16931_id"/>
             </field>
         </field>

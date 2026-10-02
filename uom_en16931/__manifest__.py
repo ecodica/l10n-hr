@@ -16,7 +16,7 @@
 
     "depends": [
         "uom",
-        "sale",
+        "l10n_hr_fiscal_codebook",
     ],
     "external_dependencies": {
         "python": [],

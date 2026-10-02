@@ -37,6 +37,9 @@
                         </group>
                         <group name="name">
                             <field name="name"/>
+                            <field name="is_pass_through_charge"/>
+                            <field name="pass_through_reason_text"
+                                   invisible="not is_pass_through_charge"/>
                         </group>
                     </group>
                     <group name="category_description">

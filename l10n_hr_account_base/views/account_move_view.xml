@@ -45,6 +45,8 @@
                                    invisible="move_type not in ['out_invoice','out_refund'] or l10n_hr_show_required_fiscal_fields_on_header"
                                    readonly="state != 'draft'"/>
                         </group>
+                        <group name="l10n_hr_fiscal2_placeholder"/>
+                        <group name="l10n_hr_fiscal1_placeholder"/>
                     </group>
                 </page>
             </notebook>

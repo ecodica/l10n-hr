@@ -1,0 +1,1081 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_vatex_tax_exempt
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-10 09:43+0000\n"
+"PO-Revision-Date: 2025-12-10 11:07+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1G
+msgid ""
+"\" The importation of goods by international bodies, other than those "
+"referred to in point (fa), recognised as such by the public authorities of "
+"the host Member State, or by members of such bodies, within the limits and "
+"under the conditions laid down by the international conventions "
+"establishing the bodies or by headquarters agreements\""
+msgstr ""
+"\"Uvoz dobara od strane međunarodnih tijela, osim onih navedenih u točki (fa), koja su kao takva priznata od strane javnih vlasti države članice domaćina, ili od strane članova tih tijela, u granicama i pod uvjetima utvrđenim međunarodnim konvencijama o osnivanju tih tijela ili sporazumima o sjedištu\""
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1I
+msgid ""
+"\" The provision of children's or young people's education, school or "
+"university education, vocational training or retraining, including the "
+"supply of services and of goods closely related thereto, by bodies governed "
+"by public law having such as their aim or by other organisations recognised "
+"by the Member State concerned as having similar objects.\""
+msgstr ""
+"\"Pružanje odgoja i obrazovanja djece i mladeži, školskog ili sveučilišnog obrazovanja, strukovnog osposobljavanja ili prekvalifikacije, uključujući isporuku usluga i dobara usko povezanih s tim, od strane tijela kojima upravlja javno pravo i koja imaju takav cilj ili od strane drugih organizacija koje je dotična država članica priznala da imaju slične ciljeve.\""
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1FA
+msgid ""
+"\"The importation of goods by the European Community, the European Atomic "
+"Energy Community, the European Central Bank or the European Investment "
+"Bank, or by the bodies set up by the Communities to which the Protocol of 8 "
+"April 1965 on the privileges and immunities of the European Communities "
+"applies, within the limits and under the conditions of that Protocol and "
+"the agreements for its implementation or the headquarters agreements, in so "
+"far as it does not lead to distortion of competition\""
+msgstr ""
+"\"Uvoz dobara od strane Europske zajednice, Europske zajednice za atomsku energiju, Europske središnje banke ili Europske investicijske banke, ili od strane tijela osnovanih od strane Zajednica na koje se primjenjuje Protokol od 8. travnja 1965. o povlasticama i imunitetima Europskih zajednica, u granicama i pod uvjetima tog Protokola i sporazuma za njegovu provedbu ili sporazuma o sjedištu, u mjeri u kojoj ne dovodi do narušavanja tržišnog natjecanja\""
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1O
+msgid ""
+"\"The supply of services and goods, by organisations whose activities are "
+"exempt pursuant to points (b), (g), (h), (i), (l), (m) and (n), in "
+"connection with fund-raising events organised exclusively for their own "
+"benefit, provided that exemption is not likely to cause distortion of "
+"competition.\""
+msgstr ""
+"\"Isporuka usluga i dobara od strane organizacija čije su aktivnosti izuzete u skladu s točkama (b), (g), (h), (i), (l), (m) i (n), u vezi s događanjima za prikupljanje sredstava organiziranim isključivo za njihovu vlastitu korist, pod uvjetom da izuzeće vjerojatno neće uzrokovati narušavanje tržišnog natjecanja.\""
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1H
+msgid ""
+"\"The supply of services and of goods closely linked to the protection of "
+"children and young persons by bodies governed by public law or by other "
+"organisations recognised by the Member State concerned as being devoted to "
+"social wellbeing\""
+msgstr ""
+"\"Isporuka usluga i dobara usko povezanih sa zaštitom djece i mladeži od strane tijela kojima upravlja javno pravo ili od strane drugih organizacija koje je dotična država članica priznala da su posvećene socijalnoj skrbi\""
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_needaction
+msgid "Action Needed"
+msgstr "Potrebna radnja"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_attachment_count
+msgid "Attachment Count"
+msgstr "Broj priloga"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__code
+msgid "Code"
+msgstr "Oznaka"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_J
+msgid "Collectors items and antiques VAT scheme."
+msgstr "Shema PDV-a za kolekcionarske predmete i antikvitete."
+
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__create_uid
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__create_date
+msgid "Created on"
+msgstr "Kreirano dana"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model,name:l10n_hr_vatex_tax_exempt.model_l10n_hr_vatex_tax_exempt
+msgid "Defines VATEX tax category."
+msgstr "Definira VATEX poreznu kategoriju."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__description
+msgid "Description"
+msgstr "Opis"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__display_name
+msgid "Display Name"
+msgstr "Prikazno Ime"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132
+msgid "Exempt based on article 132 of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132 Direktive Vijeća 2006/112/EZ / Izuzeće na "
+"temelju čl. 39. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1A
+msgid ""
+"Exempt based on article 132, section 1 (a) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (a) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke a) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1B
+msgid ""
+"Exempt based on article 132, section 1 (b) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (b) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke b) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1C
+msgid ""
+"Exempt based on article 132, section 1 (c) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (c) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke c) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1D
+msgid ""
+"Exempt based on article 132, section 1 (d) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (d) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke d) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1E
+msgid ""
+"Exempt based on article 132, section 1 (e) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (e) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke e) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1F
+msgid ""
+"Exempt based on article 132, section 1 (f) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (f) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke f) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1G
+msgid ""
+"Exempt based on article 132, section 1 (g) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (g) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke g) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1H
+msgid ""
+"Exempt based on article 132, section 1 (h) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (h) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke h) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1I
+msgid ""
+"Exempt based on article 132, section 1 (i) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (i) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke i) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1J
+msgid ""
+"Exempt based on article 132, section 1 (j) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (j) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke j) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1K
+msgid ""
+"Exempt based on article 132, section 1 (k) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (k) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke k) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1L
+msgid ""
+"Exempt based on article 132, section 1 (l) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (l) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke l) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1M
+msgid ""
+"Exempt based on article 132, section 1 (m) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (m) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke m) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1N
+msgid ""
+"Exempt based on article 132, section 1 (n) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (n) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke n) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1O
+msgid ""
+"Exempt based on article 132, section 1 (o) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (o) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke o) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1P
+msgid ""
+"Exempt based on article 132, section 1 (p) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (p) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke p) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1Q
+msgid ""
+"Exempt based on article 132, section 1 (q) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 132, odjeljak 1 (q) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 39. st. 1. točke r) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143
+msgid "Exempt based on article 143 of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143 Direktive Vijeća 2006/112/EZ / Izuzeće na "
+"temelju čl. 44. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1A
+msgid ""
+"Exempt based on article 143, section 1 (a) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (a) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točke a) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1B
+msgid ""
+"Exempt based on article 143, section 1 (b) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (b) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točke 2. – 24. i st. 2. i 3. Zakona "
+"o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1C
+msgid ""
+"Exempt based on article 143, section 1 (c) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (c) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 25. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1D
+msgid ""
+"Exempt based on article 143, section 1 (d) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (d) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 26. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1E
+msgid ""
+"Exempt based on article 143, section 1 (e) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (e) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 27. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1F
+msgid ""
+"Exempt based on article 143, section 1 (f) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (f) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 28. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1FA
+msgid ""
+"Exempt based on article 143, section 1 (fa) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (fa) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 29. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1G
+msgid ""
+"Exempt based on article 143, section 1 (g) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (g) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 30. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1H
+msgid ""
+"Exempt based on article 143, section 1 (h) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (h) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 31. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1I
+msgid ""
+"Exempt based on article 143, section 1 (i) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (i) Direktive Vijeća 2006/112/EZ"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1J
+msgid ""
+"Exempt based on article 143, section 1 (j) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (j) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 32. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1K
+msgid ""
+"Exempt based on article 143, section 1 (k) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (k) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 33. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1L
+msgid ""
+"Exempt based on article 143, section 1 (l) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 143, odjeljak 1 (l) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 44. st. 1. točka 34. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148
+msgid "Exempt based on article 148 of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148 Direktive Vijeća 2006/112/EZ / Izuzeće na "
+"temelju čl. 47. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_A
+msgid ""
+"Exempt based on article 148, section (a) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (a) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke a) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_B
+msgid ""
+"Exempt based on article 148, section (b) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (b) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke b) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_C
+msgid ""
+"Exempt based on article 148, section (c) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (c) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke c) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_D
+msgid ""
+"Exempt based on article 148, section (d) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (d) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke d) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_E
+msgid ""
+"Exempt based on article 148, section (e) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (e) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke f) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_F
+msgid ""
+"Exempt based on article 148, section (f) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (f) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke e) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_G
+msgid ""
+"Exempt based on article 148, section (g) of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 148, odjeljak (g) Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 47. st.1. točke g) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151
+msgid "Exempt based on article 151 of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 151 Direktive Vijeća 2006/112/EZ / Izuzeće na "
+"temelju čl. 48. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1A
+msgid ""
+"Exempt based on article 151, section 1 (a) of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (a) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 48. st.1. točka a) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1AA
+msgid ""
+"Exempt based on article 151, section 1 (aa) of Council Directive 2006/112/"
+"EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (aa) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 48. st.1. točka b) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1B
+msgid ""
+"Exempt based on article 151, section 1 (b) of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (b) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 48. st.1. točka c) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1C
+msgid ""
+"Exempt based on article 151, section 1 (c) of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (c) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 48. st.1. točka f) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1D
+msgid ""
+"Exempt based on article 151, section 1 (d) of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (d) Direktive Vijeća 2006/112/"
+"EZ / Izuzeće na temelju čl. 48. st.1. točka g) Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1E
+msgid ""
+"Exempt based on article 151, section 1 (e) of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 151, odjeljak 1 (e) Direktive Vijeća 2006/112/EZ"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_309
+msgid "Exempt based on article 309 of Council Directive 2006/112/EC "
+msgstr ""
+"Izuzeće na temelju članka 309 Direktive Vijeća 2006/112/EZ / Izuzeće na "
+"temelju čl. 93. Zakona o PDV-u"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_79_C
+msgid "Exempt based on article 79, point c of Council Directive 2006/112/EC"
+msgstr ""
+"Izuzeće na temelju članka 79, točka c Direktive Vijeća 2006/112/EZ / "
+"Izuzeće na temelju čl. 33. st. 3. Zakona o PDV-u u odnosu na prolazne stavke"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132
+msgid "Exemptions for certain activities in public interest."
+msgstr "Izuzeća za određene aktivnosti u javnom interesu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143
+msgid "Exemptions on importation."
+msgstr "Izuzeća pri uvozu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148
+msgid "Exemptions related to international transport."
+msgstr "Izuzeća vezana za međunarodni prijevoz."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151
+msgid "Exemptions relating to certain Transactions treated as exports."
+msgstr "Izuzeća povezana s određenim transakcijama tretiranim kao izvoz."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_G
+msgid "Export outside the EU"
+msgstr "Izvoz izvan EU"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_follower_ids
+msgid "Followers"
+msgstr "Pratitelji"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Pratitelji (Partneri)"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_FR_CNWVAT
+msgid "For domestic Credit Notes only in France"
+msgstr "Samo za domaće kreditne račune u Francuskoj"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_FR_FRANCHISE
+msgid "For domestic invoicing in France"
+msgstr "Za domaće fakturiranje u Francuskoj"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_FR_CNWVAT
+msgid ""
+"France domestic Credit Notes without VAT, due to supplier forfeit of VAT "
+"for discount"
+msgstr ""
+"Domaći kreditni računi bez PDV-a u Francuskoj zbog odbitka PDV-a zbog "
+"popusta."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_FR_FRANCHISE
+msgid "France domestic VAT franchise in base"
+msgstr "Domaća PDV franšiza u Francuskoj"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_E
+msgid "Fuel supplies for aircraft on international routes."
+msgstr "Isporuka goriva za zrakoplove na međunarodnim rutama."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_A
+msgid "Fuel supplies for commercial international transport vessels"
+msgstr "Isporuka goriva za trgovačka plovila u međunarodnom prometu"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_B
+msgid "Fuel supplies for fighting ships in international transport."
+msgstr "Isporuka goriva za ratne brodove u međunarodnom prometu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__has_message
+msgid "Has Message"
+msgstr "Ima Poruku"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1B
+msgid ""
+"Hospital and medical care and closely related activities undertaken by "
+"bodies governed by public law or, under social conditions comparable with "
+"those applicable to bodies governed by public law, by hospitals, centres "
+"for medical treatment or diagnosis and other duly recognised establishments "
+"of a similar nature"
+msgstr ""
+"Bolnička i medicinska skrb te usko povezane aktivnosti koje obavljaju tijela kojima upravlja javno pravo ili, pod socijalnim uvjetima usporedivim s onima koji se primjenjuju na tijela kojima upravlja javno pravo, od strane bolnica, centara za medicinsko liječenje ili dijagnostiku i drugih propisno priznatih ustanova slične prirode"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Ako je označeno, nove poruke zahtijevaju vašu pažnju."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_error
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Ako je označeno, neke poruke imaju pogrešku pri isporuci."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC
+msgid "Intra-community supply"
+msgstr ""
+"Unutarzajednička isporuka."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_is_follower
+msgid "Is Follower"
+msgstr "Je li pratitelj"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model,name:l10n_hr_vatex_tax_exempt.model_account_move_line
+msgid "Journal Item"
+msgstr "Stavka dnevnika"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt____last_update
+msgid "Last Modified on"
+msgstr "Zadnja izmjena dana"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__write_uid
+msgid "Last Updated by"
+msgstr "Zadnje ažurirao"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__write_date
+msgid "Last Updated on"
+msgstr "Zadnje ažurirano dana"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Glavni prilog"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_F
+msgid ""
+"Maintenance, modification, chartering and hiring of aircraft on "
+"international routes."
+msgstr "Održavanje, preinake, unajmljivanje i iznajmljivanje zrakoplova na međunarodnim rutama."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_C
+msgid ""
+"Maintenance, modification, chartering and hiring of international transport "
+"vessels."
+msgstr "Održavanje, preinake, unajmljivanje i iznajmljivanje plovila u međunarodnom prometu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_error
+msgid "Message Delivery error"
+msgstr "Greška u isporuci poruke"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_ids
+msgid "Messages"
+msgstr "Poruke"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__name
+msgid "Name"
+msgstr "Naziv"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_O
+msgid "Not subject to VAT"
+msgstr "Nije podložno PDV-u."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Broj radnji"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_error_counter
+msgid "Number of errors"
+msgstr "Broj grešaka"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Broj poruka koje zahtijevaju radnju"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Broj poruka s greškom u isporuci"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_AE
+msgid "Only use with VAT category code AE"
+msgstr "Koristiti samo s oznakom kategorije PDV-a AE"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_D
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_F
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_I
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_J
+msgid "Only use with VAT category code E"
+msgstr "Koristiti samo s oznakom kategorije PDV-a E"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_G
+msgid "Only use with VAT category code G"
+msgstr "Koristiti samo s oznakom kategorije PDV-a G"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC
+msgid "Only use with VAT category code K"
+msgstr "Koristiti samo s oznakom kategorije PDV-a K"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_O
+msgid "Only use with VAT category code O"
+msgstr "Koristiti samo s oznakom kategorije PDV-a O"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_79_C
+msgid ""
+"Repayment of expenditure is not an exemption in the sense of the VAT "
+"Directive but may be handled as such in the context of the EN16931."
+msgstr "Povrat troškova nije izuzeće u smislu Direktive o PDV-u, ali se može tretirati kao takvo u kontekstu EN16931."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_AE
+msgid "Reverse charge"
+msgstr "Prijenos porezne obveze."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Greška u isporuci SMS-a"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_F
+msgid "Second hand goods VAT scheme."
+msgstr ""
+"Shema PDV-a za rabljenu robu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_G
+msgid "Supply to of other services to aircraft on international routes."
+msgstr "Isporuka ostalih usluga zrakoplovima na međunarodnim rutama."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_148_D
+msgid ""
+"Supply to of other services to commercial international transport vessels."
+msgstr "Isporuka ostalih usluga trgovačkim plovilima u međunarodnom prometu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model,name:l10n_hr_vatex_tax_exempt.model_account_tax
+msgid "Tax"
+msgstr "Porez"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model_terms:ir.ui.view,arch_db:l10n_hr_vatex_tax_exempt.l10n_hr_vatex_tax_exempt_form_view
+msgid "Tax Exempt Data"
+msgstr "Podaci o izuzeću od poreza"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_account_move_line__l10n_hr_vatex_tax_exempt_id
+msgid "Tax Exemption Reason"
+msgstr "Razlog izuzeća od poreza"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.constraint,message:l10n_hr_vatex_tax_exempt.constraint_l10n_hr_vatex_tax_exempt_code_uniq
+msgid "The VATEX tax exempt code has to be unique!"
+msgstr "VATEX oznaka izuzeća od poreza mora biti jedinstvena!"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1Q
+msgid ""
+"The activities, other than those of a commercial nature, carried out by "
+"public radio and television bodies."
+msgstr "Djelatnosti, osim onih komercijalne naravi, koje obavljaju tijela javne radiotelevizije."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1B
+msgid ""
+"The final importation of goods governed by Council Directives 69/169/EEC "
+"(1), 83/181/EEC (2) and 2006/79/EC (3)."
+msgstr "Konačni uvoz dobara uređen Direktivama Vijeća 69/169/EEZ (1), 83/181/EEZ (2) i 2006/79/EZ (3)."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1A
+msgid ""
+"The final importation of goods of which the supply by a taxable person "
+"would in all circumstances be exempt within their respective territory."
+msgstr "Konačni uvoz dobara čija bi isporuka od strane poreznog obveznika bila u svim okolnostima izuzeta na njihovom području."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1C
+msgid ""
+"The final importation of goods, in free circulation from a third territory "
+"forming part of the Community customs territory, which would be entitled to "
+"exemption under point (b) if they had been imported within the meaning of "
+"the first paragraph of Article 30"
+msgstr "Konačni uvoz dobara, u slobodnom prometu s trećeg područja koje čini dio carinskog područja Zajednice, koja bi imala pravo na izuzeće prema točki (b) da su uvezena u smislu prvog stavka članka 30."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1J
+msgid ""
+"The importation into ports, by sea fishing undertakings, of their catches, "
+"unprocessed or after undergoing preservation for marketing but before being "
+"supplied."
+msgstr "Uvoz u luke, od strane poduzeća za morski ribolov, njihovog ulova, neprerađenog ili nakon konzerviranja za tržište, ali prije isporuke."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1L
+msgid ""
+"The importation of gas through a natural gas system or any network "
+"connected to such a system or fed in from a vessel transporting gas into a "
+"natural gas system or any upstream pipeline network, of electricity or of "
+"heat or cooling energy through heating or cooling networks."
+msgstr "Uvoz plina putem sustava prirodnog plina ili bilo koje mreže povezane s takvim sustavom ili unesene iz plovila koje prevozi plin u sustav prirodnog plina ili bilo koju uzvodnu plinovodnu mrežu, električne energije ili toplinske ili rashladne energije putem mreža grijanja ili hlađenja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1K
+msgid "The importation of gold by central banks."
+msgstr "Uvoz zlata od strane središnjih banaka."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1I
+msgid ""
+"The importation of goods by the armed forces of the United Kingdom "
+"stationed in the island of Cyprus pursuant to the Treaty of Establishment "
+"concerning the Republic of Cyprus, dated 16 August 1960, which are for the "
+"use of those forces or the civilian staff accompanying them or for "
+"supplying their messes or canteens."
+msgstr "Uvoz dobara od strane oružanih snaga Ujedinjene Kraljevine stacioniranih na otoku Cipru u skladu s Ugovorom o osnivanju koji se odnosi na Republiku Cipar, od 16. kolovoza 1960., koja su za uporabu tih snaga ili civilnog osoblja koje ih prati ili za opskrbu njihovih kantina ili menza."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1D
+msgid ""
+"The importation of goods dispatched or transported from a third territory "
+"or a third country into a Member State other than that in which the "
+"dispatch or transport of the goods ends, where the supply of such goods by "
+"the importer designated or recognised under Article 201 as liable for "
+"payment of VAT is exempt under Article 138."
+msgstr "Uvoz dobara otpremljenih ili prevezenih s trećeg područja ili treće zemlje u državu članicu koja nije ona u kojoj završava otprema ili prijevoz dobara, gdje je isporuka takvih dobara od strane uvoznika određenog ili priznatog prema članku 201. kao obveznika plaćanja PDV-a, izuzeta prema članku 138."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1H
+msgid ""
+"The importation of goods, into Member States party to the North Atlantic "
+"Treaty, by the armed forces of other States party to that Treaty for the "
+"use of those forces or the civilian staff accompanying them or for "
+"supplying their messes or canteens where such forces take part in the "
+"common defence effort."
+msgstr "Uvoz dobara, u države članice stranke Sjevernoatlantskog ugovora, od strane oružanih snaga drugih država stranaka tog Ugovora za uporabu tih snaga ili civilnog osoblja koje ih prati ili za opskrbu njihovih kantina ili menza, kada takve snage sudjeluju u zajedničkim obrambenim naporima."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1F
+msgid ""
+"The importation, under diplomatic and consular arrangements, of goods which "
+"are exempt from customs duties."
+msgstr "Uvoz dobara, prema diplomatskim i konzularnim aranžmanima, koja su izuzeta od carinskih davanja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1C
+msgid ""
+"The provision of medical care in the exercise of the medical and "
+"paramedical professions as defined by the Member State concerned."
+msgstr "Pružanje medicinske skrbi u obavljanju liječničke i paramedicinske profesije kako je definirana od strane dotične države članice."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_143_1E
+msgid ""
+"The reimportation, by the person who exported them, of goods in the state "
+"in which they were exported, where those goods are exempt from customs "
+"duties."
+msgstr "Ponovni uvoz, od strane osobe koja ih je izvezla, dobara u stanju u kojem su izvezena, gdje su ta dobra izuzeta od carinskih davanja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1A
+msgid ""
+"The supply by the public postal services of services other than passenger "
+"transport and telecommunications services, and the supply of goods "
+"incidental thereto."
+msgstr "Isporuka usluga javnih poštanskih službi, osim prijevoza putnika i telekomunikacijskih usluga, te isporuka dobara usputno povezanih s tim."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1N
+msgid ""
+"The supply of certain cultural services, and the supply of goods closely "
+"linked thereto, by bodies governed by public law or by other cultural "
+"bodies recognised by the Member State concerned."
+msgstr "Isporuka određenih kulturnih usluga, i isporuka dobara usko povezanih s tim, od strane tijela kojima upravlja javno pravo ili od strane drugih kulturnih tijela koje je dotična država članica priznala."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1M
+msgid ""
+"The supply of certain services closely linked to sport or physical "
+"education by non-profit-making organisations to persons taking part in "
+"sport or physical education."
+msgstr "Isporuka određenih usluga usko povezanih sa sportom ili tjelesnim odgojem od strane neprofitnih organizacija osobama koje se bave sportom ili tjelesnim odgojem."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1D
+msgid ""
+"The supply of goods or services to another Member State, intended for the "
+"armed forces of any State which is a party to the North Atlantic Treaty, "
+"other than the Member State of destination itself, for the use of those "
+"forces, or of the civilian staff accompanying them, or for supplying their "
+"messes or canteens when such forces take part in the common defence effort."
+msgstr "Isporuka dobara ili usluga drugoj državi članici, namijenjena oružanim snagama bilo koje države stranke Sjevernoatlantskog ugovora, osim same države članice odredišta, za uporabu tih snaga, ili civilnog osoblja koje ih prati, ili za opskrbu njihovih kantina ili menza kada takve snage sudjeluju u zajedničkim obrambenim naporima."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1B
+msgid ""
+"The supply of goods or services to international bodies, other than those "
+"referred to in point (aa), recognised as such by the public authorities of "
+"the host Member States, and to members of such bodies, within the limits "
+"and under the conditions laid down by the international conventions "
+"establishing the bodies or by headquarters agreements."
+msgstr "Isporuka dobara ili usluga međunarodnim tijelima, osim onih navedenih u točki (aa), koja su kao takva priznata od strane javnih vlasti država članica domaćina, i članovima tih tijela, u granicama i pod uvjetima utvrđenim međunarodnim konvencijama o osnivanju tih tijela ili sporazumima o sjedištu."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1AA
+msgid ""
+"The supply of goods or services to the European Community, the European "
+"Atomic Energy Community, the European Central Bank or the European "
+"Investment Bank, or to the bodies set up by the Communities to which the "
+"Protocol of 8 April 1965 on the privileges and immunities of the European "
+"Communities applies, within the limits and under the conditions of that "
+"Protocol and the agreements for its implementation or the headquarters "
+"agreements, in so far as it does not lead to distortion of competition."
+msgstr "Isporuka dobara ili usluga Europskoj zajednici, Europskoj zajednici za atomsku energiju, Europskoj središnjoj banci ili Europskoj investicijskoj banci, ili tijelima osnovanim od strane Zajednica na koje se primjenjuje Protokol od 8. travnja 1965. o povlasticama i imunitetima Europskih zajednica, u granicama i pod uvjetima tog Protokola i sporazuma za njegovu provedbu ili sporazuma o sjedištu, u mjeri u kojoj ne dovodi do narušavanja tržišnog natjecanja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1E
+msgid ""
+"The supply of goods or services to the armed forces of the United Kingdom "
+"stationed in the island of Cyprus pursuant to the Treaty of Establishment "
+"concerning the Republic of Cyprus, dated 16 August 1960, which are for the "
+"use of those forces, or of the civilian staff accompanying them, or for "
+"supplying their messes or canteens."
+msgstr "Isporuka dobara ili usluga oružanim snagama Ujedinjene Kraljevine stacioniranim na otoku Cipru u skladu s Ugovorom o osnivanju koji se odnosi na Republiku Cipar, od 16. kolovoza 1960., koja su za uporabu tih snaga, ili civilnog osoblja koje ih prati, ili za opskrbu njihovih kantina ili menza."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1A
+msgid ""
+"The supply of goods or services under diplomatic and consular arrangements."
+msgstr "Isporuka dobara ili usluga prema diplomatskim i konzularnim aranžmanima."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_151_1C
+msgid ""
+"The supply of goods or services within a Member State which is a party to "
+"the North Atlantic Treaty, intended either for the armed forces of other "
+"States party to that Treaty for the use of those forces, or of the civilian "
+"staff accompanying them, or for supplying their messes or canteens when "
+"such forces take part in the common defence effort."
+msgstr "Isporuka dobara ili usluga unutar države članice koja je stranka Sjevernoatlantskog ugovora, namijenjena ili oružanim snagama drugih država stranaka tog Ugovora za uporabu tih snaga, ili civilnog osoblja koje ih prati, ili za opskrbu njihovih kantina ili menza kada takve snage sudjeluju u zajedničkim obrambenim naporima."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1D
+msgid "The supply of human organs, blood and milk."
+msgstr "Isporuka ljudskih organa, krvi i mlijeka."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1G
+msgid ""
+"The supply of services and of goods closely linked to welfare and social "
+"security work, including those supplied by old people's homes, by bodies "
+"governed by public law or by other bodies recognised by the Member State "
+"concerned as being devoted to social wellbeing."
+msgstr "Isporuka usluga i dobara usko povezanih s radom socijalne skrbi i socijalnog osiguranja, uključujući one koje isporučuju domovi za starije osobe, od strane tijela kojima upravlja javno pravo ili od strane drugih tijela koje je dotična država članica priznala da su posvećene socijalnoj skrbi."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1E
+msgid ""
+"The supply of services by dental technicians in their professional capacity "
+"and the supply of dental prostheses by dentists and dental technicians."
+msgstr "Isporuka usluga od strane zubotehničara u njihovom profesionalnom svojstvu i isporuka zubnih proteza od strane stomatologa i zubotehničara."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1F
+msgid ""
+"The supply of services by independent groups of persons, who are carrying "
+"on an activity which is exempt from VAT or in relation to which they are "
+"not taxable persons, for the purpose of rendering their members the "
+"services directly necessary for the exercise of that activity, where those "
+"groups merely claim from their members exact reimbursement of their share "
+"of the joint expenses, provided that such exemption is not likely to cause "
+"distortion of competition."
+msgstr "Isporuka usluga od strane neovisnih skupina osoba koje obavljaju djelatnost koja je izuzeta od PDV-a ili u vezi s kojom nisu porezni obveznici, s ciljem pružanja svojim članovima usluga izravno potrebnih za obavljanje te djelatnosti, pri čemu te skupine samo traže od svojih članova točnu nadoknadu njihovog udjela u zajedničkim troškovima, pod uvjetom da takvo izuzeće vjerojatno neće uzrokovati narušavanje tržišnog natjecanja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1L
+msgid ""
+"The supply of services, and the supply of goods closely linked thereto, to "
+"their members in their common interest in return for a subscription fixed "
+"in accordance with their rules by non-profitmaking organisations with aims "
+"of a political, trade-union, religious, patriotic, philosophical, "
+"philanthropic or civic nature, provided that this exemption is not likely "
+"to cause distortion of competition."
+msgstr "Isporuka usluga, i isporuka dobara usko povezanih s tim, svojim članovima u njihovom zajedničkom interesu u zamjenu za članarinu utvrđenu u skladu s njihovim pravilima od strane neprofitnih organizacija s ciljevima političke, sindikalne, vjerske, domoljubne, filozofske, filantropske ili građanske prirode, pod uvjetom da ovo izuzeće vjerojatno neće uzrokovati narušavanje tržišnog natjecanja."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1K
+msgid ""
+"The supply of staff by religious or philosophical institutions for the "
+"purpose of the activities referred to in points (b), (g), (h) and (i) and "
+"with a view to spiritual welfare."
+msgstr "Isporuka osoblja od strane vjerskih ili filozofskih institucija u svrhu aktivnosti navedenih u točkama (b), (g), (h) i (i) i u svrhu duhovne skrbi."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1P
+msgid ""
+"The supply of transport services for sick or injured persons in vehicles "
+"specially designed for the purpose, by duly authorised bodies."
+msgstr "Isporuka usluga prijevoza za bolesne ili ozlijeđene osobe u vozilima posebno dizajniranim za tu svrhu, od strane propisno ovlaštenih tijela."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_D
+msgid "Travel agents VAT scheme."
+msgstr "Shema PDV-a za turističke agencije."
+
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_309
+msgid "Travel agents performed outside of EU."
+msgstr "Usluge putničkih agencija obavljene izvan EU."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,description:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_132_1J
+msgid ""
+"Tuition given privately by teachers and covering school or university "
+"education."
+msgstr "Podučavanje koje privatno daju nastavnici i koje obuhvaća školsko ili sveučilišno obrazovanje."
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_account_tax__l10n_hr_vatex_tax_exempt_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_vatex_tax_exempt.l10n_hr_vatex_tax_exempt_form_view
+msgid "VATEX Tax Exempt"
+msgstr "VATEX izuzeće od poreza"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.ui.menu,name:l10n_hr_vatex_tax_exempt.l10n_hr_menu_vatex_tax_exempt
+#: model_terms:ir.ui.view,arch_db:l10n_hr_vatex_tax_exempt.l10n_hr_vatex_tax_exempt_tree_view
+msgid "VATEX Tax Exempts"
+msgstr "VATEX izuzeća od poreza"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.actions.act_window,name:l10n_hr_vatex_tax_exempt.l10n_hr_vatex_tax_exempt_action
+msgid "VATEX Tex Exempt"
+msgstr "VATEX izuzeće od poreza"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,field_description:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__website_message_ids
+msgid "Website Messages"
+msgstr "Poruke web stranice"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:ir.model.fields,help:l10n_hr_vatex_tax_exempt.field_l10n_hr_vatex_tax_exempt__website_message_ids
+msgid "Website communication history"
+msgstr "Povijest komunikacije web stranice"
+
+#. module: l10n_hr_vatex_tax_exempt
+#: model:l10n.hr.vatex.tax.exempt,name:l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_I
+msgid "Works of art VAT scheme."
+msgstr ""
+"Shema PDV-a za umjetnička djela."

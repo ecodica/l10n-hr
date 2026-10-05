@@ -3,7 +3,7 @@
     "summary": """Croatia base localization data""",
     "category": "Croatia",
     "images": [],
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.2",
     "application": False,
     "author": "Ecodica d.o.o., Standard Croatian Localization",
     "website": "https://github.com/OCA/l10n-croatia",

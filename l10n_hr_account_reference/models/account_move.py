@@ -1,6 +1,4 @@
-from datetime import datetime as dt
-
-from odoo import models, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 from . import account_reference as ar
 
@@ -9,7 +7,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def _l10n_hr_get_default_properties(self):
-        fields = (
+        property_fields = (
             self.env["ir.model.fields"]
             .sudo()
             .search(
@@ -22,7 +20,7 @@ class AccountMove(models.Model):
         properties = (
             self.env["ir.default"]
             .sudo()
-            .search([("field_id", "in", fields.ids)])
+            .search([("field_id", "in", property_fields.ids)])
         )
         res = {}
         for p in properties:
@@ -50,9 +48,18 @@ class AccountMove(models.Model):
                     separator = self.company_id.l10n_hr_fiscal_separator
                     res = res.split(separator)[0]
             elif what == "invoice_ym":
-                res = dt.strftime(self.invoice_date, "%Y%m")
+                invoice_date = self.invoice_date or fields.Date.context_today(self)
+                res = invoice_date.strftime("%Y%m")
             elif what == "delivery_ym":
-                res = dt.strftime(self.delivery_date, "%Y%m")
+                # The reference is computed while posting, before
+                # l10n_hr_account_base fills an empty delivery_date with the
+                # same fallback
+                delivery_date = (
+                    self.delivery_date
+                    or self.invoice_date
+                    or fields.Date.context_today(self)
+                )
+                res = delivery_date.strftime("%Y%m")
             return ar.get_only_numeric_chars(res)
 
         model = self.journal_id.invoice_reference_model

@@ -3,6 +3,7 @@ import logging
 import os
 from datetime import datetime
 
+from cryptography.hazmat.primitives.serialization import pkcs12
 from OpenSSL import crypto as SSLCrypto
 
 from odoo import _, fields, models
@@ -124,19 +125,24 @@ class FiskalCertificate(models.Model):
         self.ensure_one()
         if not self.cert_file:
             return False
-        _password = self.cert_password or ""
+        _password = self.cert_password and self.cert_password.encode("utf-8") or None
         try:
-            p12 = SSLCrypto.load_pkcs12(base64.decodebytes(self.cert_file), _password)
+            # OpenSSL.crypto.load_pkcs12 was removed in pyOpenSSL 23.3.0
+            p12_key, p12_cert, _ca_certs = pkcs12.load_key_and_certificates(
+                base64.decodebytes(self.cert_file), _password
+            )
+            if not p12_key or not p12_cert:
+                raise ValueError("PKCS#12 file has no private key or certificate")
         except Exception as E:
             _logger.error(repr(E))
             raise UserError(
                 _("Certificate access error, check password or uploaded file type!")
             )
 
-        cert = p12.get_certificate()
+        cert = SSLCrypto.X509.from_cryptography(p12_cert)
+        private_key = SSLCrypto.PKey.from_cryptography_key(p12_key)
         issuer = dict(cert.get_issuer().get_components())
         subject = dict(cert.get_subject().get_components())
-        p12.get_friendlyname().decode("utf-8")
         cert_not_before = cert.get_notBefore().decode("utf-8")
         cert_not_after = cert.get_notAfter().decode("utf-8")
         self.not_before = datetime.strptime(cert_not_before, "%Y%m%d%H%M%SZ")
@@ -158,12 +164,8 @@ class FiskalCertificate(models.Model):
             ]
         )
         self.cert_oib = subject[b"O"].decode("utf-8").split(" ")[-1]
-        self.pem_key = SSLCrypto.dump_privatekey(
-            SSLCrypto.FILETYPE_PEM, p12.get_privatekey()
-        )
-        self.pem_crt = SSLCrypto.dump_certificate(
-            SSLCrypto.FILETYPE_PEM, p12.get_certificate()
-        )
+        self.pem_key = SSLCrypto.dump_privatekey(SSLCrypto.FILETYPE_PEM, private_key)
+        self.pem_crt = SSLCrypto.dump_certificate(SSLCrypto.FILETYPE_PEM, cert)
 
         self.state = "convert"
         self.cert_type = "demo" if "demo" in self.cert_issuer.lower() else "prod"

@@ -920,3 +920,14 @@ msgstr "Bit će korišteno kao drugi dio fiskalnog broja računa."
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
 msgid "units"
 msgstr "jedinice"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_user_id
+msgid ""
+"The login that sent the fiscalization message. The person reported as having"
+" issued the document is the fiscal operator."
+msgstr ""
+"Prijava koja je poslala poruku za fiskalizaciju. Osoba prijavljena kao "
+"izdavatelj dokumenta je fiskalni operater."

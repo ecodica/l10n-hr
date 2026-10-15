@@ -85,6 +85,9 @@ def _get_response(regular=(), exceptions=()):
     return _ok_response(PoslovniProstor=_ns(RadnoVrijeme=_ns(Redovno=list(regular), Iznimke=list(exceptions))))
 
 
+OPERATOR_OIB = "69435151530"
+
+
 @tagged("post_install", "-at_install")
 class TestFiscalOperation(TransactionCase):
 
@@ -93,6 +96,13 @@ class TestFiscalOperation(TransactionCase):
         super().setUpClass()
         cls.company = cls.env.company
         cls.company.write({"company_registry": "12345678901", "l10n_hr_fiscal_silent_error_logging": False})
+        # OibOper is the sending user's employee's OIB, on their work contact
+        cls.operator = cls.env["hr.employee"].create({
+            "name": "Operations operator",
+            "company_id": cls.company.id,
+            "user_id": cls.env.user.id,
+        })
+        cls.operator.work_contact_id.company_registry = OPERATOR_OIB
         cls.premise = cls.env["l10n_hr.business.premise"].create({
             "l10n_hr_name": "Test premise",
             "l10n_hr_fiscal_code": "TESTPP",
@@ -477,3 +487,27 @@ class TestFiscalOperation(TransactionCase):
         self.assertEqual(diff[1]["key"]["dow"], "3")
         self.assertEqual(self.Operation._compute_diff(before, list(reversed(before))), [])
         self.assertEqual(self.Operation._compute_diff(None, None), [])
+
+    # -- operator ------------------------------------------------------------
+    def test_messages_carry_the_sending_users_employee_oib(self):
+        """``OibOper`` is the OIB on the sending user's employee."""
+        FakeFiscalization.responses["dohvatiRadnoVrijeme"] = _get_response()
+        self._run("get")
+        self.assertEqual(FakeFiscalization.calls[0][1]["OibOper"], OPERATOR_OIB)
+
+    def test_nothing_is_sent_without_an_operator_oib(self):
+        """An operator without an OIB stops the operation before FINA is called."""
+        self.operator.work_contact_id.company_registry = False
+        op = self._run("get")
+        self.assertEqual(op.state, "error")
+        self.assertIn("has no OIB", op.error_msg)
+        self.assertFalse(FakeFiscalization.calls)
+
+    def test_a_login_oib_without_employee_is_not_reported(self):
+        """A login whose own contact has an OIB but who is no employee sends nothing."""
+        self.operator.user_id = False
+        self.assertEqual(self.env.user.partner_id.company_registry, OPERATOR_OIB)
+        op = self._run("get")
+        self.assertEqual(op.state, "error")
+        self.assertIn("No fiscal operator", op.error_msg)
+        self.assertFalse(FakeFiscalization.calls)

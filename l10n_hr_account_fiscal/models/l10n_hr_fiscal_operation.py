@@ -10,6 +10,7 @@ from odoo.exceptions import UserError
 from ..fiscal import fiscal
 from ..helpers.fiscal_wrapper import fisc_handler
 from .l10n_hr_business_working_hours import DAYS_OF_WEEK
+from .l10n_hr_fiscal_v1_mixin import employee_oib, operator_errors
 
 _logger = logging.getLogger(__name__)
 
@@ -412,6 +413,15 @@ class L10nHrFiscalOperation(models.Model):
     def _new_fiscal_client(self):
         return fiscal.Fiscalization(self.company_id.get_fiscal_data())
 
+    def _l10n_hr_operator_oib(self):
+        """Return ``OibOper``: the OIB of the sending user's employee, or refuse to send."""
+        self.ensure_one()
+        operator = self.env.user.with_company(self.company_id).employee_id
+        errors = operator_errors(operator, self.env.user, self.company_id)
+        if errors:
+            raise UserError("\n".join(errors))
+        return employee_oib(operator)
+
     @fisc_handler(msg_type='dohvatiRadnoVrijeme')
     def _call_get(self):
         fisk = self._new_fiscal_client()
@@ -419,7 +429,7 @@ class L10nHrFiscalOperation(models.Model):
             Zaglavlje=fisk.create_request_header(),
             Oib=self.company_id.company_registry,
             OznPosPr=self.business_premise_id.l10n_hr_fiscal_code,
-            OibOper=self.env.user.company_registry,
+            OibOper=self._l10n_hr_operator_oib(),
             VrstaRadnogVremena='SVE',
         )
 
@@ -429,7 +439,7 @@ class L10nHrFiscalOperation(models.Model):
         return dict(
             Zaglavlje=fisk.create_request_header(),
             PoslovniProstor=self._prepare_register_payload(fisk),
-            OibOper=self.env.user.company_registry,
+            OibOper=self._l10n_hr_operator_oib(),
         )
 
     @fisc_handler(msg_type='obrisiRadnoVrijeme')
@@ -438,7 +448,7 @@ class L10nHrFiscalOperation(models.Model):
         return dict(
             Zaglavlje=fisk.create_request_header(),
             PoslovniProstor=self._prepare_remove_payload(fisk),
-            OibOper=self.env.user.company_registry,
+            OibOper=self._l10n_hr_operator_oib(),
         )
 
     def _handle_fisc_response(self, response, msg_type):

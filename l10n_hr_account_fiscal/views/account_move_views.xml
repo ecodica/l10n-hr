@@ -9,6 +9,7 @@
             <xpath expr="//page[@name='croatia']//field[@name='l10n_hr_payment_method']" position="after">
                 <field name="l10n_hr_paragon_br" readonly="state != 'draft'"/>
                 <field name="l10n_hr_fiscal_user_id" readonly="state != 'draft'"/>
+                <field name="l10n_hr_fiscal_operator_id"/>
                 <field name="l10n_hr_late_delivery" readonly="l10n_hr_jir"/>
                 <button string="Fiscalize" type="object" name="button_fiscalize" class="btn-primary"
                         invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>

@@ -14,6 +14,39 @@ from ..helpers.fiscal_wrapper import fisc_handler
 _logger = logging.getLogger(__name__)
 
 
+def employee_oib(employee):
+    """Return the OIB of ``employee``: the company registry of their work contact.
+
+    Read as superuser: the employee record is HR data that cashiers cannot read, and
+    the OIB is all that is taken from it.
+    """
+    return employee.sudo().work_contact_id.company_registry or False
+
+
+def operator_errors(operator, user, company):
+    """Return why ``operator`` cannot be reported as ``OibOper``, as a list of messages.
+
+    :param operator: the ``hr.employee`` who issued the document, possibly empty
+    :param user: the ``res.users`` the operator was looked up for, named when there is none
+    :param company: the company the document belongs to
+    """
+    if not operator:
+        return [company.env._(
+            "No fiscal operator: %(user)s has no employee in %(company)s. The person who "
+            "issues a fiscalized document is reported by the OIB on their employee's work "
+            "contact.",
+            user=user.display_name,
+            company=company.display_name,
+        )]
+    if not employee_oib(operator):
+        return [company.env._(
+            "Fiscal operator %(employee)s has no OIB. Enter it on the employee; it is "
+            "required for fiscalization.",
+            employee=operator.sudo().display_name,
+        )]
+    return []
+
+
 class L10nHrFiscalV1Mixin(models.AbstractModel):
     """
     Basic fields and methods for all fiscal classes
@@ -49,6 +82,16 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         string="Fiscal message logs",
         help="Log of all messages sent and received for FINA",
         readonly=True
+    )
+    l10n_hr_fiscal_operator_id = fields.Many2one(
+        comodel_name="hr.employee",
+        string="Fiscal Operator",
+        readonly=True,
+        copy=False,
+        ondelete="restrict",
+        help="The person who issued the document. The OIB on their work contact is "
+             "reported to the Tax Administration as OibOper. Set when the document is "
+             "first fiscalized and kept afterwards.",
     )
 
     @api.model
@@ -118,10 +161,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
     def _l10n_hr_post_fiscal_check(self):
         res = []
         if self.l10n_hr_fiscal_device_id and self.l10n_hr_fiscal_device_id.fiscalization_active:
-            if not self.l10n_hr_fiscal_user_id.company_registry:
-                res.append(
-                    _("User OIB is not not entered! It is required for fiscalization")
-                )
+            res += operator_errors(self.l10n_hr_fiscal_operator_id, self.env.user, self.company_id)
             if not self.company_id.l10n_hr_fiscal_cert_id:
                 res.append(
                     _(
@@ -296,7 +336,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             # Naknade=ws_naknade,
             IznosUkupno=self._prepare_fiscal_invoice_total(),
             NacinPlac=self.l10n_hr_payment_method,
-            OibOper=self.l10n_hr_fiscal_user_id.company_registry,
+            OibOper=employee_oib(self.l10n_hr_fiscal_operator_id),
             ZastKod=self.l10n_hr_zki,
             NakDost=self.l10n_hr_late_delivery,
             ParagonBrRac=self.l10n_hr_paragon_br or None,
@@ -325,13 +365,24 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         return
 
     def _l10n_hr_default_fiscal_user(self):
-        """User whose OIB goes into ``OibOper`` when none was set explicitly.
+        """Login recorded as having transmitted the document, when none was set.
 
-        ``OibOper`` must identify the natural person who issued the document, so
-        every model has to say who that is. The base answer - the user doing the
-        fiscalizing - is right for a document raised from the back office.
+        The base answer - the user doing the fiscalizing - is right for a document raised
+        from the back office. The person reported as ``OibOper`` is the fiscal operator,
+        see ``_l10n_hr_default_fiscal_operator``.
         """
         return self.env.user.id
+
+    def _l10n_hr_default_fiscal_operator(self):
+        """Employee reported as ``OibOper`` when none was set: the person who issued it.
+
+        The base answer is the employee of the user doing the fiscalizing, in the
+        document's company. Models where someone else issues the document override it.
+        There is no fallback to the login's own OIB: a login can be shared, and an empty
+        ``OibOper`` is accepted by FINA and wrong.
+        """
+        self.ensure_one()
+        return self.env.user.with_company(self.company_id).employee_id
 
     @api.model
     def _fisc_msg_type(self):
@@ -356,6 +407,9 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         if not self._l10n_hr_fiscalization_needed():
             return
 
+        # before the check, which refuses a document without an operator with an OIB
+        if not self.l10n_hr_fiscal_operator_id:
+            self.l10n_hr_fiscal_operator_id = self._l10n_hr_default_fiscal_operator()
         errors = self._l10n_hr_post_fiscal_check()
         if errors:
             msg = _("Fiscalization not possible: \n")

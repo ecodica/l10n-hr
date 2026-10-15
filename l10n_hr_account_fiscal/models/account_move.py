@@ -39,6 +39,12 @@ class AccountMove(models.Model):
         """The salesperson on the invoice, falling back to the acting user."""
         return self.invoice_user_id.id or super()._l10n_hr_default_fiscal_user()
 
+    def _l10n_hr_default_fiscal_operator(self):
+        """The salesperson's employee, falling back to the acting user's: whoever issued it."""
+        self.ensure_one()
+        salesperson = self.invoice_user_id.with_company(self.company_id).sudo().employee_id
+        return salesperson or super()._l10n_hr_default_fiscal_operator()
+
     def _get_fisc_tax_values(self):
         tax_data = {
             "Pdv": {},

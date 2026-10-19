@@ -4,8 +4,10 @@ from odoo import fields, models
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
-    # original fields modification
-    code = fields.Char(size=16)
+    # NOTE: do not relax core field definitions (e.g. journal code size) here:
+    # they apply to every country. Croatian fiscal numbers get their prefix
+    # from the fiscal sequences, not from the journal short code.
+    # code = fields.Char(size=16)  # from v6?
 
     # new fields needed for localization
     l10n_hr_business_premise_id = fields.Many2one(

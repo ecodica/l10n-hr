@@ -31,7 +31,7 @@
                                 <field name="code" optional="hide"/>
                                 <field name="name"/>
                                 <field name="prefix" optional="hide"/>
-                                <field name="suffix" optuonal="show"/>
+                                <field name="suffix" optional="show"/>
                                 <field name="padding" optional="hide"/>
                                 <field
                                         name="company_id"

@@ -33,12 +33,13 @@
                 <xpath expr="//field[@name='company_registry']" position="attributes">
                     <attribute name="class" add="oe_inline" separator=" "/>
                 </xpath>
-                <!-- hide VAT number for contacts -->
+                <!-- hide VAT number for Croatian contacts only: other
+                     countries keep the core base_vat behavior -->
                 <xpath expr="//label[@for='vat']" position="attributes">
-                    <attribute name="invisible">not is_company</attribute>
+                    <attribute name="invisible">country_code == 'HR' and not is_company</attribute>
                 </xpath>
                 <xpath expr="//div[@name='vat_vies_container']" position="attributes">
-                    <attribute name="invisible">not is_company</attribute>
+                    <attribute name="invisible">country_code == 'HR' and not is_company</attribute>
                 </xpath>
             </field>
         </record>

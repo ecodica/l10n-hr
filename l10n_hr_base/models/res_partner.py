@@ -79,11 +79,12 @@ class ResPartner(models.Model):
     def _commercial_fields(self):
         """
             Extend to skip writing OIB and VAT on contacts when company is updated.
+            Only for Croatian partners - others keep the core behavior.
         """
-        # TODO: add this as optional
         commercial_fields = super()._commercial_fields()
-        if self.type == 'contact' and 'company_registry' in commercial_fields:
-            commercial_fields.remove("company_registry")
-        if self.type == 'contact' and 'vat' in commercial_fields:
-            commercial_fields.remove("vat")
+        if self.country_id.code == 'HR' and self.type == 'contact':
+            if 'company_registry' in commercial_fields:
+                commercial_fields.remove("company_registry")
+            if 'vat' in commercial_fields:
+                commercial_fields.remove("vat")
         return commercial_fields

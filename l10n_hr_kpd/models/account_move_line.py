@@ -10,6 +10,10 @@ class AccountMoveLine(models.Model):
 
     def _compute_l10n_hr_kpd_id(self):
         for line in self:
+            # KPD classification is only relevant for Croatian companies
+            if line.company_id.account_fiscal_country_id.code != 'HR':
+                line.l10n_hr_kpd_id = False
+                continue
             kpd = line.product_id.with_company(line.company_id).l10n_hr_property_kpd_id
             if not kpd:
                 kpd = line.product_id.categ_id.l10n_hr_kpd_id
@@ -28,4 +32,5 @@ class AccountMoveLine(models.Model):
         if self.product_id or not self.l10n_hr_kpd_id:
             self._conditional_add_to_compute('l10n_hr_kpd_id', lambda line: (
                     line.display_type == 'product' and line.move_id.is_invoice(True)
+                    and line.company_id.account_fiscal_country_id.code == 'HR'
             ))

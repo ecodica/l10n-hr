@@ -35,11 +35,14 @@
         <field name="inherit_id" ref="account.view_account_invoice_filter"/>
         <field name="arch" type="xml">
             <filter name="to_check" position="before">
+                <!-- Fiscalization filters are HR-only:  -->
                 <filter name="fiscalized" string="Fiscalized"
+                        invisible="not context.get('l10n_hr_fiscal_filters')"
                         domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '!=', False)]"/>
                 <filter name="not_fiscalized" string="Not Fiscalized"
+                        invisible="not context.get('l10n_hr_fiscal_filters')"
                         domain="[('l10n_hr_zki', '!=', False), ('l10n_hr_jir', '=', False)]"/>
-                <separator/>
+                <separator invisible="not context.get('l10n_hr_fiscal_filters')"/>
             </filter>
         </field>
     </record>

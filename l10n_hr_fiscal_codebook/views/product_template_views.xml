@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="account.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='invoicing']//group[last()]" position="after">
-                <group name="fiscal_2_0" string="Fiscalization 2.0">
+                <group name="fiscal_2_0" string="Fiscalization 2.0" invisible="'HR' not in fiscal_country_codes">
                 </group>
             </xpath>
         </field>

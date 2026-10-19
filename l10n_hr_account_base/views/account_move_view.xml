@@ -20,8 +20,8 @@
             <field name="name" position="after">
                 <span class="oe_inline">
                     <label string="HR - Fiscal Number" for="l10n_hr_fiscal_number"
-                           invisible="not l10n_hr_fiscal_number"/>
-                    <field name="l10n_hr_fiscal_number" nolabel="1" invisible="not l10n_hr_fiscal_number"/>
+                           invisible="country_code != 'HR' or not l10n_hr_fiscal_number"/>
+                    <field name="l10n_hr_fiscal_number" nolabel="1" invisible="country_code != 'HR' or not l10n_hr_fiscal_number"/>
                 </span>
             </field>
             <notebook position="inside">
@@ -56,7 +56,7 @@
                        invisible="not l10n_hr_fiscal_device_visible or not l10n_hr_show_required_fiscal_fields_on_header"
                        domain="[('id', 'in', l10n_hr_allowed_fiscal_device_ids)]" readonly="state != 'draft'"/>
                 <field name="l10n_hr_payment_method"
-                       invisible="move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fiscal_fields_on_header"
+                       invisible="country_code != 'HR' or move_type not in ['out_invoice','out_refund'] or not l10n_hr_show_required_fiscal_fields_on_header"
                        readonly="state != 'draft'"/>
             </field>
 
@@ -76,9 +76,9 @@
         <field name="inherit_id" ref="account.view_out_invoice_tree"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="l10n_hr_fiscal_number" optional="hide"/>
-                <field name="l10n_hr_fiscal_device_id" optional="hide" readonly="state != 'draft'"/>
-                <field name="l10n_hr_fiscal_time_calc" optional="hide"/>
+                <field name="l10n_hr_fiscal_number" optional="hide" column_invisible="country_code != 'HR'"/>
+                <field name="l10n_hr_fiscal_device_id" optional="hide" readonly="state != 'draft'" column_invisible="country_code != 'HR'"/>
+                <field name="l10n_hr_fiscal_time_calc" optional="hide" column_invisible="country_code != 'HR'"/>
             </field>
         </field>
     </record>

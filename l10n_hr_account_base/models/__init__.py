@@ -6,4 +6,5 @@ from . import ir_sequence_date_range
 from . import account_journal
 from . import account_move
 from . import res_partner
+from . import res_users
 from . import ir_ui_menu

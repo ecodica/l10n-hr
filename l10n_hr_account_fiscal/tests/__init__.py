@@ -5,3 +5,4 @@ from . import test_fiscal_response_verification
 from . import test_systray
 from . import test_fiscal_operation
 from . import test_working_hours_schedule
+from . import test_fiscal_operator

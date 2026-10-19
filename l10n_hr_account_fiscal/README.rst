@@ -79,6 +79,16 @@ The check box Late delivery should be marked!
 If you want to check the fiskalisation data on already fiskalized invoice, (containing JIR and ZKI data)
 you can press Verify fiskalization button and send a check-invoice type message (visible in message logs)
 
+Fiscal operator (OibOper)
+-------------------------
+
+Every fiscalized document reports the person who issued it, the **Fiscal Operator**: an
+employee, whose OIB is the **Company Registry** of their work contact. On an invoice it is
+the salesperson's employee, or else the employee of the user who fiscalizes. The **Fiscal
+User** is only the login that sent the message: one login can be shared by many people,
+so its own OIB is never reported. A document whose operator is missing or has no OIB is
+refused. Working hours messages report the employee of the user who sends them.
+
 
 Obtain client certificates from FINA
 ====================================
@@ -378,3 +388,26 @@ renders the actual web client.
   <=16 ``toggler`` slot (Odoo 19's ``Dropdown`` has ``{default, content}``
   only, so the icon never rendered and ``Dropdown`` raised "Could not find a
   valid dropdown toggler").
+
+tests/test_fiscal_operator.py
+-----------------------------
+
+Who is reported as ``OibOper``.
+
+- ``test_employee_oib_is_on_the_work_contact`` - an employee's OIB is the company
+  registry of their work contact.
+- ``test_default_operator_is_the_salespersons_employee`` - an invoice is issued by its
+  salesperson's employee.
+- ``test_default_operator_falls_back_to_the_acting_users_employee`` - without a
+  salesperson, by the employee of the user who fiscalizes.
+- ``test_check_refuses_a_document_without_operator`` - no operator is refused, not sent
+  with an empty ``OibOper``.
+- ``test_check_refuses_an_operator_without_oib`` - an operator without an OIB is refused.
+- ``test_check_accepts_an_operator_with_oib`` - an operator with an OIB passes.
+- ``test_fiscalize_stamps_the_operator_before_checking`` - ``fiscalize()`` sets the
+  operator before its check runs.
+- ``test_fiscalize_keeps_an_operator_already_set`` - a later send keeps the first
+  operator.
+
+In ``tests/test_fiscal_operation.py``, ``test_messages_carry_the_sending_users_employee_oib``
+and ``test_nothing_is_sent_without_an_operator_oib`` cover the working hours messages.

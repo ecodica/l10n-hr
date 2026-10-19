@@ -8,18 +8,19 @@
             <field name="invoice_reference_type" position="after">
                 <field
                     name="property_l10n_hr_P1_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
+                    invisible="country_code != 'HR' or invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P2_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
+                    invisible="country_code != 'HR' or invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P3_ar"
-                    invisible="invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
+                    invisible="country_code != 'HR' or invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                 />
                 <field
                     name="property_l10n_hr_P4_ar"
+                    invisible="country_code != 'HR' or invoice_reference_model not in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06', 'HR99']"
                     readonly="invoice_reference_model in ['HR00', 'HR01','HR02', 'HR03', 'HR04', 'HR06']"
                 />
             </field>

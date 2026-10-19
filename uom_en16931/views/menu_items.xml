@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- EU-wide EN16931 e-invoicing codebook: kept under Settings ▸
+         Technical, independent of any single-country localization. -->
     <menuitem action="uom_en16931_action"
               name="EN16931 UoMs"
               id="menu_uom_en16931"
-              parent="l10n_hr_fiscal_codebook.l10n_hr_fiscal_codebooks"
+              parent="base.menu_administration"
+              groups="uom.group_uom"
               sequence="50"/>
 
 </odoo>

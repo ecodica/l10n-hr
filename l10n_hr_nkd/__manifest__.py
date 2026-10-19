@@ -3,7 +3,7 @@
     "summary": """Hrvatska - Nacionalna Klasifikacija Djelatnosti""",
     "category": "Localisation / Croatia",
     "images": [],
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "application": False,
     "author": "Ecodica d.o.o., DAJ MI 5, Odoo Community Association (OCA)",
     "support": "",

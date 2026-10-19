@@ -135,7 +135,9 @@ class AccountMove(models.Model):
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
     @api.constrains('state')
-    def _check_fiscalization_invoice_cancel(self):
+    def _l10n_hr_check_fiscalization_invoice_cancel(self):
+        if self.country_code != 'HR':
+            return
         for invoice in self.filtered(lambda i: i.move_type in ["out_invoice", "out_refund"]):
             # if invoice.company_id.l10n_hr_fiskal_cancel_confirmed_invoice:
             #     continue
@@ -160,7 +162,8 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         """Extend to verify if required fiscalization data is set on posted invoices"""
         invoices = super()._post(soft=soft)
-        invoices._check_zki_on_confirm()
+        if self.country_code == 'HR':
+            invoices._check_zki_on_confirm()
         return invoices
 
     def _l10n_hr_post_fiscal_check(self):

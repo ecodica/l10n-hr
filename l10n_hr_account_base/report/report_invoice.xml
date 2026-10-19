@@ -11,18 +11,6 @@
             </t>
         </xpath>
 
-        <!-- add dates in regular information block -->
-        <xpath expr="//div[@name='reference']" position="after">
-            <div
-                class="col-auto col-3 mw-100 mb-2"
-                t-if="o.delivery_date"
-                name="date_delivery"
-            >
-                <strong>Date delivery:</strong>
-                <p class="m-0" t-field="o.delivery_date" />
-            </div>
-        </xpath>
-
         <!-- add croatia fiscal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
@@ -91,9 +79,9 @@
             <t t-else=""><span t-field="line.product_uom_id" groups="uom.group_uom">units</span></t>
         </xpath>
 
-        <!-- show due date always -->
+        <!-- show due date always, but the credit note extension only for HR -->
         <xpath expr="//div[@name='due_date']" position="attributes">
-            <attribute name="t-if" add="(o.invoice_date_due and o.move_type == 'out_refund' and o.state == 'posted')" separator="or"/>
+            <attribute name="t-if" add="(o.country_code == 'HR' and o.invoice_date_due and o.move_type == 'out_refund' and o.state == 'posted')" separator="or"/>
         </xpath>
     </template>
 

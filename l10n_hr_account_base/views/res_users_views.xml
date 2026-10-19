@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="base.view_users_simple_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='phone']/." position="after">
-                <div class="d-flex align-items-baseline w-100">
+                <field name="l10n_hr_show_oib" invisible="1"/>
+                <div class="d-flex align-items-baseline w-100" invisible="not l10n_hr_show_oib">
                     <i class="fa fa-fw me-1 fa-building text-primary" title="OIB"/>
                     <field name="company_registry" class="w-100" context="{'user_preference': 0}" placeholder="OIB"/>
                 </div>

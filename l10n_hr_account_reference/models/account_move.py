@@ -79,8 +79,10 @@ class AccountMove(models.Model):
         self.ensure_one()
         if self.journal_id.invoice_reference_type == 'none':
             return ''
-        if self.journal_id.invoice_reference_model[:2] == 'HR' and \
-            self.journal_id.invoice_reference_type == 'hr':
+        # Croatian reference models only run on Croatian companies
+        if self.journal_id.invoice_reference_type == 'hr' and \
+                self.journal_id.invoice_reference_model[:2] == 'HR' and \
+                self.country_code == 'HR':
             return self._l10n_hr_ar_get()
         ref_function = getattr(self, f'_get_invoice_reference_{self.journal_id.invoice_reference_model}_{self.journal_id.invoice_reference_type}', None)
         if ref_function is None:

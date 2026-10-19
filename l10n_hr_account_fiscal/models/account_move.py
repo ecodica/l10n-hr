@@ -243,6 +243,8 @@ class AccountMove(models.Model):
         domain = [
             ('state', '=', 'posted'),
             ('company_id', 'in', self.env.companies.ids),
+            # fiscalization only applies to Croatian companies
+            ('company_id.account_fiscal_country_id.code', '=', 'HR'),
             ('l10n_hr_zki', '!=', False),
             ('l10n_hr_jir', '=', False)
         ]
@@ -270,6 +272,8 @@ class AccountMove(models.Model):
             ('l10n_hr_jir', '=', False),
             ('move_type', 'in', ['out_invoice', 'out_refund']),
             ('state', 'not in', ['draft']),
+            # fiscalization only applies to Croatian companies
+            ('company_id.account_fiscal_country_id.code', '=', 'HR'),
             ('l10n_hr_fiscal_device_id.fiscalization_active', '=', True),
             ('l10n_hr_fiscal_device_id.enable_cron_fiscalization', '=', True),
         ])

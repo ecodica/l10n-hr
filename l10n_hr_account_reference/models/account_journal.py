@@ -18,20 +18,31 @@ class AccountJournal(models.Model):
 
     @api.constrains("invoice_reference_model", "invoice_reference_type")
     def _l10n_hr_constrain_pnb_model(self):
+        hr_models = [model[0] for model in L10N_HR_MODELS.values()]
         for record in self:
-            if record.country_code != 'HR':
-                continue
-            if (
+            if record.country_code == 'HR':
+                if (
+                    record.invoice_reference_type == "hr"
+                    and record.invoice_reference_model not in hr_models
+                ) or (
+                    record.invoice_reference_type != "hr"
+                    and record.invoice_reference_model in hr_models
+                ):
+                    raise ValidationError(
+                        _(
+                            "Both Communication standard and Communication type,"
+                            " should be Croatia or not Croatia, mix is not possible!"
+                        )
+                    )
+            elif (
                 record.invoice_reference_type == "hr"
-                and record.invoice_reference_model not in list(zip(*list(L10N_HR_MODELS.values())))[0]
-            ) or (
-                record.invoice_reference_type != "hr"
-                and record.invoice_reference_model in list(zip(*list(L10N_HR_MODELS.values())))[0]
+                or record.invoice_reference_model in hr_models
             ):
+                # HR reference settings are reserved to Croatian journals
                 raise ValidationError(
                     _(
-                        "Both Communication standard and Communication type,"
-                        " should be Croatia or not Croatia, mix is not possible!"
+                        "Croatian reference models can only be used on"
+                        " journals of Croatian companies!"
                     )
                 )
 

@@ -6,22 +6,23 @@
     >
 
         <!-- fiscal user must be shown on croatian invoices -->
-        <xpath expr="//div[@id='l10n_hr_info']/div[@name='interni_broj']" position="after">
+        <xpath expr="//div[@id='l10n_hr_info']/div[@name='l10n_hr_internal_number']" position="after">
             <div
                 class="col-auto col-3 mw-100 mb-2"
-                t-if="o.l10n_hr_fiskal_user_id"
-                name="l10n_hr_fiskal_user_id"
+                t-if="o.l10n_hr_fiscal_user_id"
+                name="l10n_hr_fiscal_user_id"
             >
                 <strong>Fiscal User:</strong>
-                <p class="m-0" t-field="o.l10n_hr_fiskal_user_id.display_name" />
+                <p class="m-0" t-field="o.l10n_hr_fiscal_user_id.display_name" />
             </div>
         </xpath>
-        <!-- hide taxes if company is not in tax system -->
-        <xpath expr="//th[@name='th_taxes']" position="attributes">
-            <attribute name="t-if">o.company_id.l10n_hr_fiskal_taxative</attribute>
-        </xpath>
-        <xpath expr="//span[@id='line_tax_ids']/.." position="attributes">
-            <attribute name="t-if">o.company_id.l10n_hr_fiskal_taxative</attribute>
+        <!-- hide taxes if company is not in tax system (r0 / not_rh tax model).
+             Hooked on the core display_taxes flag so the tax column and the
+             line colspans stay consistent. For non Croatian companies the
+             default model (r1) keeps the core behavior. -->
+        <xpath expr="//t[@t-set='display_taxes']" position="replace">
+            <t t-set="display_taxes"
+               t-value="any(l.tax_ids for l in o.invoice_line_ids) and o.company_id.l10n_hr_tax_model not in ('r0', 'not_rh')"/>
         </xpath>
 
         <!-- add croatia fiskal required data after total line -->
@@ -60,13 +61,10 @@
 
     </template>
 
-    <!-- hide tax subtotals if company is not taxative -->
-    <!-- TODO: move to some lower module or new module that will handle not taxable companies -->
+    <!-- hide tax subtotals if company is not subject to (Croatian) taxation -->
     <template id="document_tax_totals_template_inherited" inherit_id="account.document_tax_totals_template">
          <xpath expr="//t[@t-call='account.tax_groups_totals']" position="replace">
-
-            <t t-if="not tax_totals.get('l10n_hr_fiskal_taxative',True)"></t>
-            <t t-else="">
+            <t t-if="tax_totals.get('l10n_hr_show_taxes', True)">
                 <t t-call="account.tax_groups_totals"/>
             </t>
          </xpath>

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
-    <!-- Adds bank, acc number and payment reference fields to invoice report -->
+    <!-- Adds bank, acc number and payment reference fields to invoice report,
+         only on Croatian invoices; other countries keep the core rendering. -->
     <template id="report_invoice_payment_reference_layout" inherit_id="account.report_invoice_document">
         <xpath expr="//p[@name='payment_communication']" position="replace">
-            <p name="payment_communication" id="l10n_hr_account_reference_payment_communication">
+            <p name="payment_communication" t-if="o.country_code == 'HR'"
+               id="l10n_hr_account_reference_payment_communication">
                 <t t-if="o.partner_bank_id">
                     <span>Bank: </span>
                     <b><span t-field="o.partner_bank_id.bank_id.bic"/></b> -
@@ -16,6 +18,12 @@
                 </t>
                 <span>Payment Reference: </span>
                 <b><span t-field="o.payment_reference"/></b>
+            </p>
+            <p name="payment_communication" t-else="">
+                Payment Communication: <span class="fw-bold" t-field="o.payment_reference">INV/2023/00001</span>
+                <t t-if="o.partner_bank_id">
+                    <br/> on this account: <span t-field="o.partner_bank_id" class="fw-bold"/>
+                </t>
             </p>
         </xpath>
     </template>

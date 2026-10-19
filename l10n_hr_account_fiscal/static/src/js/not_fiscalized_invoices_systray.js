@@ -53,6 +53,8 @@ export class NotFiscalizedInvoicesSystray extends Component {
             ],
             target: "current",
             domain: domain,
+            // Show the HR-only Fiscalized/Not Fiscalized search filters.
+            context: { l10n_hr_fiscal_filters: true },
         });
     }
 

@@ -9,4 +9,5 @@ class ResCompany(models.Model):
 
     @api.onchange("nace_id")
     def _onchange_nkd_id(self):
-        self.l10n_hr_nkd_code = self.nace_id.code
+        if self.country_id.code == "HR":
+            self.l10n_hr_nkd_code = self.nace_id.code

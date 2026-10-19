@@ -99,6 +99,12 @@ class AccountMove(models.Model):
                     move.company_id.account_fiscal_country_id.code == "HR"
                     and move.move_type == "out_refund"
             )
+            # Hidden only for Croatian companies not subject to taxation;
+            # printed reports check this to skip the tax groups section.
+            move.tax_totals['l10n_hr_show_taxes'] = not (
+                    move.company_id.account_fiscal_country_id.code == "HR"
+                    and move.company_id.l10n_hr_tax_model in ("r0", "not_rh")
+            )
 
     @api.depends(
         "journal_id",

@@ -138,21 +138,18 @@ class L10nHrFiscalOperation(models.Model):
         comodel_name='l10n_hr.fiscal.operation.line',
         inverse_name='operation_id',
         string='Working Hours Changes',
-        states={'done': [('readonly', True)]},
     )
     register_line_ids = fields.One2many(
         comodel_name='l10n_hr.fiscal.operation.line',
         inverse_name='operation_id',
         string='Working Hours to Register',
         domain=[('action', '=', 'register')],
-        states={'done': [('readonly', True)]},
     )
     remove_line_ids = fields.One2many(
         comodel_name='l10n_hr.fiscal.operation.line',
         inverse_name='operation_id',
         string='Working Hours to Remove',
         domain=[('action', '=', 'remove')],
-        states={'done': [('readonly', True)]},
     )
     remove_all = fields.Boolean('Remove All?')
     register_count = fields.Integer(compute='_compute_change_counts')

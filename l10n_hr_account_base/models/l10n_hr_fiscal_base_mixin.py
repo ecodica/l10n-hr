@@ -56,8 +56,8 @@ class L10nHrFiscalBaseMixin(models.AbstractModel):
         ondelete='restrict',
         default=lambda self: self.env.user.id,
         copy=False,
-        help="User who sent the fiscalization message."
-             " Can be different from responsible person on invoice.",
+        help="The login that sent the fiscalization message. The person reported as "
+             "having issued the document is the fiscal operator.",
     )
 
     @api.depends('l10n_hr_fiscal_time')

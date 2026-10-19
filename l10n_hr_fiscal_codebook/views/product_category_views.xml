@@ -7,7 +7,8 @@
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='account_property']" position="after">
-                <group name="fiscal_2_0" string="Fiscalization 2.0">
+                <group name="fiscal_2_0" string="Fiscalization 2.0" invisible="not l10n_hr_show_fiscal_fields">
+                    <field name="l10n_hr_show_fiscal_fields" invisible="1"/>
                 </group>
             </xpath>
         </field>

@@ -20,7 +20,7 @@ class AccountJournal(models.Model):
     def _l10n_hr_constrain_pnb_model(self):
         for record in self:
             if record.country_code != 'HR':
-                return
+                continue
             if (
                 record.invoice_reference_type == "hr"
                 and record.invoice_reference_model not in list(zip(*list(L10N_HR_MODELS.values())))[0]

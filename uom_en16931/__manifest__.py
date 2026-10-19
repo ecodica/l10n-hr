@@ -6,7 +6,7 @@
     """,
     "category": "Sales/Sales",
     "images": [],
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "application": False,
     'author': "Ecodica",
     "license": 'LGPL-3',
@@ -16,7 +16,6 @@
 
     "depends": [
         "uom",
-        "l10n_hr_fiscal_codebook",
     ],
     "external_dependencies": {
         "python": [],

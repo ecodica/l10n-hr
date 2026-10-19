@@ -23,7 +23,9 @@
                 <attribute name="no_create">True</attribute>
             </field>
             <field name="secondary_nace_ids" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <!-- Secondary NKD activities are not used for the Croatian
+                     classification; keep the EU NACE field for other countries. -->
+                <attribute name="invisible">country_code == 'HR'</attribute>
             </field>
         </field>
     </record>

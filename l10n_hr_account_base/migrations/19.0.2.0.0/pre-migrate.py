@@ -21,3 +21,13 @@ def migrate(env, version):
         ),
     ]
     openupgrade.rename_fields(env, field_spec)
+    if openupgrade.column_exists(env.cr, 'account_move', 'l10n_hr_fiscal_time_calc') :
+        openupgrade.logged_query(
+            env.cr,
+            """
+            UPDATE account_move
+            SET l10n_hr_fiscal_time_calc = TO_TIMESTAMP(l10n_hr_fiscal_time, 'DD.MM.YYYY"T"HH24:MI:SS') AT TIME ZONE 'UTC'
+            WHERE 
+                l10n_hr_fiscal_time IS NOT NULL
+            """,
+        )

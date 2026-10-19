@@ -1262,3 +1262,45 @@ msgid ""
 msgstr ""
 "ZKI broj nije postavljen na računu koji se fiskalizira.\n"
 "                    Provjerite da li je fiskalizacija ispravno postavljena."
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_operator_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_operator_id
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_operator_id
+msgid "Fiscal Operator"
+msgstr "Fiskalni operater"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_operator_id
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_operator_id
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_operator_id
+msgid ""
+"The person who issued the document. The OIB on their work contact is "
+"reported to the Tax Administration as OibOper. Set when the document is "
+"first fiscalized and kept afterwards."
+msgstr ""
+"Osoba koja je izdala dokument. OIB s njezina radnog kontakta prijavljuje se "
+"Poreznoj upravi kao OibOper. Postavlja se pri prvoj fiskalizaciji dokumenta "
+"i poslije se ne mijenja."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"Fiscal operator %(employee)s has no OIB. Enter it on the employee; it is "
+"required for fiscalization."
+msgstr ""
+"Fiskalni operater %(employee)s nema OIB. Unesite ga na zaposleniku; obavezan"
+" je za fiskalizaciju."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"No fiscal operator: %(user)s has no employee in %(company)s. The person who "
+"issues a fiscalized document is reported by the OIB on their employee's work"
+" contact."
+msgstr ""
+"Nema fiskalnog operatera: %(user)s nema zaposlenika u tvrtki %(company)s. "
+"Osoba koja izdaje fiskalizirani dokument prijavljuje se OIB-om s radnog "
+"kontakta svog zaposlenika."

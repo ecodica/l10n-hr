@@ -220,9 +220,15 @@ class ResCompany(models.Model):
         echo = fisk.test_service(msg)
         self.create_fiscal_log("echo", fisk, echo, time_start, origin=origin)
 
+    @api.private
     def get_fiscal_data(self):
+        """Return what signing and sending a fiscal message needs, the private key included.
+
+        The certificate is read as superuser: a cashier fiscalizes every sale but may not
+        read the company's certificate. For the same reason it cannot be called over RPC.
+        """
         self.ensure_one()
-        fiscal_cert = self.l10n_hr_fiscal_cert_id
+        fiscal_cert = self.sudo().l10n_hr_fiscal_cert_id
         if not fiscal_cert:
             raise MissingError(_("Fiscal Certificate not found! Check company setup!"))
         if not self.l10n_hr_fiscal_schema:
@@ -241,7 +247,7 @@ class ResCompany(models.Model):
             ]
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
-        cert_path = fiscal_path + "fina_cert/" + self.l10n_hr_fiscal_cert_id.l10n_hr_type
+        cert_path = fiscal_path + "fina_cert/" + fiscal_cert.l10n_hr_type
         cert_vat = self.l10n_hr_fiscal_cert_subject_vat and self.l10n_hr_fiscal_cert_subject_vat[2:]
         if self.l10n_hr_fiscal_test_env:
             cert_vat = cert_vat

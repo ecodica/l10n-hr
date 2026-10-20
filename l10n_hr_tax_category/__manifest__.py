@@ -14,6 +14,7 @@
 
     "depends": [
         "l10n_hr",
+        "l10n_hr_tax_add",
         "l10n_hr_fiscal_codebook",
     ],
     "external_dependencies": {

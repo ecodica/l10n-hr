@@ -21,6 +21,9 @@
     "licence": "AGPL-3",
 
     "depends": [
+        # provides the 'hr' chart and the account.tax templates that the
+        # chart mapping file references
+        "l10n_hr",
         "l10n_hr_fiscal_codebook",
     ],
     "external_dependencies": {

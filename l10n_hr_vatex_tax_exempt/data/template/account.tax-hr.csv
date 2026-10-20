@@ -1,0 +1,12 @@
+id,l10n_hr_vatex_tax_exempt_id
+"VAT_S_EU_G","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_S_EU_S","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_S_EX_O","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_G"
+"VAT_S_reverse_O","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_AE"
+"VAT_P_G_IN_EU_25","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_G_IN_EU_13","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_G_IN_EU_5","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_S_IN_EU_25","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_S_IN_EU_13","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_S_IN_EU_5","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_IC"
+"VAT_P_reverse_charge","l10n_hr_vatex_tax_exempt.tax_exempt_VATEX_EU_AE"

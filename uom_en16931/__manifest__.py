@@ -8,7 +8,7 @@
     "images": [],
     "version": "19.0.1.0.1",
     "application": False,
-    'author': "Ecodica",
+    'author': "Ecodica d.o.o.",
     "license": 'LGPL-3',
     'website': "https://www.ecodica.eu",
     "support": "support@ecodica.eu",

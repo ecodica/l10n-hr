@@ -83,8 +83,13 @@ class L10nHrFiscalDevice(models.Model):
             self.l10n_hr_fiscal_device_code = len(self.l10n_hr_business_premise_id.l10n_hr_fiscal_device_ids)
 
     # Methods
-    def name_get(self):
-        return [(u.id, "%s-%s" % (u.l10n_hr_business_premise_id.l10n_hr_name, u.l10n_hr_name)) for u in self]
+    @api.depends("l10n_hr_name", "l10n_hr_business_premise_id.l10n_hr_name")
+    def _compute_display_name(self):
+        # replaces the deprecated name_get override (base.test_deprecation)
+        for u in self:
+            u.display_name = "%s-%s" % (
+                u.l10n_hr_business_premise_id.l10n_hr_name or "",
+                u.l10n_hr_name or "")
 
     def unlink(self):
         if self.filtered(lambda s: s.l10n_hr_lock == True):

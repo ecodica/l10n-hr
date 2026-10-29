@@ -142,9 +142,9 @@ class AccountMove(models.Model):
 
     @api.constrains('state')
     def _l10n_hr_check_fiscalization_invoice_cancel(self):
-        if self.country_code != 'HR':
-            return
-        for invoice in self.filtered(lambda i: i.move_type in ["out_invoice", "out_refund"]):
+        for invoice in self.filtered(
+                lambda i: i.country_code == 'HR'
+                and i.move_type in ["out_invoice", "out_refund"]):
             # if invoice.company_id.l10n_hr_fiskal_cancel_confirmed_invoice:
             #     continue
             if invoice.l10n_hr_zki and invoice.state != 'posted':
@@ -161,15 +161,15 @@ class AccountMove(models.Model):
     def _must_check_constrains_date_sequence(self):
         """Extend to skip check if l10n_hr_fiscal_device_id is set."""
         # NOTE: fiscal number are specific and they don't have date reference in them so we can skip that check
-        if self.l10n_hr_fiscal_device_id:
+        if any(self.mapped("l10n_hr_fiscal_device_id")):
             return False
         return super()._must_check_constrains_date_sequence()
 
     def _post(self, soft=True):
         """Extend to verify if required fiscalization data is set on posted invoices"""
         invoices = super()._post(soft=soft)
-        if self.country_code == 'HR':
-            invoices._check_zki_on_confirm()
+        invoices.filtered(
+            lambda m: m.country_code == 'HR')._check_zki_on_confirm()
         return invoices
 
     def _l10n_hr_post_fiscal_check(self):

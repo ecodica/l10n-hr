@@ -47,6 +47,9 @@ class L10nHrFiscalOperationLine(models.Model):
     )
 
     # -- register: values for a new working hours line ------------------------
+    # Not DB-required: a register line that references an existing
+    # working_hours_id copies the times from it, so the times are only
+    # mandatory for a brand-new line (checked below).
     type = fields.Selection(
         selection=[("regular", "Regular"), ("exception", "Exception")],
         string="Type",
@@ -57,8 +60,8 @@ class L10nHrFiscalOperationLine(models.Model):
     dow = fields.Selection(DAYS_OF_WEEK, string="Day of Week", default="1")
     valid_from = fields.Date(string="Valid from")
     valid_on = fields.Date(string="Valid on")
-    time_from = fields.Char(string="Time from", required=True)
-    time_to = fields.Char(string="Time to", required=True)
+    time_from = fields.Char(string="Time from")
+    time_to = fields.Char(string="Time to")
     split_shift = fields.Selection(
         [("1", "First shift"), ("2", "Second shift")],
         string="Split shift",
@@ -84,6 +87,10 @@ class L10nHrFiscalOperationLine(models.Model):
             if line.type == "exception" and not line.valid_on:
                 raise ValidationError(_(
                     "Exception working hours to register must have a Valid On date."
+                ))
+            if not line.time_from or not line.time_to:
+                raise ValidationError(_(
+                    "Working hours to register must have a Time from and a Time to."
                 ))
 
     @api.constrains("time_from", "time_to")

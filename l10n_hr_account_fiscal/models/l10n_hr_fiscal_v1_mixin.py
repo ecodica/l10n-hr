@@ -4,8 +4,9 @@ import logging
 import pytz
 import qrcode
 from datetime import datetime
+from markupsafe import Markup
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import LockError, UserError, ValidationError
 from odoo.tools import float_compare
 from odoo.addons.l10n_hr_base.models.res_company import FISCAL_DATETIME_FORMAT, INVOICE_DATETIME_FORMAT
 from ..fiscal import fiscal
@@ -93,6 +94,28 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
              "reported to the Tax Administration as OibOper. Set when the document is "
              "first fiscalized and kept afterwards.",
     )
+    # promijeniPodatkeRacuna has to repeat the receipt as it was issued (FINA error s012
+    # otherwise), while the document itself shows the latest recipient and payment method.
+    l10n_hr_fiscal_orig_payment_method = fields.Char(
+        string="Reported Payment Method",
+        readonly=True,
+        copy=False,
+        help="NacinPlac the document was fiscalized with. Recorded on the first change of "
+             "its fiscal data, empty until then.",
+    )
+    l10n_hr_fiscal_orig_partner_oib = fields.Char(
+        string="Reported Recipient OIB",
+        readonly=True,
+        copy=False,
+        help="OibPrimateljaRacuna the document was fiscalized with, empty when it was "
+             "issued without one. Recorded on the first change of its fiscal data.",
+    )
+    l10n_hr_fiscal_change_allowed = fields.Boolean(
+        string="Fiscal Data Can Change",
+        compute="_compute_l10n_hr_fiscal_change_allowed",
+        help="The document is fiscalized and was issued today, so its recipient and "
+             "payment method can still be changed with the tax authority.",
+    )
 
     @api.model
     def _get_fiscal_amount_field_name(self):
@@ -173,42 +196,53 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 res.append(
                     _("Company OIB is not not entered! It is required for fiscalization")
                 )
-            if (
-                    self.l10n_hr_fiscal_device_id.fiscalization_active and
-                    self.partner_id.is_company and
-                    not self.partner_id.company_registry
-            ):
-                res.append(
-                    _("To fiscalize an R1 invoice, an OIB must be set on the company %s") % self.partner_id.display_name
-                )
-            if (
-                    self.l10n_hr_fiscal_device_id.fiscalization_active and
-                    self.partner_id.is_company and
-                    self.l10n_hr_payment_method == 'T'
-            ):
-                res.append(
-                    _("R1 invoice cannot be fiscalized with %s payment type") % self.l10n_hr_payment_method
-                )
-            if (
-                    self.l10n_hr_fiscal_device_id.fiscalization_active and
-                    self.l10n_hr_payment_method == 'G' and
-                    float_compare(self.amount_total, 10000, precision_digits=self.currency_id.decimal_places) == 1
-            ):
-                res.append(
-                    _("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the %s payment type") %
-                    self.l10n_hr_payment_method
-                )
-            if (
-                    self.l10n_hr_fiscal_device_id.fiscalization_active and
-                    self.l10n_hr_payment_method == 'G' and
-                    self.partner_id.is_company and
-                    float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
-            ):
-                res.append(
-                    _("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the %s payment type") %
-                    self.l10n_hr_payment_method
-                )
+            res += self._l10n_hr_partner_payment_errors(self.partner_id, self.l10n_hr_payment_method)
         return res
+
+    def _l10n_hr_partner_payment_errors(self, partner, payment_method):
+        """Return why this document cannot be reported to ``partner`` paid by ``payment_method``.
+
+        The R1 rules: a company recipient (B2B) needs an OIB and cannot pay by bank
+        transfer (FINA error 181), and cash is capped at 10.000,00 €, at 700,00 € for a
+        company. Shared by fiscalization and by a later change of the fiscal data. A
+        contact of a company is judged by its company.
+        """
+        res = []
+        digits = self.currency_id.decimal_places
+        partner = partner.commercial_partner_id
+        if partner.is_company and not partner.company_registry:
+            res.append(
+                self.env._("To fiscalize an R1 invoice, an OIB must be set on the company %s", partner.display_name)
+            )
+        if partner.is_company and payment_method == 'T':
+            res.append(
+                self.env._("R1 invoice cannot be fiscalized with %s payment type", payment_method)
+            )
+        if payment_method == 'G' and float_compare(self.amount_total, 10000, precision_digits=digits) == 1:
+            res.append(
+                self.env._("Invoice total amount bigger than 10.000,00 € cannot be fiscalized with the %s payment type",
+                           payment_method)
+            )
+        if (
+                payment_method == 'G' and
+                partner.is_company and
+                float_compare(self.amount_total, 700, precision_digits=digits) == 1
+        ):
+            res.append(
+                self.env._("R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the %s payment type",
+                           payment_method)
+            )
+        return res
+
+    @api.model
+    def _l10n_hr_recipient_oib(self, partner):
+        """Return ``OibPrimateljaRacuna`` for ``partner``: its company's OIB, else empty.
+
+        Only a B2B receipt carries the recipient's OIB; a private person is never
+        reported, even with an OIB on file. A contact of a company reports the company's.
+        """
+        commercial = partner.commercial_partner_id
+        return commercial.is_company and commercial.company_registry or ""
 
     def _l10n_hr_fiscalization_needed(self):
         """"Check if invoice should be fiscalized"""
@@ -346,13 +380,14 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
         )
-        if self.partner_id.is_company:
-            if self.partner_id.company_registry:
-                # this is valid OIB, for B2C and B2B customers, without a country prefix
-                racun.OibPrimateljaRacuna = self.partner_id.company_registry
-            else:
-                raise ValidationError(
-                    _("Partner {} is defined as R1 but missing VAT").format(self.partner_id.display_name))
+        recipient_oib = self._l10n_hr_recipient_oib(self.partner_id)
+        if recipient_oib:
+            # this is valid OIB, for B2C and B2B customers, without a country prefix
+            racun.OibPrimateljaRacuna = recipient_oib
+        elif self.partner_id.commercial_partner_id.is_company:
+            raise ValidationError(
+                _("Partner {} is defined as R1 but missing VAT").format(
+                    self.partner_id.commercial_partner_id.display_name))
         return racun
 
     def _validate_fiscal_invoice(self, racun):
@@ -487,10 +522,86 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 raise ValidationError(_("Fiscalization Error:\n %s") % error_message)
         return bool(self.l10n_hr_jir)
 
+    # ------------------------------------------------------------------ change of fiscal data
+
+    def _l10n_hr_is_fiscal_issue_day(self):
+        """Whether today, in Croatian time, is the day this document was issued.
+
+        Both sides are Europe/Zagreb wall time: ``l10n_hr_fiscal_time`` is stored that
+        way (``dd.mm.yyyyThh:mm:ss``) and ``get_l10n_hr_time_formatted`` returns it.
+        """
+        self.ensure_one()
+        today = self.company_id.get_l10n_hr_time_formatted()["datum"]
+        return bool(self.l10n_hr_fiscal_time) and self.l10n_hr_fiscal_time[:10] == today
+
+    @api.model
+    def _l10n_hr_fiscal_change_depends(self):
+        """Fields ``_l10n_hr_fiscal_change_document_errors`` reads. Models add theirs."""
+        return ["l10n_hr_jir", "l10n_hr_fiscal_time"]
+
+    @api.depends(lambda self: self._l10n_hr_fiscal_change_depends())
+    def _compute_l10n_hr_fiscal_change_allowed(self):
+        """Allow the change of fiscal data while nothing about the document refuses it."""
+        for rec in self:
+            rec.l10n_hr_fiscal_change_allowed = not rec._l10n_hr_fiscal_change_document_errors()
+
+    def _l10n_hr_fiscal_change_document_errors(self):
+        """Return why the recipient and payment method of this document cannot change now.
+
+        Only a document FINA acknowledged can be changed, and only until midnight of the
+        day it was issued: after that FINA refuses the change (s011), and the receipt has
+        to be cancelled and issued again. Models add their own conditions.
+        """
+        self.ensure_one()
+        if not self.l10n_hr_jir:
+            return [self.env._("%(document)s has no JIR: it has not been fiscalized.",
+                               document=self.display_name)]
+        if not self._l10n_hr_is_fiscal_issue_day():
+            return [self.env._(
+                "The recipient and payment method of %(document)s can only be changed on the "
+                "day it was issued, until midnight. Cancel it and issue a new one instead.",
+                document=self.display_name,
+            )]
+        return []
+
+    def _l10n_hr_fiscal_change_errors(self, partner, payment_method):
+        """Return why this document cannot be reported to ``partner`` paid by ``payment_method``."""
+        self.ensure_one()
+        errors = self._l10n_hr_fiscal_change_document_errors()
+        if errors:
+            return errors
+        if not payment_method:
+            return [self.env._("Choose the payment method.")]
+        if partner == self.partner_id and payment_method == self.l10n_hr_payment_method:
+            return [self.env._("Nothing to change: the customer and payment method are the same.")]
+        # as core's company check on the write, which would fail after FINA confirmed
+        if partner and not partner.with_context(active_test=False).filtered_domain(
+                partner._check_company_domain(self.company_id)):
+            errors.append(self.env._("%(partner)s belongs to another company.",
+                                     partner=partner.display_name))
+        commercial = partner.commercial_partner_id
+        if self._l10n_hr_recipient_oib(partner) and not commercial._l10n_hr_is_oib_valid():
+            errors.append(self.env._("The OIB of %(partner)s is not valid: it must have 11 digits.",
+                                     partner=commercial.display_name))
+        return errors + self._l10n_hr_partner_payment_errors(partner, payment_method)
+
+    def _l10n_hr_fiscal_change_warnings(self, partner, payment_method):
+        """Return what the change will leave as it is, for the user to know. Models add theirs."""
+        self.ensure_one()
+        return []
+
+    @api.private
     @fisc_handler(msg_type='promijeniPodatkeRacuna')
     def fiscalize_data_change(self, partner, payment_method):
-        if not self._l10n_hr_fiscalization_needed():
-            return
+        """Build the promijeniPodatkeRacuna request for a new recipient and payment method.
+
+        ``Racun`` repeats the receipt as it was issued - FINA compares it with what it
+        holds (s012) - so after a first change its payment method and recipient OIB come
+        from the recorded originals. ``PromijenjeniNacinPlac`` and
+        ``PromijenjeniOibPrimateljaRacuna`` are both mandatory and carry the whole new
+        state; an empty OIB element removes the recipient.
+        """
+        self.ensure_one()
         time_start = self.company_id.get_l10n_hr_time_formatted()
         fiscal_data = self.company_id.get_fiscal_data()
         fiscal_data["time"] = time_start
@@ -499,7 +610,161 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         fiscal_data["racun"] = fis_racun
         fisk = fiscal.Fiscalization(data=fiscal_data)
         invoice_data = self._prepare_fiscal_invoice(fisk, fiscal_data, 'promijeniPodatkeRacuna')
+        if self.l10n_hr_fiscal_orig_payment_method:
+            invoice_data.NacinPlac = self.l10n_hr_fiscal_orig_payment_method
+            invoice_data.OibPrimateljaRacuna = self.l10n_hr_fiscal_orig_partner_oib or None
         invoice_data.PromijenjeniNacinPlac = payment_method
-        invoice_data.PromijenjeniOibPrimateljaRacuna = partner and partner.company_registry or None
+        invoice_data.PromijenjeniOibPrimateljaRacuna = self._l10n_hr_recipient_oib(partner)
         zaglavlje = fisk.create_request_header()
         return dict(Zaglavlje=zaglavlje, Racun=invoice_data)
+
+    @api.model
+    def _l10n_hr_fiscal_change_succeeded(self, response):
+        """Whether ``response`` confirms the change of fiscal data (``p005``)."""
+        if response is None or getattr(response, "Greske", None):
+            return False
+        reply = getattr(response, "PorukaOdgovora", None)
+        return bool(reply) and (reply.SifraPoruke or "").lower() == "p005"
+
+    def _l10n_hr_last_fiscal_log(self, msg_type):
+        """Return the latest ``msg_type`` exchange logged for this document."""
+        self.ensure_one()
+        return self.env["l10n_hr.fiscal.log"].sudo().search([
+            ("res_model", "=", self._name),
+            ("res_id", "=", self.id),
+            ("type", "=", msg_type),
+        ], order="id desc", limit=1)
+
+    def _l10n_hr_last_fiscal_error(self, msg_type):
+        """Return the error of the latest ``msg_type`` exchange logged for this document."""
+        log = self._l10n_hr_last_fiscal_log(msg_type)
+        return log.error_msg if log.error_msg and log.error_msg != "OK" else False
+
+    def _l10n_hr_change_fiscal_data(self, partner, payment_method):
+        """Report a new recipient and payment method to FINA, and write them once confirmed.
+
+        Nothing is written unless FINA confirms with ``p005``: the document must not say
+        something the tax authority does not hold. A refusal or a lost reply is returned,
+        not raised, so the logged attempt is kept; the change can be tried again until
+        midnight. An error before anything was sent, such as a missing certificate, is
+        raised. The document is locked first, so two changes are never reported at once.
+
+        :return: why the change was not made, or ``False`` once it is written
+        """
+        self.ensure_one()
+        msg_type = "promijeniPodatkeRacuna"
+        try:
+            self.lock_for_update(allow_referencing=True)
+        except LockError:
+            raise UserError(self.env._(
+                "%(document)s is being changed by someone else. Try again in a moment.",
+                document=self.display_name,
+            )) from None
+        errors = self._l10n_hr_fiscal_change_errors(partner, payment_method)
+        if errors:
+            raise UserError("\n".join(errors))
+        last_log = self._l10n_hr_last_fiscal_log(msg_type)
+        failure = False
+        try:
+            response = self.fiscalize_data_change(partner, payment_method)
+        except UserError as error:
+            if self._l10n_hr_last_fiscal_log(msg_type) == last_log:
+                raise  # nothing was sent
+            # fisc_handler raises after logging the exchange; returning keeps the log
+            response, failure = None, str(error)
+        if not self._l10n_hr_fiscal_change_succeeded(response):
+            return (
+                failure
+                or self._l10n_hr_last_fiscal_error(msg_type)
+                or self.env._("The tax authority did not confirm the change.")
+            )
+        # read now: after a failed write the transaction may refuse any query
+        confirmed_log = self._l10n_hr_last_fiscal_log(msg_type).copy_data()[0]
+        document = self.display_name
+        old_partner, old_payment_method = self.partner_id, self.l10n_hr_payment_method
+        try:
+            self._l10n_hr_apply_fiscal_change(partner, payment_method)
+            self._l10n_hr_log_fiscal_change(old_partner, old_payment_method, response)
+        except Exception as error:
+            # FINA holds the change; the rollback of this transaction would lose its log
+            confirmed_log["error_msg"] = self.env._(
+                "The tax authority confirmed the change, but %(document)s could not be "
+                "updated: %(error)s",
+                document=document,
+                error=error,
+            )
+            self._l10n_hr_keep_fiscal_log(confirmed_log)
+            raise
+        return False
+
+    @api.model
+    def _l10n_hr_keep_fiscal_log(self, vals):
+        """Create a fiscal log in a transaction of its own, which outlives this one."""
+        with self.env.registry.cursor() as cr:
+            self.env(cr=cr)["l10n_hr.fiscal.log"].sudo().create(vals)
+
+    def _l10n_hr_apply_fiscal_change(self, partner, payment_method):
+        """Write the recipient and payment method FINA confirmed.
+
+        The first change also records what the document was issued with, which every
+        later change has to repeat. Written as superuser: the change wizard is the
+        permission, and an invoicing user need not be allowed to edit a POS order.
+        """
+        self.ensure_one()
+        vals = {"partner_id": partner.id, "l10n_hr_payment_method": payment_method}
+        if not self.l10n_hr_fiscal_orig_payment_method:
+            vals.update(
+                l10n_hr_fiscal_orig_payment_method=self.l10n_hr_payment_method,
+                l10n_hr_fiscal_orig_partner_oib=self._l10n_hr_recipient_oib(self.partner_id),
+            )
+        self.sudo()._l10n_hr_write_fiscal_change(vals)
+
+    def _l10n_hr_write_fiscal_change(self, vals):
+        """Write ``vals`` on the fiscalized document. Models override to pass their guards."""
+        self.ensure_one()
+        self.write(vals)
+
+    def _l10n_hr_log_fiscal_change(self, old_partner, old_payment_method, response):
+        """Post the change FINA confirmed on the document's chatter."""
+        self.ensure_one()
+        lines = self._l10n_hr_fiscal_change_note(old_partner, old_payment_method, response)
+        self.sudo().message_post(body=Markup("<br/>").join(lines))
+
+    def _l10n_hr_fiscal_change_note(self, old_partner, old_payment_method, response):
+        """Return the lines of the chatter note on a change FINA confirmed. Models add theirs."""
+        self.ensure_one()
+        methods = dict(self._fields["l10n_hr_payment_method"]._description_selection(self.env))
+        none = self.env._("none")
+        lines = [self.env._(
+            "Fiscal data changed, confirmed by the tax authority: %(code)s %(message)s",
+            code=response.PorukaOdgovora.SifraPoruke,
+            message=response.PorukaOdgovora.Poruka or "",
+        )]
+        if old_partner != self.partner_id:
+            lines.append(self.env._(
+                "Customer: %(old)s (OIB %(old_oib)s) → %(new)s (OIB %(new_oib)s)",
+                old=old_partner.display_name or none,
+                old_oib=self._l10n_hr_recipient_oib(old_partner) or none,
+                new=self.partner_id.display_name or none,
+                new_oib=self._l10n_hr_recipient_oib(self.partner_id) or none,
+            ))
+        if old_payment_method != self.l10n_hr_payment_method:
+            lines.append(self.env._(
+                "Payment method: %(old)s → %(new)s",
+                old=methods.get(old_payment_method, old_payment_method or none),
+                new=methods.get(self.l10n_hr_payment_method, self.l10n_hr_payment_method),
+            ))
+        return lines
+
+    def button_fiscalize_change(self):
+        """Open the wizard that changes the recipient with FINA."""
+        self.ensure_one()
+        return {
+            "name": self.env._("Change Fiscal Data"),
+            "type": "ir.actions.act_window",
+            "res_model": "l10n_hr.change.fiscal.data",
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "target": "new",
+            "context": {"active_model": self._name, "active_id": self.id},
+        }

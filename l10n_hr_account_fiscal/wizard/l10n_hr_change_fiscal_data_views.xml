@@ -6,13 +6,23 @@
             <field name="name">l10n_hr_change_fiscal_data_form_view</field>
             <field name="model">l10n_hr.change.fiscal.data</field>
             <field name="arch" type="xml">
-                <form string="Change Fiscal Data">
+                <form>
+                    <field name="res_model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                    <div class="alert alert-warning" role="alert" invisible="not warning">
+                        <field name="warning" nolabel="1"/>
+                    </div>
                     <group>
-                        <group>
-                            <field name="partner_id" options="{'no_open': True, 'no_create_edit': True}"/>
+                        <group string="Current">
+                            <field name="current_partner_id" options="{'no_open': True}"/>
+                            <field name="current_payment_method"/>
                         </group>
-                        <group>
-                            <field name="l10n_hr_payment_method"/>
+                        <group string="New">
+                            <field name="partner_id" options="{'no_open': True, 'no_create_edit': True}"/>
+                            <field name="recipient_oib" invisible="not recipient_oib"/>
+                            <label for="recipient_oib" invisible="recipient_oib"/>
+                            <div class="text-muted" invisible="recipient_oib">None, the receipt is issued to a private person</div>
                         </group>
                     </group>
                     <footer>

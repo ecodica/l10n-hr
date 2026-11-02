@@ -1,7 +1,7 @@
 import logging
 
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_compare
 
 from odoo import _, api, fields, models
@@ -257,15 +257,110 @@ class AccountMove(models.Model):
     def button_fiscalize_check(self):
         self.fiscalize(msg_type='provjera')
 
-    def button_fiscalize_change(self):
-        return {
-            "name": self.env._("Change Fiscal Data"),
-            "type": "ir.actions.act_window",
-            "res_model": "l10n_hr.change.fiscal.data",
-            "view_mode": "form",
-            "target": "new",
-            "context": self.env.context,
+    @api.model
+    def _l10n_hr_fiscal_change_depends(self):
+        """Extend: the state, type, hash and date the invoice is refused by."""
+        return super()._l10n_hr_fiscal_change_depends() + ['state', 'move_type', 'inalterable_hash', 'date']
+
+    def _l10n_hr_fiscal_change_document_errors(self):
+        """Extend: only a posted customer invoice or credit note, not hashed or locked.
+
+        A new customer is written on the journal items of the invoice and of the payments
+        that follow it, which core refuses in a locked period.
+        """
+        errors = super()._l10n_hr_fiscal_change_document_errors()
+        if errors:
+            return errors
+        if self.state != 'posted' or self.move_type not in ('out_invoice', 'out_refund'):
+            return [self.env._("Only a posted customer invoice or credit note can change its fiscal data.")]
+        if self.inalterable_hash:
+            # hashed journal items refuse a new partner
+            return [self.env._("%(move)s is secured by a hash, so its customer cannot change.",
+                               move=self.display_name)]
+        try:
+            (self | self._l10n_hr_fiscal_change_counterparts()[0].move_id)._check_fiscal_lock_dates()
+        except UserError as error:
+            return [error.args[0]]
+        return []
+
+    def _l10n_hr_fiscal_change_errors(self, partner, payment_method):
+        """Extend: an invoice needs a customer, and keeps its receivable account.
+
+        A new customer recomputes the receivable account of a single installment from
+        the customer's own account. Moving the receivable would break its reconciliation
+        with the payment, so a customer with another receivable account is refused.
+        """
+        errors = super()._l10n_hr_fiscal_change_errors(partner, payment_method)
+        if errors:
+            return errors
+        if not partner:
+            return [self.env._("An invoice needs a customer.")]
+        receivable = partner.commercial_partner_id.with_company(self.company_id).property_account_receivable_id
+        if self.fiscal_position_id:
+            receivable = self.fiscal_position_id.map_account(receivable)
+        term_accounts = self.line_ids.filtered(lambda line: line.display_type == 'payment_term').account_id
+        if receivable and term_accounts != receivable:
+            errors.append(self.env._(
+                "%(partner)s uses the receivable account %(account)s, the invoice %(accounts)s. "
+                "Cancel the invoice and issue a new one instead.",
+                partner=partner.display_name,
+                account=receivable.display_name,
+                accounts=", ".join(term_accounts.mapped("display_name")),
+            ))
+        return errors
+
+    def _l10n_hr_fiscal_change_warnings(self, partner, payment_method):
+        """Extend: name the payments that keep the old customer."""
+        warnings = super()._l10n_hr_fiscal_change_warnings(partner, payment_method)
+        kept = self._l10n_hr_fiscal_change_counterparts()[1]
+        if kept and partner != self.partner_id:
+            warnings.append(self.env._(
+                "These payments stay with %(partner)s: %(payments)s. Change their customer by hand "
+                "if needed.",
+                partner=self.partner_id.display_name,
+                payments=", ".join(kept.mapped("display_name")),
+            ))
+        return warnings
+
+    def _l10n_hr_fiscal_change_counterparts(self):
+        """Split what is reconciled with this invoice into what follows its customer and the rest.
+
+        :return: ``(movable, kept)``: the journal items that take the new customer with the
+            invoice, and the entries left as they are. Here nothing moves: a payment
+            registered by hand or matched on a bank statement is its own record of who
+            paid. Modules whose payments are part of the sale override this.
+        """
+        self.ensure_one()
+        receivable = self.line_ids.filtered(lambda line: line.display_type == 'payment_term')
+        counterparts = receivable.matched_debit_ids.debit_move_id | receivable.matched_credit_ids.credit_move_id
+        return self.env['account.move.line'], counterparts.move_id
+
+    @api.model
+    def _l10n_hr_fiscal_change_kept_fields(self):
+        """Fields recomputed from the customer that must keep their value on a posted invoice.
+
+        Recomputing them would rebuild the payment-term lines, reset the bank account and
+        the terms, or remap accounts on an invoice that is already issued.
+        """
+        return [
+            'fiscal_position_id',
+            'invoice_payment_term_id',
+            'preferred_payment_method_line_id',
+            'partner_bank_id',
+            'narration',
+        ]
+
+    def _l10n_hr_write_fiscal_change(self, vals):
+        """Extend: write the customer of a posted invoice, and of the payments that follow it."""
+        self.ensure_one()
+        movable = self._l10n_hr_fiscal_change_counterparts()[0]
+        kept = {
+            name: self._fields[name].convert_to_write(self[name], self)
+            for name in self._l10n_hr_fiscal_change_kept_fields()
         }
+        self.with_context(skip_readonly_check=True).write({**kept, **vals})
+        if 'partner_id' in vals:
+            movable.write({'partner_id': self.commercial_partner_id.id})
 
     def action_cron_batch_fiscalize(self):
         moves = self.search([

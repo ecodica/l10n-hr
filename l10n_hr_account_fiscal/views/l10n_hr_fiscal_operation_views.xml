@@ -120,8 +120,8 @@
                                     <field name="sequence" widget="handle"/>
                                     <field name="type" required="1"/>
                                     <field name="dow" required="1"/>
-                                    <field name="valid_from" attrs="{'required': [('type', '=', 'regular')]}"/>
-                                    <field name="valid_on" attrs="{'required': [('type', '=', 'exception')]}"/>
+                                    <field name="valid_from" required="type == 'regular'"/>
+                                    <field name="valid_on" required="type == 'exception'"/>
                                     <field name="time_from" required="1"/>
                                     <field name="time_to" required="1"/>
                                     <field name="split_shift"/>

@@ -1,0 +1,14 @@
+l10n_hr_account_fiscal/views/l10n_hr_fiscal_operation_views.xml
+  h_35712297e8d9a2 123-124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9ef8b7bebf8460dd445fbf3c8a3246c276aa4884",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

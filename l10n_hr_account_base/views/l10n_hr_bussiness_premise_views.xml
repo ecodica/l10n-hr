@@ -78,8 +78,10 @@
                                                 domain="['&amp;',('type','=','sale'),'|',('l10n_hr_business_premise_id','=',False),('l10n_hr_business_premise_id','=', l10n_hr_business_premise_id)]"
                                         />
                                         <field name="l10n_hr_invoice_sequence_by" column_invisible="True"/>
-                                        <field name="l10n_hr_sequence_id" optional="hide"
-                                               column_invisible="'l10n_hr_invoice_sequence_by' == 'P'"/>
+                                        <!-- hide the device sequence column when the premise
+                                             sequences invoices itself ('P') -->
+                                        <field name="l10n_hr_sequence_id" optional="show"
+                                               column_invisible="parent.l10n_hr_invoice_sequence_by == 'P'"/>
                                         <field name="l10n_hr_state" widget="badge"/>
                                         <button type="object"
                                                 name="button_activate_device"

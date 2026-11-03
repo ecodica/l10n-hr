@@ -1,0 +1,16 @@
+l10n_hr_account_base/__manifest__.py
+  h_35712297e8d9a2 6
+l10n_hr_account_base/views/l10n_hr_bussiness_premise_views.xml
+  h_35712297e8d9a2 81-84,144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9818de97dd039fd903489c30f36c7f8d5ddbb6a4",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

@@ -15,8 +15,10 @@
                         invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
                 <button string="Fiscal Check" type="object" name="button_fiscalize_check"
                         invisible="not l10n_hr_jir"/>
+                <!-- Until midnight of the issue day only: FINA refuses the change afterwards. -->
                 <button string="Change Fiscal Data" type="object" name="button_fiscalize_change"
-                        invisible="not l10n_hr_jir"/>
+                        groups="account.group_account_invoice"
+                        invisible="not l10n_hr_fiscal_change_allowed"/>
             </xpath>
             <group name="l10n_hr_base_fiscal" position="after">
                 <group name="l10n_hr_fiscal_full" invisible="not l10n_hr_zki">
@@ -53,8 +55,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
             <button name="action_force_register_payment" position="after">
-                <button name="action_manual_batch_fiscalize" type="object" string="Fiscalize Batch"
-                        invisible="country_code != 'HR'"/>
+                <button name="action_manual_batch_fiscalize" type="object" string="Fiscalize Batch"/>
             </button>
         </field>
     </record>

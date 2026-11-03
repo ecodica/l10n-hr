@@ -131,19 +131,52 @@ msgstr ""
 "- prijaviRadnoVrijemeZaPoslovnice\n"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__l10n_hr_payment_method
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "%(document)s has no JIR: it has not been fiscalized."
+msgstr "%(document)s nema JIR: nije fiskaliziran."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "%(document)s is being changed by someone else. Try again in a moment."
+msgstr "%(document)s upravo mijenja netko drugi. Pokušajte ponovno za trenutak."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
 msgid ""
-"According to Fiscalization Law and regulative there are 4 possible options: \n"
-"G - Cash (coins or bills), fiscalization required\n"
-"K - Bank cards, fiscalization required\n"
-"T - Transaction bank account\n"
-"O - Other payment, fiscalization required\n"
+"%(document)s was not changed, you can try again until midnight. Reason: "
+"%(reason)s"
 msgstr ""
-"Prema Zakonu o fiskalizaciji postoje 4 mogućnosti: \n"
-"G - Gotovina (novčanice i kovanice), obavezna fiskalizacija\n"
-"K - Bankovne kartice, obavezna fiskalizacija\n"
-"T - Transakcijski račun\n"
-"O - Ostali načini plaćanja, obavezna fiskalizacija\n"
+"%(document)s nije promijenjen, možete pokušati ponovno do ponoći. Razlog: "
+"%(reason)s"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
+msgid "%(model)s is not a fiscal document."
+msgstr "%(model)s nije fiskalni dokument."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "%(move)s is secured by a hash, so its customer cannot change."
+msgstr "%(move)s je zaštićen hashom, pa mu se kupac ne može promijeniti."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "%(partner)s belongs to another company."
+msgstr "%(partner)s pripada drugoj tvrtki."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid ""
+"%(partner)s uses the receivable account %(account)s, the invoice "
+"%(accounts)s. Cancel the invoice and issue a new one instead."
+msgstr "%(partner)s koristi konto potraživanja %(account)s, a račun %(accounts)s. Umjesto toga stornirajte račun i izdajte novi."
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
@@ -169,7 +202,13 @@ msgid "Already Fiscalized"
 msgstr "Već fiskalizirano"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__t
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid "An invoice needs a customer."
+msgstr "Račun mora imati kupca."
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__current_payment_method__t
 msgid "Bank transfer"
 msgstr "Bankovni prijenos"
 
@@ -207,7 +246,7 @@ msgstr ""
 "                    Ako je potrebno, može se omogućiti na postavkama tvrtke."
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__g
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__current_payment_method__g
 msgid "Cash"
 msgstr "Gotovina"
 
@@ -227,14 +266,8 @@ msgid "Certificates"
 msgstr "Certifikati"
 
 #. module: l10n_hr_account_fiscal
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
-msgid "Change"
-msgstr "Promijeni"
-
-#. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.view_l10n_hr_fiscal_move_form
 msgid "Change Fiscal Data"
 msgstr "Promijeni fiskalne podatke"
@@ -243,6 +276,11 @@ msgstr "Promijeni fiskalne podatke"
 #: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_change_fiscal_data
 msgid "Change Fiscal Data Wizard"
 msgstr "Čarobnjak za promjenu fiskalnih podataka"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "Change"
+msgstr "Promijeni"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_fiscal_log__type__provjera
@@ -259,11 +297,18 @@ msgstr ""
 "izdavanja računa"
 
 #. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Choose the payment method."
+msgstr "Odaberite način plaćanja."
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model,name:l10n_hr_account_fiscal.model_res_company
 msgid "Companies"
 msgstr "Tvrtke"
 
 #. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__company_id
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__company_id
 msgid "Company"
 msgstr "Tvrtka"
@@ -291,14 +336,9 @@ msgid "Created on"
 msgstr "Kreirano"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__k
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__current_payment_method__k
 msgid "Credit or debit cards"
 msgstr "Kreditne ili debitne kartice"
-
-#. module: l10n_hr_account_fiscal
-#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__l10n_hr_payment_method
-msgid "Croatia - Payment Method"
-msgstr "Hrvatska - Način plaćanja"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model,name:l10n_hr_account_fiscal.model_l10n_hr_fiscal_v1_mixin
@@ -327,9 +367,30 @@ msgid "Cron Fiscalization Delay Hours"
 msgstr "Sati odgode automatske fiskalizacije (Cron)"
 
 #. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "Current"
+msgstr "Trenutno"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__current_partner_id
+msgid "Current Customer"
+msgstr "Trenutni kupac"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__current_payment_method
+msgid "Current Payment Method"
+msgstr "Trenutni način plaćanja"
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__partner_id
 msgid "Customer"
 msgstr "Kupac"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Customer: %(old)s (OIB %(old_oib)s) → %(new)s (OIB %(new_oib)s)"
+msgstr "Kupac: %(old)s (OIB %(old_oib)s) → %(new)s (OIB %(new_oib)s)"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__res_company__l10n_hr_fiscal_schema__educ_v1_10
@@ -386,6 +447,16 @@ msgstr "Opis"
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__display_name
 msgid "Display Name"
 msgstr "Naziv za prikaz"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__res_id
+msgid "Document ID"
+msgstr "ID dokumenta"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__res_model
+msgid "Document Model"
+msgstr "Model dokumenta"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_device__enable_cron_fiscalization
@@ -466,6 +537,13 @@ msgid "Fiscal Check"
 msgstr "Fiskalna provjera"
 
 #. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_change_allowed
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_change_allowed
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_change_allowed
+msgid "Fiscal Data Can Change"
+msgstr "Fiskalni podaci se mogu promijeniti"
+
+#. module: l10n_hr_account_fiscal
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
 msgid ""
@@ -489,6 +567,19 @@ msgstr "Fiskalni QR kod"
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_test_env
 msgid "Fiscal Test Mode"
 msgstr "Fiskalni testni način"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
+msgid "Fiscal data changed"
+msgstr "Fiskalni podaci promijenjeni"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"Fiscal data changed, confirmed by the tax authority: %(code)s %(message)s"
+msgstr "Fiskalni podaci promijenjeni, Porezna uprava potvrdila je promjenu: %(code)s %(message)s"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.actions.act_window,name:l10n_hr_account_fiscal.action_l10n_hr_fiscal_log
@@ -768,6 +859,15 @@ msgid "Monday"
 msgstr "Ponedjeljak"
 
 #. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_orig_payment_method
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_orig_payment_method
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_orig_payment_method
+msgid ""
+"NacinPlac the document was fiscalized with. Recorded on the first change of "
+"its fiscal data, empty until then."
+msgstr "NacinPlac s kojim je dokument fiskaliziran. Bilježi se kod prve promjene fiskalnih podataka, do tada je prazan."
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__naknade
 msgid "Naknade (npr. ambalaza)"
 msgstr "Naknade (npr. ambalaža)"
@@ -782,6 +882,11 @@ msgstr "Naziv"
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__ne_podlijeze
 msgid "Ne podlijeze oporezivanju"
 msgstr "Ne podliježe oporezivanju"
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "New"
+msgstr "Novo"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
@@ -815,9 +920,9 @@ msgstr "Napomena"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
-#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
-msgid "Nothing to change!"
-msgstr "Nema promjena!"
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Nothing to change: the customer and payment method are the same."
+msgstr "Nema promjena: kupac i način plaćanja su isti."
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_spec
@@ -827,10 +932,33 @@ msgid ""
 msgstr "OIB informatičke tvrtke koja održava softver, za demo certifikat mora odgovarati OIB-u s demo certifikata"
 
 #. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__recipient_oib
+msgid ""
+"OIB reported to the tax authority: only a company's, so the receipt becomes "
+"R1. Empty for a private person."
+msgstr "OIB koji se prijavljuje Poreznoj upravi: samo OIB tvrtke, čime račun postaje R1. Prazno za fizičku osobu."
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_id
 #: model:ir.model.fields,help:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_ids
 msgid "Officially issued by Croatian FINA Agency, imported and activated"
 msgstr "Službeno izdan od FINA-e, uvezen i aktiviran"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_orig_partner_oib
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_orig_partner_oib
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_orig_partner_oib
+msgid ""
+"OibPrimateljaRacuna the document was fiscalized with, empty when it was "
+"issued without one. Recorded on the first change of its fiscal data."
+msgstr "OibPrimateljaRacuna s kojim je dokument fiskaliziran, prazan ako je izdan bez njega. Bilježi se kod prve promjene fiskalnih podataka."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid ""
+"Only a posted customer invoice or credit note can change its fiscal data."
+msgstr "Fiskalni podaci mogu se promijeniti samo na proknjiženom izlaznom računu ili odobrenju."
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__account_tax__l10n_hr_fiscal_type__marza
@@ -865,7 +993,7 @@ msgid "Other / Not recognized"
 msgstr "Ostalo / Nepoznato"
 
 #. module: l10n_hr_account_fiscal
-#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__l10n_hr_payment_method__o
+#: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_change_fiscal_data__current_payment_method__o
 msgid "Other payment means"
 msgstr "Ostali načini plaćanja"
 
@@ -936,6 +1064,12 @@ msgid "Partner {} is defined as R1 but missing VAT"
 msgstr "Partner {} je definiran kao R1, ali nedostaje OIB/PDV ID"
 
 #. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "Payment method: %(old)s → %(new)s"
+msgstr "Način plaćanja: %(old)s → %(new)s"
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__user_id
 msgid "Person"
 msgstr "Osoba"
@@ -988,6 +1122,11 @@ msgid ""
 "R1 invoice total amount bigger than 700,00 € cannot be fiscalized with the "
 "%s payment type"
 msgstr "Ukupni iznos R1 računa veći od 700,00 € ne može se fiskalizirati s načinom plaćanja %s"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__recipient_oib
+msgid "Recipient OIB"
+msgstr "OIB primatelja"
 
 #. module: l10n_hr_account_fiscal
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_business_premise_form_view
@@ -1058,6 +1197,20 @@ msgstr "Odgovor"
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_log__reply_timestamp
 msgid "Reply TimeStamp"
 msgstr "Vremenska oznaka odgovora"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_orig_payment_method
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_orig_payment_method
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_orig_payment_method
+msgid "Reported Payment Method"
+msgstr "Prijavljeni način plaćanja"
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_orig_partner_oib
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_orig_partner_oib
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_orig_partner_oib
+msgid "Reported Recipient OIB"
+msgstr "Prijavljeni OIB primatelja"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__6
@@ -1150,6 +1303,21 @@ msgid "Test service message"
 msgstr "Testna poruka servisa"
 
 #. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "The OIB of %(partner)s is not valid: it must have 11 digits."
+msgstr "OIB partnera %(partner)s nije ispravan: mora imati 11 znamenki."
+
+#. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_change_allowed
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_change_allowed
+#: model:ir.model.fields,help:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_change_allowed
+msgid ""
+"The document is fiscalized and was issued today, so its recipient and "
+"payment method can still be changed with the tax authority."
+msgstr "Dokument je fiskaliziran i izdan danas, pa se njegov primatelj i način plaćanja još mogu promijeniti kod Porezne uprave."
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.constraint,message:l10n_hr_account_fiscal.constraint_l10n_hr_pnp_category_unique_name
 msgid "The name must be unique!"
 msgstr "Naziv kategorije mora biti jedinstven!"
@@ -1237,6 +1405,11 @@ msgid "Valid on"
 msgstr "Vrijedi na dan"
 
 #. module: l10n_hr_account_fiscal
+#: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_change_fiscal_data__warning
+msgid "Warning"
+msgstr "Upozorenje"
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__3
 msgid "Wednesday"
 msgstr "Srijeda"
@@ -1264,6 +1437,12 @@ msgstr ""
 "                    Provjerite da li je fiskalizacija ispravno postavljena."
 
 #. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "none"
+msgstr "nema"
+
+#. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_bank_statement_line__l10n_hr_fiscal_operator_id
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_account_move__l10n_hr_fiscal_operator_id
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_l10n_hr_fiscal_v1_mixin__l10n_hr_fiscal_operator_id
@@ -1287,6 +1466,50 @@ msgstr ""
 #. odoo-python
 #: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
 msgid ""
+"The recipient and payment method of %(document)s can only be changed on the "
+"day it was issued, until midnight. Cancel it and issue a new one instead."
+msgstr "Primatelj i način plaćanja dokumenta %(document)s mogu se promijeniti samo na dan izdavanja, do ponoći. Umjesto toga stornirajte ga i izdajte novi."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
+"The tax authority confirmed the change, but %(document)s could not be "
+"updated: %(error)s"
+msgstr ""
+"Porezna uprava potvrdila je promjenu, ali %(document)s nije moguće "
+"ažurirati: %(error)s"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
+msgid "The tax authority confirmed the change of %(document)s."
+msgstr "Porezna uprava potvrdila je promjenu dokumenta %(document)s."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/wizard/l10n_hr_change_fiscal_data.py:0
+msgid "The tax authority did not confirm the change"
+msgstr "Porezna uprava nije potvrdila promjenu"
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid "The tax authority did not confirm the change."
+msgstr "Porezna uprava nije potvrdila promjenu."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/account_move.py:0
+msgid ""
+"These payments stay with %(partner)s: %(payments)s. Change their customer by"
+" hand if needed."
+msgstr "Ova plaćanja ostaju na partneru %(partner)s: %(payments)s. Po potrebi im ručno promijenite kupca."
+
+#. module: l10n_hr_account_fiscal
+#. odoo-python
+#: code:addons/l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py:0
+msgid ""
 "Fiscal operator %(employee)s has no OIB. Enter it on the employee; it is "
 "required for fiscalization."
 msgstr ""
@@ -1304,3 +1527,8 @@ msgstr ""
 "Nema fiskalnog operatera: %(user)s nema zaposlenika u tvrtki %(company)s. "
 "Osoba koja izdaje fiskalizirani dokument prijavljuje se OIB-om s radnog "
 "kontakta svog zaposlenika."
+
+#. module: l10n_hr_account_fiscal
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_fiscal.l10n_hr_change_fiscal_data_form_view
+msgid "None, the receipt is issued to a private person"
+msgstr "Nema, račun se izdaje fizičkoj osobi"

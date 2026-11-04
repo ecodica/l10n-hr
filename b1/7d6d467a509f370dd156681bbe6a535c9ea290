@@ -1,0 +1,18 @@
+l10n_hr_bank/i18n/hr.po
+  h_35712297e8d9a2 1-23
+l10n_hr_employee/i18n/hr.po
+  h_35712297e8d9a2 1-50
+uom_en16931/i18n/hr.po
+  h_35712297e8d9a2 1-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b17d6d467a509f370dd156681bbe6a535c9ea290",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

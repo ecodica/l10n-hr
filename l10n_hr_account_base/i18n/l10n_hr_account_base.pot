@@ -1,0 +1,1037 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_hr_account_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 10:41+0000\n"
+"PO-Revision-Date: 2026-11-04 10:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_users_simple_form_inherit
+msgid "<i class=\"fa fa-fw me-1 fa-building text-primary\" title=\"OIB\"/>"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "<strong>Confirmation time:</strong>"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "<strong>Internal number:</strong>"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "<strong>Payment means:</strong>"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "<strong>Place of issue:</strong>"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_payment_method
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_payment_method
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_payment_method
+msgid ""
+"According to Fiscalization Law and regulative there are 4 possible options: \n"
+"G - Cash (coins or bills), fiscalization required\n"
+"K - Bank cards, fiscalization required\n"
+"T - Transaction bank account\n"
+"O - Other payment, fiscalization required\n"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_needaction
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Activate"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_device_form
+msgid "Activate Device"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Activate Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_state__active
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__active
+msgid "Active"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_state
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.onboarding_business_premise_step
+msgid "Add Business Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_advance_invoice
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_advance_invoice
+msgid "Advance invoice"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_lock
+msgid "After first invoice is confirmed, no more changes!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_allowed_fiscal_device_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_allowed_fiscal_device_ids
+msgid "Allowed Fiscal Devices"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_journal_ids
+msgid "Allowed Journals"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__l10n_hr_fiscal_device_ids
+msgid "Allowed PoS Devices"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_fiscal_payment_method__t
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_payment_method__t
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_base_mixin__l10n_hr_payment_method__t
+msgid "Bank transfer"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__l10n_hr_business_premise_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_business_premise_id
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.onboarding_business_premise_step
+msgid "Business Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiscal_premise
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_business_premise_ids
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiscal_premise
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_account_company_form
+msgid "Business Premises"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/l10n_hr_business_premise.py:0
+msgid "Business premise cannot be activated without existing PoS devices!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_business_premise_id
+msgid "Business premise where this device is operating."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_list
+msgid "Business premises"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_payment_method__g
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_base_mixin__l10n_hr_payment_method__g
+msgid "Cash"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_fiscal_payment_method__g
+msgid "Cash (bills and coins)"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Close"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_device_form
+msgid "Close Device"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Close Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_state__closed
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__close
+msgid "Closed"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__company_registry
+msgid "Company ID"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "Company ID:"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__create_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__create_date
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_fiscal_payment_method__k
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_payment_method__k
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_base_mixin__l10n_hr_payment_method__k
+msgid "Credit or debit cards"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_l10n_hr_reports
+msgid "Croatia"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_payment_method
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_payment_method
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_payment_method
+msgid "Croatia - Payment Method"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_move_form
+msgid "Croatia Fiscal Data"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_time_calc
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_time_calc
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_time_calc
+msgid "Croatia Fiscal datetime"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_time
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_time
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_time
+msgid "Croatia Fiscal datetime value as string, should respect format: hh:mm"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_account_journal_l10n_hr_form
+msgid "Croatia Specific"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_l10n_hr_business_premise
+msgid "Croatia business premises"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_finance_config_croatia
+msgid "Croatia settings"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_document
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_date_document
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_date_document
+msgid ""
+"Date when the document was actually created. Leave blank for current date."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__l10n_hr_default_fiscal_payment_method
+msgid "Default fiscal payment method for this journal"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/l10n_hr_business_premise.py:0
+msgid ""
+"Deleting PoS device with confirmed invoices is not possible! Try "
+"deactivating instead."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_fiscal_device_code
+msgid "Device Code"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_device_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_device_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_device_id
+msgid "Device that registers fiscal payment."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_ir_sequence_date_range__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_ir_ui_menu__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_partner__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_date_document
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_date_document
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_date_document
+msgid "Document Date"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_state__draft
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_fiscal_code
+msgid "Fiscal Code"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_account_company_form
+msgid "Fiscal Data"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_device_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_device_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_device_id
+msgid "Fiscal Device"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_device_visible
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_device_visible
+msgid "Fiscal Device Visible?"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_l10n_hr_fiscal_base_mixin
+msgid "Fiscal Mixin class for joint fields"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_number
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_number
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_number
+msgid "Fiscal Number"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_user_id
+msgid "Fiscal User"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_account_company_form
+msgid "Fiscal invoice sequences"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+msgid "Fiscal year %s for company %s has not been properly defined."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__activity_type_icon
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_move_form
+msgid "HR - Fiscal Number"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__has_message
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_journal__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_ir_sequence_date_range__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_ir_ui_menu__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_partner__id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__activity_exception_icon
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__message_needaction
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_error
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_sms_error
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_error
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_invoice_place
+msgid ""
+"If not entered, Premise invoicing place will be used,  as a legally required"
+" element."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_advance_invoice
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_advance_invoice
+msgid "Indicates if invoice is for advance payment."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_fiscal_invoice_sequence_ids
+msgid "Invoice Fiscal Sequences For Company"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_fiscal_separator
+msgid "Invoice Parts Separator"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+msgid "Invoice posting not possible:\n"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+msgid "Invoice with fiscal number %s has already been created."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_is_follower
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_is_ref_required
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_is_ref_required
+msgid "Is Ref Required?"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_sequence_id
+msgid ""
+"Is invoicing sequence is premise based, (P)this is number sequence is used "
+"as first part of invoice fiscal number."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_invoice_place
+msgid ""
+"It will be used as place of invoicing for this premise,  as a legally "
+"required element."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_account_journal
+msgid "Journal"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Journals For This Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_journal_ids
+msgid "Journals In This Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_sequence_id
+msgid "L10N Hr Sequence"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__l10n_hr_show_oib
+msgid "L10N Hr Show Oib"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__write_uid
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__write_date
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_lock
+msgid "Lock Device?"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_lock
+msgid "Lock Premise?"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_ir_ui_menu
+msgid "Menu"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_error
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__my_activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_calendar_event_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_summary
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_type_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_account_company_form
+msgid "Next Number"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+msgid "No active PoS devices found for this journal."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/l10n_hr_fiscal_device.py:0
+msgid ""
+"Not allowed to delete PoS device with invoices related, please deactivate it"
+" instead!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__res_company__l10n_hr_tax_model__not_rh
+msgid "Not subject of taxation in Croatia"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__message_needaction_counter
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_error_counter
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_users_simple_form_inherit
+msgid "OIB"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_invoice_sequence_by__n
+msgid "On PoS device level"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_invoice_sequence_by__p
+msgid "On business premise level"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_lock
+msgid ""
+"Once the first invoice is confirmed, business premise code and invoice "
+"sequence should not be changed."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_company__l10n_hr_fiscal_separator
+msgid "Only '/' or '-' are legally defined as allowed."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_fiscal_device_code
+msgid "Only integer number values allowed, without leading zeroes."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_journal__l10n_hr_default_fiscal_payment_method__o
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__account_move__l10n_hr_payment_method__o
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_base_mixin__l10n_hr_payment_method__o
+msgid "Other payment means"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Pause"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_device_form
+msgid "Pause Device"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Pause Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_business_premise__l10n_hr_state__pause
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__pause
+msgid "Paused"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "Payment Devices In This Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.actions.act_window,name:l10n_hr_account_base.action_fiscal_device
+#: model:ir.ui.menu,name:l10n_hr_account_base.menu_action_fiscal_device
+msgid "Payment Registers"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_invoice_place
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_invoice_place
+msgid "Place Of Invoicing"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_fiscal_device_ids
+msgid "PoS Devices"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_name
+msgid "PoS Name"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_l10n_hr_fiscal_device
+msgid "PoS device (fiscal device) details"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#. odoo-python
+#: code:addons/l10n_hr_account_base/models/account_move.py:0
+msgid "PoS device selected is not active."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid "PoS devices"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_l10n_hr_move_form
+msgid "PoS not ready!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_possible_journal_ids
+msgid "Possible Journals"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.onboarding_business_premise_step
+msgid "Premise added!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_partner__l10n_hr_purchase_journal_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__l10n_hr_purchase_journal_id
+msgid "Purchase Journal"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__res_company__l10n_hr_tax_model__r0
+msgid "R0 - NOT subject of taxation"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__res_company__l10n_hr_tax_model__r1
+msgid "R1 - tax based on invoice"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__res_company__l10n_hr_tax_model__r2
+msgid "R2 - tax based on payment"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__rating_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_number
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_number
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_number
+msgid ""
+"Required fiscal number, generated according to regulations regardless of "
+"journal number."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__activity_user_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__message_has_sms_error
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_partner__l10n_hr_sale_journal_id
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_users__l10n_hr_sale_journal_id
+msgid "Sale Journal"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_sequence_id
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_invoice_sequence_by
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_invoice_sequence_by
+msgid "Sequence By"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_ir_sequence_date_range
+msgid "Sequence Date Range"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.onboarding_business_premise_step
+msgid "Setup your business premises and PoS devices"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_sequence_id
+msgid "Should be defined with no prefix or suffix, used only for this PoS."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_show_required_fiscal_fields_on_header
+msgid "Show Base Fiscalization Fields On Invoice"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_show_required_fiscal_fields_on_header
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_show_required_fiscal_fields_on_header
+msgid "Show Required Fiscal Fields on Header?"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_state
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__l10n_hr_state
+msgid "State"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__activity_state
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_tax_model
+msgid "Tax Model"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_tax_representative_party_id
+msgid "Tax Representative Party"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_device_visible
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_device_visible
+msgid ""
+"Technical field to show device selection only if there is something to "
+"select like 2 or more devices for this journal."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.constraint,message:l10n_hr_account_base.constraint_l10n_hr_business_premise_l10n_hr_business_premise_uniq
+msgid "The code of the business premise must be unique per company!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.constraint,message:l10n_hr_account_base.constraint_l10n_hr_fiscal_device_l10n_hr_fiscal_device_uniq
+msgid "The code of the payment register must be unique per business premise!"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_user_id
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_user_id
+msgid ""
+"The login that sent the fiscalization message. The person reported as having"
+" issued the document is the fiscal operator."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_users__company_registry
+msgid ""
+"The registry number of the company. Use it if it is different from the Tax "
+"ID. It must be unique across all partners of a same country"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_time
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_time
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_time
+msgid "Time Of Fiscalization"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_bank_statement_line__l10n_hr_fiscal_time_calc
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_account_move__l10n_hr_fiscal_time_calc
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_base_mixin__l10n_hr_fiscal_time_calc
+msgid "Time Of Fiscalization(Datetime)"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid ""
+"Use for temporary closing of premise, all related items will be modified "
+"according"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.view_fiscal_premise_form
+msgid ""
+"Use only is business premise is permanently closed,"
+"                                   - All related PoS devices will be closed"
+"                                   - All related PoS journals will be "
+"removed from dashboard, adn all related sequences will be archived"
+"                                   - Once closed no more invoices should "
+"created for this premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_journal_ids
+msgid "Used invoicing journals in this business premise."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model,name:l10n_hr_account_base.model_res_users
+msgid "User"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields.selection,name:l10n_hr_account_base.selection__l10n_hr_fiscal_device__l10n_hr_state__wait
+msgid "Waiting Premise"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_business_premise__website_message_ids
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_l10n_hr_fiscal_device__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__website_message_ids
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_fiscal_device__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_l10n_hr_business_premise__l10n_hr_fiscal_code
+msgid "Will be used as second part of fiscal invoice number."
+msgstr ""
+
+#. module: l10n_hr_account_base
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
+msgid "units"
+msgstr ""

@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * uom_en16931
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-04 09:59+0000\n"
+"PO-Revision-Date: 2026-11-04 09:59+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#. module: uom_en16931
+msgid "Code"
+msgstr "Šifra"
+
+#. module: uom_en16931
+msgid "Created by"
+msgstr "Kreirao"
+
+#. module: uom_en16931
+msgid "Created on"
+msgstr "Datum kreiranja"
+
+#. module: uom_en16931
+msgid "Defines units of measure based on EN16931 standard."
+msgstr "Definira jedinice mjere na temelju standarda EN16931."
+
+#. module: uom_en16931
+msgid "Display Name"
+msgstr "Naziv za prikaz"
+
+#. module: uom_en16931
+msgid "EN16931 UoM"
+msgstr "EN16931 jm"
+
+#. module: uom_en16931
+msgid "EN16931 UoMs"
+msgstr "EN16931 jm"
+
+#. module: uom_en16931
+msgid "ID"
+msgstr "ID"
+
+#. module: uom_en16931
+msgid "Last Updated by"
+msgstr "Promijenio"
+
+#. module: uom_en16931
+msgid "Last Updated on"
+msgstr "Vrijeme promjene"
+
+#. module: uom_en16931
+msgid "Name"
+msgstr "Naziv"
+
+#. module: uom_en16931
+msgid "Product Unit of Measure"
+msgstr "JM proizvoda"
+
+#. module: uom_en16931
+msgid "The EN16931 UoM code has to be unique!"
+msgstr "Šifra EN16931 jm mora biti jedinstvena!"
+
+#. module: uom_en16931
+msgid "UoM Data"
+msgstr "Podaci o jm"
+

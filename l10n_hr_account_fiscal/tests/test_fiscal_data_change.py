@@ -21,7 +21,7 @@ from .test_fiscal_operation import FakeFiscalization, _error_response, _ns
 JIR = "1" * 32
 COMPANY_OIB = "12345678901"
 CUSTOMER_OIB = "12345678903"
-OTHER_OIB = "12345678904"
+OTHER_OIB = "12345678911"
 MSG_TYPE = "promijeniPodatkeRacuna"
 
 

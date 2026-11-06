@@ -19,3 +19,8 @@ msgstr ""
 #: model:account.payment.method,name:l10n_hr_pain_credit_transfer.sepa_credit_transfer_scthr_001_001_03
 msgid "SEPA Credit Transfer to suppliers v03HR (used in Croatia)"
 msgstr "SEPA Plaćanja dobavljačima v03HR"
+
+#. module: l10n_hr_pain_credit_transfer
+#: model:account.payment.method,name:l10n_hr_pain_credit_transfer.sepa_credit_transfer_sctinsthr_001_001_09
+msgid "SEPA Instant Credit Transfer to suppliers v09HR (used in Croatia)"
+msgstr "SEPA Instant plaćanja dobavljačima v09HR"

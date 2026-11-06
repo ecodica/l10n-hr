@@ -1,0 +1,1 @@
+- Odoo 16.0 Community Edition

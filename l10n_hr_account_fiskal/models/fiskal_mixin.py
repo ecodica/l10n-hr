@@ -210,6 +210,15 @@ class FiscalFiscalMixin(models.AbstractModel):
             self.l10n_hr_fiskal_dat_vrijeme, FISKAL_DATETIME_FORMAT
         ).strftime(QR_DATETIME_FORMAT)
 
+    def _l10n_hr_fiskal_is_r1(self):
+        """R1 invoice: issued to a Croatian company, so the buyer OIB is fiscalised.
+
+        A foreign company (or one without a country) has no OIB, so its invoice
+        is fiscalised without the R1 checks and without ``OibPrimateljaRacuna``.
+        """
+        self.ensure_one()
+        return self.partner_id.is_company and self.partner_id.country_id.code == "HR"
+
     def _l10n_hr_post_fiskal_check(self):
         res = []
         if (
@@ -221,7 +230,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
-            self.partner_id.is_company and
+            self._l10n_hr_fiskal_is_r1() and
             not self.partner_id.company_registry
         ):
             res.append(
@@ -229,7 +238,7 @@ class FiscalFiscalMixin(models.AbstractModel):
             )
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
-            self.partner_id.is_company and
+            self._l10n_hr_fiskal_is_r1() and
             self.l10n_hr_account_payment_type_id.code == 'T'
         ):
             res.append(
@@ -247,7 +256,7 @@ class FiscalFiscalMixin(models.AbstractModel):
         if (
             self.l10n_hr_fiskal_uredjaj_id.fiskalisation_active and
             self.l10n_hr_account_payment_type_id.code == 'G' and
-            self.partner_id.is_company and
+            self._l10n_hr_fiskal_is_r1() and
             float_compare(self.amount_total, 700, precision_digits=self.currency_id.decimal_places) == 1
         ):
             res.append(
@@ -463,10 +472,10 @@ class FiscalFiscalMixin(models.AbstractModel):
             OstaliPor=None,
             # error v141: Polje 'Specifična namjena' je namijenjeno za buduće potrebe.
             SpecNamj=None,
-            #OibPrimateljaRacuna=self.partner_id.type == 'company' and self.partner_id.company_registry or ''
         )
-        if self.partner_id.is_company:
-            racun.OibPrimateljaRacuna = self.partner_id.company_registry or ''
+        # we send OIB only for R1 invoices
+        if self._l10n_hr_fiskal_is_r1() and self.partner_id.company_registry:
+            racun.OibPrimateljaRacuna = self.partner_id.company_registry
 
         return racun
 

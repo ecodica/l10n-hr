@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- edited with XMLSpy v2022 (x64) (http://www.altova.com) by Dino Butulija (Financijska agencija) -->
 <xs:schema xmlns="urn:iso:std:iso:20022:tech:xsd:scthr:pain.001.001.09" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:iso:std:iso:20022:tech:xsd:scthr:pain.001.001.09" elementFormDefault="qualified">
 	<xs:element name="Document" type="Document"/>
 	<xs:simpleType name="ActiveOrHistoricCurrencyAndAmount_SimpleType">
@@ -206,14 +205,10 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ISODate">
-		<xs:restriction base="xs:date">
-			<xs:pattern value="[0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2}"/>
-		</xs:restriction>
+		<xs:restriction base="xs:date"/>
 	</xs:simpleType>
 	<xs:simpleType name="ISODateTime">
-		<xs:restriction base="xs:dateTime">
-			<xs:pattern value="[0-9]{4,4}\-[0-9]{2,2}\-[0-9]{2,2}[T][0-9]{2,2}:[0-9]{2,2}:[0-9]{2,2}[\S]*"/>
-		</xs:restriction>
+		<xs:restriction base="xs:dateTime"/>
 	</xs:simpleType>
 	<xs:complexType name="LocalInstrument2Choice">
 		<xs:choice>
@@ -270,8 +265,15 @@
 		<xs:choice>
 			<xs:element name="AnyBIC" type="AnyBICDec2014Identifier" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="LEI" type="LEIIdentifier" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Othr" type="GenericOrganisationIdentification1" minOccurs="0"/>
+			<xs:element name="Othr" type="GenericOrganisationIdentification1" minOccurs="0" maxOccurs="1"/>
 		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="OrganisationIdentification29_1">
+		<xs:sequence>
+			<xs:element name="AnyBIC" type="AnyBICDec2014Identifier" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="LEI" type="LEIIdentifier" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Othr" type="GenericOrganisationIdentification1" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="OrganisationIdentificationSchemeName1Choice">
 		<xs:choice>
@@ -285,6 +287,12 @@
 			<xs:element name="PrvtId" type="PersonIdentification13"/>
 		</xs:choice>
 	</xs:complexType>
+	<xs:complexType name="Party38Choice_1">
+		<xs:choice>
+			<xs:element name="OrgId" type="OrganisationIdentification29_1"/>
+			<xs:element name="PrvtId" type="PersonIdentification13"/>
+		</xs:choice>
+	</xs:complexType>
 	<xs:complexType name="PaymentInstruction30">
 		<xs:sequence>
 			<xs:element name="PmtInfId" type="Max35Text_Id"/>
@@ -294,10 +302,10 @@
 			<xs:element name="CtrlSum" type="DecimalNumber" maxOccurs="1"/>
 			<xs:element name="PmtTpInf" type="PaymentTypeInformation26PmtInf" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="ReqdExctnDt" type="DateAndDateTime2Choice"/>
-			<xs:element name="Dbtr" type="PartyIdentification135_1"/>
+			<xs:element name="Dbtr" type="PartyIdentification135_3"/>
 			<xs:element name="DbtrAcct" type="CashAccount38Dbtr"/>
 			<xs:element name="DbtrAgt" type="BranchAndFinancialInstitutionIdentification6DbtrAgt"/>
-			<xs:element name="UltmtDbtr" type="PartyIdentification135_2" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UltmtDbtr" type="PartyIdentification135_4" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="ChrgBr" type="ChargeBearerType1Code" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="CdtTrfTxInf" type="CreditTransferTransaction34" minOccurs="1" maxOccurs="unbounded"/>
 		</xs:sequence>
@@ -308,7 +316,7 @@
 			<xs:element name="PmtTpInf" type="PaymentTypeInformation26CdtTrfTxInf" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Amt" type="AmountType4Choice"/>
 			<xs:element name="ChrgBr" type="ChargeBearerType1Code" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="UltmtDbtr" type="PartyIdentification135_2" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="UltmtDbtr" type="PartyIdentification135_4" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="CdtrAgt" type="BranchAndFinancialInstitutionIdentification6CdtrAgt" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Cdtr" type="PartyIdentification135_1" maxOccurs="1"/>
 			<xs:element name="CdtrAcct" type="CashAccount38Cdtr" maxOccurs="1"/>
@@ -449,10 +457,23 @@
 			<xs:element name="Id" type="Party38Choice" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="PartyIdentification135_3">
+		<xs:sequence>
+			<xs:element name="Nm" type="Max70Text" maxOccurs="1"/>
+			<xs:element name="PstlAdr" type="PostalAddress24" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Id" type="Party38Choice_1" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="PartyIdentification135_2">
 		<xs:sequence>
 			<xs:element name="Nm" type="Max70Text" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Id" type="Party38Choice" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PartyIdentification135_4">
+		<xs:sequence>
+			<xs:element name="Nm" type="Max70Text" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Id" type="Party38Choice_1" minOccurs="0" maxOccurs="1"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="PersonIdentificationSchemeName1Choice">

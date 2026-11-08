@@ -189,7 +189,7 @@ class AccountMove(models.Model):
                     _("Fiscal Device on origin invoice %s is different from the Fiscal Device on this "
                       "invoice. Please change Fiscal Device to the %s"
                       ) % (
-                        self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiscal_device_id.name_get()[0][1])
+                        self.reversed_entry_id.name, self.reversed_entry_id.l10n_hr_fiscal_device_id.display_name)
                 )
         return res
 

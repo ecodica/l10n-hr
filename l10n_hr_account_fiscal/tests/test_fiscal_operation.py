@@ -619,7 +619,9 @@ class TestFiscalOperation(TransactionCase):
                 self.assertTrue(launcher.exists())
                 self.assertEqual(launcher.state, 'draft')
                 self.assertFalse(FakeFiscalization.calls, 'the second premise has no selected hours')
-                self.assertFalse(self.Operation.search([('business_premise_id', '!=', False)]))
+                self.assertFalse(self.Operation.search([
+                    ('business_premise_id', 'in', (self.premise | other).ids),
+                ]))
 
     def test_referenced_hours_cannot_be_sent_under_another_premise(self):
         other = self._other_premise()

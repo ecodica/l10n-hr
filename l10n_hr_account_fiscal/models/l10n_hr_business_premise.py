@@ -132,6 +132,8 @@ class L10nHrBusinessPremise(models.Model):
         """Open a draft operation covering the selected premise(s): the user picks
         get/register/remove and executes it. Several premises are fanned out into
         one operation each."""
+        self.env['l10n_hr.fiscal.operation']._check_execution_access()
+        self.check_access('read')
         context = {}
         if len(self) == 1:
             context['default_business_premise_id'] = self.id

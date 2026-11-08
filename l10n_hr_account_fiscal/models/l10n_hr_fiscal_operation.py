@@ -5,7 +5,7 @@ from datetime import date, datetime, timedelta
 from markupsafe import Markup, escape
 
 from odoo import Command, _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 
 from ..fiscal import fiscal
 from ..helpers.fiscal_wrapper import fisc_handler
@@ -221,12 +221,38 @@ class L10nHrFiscalOperation(models.Model):
     # ------------------------------------------------------------------------
     # History integrity
     # ------------------------------------------------------------------------
+    @api.model
+    def _execution_fields(self):
+        return {
+            'execution_date', 'user_id', 'fiscal_log_id', 'error_msg',
+            'snapshot_before', 'snapshot_after', 'diff',
+            'added_count', 'removed_count', 'changed_count',
+            'schedule_before_id', 'schedule_after_id',
+        }
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        defaults = self.default_get(list(self._execution_fields() | {'state'}))
+        for vals in vals_list:
+            effective = {**defaults, **vals}
+            if effective.get('state', 'draft') != 'draft' or self._execution_fields().intersection(effective):
+                raise UserError(_('Fiscal execution results can only be recorded by executing an operation.'))
+        return super().create(vals_list)
+
     def write(self, vals):
-        if not self.env.context.get('l10n_hr_fiscal_operation_execute'):
-            executed = self.filtered(lambda op: op.state != 'draft')
-            if executed:
-                raise UserError(_('Executed fiscal operations are history and cannot be modified.'))
+        if any(op.state != 'draft' for op in self):
+            raise UserError(_('Executed fiscal operations are history and cannot be modified.'))
+        if ('state' in vals and vals['state'] != 'draft') or self._execution_fields().intersection(vals):
+            raise UserError(_('Fiscal execution results can only be recorded by executing an operation.'))
         return super().write(vals)
+
+    @api.constrains('business_premise_id', 'business_premise_ids')
+    def _check_premise_access(self):
+        for op in self:
+            premises = op.business_premise_id | op.business_premise_ids
+            premises.check_access('read')
+            if not self.env.su and premises.company_id - self.env.companies:
+                raise AccessError(_('Fiscal operations must use premises of the enabled companies.'))
 
     def unlink(self):
         if any(op.state != 'draft' for op in self):
@@ -235,12 +261,19 @@ class L10nHrFiscalOperation(models.Model):
 
     def _write_execution(self, vals):
         """Write bypassing the immutability guard - for the execution flow only."""
-        return self.with_context(l10n_hr_fiscal_operation_execute=True).write(vals)
+        return super().write(vals)
 
     # ------------------------------------------------------------------------
     # Execution
     # ------------------------------------------------------------------------
+    def _check_execution_access(self):
+        if not self.env.su and not self.env.user.has_group('l10n_hr_account_fiscal.group_fiscal_manager'):
+            raise AccessError(_('Only fiscal managers can execute working hours operations.'))
+        self.check_access('write')
+        self._check_premise_access()
+
     def action_execute(self):
+        self._check_execution_access()
         generated = self.env['l10n_hr.fiscal.operation']
         for op in self:
             if op.state == 'draft' and not op.business_premise_id and op.business_premise_ids:
@@ -322,13 +355,17 @@ class L10nHrFiscalOperation(models.Model):
         if self.operation == 'remove' and not self.remove_count and not self.remove_all:
             raise UserError(_('There are no working hours selected to be removed!'))
         self._check_working_hours_scope(self.business_premise_id)
+        if self.operation == 'register':
+            self.line_ids.filtered(lambda line: line.action == 'register')._check_register_has_data()
         if self.operation == 'remove':
+            if self.line_ids.filtered(lambda line: line.action == 'remove' and not line.working_hours_id):
+                raise UserError(_('Selected working hours no longer exist. Select existing entries to remove.'))
             self._check_complete_remove_dates()
 
     def _check_working_hours_scope(self, premises):
         """Never send or delete a referenced shift under another premise's code."""
         self.ensure_one()
-        referenced = self.line_ids.filtered(lambda line: line.action == self.operation).working_hours_id
+        referenced = self.line_ids.working_hours_id
         if referenced.business_premise_id - premises:
             raise UserError(_(
                 'Selected working hours must belong to the selected business premise(s).'
@@ -359,7 +396,8 @@ class L10nHrFiscalOperation(models.Model):
         # Use a fixed 30-day window around today so the snapshot is useful without
         # being huge. The operation itself records the exact date of the change.
         today = fields.Date.context_today(self)
-        schedule = self.env['l10n_hr.working.hours.schedule'].create({
+        # Only this private execution path may create/rebuild audit snapshots.
+        schedule = self.env['l10n_hr.working.hours.schedule'].sudo().create({
             'date_from': today,
             'date_to': today + timedelta(days=30),
             'business_premise_ids': [(6, 0, self.business_premise_id.ids)],
@@ -403,8 +441,14 @@ class L10nHrFiscalOperation(models.Model):
         Communication errors are caught and stored on the record instead of raised, so
         the operation (and its fiscal log) survive as history even when FINA rejects it.
         """
+        self._check_execution_access()
         self._prepare_remove_all_lines()
         self._check_executable()
+        # Keep the values in history even if a later get/remove deletes the source.
+        for line in self.line_ids.filtered('working_hours_id'):
+            values = line._to_working_hours_vals(self.business_premise_id.id)
+            values.pop('business_premise_id')
+            line.write(values)
         premise = self.business_premise_id
         before = premise._get_working_hours_snapshot()
         schedule_before = self._create_schedule_snapshot()

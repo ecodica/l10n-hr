@@ -6,7 +6,7 @@ import os
 from lxml import etree
 
 from odoo import _, fields, models, api
-from odoo.exceptions import MissingError
+from odoo.exceptions import AccessError, MissingError
 
 from ..fiscal import fiscal
 from ..helpers.docs_helper import SCHEMA_HELP
@@ -206,11 +206,22 @@ class ResCompany(models.Model):
             )
         return values
 
+    @api.private
     def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin):
+        self.ensure_one()
+        if not self.env.su and self not in self.env.companies:
+            raise AccessError(_('Fiscal logs must belong to an enabled company.'))
+        origin.check_access('read')
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
-        return self.env["l10n_hr.fiscal.log"].create(log_vals)
+        # Cashiers can fiscalize without permission to fabricate or edit audit logs.
+        return self.env["l10n_hr.fiscal.log"].sudo().create(log_vals)
 
     def button_l10n_hr_test_fiscal_echo(self, origin=None):
+        self.ensure_one()
+        if not self.env.su and not self.env.user.has_group('l10n_hr_account_fiscal.group_fiscal_manager'):
+            raise AccessError(_('Only fiscal managers can send test fiscal messages.'))
+        if not self.env.su and self not in self.env.companies:
+            raise AccessError(_('Fiscal messages must belong to an enabled company.'))
         # if called from Company default origin to itself
         origin = origin or self
         fd = self.get_fiscal_data()

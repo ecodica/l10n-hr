@@ -82,6 +82,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         domain=lambda model: [('res_model', '=', model._name)],
         string="Fiscal message logs",
         help="Log of all messages sent and received for FINA",
+        groups="account.group_account_invoice,l10n_hr_account_fiscal.group_fiscal_manager",
         readonly=True
     )
     l10n_hr_fiscal_operator_id = fields.Many2one(
@@ -438,6 +439,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         delay_fiscalization : odgodi poziv servisa za fiskalizaciju (generira se samo ZKI broj),
         """
         self.ensure_one()
+        self.check_access('write')
         # exit if fiscalization is not needed for invoice
         if not self._l10n_hr_fiscalization_needed():
             return

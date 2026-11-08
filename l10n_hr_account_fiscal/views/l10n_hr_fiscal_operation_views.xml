@@ -55,6 +55,7 @@
                 <header>
                     <button name="action_execute" string="Execute" type="object" class="btn-primary"
                             invisible="state != 'draft'"
+                            groups="l10n_hr_account_fiscal.group_fiscal_manager"
                             confirm="This will send the selected message to FINA. Continue?"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                 </header>

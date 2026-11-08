@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <list create="0" edit="0"
                   decoration-danger="state == 'error'"
+                  decoration-warning="state == 'uncertain'"
                   decoration-muted="state == 'draft'">
                 <field name="execution_date"/>
                 <field name="business_premise_id"/>
@@ -18,7 +19,10 @@
                 <field name="state" widget="badge"
                        decoration-success="state == 'done'"
                        decoration-danger="state == 'error'"
+                       decoration-warning="state == 'uncertain'"
                        decoration-info="state == 'draft'"/>
+                <field name="is_reconciled" optional="hide"/>
+                <field name="reconciliation_of_id" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
             </list>
         </field>
@@ -33,6 +37,7 @@
                 <field name="user_id"/>
                 <filter name="done" string="Done" domain="[('state', '=', 'done')]"/>
                 <filter name="error" string="Error" domain="[('state', '=', 'error')]"/>
+                <filter name="uncertain" string="Needs Reconciliation" domain="[('state', '=', 'uncertain')]"/>
                 <separator/>
                 <filter name="with_changes" string="With Changes"
                         domain="['|', '|', ('added_count', '>', 0), ('removed_count', '>', 0), ('changed_count', '>', 0)]"/>
@@ -57,7 +62,11 @@
                             invisible="state != 'draft'"
                             groups="l10n_hr_account_fiscal.group_fiscal_manager"
                             confirm="This will send the selected message to FINA. Continue?"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    <button name="action_reconcile" string="Reconcile from FINA" type="object"
+                            groups="l10n_hr_account_fiscal.group_fiscal_manager"
+                            invisible="state != 'uncertain' or is_reconciled"
+                            confirm="This fetches current working hours from FINA. The original change will not be resent."/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done,error,uncertain"/>
                 </header>
                 <sheet>
                     <div class="alert alert-danger" role="alert" invisible="not error_msg">
@@ -109,6 +118,8 @@
                             <field name="user_id" widget="many2one_avatar_user"/>
                             <field name="company_id" groups="base.group_multi_company"/>
                             <field name="fiscal_log_id" invisible="not fiscal_log_id"/>
+                            <field name="reconciliation_of_id" invisible="not reconciliation_of_id"/>
+                            <field name="is_reconciled" invisible="state != 'uncertain'"/>
                         </group>
                     </group>
                     <notebook>
@@ -163,6 +174,9 @@
                         </page>
                         <page string="Schedule After" name="schedule_after" invisible="not schedule_after_id">
                             <field name="schedule_after_id" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="Reconciliation Attempts" name="reconciliation" invisible="not reconciliation_ids">
+                            <field name="reconciliation_ids" readonly="1"/>
                         </page>
                         <page string="Request / Response" name="xml">
                             <group>

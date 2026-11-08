@@ -8,7 +8,7 @@ from odoo import Command, _, api, fields, models
 from odoo.exceptions import AccessError, UserError
 
 from ..fiscal import fiscal
-from ..helpers.fiscal_wrapper import fisc_handler
+from ..helpers.fiscal_wrapper import FiscalExchange, fisc_handler
 from .l10n_hr_business_working_hours import DAYS_OF_WEEK
 from .l10n_hr_fiscal_v1_mixin import employee_oib, operator_errors
 
@@ -108,7 +108,8 @@ class L10nHrFiscalOperation(models.Model):
     state = fields.Selection(
         selection=[('draft', 'Draft'),
                    ('done', 'Done'),
-                   ('error', 'Error')],
+                   ('error', 'Error'),
+                   ('uncertain', 'Needs Reconciliation')],
         string='Status',
         required=True,
         readonly=True,
@@ -121,6 +122,20 @@ class L10nHrFiscalOperation(models.Model):
         readonly=True,
     )
     execution_date = fields.Datetime(string='Executed On', readonly=True)
+
+    reconciliation_of_id = fields.Many2one(
+        'l10n_hr.fiscal.operation', string='Reconciliation Of', readonly=True, ondelete='restrict',
+        help='A fresh GET to establish the current FINA state; not a retry of the original request.',
+    )
+    reconciliation_ids = fields.One2many(
+        'l10n_hr.fiscal.operation', 'reconciliation_of_id', string='Reconciliation Attempts', readonly=True,
+    )
+    is_reconciled = fields.Boolean(compute='_compute_is_reconciled')
+
+    @api.depends('reconciliation_ids.state')
+    def _compute_is_reconciled(self):
+        for op in self:
+            op.is_reconciled = any(attempt.state == 'done' for attempt in op.reconciliation_ids)
 
     # -- communication -------------------------------------------------------
     fiscal_log_id = fields.Many2one(
@@ -227,7 +242,7 @@ class L10nHrFiscalOperation(models.Model):
             'execution_date', 'user_id', 'fiscal_log_id', 'error_msg',
             'snapshot_before', 'snapshot_after', 'diff',
             'added_count', 'removed_count', 'changed_count',
-            'schedule_before_id', 'schedule_after_id',
+            'schedule_before_id', 'schedule_after_id', 'reconciliation_of_id', 'reconciliation_ids',
         }
 
     @api.model_create_multi
@@ -251,6 +266,8 @@ class L10nHrFiscalOperation(models.Model):
         for op in self:
             premises = op.business_premise_id | op.business_premise_ids
             premises.check_access('read')
+            if op.business_premise_id and op.business_premise_ids - op.business_premise_id:
+                raise UserError(_('Choose a single business premise or a batch, not both.'))
             if not self.env.su and premises.company_id - self.env.companies:
                 raise AccessError(_('Fiscal operations must use premises of the enabled companies.'))
 
@@ -275,19 +292,27 @@ class L10nHrFiscalOperation(models.Model):
     def action_execute(self):
         self._check_execution_access()
         generated = self.env['l10n_hr.fiscal.operation']
+        launchers = self.env['l10n_hr.fiscal.operation']
         for op in self:
             if op.state == 'draft' and not op.business_premise_id and op.business_premise_ids:
                 generated |= op._fan_out()
+                launchers |= op
             else:
-                op._execute()
                 generated |= op
+        if len(generated.filtered('business_premise_id')) != len(generated.business_premise_id):
+            raise UserError(_('Execute only one operation per business premise at a time.'))
+        # This includes public multi-record calls, not just a single launcher.
+        prepared = [(op, op._prepare_execution()) for op in generated]
+        for op, values in prepared:
+            op._execute(prepared=values)
+        launchers.unlink()
         return generated._action_result()
 
     def _fan_out(self):
-        """A draft launcher spawns one executed operation per selected premise.
+        """Expand a launcher into drafts; action_execute owns batch execution.
 
-        The launcher itself carries no history and is discarded once its children
-        have been created and executed.
+        The launcher is discarded only after the entire input set has been
+        prepared and its children executed.
         """
         self.ensure_one()
         premises = self.business_premise_ids
@@ -302,6 +327,7 @@ class L10nHrFiscalOperation(models.Model):
         children = self.create([
             {
                 'business_premise_id': premise.id,
+                'business_premise_ids': [Command.clear()],
                 'operation': self.operation,
                 'remove_all': self.remove_all,
                 'line_ids': [
@@ -316,9 +342,6 @@ class L10nHrFiscalOperation(models.Model):
         for child in children:
             child._prepare_remove_all_lines()
             child._check_executable()
-        for child in children:
-            child._execute()
-        self.unlink()
         return children
 
     def _action_result(self):
@@ -355,6 +378,17 @@ class L10nHrFiscalOperation(models.Model):
         if self.operation == 'remove' and not self.remove_count and not self.remove_all:
             raise UserError(_('There are no working hours selected to be removed!'))
         self._check_working_hours_scope(self.business_premise_id)
+        if self.operation in ('register', 'remove'):
+            unresolved = self.search([
+                ('business_premise_id', '=', self.business_premise_id.id),
+                ('state', '=', 'uncertain'),
+                ('reconciliation_of_id', '=', False),
+            ]).filtered(lambda operation: not operation.is_reconciled)
+            if unresolved:
+                raise UserError(_(
+                    'Reconcile the uncertain working hours operations for %(premise)s before sending more changes.',
+                    premise=self.business_premise_id.display_name,
+                ))
         if self.operation == 'register':
             self.line_ids.filtered(lambda line: line.action == 'register')._check_register_has_data()
         if self.operation == 'remove':
@@ -435,13 +469,13 @@ class L10nHrFiscalOperation(models.Model):
             for wh in working_hours
         ])
 
-    def _execute(self):
-        """Run the API call and freeze before/after state.
-
-        Communication errors are caught and stored on the record instead of raised, so
-        the operation (and its fiscal log) survive as history even when FINA rejects it.
-        """
+    def _prepare_execution(self):
+        """All local preparation happens before dispatch (for every batch child)."""
+        self.ensure_one()
         self._check_execution_access()
+        self.lock_for_update(allow_referencing=True)
+        if self.business_premise_id:
+            self.business_premise_id._lock_fiscal_execution()
         self._prepare_remove_all_lines()
         self._check_executable()
         # Keep the values in history even if a later get/remove deletes the source.
@@ -449,46 +483,94 @@ class L10nHrFiscalOperation(models.Model):
             values = line._to_working_hours_vals(self.business_premise_id.id)
             values.pop('business_premise_id')
             line.write(values)
-        premise = self.business_premise_id
-        before = premise._get_working_hours_snapshot()
+        before = self.business_premise_id._get_working_hours_snapshot()
         schedule_before = self._create_schedule_snapshot()
-        vals = {
+        return {
             'execution_date': fields.Datetime.now(),
             'user_id': self.env.user.id,
             'snapshot_before': before,
+            'snapshot_after': before,
             'schedule_before_id': schedule_before.id,
+            'schedule_after_id': schedule_before.id,
+            'diff': [], 'added_count': 0, 'removed_count': 0, 'changed_count': 0,
             'error_msg': False,
         }
-        handler = getattr(self, '_call_%s' % self.operation)
+
+    def _execute(self, prepared=None):
+        """Retain the exchange; roll back only local application on failure.
+
+        Savepoints do not make the external service and this transaction atomic.
+        Recorded operational failures return normally so a batch can continue.
+        """
+        self.ensure_one()
+        self._check_execution_access()
+        vals = dict(prepared) if prepared is not None else self._prepare_execution()
         if self.operation == 'remove' and self.remove_all and not self.line_ids:
-            # Nothing to remove on this premise; mark as done without calling FINA.
-            vals['state'] = 'done'
-        else:
+            self._write_execution({**vals, 'state': 'done'})
+            return True
+
+        try:
+            # The wrapper sends and logs, but does not change local working hours.
+            exchange = getattr(self, '_call_%s' % self.operation)()
+        except Exception as error:
+            _logger.exception('Unexpected fiscal exchange failure for operation %s', self.id)
+            exchange = FiscalExchange('uncertain', error=str(error))
+        vals['fiscal_log_id'] = exchange.log.id if exchange.log else False
+        if exchange.status == 'success':
             try:
-                handler()
-                vals['state'] = 'done'
-            except UserError as error:
-                vals.update(state='error', error_msg=str(error))
-        # The log was created with this operation as origin (res_model/res_id): no guessing.
-        # Even when nothing was raised, silent error logging on the company
-        # may have swallowed a FINA error - the log is the authority.
-        log = self._find_fiscal_log()
-        vals['fiscal_log_id'] = log.id
-        if vals['state'] == 'done' and log and log.error_msg and log.error_msg != 'OK':
-            vals.update(state='error', error_msg=log.error_msg)
-        after = premise._get_working_hours_snapshot()
-        diff = self._compute_diff(before, after)
-        schedule_after = self._create_schedule_snapshot()
-        vals.update({
-            'snapshot_after': after,
-            'schedule_after_id': schedule_after.id,
-            'diff': diff,
-            'added_count': sum(1 for line in diff if line['status'] == 'added'),
-            'removed_count': sum(1 for line in diff if line['status'] == 'removed'),
-            'changed_count': sum(1 for line in diff if line['status'] == 'changed'),
-        })
+                # The log is outside this savepoint and survives an apply/DB error.
+                with self.env.cr.savepoint():
+                    self._handle_fisc_response(exchange.response, self.msg_type)
+                    after = self.business_premise_id._get_working_hours_snapshot()
+                    diff = self._compute_diff(vals['snapshot_before'], after)
+                    self._write_execution({
+                        **vals, 'state': 'done', 'snapshot_after': after,
+                        'schedule_after_id': self._create_schedule_snapshot().id,
+                        'diff': diff,
+                        'added_count': sum(line['status'] == 'added' for line in diff),
+                        'removed_count': sum(line['status'] == 'removed' for line in diff),
+                        'changed_count': sum(line['status'] == 'changed' for line in diff),
+                    })
+                return True
+            except Exception as error:
+                _logger.exception('Local application failed after FINA replied to operation %s', self.id)
+                exchange = FiscalExchange('uncertain', log=exchange.log, error=str(error))
+                # A verified success was received, but local completion failed.
+                vals['state'] = 'uncertain'
+        else:
+            vals['state'] = (
+                'uncertain' if exchange.status == 'uncertain' and self.operation != 'get' else 'error'
+            )
+        vals['error_msg'] = exchange.error or _('The fiscal exchange did not complete.')
+        if vals['state'] == 'uncertain':
+            vals['error_msg'] += '\n' + _(
+                'Do not resend this change. Fetch the current working hours from FINA to reconcile the premise.'
+            )
+        # Do not rebuild the snapshot that just failed. The savepoint restored the
+        # before-state, which is also the unchanged local after-state.
         self._write_execution(vals)
-        return self.state == 'done'
+        return False
+
+    def action_reconcile(self):
+        """Establish current FINA state through a new GET; never retry a change."""
+        self.ensure_one()
+        self._check_execution_access()
+        self.lock_for_update(allow_referencing=True)
+        if self.state != 'uncertain':
+            raise UserError(_('Only an uncertain fiscal operation needs reconciliation.'))
+        if self.reconciliation_of_id:
+            return self.reconciliation_of_id.action_reconcile()
+        completed = self.reconciliation_ids.filtered(lambda attempt: attempt.state == 'done')
+        if completed:
+            return completed[:1].action_open()
+        recovery = self.create({
+            'business_premise_id': self.business_premise_id.id,
+            'business_premise_ids': [Command.clear()],
+            'operation': 'get',
+        })
+        recovery._write_execution({'reconciliation_of_id': self.id})
+        recovery._execute()
+        return recovery.action_open()
 
     def _find_fiscal_log(self):
         self.ensure_one()
@@ -498,8 +580,7 @@ class L10nHrFiscalOperation(models.Model):
         ], order='id DESC', limit=1)
 
     # ------------------------------------------------------------------------
-    # FINA API calls (fisc_handler builds the client, sends, logs and dispatches
-    # the successful response to _handle_fisc_response)
+    # FINA API calls (fisc_handler sends and logs; _execute owns local application)
     # ------------------------------------------------------------------------
     def _new_fiscal_client(self):
         return fiscal.Fiscalization(self.company_id.get_fiscal_data())
@@ -513,7 +594,7 @@ class L10nHrFiscalOperation(models.Model):
             raise UserError("\n".join(errors))
         return employee_oib(operator)
 
-    @fisc_handler(msg_type='dohvatiRadnoVrijeme')
+    @fisc_handler(msg_type='dohvatiRadnoVrijeme', handle_response=False)
     def _call_get(self):
         fisk = self._new_fiscal_client()
         return dict(
@@ -524,7 +605,7 @@ class L10nHrFiscalOperation(models.Model):
             VrstaRadnogVremena='SVE',
         )
 
-    @fisc_handler(msg_type='prijaviRadnoVrijeme')
+    @fisc_handler(msg_type='prijaviRadnoVrijeme', handle_response=False)
     def _call_register(self):
         fisk = self._new_fiscal_client()
         return dict(
@@ -533,7 +614,7 @@ class L10nHrFiscalOperation(models.Model):
             OibOper=self._l10n_hr_operator_oib(),
         )
 
-    @fisc_handler(msg_type='obrisiRadnoVrijeme')
+    @fisc_handler(msg_type='obrisiRadnoVrijeme', handle_response=False)
     def _call_remove(self):
         fisk = self._new_fiscal_client()
         return dict(
@@ -657,14 +738,35 @@ class L10nHrFiscalOperation(models.Model):
     # -- response parsing ----------------------------------------------------
     def _parse_get_response(self, response):
         """Parse DohvatiRadnoVrijemeOdgovor into working hours create vals (without premise)."""
-        radno_vrijeme = getattr(getattr(response, 'PoslovniProstor', None), 'RadnoVrijeme', None)
-        if not radno_vrijeme:
+        if response is None or not hasattr(response, 'PoslovniProstor'):
+            raise UserError(_('The working hours response is incomplete; local hours were not replaced.'))
+        premise = response.PoslovniProstor
+        # The 1.10 response schema allows an absent PoslovniProstor for no hours.
+        if premise is None:
             return []
+        code = getattr(premise, 'OznPosPr', None)
+        if code and code != self.business_premise_id.l10n_hr_fiscal_code:
+            raise UserError(_('The working hours response belongs to another business premise.'))
+        oib = getattr(premise, 'Oib', None)
+        if oib and oib != self.company_id.company_registry:
+            raise UserError(_('The working hours response belongs to another company.'))
+        radno_vrijeme = getattr(premise, 'RadnoVrijeme', None)
+        if (radno_vrijeme is None or not hasattr(radno_vrijeme, 'Redovno')
+                or not hasattr(radno_vrijeme, 'Iznimke')):
+            raise UserError(_('The working hours response is incomplete; local hours were not replaced.'))
         vals_list = []
         for regular in _as_list(getattr(radno_vrijeme, 'Redovno', None)):
-            vals_list.extend(self._parse_regular(regular))
+            if getattr(regular, 'PoDogovoru', None) or getattr(regular, 'ParniNeparni', None):
+                raise UserError(_('The received working hours variant is not supported; local hours were not replaced.'))
+            parsed = self._parse_regular(regular)
+            if not parsed or any(not values['valid_from'] for values in parsed):
+                raise UserError(_('The received regular working hours are incomplete or have an invalid date.'))
+            vals_list.extend(parsed)
         for exception in _as_list(getattr(radno_vrijeme, 'Iznimke', None)):
-            vals_list.extend(self._parse_exception(exception))
+            parsed = self._parse_exception(exception)
+            if not parsed or any(not values['valid_on'] for values in parsed):
+                raise UserError(_('The received exception working hours are incomplete or have an invalid date.'))
+            vals_list.extend(parsed)
         return vals_list
 
     @staticmethod

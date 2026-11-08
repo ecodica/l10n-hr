@@ -119,10 +119,14 @@ class L10nHrBusinessPremise(models.Model):
         return self._run_fiscal_operation('get')._action_result()
 
     def action_register_working_hours(self):
-        return self._run_fiscal_operation('register')._action_result()
+        action = self.action_new_fiscal_operation()
+        action['context']['default_operation'] = 'register'
+        return action
 
     def action_remove_working_hours(self):
-        return self._run_fiscal_operation('remove')._action_result()
+        action = self.action_new_fiscal_operation()
+        action['context']['default_operation'] = 'remove'
+        return action
 
     def action_new_fiscal_operation(self):
         """Open a draft operation covering the selected premise(s): the user picks

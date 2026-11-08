@@ -67,14 +67,15 @@
                         <field name="register_count" class="fw-bold" readonly="1"/>
                         working hours selected to
                         <i>Register</i>
-                        will be sent.
+                        will be sent. New entries apply to every selected business premise.
                     </div>
                     <div class="alert alert-info" role="alert"
                          invisible="state != 'draft' or operation != 'remove' or remove_all">
                         <field name="remove_count" class="fw-bold" readonly="1"/>
                         working hours selected to
                         <i>Remove</i>
-                        will be sent.
+                        will be sent. FINA removes complete date groups, not individual shifts.
+                        Select all entries for each date to remove.
                     </div>
                     <div class="alert alert-warning" role="alert"
                          invisible="state != 'draft' or operation != 'remove' or not remove_all">
@@ -137,7 +138,8 @@
                                     <field name="action" column_invisible="1"/>
                                     <field name="sequence" widget="handle"/>
                                     <field name="working_hours_id" required="1"
-                                           domain="[('business_premise_id', 'in', parent.business_premise_ids)]"/>
+                                           domain="['|', ('business_premise_id', '=', parent.business_premise_id),
+                                           ('business_premise_id', 'in', parent.business_premise_ids)]"/>
                                 </list>
                             </field>
                         </page>

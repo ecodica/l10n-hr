@@ -4,7 +4,7 @@ from datetime import date, datetime, timedelta
 
 from markupsafe import Markup, escape
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError
 
 from ..fiscal import fiscal
@@ -260,10 +260,29 @@ class L10nHrFiscalOperation(models.Model):
         premises = self.business_premise_ids
         if not premises:
             raise UserError(_('Select at least one business premise.'))
+        lines = self.line_ids.filtered(lambda line: line.action == self.operation)
+        if self.operation == 'remove' and self.remove_all:
+            # Remove All replaces manual selections, just as on a single premise.
+            lines = self.env['l10n_hr.fiscal.operation.line']
+        else:
+            self._check_working_hours_scope(premises)
         children = self.create([
-            {'business_premise_id': premise.id, 'operation': self.operation,
-             'remove_all': self.remove_all}
+            {
+                'business_premise_id': premise.id,
+                'operation': self.operation,
+                'remove_all': self.remove_all,
+                'line_ids': [
+                    Command.create(line.copy_data({'operation_id': False})[0])
+                    for line in lines
+                    if not line.working_hours_id or line.working_hours_id.business_premise_id == premise
+                ],
+            }
             for premise in premises])
+        # Validate every premise before the first external side effect. Inline
+        # register lines are shared; references always stay with their own premise.
+        for child in children:
+            child._prepare_remove_all_lines()
+            child._check_executable()
         for child in children:
             child._execute()
         self.unlink()
@@ -302,6 +321,37 @@ class L10nHrFiscalOperation(models.Model):
             raise UserError(_('There are no working hours selected to be registered!'))
         if self.operation == 'remove' and not self.remove_count and not self.remove_all:
             raise UserError(_('There are no working hours selected to be removed!'))
+        self._check_working_hours_scope(self.business_premise_id)
+        if self.operation == 'remove':
+            self._check_complete_remove_dates()
+
+    def _check_working_hours_scope(self, premises):
+        """Never send or delete a referenced shift under another premise's code."""
+        self.ensure_one()
+        referenced = self.line_ids.filtered(lambda line: line.action == self.operation).working_hours_id
+        if referenced.business_premise_id - premises:
+            raise UserError(_(
+                'Selected working hours must belong to the selected business premise(s).'
+            ))
+
+    def _check_complete_remove_dates(self):
+        """FINA identifies a removal by date, not by weekday or individual shift."""
+        self.ensure_one()
+        selected = self.line_ids.filtered(lambda line: line.action == 'remove').working_hours_id
+        regular_dates = set(selected.filtered(lambda hours: hours.type == 'regular').mapped('valid_from'))
+        exception_dates = set(selected.filtered(lambda hours: hours.type == 'exception').mapped('valid_on'))
+        if False in regular_dates or False in exception_dates:
+            raise UserError(_('Working hours to remove must have a valid date.'))
+        affected = self.business_premise_id._get_all_working_hours().filtered(
+            lambda hours: (hours.type == 'regular' and hours.valid_from in regular_dates)
+            or (hours.type == 'exception' and hours.valid_on in exception_dates)
+        )
+        if affected - selected:
+            raise UserError(_(
+                'FINA removes all working hours for each selected date. '
+                'Select every entry for those dates in %(premise)s before removing them.',
+                premise=self.business_premise_id.display_name,
+            ))
 
     def _create_schedule_snapshot(self):
         """Create a persistent schedule snapshot for the premise and return it."""

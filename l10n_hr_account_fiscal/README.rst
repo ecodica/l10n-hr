@@ -90,6 +90,29 @@ so its own OIB is never reported. A document whose operator is missing or has no
 refused. Working hours messages report the employee of the user who sends them.
 
 
+Working hours: multiple business premises
+-----------------------------------------
+
+Select the premises and open **Working Hours Fiscalization**. A batch creates
+one executed operation per premise, each with its own message log and snapshots.
+
+* **Get** fetches the registered hours separately for each premise.
+* **Register** applies new inline entries to every selected premise. A reference
+  to existing working hours applies only to the premise that owns those hours;
+  it does not create a duplicate local entry.
+* **Remove** sends only the selected entries belonging to each premise.
+  FINA identifies deletions by date, not by weekday or individual shift: select
+  every regular entry with the same **Valid From** date, or every exception with
+  the same **Valid On** date, for that premise. An incomplete date group is
+  refused before sending. **Remove All** selects all entries for each premise.
+
+Every generated operation is validated before the first request is sent. For
+registration or selected removal, each selected premise must have entries to
+process. Working hours from an unselected premise are refused, not silently
+sent under another premise's code. The register/remove shortcut actions open a
+draft so the entries can be selected before execution.
+
+
 Obtain client certificates from FINA
 ====================================
 

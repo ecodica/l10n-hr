@@ -1,0 +1,22 @@
+l10n_hr_account_fiscal/README.rst
+  h_35712297e8d9a2 93-115
+l10n_hr_account_fiscal/models/l10n_hr_business_premise.py
+  h_35712297e8d9a2 122-124,127-129
+l10n_hr_account_fiscal/models/l10n_hr_fiscal_operation.py
+  h_35712297e8d9a2 7,263-268,270-279,281-285,324-354
+l10n_hr_account_fiscal/tests/test_fiscal_operation.py
+  h_35712297e8d9a2 19,139-145,379-399,500-676
+l10n_hr_account_fiscal/views/l10n_hr_fiscal_operation_views.xml
+  h_35712297e8d9a2 70,77-78,141-142
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7342f7c32e00e3f4cffd4120eb0367f1c14dc384",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

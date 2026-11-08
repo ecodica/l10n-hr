@@ -47,8 +47,8 @@ class TestFiscalTransport(TransactionCase):
         ):
             fiscal.Fiscalization(data)
         self.assertEqual(session.return_value.verify, 'bundle.pem')
-        self.assertEqual(transport.call_args.kwargs['timeout'], 10)
-        self.assertEqual(transport.call_args.kwargs['operation_timeout'], (10, 60))
+        self.assertEqual(transport.call_args.kwargs['timeout'], 100)
+        self.assertEqual(transport.call_args.kwargs['operation_timeout'], (30, 100))
 
     def _log_values(self, history, response):
         origin = SimpleNamespace(

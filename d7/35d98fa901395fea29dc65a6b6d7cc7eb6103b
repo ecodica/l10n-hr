@@ -1,0 +1,18 @@
+l10n_hr_account_fiscal/README.rst
+  h_35712297e8d9a2 142-143
+l10n_hr_account_fiscal/fiscal/fiscal.py
+  h_35712297e8d9a2 61-65
+l10n_hr_account_fiscal/tests/test_fiscal_transport.py
+  h_35712297e8d9a2 50-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d735d98fa901395fea29dc65a6b6d7cc7eb6103b",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

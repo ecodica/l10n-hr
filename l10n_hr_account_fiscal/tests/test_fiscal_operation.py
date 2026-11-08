@@ -622,10 +622,9 @@ class TestFiscalOperation(TransactionCase):
                         vals['business_premise_ids'] = [Command.set(self.premise.ids)]
                     else:
                         vals['business_premise_id'] = self.premise.id
-                    op = self.Operation.create(vals)
                     with self.assertRaisesRegex(UserError, 'must belong'), self.env.cr.savepoint():
+                        op = self.Operation.create(vals)
                         op.action_execute()
-                    self.assertEqual(op.state, 'draft')
                     self.assertTrue(foreign_hours.exists())
                     self.assertFalse(FakeFiscalization.calls)
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- A separate privilege keeps fiscal management independent of accounting roles. -->
+        <record id="res_groups_privilege_fiscal" model="res.groups.privilege">
+            <field name="name">Fiscalization</field>
+            <field name="category_id" ref="base.module_category_accounting"/>
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="group_fiscal_manager" model="res.groups">
+            <field name="name">Fiscal Manager</field>
+            <field name="privilege_id" ref="res_groups_privilege_fiscal"/>
+            <field name="implied_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+            <field name="comment">Manage fiscal operations and working hours without accounting administration rights.</field>
+        </record>
+
+        <!-- Global rules constrain every ACL, including accounting administrator access. -->
+        <record id="rule_fiscal_log_company" model="ir.rule">
+            <field name="name">Fiscal logs: allowed companies</field>
+            <field name="model_id" ref="model_l10n_hr_fiscal_log"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="rule_business_working_hours_company" model="ir.rule">
+            <field name="name">Business working hours: allowed companies</field>
+            <field name="model_id" ref="model_l10n_hr_business_working_hours"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('business_premise_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="rule_fiscal_operation_company" model="ir.rule">
+            <field name="name">Fiscal operations: allowed companies or own launcher</field>
+            <field name="model_id" ref="model_l10n_hr_fiscal_operation"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">['|', ('company_id', 'in', company_ids), '&amp;', ('company_id', '=', False), ('create_uid', '=', user.id)]</field>
+        </record>
+
+        <record id="rule_fiscal_operation_line_company" model="ir.rule">
+            <field name="name">Fiscal operation lines: allowed companies or own launcher</field>
+            <field name="model_id" ref="model_l10n_hr_fiscal_operation_line"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">['|', ('operation_id.company_id', 'in', company_ids), '&amp;', ('operation_id.company_id', '=', False), ('operation_id.create_uid', '=', user.id)]</field>
+        </record>
+
+        <record id="rule_working_hours_schedule_company" model="ir.rule">
+            <field name="name">Working hours schedules: allowed companies</field>
+            <field name="model_id" ref="model_l10n_hr_working_hours_schedule"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="rule_working_hours_schedule_line_company" model="ir.rule">
+            <field name="name">Working hours schedule lines: allowed companies</field>
+            <field name="model_id" ref="model_l10n_hr_working_hours_schedule_line"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('schedule_id.company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="rule_business_premise_company" model="ir.rule">
+            <field name="name">Business premises: allowed companies</field>
+            <field name="model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <record id="rule_fiscal_device_company" model="ir.rule">
+            <field name="name">Fiscal devices: allowed companies</field>
+            <field name="model_id" ref="l10n_hr_account_base.model_l10n_hr_fiscal_device"/>
+            <field name="groups" eval="[(5, 0, 0)]"/>
+            <field name="domain_force">[('l10n_hr_business_premise_id.company_id', 'in', company_ids)]</field>
+        </record>
+    </data>
+</odoo>

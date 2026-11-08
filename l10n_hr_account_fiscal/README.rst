@@ -113,6 +113,28 @@ sent under another premise's code. The register/remove shortcut actions open a
 draft so the entries can be selected before execution.
 
 
+Fiscal permissions
+------------------
+
+Assign **Fiscalization / Fiscal Manager** explicitly to users who manage working
+hours. This group does not imply an accounting role; its separate **Fiscalization**
+menu provides access to premises, operations, schedules and logs without exposing
+accounting configuration. Existing invoicing or accounting-administrator rights
+alone no longer permit working-hours registration or deletion.
+
+Invoicing users can read fiscal history in their enabled companies. Ordinary
+internal users cannot read raw fiscal logs. Logs are created only by the private
+fiscal communication code: users cannot fabricate, edit or delete them.
+
+Executed operations, their lines and linked schedule snapshots are audit history.
+Client context flags and defaults cannot create or modify execution results.
+Company rules apply to premises, devices, working hours, operations, snapshots and
+logs. A multi-premise draft without its own company is private to its creator.
+
+After an upgrade, assign the new group before using working-hours operations.
+Invoice/POS fiscalization itself does not require this management group.
+
+
 Obtain client certificates from FINA
 ====================================
 

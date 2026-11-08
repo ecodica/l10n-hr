@@ -10,7 +10,8 @@
                 <button string="TEST ECHO" type="object" name="button_l10n_hr_test_fiscal_echo"
                         groups="base.group_no_one"/>
                 <button string="Working Hours Fiscalization" type="object" class="btn-primary"
-                        name="action_new_fiscal_operation"/>
+                        name="action_new_fiscal_operation"
+                        groups="l10n_hr_account_fiscal.group_fiscal_manager"/>
             </field>
             <xpath expr="//sheet/group[1]" position="before">
                 <div class="oe_button_box" name="button_box">
@@ -103,6 +104,7 @@
         <field name="binding_model_id" ref="l10n_hr_account_base.model_l10n_hr_business_premise"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
+        <field name="group_ids" eval="[(6, 0, [ref('l10n_hr_account_fiscal.group_fiscal_manager')])]"/>
         <field name="code">action = records.action_new_fiscal_operation()</field>
     </record>
 

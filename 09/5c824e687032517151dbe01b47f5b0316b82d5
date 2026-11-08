@@ -1,0 +1,46 @@
+l10n_hr_account_fiscal/README.rst
+  h_35712297e8d9a2 116-152,248-264
+l10n_hr_account_fiscal/__manifest__.py
+  h_35712297e8d9a2 6
+l10n_hr_account_fiscal/fiscal/fiscal.py
+  h_35712297e8d9a2 7,61,115-118
+l10n_hr_account_fiscal/helpers/fiscal_wrapper.py
+  h_35712297e8d9a2 2-6,9,12-17,19-25,30-43,46-47,50-89,92-93,95-96
+l10n_hr_account_fiscal/models/l10n_hr_business_premise.py
+  h_35712297e8d9a2 3,33,58-67,124-126
+l10n_hr_account_fiscal/models/l10n_hr_fiscal_log.py
+  h_35712297e8d9a2 38-42
+l10n_hr_account_fiscal/models/l10n_hr_fiscal_operation.py
+  h_35712297e8d9a2 11,111-112,126-139,245,269-270,295,299,302-308,312,314-315,330,381-391,472-474,476-478,486,488,492,494-495,498-507,509-519,521-550,552-573,583,597,608,617,741-745,747-756,759-764,766-769
+l10n_hr_account_fiscal/models/res_company.py
+  h_35712297e8d9a2 157-160,163-166,213-220,222-223,229-234
+l10n_hr_account_fiscal/tests/__init__.py
+  h_35712297e8d9a2 11-13
+l10n_hr_account_fiscal/tests/test_fiscal_concurrency.py
+  h_35712297e8d9a2 1-50
+l10n_hr_account_fiscal/tests/test_fiscal_data_change.py
+  h_35712297e8d9a2 373-393
+l10n_hr_account_fiscal/tests/test_fiscal_operation.py
+  h_35712297e8d9a2 500-512
+l10n_hr_account_fiscal/tests/test_fiscal_recovery.py
+  h_35712297e8d9a2 1-596
+l10n_hr_account_fiscal/tests/test_fiscal_security.py
+  h_35712297e8d9a2 4-5,283-304
+l10n_hr_account_fiscal/tests/test_fiscal_transport.py
+  h_35712297e8d9a2 1-74
+l10n_hr_account_fiscal/views/l10n_hr_fiscal_log_views.xml
+  h_35712297e8d9a2 12,29,50
+l10n_hr_account_fiscal/views/l10n_hr_fiscal_operation_views.xml
+  h_35712297e8d9a2 10,22,24-25,40,65-69,121-122,178-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "095c824e687032517151dbe01b47f5b0316b82d5",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

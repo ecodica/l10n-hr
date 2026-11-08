@@ -8,3 +8,6 @@ from . import test_working_hours_schedule
 from . import test_fiscal_operator
 from . import test_fiscal_data_change
 from . import test_fiscal_security
+from . import test_fiscal_recovery
+from . import test_fiscal_transport
+from . import test_fiscal_concurrency

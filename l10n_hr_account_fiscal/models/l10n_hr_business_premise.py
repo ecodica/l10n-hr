@@ -1,6 +1,6 @@
 from datetime import date
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 
 from .l10n_hr_fiscal_operation import SNAPSHOT_FIELDS
 
@@ -30,6 +30,7 @@ class L10nHrBusinessPremise(models.Model):
     regular_working_hours_valid_from = fields.Date('Regular Working Hours Valid From')
     regular_working_hours_valid_to = fields.Date('Regular Working Hours Valid To')
     regular_working_hours_note = fields.Text('Regular Working Hours Note')
+    fiscal_execution_revision = fields.Integer(default=0, readonly=True, copy=False)
     fiscal_operation_ids = fields.One2many(
         comodel_name='l10n_hr.fiscal.operation',
         inverse_name='business_premise_id',
@@ -54,6 +55,16 @@ class L10nHrBusinessPremise(models.Model):
     # ------------------------------------------------------------------------
     # Working hours helpers used by l10n_hr.fiscal.operation
     # ------------------------------------------------------------------------
+    def _lock_fiscal_execution(self):
+        """Make stale REPEATABLE READ transactions conflict before dispatch."""
+        self.ensure_one()
+        self.check_access('read')
+        self.lock_for_update(allow_referencing=True)
+        # A lock alone does not advance the row version. This private path may
+        # touch the revision even when the fiscal manager cannot edit the premise.
+        self.sudo().write({'fiscal_execution_revision': self.fiscal_execution_revision + 1})
+        self.flush_recordset(['fiscal_execution_revision'])
+
     def _get_all_working_hours(self):
         return self.regular_working_hours_ids + self.exception_working_hours_ids
 
@@ -110,9 +121,9 @@ class L10nHrBusinessPremise(models.Model):
     def _run_fiscal_operation(self, operation):
         """Create and immediately execute a fiscal operation for every premise."""
         operations = self.env['l10n_hr.fiscal.operation'].create(
-            [{'business_premise_id': premise.id, 'operation': operation} for premise in self])
-        for op in operations:
-            op._execute()
+            [{'business_premise_id': premise.id, 'business_premise_ids': [Command.clear()],
+              'operation': operation} for premise in self])
+        operations.action_execute()
         return operations
 
     def action_get_working_hours(self):

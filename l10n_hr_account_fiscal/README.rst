@@ -113,6 +113,43 @@ sent under another premise's code. The register/remove shortcut actions open a
 draft so the entries can be selected before execution.
 
 
+Recovery after an uncertain exchange
+------------------------------------
+
+Working-hours operations distinguish **Error** (a trusted rejection or failure
+before sending) from **Needs Reconciliation**. A register/remove request whose
+reply is lost or untrusted may already have changed FINA. A verified response
+followed by a local application or snapshot failure also needs reconciliation.
+A failed GET transport does not mutate FINA and is recorded as an error.
+
+The exchange is logged before local application. Local changes, after snapshots
+and finalization run together in a savepoint. If they fail, they are rolled back,
+the exchange log is retained, and the operation shows its unchanged local
+before/after state. A batch continues with the remaining premises; all local
+before snapshots are prepared before its first external call.
+
+Use **Reconcile from FINA** on an uncertain operation. This creates a new, linked
+**Get** operation; it never resends the original registration or removal. A
+successful reconciliation establishes the current remote state, not proof that
+the original request succeeded. The original operation and log remain history.
+Further registration/removal for that premise is blocked until a linked GET
+succeeds. Failed reconciliations remain visible and can be attempted again.
+
+A missing ``PoslovniProstor`` value is a legitimate empty result in schema 1.10.
+An incomplete response or unsupported working-hours variant is not silently
+interpreted as an empty schedule. Unverified responses are not applied.
+
+The transport has explicit WSDL loading and SOAP connect/read timeouts (10 s and
+10/60 s). Error logs retain any available sent and received XML. A sent envelope
+alone does not prove that FINA received the request.
+
+These savepoints do **not** commit the business transaction or provide exactly-once
+delivery. A worker crash, database disconnect or later outer rollback can still
+lose its uncommitted history; an independent durable outbox would be needed to
+cover those cases. Invoice fiscal-data changes retain their existing recovery
+path; the shared transport/logging improvements also apply to them.
+
+
 Fiscal permissions
 ------------------
 
@@ -207,6 +244,23 @@ module installed first. ``test_systray.py`` is an ``HttpCase`` and needs a
 running browser (Chromium); if the server config pins a ``dbfilter``, pass
 ``--db-filter=<database>`` as well or the browser lands on the database
 selector instead of the web client.
+
+Security, recovery and transport tests
+--------------------------------------
+
+* ``test_fiscal_security.py`` checks the independent fiscal role, company rules,
+  immutable operations/lines/snapshots, context-default attacks and authorized
+  reconciliation. Its standalone premise view test needs no accounting role.
+* ``test_fiscal_recovery.py`` injects transport, SQL, local application, snapshot,
+  final-write and logging-savepoint-exit failures. It checks partial batch success,
+  public multi-record preflight, immutable linked GET recovery and no POST replay.
+* ``test_fiscal_transport.py`` checks bounded timeouts, preservation of original
+  transport/SOAP exceptions and XML evidence when no response was received.
+* ``test_fiscal_concurrency.py`` uses real independent PostgreSQL transactions to
+  check the premise revision under REPEATABLE READ. It commits only a unique test
+  fixture and removes it in a cleanup transaction. Run tests on a dedicated test
+  database, never on a business database.
+
 
 tests/test_fiscal_tax_values.py
 -------------------------------

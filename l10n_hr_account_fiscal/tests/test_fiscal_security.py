@@ -1,6 +1,8 @@
 """Fiscal permissions, company boundaries and audit history are enforced server-side."""
 from unittest.mock import patch
 
+from requests.exceptions import ReadTimeout
+
 from odoo import Command
 from odoo.exceptions import AccessError, UserError
 from odoo.tests import TransactionCase, new_test_user, tagged
@@ -277,6 +279,28 @@ class TestFiscalSecurity(TransactionCase):
                 'business_premise_ids': [Command.set(self.other_premise.ids)],
             })
         self.assertFalse(FakeFiscalization.calls)
+
+    def test_reconciliation_needs_management_rights_and_cannot_be_forged(self):
+        FakeFiscalization.responses['prijaviRadnoVrijeme'] = ReadTimeout('reply lost')
+        op = self._register()
+        self.assertEqual(op.state, 'uncertain')
+        with self.assertRaises(AccessError):
+            self._as(op, self.billing).action_reconcile()
+        with self.assertRaises(UserError), self.env.cr.savepoint():
+            self._as(self.Operation, self.manager).with_context(default_reconciliation_of_id=op.id).create({
+                'business_premise_id': self.premise.id, 'operation': 'get',
+            })
+        with self.assertRaises(UserError):
+            self._operation().write({'reconciliation_of_id': op.id})
+        action = op.action_reconcile()
+        recovery = self._as(self.Operation.browse(action['res_id']), self.manager)
+        self.assertEqual(recovery.state, 'done')
+        self.assertEqual(recovery.reconciliation_of_id, op)
+        self.assertTrue(op.is_reconciled)
+        self.assertEqual(op.state, 'uncertain')
+        self.assertEqual([method for method, payload in FakeFiscalization.calls], [
+            'prijaviRadnoVrijeme', 'dohvatiRadnoVrijeme',
+        ])
 
     def test_companyless_launchers_are_private_to_their_creator(self):
         launcher = self._as(self.Operation, self.manager).create({

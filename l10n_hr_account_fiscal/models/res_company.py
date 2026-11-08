@@ -154,11 +154,15 @@ class ResCompany(models.Model):
             })
         else:
             values.update({
-                "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
-                "reply_timestamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
-                "content": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
-                "reply_msg": etree.tostring(msg_obj.history.last_received["envelope"]).decode("utf-8"),
+                "name": (getattr(getattr(response, 'Zaglavlje', None), 'IdPoruke', None)
+                         or ("ECHO" if msg_type == "echo" else _("Fiscalization Response"))),
+                "reply_timestamp": (getattr(getattr(response, 'Zaglavlje', None), 'DatumVrijeme', None)
+                                    or time_stop["datum_vrijeme"]),
             })
+
+        # Error/lost-reply branches still retain whatever actually reached history.
+        values['content'] = self._fiscal_history_xml(msg_obj, 'last_sent')
+        values['reply_msg'] = self._fiscal_history_xml(msg_obj, 'last_received')
 
         # Appended after the branching above, not before it: the error and delay
         # branches overwrite error_msg wholesale, and an unverified signature
@@ -206,13 +210,28 @@ class ResCompany(models.Model):
             )
         return values
 
+    @staticmethod
+    def _fiscal_history_xml(msg_obj, direction):
+        try:
+            entry = getattr(msg_obj.history, direction)
+            return etree.tostring(entry['envelope']).decode('utf-8')
+        except (AttributeError, IndexError, KeyError, TypeError, ValueError):
+            return False
+
     @api.private
-    def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin):
+    def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin,
+                          outcome=None, error_message=None):
         self.ensure_one()
         if not self.env.su and self not in self.env.companies:
             raise AccessError(_('Fiscal logs must belong to an enabled company.'))
         origin.check_access('read')
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
+        if outcome:
+            log_vals['exchange_outcome'] = outcome
+        if error_message:
+            current = log_vals.get('error_msg') or ''
+            if error_message not in current:
+                log_vals['error_msg'] = '\n'.join(filter(None, [current if current != 'OK' else '', error_message]))
         # Cashiers can fiscalize without permission to fabricate or edit audit logs.
         return self.env["l10n_hr.fiscal.log"].sudo().create(log_vals)
 

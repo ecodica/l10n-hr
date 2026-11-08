@@ -497,6 +497,19 @@ class TestFiscalOperation(TransactionCase):
         self.assertEqual(set(children.mapped("state")), {"done"})
         self.assertEqual(children.business_premise_id, self.premise + other)
 
+    def test_batch_children_do_not_inherit_the_launchers_premise_defaults(self):
+        other = self._other_premise()
+        action = (self.premise | other).action_new_fiscal_operation()
+        launcher = self.Operation.with_context(**action['context']).create({'operation': 'get'})
+        FakeFiscalization.responses['dohvatiRadnoVrijeme'] = _get_response()
+
+        launcher.action_execute()
+
+        children = self.Operation.search([('business_premise_id', 'in', (self.premise | other).ids)])
+        self.assertEqual(len(children), 2)
+        self.assertEqual(set(children.mapped('state')), {'done'})
+        self.assertFalse(children.business_premise_ids, 'a child must represent only its own premise')
+
     def test_register_launcher_copies_inline_lines_to_every_premise(self):
         other = self._other_premise()
         FakeFiscalization.responses['prijaviRadnoVrijeme'] = _ok_response()

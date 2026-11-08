@@ -1,12 +1,15 @@
 # Copyright 2025 Ecodica d.o.o
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
+import base64
 import os
 
+from cryptography.exceptions import UnsupportedAlgorithm
+from cryptography.hazmat.primitives import serialization
 from lxml import etree
 
 from odoo import _, fields, models, api
-from odoo.exceptions import AccessError, MissingError
+from odoo.exceptions import AccessError, MissingError, UserError
 
 from ..fiscal import fiscal
 from ..helpers.docs_helper import SCHEMA_HELP
@@ -92,17 +95,51 @@ class ResCompany(models.Model):
         help=SCHEMA_HELP,
     )
 
-    @api.depends('country_id', 'l10n_hr_fiscal_cert_ids', 'l10n_hr_fiscal_cert_ids.l10n_hr_type')
+    @api.depends(
+        'country_id', 'l10n_hr_fiscal_test_env', 'l10n_hr_fiscal_cert_ids',
+        'l10n_hr_fiscal_cert_ids.l10n_hr_type', 'l10n_hr_fiscal_cert_ids.company_id',
+        'l10n_hr_fiscal_cert_ids.active', 'l10n_hr_fiscal_cert_ids.date_start',
+        'l10n_hr_fiscal_cert_ids.date_end', 'l10n_hr_fiscal_cert_ids.loading_error',
+        'l10n_hr_fiscal_cert_ids.pem_certificate', 'l10n_hr_fiscal_cert_ids.private_key_id',
+        'l10n_hr_fiscal_cert_ids.private_key_id.active',
+        'l10n_hr_fiscal_cert_ids.private_key_id.company_id',
+        'l10n_hr_fiscal_cert_ids.private_key_id.public',
+        'l10n_hr_fiscal_cert_ids.private_key_id.loading_error',
+        'l10n_hr_fiscal_cert_ids.private_key_id.pem_key',
+    )
     def _compute_l10n_hr_fiscal_cert(self):
+        now = fields.Datetime.now()
         for company in self:
-            cert_id = False
-            if company.country_code == 'HR':
-                available_certs = company.l10n_hr_fiscal_cert_ids.filtered("is_valid")
-                if company.l10n_hr_fiscal_test_env:
-                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo')), False)
-                else:
-                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod')), False)
-            company.l10n_hr_fiscal_cert_id = cert_id
+            company.l10n_hr_fiscal_cert_id = company._select_fiscal_certificate(now)
+
+    def _select_fiscal_certificate(self, now):
+        """Select an eligible signing certificate without relying on cached is_valid."""
+        self.ensure_one()
+        company = self.sudo().with_context(bin_size=False, active_test=False)
+        certificates = company.l10n_hr_fiscal_cert_ids
+        if company.country_code != 'HR':
+            return certificates.browse()
+        cert_type = 'demo' if company.l10n_hr_fiscal_test_env else 'prod'
+        eligible = certificates.filtered(
+            lambda cert: cert.active and cert.company_id == company
+            and cert.l10n_hr_type == cert_type and not cert.loading_error
+            and cert.date_start and cert.date_end and cert.date_start <= now <= cert.date_end
+            and cert.pem_certificate and cert.private_key_id
+            and cert.private_key_id.active and not cert.private_key_id.public
+            and not cert.private_key_id.loading_error and cert.private_key_id.pem_key
+            and cert.private_key_id.company_id == company
+        )
+        # Prefer a valid renewal; ties must not depend on Many2many read ordering.
+        return eligible.sorted(key=lambda cert: (cert.date_end, cert.id or 0), reverse=True)[:1]
+
+    def _get_fiscal_certificate(self):
+        """Refresh the stored selection at use time: time alone triggers no depends."""
+        self.ensure_one()
+        company = self.sudo().with_context(bin_size=False, active_test=False)
+        certificate = company._select_fiscal_certificate(fields.Datetime.now())
+        if company.l10n_hr_fiscal_cert_id != certificate:
+            company.l10n_hr_fiscal_cert_id = certificate
+        return certificate
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
@@ -258,14 +295,34 @@ class ResCompany(models.Model):
         read the company's certificate. For the same reason it cannot be called over RPC.
         """
         self.ensure_one()
-        fiscal_cert = self.sudo().l10n_hr_fiscal_cert_id
+        fiscal_cert = self._get_fiscal_certificate()
         if not fiscal_cert:
-            raise MissingError(_("Fiscal Certificate not found! Check company setup!"))
+            raise MissingError(_(
+                "No currently valid fiscal certificate with a usable private key was found "
+                "for this company and fiscal environment. Check company setup."
+            ))
         if not self.l10n_hr_fiscal_schema:
             raise MissingError(_("Fiscal schema not found! Check company setup!"))
         demo = self.l10n_hr_fiscal_test_env
+        schema_prefix = 'EDUC_' if demo else 'PROD_'
+        if not self.l10n_hr_fiscal_schema.startswith(schema_prefix):
+            raise UserError(_("The fiscal schema does not match the selected demo/production environment."))
         cert_data = fiscal_cert.pem_certificate
-        key_data = fiscal_cert.private_key_id.pem_key
+        key = fiscal_cert.private_key_id
+        key_data = key.pem_key
+        if key.password:
+            # BinarySigner expects unencrypted PEM. Decrypt only in memory; the
+            # stored key and password are unchanged and never passed to logs.
+            try:
+                private_key = serialization.load_pem_private_key(
+                    base64.b64decode(key_data), password=key.password.encode('utf-8'),
+                )
+                key_data = base64.b64encode(private_key.private_bytes(
+                    serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
+                    serialization.NoEncryption(),
+                ))
+            except (TypeError, ValueError, UnsupportedAlgorithm):
+                raise UserError(_("The fiscal private key could not be loaded. Check its configuration.")) from None
 
         fiscal_path = self._get_fiscal_path()
         schema = "".join(
@@ -278,7 +335,7 @@ class ResCompany(models.Model):
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiscal_path + "fina_cert/" + fiscal_cert.l10n_hr_type
-        cert_vat = self.l10n_hr_fiscal_cert_subject_vat and self.l10n_hr_fiscal_cert_subject_vat[2:]
+        cert_vat = fiscal_cert.l10n_hr_subject_vat and fiscal_cert.l10n_hr_subject_vat[2:]
         if self.l10n_hr_fiscal_test_env:
             cert_vat = cert_vat
         else:

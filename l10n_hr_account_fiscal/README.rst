@@ -172,6 +172,45 @@ After an upgrade, assign the new group before using working-hours operations.
 Invoice/POS fiscalization itself does not require this management group.
 
 
+Certificate selection and renewal
+---------------------------------
+
+Configure certificates on the company, setting their **FINA Type** to demo or
+production and importing the private key. The selected certificate is computed
+for the company's fiscal environment. Changing **Fiscal Test Mode**, replacing a
+certificate, or archiving a certificate/key refreshes the stored selection.
+
+Selection excludes another company's certificates, expired/not-yet-valid
+certificates, archived records, and missing/unloadable/public-only keys. Among
+eligible certificates, the latest expiry wins (then the most recent record).
+The current UTC timestamp is checked again before preparing a fiscal message,
+even if the stored selection or the non-stored ``is_valid`` flag is cached.
+A valid renewal can therefore replace an expired certificate without a settings
+write, and a future certificate can become usable during invoice prechecks.
+
+The chosen schema must also match the mode: ``EDUC_*`` for demo and ``PROD_*`` for
+production. Change the schema when switching environments; inconsistent settings
+are rejected before sending. The selection never falls back to the other mode.
+Password-protected private keys are decrypted only in memory for signing; stored
+key material/passwords are unchanged and are not included in fiscal logs.
+
+Worker and reverse-proxy limits must allow for SOAP connect/read waits, local
+processing and the number of premises in a batch. The transport timeouts are not
+a strict total-request duration cap. Check deployment limits separately; do not
+increase them blindly or assume a proxy timeout cancels an accepted FINA request.
+
+Upgrade safety
+--------------
+
+The historical ``19.0.2.1.0`` migration preserves persistent schedule history and
+database dependencies: it no longer drops tables with ``CASCADE``. Legacy
+transient schedules had no company ownership. Their regenerable rows are cleared
+only when model metadata explicitly confirms that they were transient; tables,
+views and foreign keys are kept. Populated ambiguous schemas or persistent rows
+without a company stop the upgrade for manual review instead of silently
+assigning data to the company performing the upgrade. Back up before upgrading.
+
+
 Obtain client certificates from FINA
 ====================================
 
@@ -260,6 +299,14 @@ Security, recovery and transport tests
   check the premise revision under REPEATABLE READ. It commits only a unique test
   fixture and removes it in a cleanup transaction. Run tests on a dedicated test
   database, never on a business database.
+* ``test_fiscal_certificates.py`` uses generated certificates and a controlled clock
+  to check environment changes, renewal, expiry despite a cached validity flag,
+  private-key availability, encrypted keys, invoice prechecks and company boundaries.
+* ``test_fiscal_refund_compatibility.py`` checks that a different credit-note device
+  produces its validation message through the Odoo 19 ``display_name`` API.
+* ``test_fiscal_migration.py`` exercises the historical migration in a rollback-only
+  isolated PostgreSQL schema: missing/partial tables, confirmed transient cleanup,
+  persistent history/dependencies, reruns and ambiguous company ownership.
 
 
 tests/test_fiscal_tax_values.py

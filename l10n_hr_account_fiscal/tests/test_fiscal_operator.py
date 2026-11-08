@@ -158,10 +158,13 @@ class TestFiscalCertificateAccess(AccountTestInvoicingCommon):
                 file_open("certificate/tests/data/cert.pfx", "rb").read()
             ),
             "l10n_hr_type": "demo",
+            "scope": "fina",
         })
         company = self.env.company
         company.sudo().write({
-            "l10n_hr_fiscal_cert_id": certificate.id,
+            "country_id": self.env.ref("base.hr").id,
+            "l10n_hr_fiscal_cert_ids": [Command.set(certificate.ids)],
+            "l10n_hr_fiscal_test_env": True,
             "l10n_hr_fiscal_schema": "EDUC_v1.10",
         })
         cashier = self.env["res.users"].sudo().create({

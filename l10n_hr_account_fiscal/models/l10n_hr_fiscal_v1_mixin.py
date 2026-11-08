@@ -186,7 +186,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         res = []
         if self.l10n_hr_fiscal_device_id and self.l10n_hr_fiscal_device_id.fiscalization_active:
             res += operator_errors(self.l10n_hr_fiscal_operator_id, self.env.user, self.company_id)
-            if not self.company_id.l10n_hr_fiscal_cert_id:
+            if not self.company_id._get_fiscal_certificate():
                 res.append(
                     _(
                         "No Fiscal certificate found, please install one "

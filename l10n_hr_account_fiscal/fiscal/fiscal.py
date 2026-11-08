@@ -58,7 +58,11 @@ class Fiscalization:
         session = Session()
         session.verify = data["fina_bundle_path"]
         # session.cert = (data["cert"], data["key"])
-        transport = Transport(session=session, timeout=10, operation_timeout=(10, 60))
+        transport = Transport(
+            session=session,
+            timeout=100,
+            operation_timeout=(30, 100),
+        )
         signer = BinarySigner(cert_data=data["cert_data"], key_data=data["key_data"])
         verifier = Verifier(
             cert_path=data["app_cert_path"],

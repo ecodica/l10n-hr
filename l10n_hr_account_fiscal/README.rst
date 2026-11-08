@@ -139,8 +139,8 @@ A missing ``PoslovniProstor`` value is a legitimate empty result in schema 1.10.
 An incomplete response or unsupported working-hours variant is not silently
 interpreted as an empty schedule. Unverified responses are not applied.
 
-The transport has explicit WSDL loading and SOAP connect/read timeouts (10 s and
-10/60 s). Error logs retain any available sent and received XML. A sent envelope
+The transport has explicit WSDL loading and SOAP connect/read timeouts (100 s and
+30/100 s). Error logs retain any available sent and received XML. A sent envelope
 alone does not prove that FINA received the request.
 
 These savepoints do **not** commit the business transaction or provide exactly-once

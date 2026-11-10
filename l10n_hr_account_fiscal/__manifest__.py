@@ -33,7 +33,7 @@
         "views/l10n_hr_fiscal_log_views.xml",
         "views/account_move_views.xml",
         "views/fiscal_menu_views.xml",
-        # "report/report_invoice.xml",
+        "report/report_invoice.xml",
 
     ],
     "assets": {

@@ -25,10 +25,10 @@
                t-value="any(l.tax_ids for l in o.invoice_line_ids) and o.company_id.l10n_hr_tax_model not in ('r0', 'not_rh')"/>
         </xpath>
 
-        <!-- add croatia fiskal required data after total line -->
+        <!-- F1 (end-consumer receipt) only: ZKI exists only on a fiscalized document -->
         <xpath expr="//div[@id='l10n_hr_info']/.." position="after">
             <div
-                t-if="o.country_code == 'HR'"
+                t-if="o.country_code == 'HR' and o.l10n_hr_zki"
                 id="l10n_hr_fiscal_info"
                 class="row mt-4 mb-4"
             >
@@ -63,11 +63,9 @@
 
     <!-- hide tax subtotals if company is not subject to (Croatian) taxation -->
     <template id="document_tax_totals_template_inherited" inherit_id="account.document_tax_totals_template">
-         <xpath expr="//t[@t-call='account.tax_groups_totals']" position="replace">
-            <t t-if="tax_totals.get('l10n_hr_show_taxes', True)">
-                <t t-call="account.tax_groups_totals"/>
-            </t>
-         </xpath>
+        <xpath expr="//t[@t-foreach=&quot;subtotal['tax_groups']&quot;]" position="attributes">
+            <attribute name="t-if">tax_totals.get('l10n_hr_show_taxes', True)</attribute>
+        </xpath>
     </template>
 
     <!-- TODO: CONFIG THIS -> style="max-width: 80px; max-height: 80px;" -->

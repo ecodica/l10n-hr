@@ -1,0 +1,18 @@
+l10n_hr_account_base/models/account_move.py
+  h_35712297e8d9a2 36-43
+l10n_hr_account_fiscal/migrations/18.0.2.0.0/pre-migration.py
+  h_35712297e8d9a2 9-63
+l10n_hr_account_fiscal/report/report_invoice.xml
+  h_35712297e8d9a2 4,32,44,49,51,56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b99bbf17c27f9bd51ac9d39190f3b60dc9e9503a",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+l10n_hr_account_base/migrations/18.0.2.0.0/pre-migration.py
+  h_35712297e8d9a2 16-24
+l10n_hr_account_fiscal/migrations/18.0.2.0.0/post-migration.py
+  h_35712297e8d9a2 1-152
+l10n_hr_account_fiscal/migrations/18.0.2.0.0/pre-migration.py
+  h_35712297e8d9a2 15-23,56-63
+l10n_hr_account_fiscal/static/src/js/not_fiscalized_invoices_systray.js
+  h_35712297e8d9a2 13
+l10n_hr_account_fiscal/static/src/xml/not_fiscalized_invoices_systray.xml
+  h_35712297e8d9a2 3
+l10n_hr_account_fiscal/tests/test_systray.py
+  h_35712297e8d9a2 62-66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e4a9a595139d259546cf58fb156b86be86a1156",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

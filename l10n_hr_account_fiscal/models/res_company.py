@@ -79,14 +79,8 @@ class ResCompany(models.Model):
     )
     l10n_hr_fiscal_schema = fields.Selection(
         selection=[
-            ("EDUC_v1.6", "DEMO schema v1.6"),
-            ("EDUC_v1.7", "DEMO schema v1.7"),
-            ("EDUC_v1.8", "DEMO schema v1.8"),
             ("EDUC_v1.9", "DEMO schema v1.9"),
             ("EDUC_v1.10", "DEMO schema v1.10"),
-            ("PROD_v1.6", "PROD Schema v1.6"),
-            ("PROD_v1.7", "PROD Schema v1.7"),
-            ("PROD_v1.8", "PROD Schema v1.8"),
             ("PROD_v1.9", "PROD Schema v1.9"),
             ("PROD_v1.10", "PROD Schema v1.10"),
         ],

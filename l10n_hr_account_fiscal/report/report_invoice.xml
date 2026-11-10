@@ -41,7 +41,7 @@
                         <strong>JIR:</strong>
                         <span class="m-0" t-field="o.l10n_hr_jir" />
                     </div>
-                    <div t-if="o.l10n_hr_fiscal_qr">
+                    <div t-if="o.l10n_hr_fiscal_qr" id="l10n_hr_note">
                         <strong>Scan me to validate -&gt;</strong>
                     </div>
                 </div>

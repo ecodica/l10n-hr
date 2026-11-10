@@ -89,6 +89,20 @@ User** is only the login that sent the message: one login can be shared by many 
 so its own OIB is never reported. A document whose operator is missing or has no OIB is
 refused. Working hours messages report the employee of the user who sends them.
 
+Protective code (ZKI)
+---------------------
+
+The ZKI is the MD5 of an RSA-SHA256 signature over the company OIB, the issue date and
+time, the number, the premise code, the device code and the total, as chapter 12 of the
+Fiskalizacija technical specification v2.7 prescribes. Production refuses RSA-SHA1 from
+01.01.2027. FINA never checks the ZKI; an inspector asks for it to be reproduced from the
+printed document.
+
+A message is a late delivery (``NakDost``) when the document was handed over without a JIR.
+Here the ZKI is computed when the document is first sent, so a ZKI without a JIR means an
+earlier attempt failed; ``_l10n_hr_is_late_delivery()`` is the hook for a model that
+computes its ZKI earlier.
+
 
 Obtain client certificates from FINA
 ====================================
@@ -294,6 +308,8 @@ message contains is ``test_fiscal_tax_values.py``, which did not change.
 - ``test_dead_date_time_helper_is_gone`` - ``_prepare_fiscal_date_time()`` read
   ``l10n_hr_vrijeme_izdavanja``, a field that no longer exists anywhere. It was
   never called, so it could not fail loudly; the guard stops it coming back.
+- ``test_late_delivery_is_a_zki_without_a_jir`` - the base ``NakDost`` rule: no ZKI is a
+  first attempt, a ZKI without a JIR an earlier issue, a JIR ends it.
 
 tests/test_fiscal_timezone.py
 -----------------------------
@@ -411,3 +427,18 @@ Who is reported as ``OibOper``.
 
 In ``tests/test_fiscal_operation.py``, ``test_messages_carry_the_sending_users_employee_oib``
 and ``test_nothing_is_sent_without_an_operator_oib`` cover the working hours messages.
+
+tests/test_fiscal_zki.py
+------------------------
+
+The ZKI algorithm, pinned by the golden vectors in ``tests/data/zki_vectors.json``
+(payloads, a fixed test-only key and the expected ZKI). The POS computes the same ZKI in
+JavaScript from the same vectors.
+
+- ``test_vectors_are_sha256`` - the fixture's signatures verify with RSA-SHA256 and each
+  ZKI is the MD5 of its signature.
+- ``test_binary_signer_matches_every_vector`` - ``generate_zki`` with the signer
+  ``fiscalize()`` builds gives every vector's ZKI.
+- ``test_file_signer_matches_every_vector`` - the file-based signer agrees.
+- ``test_zki_is_not_signed_with_sha1`` - a SHA-1 signature gives another ZKI.
+- ``test_zki_is_lowercase_hex_of_32`` - the printed form.

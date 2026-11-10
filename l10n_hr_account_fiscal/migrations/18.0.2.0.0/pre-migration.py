@@ -12,22 +12,15 @@ def migrate(env, version):
     Renames are idempotent: openupgradelib skips a rename when the new name
     already exists, so re-running this script is safe.
 
-    Not covered here (need a dedicated data migration, see the upgrade notes):
-      * ``l10n.hr.fiskal.certificate`` -> ``certificate.certificate``: the
-        ``certificate`` module is an external dependency with a different
-        schema, so its rows must be mapped, not renamed. The related
-        ``res.company.l10n_hr_fiskal_cert_id`` column is migrated by that
-        script instead of ``rename_fields``.
-      * ``l10n_hr_vrijeme_izdavanja`` (Datetime) -> ``l10n_hr_fiscal_time``
-        (Char, 'dd.mm.yyyyThh:mm:ss'): rename the column *and* reformat its
-        values.
-      * ``l10n_hr_fiskal_log`` columns ``sadrzaj/odgovor/greska/time_stamp/
-        time_obr/invoice_id/fiskal_prostor_id/fiskal_uredjaj_id`` ->
-        ``content/reply_msg/error_msg/reply_timestamp/process_time/res_id+
-        res_model/business_premise_id/fiscal_device_id`` (``invoice_id`` becomes
-        the polymorphic ``res_id`` + ``res_model='account.move'``).
-      * ``l10n_hr_fiskal_taxative`` (Boolean) -> ``l10n_hr_tax_model``
-        (Selection r1/r2).
+    Value-shaped changes (not expressible as ``rename_fields``) are handled by
+    the accompanying ``post-migration.py``:
+      * ``l10n.hr.fiskal.certificate`` rows -> ``certificate.certificate`` +
+        ``certificate.key``, and ``res.company.l10n_hr_fiskal_cert_id`` ->
+        ``l10n_hr_fiscal_cert_ids``.
+      * ``l10n_hr_fiscal_log.invoice_id`` (direct Many2one) -> polymorphic
+        ``res_model`` + ``res_id``.
+      * ``l10n_hr_fiskal_taxative`` (Boolean) -> ``l10n_hr_tax_model`` selection.
+      * ``l10n_hr_fiscal_time`` values reformatted to 'dd.mm.yyyyThh:mm:ss'.
     """
     # Module rename (must run before the field/model renames below resolve).
     openupgrade.update_module_names(
@@ -60,4 +53,12 @@ def migrate(env, version):
         ("res.company", "res_company", "l10n_hr_fiskal_prostor_ids", "l10n_hr_business_premise_ids"),
         ("res.company", "res_company", "l10n_hr_fiskal_separator", "l10n_hr_fiscal_separator"),
         ("res.company", "res_company", "l10n_hr_fiskal_invoice_sequences", "l10n_hr_fiscal_invoice_sequence_ids"),
+        # l10n_hr.fiscal.log (table renamed by rename_models above; columns renamed here)
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "fiskal_prostor_id", "business_premise_id"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "fiskal_uredjaj_id", "fiscal_device_id"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "sadrzaj", "content"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "odgovor", "reply_msg"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "greska", "error_msg"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "time_stamp", "reply_timestamp"),
+        ("l10n_hr.fiscal.log", "l10n_hr_fiscal_log", "time_obr", "process_time"),
     ])

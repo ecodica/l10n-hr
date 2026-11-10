@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-    <t t-name="not_fiscalized_invoices_systray">
+    <t t-name="l10n_hr_account_fiscal.not_fiscalized_invoices_systray">
         <t t-if="state.counterTotal">
             <Dropdown position="'bottom-end'">
                 <button class="new_icon btn o-dropdown-caret-none" aria-label="Not Fiscalized Invoices">

@@ -10,6 +10,7 @@
     "license": "LGPL-3",
     "support": "",
     "depends": ["base_vat"],
+    "excludes": ["l10n_hr_edi"],
     "data": [
         "views/res_company_view.xml",
         "views/res_partner_views.xml",

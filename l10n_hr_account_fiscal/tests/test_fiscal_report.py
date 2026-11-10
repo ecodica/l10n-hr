@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from odoo.tests import tagged
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -14,7 +16,12 @@ class TestFiscalReport(AccountTestInvoicingCommon):
         cls.invoice = cls.init_invoice("out_invoice", products=cls.product_a)
 
     def _render(self, move):
-        html = self.env["ir.actions.report"]._render_qweb_html("account.account_invoices", move.ids)[0]
+        # a customer report module may own the template selection; render the standard one under test
+        with patch.object(
+            self.env.registry["account.move"], "_get_name_invoice_report",
+            lambda self: "account.report_invoice_document",
+        ):
+            html = self.env["ir.actions.report"]._render_qweb_html("account.account_invoices", move.ids)[0]
         return html.decode()
 
     def test_f1_receipt_prints_zki_jir_and_qr(self):

@@ -1,0 +1,18 @@
+l10n_hr_account_base/report/report_invoice.xml
+  h_35712297e8d9a2 58-60,66-68,74-76
+l10n_hr_account_fiscal/report/report_invoice.xml
+  h_35712297e8d9a2 44
+l10n_hr_account_reference/views/report_invoice.xml
+  h_35712297e8d9a2 11,15,19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6a43d6d17447a1af9ccdb13c3017f14d8de2332e",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+l10n_hr_account_fiscal/__manifest__.py
+  h_35712297e8d9a2 36
+l10n_hr_account_fiscal/report/report_invoice.xml
+  h_35712297e8d9a2 28,31,66-68
+l10n_hr_account_fiscal/tests/__init__.py
+  h_35712297e8d9a2 17
+l10n_hr_account_fiscal/tests/test_fiscal_report.py
+  h_35712297e8d9a2 1-46
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "06c8f771e61af3ab4c7d1c1a51c7fdcd3f71c26f",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

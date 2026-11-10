@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template
-        id="l10n_hr_fiskal_report_invoice_document"
+        id="l10n_hr_fiscal_report_invoice_document"
         inherit_id="l10n_hr_account_base.l10n_hr_report_invoice_document"
     >
 
@@ -29,7 +29,7 @@
         <xpath expr="//div[@id='l10n_hr_info']/.." position="after">
             <div
                 t-if="o.country_code == 'HR'"
-                id="l10n_hr_fiskal_info"
+                id="l10n_hr_fiscal_info"
                 class="row mt-4 mb-4"
             >
                 <div class="col-auto col-8 mw-100 mb-2">
@@ -41,19 +41,19 @@
                         <strong>JIR:</strong>
                         <span class="m-0" t-field="o.l10n_hr_jir" />
                     </div>
-                    <div t-if="o.l10n_hr_fiskal_qr">
+                    <div t-if="o.l10n_hr_fiscal_qr">
                         <strong>Scan me to validate -&gt;</strong>
                     </div>
                 </div>
                 <div
-                    id="l10n_fiskal_qr"
+                    id="l10n_fiscal_qr"
                     class="col-auto col-4 mw-100 mb-2"
-                    t-if="o.l10n_hr_fiskal_qr"
+                    t-if="o.l10n_hr_fiscal_qr"
                 >
                     <img
                         class="border border-dark rounded"
                         style="max-width: 120px; max-height: 120px;"
-                        t-att-src="'data:image/png;base64,%s' % o.l10n_hr_fiskal_qr.decode('ascii')"
+                        t-att-src="'data:image/png;base64,%s' % o.l10n_hr_fiscal_qr.decode('ascii')"
                     />
                 </div>
             </div>

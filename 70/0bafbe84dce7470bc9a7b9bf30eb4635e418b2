@@ -1,0 +1,24 @@
+l10n_hr_account_fiscal/__manifest__.py
+  h_35712297e8d9a2 6
+l10n_hr_account_fiscal/models/account_move.py
+  h_35712297e8d9a2 258
+l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py
+  h_35712297e8d9a2 114-119,441-453
+l10n_hr_account_fiscal/tests/__init__.py
+  h_35712297e8d9a2 18
+l10n_hr_account_fiscal/tests/test_fiscal_check.py
+  h_35712297e8d9a2 1-40
+l10n_hr_account_fiscal/views/account_move_views.xml
+  h_35712297e8d9a2 16,18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "700bafbe84dce7470bc9a7b9bf30eb4635e418b2",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

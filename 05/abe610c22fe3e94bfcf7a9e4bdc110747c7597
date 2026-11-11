@@ -1,0 +1,16 @@
+l10n_hr_account_fiscal/tests/__init__.py
+  h_35712297e8d9a2 19
+l10n_hr_account_fiscal/tests/test_country_guard.py
+  h_35712297e8d9a2 1-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "05abe610c22fe3e94bfcf7a9e4bdc110747c7597",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

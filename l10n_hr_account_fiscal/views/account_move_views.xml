@@ -13,8 +13,9 @@
                 <field name="l10n_hr_late_delivery" readonly="l10n_hr_jir"/>
                 <button string="Fiscalize" type="object" name="button_fiscalize" class="btn-primary"
                         invisible="not l10n_hr_fiscal_number or l10n_hr_jir"/>
+                <field name="l10n_hr_fiscal_check_allowed" invisible="1"/>
                 <button string="Fiscal Check" type="object" name="button_fiscalize_check"
-                        invisible="not l10n_hr_jir"/>
+                        invisible="not l10n_hr_fiscal_check_allowed"/>
                 <!-- Until midnight of the issue day only: FINA refuses the change afterwards. -->
                 <button string="Change Fiscal Data" type="object" name="button_fiscalize_change"
                         groups="account.group_account_invoice"

@@ -111,6 +111,12 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         help="OibPrimateljaRacuna the document was fiscalized with, empty when it was "
              "issued without one. Recorded on the first change of its fiscal data.",
     )
+    l10n_hr_fiscal_check_allowed = fields.Boolean(
+        string="Fiscal Check Available",
+        compute="_compute_l10n_hr_fiscal_check_allowed",
+        help="FINA offers the check (provjera) only in its test environment; the "
+             "production service has no such operation.",
+    )
     l10n_hr_fiscal_change_allowed = fields.Boolean(
         string="Fiscal Data Can Change",
         compute="_compute_l10n_hr_fiscal_change_allowed",
@@ -431,6 +437,19 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         # NOTE: write JIR number if it is received in response
         if hasattr(response, "Jir") and not self.l10n_hr_jir:
             self.l10n_hr_jir = response.Jir
+
+    @api.depends("l10n_hr_jir", "company_id.l10n_hr_fiscal_test_env")
+    def _compute_l10n_hr_fiscal_check_allowed(self):
+        for rec in self:
+            rec.l10n_hr_fiscal_check_allowed = bool(
+                rec.l10n_hr_jir and rec.company_id.l10n_hr_fiscal_test_env)
+
+    def _l10n_hr_fiscal_check(self):
+        """Send ``provjera``; refused outside the FINA test environment, which alone has it."""
+        self.ensure_one()
+        if not self.company_id.l10n_hr_fiscal_test_env:
+            raise UserError(_("The fiscal check is only available in the FINA test environment."))
+        self.fiscalize(msg_type="provjera")
 
     def fiscalize(self, msg_type="racuni", delay_fiscalization=False):
         """

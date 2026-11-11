@@ -1,0 +1,20 @@
+l10n_hr_account_base/tests/__init__.py
+  h_35712297e8d9a2 1-2
+l10n_hr_account_base/tests/common.py
+  h_35712297e8d9a2 1-84
+l10n_hr_account_base/tests/test_fiscal_device_fixture.py
+  h_35712297e8d9a2 1-58
+l10n_hr_account_base/tests/test_l10n_hr_edi_exclusion.py
+  h_35712297e8d9a2 1-21
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a6adab9c29215ef0e7131f6f5ef10c20b595253b",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

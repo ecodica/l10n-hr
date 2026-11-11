@@ -15,3 +15,4 @@ from . import test_fiscal_certificates
 from . import test_fiscal_refund_compatibility
 from . import test_fiscal_migration
 from . import test_fiscal_report
+from . import test_fiscal_check

@@ -255,7 +255,7 @@ class AccountMove(models.Model):
         self.fiscalize()
 
     def button_fiscalize_check(self):
-        self.fiscalize(msg_type='provjera')
+        self._l10n_hr_fiscal_check()
 
     @api.model
     def _l10n_hr_fiscal_change_depends(self):

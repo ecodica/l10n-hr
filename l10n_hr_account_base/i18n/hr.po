@@ -1017,3 +1017,14 @@ msgstr "Bit će korišteno kao drugi dio fiskalnog broja računa."
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_base.l10n_hr_report_invoice_document
 msgid "units"
 msgstr "jedinice"
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,help:l10n_hr_account_base.field_res_company__l10n_hr_pdv_po_naplati
+msgid "Follows the company Tax Model: set for R2 (VAT on payment)."
+msgstr ""
+"Slijedi porezni model tvrtke: uključeno za R2 (PDV po naplaćenoj naknadi)."
+
+#. module: l10n_hr_account_base
+#: model:ir.model.fields,field_description:l10n_hr_account_base.field_res_company__l10n_hr_pdv_po_naplati
+msgid "VAT on Payment"
+msgstr "PDV po naplaćenoj naknadi"

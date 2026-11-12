@@ -14,6 +14,7 @@ from . import test_fiscal_concurrency
 from . import test_fiscal_certificates
 from . import test_fiscal_refund_compatibility
 from . import test_fiscal_migration
+from . import test_fiscal_xml
 from . import test_fiscal_report
 from . import test_fiscal_check
 from . import test_country_guard

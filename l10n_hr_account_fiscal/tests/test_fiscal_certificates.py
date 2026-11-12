@@ -181,29 +181,6 @@ class TestFiscalCertificates(TransactionCase):
         self.assertEqual(self.company.l10n_hr_fiscal_cert_id, self.demo)
         self.assertEqual(self.company.get_fiscal_data()['cert_data'], original)
 
-    def test_encrypted_key_is_decrypted_only_for_signing(self):
-        from ..fiscal.zeep_signer import BinarySigner
-
-        password = 'fixture key password'
-        encrypted = self.env['certificate.key'].create({
-            'name': 'Encrypted fiscal key', 'company_id': self.company.id,
-            'password': password,
-            'content': base64.b64encode(self.key.private_bytes(
-                serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
-                serialization.BestAvailableEncryption(password.encode()),
-            )),
-        })
-        self.renewal.private_key_id = encrypted
-        self._configure(self.demo | self.renewal)
-        with freeze_time('2030-02-15 12:00:00'):
-            data = self.company.get_fiscal_data()
-            self.assertEqual(self.company.l10n_hr_fiscal_cert_id, self.renewal)
-            self.assertIn(b'ENCRYPTED PRIVATE KEY', base64.b64decode(encrypted.pem_key))
-            self.assertNotIn(b'ENCRYPTED', base64.b64decode(data['key_data']))
-            signer = BinarySigner(cert_data=data['cert_data'], key_data=data['key_data'])
-            self.assertEqual(len(signer.sign_zki_payload('fixture fiscal payload')), 32)
-            self.assertEqual(encrypted.password, password)
-
     def test_certificate_without_a_private_key_cannot_displace_a_usable_one(self):
         public_only = self._certificate('Public only', 'demo', '2029-01-01', '2038-01-01', private_key=False)
         self._configure(self.demo | public_only)

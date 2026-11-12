@@ -1,11 +1,8 @@
 # Copyright 2025 Ecodica d.o.o
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-import base64
 import os
 
-from cryptography.exceptions import UnsupportedAlgorithm
-from cryptography.hazmat.primitives import serialization
 from lxml import etree
 
 from odoo import _, fields, models, api
@@ -100,6 +97,7 @@ class ResCompany(models.Model):
         'l10n_hr_fiscal_cert_ids.private_key_id.public',
         'l10n_hr_fiscal_cert_ids.private_key_id.loading_error',
         'l10n_hr_fiscal_cert_ids.private_key_id.pem_key',
+        'l10n_hr_fiscal_cert_ids.private_key_id.password',
     )
     def _compute_l10n_hr_fiscal_cert(self):
         now = fields.Datetime.now()
@@ -122,6 +120,8 @@ class ResCompany(models.Model):
             and cert.private_key_id.active and not cert.private_key_id.public
             and not cert.private_key_id.loading_error and cert.private_key_id.pem_key
             and cert.private_key_id.company_id == company
+            # Password-protected keys cannot be loaded by the XML signer.
+            and not cert.private_key_id.password
         )
         # Prefer a valid renewal; ties must not depend on Many2many read ordering.
         return eligible.sorted(key=lambda cert: (cert.date_end, cert.id or 0), reverse=True)[:1]
@@ -302,21 +302,7 @@ class ResCompany(models.Model):
         if not self.l10n_hr_fiscal_schema.startswith(schema_prefix):
             raise UserError(_("The fiscal schema does not match the selected demo/production environment."))
         cert_data = fiscal_cert.pem_certificate
-        key = fiscal_cert.private_key_id
-        key_data = key.pem_key
-        if key.password:
-            # BinarySigner expects unencrypted PEM. Decrypt only in memory; the
-            # stored key and password are unchanged and never passed to logs.
-            try:
-                private_key = serialization.load_pem_private_key(
-                    base64.b64decode(key_data), password=key.password.encode('utf-8'),
-                )
-                key_data = base64.b64encode(private_key.private_bytes(
-                    serialization.Encoding.PEM, serialization.PrivateFormat.PKCS8,
-                    serialization.NoEncryption(),
-                ))
-            except (TypeError, ValueError, UnsupportedAlgorithm):
-                raise UserError(_("The fiscal private key could not be loaded. Check its configuration.")) from None
+        key_data = fiscal_cert.private_key_id.pem_key
 
         fiscal_path = self._get_fiscal_path()
         schema = "".join(

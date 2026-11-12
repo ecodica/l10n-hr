@@ -321,10 +321,16 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 res["Naknade"] = []
             # `nak` is a dict; unpacking it as a 2-tuple yielded its keys, so every
             # Naknade tax went out as the literal strings "NazivN"/"IznosN".
-            naknada = factory.type_factory.Naknada(
+            naknada = factory.type_factory.NaknadaType(
                 NazivN=nak["NazivN"], IznosN=fiscal.format_decimal(nak["IznosN"])
             )
             res["Naknade"].append(naknada)
+        # Exempt/non-taxable/margin totals have to reach the final RacunType.
+        # The account.move source computes them; models that do not support them
+        # simply never set these keys.
+        for key in ("IznosOslobPdv", "IznosNePodlOpor", "IznosMarza"):
+            if tax_data.get(key):
+                res[key] = tax_data[key]
         return res
 
     def _prepare_fiscal_invoice_total(self):
@@ -374,7 +380,10 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             IznosOslobPdv=porezi.get("IznosOslobPdv", None),
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
-            # Naknade=ws_naknade,
+            Naknade=(
+                factory.type_factory.NaknadeType(Naknada=porezi["Naknade"])
+                if porezi.get("Naknade") else None
+            ),
             IznosUkupno=self._prepare_fiscal_invoice_total(),
             NacinPlac=self.l10n_hr_payment_method,
             OibOper=employee_oib(self.l10n_hr_fiscal_operator_id),

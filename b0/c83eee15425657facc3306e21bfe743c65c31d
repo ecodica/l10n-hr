@@ -1,0 +1,28 @@
+l10n_hr_account_base/__manifest__.py
+  h_35712297e8d9a2 6
+l10n_hr_account_base/i18n/hr.po
+  h_35712297e8d9a2 1020-1030
+l10n_hr_account_base/i18n/l10n_hr_account_base.pot
+  h_35712297e8d9a2 1038-1047
+l10n_hr_account_base/migrations/19.0.2.1.0/post-migrate.py
+  h_35712297e8d9a2 1-20
+l10n_hr_account_base/models/res_company.py
+  h_35712297e8d9a2 1,35-40,50-54
+l10n_hr_account_base/tests/__init__.py
+  h_35712297e8d9a2 3
+l10n_hr_account_base/tests/test_vat_on_payment.py
+  h_35712297e8d9a2 1-15
+l10n_hr_account_base/views/res_company_view.xml
+  h_35712297e8d9a2 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b0c83eee15425657facc3306e21bfe743c65c31d",
+  "prompts": {},
+  "humans": {
+    "h_35712297e8d9a2": {
+      "author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

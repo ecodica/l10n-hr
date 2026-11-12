@@ -1,0 +1,40 @@
+l10n_hr_account_fiscal/models/account_move.py
+  s_0b534bb7de7eeb::t_110a884e9198a4 65-67
+  s_0b534bb7de7eeb::t_12bfd862ef25f1 69-74
+  s_0b534bb7de7eeb::t_5e8e18da9ae418 82-91
+  s_0b534bb7de7eeb::t_08f8429c58fbd8 62-64
+  s_0b534bb7de7eeb::t_ef82b2b4327d64 68
+  s_0b534bb7de7eeb::t_3e215f89a4e1b1 75-77
+  s_0b534bb7de7eeb::t_43dae769134297 92-94
+l10n_hr_account_fiscal/tests/__init__.py
+  s_0b534bb7de7eeb::t_b90789ec184bcc 17
+l10n_hr_account_fiscal/models/l10n_hr_fiscal_v1_mixin.py
+  s_0b534bb7de7eeb::t_cd19f6ac9983c8 324
+l10n_hr_account_fiscal/tests/test_fiscal_tax_values.py
+  s_0b534bb7de7eeb::t_cffc31ce66a7bc 519
+l10n_hr_account_fiscal/tests/test_fiscal_xml.py
+  s_0b534bb7de7eeb::t_6ff705db396d27 176,246
+  s_0b534bb7de7eeb::t_a1fe580f5f6a6f 24-25,148-152,155-169,177-185,233-234,242-243,247,264
+  s_0b534bb7de7eeb::t_d45ff23ccd6f10 79
+  s_0b534bb7de7eeb::t_829567af9683ad 1-23,26-78,80-147,153-154,170-175,186-187,199,231-232,235-241,244-245,248-263
+  s_0b534bb7de7eeb::t_9b5c2ac33a693f 188-198,200-230
+l10n_hr_account_fiscal/README.rst
+  s_0b534bb7de7eeb::t_863d72143904b2 313-317
+  s_0b534bb7de7eeb::t_98ce176ee13563 310-312
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a19a398d3f51cd43f0786cdcaea30c0ec7e67d63",
+  "prompts": {},
+  "sessions": {
+    "s_0b534bb7de7eeb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_e454e026fffe1uITmpYtbu35cy",
+        "model": "unknown"
+      },
+      "human_author": "Goran Kliska <goran@ecodica.eu>"
+    }
+  }
+}

@@ -191,8 +191,8 @@ write, and a future certificate can become usable during invoice prechecks.
 The chosen schema must also match the mode: ``EDUC_*`` for demo and ``PROD_*`` for
 production. Change the schema when switching environments; inconsistent settings
 are rejected before sending. The selection never falls back to the other mode.
-Password-protected private keys are decrypted only in memory for signing; stored
-key material/passwords are unchanged and are not included in fiscal logs.
+A certificate whose private key requires a password is not selected: the fiscal
+signer cannot load such a key, so it would fail when a message is sent.
 
 Worker and reverse-proxy limits must allow for SOAP connect/read waits, local
 processing and the number of premises in a batch. The transport timeouts are not
@@ -307,6 +307,14 @@ Security, recovery and transport tests
 * ``test_fiscal_migration.py`` exercises the historical migration in a rollback-only
   isolated PostgreSQL schema: missing/partial tables, confirmed transient cleanup,
   persistent history/dependencies, reruns and ambiguous company ownership.
+* ``test_fiscal_xml.py`` builds a real ``RacunType`` through
+  ``_prepare_fiscal_invoice`` with Zeep's own ``type_factory`` from the bundled
+  EDUC 1.10 WSDL, serializes the full ``RacunZahtjev`` and validates the XML
+  against the bundled XSD. The tax values use Odoo's own computation engine, so
+  the final message carries summed bases for several taxes of the same rate,
+  exempt/non-taxable/margin totals, fees (``Naknade``) and company-currency
+  amounts. This is the end-to-end guard the existing unit tests alone could not
+  provide.
 
 
 tests/test_fiscal_tax_values.py

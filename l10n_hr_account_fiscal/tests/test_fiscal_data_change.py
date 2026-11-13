@@ -370,6 +370,27 @@ class TestFiscalDataChange(AccountTestInvoicingCommon):
         self.assertEqual(entry.line_ids.partner_id, self.private)
         self.assertFalse(invoice.amount_residual, "the reconciliation stays")
 
+    def test_unverified_confirmation_does_not_change_the_customer(self):
+        original_call = FakeChangeFiscalization._call_service
+
+        def unverified(client, service_proxy, req_kw):
+            response = original_call(client, service_proxy, req_kw)
+            client.fiscal_plugin.last_verification_ok = False
+            return response
+
+        for silent in (False, True):
+            with self.subTest(silent=silent):
+                self.company.l10n_hr_fiscal_silent_error_logging = silent
+                invoice = self._issued()
+                with patch.object(FakeChangeFiscalization, '_call_service', unverified):
+                    failure = invoice._l10n_hr_change_fiscal_data(self.customer, 'G')
+                self.assertTrue(failure)
+                self.assertEqual(invoice.partner_id, self.private)
+                log = invoice._l10n_hr_last_fiscal_log(MSG_TYPE)
+                self.assertEqual(log.exchange_outcome, 'uncertain')
+                self.assertIn('signature', log.error_msg)
+                self.assertTrue(log.reply_msg)
+
     def test_wizard_reports_a_refusal(self):
         """The wizard shows FINA's refusal instead of raising it, so the log is kept."""
         FakeChangeFiscalization.responses[MSG_TYPE] = _error_response("s012", "Podaci se razlikuju.")

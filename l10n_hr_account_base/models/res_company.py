@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class Company(models.Model):
@@ -32,6 +32,12 @@ class Company(models.Model):
         required=True,
         tracking=True,
         default="r1")  # TODO: multicompany improve!
+    l10n_hr_pdv_po_naplati = fields.Boolean(
+        string="VAT on Payment",
+        compute="_compute_l10n_hr_pdv_po_naplati",
+        store=True,
+        help="Follows the company Tax Model: set for R2 (VAT on payment).",
+    )
     l10n_hr_show_required_fiscal_fields_on_header = fields.Boolean(
         string="Show Base Fiscalization Fields On Invoice",
         default=True)
@@ -40,6 +46,11 @@ class Company(models.Model):
         string='Tax Representative Party',
         prefetch=False
     )
+
+    @api.depends("l10n_hr_tax_model")
+    def _compute_l10n_hr_pdv_po_naplati(self):
+        for company in self:
+            company.l10n_hr_pdv_po_naplati = company.l10n_hr_tax_model == "r2"
 
     def _compute_l10n_hr_fiscal_invoice_sequence_ids(self):
         for company in self:

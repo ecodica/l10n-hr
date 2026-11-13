@@ -3,10 +3,8 @@ from datetime import datetime
 from pytz import timezone as tz
 from uuid import uuid4
 
-from lxml import etree
 from requests import Session
-from requests.exceptions import SSLError, ConnectionError
-from zeep import Client, Settings, exceptions as zeep_exceptions
+from zeep import Client, Settings
 from zeep.plugins import HistoryPlugin
 from zeep.transports import Transport
 
@@ -60,7 +58,11 @@ class Fiscalization:
         session = Session()
         session.verify = data["fina_bundle_path"]
         # session.cert = (data["cert"], data["key"])
-        transport = Transport(session=session)
+        transport = Transport(
+            session=session,
+            timeout=100,
+            operation_timeout=(30, 100),
+        )
         signer = BinarySigner(cert_data=data["cert_data"], key_data=data["key_data"])
         verifier = Verifier(
             cert_path=data["app_cert_path"],
@@ -114,27 +116,10 @@ class Fiscalization:
         return operation.name != "echo"
 
     def _call_service(self, service_proxy, req_kw):
-        try:
-            res = service_proxy(**req_kw)
-        except ConnectionError as E:
-            raise E
-        except Exception as E:
-            if isinstance(E, SSLError):
-                raise E
-            if isinstance(E, zeep_exceptions.ValidationError):
-                raise E
-            try:
-                doc = etree.fromstring(E.detail)
-            except zeep_exceptions.Fault:
-                # should not happen!!
-                raise
-            root = doc.find("{*}Body/*")
-            if root is None:
-                res = doc
-            else:
-                fault_response = self.client.wsdl.types.deserialize(root)
-                res = fault_response
-        return res
+        # Preserve the original transport/validation/Fault exception. Fault.detail
+        # may already be an XML element; a SOAP Fault is not a successful FINA reply.
+        # The wrapper logs the diagnosis and available raw envelopes.
+        return service_proxy(**req_kw)
 
     def test_service(self, test_message="ping"):
         """

@@ -104,6 +104,127 @@ earlier attempt failed; ``_l10n_hr_is_late_delivery()`` is the hook for a model 
 computes its ZKI earlier.
 
 
+Working hours: multiple business premises
+-----------------------------------------
+
+Select the premises and open **Working Hours Fiscalization**. A batch creates
+one executed operation per premise, each with its own message log and snapshots.
+
+* **Get** fetches the registered hours separately for each premise.
+* **Register** applies new inline entries to every selected premise. A reference
+  to existing working hours applies only to the premise that owns those hours;
+  it does not create a duplicate local entry.
+* **Remove** sends only the selected entries belonging to each premise.
+  FINA identifies deletions by date, not by weekday or individual shift: select
+  every regular entry with the same **Valid From** date, or every exception with
+  the same **Valid On** date, for that premise. An incomplete date group is
+  refused before sending. **Remove All** selects all entries for each premise.
+
+Every generated operation is validated before the first request is sent. For
+registration or selected removal, each selected premise must have entries to
+process. Working hours from an unselected premise are refused, not silently
+sent under another premise's code. The register/remove shortcut actions open a
+draft so the entries can be selected before execution.
+
+
+Recovery after an uncertain exchange
+------------------------------------
+
+Working-hours operations distinguish **Error** (a trusted rejection or failure
+before sending) from **Needs Reconciliation**. A register/remove request whose
+reply is lost or untrusted may already have changed FINA. A verified response
+followed by a local application or snapshot failure also needs reconciliation.
+A failed GET transport does not mutate FINA and is recorded as an error.
+
+The exchange is logged before local application. Local changes, after snapshots
+and finalization run together in a savepoint. If they fail, they are rolled back,
+the exchange log is retained, and the operation shows its unchanged local
+before/after state. A batch continues with the remaining premises; all local
+before snapshots are prepared before its first external call.
+
+Use **Reconcile from FINA** on an uncertain operation. This creates a new, linked
+**Get** operation; it never resends the original registration or removal. A
+successful reconciliation establishes the current remote state, not proof that
+the original request succeeded. The original operation and log remain history.
+Further registration/removal for that premise is blocked until a linked GET
+succeeds. Failed reconciliations remain visible and can be attempted again.
+
+A missing ``PoslovniProstor`` value is a legitimate empty result in schema 1.10.
+An incomplete response or unsupported working-hours variant is not silently
+interpreted as an empty schedule. Unverified responses are not applied.
+
+The transport has explicit WSDL loading and SOAP connect/read timeouts (100 s and
+30/100 s). Error logs retain any available sent and received XML. A sent envelope
+alone does not prove that FINA received the request.
+
+These savepoints do **not** commit the business transaction or provide exactly-once
+delivery. A worker crash, database disconnect or later outer rollback can still
+lose its uncommitted history; an independent durable outbox would be needed to
+cover those cases. Invoice fiscal-data changes retain their existing recovery
+path; the shared transport/logging improvements also apply to them.
+
+
+Fiscal permissions
+------------------
+
+Assign **Fiscalization / Fiscal Manager** explicitly to users who manage working
+hours. This group does not imply an accounting role; its separate **Fiscalization**
+menu provides access to premises, operations, schedules and logs without exposing
+accounting configuration. Existing invoicing or accounting-administrator rights
+alone no longer permit working-hours registration or deletion.
+
+Invoicing users can read fiscal history in their enabled companies. Ordinary
+internal users cannot read raw fiscal logs. Logs are created only by the private
+fiscal communication code: users cannot fabricate, edit or delete them.
+
+Executed operations, their lines and linked schedule snapshots are audit history.
+Client context flags and defaults cannot create or modify execution results.
+Company rules apply to premises, devices, working hours, operations, snapshots and
+logs. A multi-premise draft without its own company is private to its creator.
+
+After an upgrade, assign the new group before using working-hours operations.
+Invoice/POS fiscalization itself does not require this management group.
+
+
+Certificate selection and renewal
+---------------------------------
+
+Configure certificates on the company, setting their **FINA Type** to demo or
+production and importing the private key. The selected certificate is computed
+for the company's fiscal environment. Changing **Fiscal Test Mode**, replacing a
+certificate, or archiving a certificate/key refreshes the stored selection.
+
+Selection excludes another company's certificates, expired/not-yet-valid
+certificates, archived records, and missing/unloadable/public-only keys. Among
+eligible certificates, the latest expiry wins (then the most recent record).
+The current UTC timestamp is checked again before preparing a fiscal message,
+even if the stored selection or the non-stored ``is_valid`` flag is cached.
+A valid renewal can therefore replace an expired certificate without a settings
+write, and a future certificate can become usable during invoice prechecks.
+
+The chosen schema must also match the mode: ``EDUC_*`` for demo and ``PROD_*`` for
+production. Change the schema when switching environments; inconsistent settings
+are rejected before sending. The selection never falls back to the other mode.
+A certificate whose private key requires a password is not selected: the fiscal
+signer cannot load such a key, so it would fail when a message is sent.
+
+Worker and reverse-proxy limits must allow for SOAP connect/read waits, local
+processing and the number of premises in a batch. The transport timeouts are not
+a strict total-request duration cap. Check deployment limits separately; do not
+increase them blindly or assume a proxy timeout cancels an accepted FINA request.
+
+Upgrade safety
+--------------
+
+The historical ``19.0.2.1.0`` migration preserves persistent schedule history and
+database dependencies: it no longer drops tables with ``CASCADE``. Legacy
+transient schedules had no company ownership. Their regenerable rows are cleared
+only when model metadata explicitly confirms that they were transient; tables,
+views and foreign keys are kept. Populated ambiguous schemas or persistent rows
+without a company stop the upgrade for manual review instead of silently
+assigning data to the company performing the upgrade. Back up before upgrading.
+
+
 Obtain client certificates from FINA
 ====================================
 
@@ -176,6 +297,39 @@ module installed first. ``test_systray.py`` is an ``HttpCase`` and needs a
 running browser (Chromium); if the server config pins a ``dbfilter``, pass
 ``--db-filter=<database>`` as well or the browser lands on the database
 selector instead of the web client.
+
+Security, recovery and transport tests
+--------------------------------------
+
+* ``test_fiscal_security.py`` checks the independent fiscal role, company rules,
+  immutable operations/lines/snapshots, context-default attacks and authorized
+  reconciliation. Its standalone premise view test needs no accounting role.
+* ``test_fiscal_recovery.py`` injects transport, SQL, local application, snapshot,
+  final-write and logging-savepoint-exit failures. It checks partial batch success,
+  public multi-record preflight, immutable linked GET recovery and no POST replay.
+* ``test_fiscal_transport.py`` checks bounded timeouts, preservation of original
+  transport/SOAP exceptions and XML evidence when no response was received.
+* ``test_fiscal_concurrency.py`` uses real independent PostgreSQL transactions to
+  check the premise revision under REPEATABLE READ. It commits only a unique test
+  fixture and removes it in a cleanup transaction. Run tests on a dedicated test
+  database, never on a business database.
+* ``test_fiscal_certificates.py`` uses generated certificates and a controlled clock
+  to check environment changes, renewal, expiry despite a cached validity flag,
+  private-key availability, encrypted keys, invoice prechecks and company boundaries.
+* ``test_fiscal_refund_compatibility.py`` checks that a different credit-note device
+  produces its validation message through the Odoo 19 ``display_name`` API.
+* ``test_fiscal_migration.py`` exercises the historical migration in a rollback-only
+  isolated PostgreSQL schema: missing/partial tables, confirmed transient cleanup,
+  persistent history/dependencies, reruns and ambiguous company ownership.
+* ``test_fiscal_xml.py`` builds a real ``RacunType`` through
+  ``_prepare_fiscal_invoice`` with Zeep's own ``type_factory`` from the bundled
+  EDUC 1.10 WSDL, serializes the full ``RacunZahtjev`` and validates the XML
+  against the bundled XSD. The tax values use Odoo's own computation engine, so
+  the final message carries summed bases for several taxes of the same rate,
+  exempt/non-taxable/margin totals, fees (``Naknade``) and company-currency
+  amounts. This is the end-to-end guard the existing unit tests alone could not
+  provide.
+
 
 tests/test_fiscal_tax_values.py
 -------------------------------

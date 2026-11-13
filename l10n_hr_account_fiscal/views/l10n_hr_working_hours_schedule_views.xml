@@ -55,6 +55,7 @@
                         </group>
                     </group>
                     <button name="action_compute" type="object" string="Compute Schedule"
+                            groups="l10n_hr_account_fiscal.group_fiscal_manager"
                             class="btn-primary" invisible="line_ids"/>
                     <field name="line_ids" nolabel="1" colspan="4" readonly="1">
                         <list create="0" edit="0" delete="0" decoration-muted="closed">

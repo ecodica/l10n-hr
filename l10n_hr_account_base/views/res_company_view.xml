@@ -12,6 +12,7 @@
             <group name="l10n_hr_legal" position="after">
                 <group string="Fiscal Data" name="l10n_hr_fiscal">
                     <field name="l10n_hr_tax_model"/>
+                    <field name="l10n_hr_pdv_po_naplati"/>
                     <field name="l10n_hr_fiscal_separator"/>
                     <field name="l10n_hr_show_required_fiscal_fields_on_header"/>
                 </group>

@@ -10,7 +10,7 @@ import { user } from "@web/core/user";
 const REFRESH_INTERVAL = 5 * 60 * 1000;
 
 export class NotFiscalizedInvoicesSystray extends Component {
-    static template = "not_fiscalized_invoices_systray";
+    static template = "l10n_hr_account_fiscal.not_fiscalized_invoices_systray";
     static components = { Dropdown, DropdownItem };
     static props = {};
 

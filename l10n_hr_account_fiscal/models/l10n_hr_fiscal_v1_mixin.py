@@ -82,6 +82,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         domain=lambda model: [('res_model', '=', model._name)],
         string="Fiscal message logs",
         help="Log of all messages sent and received for FINA",
+        groups="account.group_account_invoice,l10n_hr_account_fiscal.group_fiscal_manager",
         readonly=True
     )
     l10n_hr_fiscal_operator_id = fields.Many2one(
@@ -109,6 +110,12 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         copy=False,
         help="OibPrimateljaRacuna the document was fiscalized with, empty when it was "
              "issued without one. Recorded on the first change of its fiscal data.",
+    )
+    l10n_hr_fiscal_check_allowed = fields.Boolean(
+        string="Fiscal Check Available",
+        compute="_compute_l10n_hr_fiscal_check_allowed",
+        help="FINA offers the check (provjera) only in its test environment; the "
+             "production service has no such operation.",
     )
     l10n_hr_fiscal_change_allowed = fields.Boolean(
         string="Fiscal Data Can Change",
@@ -185,7 +192,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         res = []
         if self.l10n_hr_fiscal_device_id and self.l10n_hr_fiscal_device_id.fiscalization_active:
             res += operator_errors(self.l10n_hr_fiscal_operator_id, self.env.user, self.company_id)
-            if not self.company_id.l10n_hr_fiscal_cert_id:
+            if not self.company_id._get_fiscal_certificate():
                 res.append(
                     _(
                         "No Fiscal certificate found, please install one "
@@ -314,10 +321,16 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                 res["Naknade"] = []
             # `nak` is a dict; unpacking it as a 2-tuple yielded its keys, so every
             # Naknade tax went out as the literal strings "NazivN"/"IznosN".
-            naknada = factory.type_factory.Naknada(
+            naknada = factory.type_factory.NaknadaType(
                 NazivN=nak["NazivN"], IznosN=fiscal.format_decimal(nak["IznosN"])
             )
             res["Naknade"].append(naknada)
+        # Exempt/non-taxable/margin totals have to reach the final RacunType.
+        # The account.move source computes them; models that do not support them
+        # simply never set these keys.
+        for key in ("IznosOslobPdv", "IznosNePodlOpor", "IznosMarza"):
+            if tax_data.get(key):
+                res[key] = tax_data[key]
         return res
 
     def _prepare_fiscal_invoice_total(self):
@@ -367,7 +380,10 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
             IznosOslobPdv=porezi.get("IznosOslobPdv", None),
             IznosMarza=porezi.get("IznosMarza", None),
             IznosNePodlOpor=porezi.get("IznosNePodlOpor", None),
-            # Naknade=ws_naknade,
+            Naknade=(
+                factory.type_factory.NaknadeType(Naknada=porezi["Naknade"])
+                if porezi.get("Naknade") else None
+            ),
             IznosUkupno=self._prepare_fiscal_invoice_total(),
             NacinPlac=self.l10n_hr_payment_method,
             OibOper=employee_oib(self.l10n_hr_fiscal_operator_id),
@@ -442,6 +458,19 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         if hasattr(response, "Jir") and not self.l10n_hr_jir:
             self.l10n_hr_jir = response.Jir
 
+    @api.depends("l10n_hr_jir", "company_id.l10n_hr_fiscal_test_env")
+    def _compute_l10n_hr_fiscal_check_allowed(self):
+        for rec in self:
+            rec.l10n_hr_fiscal_check_allowed = bool(
+                rec.l10n_hr_jir and rec.company_id.l10n_hr_fiscal_test_env)
+
+    def _l10n_hr_fiscal_check(self):
+        """Send ``provjera``; refused outside the FINA test environment, which alone has it."""
+        self.ensure_one()
+        if not self.company_id.l10n_hr_fiscal_test_env:
+            raise UserError(_("The fiscal check is only available in the FINA test environment."))
+        self.fiscalize(msg_type="provjera")
+
     def fiscalize(self, msg_type="racuni", delay_fiscalization=False):
         """
         Fiskalizira jedan izlazni racun ili point of sale račun
@@ -449,6 +478,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         delay_fiscalization : odgodi poziv servisa za fiskalizaciju (generira se samo ZKI broj),
         """
         self.ensure_one()
+        self.check_access('write')
         # exit if fiscalization is not needed for invoice
         if not self._l10n_hr_fiscalization_needed():
             return

@@ -3,7 +3,7 @@
     "summary": "Croatia ",
     "category": "Croatia",
     "images": [],
-    "version": "19.0.2.4.0",
+    "version": "19.0.2.4.1",
     "application": False,
     "author": "Daj mi 5, Ecodica, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -16,6 +16,7 @@
     ],
     "external_dependencies": {"python": ["zeep", "xmlsec==1.3.13"], "bin": []},
     "data": [
+        "security/fiscal_security.xml",
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
         "wizard/l10n_hr_change_fiscal_data_views.xml",
@@ -31,7 +32,8 @@
         "views/l10n_hr_fiscal_device_views.xml",
         "views/l10n_hr_fiscal_log_views.xml",
         "views/account_move_views.xml",
-        # "report/report_invoice.xml",
+        "views/fiscal_menu_views.xml",
+        "report/report_invoice.xml",
 
     ],
     "assets": {

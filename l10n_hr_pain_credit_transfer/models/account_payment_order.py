@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from lxml import etree
@@ -9,14 +10,91 @@ from odoo.addons.l10n_hr_pain_base.models.account_payment_order import (
     HR_SCT_INST_09,
 )
 
-try:
-    from unidecode import unidecode
-except ImportError:
-    unidecode = None
+
+def _check_partner_address(partner, label):
+    """Check that a partner has the address fields required for HR PAIN v09.
+    Returns a list of missing-field descriptions (empty list if OK).
+    """
+    missing = []
+    if not partner.city:
+        missing.append(_("City"))
+    if not partner.country_id:
+        missing.append(_("Country"))
+    # street is always available; street_name/street_number are provided by
+    # base_address_extended — the splitter can parse a raw street later, so
+    # only flag it when there is no street at all
+    if not partner.street and not partner.street_name and not partner.street_number:
+        missing.append(_("Street"))
+    if missing:
+        return [_("Partner '%(name)s' (%(label)s): %(fields)s.") % {
+            "name": partner.name,
+            "label": label,
+            "fields": ", ".join(missing),
+        }]
+    return []
+
+
+def _check_partner_oib(partner, label):
+    """Check that a partner has the OIB (company_registry) required for the
+    debtor in HR PAIN v09. Returns a list of error messages.
+    """
+    if not partner.company_registry:
+        return [_("Partner '%(name)s' (%(label)s): Company ID (OIB) is required.") % {
+            "name": partner.name,
+            "label": label,
+        }]
+    return []
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
+
+    def _check_hr_pain_partner_addresses(self):
+        """Validate partner addresses for HR PAIN v09 flavors before confirming.
+        Checks the debtor (company) and every creditor (payment line partner).
+        """
+        self.ensure_one()
+        if self.payment_method_id.pain_version not in HR_PAIN_09_FLAVORS:
+            return
+
+        errors = []
+
+        # --- Debtor (company partner) ---
+        debtor_bank = self.company_partner_bank_id
+        if debtor_bank:
+            debtor_partner = debtor_bank.partner_id
+            errors.extend(_check_partner_address(debtor_partner, _("Debtor")))
+            errors.extend(_check_partner_oib(debtor_partner, _("Debtor")))
+
+        # --- Creditors (one check per unique partner across all payment lines) ---
+        partners_checked = set()
+        for line in self.payment_line_ids:
+            creditor_bank = line.partner_bank_id
+            if not creditor_bank:
+                errors.append(_("Partner '%(name)s' (reference '%(ref)s'): "
+                                "Bank account is required.") % {
+                    "name": line.partner_id.name,
+                    "ref": line.name,
+                })
+                continue
+            creditor_partner = creditor_bank.partner_id
+            if creditor_partner.id in partners_checked:
+                continue
+            partners_checked.add(creditor_partner.id)
+            errors.extend(_check_partner_address(
+                creditor_partner, _("Creditor")))
+
+        if errors:
+            raise UserError(_(
+                "The following address fields are missing or incomplete. "
+                "Please complete them before confirming the payment order:\n\n"
+            ) + "\n".join(errors))
+
+    def draft2open(self):
+        """Validate HR PAIN v09 partner addresses before confirming."""
+        for order in self:
+            order._check_hr_pain_partner_addresses()
+        return super().draft2open()
 
     def generate_remittance_info_block(self, parent_node, line, gen_args):
         res = super().generate_remittance_info_block(parent_node, line, gen_args)

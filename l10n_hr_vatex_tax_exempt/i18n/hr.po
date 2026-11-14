@@ -1079,3 +1079,14 @@ msgstr "Povijest komunikacije web stranice"
 msgid "Works of art VAT scheme."
 msgstr ""
 "Shema PDV-a za umjetnička djela."
+
+#. module: l10n_hr_vatex_tax_exempt
+#. odoo-python
+#: code:addons/l10n_hr_vatex_tax_exempt/models/account_tax.py:0
+#, python-format
+msgid ""
+"Tax %(tax)s cannot have a VATEX exemption reason: its tax category "
+"%(category)s does not state one."
+msgstr ""
+"Porez %(tax)s ne može imati VATEX razlog oslobođenja: njegova porezna "
+"kategorija %(category)s ga ne navodi."

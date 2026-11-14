@@ -8,7 +8,9 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='croatian_fiscal_2_codebooks']//group[@name='codebook_data']//group[@name='right']"
                    position="inside">
-                <field name="l10n_hr_vatex_tax_exempt_id"/>
+                <!-- a reason linked before the rule existed stays visible so it can be removed -->
+                <field name="l10n_hr_vatex_tax_exempt_id"
+                       invisible="l10n_hr_exemption_reason_mode in ('none', 'pass_through') and not l10n_hr_vatex_tax_exempt_id"/>
             </xpath>
         </field>
     </record>

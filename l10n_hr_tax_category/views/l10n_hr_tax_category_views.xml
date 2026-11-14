@@ -37,7 +37,8 @@
                         </group>
                         <group name="name">
                             <field name="name"/>
-                            <field name="pass_through_reason_text"/>
+                            <field name="pass_through_reason_text"
+                                   invisible="exemption_reason_mode != 'pass_through'"/>
                         </group>
                     </group>
                     <group name="category_description">

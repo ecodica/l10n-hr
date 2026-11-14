@@ -1,0 +1,119 @@
+{
+  "_comment": "Test-only key. Regenerate with generate.py. See README.md.",
+  "algorithm": "md5(RSASSA-PKCS1-v1_5-SHA256(payload))",
+  "pkcs8_b64": "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDBHQDLR5AppycRaJexbOO7XrahcUZCGCGwgoKvh2E357sHT/u58wQrefs7nRHKDRsAnPiADTeHRNibEH3IEHLBEAWz92qzcHikH32EQ3KHXLNcIUqljFAXMxE6TNwTJZzyp93M+O9XNsH9ZzXFaNJpxlx7xuZiP0l+TCt86O/4h+Rnj+WXJwTM+lxPc7r6vlnPkMNy8KalmYs+iszyk1ISUI3Gw7vE1RMbZjQR+vND7fg/jiPsF7C0fcBDbtO2CQErXxxEzedGoAYIAyMKftc41Yl/JKsIFhvKo+0HKv2BKzIUQ9eD1is7RfzdR1jL0pT3T8fjUYbiP3+KG24ftt+VAgMBAAECggEAChoOi9OxRKCIEGbQgpk/23ITqyPOCVCSWJWnKO/zw7UlSTdjo2FFP1H49LAdeVyQpEpRzH8Ef9i33PqynbfQjO1d4wFnDT5trSYxjmzpzY9pmYDrUvghS2liNhLFs2G1EVN7LIj8GiuU38DZpPs8AIj+FwJ7VDnbyhXJc5YK0Y0Q/yyUiBvperdN6tNM/qKUhVLtp6O+Dw8nZDtH4byRlqqwXFjX/uQzSLWSh65VYkwdrlva2QQNU+GjTRLYnNGwggn/Q9hLL7WrMHQhNG5ihsVkGGqAyOT22+DxkSZV1qsBDG9Mzw+kaZBLAfkIZBPXBIACxrYLeusOxzSIbDp0QQKBgQDisiHMeRgrShIWckvjnVsd6J5ALCAbk9MHSfFOo8bcUCEyqogFcdhMbVI7icTQyOQ87ougPJSXgTF9DdPss5hVJz83hF1Y/+Xrg8FbtnDflrfrd8bQ0VCAFDLCEjgNNZzoth5aBbUwFg+l5xXwvmNL/v0gMHRB23ouSTe+5IhvVQKBgQDaE4zsR8k/SDFP/bwB2+EVtrZAszFEpffXUYlpUr3Mt5RLQhPZJFIFixXgNPXkThWgBm1Dfpu72DeezK12q1kbTNZyrkoiQrSV1MAArFSvusOgeFcsO2IRaPud6PPV6pqSqh6aHyqPVqsRZujtWvwYA8O1g/H+93W4IlfixhovQQKBgQCGBHkmwJAhR3DaBEgJEAXF8LddiLiSlRm0vWoC65+sr1Jw+Y/gaCVPSXHL8O6B38HOo9e3qxjNWHtBSuN2k9YCwWkGESJ+cwoh6YpuBbVE+X1Rn0XSPWwxy78WLF8msANLMB9RaP5spx4pHixCXsulKeHLHdoc9PuOUYq7N6/Q4QKBgH1Lek5POGtpeRuydxDCWmJ1ZeVqj0YX7XwC1uZyqaYzW7qZrnm2CoIw1VLKWvTfgEE/MAv1dFjK87oDcy6ZaErtLNEbHnDszoC/iclZOhb1QWyzd7JsM/44yUiDDYW8ky7tG0QF4BgW/Zaz/+RPwEOz9gAWXTXWzAYNhV0/4M+BAoGAXr+O6A5ksgAks/nyaVfUej761lze/ClJd43HOarpU3fodLQhhn7bxq790jUdAPG2TqC+K/ZoAuviBE3UBipjqVeLrCIrLFbAhoa9aqF06GXzHgejlZX3tCt1eZU1+R75cz9p81i8Rs7P6KreIHwZfM0I/52DKXXL5ociWZW8azk=",
+  "vectors": [
+    {
+      "name": "plain sale",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "09.08.2026T10:23:45",
+        "BrOznRac": "1",
+        "OznPosPr": "POSL1",
+        "OznNapUr": "2",
+        "IznosUkupno": "12.50"
+      },
+      "payload": "1234567890109.08.2026T10:23:451POSL1212.50",
+      "signature_b64": "Nw551ABfTsbaPyvLv877pEKZdr65sFLzbNqf5xSjLrdKhHEa3dCgPQuuMAYQIcAbdxXVnsjEIStTt6Y+nlL4YSwpcBVOOwcJfBlLreSLcx9tmQYP8c6fRr5GiGcmf+krCGCU5da7I07hISzUTnEg3acgW702RgvMFuTBGPMFdvuj+w6zbReriAwdHD7dlPYNrHMDK94DtJI+b3Ts1QiUw3fYA66Hs43DvGS9o9dsRJoVMiVbYkm7xO40BZzfIy2D+lnCHzoYwgSAMjGZI13XZSAbsBQ4it/wqOGabV+TatBhKYk11vrGLi8j4n32erhvzgCZSjXgDvGV/4zp5HZ7sQ==",
+      "zki": "9794d26d3705e835ce1762fa3394a9ef"
+    },
+    {
+      "name": "refund, negative",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "09.08.2026T10:24:01",
+        "BrOznRac": "2",
+        "OznPosPr": "POSL1",
+        "OznNapUr": "2",
+        "IznosUkupno": "-5.85"
+      },
+      "payload": "1234567890109.08.2026T10:24:012POSL12-5.85",
+      "signature_b64": "U2NY6cjgvBJ2EiBhk8hb7V9ppO37c3VRwelF/FuVVOaJkloUMbwX/ejgYcn0I0N9gHHJa9193rfPa7O34e8kW1gxcRi9UN3n7BTliiFQTmWxjZMqg1b8J/H5Ljc6kW15yAjyZP4QI004Fk1z5tKx5g5IK9HaKYS4A7VsVuCVaQ1hrxKJyldfC1AlwFFACjuQX3MpgQd8CXchuBmSxS1zkxk2/oGbJ98fyjBTEtulaaEei2ihZ5FyLR3/hGANRMyQSCBGAyw4Pkv1WgyPJjSU8KwRFLcQkWLFxRp9GL82QsqamhNX+nTBwrFiCXZHXAknpsYf1upF4eU0E7sRciGj7A==",
+      "zki": "735a92b022dd148b1f962925615fe5e9"
+    },
+    {
+      "name": "trailing zero cents",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "09.08.2026T11:00:00",
+        "BrOznRac": "3",
+        "OznPosPr": "POSL1",
+        "OznNapUr": "2",
+        "IznosUkupno": "10.00"
+      },
+      "payload": "1234567890109.08.2026T11:00:003POSL1210.00",
+      "signature_b64": "deARFUfYMJvAuRspHvPReY1R18j60A6iJDoIR9f/Wq9e591ec4p6ZXtaUC0sj+Ja1mWt81Vmef0Sl+ERQS2BAreF93Rocxq/xlJQ7X5RwtgmYwtjMvigX6vSkXK4fgXUHJ50GN1utkxVuZ5lEpxc7R6QwuHV6T9Th79fE3fh0TePBnofBKposVy9n0m2mujVbdRSnIE6ny97TsgPLb26UzXCLMiSX18WoUaqBw0bcm2FmWQcZvuCsdFkmNw6R+LnLFTDJV4K0sbbdbttonRIAsZYJ63ZuhX0nn8107msYV4p3uAgJ9ePVLzYgbMgUpQdxy9nM0XFGErwddo2DEsrMw==",
+      "zki": "855fea2e98a7f9da520e8f75c0c59899"
+    },
+    {
+      "name": "large total",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "31.12.2026T23:59:59",
+        "BrOznRac": "99999",
+        "OznPosPr": "POSL1",
+        "OznNapUr": "2",
+        "IznosUkupno": "123456.78"
+      },
+      "payload": "1234567890131.12.2026T23:59:5999999POSL12123456.78",
+      "signature_b64": "SfkatEPFzHNHIWYoupK9oW1DK1q34KWrpklWDIfDgJXxk8E0AvSwr9jAtnvpwWqnpK6LRMYrK/BgYvVHHYiDYx6NGRGnxSj+VU4RGATaCnGAPMNUclyw+kGiyZjztshyJIpALFLPnpbdhvVlIXZ/v1vCx9RQ0l086tEUZzTShJQr1y7NOvTcjyy69QPle8yJeqsg2NWu9uiT+WUQWl8Mv1m+Dg3tS5hwOT6NtdQswGf+YchW8cnXsnOfCBGTqT/8IiGiLhY5PKn/H/t5eJwnCc7ByZvG5DTs9D8u2Qyr7hL4snrPdbr33+chxA3IDYTwm8AUuCTufH1M4DkwLQoErg==",
+      "zki": "0f04fd5e8b7de0ca25f91930b059c413"
+    },
+    {
+      "name": "premise with digits",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "01.01.2027T00:00:01",
+        "BrOznRac": "1",
+        "OznPosPr": "1",
+        "OznNapUr": "1",
+        "IznosUkupno": "0.01"
+      },
+      "payload": "1234567890101.01.2027T00:00:011110.01",
+      "signature_b64": "Qyhc8fxG1vWFwWB4RSITOT/WiMzBw5rdXKItCDiImQ5IgBfEdVy8fsYB3EerUFldAfWtUnAOJJxs6PBw+vf0G1CUhNtFI1Uzr4QnqgTmdLZNYdZbeL3IROD400mJTrh8uMrbAb1pyh7tLpceqk/Cn9ahSFun/mHvPsIYTUHQE2R9IEf1zqZ72uvA8zu3N8oU+rKN4yk3atiNcebY745DJWiy2pEeuIr1iSJ7nreifqWJavFVw/rX7HUEdojokqPRP2jWGuSfubXqaum6b+gVa6qp7y6p5BwRmG7Vth7r0mb83XH+5rcI7wfnXeRzmEMydVEhMwFmfe+MOWTcLNSqkQ==",
+      "zki": "e48ccebd9039f3db715747d0c42ed72a"
+    },
+    {
+      "name": "zero total",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "09.08.2026T12:00:00",
+        "BrOznRac": "4",
+        "OznPosPr": "POSL1",
+        "OznNapUr": "2",
+        "IznosUkupno": "0.00"
+      },
+      "payload": "1234567890109.08.2026T12:00:004POSL120.00",
+      "signature_b64": "JNsZpkpSAFlJ/JFVTwXxNcY+Snpe2kSc7smPzbNCal+KOY0m64X+qdt51nUmBBBQilw+OqvJt+VD7UkGA8jNe9WGEPhvwRsiFdNSl19HZJ6n5uLWeEvjUD9ASA4f5OGs8IfI8zCZXRQrrxSh8CtNuAzH3+JO+qqqYPrlqphjng4TAp1lgCxfMRguRl+clVKiQ+VGAv27wzg5A5kQ5ts9hPdbtbtNRzeZn9+i8A9nXoKuVPS/zROiJCXKpFUswVwvW8LzEyN1Mc66y4jr4R0uAd4HdDbbC6lxzyUbtoy4CfIQGuogqipU6nzNAWssJ5KmzAzdU6uoGtcFIwrVlWOJGg==",
+      "zki": "e32ad5d9bc1d2db23a1df5180f8b3b5f"
+    },
+    {
+      "name": "new year, first second",
+      "fields": {
+        "Oib": "12345678901",
+        "DatVrijeme": "01.01.2027T00:00:00",
+        "BrOznRac": "1",
+        "OznPosPr": "P038",
+        "OznNapUr": "3",
+        "IznosUkupno": "7.99"
+      },
+      "payload": "1234567890101.01.2027T00:00:001P03837.99",
+      "signature_b64": "mwXsr5x2mvOViZcMtivqL2KfHQqnN+1tR1LiDIJEu8dXlz6IVVxsPGH5fjcM0lcqSZC8Vyn9uzg1gHLB5sVyQwa5DGrDDGKzIsZkQRwsnzS0BHMcoje++R+FrbAx/db1X6/0vRByhkv5vv9ov81ozeN6xuEmdG/Kuc5NWBbptAtDzhDe/mLNeZ92kjjf4ecrsCJP6zzzV/F/m28XVcSmD3nzaX3vQ91Rz0SMjJkf87n6GwWcIgztuITI9firtO4F4mCSa4YtoHYBiJ2DWXxe3RUcqPIO96gabI720ZSlMGn0Pg+UC6Ny1++MGYHcqwg2fzvHNOvbUsBcYGB7NaOm5w==",
+      "zki": "b1a56a15a166f7a13a2a3694599c0b6f"
+    },
+    {
+      "name": "storno of a large sale",
+      "fields": {
+        "Oib": "80129582301",
+        "DatVrijeme": "02.01.2027T09:00:05",
+        "BrOznRac": "1250",
+        "OznPosPr": "P038",
+        "OznNapUr": "3",
+        "IznosUkupno": "-1234.50"
+      },
+      "payload": "8012958230102.01.2027T09:00:051250P0383-1234.50",
+      "signature_b64": "nnj2kS4Mav8hzb430KUiGVqQ6BcYKxlu9y7FSLo8hg3QFBIVaYljUVDyKNlxOwJleD00dRnRaJi4qmnthlU1ThaYZZJx/R1u/K0xd3torVjLUjNSCtFy6TDjkO+Dafv3L033hrwtfHoj+YQ/WP3Aj3Y5X/7NOlezliFFQz9tYx1MXmgGsRILNZJQJJglSVThHTaALfsh5m4H3tURHl766gRSN5Us85/hCzqn5wvyMKPgO1lfiIB9q4EkOMplFPrmOzb+84xnViDqCyw/i1K4Ed12XNeyKUFjXGeqLjWy9iR6wGHxOLALsJIy6YU+pZRKxQNr91yBuMQEZK7ZeDL2Ow==",
+      "zki": "9e5e53675e630838719137f1ba0ac57b"
+    }
+  ]
+}

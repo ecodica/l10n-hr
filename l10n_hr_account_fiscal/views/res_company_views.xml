@@ -15,18 +15,23 @@
                 <field name="l10n_hr_fiscal_schema"/>
                 <field name="l10n_hr_fiscal_cert_id"/>
                 <field name="l10n_hr_fiscal_cert_subject_vat"/>
-                <separator string="Certificates"/>
-                <button name="button_l10n_hr_test_fiscal_echo" type="object"
-                        string="Test Fiscal connection" colspan="2"/>
-                <field name="l10n_hr_fiscal_cert_ids" context="{'default_scope': 'fina'}" nolabel="1">
-                    <list>
-                        <field name="name"/>
-                        <field name="scope"/>
-                        <field name="l10n_hr_type"/>
-                        <field name="date_end" widget="date"/>
-                        <field name="is_valid"/>
-                    </list>
-                </field>
+            </xpath>
+            <!-- A page of its own: inside the half-width Fiscal Data group the list stretched the
+                 label column and left the values no room. -->
+            <xpath expr="//notebook[@name='croatia_notebook']/page[1]" position="before">
+                <page name="l10n_hr_fiscal_certificates" string="Certificates">
+                    <button name="button_l10n_hr_test_fiscal_echo" type="object"
+                            string="Test Fiscal connection" class="btn-secondary mb-2"/>
+                    <field name="l10n_hr_fiscal_cert_ids" context="{'default_scope': 'fina'}" nolabel="1">
+                        <list>
+                            <field name="name"/>
+                            <field name="scope"/>
+                            <field name="l10n_hr_type"/>
+                            <field name="date_end" widget="date"/>
+                            <field name="is_valid"/>
+                        </list>
+                    </field>
+                </page>
             </xpath>
         </field>
     </record>

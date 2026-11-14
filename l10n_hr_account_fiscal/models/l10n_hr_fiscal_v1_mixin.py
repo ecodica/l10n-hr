@@ -435,6 +435,17 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         self.ensure_one()
         return self.env.user.with_company(self.company_id).employee_id
 
+    def _l10n_hr_is_late_delivery(self):
+        """Whether the message reports a late delivery (``NakDost``).
+
+        A late delivery is a document handed over without a JIR. Here the ZKI is computed
+        inside ``fiscalize()``, so a ZKI without a JIR means an earlier attempt issued the
+        document and did not get one. A model whose ZKI exists before the first attempt
+        decides differently.
+        """
+        self.ensure_one()
+        return bool(self.l10n_hr_zki and not self.l10n_hr_jir)
+
     @api.model
     def _fisc_msg_type(self):
         """Return list of fisc message types that should be fiscalized."""
@@ -485,7 +496,7 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
         # that already had a JIR was re-sent instead of switched to 'provjera'.
         if self.l10n_hr_jir and len(self.l10n_hr_jir) > 30 and msg_type == 'racuni':
             msg_type = 'provjera'
-        if self.l10n_hr_zki and not self.l10n_hr_jir and not self.l10n_hr_late_delivery:
+        if not self.l10n_hr_late_delivery and self._l10n_hr_is_late_delivery():
             self.l10n_hr_late_delivery = True
         time_start = self.company_id.get_l10n_hr_time_formatted()
         if not self.l10n_hr_fiscal_user_id:

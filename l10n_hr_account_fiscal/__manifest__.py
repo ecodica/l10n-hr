@@ -14,7 +14,7 @@
         "certificate",
         "hr",
     ],
-    "external_dependencies": {"python": ["zeep", "xmlsec>=1.3.13"], "bin": []},
+    "external_dependencies": {"python": ["zeep", "xmlsec~=1.3.13"], "bin": []},
          #    xmlsec<=1.3.15 troube installing
     "data": [
         "security/fiscal_security.xml",

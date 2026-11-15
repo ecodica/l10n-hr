@@ -8,15 +8,15 @@
             <p name="payment_communication" t-if="o.country_code == 'HR'"
                id="l10n_hr_account_reference_payment_communication">
                 <t t-if="o.partner_bank_id">
-                    <span>Bank: </span>
+                    <span id="l10n_hr_ref_bank">Bank: </span>
                     <b><span t-field="o.partner_bank_id.bank_id.bic"/></b> -
                     <span t-field="o.partner_bank_id.bank_id.name"/>
                     <br/>
-                    <span>Account Number: </span>
+                    <span id="l10n_hr_ref_acc_num">Account Number: </span>
                     <b><span t-field="o.partner_bank_id.acc_number"/></b>
                     <br/>
                 </t>
-                <span>Payment Reference: </span>
+                <span id="l10n_hr_ref_payment_ref">Payment Reference: </span>
                 <b><span t-field="o.payment_reference"/></b>
             </p>
             <p name="payment_communication" t-else="">

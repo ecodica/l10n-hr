@@ -13,5 +13,14 @@ def migrate(env, version):
             "l10n_hr_invoice_time",
             "l10n_hr_fiscal_time",
         ),
+        # Odoo 16 named this field differently; cover the 16 -> 18 jump too.
+        # rename_fields is idempotent, so whichever old column actually exists
+        # in the DB wins and the other rename is skipped.
+        (
+            "account.move",
+            "account_move",
+            "l10n_hr_vrijeme_izdavanja",
+            "l10n_hr_fiscal_time",
+        ),
     ]
     openupgrade.rename_fields(env, field_spec)

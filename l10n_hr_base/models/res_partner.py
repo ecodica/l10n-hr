@@ -1,3 +1,5 @@
+from stdnum.hr import oib
+
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
@@ -64,7 +66,7 @@ class ResPartner(models.Model):
     def _l10n_hr_is_oib_valid(self):
         if not self.company_registry or not self.company_registry.isdigit() or len(self.company_registry) != 11:
             return False
-        return True
+        return oib.is_valid(self.company_registry)
 
     @api.constrains('company_registry', 'country_id')
     def _validate_company_registry(self):

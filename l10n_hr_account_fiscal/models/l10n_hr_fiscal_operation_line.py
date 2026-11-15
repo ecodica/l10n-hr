@@ -1,7 +1,7 @@
 import re
 
 from odoo import _, api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 from .l10n_hr_business_working_hours import DAYS_OF_WEEK
 
@@ -42,7 +42,7 @@ class L10nHrFiscalOperationLine(models.Model):
     working_hours_id = fields.Many2one(
         comodel_name="l10n_hr.business.working.hours",
         string="Working Hours",
-        ondelete="cascade",
+        ondelete="set null",
         help="Existing working hours line to register at or remove from FINA.",
     )
 
@@ -66,6 +66,42 @@ class L10nHrFiscalOperationLine(models.Model):
         [("1", "First shift"), ("2", "Second shift")],
         string="Split shift",
     )
+
+    @api.model
+    def _check_draft_operations(self, operations):
+        operations.check_access('write')
+        if any(op.state != 'draft' for op in operations):
+            raise UserError(_('Executed fiscal operation lines are history and cannot be modified.'))
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        operations = self.env['l10n_hr.fiscal.operation'].browse([
+            vals.get('operation_id') or self.env.context.get('default_operation_id')
+            for vals in vals_list
+            if vals.get('operation_id') or self.env.context.get('default_operation_id')
+        ])
+        self._check_draft_operations(operations)
+        return super().create(vals_list)
+
+    def write(self, vals):
+        operations = self.operation_id
+        if vals.get('operation_id'):
+            operations |= self.env['l10n_hr.fiscal.operation'].browse(vals['operation_id'])
+        self._check_draft_operations(operations)
+        return super().write(vals)
+
+    def unlink(self):
+        self._check_draft_operations(self.operation_id)
+        return super().unlink()
+
+    @api.constrains('operation_id', 'working_hours_id')
+    def _check_reference_access(self):
+        self._check_draft_operations(self.operation_id)
+        self.working_hours_id.check_access('read')
+        for operation in self.operation_id:
+            premises = operation.business_premise_id | operation.business_premise_ids
+            if premises:
+                operation._check_working_hours_scope(premises)
 
     @api.constrains("action", "working_hours_id")
     def _check_remove_has_working_hours(self):

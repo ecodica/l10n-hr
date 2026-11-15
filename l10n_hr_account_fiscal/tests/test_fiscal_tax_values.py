@@ -516,7 +516,7 @@ class TestNaknade(AccountTestInvoicingCommon):
 
         class _Factory:
             type_factory = SimpleNamespace(
-                Naknada=lambda NazivN, IznosN: captured.update(naziv=NazivN, iznos=IznosN)
+                NaknadaType=lambda NazivN, IznosN: captured.update(naziv=NazivN, iznos=IznosN)
             )
 
         move = self.env["account.move"].create({

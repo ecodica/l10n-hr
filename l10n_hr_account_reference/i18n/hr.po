@@ -1,19 +1,17 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* l10n_hr_account_reference
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-20 13:21+0000\n"
+"POT-Creation-Date: 2026-11-04 10:41+0000\n"
 "PO-Revision-Date: 2025-02-20 13:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__property_l10n_hr_P1_ar
@@ -37,38 +35,23 @@ msgstr "4. polje poziva na broj."
 
 #. module: l10n_hr_account_reference
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
-msgid ""
-"<br/>\n"
-"                <span>Account Number : </span>"
-msgstr ""
-"<br/>\n"
-"                <span>Broj računa : </span>"
+msgid "<br/> on this account:"
+msgstr "<br/> broj računa:"
 
 #. module: l10n_hr_account_reference
 #: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
-msgid ""
-"<br/>\n"
-"                <span>Bank : </span>"
-msgstr ""
-"<br/>\n"
-"                <span>Banka : </span>"
-
-#. module: l10n_hr_account_reference
-#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
-msgid ""
-"<br/>\n"
-"                <span>Payment Reference : </span>"
-msgstr ""
-"<br/>\n"
-"                <span>Poziv na broj : </span>"
+msgid "<span>Bank: </span>"
+msgstr "<span>Bank: </span>"
 
 #. module: l10n_hr_account_reference
 #. odoo-python
 #: code:addons/l10n_hr_account_reference/models/account_journal.py:0
 msgid ""
-"Both Communication standard and Communication type, should be Croatia or not"
-" Croatia, mix is not possible!"
+"Both Communication standard and Communication type, should be Croatia or not "
+"Croatia, mix is not possible!"
 msgstr ""
+"I komunikacijski standard i vrsta komunikacije moraju biti Hrvatska ili ne-"
+"Hrvatska; mješavina nije moguća!"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__invoice_reference_model
@@ -79,6 +62,12 @@ msgstr "Standard komunikacije"
 #: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__invoice_reference_type
 msgid "Communication Type"
 msgstr "Model reference"
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__display_name
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_move__display_name
+msgid "Display Name"
+msgstr "Naziv za prikaz"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_type__hr
@@ -106,14 +95,30 @@ msgid "HR03 - P1-P2-P3  [k(P1), k(P2), k(P3)]"
 msgstr "HR03 - P1-P2-P3  [k(P1), k(P2), k(P3)]"
 
 #. module: l10n_hr_account_reference
+#: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__hr04
+msgid "HR04 - P1-P2-P3  [k(P1), P2, k(P3)]"
+msgstr "HR04 - P1-P2-P3  [k(P1), P2, k(P3)]"
+
+#. module: l10n_hr_account_reference
 #: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__hr06
 msgid "HR06 - P1-P2-P3  [k(P2,P3)]"
 msgstr "HR06 - P1-P2-P3  [k(P2,P3)]"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields.selection,name:l10n_hr_account_reference.selection__account_journal__invoice_reference_model__hr99
-msgid "HR99 - No control"
-msgstr "HR99 - Bez kontrole"
+msgid "HR99 - No Control"
+msgstr "HR99 - No Control"
+
+#. module: l10n_hr_account_reference
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_journal__id
+#: model:ir.model.fields,field_description:l10n_hr_account_reference.field_account_move__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_hr_account_reference
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
+msgid "INV/2023/00001"
+msgstr "INV/2023/00001"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model,name:l10n_hr_account_reference.model_account_journal
@@ -146,12 +151,9 @@ msgid "P4"
 msgstr "P4"
 
 #. module: l10n_hr_account_reference
-#. odoo-python
-#: code:addons/l10n_hr_account_reference/models/account_move.py:0
-msgid ""
-"The combination of reference model and reference type on the journal is not "
-"implemented."
-msgstr "Kombinacija modela poziva na broj i tipa poziva na broj nije implementirana za ovaj dnevnik."
+#: model_terms:ir.ui.view,arch_db:l10n_hr_account_reference.report_invoice_payment_reference_layout
+msgid "Payment Communication:"
+msgstr "Poziv na broj:"
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__invoice_reference_model
@@ -159,6 +161,8 @@ msgid ""
 "You can choose different models for each type of reference. The default one "
 "is the Odoo reference."
 msgstr ""
+"Za svaku vrstu reference možete odabrati različit model. Zadana je Odoo "
+"referenca."
 
 #. module: l10n_hr_account_reference
 #: model:ir.model.fields,help:l10n_hr_account_reference.field_account_journal__invoice_reference_type
@@ -167,3 +171,5 @@ msgid ""
 "invoices, once validated, to help the customer to refer to that particular "
 "invoice when making the payment."
 msgstr ""
+"Ovdje možete postaviti zadanu komunikaciju koja će se pojaviti na izlaznim "
+"računima nakon potvrde, kako bi kupac lakše naveo taj račun pri plaćanju."

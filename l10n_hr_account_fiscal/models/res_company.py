@@ -6,7 +6,7 @@ import os
 from lxml import etree
 
 from odoo import _, fields, models, api
-from odoo.exceptions import MissingError
+from odoo.exceptions import AccessError, MissingError, UserError
 
 from ..fiscal import fiscal
 from ..helpers.docs_helper import SCHEMA_HELP
@@ -76,14 +76,8 @@ class ResCompany(models.Model):
     )
     l10n_hr_fiscal_schema = fields.Selection(
         selection=[
-            ("EDUC_v1.6", "DEMO schema v1.6"),
-            ("EDUC_v1.7", "DEMO schema v1.7"),
-            ("EDUC_v1.8", "DEMO schema v1.8"),
             ("EDUC_v1.9", "DEMO schema v1.9"),
             ("EDUC_v1.10", "DEMO schema v1.10"),
-            ("PROD_v1.6", "PROD Schema v1.6"),
-            ("PROD_v1.7", "PROD Schema v1.7"),
-            ("PROD_v1.8", "PROD Schema v1.8"),
             ("PROD_v1.9", "PROD Schema v1.9"),
             ("PROD_v1.10", "PROD Schema v1.10"),
         ],
@@ -92,17 +86,54 @@ class ResCompany(models.Model):
         help=SCHEMA_HELP,
     )
 
-    @api.depends('country_id', 'l10n_hr_fiscal_cert_ids', 'l10n_hr_fiscal_cert_ids.l10n_hr_type')
+    @api.depends(
+        'country_id', 'l10n_hr_fiscal_test_env', 'l10n_hr_fiscal_cert_ids',
+        'l10n_hr_fiscal_cert_ids.l10n_hr_type', 'l10n_hr_fiscal_cert_ids.company_id',
+        'l10n_hr_fiscal_cert_ids.active', 'l10n_hr_fiscal_cert_ids.date_start',
+        'l10n_hr_fiscal_cert_ids.date_end', 'l10n_hr_fiscal_cert_ids.loading_error',
+        'l10n_hr_fiscal_cert_ids.pem_certificate', 'l10n_hr_fiscal_cert_ids.private_key_id',
+        'l10n_hr_fiscal_cert_ids.private_key_id.active',
+        'l10n_hr_fiscal_cert_ids.private_key_id.company_id',
+        'l10n_hr_fiscal_cert_ids.private_key_id.public',
+        'l10n_hr_fiscal_cert_ids.private_key_id.loading_error',
+        'l10n_hr_fiscal_cert_ids.private_key_id.pem_key',
+        'l10n_hr_fiscal_cert_ids.private_key_id.password',
+    )
     def _compute_l10n_hr_fiscal_cert(self):
+        now = fields.Datetime.now()
         for company in self:
-            cert_id = False
-            if company.country_code == 'HR':
-                available_certs = company.l10n_hr_fiscal_cert_ids.filtered("is_valid")
-                if company.l10n_hr_fiscal_test_env:
-                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'demo')), False)
-                else:
-                    cert_id = next(iter(available_certs.filtered(lambda c: c.l10n_hr_type == 'prod')), False)
-            company.l10n_hr_fiscal_cert_id = cert_id
+            company.l10n_hr_fiscal_cert_id = company._select_fiscal_certificate(now)
+
+    def _select_fiscal_certificate(self, now):
+        """Select an eligible signing certificate without relying on cached is_valid."""
+        self.ensure_one()
+        company = self.sudo().with_context(bin_size=False, active_test=False)
+        certificates = company.l10n_hr_fiscal_cert_ids
+        if company.country_code != 'HR':
+            return certificates.browse()
+        cert_type = 'demo' if company.l10n_hr_fiscal_test_env else 'prod'
+        eligible = certificates.filtered(
+            lambda cert: cert.active and cert.company_id == company
+            and cert.l10n_hr_type == cert_type and not cert.loading_error
+            and cert.date_start and cert.date_end and cert.date_start <= now <= cert.date_end
+            and cert.pem_certificate and cert.private_key_id
+            and cert.private_key_id.active and not cert.private_key_id.public
+            and not cert.private_key_id.loading_error and cert.private_key_id.pem_key
+            and cert.private_key_id.company_id == company
+            # Password-protected keys cannot be loaded by the XML signer.
+            and not cert.private_key_id.password
+        )
+        # Prefer a valid renewal; ties must not depend on Many2many read ordering.
+        return eligible.sorted(key=lambda cert: (cert.date_end, cert.id or 0), reverse=True)[:1]
+
+    def _get_fiscal_certificate(self):
+        """Refresh the stored selection at use time: time alone triggers no depends."""
+        self.ensure_one()
+        company = self.sudo().with_context(bin_size=False, active_test=False)
+        certificate = company._select_fiscal_certificate(fields.Datetime.now())
+        if company.l10n_hr_fiscal_cert_id != certificate:
+            company.l10n_hr_fiscal_cert_id = certificate
+        return certificate
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
@@ -154,11 +185,15 @@ class ResCompany(models.Model):
             })
         else:
             values.update({
-                "name": msg_type != "echo" and response.Zaglavlje.IdPoruke or "ECHO",
-                "reply_timestamp": msg_type != "echo" and response.Zaglavlje.DatumVrijeme or time_stop["datum_vrijeme"],
-                "content": etree.tostring(msg_obj.history.last_sent["envelope"]).decode("utf-8"),
-                "reply_msg": etree.tostring(msg_obj.history.last_received["envelope"]).decode("utf-8"),
+                "name": (getattr(getattr(response, 'Zaglavlje', None), 'IdPoruke', None)
+                         or ("ECHO" if msg_type == "echo" else _("Fiscalization Response"))),
+                "reply_timestamp": (getattr(getattr(response, 'Zaglavlje', None), 'DatumVrijeme', None)
+                                    or time_stop["datum_vrijeme"]),
             })
+
+        # Error/lost-reply branches still retain whatever actually reached history.
+        values['content'] = self._fiscal_history_xml(msg_obj, 'last_sent')
+        values['reply_msg'] = self._fiscal_history_xml(msg_obj, 'last_received')
 
         # Appended after the branching above, not before it: the error and delay
         # branches overwrite error_msg wholesale, and an unverified signature
@@ -206,11 +241,37 @@ class ResCompany(models.Model):
             )
         return values
 
-    def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin):
+    @staticmethod
+    def _fiscal_history_xml(msg_obj, direction):
+        try:
+            entry = getattr(msg_obj.history, direction)
+            return etree.tostring(entry['envelope']).decode('utf-8')
+        except (AttributeError, IndexError, KeyError, TypeError, ValueError):
+            return False
+
+    @api.private
+    def create_fiscal_log(self, msg_type, msg_obj, response, time_start, origin,
+                          outcome=None, error_message=None):
+        self.ensure_one()
+        if not self.env.su and self not in self.env.companies:
+            raise AccessError(_('Fiscal logs must belong to an enabled company.'))
+        origin.check_access('read')
         log_vals = self._get_log_vals(msg_type, msg_obj, response, time_start, origin)
-        return self.env["l10n_hr.fiscal.log"].create(log_vals)
+        if outcome:
+            log_vals['exchange_outcome'] = outcome
+        if error_message:
+            current = log_vals.get('error_msg') or ''
+            if error_message not in current:
+                log_vals['error_msg'] = '\n'.join(filter(None, [current if current != 'OK' else '', error_message]))
+        # Cashiers can fiscalize without permission to fabricate or edit audit logs.
+        return self.env["l10n_hr.fiscal.log"].sudo().create(log_vals)
 
     def button_l10n_hr_test_fiscal_echo(self, origin=None):
+        self.ensure_one()
+        if not self.env.su and not self.env.user.has_group('l10n_hr_account_fiscal.group_fiscal_manager'):
+            raise AccessError(_('Only fiscal managers can send test fiscal messages.'))
+        if not self.env.su and self not in self.env.companies:
+            raise AccessError(_('Fiscal messages must belong to an enabled company.'))
         # if called from Company default origin to itself
         origin = origin or self
         fd = self.get_fiscal_data()
@@ -228,12 +289,18 @@ class ResCompany(models.Model):
         read the company's certificate. For the same reason it cannot be called over RPC.
         """
         self.ensure_one()
-        fiscal_cert = self.sudo().l10n_hr_fiscal_cert_id
+        fiscal_cert = self._get_fiscal_certificate()
         if not fiscal_cert:
-            raise MissingError(_("Fiscal Certificate not found! Check company setup!"))
+            raise MissingError(_(
+                "No currently valid fiscal certificate with a usable private key was found "
+                "for this company and fiscal environment. Check company setup."
+            ))
         if not self.l10n_hr_fiscal_schema:
             raise MissingError(_("Fiscal schema not found! Check company setup!"))
         demo = self.l10n_hr_fiscal_test_env
+        schema_prefix = 'EDUC_' if demo else 'PROD_'
+        if not self.l10n_hr_fiscal_schema.startswith(schema_prefix):
+            raise UserError(_("The fiscal schema does not match the selected demo/production environment."))
         cert_data = fiscal_cert.pem_certificate
         key_data = fiscal_cert.private_key_id.pem_key
 
@@ -248,7 +315,7 @@ class ResCompany(models.Model):
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiscal_path + "fina_cert/" + fiscal_cert.l10n_hr_type
-        cert_vat = self.l10n_hr_fiscal_cert_subject_vat and self.l10n_hr_fiscal_cert_subject_vat[2:]
+        cert_vat = fiscal_cert.l10n_hr_subject_vat and fiscal_cert.l10n_hr_subject_vat[2:]
         if self.l10n_hr_fiscal_test_env:
             cert_vat = cert_vat
         else:

@@ -110,23 +110,24 @@ class Signer:
 
     def sign_zki_payload(self, data):
         """
-        Sign raw ZKI payload using the private key
-        Payload is signed using SHA1+RSA algorithm. The signature is
-        hashed using MD5 digest algorithm. The resulting digest is
-        returned as hexadecimal string.
+        Sign raw ZKI payload using the private key.
 
-        See section 12 "Zaštitni kod izdavatelja" in the Fiskalizacija technical
-        specification for the description of the algorithm.
+        The payload is signed with RSASSA-PKCS1-v1_5 over SHA-256 and the signature is
+        hashed with MD5; the digest is returned as lowercase hexadecimal. Chapter 12
+        "Zaštitni kod izdavatelja" of the Fiskalizacija technical specification v2.7
+        prescribes RSA-SHA256, and production refuses RSA-SHA1 from 01.01.2027. FINA
+        receives only the MD5, so it cannot check the hash: the only check is an
+        inspector asking for a ZKI to be reproduced from its inputs.
 
         Args:
             * data - raw ZKI data to be signed
         Returns:
-            * ZKI digest calculated the standard algorithm
+            * ZKI digest calculated by the standard algorithm
         """
         signature = self.hazmat_key.sign(
             data.encode("utf-8"),
             padding.PKCS1v15(),
-            hashes.SHA1(),
+            hashes.SHA256(),
         )
         return md5(signature).hexdigest()
 
@@ -307,23 +308,24 @@ class BinarySigner:
 
     def sign_zki_payload(self, data):
         """
-        Sign raw ZKI payload using the private key
-        Payload is signed using SHA1+RSA algorithm. The signature is
-        hashed using MD5 digest algorithm. The resulting digest is
-        returned as hexadecimal string.
+        Sign raw ZKI payload using the private key.
 
-        See section 12 "Zaštitni kod izdavatelja" in the Fiskalizacija technical
-        specification for the description of the algorithm.
+        The payload is signed with RSASSA-PKCS1-v1_5 over SHA-256 and the signature is
+        hashed with MD5; the digest is returned as lowercase hexadecimal. Chapter 12
+        "Zaštitni kod izdavatelja" of the Fiskalizacija technical specification v2.7
+        prescribes RSA-SHA256, and production refuses RSA-SHA1 from 01.01.2027. FINA
+        receives only the MD5, so it cannot check the hash: the only check is an
+        inspector asking for a ZKI to be reproduced from its inputs.
 
         Args:
             * data - raw ZKI data to be signed
         Returns:
-            * ZKI digest calculated the standard algorithm
+            * ZKI digest calculated by the standard algorithm
         """
         signature = self.hazmat_key.sign(
             data.encode("utf-8"),
             padding.PKCS1v15(),
-            hashes.SHA1(),
+            hashes.SHA256(),
         )
         return md5(signature).hexdigest()
 

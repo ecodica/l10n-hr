@@ -16,6 +16,7 @@ from unittest.mock import patch
 
 from lxml import etree
 
+from odoo import Command
 from odoo.exceptions import UserError
 from odoo.tests import TransactionCase, tagged
 
@@ -134,6 +135,13 @@ class TestFiscalOperation(TransactionCase):
             "time_from": "08:00",
             "time_to": "16:00",
         }, **vals))
+
+    def _other_premise(self):
+        return self.env['l10n_hr.business.premise'].create({
+            'l10n_hr_name': 'Second premise',
+            'l10n_hr_fiscal_code': 'TESTPP2',
+            'company_id': self.company.id,
+        })
 
     def _run(self, operation, lines=None):
         vals = {"business_premise_id": self.premise.id, "operation": operation}
@@ -368,6 +376,27 @@ class TestFiscalOperation(TransactionCase):
         self.assertFalse(self.premise._get_all_working_hours())
         self.assertFalse(other._get_all_working_hours())
 
+    def test_remove_all_launcher_discards_obsolete_manual_selections(self):
+        other = self._other_premise()
+        selected_hours = self._hours()
+        unselected_hours = self._hours(business_premise_id=other.id)
+        FakeFiscalization.responses['obrisiRadnoVrijeme'] = _ok_response()
+        launcher = self.Operation.create({
+            'operation': 'remove',
+            'business_premise_ids': [Command.set((self.premise | other).ids)],
+            'line_ids': [Command.create({'action': 'remove', 'working_hours_id': unselected_hours.id})],
+        })
+        # The user narrows the premises and switches from selected removal to All.
+        launcher.write({'business_premise_ids': [Command.set(self.premise.ids)], 'remove_all': True})
+
+        launcher.action_execute()
+
+        self.assertFalse(launcher.exists())
+        self.assertFalse(selected_hours.exists())
+        self.assertTrue(unselected_hours.exists())
+        self.assertEqual(len(FakeFiscalization.calls), 1)
+        self.assertEqual(FakeFiscalization.calls[0][1]['PoslovniProstor'].OznPosPr, 'TESTPP')
+
     # -- errors --------------------------------------------------------------
     def test_fina_error_is_kept_as_history_not_raised(self):
         """A rejected message must not roll back the record that documents it."""
@@ -467,6 +496,197 @@ class TestFiscalOperation(TransactionCase):
         self.assertEqual(len(children), 2, "one operation per premise")
         self.assertEqual(set(children.mapped("state")), {"done"})
         self.assertEqual(children.business_premise_id, self.premise + other)
+
+    def test_batch_children_do_not_inherit_the_launchers_premise_defaults(self):
+        other = self._other_premise()
+        action = (self.premise | other).action_new_fiscal_operation()
+        launcher = self.Operation.with_context(**action['context']).create({'operation': 'get'})
+        FakeFiscalization.responses['dohvatiRadnoVrijeme'] = _get_response()
+
+        launcher.action_execute()
+
+        children = self.Operation.search([('business_premise_id', 'in', (self.premise | other).ids)])
+        self.assertEqual(len(children), 2)
+        self.assertEqual(set(children.mapped('state')), {'done'})
+        self.assertFalse(children.business_premise_ids, 'a child must represent only its own premise')
+
+    def test_register_launcher_copies_inline_lines_to_every_premise(self):
+        other = self._other_premise()
+        FakeFiscalization.responses['prijaviRadnoVrijeme'] = _ok_response()
+        launcher = self.Operation.create({
+            'operation': 'register',
+            'business_premise_ids': [Command.set((self.premise | other).ids)],
+            'line_ids': [
+                Command.create({
+                    'action': 'register', 'type': 'regular', 'dow': '2',
+                    'valid_from': '2026-01-01', 'time_from': '09:00', 'time_to': '17:00',
+                    'description': 'Shared schedule', 'sequence': 20,
+                }),
+                Command.create({
+                    'action': 'register', 'type': 'exception', 'valid_on': '2026-05-01',
+                    'time_from': '10:00', 'time_to': '12:00', 'sequence': 30,
+                }),
+            ],
+        })
+        launcher_lines = launcher.line_ids
+
+        launcher.action_execute()
+
+        self.assertFalse(launcher.exists())
+        self.assertFalse(launcher_lines.exists())
+        children = self.Operation.search([('business_premise_id', 'in', (self.premise | other).ids)])
+        self.assertEqual(len(children), 2)
+        self.assertEqual(set(children.mapped('state')), {'done'})
+        self.assertEqual(len(children.line_ids), 4, 'each child owns independent copies')
+        for child in children:
+            self.assertEqual(child.line_ids.mapped('sequence'), [20, 30])
+            self.assertEqual(len(child.business_premise_id._get_all_working_hours()), 2)
+            self.assertEqual(child.added_count, 2)
+        payloads = {payload['PoslovniProstor'].OznPosPr: payload['PoslovniProstor']
+                    for method, payload in FakeFiscalization.calls}
+        self.assertEqual(set(payloads), {'TESTPP', 'TESTPP2'})
+        for payload in payloads.values():
+            regular = payload.RadnoVrijeme.Redovno[0]
+            self.assertEqual(regular.Napomena, 'Shared schedule')
+            self.assertEqual(regular.Jednokratno[0].DanUTjednu, '2')
+            self.assertEqual(regular.Jednokratno[0].RadnoVrijemeOd, '09:00')
+            self.assertEqual(payload.RadnoVrijeme.Iznimke[0].Datum, '01.05.2026')
+
+    def test_register_launcher_keeps_existing_references_with_their_premise(self):
+        other = self._other_premise()
+        first_hours = self._hours(dow='1')
+        second_hours = self._hours(business_premise_id=other.id, dow='3')
+        FakeFiscalization.responses['prijaviRadnoVrijeme'] = _ok_response()
+        launcher = self.Operation.create({
+            'operation': 'register',
+            'business_premise_ids': [Command.set((self.premise | other).ids)],
+            'line_ids': [Command.create({'action': 'register', 'working_hours_id': hours.id})
+                         for hours in first_hours | second_hours],
+        })
+
+        launcher.action_execute()
+
+        children = self.Operation.search([('business_premise_id', 'in', (self.premise | other).ids)])
+        for child in children:
+            self.assertEqual(len(child.line_ids), 1)
+            self.assertEqual(child.line_ids.working_hours_id.business_premise_id, child.business_premise_id)
+            self.assertEqual(len(child.business_premise_id._get_all_working_hours()), 1, 'no duplicates')
+        by_code = {payload['PoslovniProstor'].OznPosPr:
+                   payload['PoslovniProstor'].RadnoVrijeme.Redovno[0].Jednokratno[0].DanUTjednu
+                   for method, payload in FakeFiscalization.calls}
+        self.assertEqual(by_code, {'TESTPP': '1', 'TESTPP2': '3'})
+
+    def test_remove_launcher_partitions_selected_hours_by_premise(self):
+        other = self._other_premise()
+        first_hours = self._hours(valid_from='2026-01-01')
+        second_hours = self._hours(business_premise_id=other.id, valid_from='2026-02-01')
+        kept_first = self._hours(valid_from='2026-03-01')
+        kept_second = self._hours(business_premise_id=other.id, valid_from='2026-03-01')
+        FakeFiscalization.responses['obrisiRadnoVrijeme'] = _ok_response()
+        launcher = self.Operation.create({
+            'operation': 'remove',
+            'business_premise_ids': [Command.set((self.premise | other).ids)],
+            'line_ids': [Command.create({'action': 'remove', 'working_hours_id': hours.id})
+                         for hours in first_hours | second_hours],
+        })
+
+        launcher.action_execute()
+
+        self.assertFalse(launcher.exists())
+        self.assertFalse((first_hours | second_hours).exists())
+        self.assertEqual(self.premise._get_all_working_hours(), kept_first)
+        self.assertEqual(other._get_all_working_hours(), kept_second)
+        by_code = {payload['PoslovniProstor'].OznPosPr:
+                   payload['PoslovniProstor'].BrisanjeRadnogVremena.Redovno
+                   for method, payload in FakeFiscalization.calls}
+        self.assertEqual(by_code, {
+            'TESTPP': [{'DatumOd': '01.01.2026'}],
+            'TESTPP2': [{'DatumOd': '01.02.2026'}],
+        })
+
+    def test_launcher_checks_every_premise_before_sending(self):
+        other = self._other_premise()
+        hours = self._hours()
+        for operation in ('register', 'remove'):
+            with self.subTest(operation=operation):
+                launcher = self.Operation.create({
+                    'operation': operation,
+                    'business_premise_ids': [Command.set((self.premise | other).ids)],
+                    'line_ids': [Command.create({'action': operation, 'working_hours_id': hours.id})],
+                })
+                with self.assertRaises(UserError), self.env.cr.savepoint():
+                    launcher.action_execute()
+                self.assertTrue(launcher.exists())
+                self.assertEqual(launcher.state, 'draft')
+                self.assertFalse(FakeFiscalization.calls, 'the second premise has no selected hours')
+                self.assertFalse(self.Operation.search([
+                    ('business_premise_id', 'in', (self.premise | other).ids),
+                ]))
+
+    def test_referenced_hours_cannot_be_sent_under_another_premise(self):
+        other = self._other_premise()
+        foreign_hours = self._hours(business_premise_id=other.id)
+        for operation in ('register', 'remove'):
+            for batch in (False, True):
+                with self.subTest(operation=operation, batch=batch):
+                    vals = {
+                        'operation': operation,
+                        'line_ids': [Command.create({'action': operation, 'working_hours_id': foreign_hours.id})],
+                    }
+                    if batch:
+                        vals['business_premise_ids'] = [Command.set(self.premise.ids)]
+                    else:
+                        vals['business_premise_id'] = self.premise.id
+                    with self.assertRaisesRegex(UserError, 'must belong'), self.env.cr.savepoint():
+                        op = self.Operation.create(vals)
+                        op.action_execute()
+                    self.assertTrue(foreign_hours.exists())
+                    self.assertFalse(FakeFiscalization.calls)
+
+    def test_remove_refuses_partial_date_groups(self):
+        regular_first = self._hours(dow='1')
+        regular_second = self._hours(dow='2')
+        exception_first = self._hours(type='exception', valid_on='2026-05-01', split_shift='1')
+        exception_second = self._hours(type='exception', valid_on='2026-05-01', split_shift='2')
+        for selected in (regular_first, exception_first):
+            with self.subTest(type=selected.type):
+                op = self.Operation.create({
+                    'business_premise_id': self.premise.id,
+                    'operation': 'remove',
+                    'line_ids': [Command.create({'action': 'remove', 'working_hours_id': selected.id})],
+                })
+                with self.assertRaisesRegex(UserError, 'Select every entry'), self.env.cr.savepoint():
+                    op.action_execute()
+                self.assertEqual(op.state, 'draft')
+                self.assertFalse(FakeFiscalization.calls)
+        self.assertEqual(len((regular_first | regular_second | exception_first | exception_second).exists()), 4)
+
+    def test_remove_launcher_checks_complete_dates_before_sending(self):
+        other = self._other_premise()
+        first_hours = self._hours()
+        second_hours = self._hours(business_premise_id=other.id, dow='1')
+        self._hours(business_premise_id=other.id, dow='2')
+        launcher = self.Operation.create({
+            'operation': 'remove',
+            'business_premise_ids': [Command.set((self.premise | other).ids)],
+            'line_ids': [Command.create({'action': 'remove', 'working_hours_id': hours.id})
+                         for hours in first_hours | second_hours],
+        })
+        with self.assertRaisesRegex(UserError, 'Select every entry'), self.env.cr.savepoint():
+            launcher.action_execute()
+        self.assertFalse(FakeFiscalization.calls)
+        self.assertTrue((first_hours | second_hours).exists())
+
+    def test_register_and_remove_actions_open_a_draft_for_selection(self):
+        other = self._other_premise()
+        for premises in (self.premise, self.premise | other):
+            for operation in ('register', 'remove'):
+                with self.subTest(premises=premises.ids, operation=operation):
+                    action = getattr(premises, f'action_{operation}_working_hours')()
+                    self.assertEqual(action['res_model'], self.Operation._name)
+                    self.assertEqual(action['context']['default_operation'], operation)
+                    self.assertEqual(action['context']['default_business_premise_ids'], premises.ids)
+                    self.assertFalse(FakeFiscalization.calls, 'the user must select entries first')
 
     def test_operation_needs_a_premise_to_execute(self):
         op = self.Operation.create({"operation": "get"})

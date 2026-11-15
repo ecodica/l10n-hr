@@ -20,6 +20,7 @@ class L10nHrWorkingHoursSchedule(models.Model):
     _name = "l10n_hr.working.hours.schedule"
     _description = "L10n HR working hours schedule snapshot"
     _order = "compute_date DESC, id DESC"
+    _check_company_auto = True
 
     name = fields.Char(string="Reference", compute="_compute_name")
     compute_date = fields.Datetime(
@@ -33,6 +34,7 @@ class L10nHrWorkingHoursSchedule(models.Model):
     business_premise_ids = fields.Many2many(
         comodel_name="l10n_hr.business.premise",
         string="Business Premises",
+        check_company=True,
         help="Leave empty to cover every business premise of the current company.",
     )
     company_id = fields.Many2one(
@@ -46,6 +48,7 @@ class L10nHrWorkingHoursSchedule(models.Model):
         comodel_name="l10n_hr.fiscal.operation",
         string="Fiscal Operation",
         readonly=True,
+        check_company=True,
         index=True,
         help="The operation that produced this snapshot (empty for manual computations).",
     )
@@ -55,6 +58,32 @@ class L10nHrWorkingHoursSchedule(models.Model):
         string="Schedule",
         readonly=True,
     )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        default_operation = self.default_get(['fiscal_operation_id']).get('fiscal_operation_id')
+        if not self.env.su and any(vals.get('fiscal_operation_id', default_operation) for vals in vals_list):
+            raise UserError(_('Fiscal audit snapshots can only be created by an operation.'))
+        return super().create(vals_list)
+
+    def _check_snapshot_editable(self):
+        self.check_access('write')
+        if not self.env.su and self.fiscal_operation_id:
+            raise UserError(_('Fiscal audit snapshots are history and cannot be modified.'))
+
+    def write(self, vals):
+        self._check_snapshot_editable()
+        if not self.env.su and vals.get('fiscal_operation_id'):
+            raise UserError(_('Fiscal audit snapshots can only be created by an operation.'))
+        return super().write(vals)
+
+    def unlink(self):
+        self._check_snapshot_editable()
+        return super().unlink()
+
+    @api.constrains('company_id', 'business_premise_ids')
+    def _check_premise_access(self):
+        self.business_premise_ids.check_access('read')
 
     @api.depends("compute_date", "date_from", "date_to")
     def _compute_name(self):
@@ -81,6 +110,7 @@ class L10nHrWorkingHoursSchedule(models.Model):
     def action_compute(self):
         """(Re)build the schedule lines for the selected range and premises."""
         self.ensure_one()
+        self._check_snapshot_editable()
         if self.date_to < self.date_from:
             raise UserError(_("The end date cannot be before the start date."))
         if (self.date_to - self.date_from).days > MAX_SCHEDULE_DAYS:
@@ -163,6 +193,37 @@ class L10nHrWorkingHoursScheduleLine(models.Model):
         comodel_name="l10n_hr.business.working.hours",
         string="Working Hours",
     )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        schedules = self.env['l10n_hr.working.hours.schedule'].browse([
+            vals.get('schedule_id') or self.env.context.get('default_schedule_id')
+            for vals in vals_list
+            if vals.get('schedule_id') or self.env.context.get('default_schedule_id')
+        ])
+        schedules._check_snapshot_editable()
+        return super().create(vals_list)
+
+    def write(self, vals):
+        schedules = self.schedule_id
+        if vals.get('schedule_id'):
+            schedules |= self.env['l10n_hr.working.hours.schedule'].browse(vals['schedule_id'])
+        schedules._check_snapshot_editable()
+        return super().write(vals)
+
+    def unlink(self):
+        self.schedule_id._check_snapshot_editable()
+        return super().unlink()
+
+    @api.constrains('schedule_id', 'business_premise_id', 'source_id')
+    def _check_premise_company(self):
+        for line in self:
+            line.business_premise_id.check_access('read')
+            line.source_id.check_access('read')
+            if line.business_premise_id.company_id != line.schedule_id.company_id:
+                raise UserError(_('Schedule entries must belong to the schedule company.'))
+            if line.source_id and line.source_id.business_premise_id != line.business_premise_id:
+                raise UserError(_('Schedule entries must reference working hours of their own premise.'))
 
     @api.depends("date")
     def _compute_dow(self):

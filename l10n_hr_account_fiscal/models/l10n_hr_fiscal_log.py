@@ -35,6 +35,11 @@ class L10nHrFiscalLog(models.Model):
         string="Message type",
         readonly=True,
     )
+    exchange_outcome = fields.Selection(
+        [('success', 'Verified response'), ('rejected', 'Rejected by FINA'),
+         ('uncertain', 'Uncertain'), ('not_sent', 'Not sent')],
+        string='Exchange Outcome', readonly=True,
+    )
     # related document
     res_model = fields.Char('Related Document Model', readonly=True, required=True)
     res_id = fields.Many2oneReference('Related Document ID', model_field='res_model', readonly=True, required=True)

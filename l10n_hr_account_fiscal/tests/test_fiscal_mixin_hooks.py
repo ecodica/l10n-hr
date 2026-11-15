@@ -81,3 +81,19 @@ class TestFiscalMixinHooks(AccountTestInvoicingCommon):
             hasattr(self.env["account.move"], "_prepare_fiscal_date_time"),
             "_prepare_fiscal_date_time is back; it cannot work - the field is gone",
         )
+
+    def test_late_delivery_is_a_zki_without_a_jir(self):
+        """``NakDost``: the base rule reads a ZKI without a JIR as a document issued earlier.
+
+        A model computing its ZKI before the first attempt overrides the hook, or every
+        first attempt would report a late delivery.
+        """
+        move = self.env["account.move"].create({
+            "move_type": "out_invoice",
+            "partner_id": self.partner_a.id,
+        })
+        self.assertFalse(move._l10n_hr_is_late_delivery(), "no ZKI yet: a first attempt")
+        move.l10n_hr_zki = "0" * 32
+        self.assertTrue(move._l10n_hr_is_late_delivery(), "ZKI without JIR: issued earlier")
+        move.l10n_hr_jir = "a" * 36
+        self.assertFalse(move._l10n_hr_is_late_delivery(), "a JIR came back")

@@ -517,7 +517,7 @@ msgstr "Prva smjena"
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_res_company__l10n_hr_fiscal_cert_subject_vat
 msgid "Fiscal Cert Subject VAT"
-msgstr "OIB nositelja fiskalnog certifikata"
+msgstr "PDV nositelja fiskalnog certifikata"
 
 #. module: l10n_hr_account_fiscal
 #. odoo-python
@@ -1262,7 +1262,7 @@ msgstr "Dvokratno radno vrijeme"
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields,field_description:l10n_hr_account_fiscal.field_certificate_certificate__l10n_hr_subject_vat
 msgid "Subject VAT"
-msgstr "OIB nositelja"
+msgstr "PDV nositelja"
 
 #. module: l10n_hr_account_fiscal
 #: model:ir.model.fields.selection,name:l10n_hr_account_fiscal.selection__l10n_hr_business_working_hours__dow__7

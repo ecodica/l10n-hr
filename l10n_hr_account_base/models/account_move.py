@@ -33,8 +33,14 @@ class AccountMove(models.Model):
     l10n_hr_is_ref_required = fields.Boolean(
         string="Is Ref Required?",
         compute="_compute_l10n_hr_is_ref_required")
-    # original field advance_invoice from l10n_hr_account_advance_invoice
-    l10n_hr_advance_invoice = fields.Boolean("Advance invoice", help="Indicates if invoice is for advance payment.")
+    # Lightweight counterpart of the `advance_invoice` flag owned by the
+    # l10n_hr_account_advance_invoice module. That module is the real
+    # implementation (advance account, advance-line model, storno generation),
+    # but several other l10n_hr modules only need to know "is this an advance
+    # payment" and must not depend on the full module, so the flag is
+    # re-declared here (l10n_-prefixed) for them to read.
+    l10n_hr_advance_invoice = fields.Boolean(
+        "Advance invoice?", help="Indicates if invoice is for advance payment.")
 
     @api.constrains('l10n_hr_fiscal_number', 'company_id', 'date')
     def _check_l10n_hr_fiscal_number(self):

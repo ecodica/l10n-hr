@@ -9,6 +9,7 @@
             <list>
                 <field name="name"/>
                 <field name="type"/>
+                <field name="exchange_outcome"/>
                 <field name="error_msg"/>
                 <field name="reply_timestamp"/>
                 <field name="process_time"/>
@@ -25,6 +26,7 @@
             <list>
                 <field name="name"/>
                 <field name="type"/>
+                <field name="exchange_outcome"/>
                 <field name="company_id"/>
                 <field name="error_msg"/>
                 <field name="reply_timestamp"/>
@@ -45,6 +47,7 @@
                 <group>
                     <field name="name"/>
                     <field name="type"/>
+                <field name="exchange_outcome"/>
                     <field name="user_id"/>
                     <field name="company_id"/>
                     <field name="business_premise_id"/>

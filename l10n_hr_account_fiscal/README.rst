@@ -303,7 +303,9 @@ Security, recovery and transport tests
 
 * ``test_fiscal_security.py`` checks the independent fiscal role, company rules,
   immutable operations/lines/snapshots, context-default attacks and authorized
-  reconciliation. Its standalone premise view test needs no accounting role.
+  reconciliation. Its standalone premise view test needs no accounting role; the
+  full premise form and list stay the default views (the short ones have priority 100),
+  and a premise opened from an operation, log or working hours opens in the short form.
 * ``test_fiscal_recovery.py`` injects transport, SQL, local application, snapshot,
   final-write and logging-savepoint-exit failures. It checks partial batch success,
   public multi-record preflight, immutable linked GET recovery and no POST replay.

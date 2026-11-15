@@ -33,7 +33,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="business_premise_id"/>
+                            <field name="business_premise_id" context="{'form_view_ref': 'l10n_hr_account_fiscal.fiscal_premise_form_view'}"/>
                             <field name="type"/>
                             <field name="dow"/>
                             <field name="description"/>

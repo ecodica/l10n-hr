@@ -50,7 +50,7 @@
                 <field name="exchange_outcome"/>
                     <field name="user_id"/>
                     <field name="company_id"/>
-                    <field name="business_premise_id"/>
+                    <field name="business_premise_id" context="{'form_view_ref': 'l10n_hr_account_fiscal.fiscal_premise_form_view'}"/>
                     <field name="fiscal_device_id"/>
                     <field name="reply_timestamp"/>
                     <field name="process_time"/>

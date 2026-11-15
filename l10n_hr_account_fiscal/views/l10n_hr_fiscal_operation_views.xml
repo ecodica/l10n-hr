@@ -104,7 +104,8 @@
                         <group>
                             <field name="business_premise_id" readonly="state != 'draft'"
                                    invisible="business_premise_ids"
-                                   options="{'no_create': True}"/>
+                                   options="{'no_create': True}"
+                                   context="{'form_view_ref': 'l10n_hr_account_fiscal.fiscal_premise_form_view'}"/>
                             <field name="business_premise_ids" widget="many2many_tags"
                                    readonly="state != 'draft'"
                                    invisible="business_premise_id"

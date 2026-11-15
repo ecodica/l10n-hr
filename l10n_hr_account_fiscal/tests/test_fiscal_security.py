@@ -1,6 +1,8 @@
 """Fiscal permissions, company boundaries and audit history are enforced server-side."""
+import ast
 from unittest.mock import patch
 
+from lxml import etree
 from requests.exceptions import ReadTimeout
 
 from odoo import Command
@@ -87,6 +89,28 @@ class TestFiscalSecurity(TransactionCase):
         self.assertTrue(op.fiscal_log_id)
         self.assertEqual(len(FakeFiscalization.calls), 1)
         self.assertTrue(op.schedule_before_id)
+
+    def test_full_premise_views_stay_the_default(self):
+        """The short premise views open only from the Fiscalization menu."""
+        premise = self.env['l10n_hr.business.premise']
+        for view_type, xmlid in (('form', 'l10n_hr_account_base.view_fiscal_premise_form'),
+                                 ('list', 'l10n_hr_account_base.view_fiscal_premise_list')):
+            self.assertEqual(premise.get_view(view_type=view_type)['id'], self.env.ref(xmlid).id)
+
+    def test_premise_links_open_the_short_form(self):
+        """A premise opened from a fiscal record shows the short form, readable without accounting."""
+        short_form = self.env.ref('l10n_hr_account_fiscal.fiscal_premise_form_view')
+        for model, xmlid in (
+            ('l10n_hr.fiscal.operation', 'l10n_hr_account_fiscal.l10n_hr_fiscal_operation_form_view'),
+            ('l10n_hr.fiscal.log', 'l10n_hr_account_fiscal.l10n_hr_fiscal_log_form_view'),
+            ('l10n_hr.business.working.hours', 'l10n_hr_account_fiscal.l10n_hr_business_working_hours_form_view'),
+        ):
+            arch = self.env[model].get_view(self.env.ref(xmlid).id, 'form')['arch']
+            link = etree.fromstring(arch).find(".//field[@name='business_premise_id']")
+            premise = self._as(self.premise, self.manager).with_context(**ast.literal_eval(link.get('context')))
+            views = premise.get_views([(False, 'form')])
+            self.assertEqual(views['views']['form']['id'], short_form.id, model)
+            premise.web_read({name: {} for name in views['models']['l10n_hr.business.premise']['fields']})
 
     def test_standalone_premise_view_needs_no_accounting_access(self):
         premise = self._as(self.premise, self.manager)

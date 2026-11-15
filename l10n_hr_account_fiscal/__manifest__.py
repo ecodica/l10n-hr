@@ -3,7 +3,7 @@
     "summary": "Croatia ",
     "category": "Croatia",
     "images": [],
-    "version": "19.0.2.4.1",
+    "version": "19.0.2.4.2",
     "application": False,
     "author": "Daj mi 5, Ecodica, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",

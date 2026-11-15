@@ -4,6 +4,8 @@
     <record id="fiscal_premise_list_view" model="ir.ui.view">
         <field name="name">l10n_hr.business.premise.fiscal.list</field>
         <field name="model">l10n_hr.business.premise</field>
+        <!-- Only the Fiscalization menu opens it: the full view stays the default. -->
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <list create="0" edit="0" delete="0">
                 <field name="l10n_hr_name"/>
@@ -17,6 +19,8 @@
     <record id="fiscal_premise_form_view" model="ir.ui.view">
         <field name="name">l10n_hr.business.premise.fiscal.form</field>
         <field name="model">l10n_hr.business.premise</field>
+        <!-- Only the Fiscalization menu opens it: the full view stays the default. -->
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <form create="0" edit="0" delete="0">
                 <header>

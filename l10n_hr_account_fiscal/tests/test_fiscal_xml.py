@@ -6,10 +6,16 @@ build the real ``RacunType`` through ``_prepare_fiscal_invoice`` with Zeep's own
 ``RacunZahtjev`` with Zeep, and validate the XML against the bundled
 ``FiskalizacijaSchema.xsd``. No network, no certificate, no FINA.
 """
+import base64
+import datetime
 import uuid
 from pathlib import Path
 from types import SimpleNamespace
 
+from cryptography import x509
+from cryptography.hazmat.primitives import hashes, serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import NameOID
 from lxml import etree
 from zeep import Client
 from zeep.transports import Transport
@@ -19,6 +25,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
+from ..fiscal.zeep_signer import Signer, Verifier
 from .test_fiscal_operation import OPERATOR_OIB
 
 COMPANY_OIB = "12345678901"
@@ -30,6 +37,7 @@ XSD_PATH = SCHEMA_DIR / "schema/FiskalizacijaSchema.xsd"
 
 TNS = "http://www.apis-it.hr/fin/2012/types/f73"
 SOAP_ENV = "http://schemas.xmlsoap.org/soap/envelope/"
+DS = "http://www.w3.org/2000/09/xmldsig#"
 
 
 def _flat_list(value):
@@ -262,3 +270,120 @@ class TestFiscalXmlInvoice(TestFiscalXml):
         fiscal_data = {"cert_vat": COMPANY_OIB, "racun": ["1", "XMLPP", "1"]}
         with self.assertRaises(ValidationError):
             invoice._prepare_fiscal_invoice(shim, fiscal_data, "racuni")
+
+
+@tagged("post_install", "-at_install")
+class TestFiscalXmlSignature(TestFiscalXml):
+    """The signer produces the enveloped signature FINA's schema allows.
+
+    A real ``RacunZahtjev`` is serialized with Zeep from the bundled EDUC 1.10
+    WSDL and signed with the module's signer. The result must validate against
+    the bundled XSD and verify through the module's verifier. Together with
+    ``test_fiscal_response_verification`` this pins the signature construction -
+    exclusive c14n, RSA-SHA256, the ``Id`` reference, ``ds:Signature`` as the
+    request element's last child, issuer serial and certificate in KeyInfo -
+    which is the shape the FINA service depends on.
+    """
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # A small serial: libxml2 cannot validate xs:integer values beyond 64
+        # bits, so a realistic serial would fail the bundled XSD for a reason
+        # unrelated to what these tests check. Real FINA certificates have
+        # large serials, which FINA's service accepts; only the local XSD
+        # validation is limited.
+        cls.sign_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, "fiscal-signature-test")])
+        now = datetime.datetime.now(datetime.timezone.utc)
+        cls.sign_cert = (
+            x509.CertificateBuilder()
+            .subject_name(name).issuer_name(name)
+            .public_key(cls.sign_key.public_key())
+            .serial_number(1)
+            .not_valid_before(now - datetime.timedelta(days=1))
+            .not_valid_after(now + datetime.timedelta(days=365))
+            .sign(cls.sign_key, hashes.SHA256())
+        )
+        cls.sign_cert_pem = cls.sign_cert.public_bytes(serialization.Encoding.PEM)
+        cls.sign_key_pem = cls.sign_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption(),
+        )
+
+    def _signed_envelope(self):
+        """Serialize a real RacunZahtjev and sign it the way egress does."""
+        invoice = self._invoice([(1000.0, self.tax_pdv_25)])
+        invoice.action_post()
+        move = self._fiscalized(invoice)
+        shim = self._fiscal_shim()
+        fiscal_data = {"cert_vat": COMPANY_OIB, "racun": ["1", "XMLPP", "1"]}
+        racun = move._prepare_fiscal_invoice(shim, fiscal_data, "racuni")
+        envelope = self.zeep.create_message(
+            self.zeep.service, "racuni",
+            Zaglavlje=shim.create_request_header(), Racun=racun,
+        )
+        Signer(cert_data=self.sign_cert_pem, key_data=self.sign_key_pem).sign_document(envelope)
+        return envelope
+
+    def _request(self, envelope):
+        return envelope.find("{%s}Body" % SOAP_ENV)[0]
+
+    def test_signature_is_the_requests_last_child(self):
+        """The XSD sequence places ds:Signature after the payload."""
+        envelope = self._signed_envelope()
+        request = self._request(envelope)
+        signature = request.find("{%s}Signature" % DS)
+        self.assertIsNotNone(signature, "no signature was appended")
+        self.assertIs(list(request)[-1], signature)
+
+    def test_signature_structure_matches_the_fina_specification(self):
+        envelope = self._signed_envelope()
+        request = self._request(envelope)
+        signature = request.find("{%s}Signature" % DS)
+        signed_info = signature.find("{%s}SignedInfo" % DS)
+        self.assertEqual(
+            signed_info.find("{%s}CanonicalizationMethod" % DS).get("Algorithm"),
+            "http://www.w3.org/2001/10/xml-exc-c14n#",
+        )
+        self.assertEqual(
+            signed_info.find("{%s}SignatureMethod" % DS).get("Algorithm"),
+            "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
+        )
+        reference = signed_info.find("{%s}Reference" % DS)
+        self.assertEqual(reference.get("URI"), "#" + request.get("Id"))
+        transforms = [t.get("Algorithm") for t in reference.iter("{%s}Transform" % DS)]
+        self.assertIn("http://www.w3.org/2000/09/xmldsig#enveloped-signature", transforms)
+        self.assertIn("http://www.w3.org/2001/10/xml-exc-c14n#", transforms)
+        self.assertEqual(
+            reference.find("{%s}DigestMethod" % DS).get("Algorithm"),
+            "http://www.w3.org/2001/04/xmlenc#sha256",
+        )
+
+    def test_key_info_carries_issuer_serial_and_certificate(self):
+        """The KeyInfo keeps the issuer serial + certificate shape FINA receives."""
+        envelope = self._signed_envelope()
+        signature = self._request(envelope).find("{%s}Signature" % DS)
+        x509_data = signature.find(".//{%s}X509Data" % DS)
+        self.assertIsNotNone(x509_data)
+        self.assertEqual(
+            x509_data.findtext("{%s}X509IssuerSerial/{%s}X509SerialNumber" % (DS, DS)),
+            str(self.sign_cert.serial_number),
+        )
+        certificate = x509_data.findtext("{%s}X509Certificate" % DS)
+        self.assertEqual(
+            certificate,
+            base64.b64encode(self.sign_cert.public_bytes(serialization.Encoding.DER)).decode(),
+        )
+
+    def test_signed_request_validates_against_the_schema(self):
+        """The whole signed envelope is schema-valid, signature included."""
+        envelope = self._signed_envelope()
+        request = self._request(envelope)
+        self.assertTrue(self.xsd.validate(request), self.xsd.error_log)
+
+    def test_signed_request_round_trips_through_the_verifier(self):
+        """What the signer emits, the module's own verifier accepts."""
+        envelope = self._signed_envelope()
+        self.assertTrue(Verifier(cert_data=self.sign_cert_pem).verify_document(envelope))

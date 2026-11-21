@@ -199,6 +199,17 @@ class L10nHrFiscalV1Mixin(models.AbstractModel):
                         "activate and select it on company setup!"
                     )
                 )
+                # FINA rejects a message whose OIB differs from the certificate's
+                # (error s005); a certificate without a readable OIB is never
+                # selected, so name it instead of hiding behind the generic text.
+                without_oib = self.company_id.l10n_hr_fiscal_certificates_without_oib()
+                if without_oib:
+                    res.append(self.env._(
+                        "The fiscal certificate %(certificate)s was processed without a "
+                        "readable OIB in its subject. Re-import it, with its password, "
+                        "so the OIB from the certificate can be sent to FINA.",
+                        certificate=without_oib[:1].display_name,
+                    ))
             if not self.company_id.company_registry:
                 res.append(
                     _("Company OIB is not not entered! It is required for fiscalization")

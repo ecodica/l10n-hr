@@ -1,14 +1,17 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 from datetime import datetime
 from pytz import timezone as tz
+from types import SimpleNamespace
 from uuid import uuid4
 
+from lxml import etree
 from requests import Session
 from zeep import Client, Settings
+from zeep.exceptions import Fault
 from zeep.plugins import HistoryPlugin
 from zeep.transports import Transport
 
-from .zeep_signer import EnvelopedSignaturePlugin, BinarySigner, Verifier
+from .zeep_signer import EnvelopedSignaturePlugin, BinarySigner, Verifier, SOAP_ENV_NS
 
 
 def generate_zki(zki_datalist, signer=None):
@@ -64,10 +67,7 @@ class Fiscalization:
             operation_timeout=(30, 100),
         )
         signer = BinarySigner(cert_data=data["cert_data"], key_data=data["key_data"])
-        verifier = Verifier(
-            cert_path=data["app_cert_path"],
-            ca_cert_path=[data["fina_bundle_path"]],
-        )
+        verifier = Verifier(cert_data=data["app_cert_data"])
         history = HistoryPlugin()
         fiscal_plugin = EnvelopedSignaturePlugin(self, signer, verifier)
         settings = Settings(raw_response=False)
@@ -116,10 +116,75 @@ class Fiscalization:
         return operation.name != "echo"
 
     def _call_service(self, service_proxy, req_kw):
-        # Preserve the original transport/validation/Fault exception. Fault.detail
-        # may already be an XML element; a SOAP Fault is not a successful FINA reply.
-        # The wrapper logs the diagnosis and available raw envelopes.
-        return service_proxy(**req_kw)
+        """Call the FINA operation and return its response object.
+
+        FINA reports a rejected request over HTTP 500 with a signed, regular
+        response body - ``Greske`` inside ``RacunOdgovor`` - instead of a
+        soap:Fault, so zeep raises ``Fault("Unknown fault occured")`` carrying
+        the whole response in ``detail``. That payload is recovered here so the
+        caller logs FINA's own error (s005 and friends) instead of the generic
+        message. A genuine soap fault (code set), or a fault without a usable
+        payload, is re-raised unchanged for the wrapper to diagnose.
+        """
+        try:
+            return service_proxy(**req_kw)
+        except Fault as fault:
+            payload = self._fault_response(fault)
+            if payload is None:
+                raise
+            return payload
+
+    @staticmethod
+    def _fault_response(fault):
+        """The FINA payload hidden in zeep's generic fault, or None.
+
+        zeep runs the response plugins (signature verification included)
+        before it detects the HTTP error, so a payload recovered here has been
+        verified like any other response.
+        """
+        if fault.code is not None or not fault.detail:
+            return None
+        try:
+            document = (
+                fault.detail
+                if isinstance(fault.detail, etree._Element)
+                else etree.fromstring(fault.detail)
+            )
+        except etree.XMLSyntaxError:
+            return None
+        body = document.find(f"{{{SOAP_ENV_NS}}}Body")
+        payload = body[0] if body is not None and len(body) else None
+        if payload is None:
+            return None
+        tns = etree.QName(payload).namespace
+
+        def text_of(parent, tag):
+            return parent.findtext(f"{{{tns}}}{tag}") if parent is not None else None
+
+        zaglavlje = payload.find(f"{{{tns}}}Zaglavlje")
+        greske = payload.find(f"{{{tns}}}Greske")
+        errors = [
+            SimpleNamespace(
+                SifraGreske=greska.findtext(f"{{{tns}}}SifraGreske"),
+                PorukaGreske=(greska.findtext(f"{{{tns}}}PorukaGreske") or "")
+                .replace("\t", "")
+                .replace("\n", ""),
+            )
+            for greska in (greske.iterfind(f"{{{tns}}}Greska") if greske is not None else [])
+        ]
+        poruka = payload.find(f"{{{tns}}}PorukaOdgovora")
+        return SimpleNamespace(
+            Zaglavlje=SimpleNamespace(
+                IdPoruke=text_of(zaglavlje, "IdPoruke"),
+                DatumVrijeme=text_of(zaglavlje, "DatumVrijeme"),
+            ) if zaglavlje is not None else None,
+            Greske=SimpleNamespace(Greska=errors) if errors else None,
+            Jir=text_of(payload, "Jir"),
+            PorukaOdgovora=SimpleNamespace(
+                SifraPoruke=text_of(poruka, "SifraPoruke"),
+                Poruka=text_of(poruka, "Poruka"),
+            ) if poruka is not None else None,
+        )
 
     def test_service(self, test_message="ping"):
         """

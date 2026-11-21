@@ -230,6 +230,49 @@ class TestFiscalCertificates(TransactionCase):
         self.assertIn(b'BEGIN CERTIFICATE', base64.b64decode(data['cert_data']))
         self.assertIn(b'PRIVATE KEY', base64.b64decode(data['key_data']))
 
+    def test_certificate_oib_is_read_with_or_without_hr_prefix(self):
+        """The subject OIB (2.5.4.97) is 11 digits, however the prefix looks.
+
+        FINA compares the message OIB with the certificate's (error s005), so
+        the blind two-character strip had to go: a stored OIB without the HR
+        prefix lost its first two digits.
+        """
+        self._configure(self.demo)
+        self.demo.l10n_hr_subject_vat = "HR12345678903"
+        self.assertEqual(self.company.get_fiscal_data()["cert_vat"], "12345678903")
+        self.demo.l10n_hr_subject_vat = "12345678903"
+        self.assertEqual(self.company.get_fiscal_data()["cert_vat"], "12345678903")
+
+    def test_certificate_without_a_usable_oib_is_never_selected(self):
+        """A certificate whose subject OIB is unreadable cannot sign a message.
+
+        FINA rejects a message whose OIB does not match the signing
+        certificate (error s005), witnessed live: a request signed with an
+        empty OIB came back with exactly that refusal.
+        """
+        self._configure(self.demo)
+        self.assertTrue(self.company._get_fiscal_certificate())
+        self.demo.l10n_hr_subject_vat = "not-an-oib"
+        self.assertFalse(self.company._get_fiscal_certificate())
+        with self.assertRaises(MissingError):
+            self.company.get_fiscal_data()
+
+    def test_precheck_names_a_certificate_without_a_readable_oib(self):
+        """The generic "no certificate" refusal gets an actionable companion."""
+        self._configure(self.demo)
+        self.demo.l10n_hr_subject_vat = "not-an-oib"
+        invoice = self.env['account.move'].new({
+            'company_id': self.company.id, 'move_type': 'out_invoice',
+            'currency_id': self.company.currency_id.id,
+            'partner_id': self.customer.id, 'l10n_hr_payment_method': 'K',
+            'l10n_hr_fiscal_device_id': self.device.id, 'l10n_hr_fiscal_operator_id': self.operator.id,
+        })
+        messages = invoice._l10n_hr_post_fiscal_check()
+        self.assertTrue(
+            any("readable OIB" in message for message in messages),
+            messages,
+        )
+
     def test_country_change_clears_selection(self):
         self._configure(self.demo)
         self.assertEqual(self.company.l10n_hr_fiscal_cert_id, self.demo)

@@ -1,144 +1,116 @@
-import logging
-import os
-import uuid
-from datetime import datetime, timezone
-from copy import deepcopy
-from hashlib import md5
+"""XML-DSig signing and verification for the FINA fiscalization service.
+
+The request element inside the SOAP Body carries an enveloped RSA-SHA256
+signature (exclusive XML canonicalization), appended as its last child where
+``FiskalizacijaSchema.xsd`` allows ``ds:Signature``, and referenced through the
+element's ``Id`` attribute.
+
+Requests are signed with the pure-Python signxml library (on top of lxml and
+cryptography), which replaced the earlier implementation built on the
+``xmlsec`` bindings for the C library libxmlsec1. The envelopes FINA receives
+keep the same shape as before, including the ``X509IssuerSerial`` +
+``X509Certificate`` KeyInfo.
+
+Responses are verified by this module itself, against the pinned FINA
+service certificate shipped with the module. FINA's service (.NET SignedXml)
+signs the ``SignedInfo`` element rendered *standalone* - the canonical bytes
+do not carry the namespace declarations that are only in scope from the SOAP
+ancestors - while the stock xmlsec and signxml implementations canonicalize
+in document context and compute different bytes. The reference digest, on the
+other hand, is computed in document context. Both stages are reproduced here,
+pinned by ``tests/data/fina_demo_dohvati_response.xml``, a response captured
+from the live demo service.
+
+Note: the Odoo environment pins ``cryptography==42.0.8`` (an Odoo core
+requirement), which makes ``signxml==3.2.2`` the newest installable version.
+"""
 import base64
-import xmlsec
+import hashlib
+import logging
+import re
+import warnings
+from datetime import datetime, timezone
+from hashlib import md5
+from uuid import uuid4
+
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from lxml import etree
+
+# signxml 3.2.2 - the newest version compatible with the Odoo-pinned
+# cryptography==42.0.8 - imports pyOpenSSL's deprecated ``crypto.verify``
+# binding at import time (it uses it to check RSA signatures). Odoo pins
+# pyopenssl==24.1.0, where the binding exists but warns on import - the
+# warning reaches the server log as py.warnings on every process start.
+# Silence exactly this warning; the binding is only REMOVED in pyOpenSSL 25,
+# which the Odoo pin already excludes.
+with warnings.catch_warnings():
+    warnings.filterwarnings(
+        "ignore", message=r"verify\(\) is deprecated", category=DeprecationWarning,
+    )
+    from signxml import (
+        CanonicalizationMethod,
+        DigestAlgorithm,
+        SignatureMethod,
+        XMLSigner,
+        methods,
+    )
 
 _logger = logging.getLogger(__name__)
 
-SIGNATURE_FRAGMENT = """
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-    <SignedInfo>
-        <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-        <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
-        <Reference>
-             <Transforms>
-                 <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                 <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
-             </Transforms>
-             <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-             <DigestValue></DigestValue>
-        </Reference>
-    </SignedInfo>
-    <SignatureValue/>
-</Signature>
-"""
+SOAP_ENV_NS = "http://schemas.xmlsoap.org/soap/envelope/"
+DS_NS = "http://www.w3.org/2000/09/xmldsig#"
+
+# Fiskalizacija signs with RSA-SHA256 over exclusive canonicalization, and
+# references the request element through its Id attribute (the schema defines
+# that attribute "za potrebe digitalnog potpisa"). Stating the algorithms
+# explicitly also freezes them against future signxml default changes.
+_C14N_EXCLUSIVE = CanonicalizationMethod.EXCLUSIVE_XML_CANONICALIZATION_1_0
+
+# The response verification profile: the algorithms FINA's service is known to
+# use, plus the ones our own signer emits so the round-trip tests verify.
+_C14N_EXCLUSIVE_PREFIX = "http://www.w3.org/2001/10/xml-exc-c14n#"
+_C14N_INCLUSIVE = "http://www.w3.org/TR/2001/REC-xml-c14n-20010315"
+_ALLOWED_C14N = {
+    CanonicalizationMethod.EXCLUSIVE_XML_CANONICALIZATION_1_0.value: False,
+    CanonicalizationMethod.EXCLUSIVE_XML_CANONICALIZATION_1_0_WITH_COMMENTS.value: True,
+    _C14N_INCLUSIVE: False,
+    _C14N_INCLUSIVE + "#WithComments": True,
+}
+_RSA_SHA256 = "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+_SHA256_DIGEST = "http://www.w3.org/2001/04/xmlenc#sha256"
+_ENVELOPED_TRANSFORM = "http://www.w3.org/2000/09/xmldsig#enveloped-signature"
 
 
-class Signer:
-    def __init__(self, cert_path, key_path=None, password=None):
-        if not key_path:
-            key_path = cert_path
+def _pem_bytes(data, what):
+    """Return *data* as PEM bytes, decoding base64 if necessary.
 
-        self.xmlsec_key = self._load_xmlsec_key(key_path, password)
-        self._load_xmlsec_cert(cert_path)
-        self.signature_template = etree.fromstring(SIGNATURE_FRAGMENT)
-        self.hazmat_key = self._load_hazmat_key(key_path, password)
-
-    @staticmethod
-    def _load_xmlsec_key(pem_path, password=None):
-        if not os.path.exists(pem_path):
-            raise ValueError("Company private key PEM file not found")
-
+    ``get_fiscal_data()`` passes the base64-encoded ``pem_certificate`` /
+    ``pem_key`` binary fields; other callers may pass raw PEM.
+    """
+    if not data:
+        raise ValueError(f"Company {what} data is missing")
+    if isinstance(data, str):
+        data = data.encode("utf-8")
+    if not data.lstrip().startswith(b"-----BEGIN"):
         try:
-            key = xmlsec.Key.from_file(
-                pem_path,
-                xmlsec.KeyFormat.PEM,
-                password=password,
-            )
-        except xmlsec.Error:
-            raise ValueError("Cannot load private key")
-
-        return key
-
-    def _load_xmlsec_cert(self, pem_path):
-        if not os.path.exists(pem_path):
-            raise ValueError("Company certificate PEM file not found")
-
-        try:
-            self.xmlsec_key.load_cert_from_file(pem_path, xmlsec.KeyFormat.PEM)
-        except xmlsec.Error:
-            raise ValueError("Cannot load certificate")
-
-    @staticmethod
-    def _load_hazmat_key(pem_path, password=None):
-        with open(pem_path, "rb") as key_file:
-            return serialization.load_pem_private_key(
-                key_file.read(),
-                password=password.encode("utf-8") if password else None,
-            )
-
-    def sign_document(self, root):
-        req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-        # Find the XML node with the request itself (eg. RacunZahtjev)
-        if req_node is None:
-            raise ValueError("Unable to find request tag element")
-        request_id = str(uuid.uuid4())
-
-        # The request node needs an Id so it can be referenced from the Reference node
-        req_node.attrib["Id"] = request_id
-        req_node.append(deepcopy(self.signature_template))
-
-        sig_node = xmlsec.tree.find_node(req_node, xmlsec.constants.NodeSignature)
-
-        # Set URI attribute of the Reference node to point to the request node
-        ref_node = sig_node.find("SignedInfo/Reference", namespaces=sig_node.nsmap)
-        ref_node.attrib["URI"] = f"#{request_id}"
-
-        # Add required KeyInfo/X509Data information to the signature
-        key_info = xmlsec.template.ensure_key_info(sig_node)
-        x509_data = xmlsec.template.add_x509_data(key_info)
-        xmlsec.template.x509_data_add_issuer_serial(x509_data)
-        xmlsec.template.x509_data_add_certificate(x509_data)
-
-        ctx = xmlsec.SignatureContext()
-        ctx.key = self.xmlsec_key
-
-        # Register <request_tag>.Id as a valid Id attribute so it can be used for
-        # internal references (from Reference URI)
-        ctx.register_id(req_node, id_attr="Id")
-
-        # Signing will populate the Signature subtree in-place
-        ctx.sign(sig_node)
-
-    def sign_zki_payload(self, data):
-        """
-        Sign raw ZKI payload using the private key.
-
-        The payload is signed with RSASSA-PKCS1-v1_5 over SHA-256 and the signature is
-        hashed with MD5; the digest is returned as lowercase hexadecimal. Chapter 12
-        "Zaštitni kod izdavatelja" of the Fiskalizacija technical specification v2.7
-        prescribes RSA-SHA256, and production refuses RSA-SHA1 from 01.01.2027. FINA
-        receives only the MD5, so it cannot check the hash: the only check is an
-        inspector asking for a ZKI to be reproduced from its inputs.
-
-        Args:
-            * data - raw ZKI data to be signed
-        Returns:
-            * ZKI digest calculated by the standard algorithm
-        """
-        signature = self.hazmat_key.sign(
-            data.encode("utf-8"),
-            padding.PKCS1v15(),
-            hashes.SHA256(),
-        )
-        return md5(signature).hexdigest()
+            data = base64.b64decode(data, validate=True)
+        except (ValueError, TypeError):
+            raise ValueError(f"Cannot load {what}: not PEM or base64-encoded PEM") from None
+        if not data.lstrip().startswith(b"-----BEGIN"):
+            raise ValueError(f"Cannot load {what}: not PEM or base64-encoded PEM")
+    return data
 
 
 def _warn_if_expired(cert_bytes, source):
     """Report a pinned service certificate that is past its validity window.
 
-    xmlsec verifies the signature against the key we hand it and will not tell us
-    the certificate behind that key expired, so a stale pin fails silently in the
-    one direction that matters. Checking it here turns "verification quietly stops
-    being meaningful" into a log line somebody can act on.
+    The verifier checks the signature against the key it is handed and will
+    not tell us the certificate behind that key expired, so a stale pin fails
+    silently in the one direction that matters. Checking it here turns
+    "verification quietly stops being meaningful" into a log line somebody can
+    act on.
     """
     try:
         cert = x509.load_pem_x509_certificate(cert_bytes)
@@ -159,152 +131,85 @@ def _warn_if_expired(cert_bytes, source):
         )
 
 
-class Verifier:
-    """ """
+class Signer:
+    """Signs fiscalization requests and computes the protective code (ZKI).
 
-    def __init__(self, cert_path, ca_cert_path):
-        if not os.path.exists(cert_path):
-            raise ValueError(
-                f"Fiscalization service certificate not found: {cert_path}"
-            )
-        try:
-            self.key = xmlsec.Key.from_file(cert_path, xmlsec.KeyFormat.CERT_PEM, None)
-        except xmlsec.Error:
-            raise ValueError("Cannot load Fiscal service certificate")
-        with open(cert_path, "rb") as fh:
-            _warn_if_expired(fh.read(), cert_path)
-        self.manager = xmlsec.KeysManager()
-        try:
-            self.manager.load_cert(
-                ca_cert_path,
-                xmlsec.constants.KeyDataFormatPem,
-                xmlsec.constants.KeyDataTypeTrusted,
-            )
-        except Exception as E:  # xmlsec.Error:
-            pass
-            # raise ValueError(f"Cannot load CA cert {ca_cert}")
-
-    def verify_document(self, root):
-        """Verify the FINA response signature. Returns True/False, never raises.
-
-        A failure must not abort the caller: by the time we are here FINA has
-        already accepted the invoice and issued a JIR, so raising would roll back
-        a document the tax authority considers issued. Report it instead - loudly
-        enough to be noticed, quietly enough not to lose a receipt.
-        """
-        # Everything touching xmlsec stays inside the try: register_id() raises
-        # "missing attribute" on a payload without an Id, which is exactly the
-        # malformed-response case this method exists to report calmly.
-        try:
-            ctx = xmlsec.SignatureContext(manager=self.manager)
-            ctx.key = self.key
-            req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-            if req_node is None:
-                _logger.error("[Fiskal] Response has no SOAP Body payload; cannot verify signature.")
-                return False
-            sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
-            if sig_node is None:
-                _logger.error("[Fiskal] Response carries no XML signature; nothing to verify.")
-                return False
-            ctx.register_id(req_node, "Id")
-            ctx.verify(sig_node)
-            return True
-        except Exception as E:
-            _logger.error(
-                "[Fiskal] Response signature verification FAILED: %s. "
-                "The response may not be genuine, or the pinned service certificate is stale.",
-                E,
-            )
-            return False
-
-
-class BinarySigner:
+    :param cert_data: company certificate, PEM bytes (raw or base64-encoded,
+                      as the ``pem_certificate`` binary field stores it)
+    :param key_data: company private key, PEM bytes (raw or base64-encoded);
+                     defaults to ``cert_data`` for a bundled PEM
+    :param password: private key passphrase, if the key is encrypted
+    """
 
     def __init__(self, cert_data, key_data=None, password=None):
-        """
-        Initializes the Signer with certificate and private key data.
-
-        :param cert_data: Binary data (bytes) of the certificate in PEM format.
-        :param key_data: Binary data (bytes) of the private key in PEM format.
-                         If None, it defaults to cert_data (assuming bundled PEM).
-        :param password: Password for the private key, if encrypted.
-        """
-        # If key_data is None, assume the key is bundled in cert_data
         if not key_data:
             key_data = cert_data
-
-        # Load keys and certs from binary data
-        self.xmlsec_key = self._load_xmlsec_key(key_data, password)
-        self._load_xmlsec_cert(cert_data)
-
-        self.signature_template = etree.fromstring(SIGNATURE_FRAGMENT)
-        self.hazmat_key = self._load_hazmat_key(key_data, password)
-
-    @staticmethod
-    def _load_xmlsec_key(key_data, password=None):
-        if password and not isinstance(password, bytes):
-            password = password.encode('utf-8')
-        if not key_data:
-            raise ValueError("Company private key data is missing")
-
+        self.cert_pem = _pem_bytes(cert_data, "certificate")
+        self.key_pem = _pem_bytes(key_data, "private key")
+        self.password = password.encode("utf-8") if password else None
         try:
-            key = xmlsec.Key.from_memory(base64.b64decode(key_data), xmlsec.KeyFormat.PEM,
-                                         password.encode("utf-8") if password else None)
-        except xmlsec.Error as e:
-            raise ValueError(f"Cannot load private key from buffer: {e}")
-        return key
-
-    def _load_xmlsec_cert(self, cert_data):
-        if not cert_data:
-            raise ValueError("Company certificate data is missing")
+            self.cert = x509.load_pem_x509_certificate(self.cert_pem)
+        except ValueError as error:
+            raise ValueError(f"Cannot load certificate: {error}") from error
         try:
-            self.xmlsec_key.load_cert_from_memory(base64.b64decode(cert_data), xmlsec.KeyFormat.CERT_PEM)
-        except xmlsec.Error as e:
-            raise ValueError(f"Cannot load certificate from buffer: {e}")
-
-    @staticmethod
-    def _load_hazmat_key(key_data, password=None):
-        if not key_data:
-            raise ValueError("Company private key data is missing for hazmat loading")
-
-        # serialization.load_pem_private_key handles bytes directly
-        return serialization.load_pem_private_key(
-            base64.b64decode(key_data),
-            password=password.encode("utf-8") if password else None,
+            self.hazmat_key = serialization.load_pem_private_key(
+                self.key_pem, password=self.password,
+            )
+        except (ValueError, TypeError) as error:
+            raise ValueError(f"Cannot load private key: {error}") from error
+        self.signer = XMLSigner(
+            method=methods.enveloped,
+            signature_algorithm=SignatureMethod.RSA_SHA256,
+            digest_algorithm=DigestAlgorithm.SHA256,
+            c14n_algorithm=_C14N_EXCLUSIVE,
         )
 
+    def _key_info(self):
+        """FINA-style KeyInfo: X509Data with issuer serial and certificate.
+
+        signxml would emit a bare ``X509Certificate``; building the KeyInfo
+        explicitly keeps the exact shape FINA has been receiving since the
+        libxmlsec1 implementation. KeyInfo is not part of the signed data, so
+        this choice cannot break the signature.
+        """
+        key_info = etree.Element(f"{{{DS_NS}}}KeyInfo", nsmap={None: DS_NS})
+        x509_data = etree.SubElement(key_info, f"{{{DS_NS}}}X509Data")
+        issuer_serial = etree.SubElement(x509_data, f"{{{DS_NS}}}X509IssuerSerial")
+        etree.SubElement(issuer_serial, f"{{{DS_NS}}}X509IssuerName").text = (
+            self.cert.issuer.rfc4514_string()
+        )
+        etree.SubElement(issuer_serial, f"{{{DS_NS}}}X509SerialNumber").text = str(
+            self.cert.serial_number
+        )
+        etree.SubElement(x509_data, f"{{{DS_NS}}}X509Certificate").text = (
+            base64.b64encode(self.cert.public_bytes(serialization.Encoding.DER)).decode()
+        )
+        return key_info
+
     def sign_document(self, root):
-        req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-        # Find the XML node with the request itself (eg. RacunZahtjev)
+        """Sign the SOAP Body's request element of ``root`` in place.
+
+        The request element gets a fresh ``Id`` attribute and an enveloped
+        RSA-SHA256 signature referencing it, appended as its last child -
+        where ``FiskalizacijaSchema.xsd`` allows ``ds:Signature``.
+        """
+        body = root.find(f"{{{SOAP_ENV_NS}}}Body")
+        req_node = body[0] if body is not None else None
         if req_node is None:
             raise ValueError("Unable to find request tag element")
-        request_id = str(uuid.uuid4())
-
-        # The request node needs an Id so it can be referenced from the Reference node
+        request_id = str(uuid4())
         req_node.attrib["Id"] = request_id
-        req_node.append(deepcopy(self.signature_template))
-
-        sig_node = xmlsec.tree.find_node(req_node, xmlsec.constants.NodeSignature)
-
-        # Set URI attribute of the Reference node to point to the request node
-        ref_node = sig_node.find("SignedInfo/Reference", namespaces=sig_node.nsmap)
-        ref_node.attrib["URI"] = f"#{request_id}"
-
-        # Add required KeyInfo/X509Data information to the signature
-        key_info = xmlsec.template.ensure_key_info(sig_node)
-        x509_data = xmlsec.template.add_x509_data(key_info)
-        xmlsec.template.x509_data_add_issuer_serial(x509_data)
-        xmlsec.template.x509_data_add_certificate(x509_data)
-
-        ctx = xmlsec.SignatureContext()
-        ctx.key = self.xmlsec_key
-
-        # Register <request_tag>.Id as a valid Id attribute so it can be used for
-        # internal references (from Reference URI)
-        ctx.register_id(req_node, id_attr="Id")
-
-        # Signing will populate the Signature subtree in-place
-        ctx.sign(sig_node)
+        # signxml returns a signed copy of the request element, so graft it
+        # back to keep the request at its position in the SOAP envelope.
+        signed_req = self.signer.sign(
+            req_node,
+            key=self.hazmat_key,
+            key_info=self._key_info(),
+            reference_uri=f"#{request_id}",
+            id_attribute="Id",
+        )
+        if signed_req is not req_node:
+            body.replace(req_node, signed_req)
 
     def sign_zki_payload(self, data):
         """
@@ -330,72 +235,188 @@ class BinarySigner:
         return md5(signature).hexdigest()
 
 
-class BinaryVerifier:
-    """ """
+# Name kept from the libxmlsec1 era: ``get_fiscal_data()`` and the POS
+# fiscalization modules pass base64-encoded binary fields, which
+# ``_pem_bytes`` accepts.
+BinarySigner = Signer
 
+
+class Verifier:
+    """Verifies FINA response signatures against a pinned service certificate.
+
+    FINA's service (a .NET SignedXml stack) signs ``SignedInfo`` rendered
+    *standalone*: the canonical bytes do not include the namespace declarations
+    that are merely in scope from the SOAP ancestors. Canonicalizing in
+    document context - what stock xmlsec and signxml implementations do -
+    computes different bytes and the signature check fails with a misleading
+    "bad signature". The reference digest, in contrast, is computed in
+    document context. ``tests/data/fina_demo_dohvati_response.xml`` holds a
+    response captured from the live demo service pinning both behaviors.
     """
-        A class to verify XML digital signatures using binary certificate data.
-        """
 
-    def __init__(self, cert_data, ca_cert_data):
+    def __init__(self, cert_data, source=None):
         """
-        Initializes the Verifier with service and CA certificate data.
-
-        :param cert_data: Binary data (bytes) of the service certificate in PEM format.
-        :param ca_cert_data: Binary data (bytes) for trusted CA certificates.
+        :param cert_data: the pinned FINA service certificate, PEM bytes
+                          (raw or base64-encoded)
+        :param source: description for the expiry warning, e.g. a file path
         """
-        if not cert_data:
-            raise ValueError("Fiscalization service certificate data is missing")
-
+        self.cert_pem = _pem_bytes(cert_data, "fiscalization service certificate")
         try:
-            # Load the service certificate from binary data using from_buffer
-            self.key = xmlsec.Key.from_buffer(cert_data, xmlsec.KeyFormat.CERT_PEM, None)
-        except xmlsec.Error as e:
-            raise ValueError(f"Cannot load Fiscalization service certificate from buffer: {e}")
-        _warn_if_expired(cert_data, "service certificate (in-memory)")
+            self.cert = x509.load_pem_x509_certificate(self.cert_pem)
+        except ValueError as error:
+            raise ValueError(
+                f"Cannot load Fiscalization service certificate: {error}"
+            ) from error
+        self.cert_der = self.cert.public_bytes(serialization.Encoding.DER)
+        _warn_if_expired(self.cert_pem, source or "service certificate (in-memory)")
 
-        self.manager = xmlsec.KeysManager()
+    @staticmethod
+    def _c14n(node, algorithm, standalone, inclusive_ns_prefixes=None):
+        """Canonicalize *node* with *algorithm*.
 
-        # Iterate over the list of CA certificate binary data
-        for ca_cert_data in ca_cert_data:
-            try:
-                # Load the CA certificate from binary data using load_cert_from_buffer
-                self.manager.load_cert_from_buffer(
-                    ca_cert_data,
-                    xmlsec.constants.KeyDataFormatPem,
-                    xmlsec.constants.KeyDataTypeTrusted,
-                )
-            except Exception as E:
-                _logger.warning("[Fiskal] Could not load a trusted CA certificate: %s", E)
+        :param standalone: render the node the way FINA's service does - alone,
+                            without the namespace declarations that are only in
+                            scope from the ancestors - instead of in document
+                            context. For exclusive canonicalization the two
+                            renderings are byte-identical.
+        """
+        exclusive = algorithm.startswith(_C14N_EXCLUSIVE_PREFIX)
+        with_comments = algorithm.endswith("#WithComments")
+        if standalone:
+            node = etree.fromstring(etree.tostring(node))
+        return etree.tostring(
+            node,
+            method="c14n",
+            exclusive=exclusive,
+            with_comments=with_comments,
+            inclusive_ns_prefixes=inclusive_ns_prefixes,
+        )
 
     def verify_document(self, root):
-        """
-        Verifies the XML digital signature in the document.
+        """Verify the FINA response signature. Returns True/False, never raises.
 
-        :param root: The root element of the XML document (lxml.etree._Element).
+        A failure must not abort the caller: by the time we are here FINA has
+        already accepted the invoice and issued a JIR, so raising would roll back
+        a document the tax authority considers issued. Report it instead - loudly
+        enough to be noticed, quietly enough not to lose a receipt.
         """
         try:
-            ctx = xmlsec.SignatureContext(manager=self.manager)
-            ctx.key = self.key
-
-            sig_node = xmlsec.tree.find_node(root, xmlsec.constants.NodeSignature)
-            if sig_node is None:
-                _logger.error("[Fiskal] Response carries no XML signature; nothing to verify.")
-                return False
-
-            req_node = root.find("{http://schemas.xmlsoap.org/soap/envelope/}Body/*")
-            if req_node is not None:
-                ctx.register_id(req_node, "Id")
-
-            ctx.verify(sig_node)
-            return True
-        except Exception as E:
+            return self._verify_document(root)
+        except Exception as error:
             _logger.error(
                 "[Fiskal] Response signature verification FAILED: %s. "
                 "The response may not be genuine, or the pinned service certificate is stale.",
-                E,
+                error,
             )
             return False
+
+    def _verify_document(self, root):
+        body = root.find(f"{{{SOAP_ENV_NS}}}Body")
+        if body is None or not len(body):
+            _logger.error("[Fiskal] Response has no SOAP Body payload; cannot verify signature.")
+            return False
+        signature = root.find(f".//{{{DS_NS}}}Signature")
+        if signature is None:
+            _logger.error("[Fiskal] Response carries no XML signature; nothing to verify.")
+            return False
+
+        # The pin is the trust anchor: the response must be signed with the
+        # pinned key and carry the pinned certificate. The pin is refreshed
+        # together with FINA's service certificate, so a mismatch is not
+        # legitimate for this service.
+        embedded_cert = signature.find(
+            f".//{{{DS_NS}}}KeyInfo/{{{DS_NS}}}X509Data/{{{DS_NS}}}X509Certificate"
+        )
+        if embedded_cert is None or not (embedded_cert.text or "").strip():
+            _logger.error("[Fiskal] Response signature carries no certificate to compare with the pin.")
+            return False
+        embedded_der = base64.b64decode(re.sub(r"\s+", "", embedded_cert.text))
+        if embedded_der != self.cert_der:
+            _logger.error(
+                "[Fiskal] Response certificate does not match the pinned FINA service certificate."
+            )
+            return False
+
+        signed_info = signature.find(f"{{{DS_NS}}}SignedInfo")
+        if signed_info is None:
+            _logger.error("[Fiskal] Response signature has no SignedInfo.")
+            return False
+        references = signed_info.findall(f"{{{DS_NS}}}Reference")
+        if len(references) != 1:
+            _logger.error("[Fiskal] Expected exactly one signature reference, found %s.", len(references))
+            return False
+
+        c14n_method_el = signed_info.find(f"{{{DS_NS}}}CanonicalizationMethod")
+        c14n_method = c14n_method_el.get("Algorithm") if c14n_method_el is not None else None
+        if c14n_method not in _ALLOWED_C14N:
+            _logger.error("[Fiskal] Unsupported canonicalization method: %s", c14n_method)
+            return False
+        signature_method_el = signed_info.find(f"{{{DS_NS}}}SignatureMethod")
+        signature_method = signature_method_el.get("Algorithm") if signature_method_el is not None else None
+        if signature_method != _RSA_SHA256:
+            _logger.error("[Fiskal] Unsupported signature method: %s", signature_method)
+            return False
+
+        public_key = self.cert.public_key()
+        if not isinstance(public_key, rsa.RSAPublicKey):
+            _logger.error("[Fiskal] The pinned service certificate has no RSA public key.")
+            return False
+        signature_value = base64.b64decode(
+            re.sub(r"\s+", "", signature.findtext(f"{{{DS_NS}}}SignatureValue") or "")
+        )
+        # FINA signs the standalone rendering of SignedInfo (see the class
+        # docstring); for our own exclusive-c14n signatures both renderings
+        # are identical.
+        signed_info_c14n = self._c14n(signed_info, c14n_method, standalone=True)
+        public_key.verify(signature_value, signed_info_c14n, padding.PKCS1v15(), hashes.SHA256())
+
+        reference = references[0]
+        transforms = [
+            t.get("Algorithm") for t in reference.iter(f"{{{DS_NS}}}Transform")
+        ]
+        if _ENVELOPED_TRANSFORM not in transforms:
+            _logger.error("[Fiskal] The signature reference is missing the enveloped-signature transform.")
+            return False
+        c14n_transforms = [t for t in transforms if t in _ALLOWED_C14N]
+        if not c14n_transforms:
+            _logger.error("[Fiskal] The signature reference has no canonicalization transform.")
+            return False
+        digest_method_el = reference.find(f"{{{DS_NS}}}DigestMethod")
+        digest_method = digest_method_el.get("Algorithm") if digest_method_el is not None else None
+        if digest_method != _SHA256_DIGEST:
+            _logger.error("[Fiskal] Unsupported digest method: %s", digest_method)
+            return False
+
+        uri = reference.get("URI") or ""
+        if not uri.startswith("#") or not uri[1:]:
+            _logger.error("[Fiskal] The signature reference URI %r is not an internal Id reference.", uri)
+            return False
+        request_id = uri[1:]
+        payload = next(
+            (element for element in root.iter() if element.get("Id") == request_id), None,
+        )
+        if payload is None:
+            _logger.error("[Fiskal] The signature reference points at a missing Id: %r", uri)
+            return False
+
+        declared_digest = re.sub(
+            r"\s+", "", reference.findtext(f"{{{DS_NS}}}DigestValue") or ""
+        )
+        # The digest is computed in document context, with the signature
+        # excised by the enveloped-signature transform.
+        parent, position = signature.getparent(), list(signature.getparent()).index(signature)
+        parent.remove(signature)
+        try:
+            payload_c14n = self._c14n(payload, c14n_transforms[-1], standalone=False)
+            computed_digest = base64.b64encode(hashlib.sha256(payload_c14n).digest()).decode()
+        finally:
+            parent.insert(position, signature)
+        if computed_digest != declared_digest:
+            _logger.error(
+                "[Fiskal] Response payload digest mismatch for reference %r.", uri
+            )
+            return False
+        return True
 
 
 class EnvelopedSignaturePlugin:
@@ -415,9 +436,9 @@ class EnvelopedSignaturePlugin:
         if self.fiscal_client.requires_signature(operation):
             try:
                 self.last_verification_ok = bool(self.verifier.verify_document(envelope))
-            except Exception as E:
+            except Exception as error:
                 # verify_document is not supposed to raise; if it does, the response
                 # is still not verified and must not take the transaction down.
                 self.last_verification_ok = False
-                _logger.exception("[Fiskal] Unexpected error verifying the response signature: %s", E)
+                _logger.exception("[Fiskal] Unexpected error verifying the response signature: %s", error)
         return envelope, http_headers

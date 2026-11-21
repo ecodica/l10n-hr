@@ -168,7 +168,9 @@ class AccountMove(models.Model):
     def _check_zki_on_confirm(self):
         """Check if on confirmed invoice ZKI is set for invoiced that should be fiscalized"""
         for invoice in self.filtered(lambda i: i.state == 'posted'):
-            if invoice._l10n_hr_fiscalization_needed() and not invoice.l10n_hr_zki:
+            if (invoice._l10n_hr_fiscalization_needed()
+                    and invoice.l10n_hr_fiscal_device_id.enable_fiscalize_on_confirm
+                    and not invoice.l10n_hr_zki):
                 raise ValidationError(_("""ZKI number is not set on invoice that should be fiscalized.
                     Check if fiscalization is properly configured."""))
 
@@ -210,9 +212,15 @@ class AccountMove(models.Model):
     def _l10n_hr_post_out_invoice(self):
         # singleton record! checked in super()
         res = super()._l10n_hr_post_out_invoice()
-        delay_fiscalization = not self.l10n_hr_fiscal_device_id.enable_fiscalize_on_confirm
-        if self.l10n_hr_fiscal_device_id.fiscalization_active and not self.l10n_hr_jir:
-            self.fiscalize(delay_fiscalization=delay_fiscalization)
+        # Posting fiscalizes only when the device asks for it. Otherwise the
+        # posted invoice is left alone: no ZKI, no FINA call, nothing queued.
+        # Fiscalization is then started by hand (the Fiscalize button, the
+        # batch action), or by the retry cron once a first attempt has
+        # generated a ZKI.
+        if (self.l10n_hr_fiscal_device_id.fiscalization_active
+                and self.l10n_hr_fiscal_device_id.enable_fiscalize_on_confirm
+                and not self.l10n_hr_jir):
+            self.fiscalize()
         return res
 
     def _get_notification_action(self, title, message, type):
@@ -377,8 +385,13 @@ class AccountMove(models.Model):
             movable.write({'partner_id': self.commercial_partner_id.id})
 
     def action_cron_batch_fiscalize(self):
+        # A retry pass, not a queue: only invoices whose fiscalization was
+        # already attempted (a ZKI exists) but never confirmed with a JIR.
+        # An invoice the device never fiscalized - fiscalize-on-confirm is
+        # off, or fiscalization is done by hand - is not the cron's business.
         moves = self.search([
             ('l10n_hr_jir', '=', False),
+            ('l10n_hr_zki', '!=', False),
             ('move_type', 'in', ['out_invoice', 'out_refund']),
             ('state', 'not in', ['draft']),
             # fiscalization only applies to Croatian companies
@@ -389,6 +402,10 @@ class AccountMove(models.Model):
         moves_to_process = self.env['account.move']
         now = fields.Datetime.now()
         for move in moves:
+            # a ZKI without an issue time has no delay window to check:
+            # skip it instead of guessing (and instead of crashing)
+            if not move.l10n_hr_fiscal_time_calc:
+                continue
             delay_hours = move.l10n_hr_fiscal_device_id.cron_fiscalization_delay_hours or 0
             required_processing_time = move.l10n_hr_fiscal_time_calc + relativedelta(hours=delay_hours)
             if required_processing_time < now:

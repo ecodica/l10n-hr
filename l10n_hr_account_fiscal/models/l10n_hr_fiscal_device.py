@@ -7,10 +7,17 @@ class L10nHrFiscalDevice(models.Model):
 
     fiscalization_active = fields.Boolean()
     enable_fiscalize_on_confirm = fields.Boolean(help="""
-            If enabled, account moves on this fiscal device will be
-            automatically fiscalized in account moves posting process
+            If enabled, invoices on this fiscal device are automatically
+            fiscalized when posted. If disabled, posting leaves the invoice
+            unfiscalized: no ZKI is generated, nothing is sent to FINA and
+            nothing is queued - fiscalization is started by hand, with the
+            Fiscalize button or the batch fiscalization action.
             """)
-    enable_cron_fiscalization = fields.Boolean(default=True)
+    enable_cron_fiscalization = fields.Boolean(
+        default=True,
+        help="The automated job retries invoices whose fiscalization was "
+             "already attempted (a ZKI without a JIR) once the delay below "
+             "has passed. Invoices never fiscalized are not touched.")
     cron_fiscalization_delay_hours = fields.Integer(help="""
             Number of hours an invoice on this fiscal device can remain in unfiscalized state
             after its posting time before the automated job will check it and attempt to fiscalize it again.

@@ -4,6 +4,10 @@
     <record id="fiscal_premise_list_view" model="ir.ui.view">
         <field name="name">l10n_hr.business.premise.fiscal.list</field>
         <field name="model">l10n_hr.business.premise</field>
+        <!-- low precedence: must not win the "default view" contest for the
+             model (unbound actions open the accounting views); the Fiscalization
+             menu reaches these via action_fiscal_premises' explicit view_ids -->
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <list create="0" edit="0" delete="0">
                 <field name="l10n_hr_name"/>
@@ -17,6 +21,8 @@
     <record id="fiscal_premise_form_view" model="ir.ui.view">
         <field name="name">l10n_hr.business.premise.fiscal.form</field>
         <field name="model">l10n_hr.business.premise</field>
+        <!-- low precedence: same reason as fiscal_premise_list_view above -->
+        <field name="priority">99</field>
         <field name="arch" type="xml">
             <form create="0" edit="0" delete="0">
                 <header>
@@ -28,6 +34,8 @@
                     <group>
                         <field name="l10n_hr_name"/>
                         <field name="l10n_hr_fiscal_code"/>
+                        <!-- informational only: sequencing itself is set up on the accounting form -->
+                        <field name="l10n_hr_invoice_sequence_by" readonly="1"/>
                         <field name="l10n_hr_state"/>
                         <field name="company_id" groups="base.group_multi_company"/>
                     </group>

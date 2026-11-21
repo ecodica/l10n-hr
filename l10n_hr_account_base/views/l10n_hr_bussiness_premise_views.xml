@@ -9,7 +9,7 @@
                 <list
                         string="Business premises"
                         decoration-success="l10n_hr_state == 'active'"
-                        decoration-warning="l10n_hr_state == 'close'"
+                        decoration-warning="l10n_hr_state == 'closed'"
                         decoration-info="l10n_hr_state == 'pause'"
                 >
                     <field name="company_id" column_invisible="1"/>
@@ -32,7 +32,7 @@
                                 string="Activate Premise"
                                 type="object"
                                 groups="account.group_account_manager"
-                                invisible="l10n_hr_state in ['active','close']"/>
+                                invisible="l10n_hr_state in ['active','closed']"/>
                         <button name="button_pause_premise"
                                 string="Pause Premise"
                                 type="object"
@@ -57,10 +57,10 @@
                             <field name='l10n_hr_fiscal_code' readonly="l10n_hr_lock"/>
                             <field name="l10n_hr_invoice_sequence_by" readonly="l10n_hr_lock"/>
                             <field name="l10n_hr_invoice_place" readonly="l10n_hr_lock"/>
-                            <field name="l10n_hr_sequence_id" domain="[('code','=','l10n_hr.fiscal')]">
-                                <decorator name="invisible"
-                                           options="{'l10n_hr_invoice_sequence_by': 'N', 'l10n_hr_fiscal_code': ''}"/>
-                            </field>
+                            <!-- premise-level sequence only applies when the premise
+                                 sequences invoices itself ('P') and the fiscal code is set -->
+                            <field name="l10n_hr_sequence_id" domain="[('code','=','l10n_hr.fiscal')]"
+                                   invisible="l10n_hr_invoice_sequence_by == 'N' or not l10n_hr_fiscal_code"/>
                             <field name='company_id' invisible="1"/>
                         </group>
                         <notebook name="hr_accounting" colspan="4">

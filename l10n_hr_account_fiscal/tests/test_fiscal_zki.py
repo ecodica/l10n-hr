@@ -13,7 +13,6 @@ import datetime
 import hashlib
 import json
 import os
-import tempfile
 
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
@@ -52,7 +51,11 @@ def self_signed_pem(key):
 
 @tagged("post_install", "-at_install")
 class TestFiscalZki(TransactionCase):
-    """Both signers produce the specification's ZKI for every golden vector."""
+    """The signer produces the specification's ZKI for every golden vector.
+
+    Both PEM encodings it can be handed - base64, as the binary fields store
+    it, and raw, as read from a file - give the same result.
+    """
 
     vectors = None
     key = None
@@ -101,19 +104,12 @@ class TestFiscalZki(TransactionCase):
             ]
             self.assertEqual(fiscal.generate_zki(datalist, signer=signer), vector["zki"], vector["name"])
 
-    def test_file_signer_matches_every_vector(self):
-        """The file-based signer signs the same way."""
+    def test_raw_pem_signer_matches_every_vector(self):
+        """Raw PEM bytes, as read from a file, sign the same way as b64 fields."""
         self._load_fixture()
-        with tempfile.TemporaryDirectory() as folder:
-            key_path = os.path.join(folder, "key.pem")
-            cert_path = os.path.join(folder, "cert.pem")
-            with open(key_path, "wb") as key_file:
-                key_file.write(self.key_pem)
-            with open(cert_path, "wb") as cert_file:
-                cert_file.write(self.cert_pem)
-            signer = Signer(cert_path, key_path)
-            for vector in self.vectors["vectors"]:
-                self.assertEqual(signer.sign_zki_payload(vector["payload"]), vector["zki"], vector["name"])
+        signer = Signer(cert_data=self.cert_pem, key_data=self.key_pem)
+        for vector in self.vectors["vectors"]:
+            self.assertEqual(signer.sign_zki_payload(vector["payload"]), vector["zki"], vector["name"])
 
     def test_zki_is_not_signed_with_sha1(self):
         """Production refuses RSA-SHA1 from 01.01.2027; a SHA-1 ZKI would match nothing."""

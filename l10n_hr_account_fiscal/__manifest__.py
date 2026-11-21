@@ -3,7 +3,7 @@
     "summary": "Croatia ",
     "category": "Croatia",
     "images": [],
-    "version": "19.0.2.4.1",
+    "version": "19.0.2.5.2",
     "application": False,
     "author": "Daj mi 5, Ecodica, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-croatia",
@@ -14,8 +14,9 @@
         "certificate",
         "hr",
     ],
-    "external_dependencies": {"python": ["zeep", "xmlsec~=1.3.13"], "bin": []},
-         #    xmlsec<=1.3.15 troube installing
+    # signxml is pinned by the environment: cryptography==42.0.8 (an Odoo core
+    # requirement) allows at most signxml==3.2.2
+    "external_dependencies": {"python": ["zeep", "signxml"], "bin": []},
     "data": [
         "security/fiscal_security.xml",
         "security/ir.model.access.csv",

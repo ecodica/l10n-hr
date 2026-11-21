@@ -197,7 +197,11 @@ certificate, or archiving a certificate/key refreshes the stored selection.
 Selection excludes another company's certificates, expired/not-yet-valid
 certificates, archived records, and missing/unloadable/public-only keys. Among
 eligible certificates, the latest expiry wins (then the most recent record).
-The current UTC timestamp is checked again before preparing a fiscal message,
+A certificate whose subject carries no readable OIB (attribute 2.5.4.97, with
+or without the ``HR`` prefix) is not selected either: the message OIB must
+equal the certificate's or FINA refuses it (error s005). When that is the only
+certificate configured, the pre-check names it instead of hiding behind the
+generic "no certificate" message. The current UTC timestamp is checked again before preparing a fiscal message,
 even if the stored selection or the non-stored ``is_valid`` flag is cached.
 A valid renewal can therefore replace an expired certificate without a settings
 write, and a future certificate can become usable during invoice prechecks.
@@ -205,8 +209,9 @@ write, and a future certificate can become usable during invoice prechecks.
 The chosen schema must also match the mode: ``EDUC_*`` for demo and ``PROD_*`` for
 production. Change the schema when switching environments; inconsistent settings
 are rejected before sending. The selection never falls back to the other mode.
-A certificate whose private key requires a password is not selected: the fiscal
-signer cannot load such a key, so it would fail when a message is sent.
+A certificate whose private key requires a password is not selected;
+support for encrypted keys still has to be verified end to end, so such
+certificates are excluded until it is.
 
 Worker and reverse-proxy limits must allow for SOAP connect/read waits, local
 processing and the number of premises in a batch. The transport timeouts are not
@@ -309,6 +314,12 @@ Security, recovery and transport tests
   public multi-record preflight, immutable linked GET recovery and no POST replay.
 * ``test_fiscal_transport.py`` checks bounded timeouts, preservation of original
   transport/SOAP exceptions and XML evidence when no response was received.
+  FINA rejects an invoice over HTTP 500 with a signed ``RacunOdgovor`` instead
+  of a soap:Fault, which zeep turns into ``Fault("Unknown fault occured")``
+  carrying the response in ``detail``; the fixture
+  ``tests/data/fina_demo_racun_reject_response.xml`` (captured from the live
+  demo service) pins that the real FINA error (s005) is recovered from it,
+  while genuine soap faults and payload-less faults still raise.
 * ``test_fiscal_concurrency.py`` uses real independent PostgreSQL transactions to
   check the premise revision under REPEATABLE READ. It commits only a unique test
   fixture and removes it in a cleanup transaction. Run tests on a dedicated test
@@ -328,7 +339,12 @@ Security, recovery and transport tests
   the final message carries summed bases for several taxes of the same rate,
   exempt/non-taxable/margin totals, fees (``Naknade``) and company-currency
   amounts. This is the end-to-end guard the existing unit tests alone could not
-  provide.
+  provide. ``TestFiscalXmlSignature`` signs that serialized request with the
+  module's signer and checks that the result is still schema-valid, carries the
+  Fiskalizacija signature shape (exclusive c14n, RSA-SHA256, the ``Id``
+  reference, ``X509IssuerSerial`` + ``X509Certificate`` in KeyInfo, signature as
+  the request element's last child) and verifies through the module's own
+  verifier.
 
 
 tests/test_fiscal_tax_values.py
@@ -491,11 +507,11 @@ in 2024 without anyone noticing. Until this was fixed, TLS was the only
 integrity control on an inbound JIR.
 
 - ``test_expired_pin_is_reported`` - an expired pinned service certificate is
-  logged as an error. xmlsec verifies against the key it is handed and will not
-  mention that the certificate behind it lapsed, so a stale pin quietly stops
-  meaning anything. The certificate is generated in the test rather than read
-  from ``fina_cert/``: the bundled ones are meant to be refreshed, and a test
-  that fails when somebody does the right thing trains people to ignore it.
+  logged as an error. The verifier checks the signature against the key it is
+  handed without checking the pin's validity window, so a stale pin quietly
+  stops meaning anything. The certificate is generated in the test rather than
+  read from ``fina_cert/``: the bundled ones are meant to be refreshed, and a
+  test that fails when somebody does the right thing trains people to ignore it.
 - ``test_a_current_pin_is_not_reported`` - the other half, and the one that
   keeps the check honest: a valid pin must stay silent, or the warning becomes
   noise nobody reads. Runs against the bundled demo certificate.
@@ -507,6 +523,24 @@ integrity control on an inbound JIR.
   the tax authority considers issued. This caught a real defect in the fix:
   ``register_id()`` raises "missing attribute" on a payload without an ``Id``,
   before the signature check was reached, so the method could still throw.
+- ``test_a_genuine_signature_verifies`` /
+  ``test_a_tampered_response_fails_verification`` /
+  ``test_a_response_signed_by_another_certificate_fails_verification`` - the
+  signing round trip: what the module's signer emits, the module's verifier
+  accepts; a tampered payload byte, or a well-formed signature by a key that is
+  not the pin, is refused. The pin is the trust anchor, so someone else's valid
+  signature must count as a failure, not as proof of genuineness.
+- ``test_a_live_fina_demo_response_verifies`` /
+  ``test_a_tampered_live_fina_demo_response_is_rejected`` - the fixture in
+  ``tests/data/fina_demo_dohvati_response.xml`` was captured from the live
+  demo service, where the verifier was first observed to fail. FINA's .NET
+  stack signs the ``SignedInfo`` element rendered standalone, without the
+  namespace declarations that are merely in scope from the SOAP ancestors,
+  while the payload digest is computed in document context; stock xmlsec and
+  signxml implementations canonicalize the ``SignedInfo`` in document context
+  and reject genuine FINA responses with a misleading "bad signature". The
+  module's verifier reproduces both renderings, and a forged byte in the
+  captured response must still break the digest.
 - ``test_plugin_records_the_verdict`` - the outcome survives the call on
   ``EnvelopedSignaturePlugin.last_verification_ok``, where
   ``res.company._get_log_vals`` picks it up. Without this the verdict reaches
@@ -593,6 +627,7 @@ JavaScript from the same vectors.
   ZKI is the MD5 of its signature.
 - ``test_binary_signer_matches_every_vector`` - ``generate_zki`` with the signer
   ``fiscalize()`` builds gives every vector's ZKI.
-- ``test_file_signer_matches_every_vector`` - the file-based signer agrees.
+- ``test_raw_pem_signer_matches_every_vector`` - the same signer handed raw PEM
+  bytes, as read from a file, agrees.
 - ``test_zki_is_not_signed_with_sha1`` - a SHA-1 signature gives another ZKI.
 - ``test_zki_is_lowercase_hex_of_32`` - the printed form.

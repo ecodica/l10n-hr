@@ -46,8 +46,52 @@ def _expired_certificate():
     return cert.public_bytes(serialization.Encoding.PEM)
 
 
+def _key_and_cert(common_name="fiscal-verification-test"):
+    """A throwaway key and self-signed certificate, both as PEM bytes."""
+    from datetime import datetime, timedelta, timezone
+
+    from cryptography import x509
+    from cryptography.hazmat.primitives import hashes, serialization
+    from cryptography.hazmat.primitives.asymmetric import rsa
+    from cryptography.x509.oid import NameOID
+
+    key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+    name = x509.Name([x509.NameAttribute(NameOID.COMMON_NAME, common_name)])
+    now = datetime.now(timezone.utc)
+    cert = (
+        x509.CertificateBuilder()
+        .subject_name(name).issuer_name(name)
+        .public_key(key.public_key())
+        .serial_number(x509.random_serial_number())
+        .not_valid_before(now - timedelta(days=1))
+        .not_valid_after(now + timedelta(days=1))
+        .sign(key, hashes.SHA256())
+    )
+    key_pem = key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
+    return key_pem, cert.public_bytes(serialization.Encoding.PEM)
+
+
+def _response_envelope():
+    """A FINA-like response: one payload element inside the SOAP Body."""
+    from lxml import etree
+
+    return etree.fromstring(
+        b'<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">'
+        b"<Body><RacunOdgovor><Jir>fiscal-jir</Jir></RacunOdgovor></Body></Envelope>"
+    )
+
+
 def _cert_dir():
     return os.path.join(os.path.dirname(os.path.dirname(__file__)), "fiscal", "fina_cert", "demo")
+
+
+def _fina_demo_response_path():
+    """A working-hours GET reply captured from the live FINA demo service."""
+    return os.path.join(os.path.dirname(__file__), "data", "fina_demo_dohvati_response.xml")
 
 
 @tagged("post_install", "-at_install")
@@ -57,10 +101,10 @@ class TestResponseVerification(TransactionCase):
     def test_expired_pin_is_reported(self):
         """A lapsed pin must say so, loudly.
 
-        xmlsec verifies against the key it is handed and never mentions that the
-        certificate behind it expired, so a stale pin quietly stops meaning anything.
-        That is exactly what happened here: both bundled service certificates lapsed in
-        2024 and nothing noticed for two years.
+        The verifier checks the signature against the key it is handed without
+        checking the pin's validity window, so a stale pin quietly stops
+        meaning anything. That is exactly what happened here: both bundled
+        service certificates lapsed in 2024 and nothing noticed for two years.
 
         The certificate is generated rather than read from the bundle - the bundled one
         is meant to be refreshed, and a test that fails when somebody does the right
@@ -94,14 +138,78 @@ class TestResponseVerification(TransactionCase):
         """
         from lxml import etree
 
-        verifier = zeep_signer.Verifier(
-            cert_path=os.path.join(_cert_dir(), "certificate.pem"),
-            ca_cert_path=[os.path.join(_cert_dir(), "fina_bundle.pem")],
-        )
+        with open(os.path.join(_cert_dir(), "certificate.pem"), "rb") as fh:
+            verifier = zeep_signer.Verifier(cert_data=fh.read())
         envelope = etree.fromstring(
             b'<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/">'
             b"<Body><RacunOdgovor/></Body></Envelope>"
         )
+        with self.assertLogs(zeep_signer.__name__, level="ERROR"):
+            self.assertFalse(verifier.verify_document(envelope))
+
+    def test_a_genuine_signature_verifies(self):
+        """The round trip every message depends on: sign, then verify against the pin."""
+        key_pem, cert_pem = _key_and_cert()
+        envelope = _response_envelope()
+        zeep_signer.Signer(cert_data=cert_pem, key_data=key_pem).sign_document(envelope)
+        self.assertTrue(zeep_signer.Verifier(cert_data=cert_pem).verify_document(envelope))
+
+    def test_a_tampered_response_fails_verification(self):
+        """A changed payload byte breaks the digest: the forged JIR must not be trusted."""
+        from lxml import etree
+
+        key_pem, cert_pem = _key_and_cert()
+        envelope = _response_envelope()
+        zeep_signer.Signer(cert_data=cert_pem, key_data=key_pem).sign_document(envelope)
+        # Jir carries the SOAP default namespace: compare local names.
+        for element in envelope.iter():
+            if etree.QName(element).localname == "Jir":
+                element.text = "forged-jir"
+        with self.assertLogs(zeep_signer.__name__, level="ERROR"):
+            self.assertFalse(zeep_signer.Verifier(cert_data=cert_pem).verify_document(envelope))
+
+    def test_a_response_signed_by_another_certificate_fails_verification(self):
+        """The pin is the trust anchor: a well-formed signature by another key is refused."""
+        signing_key_pem, signing_cert_pem = _key_and_cert("the-pinned-service")
+        _other_key_pem, other_cert_pem = _key_and_cert("someone-else")
+        envelope = _response_envelope()
+        zeep_signer.Signer(
+            cert_data=signing_cert_pem, key_data=signing_key_pem,
+        ).sign_document(envelope)
+        with self.assertLogs(zeep_signer.__name__, level="ERROR"):
+            self.assertFalse(zeep_signer.Verifier(cert_data=other_cert_pem).verify_document(envelope))
+
+    def test_a_live_fina_demo_response_verifies(self):
+        """The response format FINA actually sends.
+
+        FINA's .NET stack signs the ``SignedInfo`` element rendered standalone,
+        without the namespace declarations that are merely in scope from the
+        SOAP ancestors, while the payload digest is computed in document
+        context. Stock xmlsec and signxml implementations canonicalize the
+        SignedInfo in document context and fail with a misleading "bad
+        signature". This fixture was captured from the live demo service, where
+        the failure was first observed, and pins both renderings.
+        """
+        from lxml import etree
+
+        with open(_fina_demo_response_path(), "rb") as fh:
+            envelope = etree.fromstring(fh.read())
+        with open(os.path.join(_cert_dir(), "certificate.pem"), "rb") as fh:
+            verifier = zeep_signer.Verifier(cert_data=fh.read())
+        self.assertTrue(verifier.verify_document(envelope))
+
+    def test_a_tampered_live_fina_demo_response_is_rejected(self):
+        """A forged byte in the FINA response breaks the reference digest."""
+        from lxml import etree
+
+        with open(_fina_demo_response_path(), "rb") as fh:
+            envelope = etree.fromstring(fh.read())
+        for element in envelope.iter():
+            if element.tag.endswith("OznPosPr"):
+                element.text = "X9"
+                break
+        with open(os.path.join(_cert_dir(), "certificate.pem"), "rb") as fh:
+            verifier = zeep_signer.Verifier(cert_data=fh.read())
         with self.assertLogs(zeep_signer.__name__, level="ERROR"):
             self.assertFalse(verifier.verify_document(envelope))
 

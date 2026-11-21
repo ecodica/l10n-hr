@@ -14,7 +14,6 @@ from odoo.addons.l10n_hr_account_fiscal.models.l10n_hr_fiscal_v1_mixin import (
 )
 from odoo.exceptions import AccessError, ValidationError
 from odoo.tests import tagged
-from odoo.tools import file_open
 
 from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
@@ -151,12 +150,40 @@ class TestFiscalCertificateAccess(AccountTestInvoicingCommon):
     def test_a_user_without_certificate_rights_gets_the_signing_data(self):
         """Test that a cashier, who may not read certificates, can still sign: the
         certificate is read as superuser where the message is signed."""
+        # A certificate FINA would accept: the OIB in the subject attribute
+        # 2.5.4.97 is required, because FINA refuses a message whose OIB does
+        # not match the certificate's (error s005).
+        from datetime import datetime, timedelta, timezone
+
+        from cryptography import x509
+        from cryptography.hazmat.primitives import hashes, serialization
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        from cryptography.hazmat.primitives.serialization import pkcs12
+        from cryptography.x509.oid import NameOID, ObjectIdentifier
+
+        key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+        subject = x509.Name([
+            x509.NameAttribute(NameOID.COMMON_NAME, "FINA test certificate"),
+            x509.NameAttribute(ObjectIdentifier("2.5.4.97"), "HR12345678901"),
+        ])
+        now = datetime.now(timezone.utc)
+        cert = (
+            x509.CertificateBuilder()
+            .subject_name(subject).issuer_name(subject)
+            .public_key(key.public_key())
+            .serial_number(x509.random_serial_number())
+            .not_valid_before(now - timedelta(days=1))
+            .not_valid_after(now + timedelta(days=3650))
+            .sign(key, hashes.SHA256())
+        )
+        content = pkcs12.serialize_key_and_certificates(
+            b"FINA test certificate", key, cert, None,
+            serialization.BestAvailableEncryption(b"example"),
+        )
         certificate = self.env["certificate.certificate"].sudo().create({
             "name": "FINA test certificate",
             "pkcs12_password": "example",
-            "content": base64.b64encode(
-                file_open("certificate/tests/data/cert.pfx", "rb").read()
-            ),
+            "content": base64.b64encode(content),
             "l10n_hr_type": "demo",
             "scope": "fina",
         })
@@ -179,3 +206,4 @@ class TestFiscalCertificateAccess(AccountTestInvoicingCommon):
         data = company.with_user(cashier).get_fiscal_data()
         self.assertTrue(data["cert_data"])
         self.assertTrue(data["key_data"])
+        self.assertEqual(data["cert_vat"], "12345678901")

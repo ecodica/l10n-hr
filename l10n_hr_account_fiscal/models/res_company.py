@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 import os
+import re
 
 from lxml import etree
 
@@ -10,6 +11,23 @@ from odoo.exceptions import AccessError, MissingError, UserError
 
 from ..fiscal import fiscal
 from ..helpers.docs_helper import SCHEMA_HELP
+
+# An OIB is exactly 11 digits. Croatian certificates carry it in the subject
+# attribute 2.5.4.97, usually with an ``HR`` prefix.
+_OIB_RE = re.compile(r"\d{11}")
+
+
+def _certificate_oib(certificate):
+    """The certificate's subject OIB, as 11 digits, or False.
+
+    FINA checks the OIB in every message against the OIB in the signing
+    certificate (error s005), so a certificate whose subject OIB cannot be
+    read must never produce a message.
+    """
+    vat = (certificate.l10n_hr_subject_vat or "").strip()
+    if vat[:2].upper() == "HR":
+        vat = vat[2:].strip()
+    return vat if _OIB_RE.fullmatch(vat) else False
 
 
 class ResCompany(models.Model):
@@ -122,6 +140,9 @@ class ResCompany(models.Model):
             and cert.private_key_id.company_id == company
             # Password-protected keys cannot be loaded by the XML signer.
             and not cert.private_key_id.password
+            # FINA rejects a message whose OIB differs from the certificate's
+            # (error s005): a certificate without a readable OIB cannot sign.
+            and _certificate_oib(cert)
         )
         # Prefer a valid renewal; ties must not depend on Many2many read ordering.
         return eligible.sorted(key=lambda cert: (cert.date_end, cert.id or 0), reverse=True)[:1]
@@ -134,6 +155,23 @@ class ResCompany(models.Model):
         if company.l10n_hr_fiscal_cert_id != certificate:
             company.l10n_hr_fiscal_cert_id = certificate
         return certificate
+
+    @api.private
+    def l10n_hr_fiscal_certificates_without_oib(self):
+        """FINA certificates of the current environment whose subject OIB is unreadable.
+
+        They are never selected, because FINA rejects a message whose OIB does
+        not match the signing certificate (error s005). Naming them turns the
+        generic "no fiscal certificate" refusal into an actionable one.
+        """
+        self.ensure_one()
+        company = self.sudo().with_context(bin_size=False, active_test=False)
+        cert_type = 'demo' if company.l10n_hr_fiscal_test_env else 'prod'
+        return company.l10n_hr_fiscal_cert_ids.filtered(
+            lambda cert: cert.active and cert.company_id == company
+            and cert.l10n_hr_type == cert_type and not cert.loading_error
+            and not _certificate_oib(cert)
+        )
 
     def _get_log_vals(self, msg_type, msg_obj, response, time_start, origin):
         """
@@ -315,12 +353,22 @@ class ResCompany(models.Model):
         )
         wsdl_file = schema + "/wsdl/FiskalizacijaService.wsdl"
         cert_path = fiscal_path + "fina_cert/" + fiscal_cert.l10n_hr_type
-        cert_vat = fiscal_cert.l10n_hr_subject_vat and fiscal_cert.l10n_hr_subject_vat[2:]
-        if self.l10n_hr_fiscal_test_env:
-            cert_vat = cert_vat
-        else:
-            # Maybe totally not needed
-            cert_vat = self.company_registry
+        # The pinned FINA service certificate, against which response
+        # signatures are verified.
+        with open(os.path.join(cert_path, "certificate.pem"), "rb") as service_cert_file:
+            app_cert_data = service_cert_file.read()
+        # FINA compares the OIB in every message with the OIB in the signing
+        # certificate (error s005), so the message always carries the
+        # certificate's own OIB - in production too, where it must equal the
+        # company's registry anyway.
+        cert_vat = _certificate_oib(fiscal_cert)
+        if not cert_vat:
+            raise MissingError(_(
+                "The fiscal certificate %s has no valid OIB in its subject "
+                "(attribute 2.5.4.97). Re-import the certificate, with its "
+                "password, so its OIB can be read and sent to FINA.",
+                fiscal_cert.display_name,
+            ))
         res = {
             # "company_vat": self.company_registry,
             "cert_vat": cert_vat,
@@ -328,7 +376,7 @@ class ResCompany(models.Model):
             "key_data": key_data,
             "cert_data": cert_data,
             "fina_bundle_path": cert_path + "/fina_bundle.pem",
-            "app_cert_path": cert_path + "/certificate.pem",
+            "app_cert_data": app_cert_data,
             "demo": demo,
         }
         return res

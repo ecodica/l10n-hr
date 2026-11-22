@@ -14,9 +14,10 @@
         <!-- add croatia fiscal required data after total line -->
         <xpath expr="//div[@id='total']/.." position="after">
             <t t-if="o.country_code == 'HR'">
-                <div id="l10n_hr_info" class="row mt-4 mb-4">
+                <!-- the totals box floats right: without the clear this row runs into it -->
+                <div id="l10n_hr_info" class="row mt-4 mb-4" style="clear: both;">
                     <div
-                        class="col-auto col-3 mw-100 mb-2"
+                        class="col mb-2"
                         t-if="o.l10n_hr_payment_method"
                         name="l10n_hr_payment_method"
                     >
@@ -24,7 +25,7 @@
                         <p class="m-0" t-field="o.l10n_hr_payment_method" />
                     </div>
                     <div
-                        class="col-auto col-3 mw-100 mb-2"
+                        class="col mb-2"
                         t-if="o.l10n_hr_fiscal_device_id.l10n_hr_invoice_place != '' or o.l10n_hr_fiscal_device_id.l10n_hr_business_premise_id.l10n_hr_invoice_place!= ''"
                         name="l10n_hr_invoice_place"
                     >
@@ -35,14 +36,15 @@
                         />
                     </div>
                     <div
-                        class="col-auto col-3 mw-100 mb-2"
+                        class="col mb-2"
                         t-if="o.l10n_hr_fiscal_time"
                     >
                         <strong>Confirmation time:</strong>
-                        <p class="m-0" t-field="o.l10n_hr_fiscal_time" />
+                        <!-- stored in the fiscalization format dd.mm.yyyyTHH:MM:SS -->
+                        <p class="m-0" t-out="o.l10n_hr_fiscal_time.replace('T', ' ')[:16]" />
                     </div>
                     <div
-                        class="col-auto col-3 mw-100 mb-2"
+                        class="col mb-2"
                         t-if="o.name and o.name != o.l10n_hr_fiscal_number"
                         name="l10n_hr_internal_number"
                     >

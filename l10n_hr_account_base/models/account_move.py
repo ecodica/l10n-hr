@@ -242,10 +242,12 @@ class AccountMove(models.Model):
         res = super()._onchange_partner_id()
         if self.company_id.account_fiscal_country_id.code != "HR":
             return res
-        if self.partner_id.l10n_hr_sale_journal_id and self.is_sale_document(include_receipts=True):
-            self.journal_id = self.partner_id.l10n_hr_sale_journal_id
-        elif self.partner_id.l10n_hr_purchase_journal_id and self.is_purchase_document(include_receipts=True):
-            self.journal_id = self.partner_id.l10n_hr_purchase_journal_id
+        # the journals are per company: the document's company counts, not the active one
+        partner_id = self.partner_id.with_company(self.company_id)
+        if partner_id.l10n_hr_sale_journal_id and self.is_sale_document(include_receipts=True):
+            self.journal_id = partner_id.l10n_hr_sale_journal_id
+        elif partner_id.l10n_hr_purchase_journal_id and self.is_purchase_document(include_receipts=True):
+            self.journal_id = partner_id.l10n_hr_purchase_journal_id
         return res
 
     @api.onchange('journal_id')

@@ -154,16 +154,30 @@ class AccountMove(models.Model):
                 precision_digits=precision):
             raise ValidationError(_('Osnovica + Iznosi poreza ne odgovaraju ukupnom iznosu na fisk računu'))
 
-    @api.constrains('state')
     def _l10n_hr_check_fiscalization_invoice_cancel(self):
+        """Guard the cancel/reset buttons, not every state write.
+
+        Documents imported from an already-fiscalized external system (e.g.
+        Sekom receipts) legitimately carry JIR/ZKI while still in draft; an
+        ``@api.constrains('state')`` refused their creation. Only an issued
+        (posted) or already-cancelled fiscalized document is protected, and
+        only when the user actually cancels or resets it to draft.
+        """
         for invoice in self.filtered(
                 lambda i: i.country_code == 'HR'
-                and i.move_type in ["out_invoice", "out_refund"]):
-            # if invoice.company_id.l10n_hr_fiskal_cancel_confirmed_invoice:
-            #     continue
-            if invoice.l10n_hr_zki and invoice.state != 'posted':
-                raise ValidationError(_("""Canceling or returning fiscalized invoiced in draft is disabled.
-                    If necessary, enable this feature on company."""))
+                and i.move_type in ["out_invoice", "out_refund"]
+                and i.state in ['posted', 'cancel']
+                and i.l10n_hr_zki):
+            raise ValidationError(_("""Canceling or returning fiscalized invoiced in draft is disabled.
+                If necessary, enable this feature on company."""))
+
+    def button_draft(self):
+        self._l10n_hr_check_fiscalization_invoice_cancel()
+        return super().button_draft()
+
+    def button_cancel(self):
+        self._l10n_hr_check_fiscalization_invoice_cancel()
+        return super().button_cancel()
 
     def _check_zki_on_confirm(self):
         """Check if on confirmed invoice ZKI is set for invoiced that should be fiscalized"""

@@ -20,3 +20,4 @@ from . import test_fiscal_xml
 from . import test_fiscal_report
 from . import test_fiscal_check
 from . import test_country_guard
+from . import test_fiscal_cancel_guard
